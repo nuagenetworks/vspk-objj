@@ -92,10 +92,6 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
     */
     CPString _SEKPayloadSigningAlgorithm @accessors(property=SEKPayloadSigningAlgorithm);
     /*!
-        The ID of the associated Enterprise
-    */
-    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
-    /*!
         A description of the Profile instance created.
     */
     CPString _description @accessors(property=description);
@@ -192,7 +188,6 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
         [self exposeLocalKeyPathToREST:@"SEKPayloadEncryptionBCAlgorithm"];
         [self exposeLocalKeyPathToREST:@"SEKPayloadEncryptionKeyLength"];
         [self exposeLocalKeyPathToREST:@"SEKPayloadSigningAlgorithm"];
-        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];

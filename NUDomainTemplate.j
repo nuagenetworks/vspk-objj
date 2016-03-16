@@ -64,10 +64,6 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
 @implementation NUDomainTemplate : NURESTObject
 {
     /*!
-        The ID of the associated BGP profile
-    */
-    CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
-    /*!
         The ID of the Multi Cast Channel Map  this domain template is associated with. This has to be set when enableMultiCast is set to ENABLED
     */
     CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
@@ -100,7 +96,7 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
     */
     CPString _name @accessors(property=name);
     /*!
-        
+        None
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
     
@@ -140,7 +136,6 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"encryption"];

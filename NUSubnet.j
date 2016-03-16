@@ -60,10 +60,6 @@ NUSubnetAssociatedApplicationObjectType_APPLICATION = @"APPLICATION";
 NUSubnetAssociatedApplicationObjectType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUSubnetAssociatedApplicationObjectType_BACK_HAUL_SERVICE_RESP = @"BACK_HAUL_SERVICE_RESP";
 NUSubnetAssociatedApplicationObjectType_BGPPEER = @"BGPPEER";
-NUSubnetAssociatedApplicationObjectType_BGP_NEIGHBOR = @"BGP_NEIGHBOR";
-NUSubnetAssociatedApplicationObjectType_BGP_NEIGHBOR_MED_RESPONSE = @"BGP_NEIGHBOR_MED_RESPONSE";
-NUSubnetAssociatedApplicationObjectType_BGP_PROFILE = @"BGP_PROFILE";
-NUSubnetAssociatedApplicationObjectType_BGP_PROFILE_MED_RESPONSE = @"BGP_PROFILE_MED_RESPONSE";
 NUSubnetAssociatedApplicationObjectType_BOOTSTRAP = @"BOOTSTRAP";
 NUSubnetAssociatedApplicationObjectType_BOOTSTRAP_ACTIVATION = @"BOOTSTRAP_ACTIVATION";
 NUSubnetAssociatedApplicationObjectType_BRIDGEINTERFACE = @"BRIDGEINTERFACE";
@@ -208,8 +204,6 @@ NUSubnetAssociatedApplicationObjectType_RATE_LIMITER = @"RATE_LIMITER";
 NUSubnetAssociatedApplicationObjectType_RD_SEQUENCENO = @"RD_SEQUENCENO";
 NUSubnetAssociatedApplicationObjectType_REDUNDANT_GW_GRP = @"REDUNDANT_GW_GRP";
 NUSubnetAssociatedApplicationObjectType_RESYNC = @"RESYNC";
-NUSubnetAssociatedApplicationObjectType_ROUTING_POLICY = @"ROUTING_POLICY";
-NUSubnetAssociatedApplicationObjectType_ROUTING_POL_MED_RESPONSE = @"ROUTING_POL_MED_RESPONSE";
 NUSubnetAssociatedApplicationObjectType_RTRD_ENTITY = @"RTRD_ENTITY";
 NUSubnetAssociatedApplicationObjectType_RTRD_SEQUENCENO = @"RTRD_SEQUENCENO";
 NUSubnetAssociatedApplicationObjectType_SERVICES_GATEWAY_RESPONSE = @"SERVICES_GATEWAY_RESPONSE";
@@ -243,7 +237,6 @@ NUSubnetAssociatedApplicationObjectType_VIRTUAL_IP = @"VIRTUAL_IP";
 NUSubnetAssociatedApplicationObjectType_VIRTUAL_MACHINE = @"VIRTUAL_MACHINE";
 NUSubnetAssociatedApplicationObjectType_VIRTUAL_MACHINE_REPORT = @"VIRTUAL_MACHINE_REPORT";
 NUSubnetAssociatedApplicationObjectType_VLAN = @"VLAN";
-NUSubnetAssociatedApplicationObjectType_VLAN_CONFIG_RESPONSE = @"VLAN_CONFIG_RESPONSE";
 NUSubnetAssociatedApplicationObjectType_VLAN_TEMPLATE = @"VLAN_TEMPLATE";
 NUSubnetAssociatedApplicationObjectType_VMWARE_RELOAD_CONFIG = @"VMWARE_RELOAD_CONFIG";
 NUSubnetAssociatedApplicationObjectType_VMWARE_VCENTER = @"VMWARE_VCENTER";
@@ -306,7 +299,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     */
     CPString _IPType @accessors(property=IPType);
     /*!
-        
+        None
     */
     CPString _PATEnabled @accessors(property=PATEnabled);
     /*!
@@ -354,7 +347,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     */
     CPString _gateway @accessors(property=gateway);
     /*!
-        
+        None
     */
     CPString _gatewayMACAddress @accessors(property=gatewayMACAddress);
     /*!

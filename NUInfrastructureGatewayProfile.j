@@ -78,10 +78,6 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPNumber _NTPServerKeyID @accessors(property=NTPServerKeyID);
     /*!
-        Duration for a controller-less operation (in ISO-duration format).
-    */
-    CPString _controllerLessDuration @accessors(property=controllerLessDuration);
-    /*!
         Datapath flows sync-time-interval specified in milliseconds (default: 1000)
     */
     CPNumber _datapathSyncTimeout @accessors(property=datapathSyncTimeout);
@@ -194,7 +190,6 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     {
         [self exposeLocalKeyPathToREST:@"NTPServerKey"];
         [self exposeLocalKeyPathToREST:@"NTPServerKeyID"];
-        [self exposeLocalKeyPathToREST:@"controllerLessDuration"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"deadTimer"];
         [self exposeLocalKeyPathToREST:@"description"];

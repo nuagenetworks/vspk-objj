@@ -109,10 +109,6 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 @implementation NUDomain : NURESTObject
 {
     /*!
-        Read only flag to display if BGP is enabled for this domain
-    */
-    BOOL _BGPEnabled @accessors(property=BGPEnabled);
-    /*!
         DHCPBehaviorType is an enum that indicates DHCP Behavior of VRS having VM's under this domain. Possible values are FLOOD, CONSUME ,RELAY Possible values are CONSUME, FLOOD, RELAY, .
     */
     CPString _DHCPBehavior @accessors(property=DHCPBehavior);
@@ -132,10 +128,6 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Application deployment policy.
     */
     CPString _applicationDeploymentPolicy @accessors(property=applicationDeploymentPolicy);
-    /*!
-        
-    */
-    CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
     /*!
         The ID of the Multi Cast Channel Map  this domain is associated with. This has to be set when  enableMultiCast is set to ENABLED
     */
@@ -217,7 +209,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _permittedAction @accessors(property=permittedAction);
     /*!
-        
+        None
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
     /*!
@@ -310,13 +302,11 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPBehavior"];
         [self exposeLocalKeyPathToREST:@"DHCPServerAddress"];
         [self exposeLocalKeyPathToREST:@"ECMPCount"];
         [self exposeLocalKeyPathToREST:@"PATEnabled"];
         [self exposeLocalKeyPathToREST:@"applicationDeploymentPolicy"];
-        [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteDistinguisher"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteTarget"];

@@ -42,7 +42,7 @@ NUNATMapEntryEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUNATMapEntry : NURESTObject
 {
     /*!
-        Read Only - Indicates which PATNATPool this entry belongs to
+        Indicates which PATNATPool this entry belongs to
     */
     CPString _associatedPATNATPoolID @accessors(property=associatedPATNATPoolID);
     /*!

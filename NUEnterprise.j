@@ -89,10 +89,6 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUEnterprise : NURESTObject
 {
     /*!
-        Read only flag to display if BGP is enabled for this enterprise
-    */
-    BOOL _BGPEnabled @accessors(property=BGPEnabled);
-    /*!
         DHCP Lease Interval (in hrs) to be used by an enterprise.
     */
     CPNumber _DHCPLeaseInterval @accessors(property=DHCPLeaseInterval);
@@ -244,7 +240,6 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPLeaseInterval"];
         [self exposeLocalKeyPathToREST:@"LDAPAuthorizationEnabled"];
         [self exposeLocalKeyPathToREST:@"LDAPEnabled"];

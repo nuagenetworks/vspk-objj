@@ -139,6 +139,10 @@ NUVRSStatus_UP = @"UP";
     */
     CPString _hypervisorType @accessors(property=hypervisorType);
     /*!
+        Flag to indicate that the VRS is part of a redundant group.
+    */
+    BOOL _isResilient @accessors(property=isResilient);
+    /*!
         The last event name from the hypervisor.
     */
     CPString _lastEventName @accessors(property=lastEventName);
@@ -275,6 +279,7 @@ NUVRSStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"hypervisorIdentifier"];
         [self exposeLocalKeyPathToREST:@"hypervisorName"];
         [self exposeLocalKeyPathToREST:@"hypervisorType"];
+        [self exposeLocalKeyPathToREST:@"isResilient"];
         [self exposeLocalKeyPathToREST:@"lastEventName"];
         [self exposeLocalKeyPathToREST:@"lastEventObject"];
         [self exposeLocalKeyPathToREST:@"lastEventTimestamp"];
