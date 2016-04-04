@@ -119,6 +119,10 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPString _licenseEncryption @accessors(property=licenseEncryption);
     /*!
+        Indicates non enforceable entities associated with the license. 
+    */
+    CPString _licenseEntities @accessors(property=licenseEntities);
+    /*!
         Unique identifier of the license file
     */
     CPNumber _licenseID @accessors(property=licenseID);
@@ -154,6 +158,10 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         Address of the owner associated with the license file
     */
     CPString _street @accessors(property=street);
+    /*!
+        Indicates combined string of first 16 and last 16 characters of the license string to be shown in the API
+    */
+    CPString _uniqueLicenseIdentifier @accessors(property=uniqueLicenseIdentifier);
     /*!
         The name of the user associated with the license
     */
@@ -204,6 +212,7 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"license"];
         [self exposeLocalKeyPathToREST:@"licenseEncryption"];
+        [self exposeLocalKeyPathToREST:@"licenseEntities"];
         [self exposeLocalKeyPathToREST:@"licenseID"];
         [self exposeLocalKeyPathToREST:@"licenseType"];
         [self exposeLocalKeyPathToREST:@"majorRelease"];
@@ -213,6 +222,7 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         [self exposeLocalKeyPathToREST:@"provider"];
         [self exposeLocalKeyPathToREST:@"state"];
         [self exposeLocalKeyPathToREST:@"street"];
+        [self exposeLocalKeyPathToREST:@"uniqueLicenseIdentifier"];
         [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"zip"];
         

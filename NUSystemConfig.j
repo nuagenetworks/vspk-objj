@@ -63,6 +63,9 @@ NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_AES_128_CBC = @"AES_128_
 NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_AES_192_CBC = @"AES_192_CBC";
 NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_AES_256_CBC = @"AES_256_CBC";
 NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_DES_CBC";
+NUSystemConfigSystemAvatarType_BASE64 = @"BASE64";
+NUSystemConfigSystemAvatarType_COMPUTEDURL = @"COMPUTEDURL";
+NUSystemConfigSystemAvatarType_URL = @"URL";
 
 
 /*!
@@ -199,6 +202,10 @@ NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPL
     */
     CPNumber _VNIDUpperLimit @accessors(property=VNIDUpperLimit);
     /*!
+        Defines the timeout in seconds for vport initialization to stateful. Default value is 300 secs and the timeout should be between 0 to 86400 seconds.
+    */
+    CPNumber _VPortInitStatefulTimer @accessors(property=VPortInitStatefulTimer);
+    /*!
         This flag is used to indicate that whether VSC is on the same version as VSD or not.
     */
     BOOL _VSCOnSameVersionAsVSD @accessors(property=VSCOnSameVersionAsVSD);
@@ -214,6 +221,10 @@ NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPL
         Maximum alarms per object for example max distinct alarms for specific VM (min = 5, max =20)
     */
     CPNumber _alarmsMaxPerObject @accessors(property=alarmsMaxPerObject);
+    /*!
+        Allow Enterprise Avatar to be populated on NSG Portal
+    */
+    BOOL _allowEnterpriseAvatarOnNSG @accessors(property=allowEnterpriseAvatarOnNSG);
     /*!
         Defines location where image files needs to be copied. Above URL should be configured to read the file from this location.
     */
@@ -423,10 +434,6 @@ NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPL
     */
     CPNumber _postProcessorThreadsCount @accessors(property=postProcessorThreadsCount);
     /*!
-        Defines the timeout in seconds for reflexive ACLs. This value applies for both TCP and UDP connections. Default value is 180 seconds and the timeout should be between 10 to 86400 seconds.
-    */
-    CPNumber _reflexiveACLTimeout @accessors(property=reflexiveACLTimeout);
-    /*!
         Service id upper limit system wide value
     */
     CPNumber _serviceIDUpperLimit @accessors(property=serviceIDUpperLimit);
@@ -434,6 +441,14 @@ NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPL
         True to enable stacktrace in the REST call.
     */
     BOOL _stackTraceEnabled @accessors(property=stackTraceEnabled);
+    /*!
+        Defines the timeout in seconds for stateful ACLs that are not of type TCP.
+    */
+    CPNumber _statefulACLNonTCPTimeout @accessors(property=statefulACLNonTCPTimeout);
+    /*!
+        Defines the timeout in seconds for stateful ACLs that are of type TCP.
+    */
+    CPNumber _statefulACLTCPTimeout @accessors(property=statefulACLTCPTimeout);
     /*!
         Timers in sec for unreacheable static WAN Services to be deleted.
     */
@@ -494,6 +509,14 @@ NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPL
         Probe response timeout in seconds.
     */
     CPNumber _sysmonProbeResponseTimeout @accessors(property=sysmonProbeResponseTimeout);
+    /*!
+        CSP Avatar Data
+    */
+    CPString _systemAvatarData @accessors(property=systemAvatarData);
+    /*!
+        None
+    */
+    CPString _systemAvatarType @accessors(property=systemAvatarType);
     /*!
         Two Factor Code Expiry in Seconds
     */
@@ -561,10 +584,12 @@ NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPL
         [self exposeLocalKeyPathToREST:@"VNIDPublicNetworkLowerLimit"];
         [self exposeLocalKeyPathToREST:@"VNIDPublicNetworkUpperLimit"];
         [self exposeLocalKeyPathToREST:@"VNIDUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"VPortInitStatefulTimer"];
         [self exposeLocalKeyPathToREST:@"VSCOnSameVersionAsVSD"];
         [self exposeLocalKeyPathToREST:@"VSDReadOnlyMode"];
         [self exposeLocalKeyPathToREST:@"VSDUpgradeIsComplete"];
         [self exposeLocalKeyPathToREST:@"alarmsMaxPerObject"];
+        [self exposeLocalKeyPathToREST:@"allowEnterpriseAvatarOnNSG"];
         [self exposeLocalKeyPathToREST:@"avatarBasePath"];
         [self exposeLocalKeyPathToREST:@"avatarBaseURL"];
         [self exposeLocalKeyPathToREST:@"customerIDUpperLimit"];
@@ -617,9 +642,10 @@ NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPL
         [self exposeLocalKeyPathToREST:@"pageMaxSize"];
         [self exposeLocalKeyPathToREST:@"pageSize"];
         [self exposeLocalKeyPathToREST:@"postProcessorThreadsCount"];
-        [self exposeLocalKeyPathToREST:@"reflexiveACLTimeout"];
         [self exposeLocalKeyPathToREST:@"serviceIDUpperLimit"];
         [self exposeLocalKeyPathToREST:@"stackTraceEnabled"];
+        [self exposeLocalKeyPathToREST:@"statefulACLNonTCPTimeout"];
+        [self exposeLocalKeyPathToREST:@"statefulACLTCPTimeout"];
         [self exposeLocalKeyPathToREST:@"staticWANServicePurgeTime"];
         [self exposeLocalKeyPathToREST:@"statsCollectorAddress"];
         [self exposeLocalKeyPathToREST:@"statsCollectorPort"];
@@ -635,6 +661,8 @@ NUSystemConfigGroupKeyDefaultTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPL
         [self exposeLocalKeyPathToREST:@"sysmonCleanupTaskInterval"];
         [self exposeLocalKeyPathToREST:@"sysmonNodePresenceTimeout"];
         [self exposeLocalKeyPathToREST:@"sysmonProbeResponseTimeout"];
+        [self exposeLocalKeyPathToREST:@"systemAvatarData"];
+        [self exposeLocalKeyPathToREST:@"systemAvatarType"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeExpiry"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeLength"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeSeedLength"];

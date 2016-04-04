@@ -35,6 +35,8 @@
 @import "Fetchers/NUDomainTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
+@import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
+@import "Fetchers/NUFloatingIPACLTemplatesFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 @import "Fetchers/NUExternalAppServicesFetcher.j"
 @import "Fetchers/NUFloatingIpsFetcher.j"
@@ -51,6 +53,7 @@
 @import "Fetchers/NUPolicyGroupsFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NURedirectionTargetsFetcher.j"
+@import "Fetchers/NURoutingPoliciesFetcher.j"
 @import "Fetchers/NUStaticRoutesFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
@@ -109,6 +112,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 @implementation NUDomain : NURESTObject
 {
     /*!
+        Read only flag to display if BGP is enabled for this domain
+    */
+    BOOL _BGPEnabled @accessors(property=BGPEnabled);
+    /*!
         DHCPBehaviorType is an enum that indicates DHCP Behavior of VRS having VM's under this domain. Possible values are FLOOD, CONSUME ,RELAY Possible values are CONSUME, FLOOD, RELAY, .
     */
     CPString _DHCPBehavior @accessors(property=DHCPBehavior);
@@ -129,9 +136,17 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _applicationDeploymentPolicy @accessors(property=applicationDeploymentPolicy);
     /*!
+        
+    */
+    CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
+    /*!
         The ID of the Multi Cast Channel Map  this domain is associated with. This has to be set when  enableMultiCast is set to ENABLED
     */
     CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
+    /*!
+        The ID of the PatMapper entity to which this domain is associated to.
+    */
+    CPString _associatedPATMapperID @accessors(property=associatedPATMapperID);
     /*!
         Route distinguisher associated with the BackHaul Service in dVRS. If not provided during creation, System generates this identifier automatically
     */
@@ -209,7 +224,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _permittedAction @accessors(property=permittedAction);
     /*!
-        None
+        
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
     /*!
@@ -255,6 +270,8 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUDomainTemplatesFetcher _childrenDomainTemplates @accessors(property=childrenDomainTemplates);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
+    NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
+    NUFloatingIPACLTemplatesFetcher _childrenFloatingIPACLTemplates @accessors(property=childrenFloatingIPACLTemplates);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     NUExternalAppServicesFetcher _childrenExternalAppServices @accessors(property=childrenExternalAppServices);
     NUFloatingIpsFetcher _childrenFloatingIps @accessors(property=childrenFloatingIps);
@@ -271,6 +288,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
+    NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
     NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
@@ -302,12 +320,15 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPBehavior"];
         [self exposeLocalKeyPathToREST:@"DHCPServerAddress"];
         [self exposeLocalKeyPathToREST:@"ECMPCount"];
         [self exposeLocalKeyPathToREST:@"PATEnabled"];
         [self exposeLocalKeyPathToREST:@"applicationDeploymentPolicy"];
+        [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
+        [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteDistinguisher"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteTarget"];
         [self exposeLocalKeyPathToREST:@"backHaulVNID"];
@@ -344,6 +365,8 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenDomainTemplates = [NUDomainTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
+        _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
+        _childrenFloatingIPACLTemplates = [NUFloatingIPACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         _childrenExternalAppServices = [NUExternalAppServicesFetcher fetcherWithParentObject:self];
         _childrenFloatingIps = [NUFloatingIpsFetcher fetcherWithParentObject:self];
@@ -360,6 +383,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
+        _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
         _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];

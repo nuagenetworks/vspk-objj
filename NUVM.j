@@ -158,10 +158,6 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPString _name @accessors(property=name);
     /*!
-        Orchestration ID.
-    */
-    CPString _orchestrationID @accessors(property=orchestrationID);
-    /*!
         Reason of the event associated with the VM.
     */
     CPString _reasonType @accessors(property=reasonType);
@@ -236,7 +232,6 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
         [self exposeLocalKeyPathToREST:@"l2DomainIDs"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"orchestrationID"];
         [self exposeLocalKeyPathToREST:@"reasonType"];
         [self exposeLocalKeyPathToREST:@"resyncInfo"];
         [self exposeLocalKeyPathToREST:@"siteIdentifier"];

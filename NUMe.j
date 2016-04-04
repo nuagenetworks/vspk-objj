@@ -31,12 +31,16 @@
 
 @import "Fetchers/NUApplicationServicesFetcher.j"
 @import "Fetchers/NUAutoDiscoveredGatewaysFetcher.j"
+@import "Fetchers/NUBGPNeighborsFetcher.j"
+@import "Fetchers/NUBGPProfilesFetcher.j"
 @import "Fetchers/NUCertificatesFetcher.j"
 @import "Fetchers/NUCloudMgmtSystemsFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
 @import "Fetchers/NUVCenterEAMConfigsFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
+@import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
+@import "Fetchers/NUFloatingIPACLTemplatesFetcher.j"
 @import "Fetchers/NUEgressQOSPoliciesFetcher.j"
 @import "Fetchers/NUEnterprisesFetcher.j"
 @import "Fetchers/NUEnterpriseProfilesFetcher.j"
@@ -70,6 +74,7 @@
 @import "Fetchers/NURateLimitersFetcher.j"
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NURedundancyGroupsFetcher.j"
+@import "Fetchers/NURoutingPoliciesFetcher.j"
 @import "Fetchers/NUSharedNetworkResourcesFetcher.j"
 @import "Fetchers/NUSiteInfosFetcher.j"
 @import "Fetchers/NUStaticRoutesFetcher.j"
@@ -150,12 +155,16 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     
     NUApplicationServicesFetcher _childrenApplicationServices @accessors(property=childrenApplicationServices);
     NUAutoDiscoveredGatewaysFetcher _childrenAutoDiscoveredGateways @accessors(property=childrenAutoDiscoveredGateways);
+    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
+    NUBGPProfilesFetcher _childrenBGPProfiles @accessors(property=childrenBGPProfiles);
     NUCertificatesFetcher _childrenCertificates @accessors(property=childrenCertificates);
     NUCloudMgmtSystemsFetcher _childrenCloudMgmtSystems @accessors(property=childrenCloudMgmtSystems);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
     NUVCenterEAMConfigsFetcher _childrenVCenterEAMConfigs @accessors(property=childrenVCenterEAMConfigs);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
+    NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
+    NUFloatingIPACLTemplatesFetcher _childrenFloatingIPACLTemplates @accessors(property=childrenFloatingIPACLTemplates);
     NUEgressQOSPoliciesFetcher _childrenEgressQOSPolicies @accessors(property=childrenEgressQOSPolicies);
     NUEnterprisesFetcher _childrenEnterprises @accessors(property=childrenEnterprises);
     NUEnterpriseProfilesFetcher _childrenEnterpriseProfiles @accessors(property=childrenEnterpriseProfiles);
@@ -189,6 +198,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NURateLimitersFetcher _childrenRateLimiters @accessors(property=childrenRateLimiters);
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NURedundancyGroupsFetcher _childrenRedundancyGroups @accessors(property=childrenRedundancyGroups);
+    NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
     NUSharedNetworkResourcesFetcher _childrenSharedNetworkResources @accessors(property=childrenSharedNetworkResources);
     NUSiteInfosFetcher _childrenSiteInfos @accessors(property=childrenSiteInfos);
     NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
@@ -243,12 +253,16 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         
         _childrenApplicationServices = [NUApplicationServicesFetcher fetcherWithParentObject:self];
         _childrenAutoDiscoveredGateways = [NUAutoDiscoveredGatewaysFetcher fetcherWithParentObject:self];
+        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
+        _childrenBGPProfiles = [NUBGPProfilesFetcher fetcherWithParentObject:self];
         _childrenCertificates = [NUCertificatesFetcher fetcherWithParentObject:self];
         _childrenCloudMgmtSystems = [NUCloudMgmtSystemsFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
         _childrenVCenterEAMConfigs = [NUVCenterEAMConfigsFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
+        _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
+        _childrenFloatingIPACLTemplates = [NUFloatingIPACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressQOSPolicies = [NUEgressQOSPoliciesFetcher fetcherWithParentObject:self];
         _childrenEnterprises = [NUEnterprisesFetcher fetcherWithParentObject:self];
         _childrenEnterpriseProfiles = [NUEnterpriseProfilesFetcher fetcherWithParentObject:self];
@@ -282,6 +296,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenRateLimiters = [NURateLimitersFetcher fetcherWithParentObject:self];
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenRedundancyGroups = [NURedundancyGroupsFetcher fetcherWithParentObject:self];
+        _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
         _childrenSharedNetworkResources = [NUSharedNetworkResourcesFetcher fetcherWithParentObject:self];
         _childrenSiteInfos = [NUSiteInfosFetcher fetcherWithParentObject:self];
         _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];

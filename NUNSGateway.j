@@ -34,6 +34,7 @@
 @import "Fetchers/NUBootstrapActivationsFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUGatewaySecuritiesFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUInfrastructureConfigsFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
@@ -42,6 +43,7 @@
 @import "Fetchers/NUNSPortsFetcher.j"
 @import "Fetchers/NUPATNATPoolsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUSubnetsFetcher.j"
 
 NUNSGatewayBootstrapStatus_ACTIVE = @"ACTIVE";
 NUNSGatewayBootstrapStatus_CERTIFICATE_SIGNED = @"CERTIFICATE_SIGNED";
@@ -70,17 +72,25 @@ NUNSGatewayPersonality_OTHER = @"OTHER";
 NUNSGatewayPersonality_VRSG = @"VRSG";
 NUNSGatewayPersonality_VSA = @"VSA";
 NUNSGatewayPersonality_VSG = @"VSG";
+NUNSGatewayTPMStatus_DISABLED = @"DISABLED";
+NUNSGatewayTPMStatus_ENABLED_NOT_OPERATIONAL = @"ENABLED_NOT_OPERATIONAL";
+NUNSGatewayTPMStatus_ENABLED_OPERATIONAL = @"ENABLED_OPERATIONAL";
+NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
 
 
 /*!
-    Represents Network Service Gateway object.
+    Represents a Network Service Gateway.
 */
 @implementation NUNSGateway : NURESTObject
 {
     /*!
-        Boolean value that states if the NSG instance is in a network that is behind a NAT device and will use NAT Traversal procedures to talk to other NSGs and the Internet.
+        This attribute is deprecated in version 4.0.
     */
     BOOL _NATTraversalEnabled @accessors(property=NATTraversalEnabled);
+    /*!
+        TPM Status of the NSG based on the information received by the device during bootstrapping or upgrade.
+    */
+    CPString _TPMStatus @accessors(property=TPMStatus);
     /*!
         Readonly Id of the associated gateway security object
     */
@@ -102,11 +112,11 @@ NUNSGatewayPersonality_VSG = @"VSG";
     */
     CPString _bootstrapStatus @accessors(property=bootstrapStatus);
     /*!
-        
+        None
     */
     CPString _configurationReloadState @accessors(property=configurationReloadState);
     /*!
-        
+        None
     */
     CPString _configurationStatus @accessors(property=configurationStatus);
     /*!
@@ -129,6 +139,10 @@ NUNSGatewayPersonality_VSG = @"VSG";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        Time stamp of the last known configuration update of the NSG.  This timestamp gets updated when a bootstrap is successful or when a configuration reload request triggered by VSD is successful.
+    */
+    CPNumber _lastConfigurationReloadTimestamp @accessors(property=lastConfigurationReloadTimestamp);
     /*!
         ID of the user who last updated the object.
     */
@@ -171,6 +185,7 @@ NUNSGatewayPersonality_VSG = @"VSG";
     NUBootstrapActivationsFetcher _childrenBootstrapActivations @accessors(property=childrenBootstrapActivations);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUGatewaySecuritiesFetcher _childrenGatewaySecurities @accessors(property=childrenGatewaySecurities);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUInfrastructureConfigsFetcher _childrenInfrastructureConfigs @accessors(property=childrenInfrastructureConfigs);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
@@ -179,6 +194,7 @@ NUNSGatewayPersonality_VSG = @"VSG";
     NUNSPortsFetcher _childrenNSPorts @accessors(property=childrenNSPorts);
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
     
 }
 
@@ -200,6 +216,7 @@ NUNSGatewayPersonality_VSG = @"VSG";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"NATTraversalEnabled"];
+        [self exposeLocalKeyPathToREST:@"TPMStatus"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityProfileID"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
@@ -212,6 +229,7 @@ NUNSGatewayPersonality_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"lastConfigurationReloadTimestamp"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"name"];
@@ -227,6 +245,7 @@ NUNSGatewayPersonality_VSG = @"VSG";
         _childrenBootstrapActivations = [NUBootstrapActivationsFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenGatewaySecurities = [NUGatewaySecuritiesFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenInfrastructureConfigs = [NUInfrastructureConfigsFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
@@ -235,6 +254,7 @@ NUNSGatewayPersonality_VSG = @"VSG";
         _childrenNSPorts = [NUNSPortsFetcher fetcherWithParentObject:self];
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
         
         
     }

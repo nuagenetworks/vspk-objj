@@ -63,6 +63,10 @@ NUVRSRole_SLAVE = @"SLAVE";
 NUVRSStatus_ADMIN_DOWN = @"ADMIN_DOWN";
 NUVRSStatus_DOWN = @"DOWN";
 NUVRSStatus_UP = @"UP";
+NUVRSVscConfigState_PRIMARY = @"PRIMARY";
+NUVRSVscConfigState_SECONDARY = @"SECONDARY";
+NUVRSVscCurrentState_PRIMARY = @"PRIMARY";
+NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
 
 
 /*!
@@ -215,9 +219,29 @@ NUVRSStatus_UP = @"UP";
     */
     CPString _personality @accessors(property=personality);
     /*!
+        Flag indicates whether the connection with the primary is lost, which will help trigger alarms.
+    */
+    BOOL _primaryVSCConnectionLost @accessors(property=primaryVSCConnectionLost);
+    /*!
         Product version supported by this entity.
     */
     CPString _productVersion @accessors(property=productVersion);
+    /*!
+        Flag to indicate if the revert behavior took place or not.
+    */
+    BOOL _revertBehaviorEnabled @accessors(property=revertBehaviorEnabled);
+    /*!
+        Flag indicates whether revert was completed successfully.
+    */
+    BOOL _revertCompleted @accessors(property=revertCompleted);
+    /*!
+        Indicates the number of retries for the revert to take place.
+    */
+    CPNumber _revertCount @accessors(property=revertCount);
+    /*!
+        This value indicates the number of failed attempts for the revert to happen successfully.
+    */
+    CPNumber _revertFailedCount @accessors(property=revertFailedCount);
     /*!
         Flag to indicate that VRS-G redundancy state (active/standby/standalone).  Only applicable for gateways.
     */
@@ -230,6 +254,14 @@ NUVRSStatus_UP = @"UP";
         How long the VRS was up.
     */
     CPNumber _uptime @accessors(property=uptime);
+    /*!
+        Indicates the configured state of the VSC.
+    */
+    CPString _vscConfigState @accessors(property=vscConfigState);
+    /*!
+        Indicates the current state of the VSC, which may or maybe not be same as the configured state.
+    */
+    CPString _vscCurrentState @accessors(property=vscCurrentState);
     
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
@@ -298,10 +330,17 @@ NUVRSStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"peakMemoryUsage"];
         [self exposeLocalKeyPathToREST:@"peer"];
         [self exposeLocalKeyPathToREST:@"personality"];
+        [self exposeLocalKeyPathToREST:@"primaryVSCConnectionLost"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
+        [self exposeLocalKeyPathToREST:@"revertBehaviorEnabled"];
+        [self exposeLocalKeyPathToREST:@"revertCompleted"];
+        [self exposeLocalKeyPathToREST:@"revertCount"];
+        [self exposeLocalKeyPathToREST:@"revertFailedCount"];
         [self exposeLocalKeyPathToREST:@"role"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"uptime"];
+        [self exposeLocalKeyPathToREST:@"vscConfigState"];
+        [self exposeLocalKeyPathToREST:@"vscCurrentState"];
         
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];

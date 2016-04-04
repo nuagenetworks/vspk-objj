@@ -29,30 +29,23 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUEnterpriseSecuredDatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 
-NUKeyServerMonitorEncryptedSEKEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUKeyServerMonitorEncryptedSEKEntityScope_GLOBAL = @"GLOBAL";
+NUEnterpriseSecurityEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUEnterpriseSecurityEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Represents a Keyserver Monitor Encrypted Seed Snapshot
+    This object represents the enterprise security
 */
-@implementation NUKeyServerMonitorEncryptedSEK : NURESTObject
+@implementation NUEnterpriseSecurity : NURESTObject
 {
     /*!
-        NSG Certificate Serial Number
+        The enterprise associated with this object. This is a read only attribute
     */
-    CPNumber _NSGCertificateSerialNumber @accessors(property=NSGCertificateSerialNumber);
-    /*!
-        The ID of the associated KeyServer Monitor Seed ID
-    */
-    CPNumber _associatedKeyServerMonitorSEKCreationTime @accessors(property=associatedKeyServerMonitorSEKCreationTime);
-    /*!
-        The ID of the associated KeyServer Monitor SEK ID
-    */
-    CPString _associatedKeyServerMonitorSEKID @accessors(property=associatedKeyServerMonitorSEKID);
+    CPString _enterpriseID @accessors(property=enterpriseID);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -62,18 +55,19 @@ NUKeyServerMonitorEncryptedSEKEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        Gateway Secured ID record this monitor represents
+        change revision number for the gateway security data
     */
-    CPString _gatewaySecuredDataID @accessors(property=gatewaySecuredDataID);
-    /*!
-        KeyServer Certificate Serial Number
-    */
-    CPNumber _keyServerCertificateSerialNumber @accessors(property=keyServerCertificateSerialNumber);
+    CPNumber _gatewaySecurityRevision @accessors(property=gatewaySecurityRevision);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        revision number for the enterprise security data
+    */
+    CPNumber _revision @accessors(property=revision);
     
+    NUEnterpriseSecuredDatasFetcher _childrenEnterpriseSecuredDatas @accessors(property=childrenEnterpriseSecuredDatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     
@@ -85,7 +79,7 @@ NUKeyServerMonitorEncryptedSEKEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"keyservermonitorencryptedsek";
+    return @"enterprisesecurity";
 }
 
 
@@ -96,15 +90,14 @@ NUKeyServerMonitorEncryptedSEKEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"NSGCertificateSerialNumber"];
-        [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorSEKCreationTime"];
-        [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorSEKID"];
+        [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"gatewaySecuredDataID"];
-        [self exposeLocalKeyPathToREST:@"keyServerCertificateSerialNumber"];
+        [self exposeLocalKeyPathToREST:@"gatewaySecurityRevision"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"revision"];
         
+        _childrenEnterpriseSecuredDatas = [NUEnterpriseSecuredDatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         

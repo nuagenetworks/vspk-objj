@@ -31,6 +31,8 @@
 
 @import "Fetchers/NUDomainsFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
+@import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
+@import "Fetchers/NUFloatingIPACLTemplatesFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUGroupsFetcher.j"
@@ -64,9 +66,17 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
 @implementation NUDomainTemplate : NURESTObject
 {
     /*!
+        The ID of the associated BGP profile
+    */
+    CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
+    /*!
         The ID of the Multi Cast Channel Map  this domain template is associated with. This has to be set when enableMultiCast is set to ENABLED
     */
     CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
+    /*!
+        The ID of the PatMapper entity to which this domain-template is associated to.
+    */
+    CPString _associatedPATMapperID @accessors(property=associatedPATMapperID);
     /*!
         Domain template description provided by the user
     */
@@ -96,12 +106,14 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
     */
     CPString _name @accessors(property=name);
     /*!
-        None
+        
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
     
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
+    NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
+    NUFloatingIPACLTemplatesFetcher _childrenFloatingIPACLTemplates @accessors(property=childrenFloatingIPACLTemplates);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
@@ -136,7 +148,9 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
+        [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
@@ -148,6 +162,8 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
         
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
+        _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
+        _childrenFloatingIPACLTemplates = [NUFloatingIPACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];

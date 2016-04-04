@@ -29,7 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
+@import "Fetchers/NUIngressAdvFwdEntryTemplatesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVPortMirrorsFetcher.j"
 
@@ -67,7 +70,10 @@ NUMirrorDestinationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _serviceId @accessors(property=serviceId);
     
+    NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
+    NUIngressAdvFwdEntryTemplatesFetcher _childrenIngressAdvFwdEntryTemplates @accessors(property=childrenIngressAdvFwdEntryTemplates);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVPortMirrorsFetcher _childrenVPortMirrors @accessors(property=childrenVPortMirrors);
     
@@ -97,7 +103,10 @@ NUMirrorDestinationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"serviceId"];
         
+        _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
+        _childrenIngressAdvFwdEntryTemplates = [NUIngressAdvFwdEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVPortMirrors = [NUVPortMirrorsFetcher fetcherWithParentObject:self];
         

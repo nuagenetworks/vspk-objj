@@ -37,6 +37,8 @@ NUStaticRouteEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUStaticRouteEntityScope_GLOBAL = @"GLOBAL";
 NUStaticRouteIPType_IPV4 = @"IPV4";
 NUStaticRouteIPType_IPV6 = @"IPV6";
+NUStaticRouteType_EXIT_DOMAIN = @"EXIT_DOMAIN";
+NUStaticRouteType_OVERLAY = @"OVERLAY";
 
 
 /*!
@@ -76,6 +78,10 @@ NUStaticRouteIPType_IPV6 = @"IPV6";
         Route distinguisher associated with the nexthop. System generates this identifier automatically
     */
     CPString _routeDistinguisher @accessors(property=routeDistinguisher);
+    /*!
+        Type flag for static-route provisioning for exit-domain (break-to-underlay) prefixes.
+    */
+    CPString _type @accessors(property=type);
     
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -108,6 +114,7 @@ NUStaticRouteIPType_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"nextHopIp"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

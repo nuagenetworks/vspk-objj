@@ -32,15 +32,6 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 
-NUInfrastructureGatewayProfileDeadTimer_FIVE_HOURS = @"FIVE_HOURS";
-NUInfrastructureGatewayProfileDeadTimer_FOUR_HOURS = @"FOUR_HOURS";
-NUInfrastructureGatewayProfileDeadTimer_NONE = @"NONE";
-NUInfrastructureGatewayProfileDeadTimer_ONE_HOUR = @"ONE_HOUR";
-NUInfrastructureGatewayProfileDeadTimer_SIX_HOURS = @"SIX_HOURS";
-NUInfrastructureGatewayProfileDeadTimer_TEN_MINUTES = @"TEN_MINUTES";
-NUInfrastructureGatewayProfileDeadTimer_THIRTY_MINUTES = @"THIRTY_MINUTES";
-NUInfrastructureGatewayProfileDeadTimer_THREE_HOURS = @"THREE_HOURS";
-NUInfrastructureGatewayProfileDeadTimer_TWO_HOURS = @"TWO_HOURS";
 NUInfrastructureGatewayProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUInfrastructureGatewayProfileEntityScope_GLOBAL = @"GLOBAL";
 NUInfrastructureGatewayProfileRemoteLogMode_DISABLED = @"DISABLED";
@@ -78,6 +69,14 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPNumber _NTPServerKeyID @accessors(property=NTPServerKeyID);
     /*!
+        Duration for a controller-less operation (in ISO-duration format).
+    */
+    CPString _controllerLessDuration @accessors(property=controllerLessDuration);
+    /*!
+        Flag to enable controller-less operations.
+    */
+    BOOL _controllerLessEnabled @accessors(property=controllerLessEnabled);
+    /*!
         Datapath flows sync-time-interval specified in milliseconds (default: 1000)
     */
     CPNumber _datapathSyncTimeout @accessors(property=datapathSyncTimeout);
@@ -85,6 +84,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         Time, in seconds, allowed for a Gateway to be inactive before the VSD revokes its certificates and marks it as untrusted.
     */
     CPString _deadTimer @accessors(property=deadTimer);
+    /*!
+        Flag to enable automatic deactivation.
+    */
+    BOOL _deadTimerEnabled @accessors(property=deadTimerEnabled);
     /*!
         A description of the Profile instance created.
     */
@@ -146,6 +149,14 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _remoteLogUsername @accessors(property=remoteLogUsername);
     /*!
+        Flag to indicate if the VRS-Revertive-Behaviour took place or not.
+    */
+    BOOL _revertBehaviour @accessors(property=revertBehaviour);
+    /*!
+        Duration for VRS-Revertive-Behaviour when Primary-VSC fails, which needs to be configured in NSG.
+    */
+    CPNumber _revertTimer @accessors(property=revertTimer);
+    /*!
         The port to open by the proxy for stats collector to use
     */
     CPNumber _statsCollectorPort @accessors(property=statsCollectorPort);
@@ -190,8 +201,11 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     {
         [self exposeLocalKeyPathToREST:@"NTPServerKey"];
         [self exposeLocalKeyPathToREST:@"NTPServerKeyID"];
+        [self exposeLocalKeyPathToREST:@"controllerLessDuration"];
+        [self exposeLocalKeyPathToREST:@"controllerLessEnabled"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"deadTimer"];
+        [self exposeLocalKeyPathToREST:@"deadTimerEnabled"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
@@ -207,6 +221,8 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"remoteLogServerAddress"];
         [self exposeLocalKeyPathToREST:@"remoteLogServerPort"];
         [self exposeLocalKeyPathToREST:@"remoteLogUsername"];
+        [self exposeLocalKeyPathToREST:@"revertBehaviour"];
+        [self exposeLocalKeyPathToREST:@"revertTimer"];
         [self exposeLocalKeyPathToREST:@"statsCollectorPort"];
         [self exposeLocalKeyPathToREST:@"systemSyncScheduler"];
         [self exposeLocalKeyPathToREST:@"systemSyncWindow"];

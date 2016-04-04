@@ -29,9 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUAutoDiscoverClustersFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVCenterClustersFetcher.j"
+@import "Fetchers/NUVCenterHypervisorsFetcher.j"
 @import "Fetchers/NUVRSAddressRangesFetcher.j"
 
 NUVCenterDataCenterEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -103,6 +105,10 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        VCenter Managed Object ID of the Datacenter.
+    */
+    CPString _managedObjectID @accessors(property=managedObjectID);
     /*!
         Metadata Server IP
     */
@@ -296,9 +302,11 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _vrsUserName @accessors(property=vrsUserName);
     
+    NUAutoDiscoverClustersFetcher _childrenAutoDiscoverClusters @accessors(property=childrenAutoDiscoverClusters);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVCenterClustersFetcher _childrenVCenterClusters @accessors(property=childrenVCenterClusters);
+    NUVCenterHypervisorsFetcher _childrenVCenterHypervisors @accessors(property=childrenVCenterHypervisors);
     NUVRSAddressRangesFetcher _childrenVRSAddressRanges @accessors(property=childrenVRSAddressRanges);
     
 }
@@ -335,6 +343,7 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"managedObjectID"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
         [self exposeLocalKeyPathToREST:@"metadataServerListenPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerPort"];
@@ -384,9 +393,11 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
         [self exposeLocalKeyPathToREST:@"vrsUserName"];
         
+        _childrenAutoDiscoverClusters = [NUAutoDiscoverClustersFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVCenterClusters = [NUVCenterClustersFetcher fetcherWithParentObject:self];
+        _childrenVCenterHypervisors = [NUVCenterHypervisorsFetcher fetcherWithParentObject:self];
         _childrenVRSAddressRanges = [NUVRSAddressRangesFetcher fetcherWithParentObject:self];
         
         

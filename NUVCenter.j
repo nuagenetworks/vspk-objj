@@ -29,7 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUAutodiscovereddatacentersFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVCenterDataCentersFetcher.j"
 @import "Fetchers/NUVRSAddressRangesFetcher.j"
@@ -55,6 +57,10 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         Frequency at which VCenter issues are to be resolved
     */
     CPNumber _autoResolveFrequency @accessors(property=autoResolveFrequency);
+    /*!
+        VCenter connection status.
+    */
+    BOOL _connectionStatus @accessors(property=connectionStatus);
     /*!
         To provide a URL to install a custom app on VRS
     */
@@ -328,7 +334,9 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _vrsUserName @accessors(property=vrsUserName);
     
+    NUAutodiscovereddatacentersFetcher _childrenAutodiscovereddatacenters @accessors(property=childrenAutodiscovereddatacenters);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVCenterDataCentersFetcher _childrenVCenterDataCenters @accessors(property=childrenVCenterDataCenters);
     NUVRSAddressRangesFetcher _childrenVRSAddressRanges @accessors(property=childrenVRSAddressRanges);
@@ -355,6 +363,7 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
         [self exposeLocalKeyPathToREST:@"autoResolveFrequency"];
+        [self exposeLocalKeyPathToREST:@"connectionStatus"];
         [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
         [self exposeLocalKeyPathToREST:@"dataDNS1"];
         [self exposeLocalKeyPathToREST:@"dataDNS2"];
@@ -424,7 +433,9 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
         [self exposeLocalKeyPathToREST:@"vrsUserName"];
         
+        _childrenAutodiscovereddatacenters = [NUAutodiscovereddatacentersFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVCenterDataCenters = [NUVCenterDataCentersFetcher fetcherWithParentObject:self];
         _childrenVRSAddressRanges = [NUVRSAddressRangesFetcher fetcherWithParentObject:self];

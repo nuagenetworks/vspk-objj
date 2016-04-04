@@ -57,6 +57,10 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
     /*!
         If enabled, it will disable the default anti-spoof ACL for this domain that essentially prevents any VM to send packets that do not originate from that particular VM
     */
+    BOOL _allowAddressSpoof @accessors(property=allowAddressSpoof);
+    /*!
+        If enabled, it will disable the default anti-spoof ACL for this domain that essentially prevents any VM to send packets that do not originate from that particular VM
+    */
     BOOL _allowL2AddressSpoof @accessors(property=allowL2AddressSpoof);
     /*!
         ID of the ACL template associated with this ACL template
@@ -95,7 +99,7 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
     */
     CPString _name @accessors(property=name);
     /*!
-        
+        None
     */
     CPString _policyState @accessors(property=policyState);
     /*!
@@ -103,7 +107,7 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
     */
     CPNumber _priority @accessors(property=priority);
     /*!
-        
+        None
     */
     CPString _priorityType @accessors(property=priorityType);
     
@@ -134,6 +138,7 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"active"];
+        [self exposeLocalKeyPathToREST:@"allowAddressSpoof"];
         [self exposeLocalKeyPathToREST:@"allowL2AddressSpoof"];
         [self exposeLocalKeyPathToREST:@"assocAclTemplateId"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];

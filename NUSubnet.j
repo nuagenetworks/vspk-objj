@@ -33,6 +33,7 @@
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUIKEGatewayConnectionsFetcher.j"
 @import "Fetchers/NUIPReservationsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
@@ -60,6 +61,11 @@ NUSubnetAssociatedApplicationObjectType_APPLICATION = @"APPLICATION";
 NUSubnetAssociatedApplicationObjectType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUSubnetAssociatedApplicationObjectType_BACK_HAUL_SERVICE_RESP = @"BACK_HAUL_SERVICE_RESP";
 NUSubnetAssociatedApplicationObjectType_BGPPEER = @"BGPPEER";
+NUSubnetAssociatedApplicationObjectType_BGP_DAMPENING_MED_RESPONSE = @"BGP_DAMPENING_MED_RESPONSE";
+NUSubnetAssociatedApplicationObjectType_BGP_NEIGHBOR = @"BGP_NEIGHBOR";
+NUSubnetAssociatedApplicationObjectType_BGP_NEIGHBOR_MED_RESPONSE = @"BGP_NEIGHBOR_MED_RESPONSE";
+NUSubnetAssociatedApplicationObjectType_BGP_PROFILE = @"BGP_PROFILE";
+NUSubnetAssociatedApplicationObjectType_BGP_PROFILE_MED_RESPONSE = @"BGP_PROFILE_MED_RESPONSE";
 NUSubnetAssociatedApplicationObjectType_BOOTSTRAP = @"BOOTSTRAP";
 NUSubnetAssociatedApplicationObjectType_BOOTSTRAP_ACTIVATION = @"BOOTSTRAP_ACTIVATION";
 NUSubnetAssociatedApplicationObjectType_BRIDGEINTERFACE = @"BRIDGEINTERFACE";
@@ -130,8 +136,14 @@ NUSubnetAssociatedApplicationObjectType_GROUPKEY_ENCRYPTION_PROFILE = @"GROUPKEY
 NUSubnetAssociatedApplicationObjectType_HEALTH_REQ = @"HEALTH_REQ";
 NUSubnetAssociatedApplicationObjectType_HOSTINTERFACE = @"HOSTINTERFACE";
 NUSubnetAssociatedApplicationObjectType_HSC = @"HSC";
-NUSubnetAssociatedApplicationObjectType_IKEV2_ENCRYPTION_PROFILE = @"IKEV2_ENCRYPTION_PROFILE";
-NUSubnetAssociatedApplicationObjectType_IKEV2_GATEWAY = @"IKEV2_GATEWAY";
+NUSubnetAssociatedApplicationObjectType_IKE_CERTIFICATE = @"IKE_CERTIFICATE";
+NUSubnetAssociatedApplicationObjectType_IKE_ENCRYPTION_PROFILE = @"IKE_ENCRYPTION_PROFILE";
+NUSubnetAssociatedApplicationObjectType_IKE_GATEWAY = @"IKE_GATEWAY";
+NUSubnetAssociatedApplicationObjectType_IKE_GATEWAY_CONFIG = @"IKE_GATEWAY_CONFIG";
+NUSubnetAssociatedApplicationObjectType_IKE_GATEWAY_CONNECTION = @"IKE_GATEWAY_CONNECTION";
+NUSubnetAssociatedApplicationObjectType_IKE_GATEWAY_PROFILE = @"IKE_GATEWAY_PROFILE";
+NUSubnetAssociatedApplicationObjectType_IKE_PSK = @"IKE_PSK";
+NUSubnetAssociatedApplicationObjectType_IKE_SUBNET = @"IKE_SUBNET";
 NUSubnetAssociatedApplicationObjectType_INFRASTRUCTURE_CONFIG = @"INFRASTRUCTURE_CONFIG";
 NUSubnetAssociatedApplicationObjectType_INFRASTRUCTURE_GATEWAY_PROFILE = @"INFRASTRUCTURE_GATEWAY_PROFILE";
 NUSubnetAssociatedApplicationObjectType_INFRASTRUCTURE_PORT_PROFILE = @"INFRASTRUCTURE_PORT_PROFILE";
@@ -185,6 +197,7 @@ NUSubnetAssociatedApplicationObjectType_NSG_NOTIFICATION = @"NSG_NOTIFICATION";
 NUSubnetAssociatedApplicationObjectType_NSPORT = @"NSPORT";
 NUSubnetAssociatedApplicationObjectType_NSPORT_STATIC_CONFIG = @"NSPORT_STATIC_CONFIG";
 NUSubnetAssociatedApplicationObjectType_NSPORT_TEMPLATE = @"NSPORT_TEMPLATE";
+NUSubnetAssociatedApplicationObjectType_NSPORT_VLAN_CONFIG = @"NSPORT_VLAN_CONFIG";
 NUSubnetAssociatedApplicationObjectType_NSREDUNDANT_GW_GRP = @"NSREDUNDANT_GW_GRP";
 NUSubnetAssociatedApplicationObjectType_NS_REDUNDANT_PORT = @"NS_REDUNDANT_PORT";
 NUSubnetAssociatedApplicationObjectType_PATCONFIG_CONFIG_RESP = @"PATCONFIG_CONFIG_RESP";
@@ -197,13 +210,18 @@ NUSubnetAssociatedApplicationObjectType_POLICY_GROUP = @"POLICY_GROUP";
 NUSubnetAssociatedApplicationObjectType_POLICY_GROUP_TEMPLATE = @"POLICY_GROUP_TEMPLATE";
 NUSubnetAssociatedApplicationObjectType_PORT = @"PORT";
 NUSubnetAssociatedApplicationObjectType_PORT_MR = @"PORT_MR";
+NUSubnetAssociatedApplicationObjectType_PORT_PUSH = @"PORT_PUSH";
 NUSubnetAssociatedApplicationObjectType_PORT_TEMPLATE = @"PORT_TEMPLATE";
+NUSubnetAssociatedApplicationObjectType_PORT_VLAN_CONFIG = @"PORT_VLAN_CONFIG";
+NUSubnetAssociatedApplicationObjectType_PORT_VLAN_CONFIG_RESPONSE = @"PORT_VLAN_CONFIG_RESPONSE";
 NUSubnetAssociatedApplicationObjectType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
 NUSubnetAssociatedApplicationObjectType_QOS_PRIMITIVE = @"QOS_PRIMITIVE";
 NUSubnetAssociatedApplicationObjectType_RATE_LIMITER = @"RATE_LIMITER";
 NUSubnetAssociatedApplicationObjectType_RD_SEQUENCENO = @"RD_SEQUENCENO";
 NUSubnetAssociatedApplicationObjectType_REDUNDANT_GW_GRP = @"REDUNDANT_GW_GRP";
 NUSubnetAssociatedApplicationObjectType_RESYNC = @"RESYNC";
+NUSubnetAssociatedApplicationObjectType_ROUTING_POLICY = @"ROUTING_POLICY";
+NUSubnetAssociatedApplicationObjectType_ROUTING_POL_MED_RESPONSE = @"ROUTING_POL_MED_RESPONSE";
 NUSubnetAssociatedApplicationObjectType_RTRD_ENTITY = @"RTRD_ENTITY";
 NUSubnetAssociatedApplicationObjectType_RTRD_SEQUENCENO = @"RTRD_SEQUENCENO";
 NUSubnetAssociatedApplicationObjectType_SERVICES_GATEWAY_RESPONSE = @"SERVICES_GATEWAY_RESPONSE";
@@ -237,6 +255,7 @@ NUSubnetAssociatedApplicationObjectType_VIRTUAL_IP = @"VIRTUAL_IP";
 NUSubnetAssociatedApplicationObjectType_VIRTUAL_MACHINE = @"VIRTUAL_MACHINE";
 NUSubnetAssociatedApplicationObjectType_VIRTUAL_MACHINE_REPORT = @"VIRTUAL_MACHINE_REPORT";
 NUSubnetAssociatedApplicationObjectType_VLAN = @"VLAN";
+NUSubnetAssociatedApplicationObjectType_VLAN_CONFIG_RESPONSE = @"VLAN_CONFIG_RESPONSE";
 NUSubnetAssociatedApplicationObjectType_VLAN_TEMPLATE = @"VLAN_TEMPLATE";
 NUSubnetAssociatedApplicationObjectType_VMWARE_RELOAD_CONFIG = @"VMWARE_RELOAD_CONFIG";
 NUSubnetAssociatedApplicationObjectType_VMWARE_VCENTER = @"VMWARE_VCENTER";
@@ -290,7 +309,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
 
 
 /*!
-    This is the definition of a subnet associated with a zone.
+    This is the definition of a subnet associated with a Zone.
 */
 @implementation NUSubnet : NURESTObject
 {
@@ -299,7 +318,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     */
     CPString _IPType @accessors(property=IPType);
     /*!
-        None
+        
     */
     CPString _PATEnabled @accessors(property=PATEnabled);
     /*!
@@ -347,7 +366,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     */
     CPString _gateway @accessors(property=gateway);
     /*!
-        None
+        
     */
     CPString _gatewayMACAddress @accessors(property=gatewayMACAddress);
     /*!
@@ -403,6 +422,10 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     */
     CPString _templateID @accessors(property=templateID);
     /*!
+        Boolean flag to indicate whether underlay is enabled directly or indirectly
+    */
+    BOOL _underlay @accessors(property=underlay);
+    /*!
         Indicates whether UNDERLAY is enabled for the subnets in this domain
     */
     CPString _underlayEnabled @accessors(property=underlayEnabled);
@@ -415,6 +438,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUIKEGatewayConnectionsFetcher _childrenIKEGatewayConnections @accessors(property=childrenIKEGatewayConnections);
     NUIPReservationsFetcher _childrenIPReservations @accessors(property=childrenIPReservations);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
@@ -473,6 +497,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
         [self exposeLocalKeyPathToREST:@"serviceID"];
         [self exposeLocalKeyPathToREST:@"splitSubnet"];
         [self exposeLocalKeyPathToREST:@"templateID"];
+        [self exposeLocalKeyPathToREST:@"underlay"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];
         [self exposeLocalKeyPathToREST:@"vnId"];
         
@@ -480,6 +505,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenIKEGatewayConnections = [NUIKEGatewayConnectionsFetcher fetcherWithParentObject:self];
         _childrenIPReservations = [NUIPReservationsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];

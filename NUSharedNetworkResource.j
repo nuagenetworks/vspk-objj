@@ -73,6 +73,10 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
     */
     CPString _address @accessors(property=address);
     /*!
+        The ID of the PatMapper entity to which this pool is associated to.
+    */
+    CPString _associatedPATMapperID @accessors(property=associatedPATMapperID);
+    /*!
         backHaulRouteDistinguisher of the Shared Resource
     */
     CPString _backHaulRouteDistinguisher @accessors(property=backHaulRouteDistinguisher);
@@ -96,6 +100,10 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
         Route target configured on the shared resource
     */
     CPString _domainRouteTarget @accessors(property=domainRouteTarget);
+    /*!
+        Indicates if PAT Mapping is enabled for the SharedNetworkResource or not.
+    */
+    BOOL _dynamicPATAllocationEnabled @accessors(property=dynamicPATAllocationEnabled);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -188,12 +196,14 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
         [self exposeLocalKeyPathToREST:@"ECMPCount"];
         [self exposeLocalKeyPathToREST:@"accessRestrictionEnabled"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteDistinguisher"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteTarget"];
         [self exposeLocalKeyPathToREST:@"backHaulVNID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"domainRouteDistinguisher"];
         [self exposeLocalKeyPathToREST:@"domainRouteTarget"];
+        [self exposeLocalKeyPathToREST:@"dynamicPATAllocationEnabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"gateway"];

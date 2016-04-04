@@ -30,8 +30,6 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUKeyServerMonitorEncryptedSeedsFetcher.j"
-@import "Fetchers/NUKeyServerMonitorEncryptedSEKsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 
 NUKeyServerMonitorSEKEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -45,7 +43,7 @@ NUKeyServerMonitorSEKSeedPayloadEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_DE
 
 
 /*!
-    Represents a Keyserver Monitor SEK Snapshot
+    Represents a Keyserver Monitor SEK Snapshot.
 */
 @implementation NUKeyServerMonitorSEK : NURESTObject
 {
@@ -83,8 +81,6 @@ NUKeyServerMonitorSEKSeedPayloadEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_DE
     CPNumber _startTime @accessors(property=startTime);
     
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUKeyServerMonitorEncryptedSeedsFetcher _childrenKeyServerMonitorEncryptedSeeds @accessors(property=childrenKeyServerMonitorEncryptedSeeds);
-    NUKeyServerMonitorEncryptedSEKsFetcher _childrenKeyServerMonitorEncryptedSEKs @accessors(property=childrenKeyServerMonitorEncryptedSEKs);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     
 }
@@ -116,8 +112,6 @@ NUKeyServerMonitorSEKSeedPayloadEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_DE
         [self exposeLocalKeyPathToREST:@"startTime"];
         
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenKeyServerMonitorEncryptedSeeds = [NUKeyServerMonitorEncryptedSeedsFetcher fetcherWithParentObject:self];
-        _childrenKeyServerMonitorEncryptedSEKs = [NUKeyServerMonitorEncryptedSEKsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         
         

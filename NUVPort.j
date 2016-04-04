@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUAggregateMetadatasFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUBGPNeighborsFetcher.j"
 @import "Fetchers/NUBridgeInterfacesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
@@ -155,6 +156,7 @@ NUVPortType_VM = @"VM";
     
     NUAggregateMetadatasFetcher _childrenAggregateMetadatas @accessors(property=childrenAggregateMetadatas);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
     NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
@@ -214,6 +216,7 @@ NUVPortType_VM = @"VM";
         
         _childrenAggregateMetadatas = [NUAggregateMetadatasFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
         _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];

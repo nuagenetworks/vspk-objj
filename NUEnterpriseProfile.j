@@ -57,6 +57,10 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUEnterpriseProfile : NURESTObject
 {
     /*!
+        Enable BGP for this enterprise profile
+    */
+    BOOL _BGPEnabled @accessors(property=BGPEnabled);
+    /*!
         DHCP Lease Interval (in hours) to be used by an enterprise.
     */
     CPNumber _DHCPLeaseInterval @accessors(property=DHCPLeaseInterval);
@@ -139,6 +143,7 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPLeaseInterval"];
         [self exposeLocalKeyPathToREST:@"allowAdvancedQOSConfiguration"];
         [self exposeLocalKeyPathToREST:@"allowGatewayManagement"];

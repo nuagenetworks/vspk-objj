@@ -31,7 +31,6 @@
 
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUKeyServerMonitorEncryptedSeedsFetcher.j"
-@import "Fetchers/NUKeyServerMonitorEncryptedSEKsFetcher.j"
 @import "Fetchers/NUKeyServerMonitorSeedsFetcher.j"
 @import "Fetchers/NUKeyServerMonitorSEKsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
@@ -88,7 +87,6 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
     
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUKeyServerMonitorEncryptedSeedsFetcher _childrenKeyServerMonitorEncryptedSeeds @accessors(property=childrenKeyServerMonitorEncryptedSeeds);
-    NUKeyServerMonitorEncryptedSEKsFetcher _childrenKeyServerMonitorEncryptedSEKs @accessors(property=childrenKeyServerMonitorEncryptedSEKs);
     NUKeyServerMonitorSeedsFetcher _childrenKeyServerMonitorSeeds @accessors(property=childrenKeyServerMonitorSeeds);
     NUKeyServerMonitorSEKsFetcher _childrenKeyServerMonitorSEKs @accessors(property=childrenKeyServerMonitorSEKs);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
@@ -125,7 +123,6 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
         
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenKeyServerMonitorEncryptedSeeds = [NUKeyServerMonitorEncryptedSeedsFetcher fetcherWithParentObject:self];
-        _childrenKeyServerMonitorEncryptedSEKs = [NUKeyServerMonitorEncryptedSEKsFetcher fetcherWithParentObject:self];
         _childrenKeyServerMonitorSeeds = [NUKeyServerMonitorSeedsFetcher fetcherWithParentObject:self];
         _childrenKeyServerMonitorSEKs = [NUKeyServerMonitorSEKsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

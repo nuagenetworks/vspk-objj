@@ -38,6 +38,7 @@
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUPortsFetcher.j"
 @import "Fetchers/NUWANServicesFetcher.j"
+@import "Fetchers/NUVsgRedundantPortsFetcher.j"
 
 NURedundancyGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
 NURedundancyGroupEntityScope_GLOBAL = @"GLOBAL";
@@ -133,6 +134,7 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUPortsFetcher _childrenPorts @accessors(property=childrenPorts);
     NUWANServicesFetcher _childrenWANServices @accessors(property=childrenWANServices);
+    NUVsgRedundantPortsFetcher _childrenVsgRedundantPorts @accessors(property=childrenVsgRedundantPorts);
     
 }
 
@@ -178,6 +180,7 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenPorts = [NUPortsFetcher fetcherWithParentObject:self];
         _childrenWANServices = [NUWANServicesFetcher fetcherWithParentObject:self];
+        _childrenVsgRedundantPorts = [NUVsgRedundantPortsFetcher fetcherWithParentObject:self];
         
         
     }

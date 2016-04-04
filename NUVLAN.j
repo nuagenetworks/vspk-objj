@@ -30,10 +30,13 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUBGPNeighborsFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUIKEGatewayConnectionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUPATNATPoolsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
 
 NUVLANEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -51,12 +54,16 @@ NUVLANStatus_READY = @"READY";
 
 
 /*!
-    Represents VLAN object under a given PORT object.
+    Represents VLAN object under a given Port object.
 */
 @implementation NUVLAN : NURESTObject
 {
     /*!
-        ID of the Egress QOS Policy associated with this Vlan.
+        The ID of the associated BGP profile
+    */
+    CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
+    /*!
+        ID of the Egress QOS Policy associated with this VLAN.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
@@ -117,10 +124,13 @@ NUVLANStatus_READY = @"READY";
     CPString _vportID @accessors(property=vportID);
     
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUIKEGatewayConnectionsFetcher _childrenIKEGatewayConnections @accessors(property=childrenIKEGatewayConnections);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     
 }
@@ -142,6 +152,7 @@ NUVLANStatus_READY = @"READY";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
@@ -159,10 +170,13 @@ NUVLANStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"vportID"];
         
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenIKEGatewayConnections = [NUIKEGatewayConnectionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         
         

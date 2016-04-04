@@ -42,6 +42,7 @@
 @import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
+@import "Fetchers/NUVPortsFetcher.j"
 
 NUZoneAssociatedApplicationObjectType_ACLENTRY_LOCATION = @"ACLENTRY_LOCATION";
 NUZoneAssociatedApplicationObjectType_ADDRESS_RANGE = @"ADDRESS_RANGE";
@@ -58,6 +59,11 @@ NUZoneAssociatedApplicationObjectType_APPLICATION = @"APPLICATION";
 NUZoneAssociatedApplicationObjectType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUZoneAssociatedApplicationObjectType_BACK_HAUL_SERVICE_RESP = @"BACK_HAUL_SERVICE_RESP";
 NUZoneAssociatedApplicationObjectType_BGPPEER = @"BGPPEER";
+NUZoneAssociatedApplicationObjectType_BGP_DAMPENING_MED_RESPONSE = @"BGP_DAMPENING_MED_RESPONSE";
+NUZoneAssociatedApplicationObjectType_BGP_NEIGHBOR = @"BGP_NEIGHBOR";
+NUZoneAssociatedApplicationObjectType_BGP_NEIGHBOR_MED_RESPONSE = @"BGP_NEIGHBOR_MED_RESPONSE";
+NUZoneAssociatedApplicationObjectType_BGP_PROFILE = @"BGP_PROFILE";
+NUZoneAssociatedApplicationObjectType_BGP_PROFILE_MED_RESPONSE = @"BGP_PROFILE_MED_RESPONSE";
 NUZoneAssociatedApplicationObjectType_BOOTSTRAP = @"BOOTSTRAP";
 NUZoneAssociatedApplicationObjectType_BOOTSTRAP_ACTIVATION = @"BOOTSTRAP_ACTIVATION";
 NUZoneAssociatedApplicationObjectType_BRIDGEINTERFACE = @"BRIDGEINTERFACE";
@@ -128,8 +134,14 @@ NUZoneAssociatedApplicationObjectType_GROUPKEY_ENCRYPTION_PROFILE = @"GROUPKEY_E
 NUZoneAssociatedApplicationObjectType_HEALTH_REQ = @"HEALTH_REQ";
 NUZoneAssociatedApplicationObjectType_HOSTINTERFACE = @"HOSTINTERFACE";
 NUZoneAssociatedApplicationObjectType_HSC = @"HSC";
-NUZoneAssociatedApplicationObjectType_IKEV2_ENCRYPTION_PROFILE = @"IKEV2_ENCRYPTION_PROFILE";
-NUZoneAssociatedApplicationObjectType_IKEV2_GATEWAY = @"IKEV2_GATEWAY";
+NUZoneAssociatedApplicationObjectType_IKE_CERTIFICATE = @"IKE_CERTIFICATE";
+NUZoneAssociatedApplicationObjectType_IKE_ENCRYPTION_PROFILE = @"IKE_ENCRYPTION_PROFILE";
+NUZoneAssociatedApplicationObjectType_IKE_GATEWAY = @"IKE_GATEWAY";
+NUZoneAssociatedApplicationObjectType_IKE_GATEWAY_CONFIG = @"IKE_GATEWAY_CONFIG";
+NUZoneAssociatedApplicationObjectType_IKE_GATEWAY_CONNECTION = @"IKE_GATEWAY_CONNECTION";
+NUZoneAssociatedApplicationObjectType_IKE_GATEWAY_PROFILE = @"IKE_GATEWAY_PROFILE";
+NUZoneAssociatedApplicationObjectType_IKE_PSK = @"IKE_PSK";
+NUZoneAssociatedApplicationObjectType_IKE_SUBNET = @"IKE_SUBNET";
 NUZoneAssociatedApplicationObjectType_INFRASTRUCTURE_CONFIG = @"INFRASTRUCTURE_CONFIG";
 NUZoneAssociatedApplicationObjectType_INFRASTRUCTURE_GATEWAY_PROFILE = @"INFRASTRUCTURE_GATEWAY_PROFILE";
 NUZoneAssociatedApplicationObjectType_INFRASTRUCTURE_PORT_PROFILE = @"INFRASTRUCTURE_PORT_PROFILE";
@@ -183,6 +195,7 @@ NUZoneAssociatedApplicationObjectType_NSG_NOTIFICATION = @"NSG_NOTIFICATION";
 NUZoneAssociatedApplicationObjectType_NSPORT = @"NSPORT";
 NUZoneAssociatedApplicationObjectType_NSPORT_STATIC_CONFIG = @"NSPORT_STATIC_CONFIG";
 NUZoneAssociatedApplicationObjectType_NSPORT_TEMPLATE = @"NSPORT_TEMPLATE";
+NUZoneAssociatedApplicationObjectType_NSPORT_VLAN_CONFIG = @"NSPORT_VLAN_CONFIG";
 NUZoneAssociatedApplicationObjectType_NSREDUNDANT_GW_GRP = @"NSREDUNDANT_GW_GRP";
 NUZoneAssociatedApplicationObjectType_NS_REDUNDANT_PORT = @"NS_REDUNDANT_PORT";
 NUZoneAssociatedApplicationObjectType_PATCONFIG_CONFIG_RESP = @"PATCONFIG_CONFIG_RESP";
@@ -195,13 +208,18 @@ NUZoneAssociatedApplicationObjectType_POLICY_GROUP = @"POLICY_GROUP";
 NUZoneAssociatedApplicationObjectType_POLICY_GROUP_TEMPLATE = @"POLICY_GROUP_TEMPLATE";
 NUZoneAssociatedApplicationObjectType_PORT = @"PORT";
 NUZoneAssociatedApplicationObjectType_PORT_MR = @"PORT_MR";
+NUZoneAssociatedApplicationObjectType_PORT_PUSH = @"PORT_PUSH";
 NUZoneAssociatedApplicationObjectType_PORT_TEMPLATE = @"PORT_TEMPLATE";
+NUZoneAssociatedApplicationObjectType_PORT_VLAN_CONFIG = @"PORT_VLAN_CONFIG";
+NUZoneAssociatedApplicationObjectType_PORT_VLAN_CONFIG_RESPONSE = @"PORT_VLAN_CONFIG_RESPONSE";
 NUZoneAssociatedApplicationObjectType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
 NUZoneAssociatedApplicationObjectType_QOS_PRIMITIVE = @"QOS_PRIMITIVE";
 NUZoneAssociatedApplicationObjectType_RATE_LIMITER = @"RATE_LIMITER";
 NUZoneAssociatedApplicationObjectType_RD_SEQUENCENO = @"RD_SEQUENCENO";
 NUZoneAssociatedApplicationObjectType_REDUNDANT_GW_GRP = @"REDUNDANT_GW_GRP";
 NUZoneAssociatedApplicationObjectType_RESYNC = @"RESYNC";
+NUZoneAssociatedApplicationObjectType_ROUTING_POLICY = @"ROUTING_POLICY";
+NUZoneAssociatedApplicationObjectType_ROUTING_POL_MED_RESPONSE = @"ROUTING_POL_MED_RESPONSE";
 NUZoneAssociatedApplicationObjectType_RTRD_ENTITY = @"RTRD_ENTITY";
 NUZoneAssociatedApplicationObjectType_RTRD_SEQUENCENO = @"RTRD_SEQUENCENO";
 NUZoneAssociatedApplicationObjectType_SERVICES_GATEWAY_RESPONSE = @"SERVICES_GATEWAY_RESPONSE";
@@ -235,6 +253,7 @@ NUZoneAssociatedApplicationObjectType_VIRTUAL_IP = @"VIRTUAL_IP";
 NUZoneAssociatedApplicationObjectType_VIRTUAL_MACHINE = @"VIRTUAL_MACHINE";
 NUZoneAssociatedApplicationObjectType_VIRTUAL_MACHINE_REPORT = @"VIRTUAL_MACHINE_REPORT";
 NUZoneAssociatedApplicationObjectType_VLAN = @"VLAN";
+NUZoneAssociatedApplicationObjectType_VLAN_CONFIG_RESPONSE = @"VLAN_CONFIG_RESPONSE";
 NUZoneAssociatedApplicationObjectType_VLAN_TEMPLATE = @"VLAN_TEMPLATE";
 NUZoneAssociatedApplicationObjectType_VMWARE_RELOAD_CONFIG = @"VMWARE_RELOAD_CONFIG";
 NUZoneAssociatedApplicationObjectType_VMWARE_VCENTER = @"VMWARE_VCENTER";
@@ -376,6 +395,7 @@ NUZoneMulticast_INHERITED = @"INHERITED";
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
+    NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     
 }
 
@@ -429,6 +449,7 @@ NUZoneMulticast_INHERITED = @"INHERITED";
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
+        _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         
         _multicast = @"INHERITED";
         _maintenanceMode = @"DISABLED";

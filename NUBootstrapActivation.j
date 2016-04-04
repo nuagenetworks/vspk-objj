@@ -107,6 +107,10 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _tpmOwnerPassword @accessors(property=tpmOwnerPassword);
     /*!
+        Gateway TPM Status reported by the device when generating CSR.
+    */
+    CPNumber _tpmState @accessors(property=tpmState);
+    /*!
         VSD Server time when an NSG is initiating a Bootstrapping request
     */
     CPNumber _vsdTime @accessors(property=vsdTime);
@@ -146,6 +150,7 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"srkPassword"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"tpmOwnerPassword"];
+        [self exposeLocalKeyPathToREST:@"tpmState"];
         [self exposeLocalKeyPathToREST:@"vsdTime"];
         
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

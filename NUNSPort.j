@@ -36,10 +36,15 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNSPortStaticConfigurationsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUStatisticsFetcher.j"
+@import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUVLANsFetcher.j"
 
 NUNSPortEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSPortEntityScope_GLOBAL = @"GLOBAL";
+NUNSPortNATTraversal_FULL_NAT = @"FULL_NAT";
+NUNSPortNATTraversal_NONE = @"NONE";
+NUNSPortNATTraversal_ONE_TO_ONE_NAT = @"ONE_TO_ONE_NAT";
 NUNSPortPermittedAction_ALL = @"ALL";
 NUNSPortPermittedAction_DEPLOY = @"DEPLOY";
 NUNSPortPermittedAction_EXTEND = @"EXTEND";
@@ -59,6 +64,10 @@ NUNSPortStatus_READY = @"READY";
 */
 @implementation NUNSPort : NURESTObject
 {
+    /*!
+        Enum value that states the type of NAT Traversal the NSG instance will use to talk to other NSGs and the Internet.
+    */
+    CPString _NATTraversal @accessors(property=NATTraversal);
     /*!
         VLAN Range of the Port.  Format must conform to a-b,c,d-f where a,b,c,d,f are integers between 0 and 4095.
     */
@@ -135,6 +144,8 @@ NUNSPortStatus_READY = @"READY";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNSPortStaticConfigurationsFetcher _childrenNSPortStaticConfigurations @accessors(property=childrenNSPortStaticConfigurations);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
+    NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     NUVLANsFetcher _childrenVLANs @accessors(property=childrenVLANs);
     
 }
@@ -156,6 +167,7 @@ NUNSPortStatus_READY = @"READY";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"NATTraversal"];
         [self exposeLocalKeyPathToREST:@"VLANRange"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedRedundantPortID"];
@@ -181,6 +193,8 @@ NUNSPortStatus_READY = @"READY";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNSPortStaticConfigurations = [NUNSPortStaticConfigurationsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
+        _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         _childrenVLANs = [NUVLANsFetcher fetcherWithParentObject:self];
         
         

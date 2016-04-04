@@ -40,7 +40,7 @@ NUPublicNetworkMacroIPType_IPV6 = @"IPV6";
 
 
 /*!
-    Similar to the enterprise macros, the public network macro allows an administrator of an enterprise to define range of subnets that can be used by users in the ACL definition
+    Similar to the enterprise macros, the public network macro allows an administrator of an enterprise to define range of subnets that can be used by users in the ACL definition.
 */
 @implementation NUPublicNetworkMacro : NURESTObject
 {

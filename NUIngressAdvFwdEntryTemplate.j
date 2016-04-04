@@ -52,6 +52,11 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_APPLICATION = @"APPL
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BACK_HAUL_SERVICE_RESP = @"BACK_HAUL_SERVICE_RESP";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BGPPEER = @"BGPPEER";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BGP_DAMPENING_MED_RESPONSE = @"BGP_DAMPENING_MED_RESPONSE";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BGP_NEIGHBOR = @"BGP_NEIGHBOR";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BGP_NEIGHBOR_MED_RESPONSE = @"BGP_NEIGHBOR_MED_RESPONSE";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BGP_PROFILE = @"BGP_PROFILE";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BGP_PROFILE_MED_RESPONSE = @"BGP_PROFILE_MED_RESPONSE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BOOTSTRAP = @"BOOTSTRAP";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BOOTSTRAP_ACTIVATION = @"BOOTSTRAP_ACTIVATION";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BRIDGEINTERFACE = @"BRIDGEINTERFACE";
@@ -122,8 +127,14 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_GROUPKEY_ENCRYPTION_
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_HEALTH_REQ = @"HEALTH_REQ";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_HOSTINTERFACE = @"HOSTINTERFACE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_HSC = @"HSC";
-NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_IKEV2_ENCRYPTION_PROFILE = @"IKEV2_ENCRYPTION_PROFILE";
-NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_IKEV2_GATEWAY = @"IKEV2_GATEWAY";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_IKE_CERTIFICATE = @"IKE_CERTIFICATE";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_IKE_ENCRYPTION_PROFILE = @"IKE_ENCRYPTION_PROFILE";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_IKE_GATEWAY = @"IKE_GATEWAY";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_IKE_GATEWAY_CONFIG = @"IKE_GATEWAY_CONFIG";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_IKE_GATEWAY_CONNECTION = @"IKE_GATEWAY_CONNECTION";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_IKE_GATEWAY_PROFILE = @"IKE_GATEWAY_PROFILE";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_IKE_PSK = @"IKE_PSK";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_IKE_SUBNET = @"IKE_SUBNET";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_INFRASTRUCTURE_CONFIG = @"INFRASTRUCTURE_CONFIG";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_INFRASTRUCTURE_GATEWAY_PROFILE = @"INFRASTRUCTURE_GATEWAY_PROFILE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_INFRASTRUCTURE_PORT_PROFILE = @"INFRASTRUCTURE_PORT_PROFILE";
@@ -177,6 +188,7 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NSG_NOTIFICATION = @
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NSPORT = @"NSPORT";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NSPORT_STATIC_CONFIG = @"NSPORT_STATIC_CONFIG";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NSPORT_TEMPLATE = @"NSPORT_TEMPLATE";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NSPORT_VLAN_CONFIG = @"NSPORT_VLAN_CONFIG";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NSREDUNDANT_GW_GRP = @"NSREDUNDANT_GW_GRP";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NS_REDUNDANT_PORT = @"NS_REDUNDANT_PORT";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_PATCONFIG_CONFIG_RESP = @"PATCONFIG_CONFIG_RESP";
@@ -189,13 +201,18 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_POLICY_GROUP = @"POL
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_POLICY_GROUP_TEMPLATE = @"POLICY_GROUP_TEMPLATE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_PORT = @"PORT";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_PORT_MR = @"PORT_MR";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_PORT_PUSH = @"PORT_PUSH";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_PORT_TEMPLATE = @"PORT_TEMPLATE";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_PORT_VLAN_CONFIG = @"PORT_VLAN_CONFIG";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_PORT_VLAN_CONFIG_RESPONSE = @"PORT_VLAN_CONFIG_RESPONSE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_QOS_PRIMITIVE = @"QOS_PRIMITIVE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_RATE_LIMITER = @"RATE_LIMITER";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_RD_SEQUENCENO = @"RD_SEQUENCENO";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_REDUNDANT_GW_GRP = @"REDUNDANT_GW_GRP";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_RESYNC = @"RESYNC";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_ROUTING_POLICY = @"ROUTING_POLICY";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_ROUTING_POL_MED_RESPONSE = @"ROUTING_POL_MED_RESPONSE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_RTRD_ENTITY = @"RTRD_ENTITY";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_RTRD_SEQUENCENO = @"RTRD_SEQUENCENO";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_SERVICES_GATEWAY_RESPONSE = @"SERVICES_GATEWAY_RESPONSE";
@@ -229,6 +246,7 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VIRTUAL_IP = @"VIRTU
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VIRTUAL_MACHINE = @"VIRTUAL_MACHINE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VIRTUAL_MACHINE_REPORT = @"VIRTUAL_MACHINE_REPORT";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VLAN = @"VLAN";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VLAN_CONFIG_RESPONSE = @"VLAN_CONFIG_RESPONSE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VLAN_TEMPLATE = @"VLAN_TEMPLATE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VMWARE_RELOAD_CONFIG = @"VMWARE_RELOAD_CONFIG";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VMWARE_VCENTER = @"VMWARE_VCENTER";
@@ -311,6 +329,14 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _FCOverride @accessors(property=FCOverride);
     /*!
+        The ICMP Code when protocol selected is ICMP.
+    */
+    CPString _ICMPCode @accessors(property=ICMPCode);
+    /*!
+        The ICMP Type when protocol selected is ICMP.
+    */
+    CPString _ICMPType @accessors(property=ICMPType);
+    /*!
         The action of the ACL entry DROP or FORWARD or REDIRECT. Action REDIRECT is allowed only for IngressAdvancedForwardingEntry Possible values are DROP, FORWARD, REDIRECT, .
     */
     CPString _action @accessors(property=action);
@@ -370,6 +396,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Type of the location entity.
     */
     CPString _locationType @accessors(property=locationType);
+    /*!
+        Destination ID of the mirror destination object.
+    */
+    CPString _mirrorDestinationID @accessors(property=mirrorDestinationID);
     /*!
         The destination network entity that is referenced(subnet/zone/macro)
     */
@@ -437,6 +467,8 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     {
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"FCOverride"];
+        [self exposeLocalKeyPathToREST:@"ICMPCode"];
+        [self exposeLocalKeyPathToREST:@"ICMPType"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationID"];
@@ -452,6 +484,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"locationType"];
+        [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
         [self exposeLocalKeyPathToREST:@"policyState"];

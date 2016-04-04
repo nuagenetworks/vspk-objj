@@ -26,16 +26,58 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <Bambou/NURESTFetcher.j>
+@import <AppKit/CPArrayController.j>
+@import <Bambou/NURESTObject.j>
 
-@class NUKeyServerMonitorEncryptedSEK
 
 
-@implementation NUKeyServerMonitorEncryptedSEKsFetcher : NURESTFetcher
-
-+ (Class)managedObjectClass
+/*!
+    None
+*/
+@implementation NUAutoDiscoverCluster : NURESTObject
 {
-    return NUKeyServerMonitorEncryptedSEK;
+    /*!
+        The ID of the vcenter to which this host is attached
+    */
+    CPString _assocVCenterDataCenterId @accessors(property=assocVCenterDataCenterId);
+    /*!
+        VCenter Managed Object ID of the Datacenter
+    */
+    CPString _managedObjectID @accessors(property=managedObjectID);
+    /*!
+        Name of the shared resource
+    */
+    CPString _name @accessors(property=name);
+    
+    
+}
+
+
+#pragma mark -
+#pragma mark Class Method
+
++ (CPString)RESTName
+{
+    return @"autodiscoveredcluster";
+}
+
+
+#pragma mark -
+#pragma mark Initialization
+
+- (id)init
+{
+    if (self = [super init])
+    {
+        [self exposeLocalKeyPathToREST:@"assocVCenterDataCenterId"];
+        [self exposeLocalKeyPathToREST:@"managedObjectID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        
+        
+        
+    }
+
+    return self;
 }
 
 @end

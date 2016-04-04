@@ -44,6 +44,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUVCenterHypervisor : NURESTObject
 {
     /*!
+        ID of the VRS metrics object.
+    */
+    CPString _VRSMetricsID @accessors(property=VRSMetricsID);
+    /*!
         Whether to get the Data IP for the VRS VM from DHCP or statically
     */
     BOOL _allowDataDHCP @accessors(property=allowDataDHCP);
@@ -52,9 +56,9 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     BOOL _allowMgmtDHCP @accessors(property=allowMgmtDHCP);
     /*!
-        The ID of the cluster to which this host is attached
+        List of the available network list for the hypervisor.
     */
-    CPString _associatedClusterID @accessors(property=associatedClusterID);
+    CPArrayController _availableNetworks @accessors(property=availableNetworks);
     /*!
         To provide a URL to install a custom app on VRS
     */
@@ -284,6 +288,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _primaryNuageController @accessors(property=primaryNuageController);
     /*!
+        Cluster in scope or not in scope.
+    */
+    BOOL _scope @accessors(property=scope);
+    /*!
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
@@ -352,6 +360,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _vrsId @accessors(property=vrsId);
     /*!
+        ID of the vrsMetrics Entity
+    */
+    CPString _vrsMetricsID @accessors(property=vrsMetricsID);
+    /*!
         VRS password to be used by toolbox to communicate with VRS
     */
     CPString _vrsPassword @accessors(property=vrsPassword);
@@ -384,9 +396,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"VRSMetricsID"];
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
-        [self exposeLocalKeyPathToREST:@"associatedClusterID"];
+        [self exposeLocalKeyPathToREST:@"availableNetworks"];
         [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
         [self exposeLocalKeyPathToREST:@"dataDNS1"];
         [self exposeLocalKeyPathToREST:@"dataDNS2"];
@@ -444,6 +457,7 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"portgroupMetadata"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"scope"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"siteId"];
@@ -461,6 +475,7 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"vmNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"vrsId"];
+        [self exposeLocalKeyPathToREST:@"vrsMetricsID"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
         [self exposeLocalKeyPathToREST:@"vrsUserName"];
         

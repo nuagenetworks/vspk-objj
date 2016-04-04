@@ -29,7 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUAutoDiscoverHypervisorFromClustersFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVCenterHypervisorsFetcher.j"
 @import "Fetchers/NUVRSAddressRangesFetcher.j"
@@ -55,6 +57,10 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
         The ID of the vcenter to which this host is attached
     */
     CPString _assocVCenterDataCenterID @accessors(property=assocVCenterDataCenterID);
+    /*!
+        ID of the associated VCenter.
+    */
+    CPString _assocVCenterID @accessors(property=assocVCenterID);
     /*!
         To provide a URL to install a custom app on VRS
     */
@@ -103,6 +109,10 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        VCenter Managed Object ID of the Cluster.
+    */
+    CPString _managedObjectID @accessors(property=managedObjectID);
     /*!
         Metadata Server IP
     */
@@ -256,6 +266,10 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _primaryNuageController @accessors(property=primaryNuageController);
     /*!
+        Cluster in scope or not in scope.
+    */
+    BOOL _scope @accessors(property=scope);
+    /*!
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
@@ -296,7 +310,9 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _vrsUserName @accessors(property=vrsUserName);
     
+    NUAutoDiscoverHypervisorFromClustersFetcher _childrenAutoDiscoverHypervisorFromClusters @accessors(property=childrenAutoDiscoverHypervisorFromClusters);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVCenterHypervisorsFetcher _childrenVCenterHypervisors @accessors(property=childrenVCenterHypervisors);
     NUVRSAddressRangesFetcher _childrenVRSAddressRanges @accessors(property=childrenVRSAddressRanges);
@@ -323,6 +339,7 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
         [self exposeLocalKeyPathToREST:@"assocVCenterDataCenterID"];
+        [self exposeLocalKeyPathToREST:@"assocVCenterID"];
         [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
         [self exposeLocalKeyPathToREST:@"dataDNS1"];
         [self exposeLocalKeyPathToREST:@"dataDNS2"];
@@ -335,6 +352,7 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"managedObjectID"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
         [self exposeLocalKeyPathToREST:@"metadataServerListenPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerPort"];
@@ -373,6 +391,7 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"portgroupMetadata"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"scope"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"siteId"];
@@ -384,7 +403,9 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
         [self exposeLocalKeyPathToREST:@"vrsUserName"];
         
+        _childrenAutoDiscoverHypervisorFromClusters = [NUAutoDiscoverHypervisorFromClustersFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVCenterHypervisors = [NUVCenterHypervisorsFetcher fetcherWithParentObject:self];
         _childrenVRSAddressRanges = [NUVRSAddressRangesFetcher fetcherWithParentObject:self];
