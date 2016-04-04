@@ -26,7 +26,7 @@
 */
 
 @import <Bambou/NURESTModelController.j>
-@import "Fetchers/NUFetchers.j"
+@import "Fetchers/Fetchers.j"
 
 @import "NUAddressRange.j"
 @import "NUAggregateMetadata.j"

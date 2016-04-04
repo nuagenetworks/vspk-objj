@@ -27,7 +27,7 @@
 
 @import <Foundation/Foundation.j>
 @import <AppKit/CPArrayController.j>
-@import <Bambou/NURESTAbstractUser.j>
+@import <Bambou/NURESTAbstractRoot.j>
 
 @import "Fetchers/NUApplicationServicesFetcher.j"
 @import "Fetchers/NUAutoDiscoveredGatewaysFetcher.j"
@@ -97,7 +97,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
 /*!
     Object that identifies the user functions
 */
-@implementation NUMe : NURESTAbstractUser
+@implementation NUMe : NURESTAbstractRoot
 {
     /*!
         URL to the avatar data associated with the enterprise. If the avatarType is URL then value of avatarData should an URL of the image. If the avatarType BASE64 then avatarData should be BASE64 encoded value of the image
