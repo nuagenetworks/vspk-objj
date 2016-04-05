@@ -34,7 +34,7 @@
 /*!
     None
 */
-@implementation NULicensestatus : NURESTObject
+@implementation NULicenseStatus : NURESTObject
 {
     /*!
         Indicates total NIC count for all the licenses in the system

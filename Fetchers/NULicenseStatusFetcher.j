@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NULicensestatus
+@class NULicenseStatus
 
 
-@implementation NULicensestatusFetcher : NURESTFetcher
+@implementation NULicenseStatusFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NULicensestatus;
+    return NULicenseStatus;
 }
 
 @end

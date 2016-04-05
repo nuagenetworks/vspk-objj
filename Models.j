@@ -112,7 +112,7 @@
 @import "NUL2DomainTemplate.j"
 @import "NULDAPConfiguration.j"
 @import "NULicense.j"
-@import "NULicensestatus.j"
+@import "NULicenseStatus.j"
 @import "NULocation.j"
 @import "NUMe.j"
 @import "NUMetadata.j"
@@ -272,7 +272,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUL2DomainTemplate];
 [[NURESTModelController defaultController] registerModelClass:NULDAPConfiguration];
 [[NURESTModelController defaultController] registerModelClass:NULicense];
-[[NURESTModelController defaultController] registerModelClass:NULicensestatus];
+[[NURESTModelController defaultController] registerModelClass:NULicenseStatus];
 [[NURESTModelController defaultController] registerModelClass:NULocation];
 [[NURESTModelController defaultController] registerModelClass:NUMe];
 [[NURESTModelController defaultController] registerModelClass:NUMetadata];

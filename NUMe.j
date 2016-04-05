@@ -60,6 +60,7 @@
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUL2DomainsFetcher.j"
 @import "Fetchers/NULicensesFetcher.j"
+@import "Fetchers/NULicenseStatusFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUMetadataTagsFetcher.j"
 @import "Fetchers/NUMirrorDestinationsFetcher.j"
@@ -184,6 +185,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUL2DomainsFetcher _childrenL2Domains @accessors(property=childrenL2Domains);
     NULicensesFetcher _childrenLicenses @accessors(property=childrenLicenses);
+    NULicenseStatusFetcher _childrenLicenseStatus @accessors(property=childrenLicenseStatus);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUMetadataTagsFetcher _childrenMetadataTags @accessors(property=childrenMetadataTags);
     NUMirrorDestinationsFetcher _childrenMirrorDestinations @accessors(property=childrenMirrorDestinations);
@@ -282,6 +284,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];
         _childrenLicenses = [NULicensesFetcher fetcherWithParentObject:self];
+        _childrenLicenseStatus = [NULicenseStatusFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadataTags = [NUMetadataTagsFetcher fetcherWithParentObject:self];
         _childrenMirrorDestinations = [NUMirrorDestinationsFetcher fetcherWithParentObject:self];
