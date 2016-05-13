@@ -153,6 +153,7 @@
 @import "NUVSDsFetcher.j"
 @import "NUVSPsFetcher.j"
 @import "NUVirtualIPsFetcher.j"
+@import "NUVsgRedundantPortsFetcher.j"
 @import "NUWANServicesFetcher.j"
 @import "NUZoneTemplatesFetcher.j"
 @import "NUZonesFetcher.j"

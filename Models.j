@@ -156,6 +156,7 @@
 @import "NUVSDComponent.j"
 @import "NUVSP.j"
 @import "NUVirtualIP.j"
+@import "NUVsgRedundantPort.j"
 @import "NUWANService.j"
 @import "NUZone.j"
 @import "NUZoneTemplate.j"
@@ -289,6 +290,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUVSDComponent];
 [[NURESTModelController defaultController] registerModelClass:NUVSP];
 [[NURESTModelController defaultController] registerModelClass:NUVirtualIP];
+[[NURESTModelController defaultController] registerModelClass:NUVsgRedundantPort];
 [[NURESTModelController defaultController] registerModelClass:NUWANService];
 [[NURESTModelController defaultController] registerModelClass:NUZone];
 [[NURESTModelController defaultController] registerModelClass:NUZoneTemplate];

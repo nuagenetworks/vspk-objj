@@ -38,6 +38,7 @@
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUPortsFetcher.j"
 @import "Fetchers/NUWANServicesFetcher.j"
+@import "Fetchers/NUVsgRedundantPortsFetcher.j"
 
 NURedundancyGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
 NURedundancyGroupEntityScope_GLOBAL = @"GLOBAL";
@@ -96,6 +97,10 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _gatewayPeer2AutodiscoveredGatewayID @accessors(property=gatewayPeer2AutodiscoveredGatewayID);
     /*!
+        The gateway configuration owner in this Redundant Group. when Redundant Group is deleted this gateway will recieve vport associations 
+    */
+    CPString _gatewayPeer2ID @accessors(property=gatewayPeer2ID);
+    /*!
         The gateway peer name in this Redundant Group
     */
     CPString _gatewayPeer2Name @accessors(property=gatewayPeer2Name);
@@ -133,6 +138,7 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUPortsFetcher _childrenPorts @accessors(property=childrenPorts);
     NUWANServicesFetcher _childrenWANServices @accessors(property=childrenWANServices);
+    NUVsgRedundantPortsFetcher _childrenVsgRedundantPorts @accessors(property=childrenVsgRedundantPorts);
     
 }
 
@@ -161,6 +167,7 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         [self exposeLocalKeyPathToREST:@"gatewayPeer1ID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1Name"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2AutodiscoveredGatewayID"];
+        [self exposeLocalKeyPathToREST:@"gatewayPeer2ID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2Name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
@@ -178,6 +185,7 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenPorts = [NUPortsFetcher fetcherWithParentObject:self];
         _childrenWANServices = [NUWANServicesFetcher fetcherWithParentObject:self];
+        _childrenVsgRedundantPorts = [NUVsgRedundantPortsFetcher fetcherWithParentObject:self];
         
         
     }
