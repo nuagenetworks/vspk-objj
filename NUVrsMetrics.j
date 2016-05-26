@@ -53,6 +53,18 @@
     */
     BOOL _VRSVSCStatus @accessors(property=VRSVSCStatus);
     /*!
+        Is the VRS VM Sending Metrics to the hypervisor on VCIN
+    */
+    BOOL _receivingMetrics @accessors(property=receivingMetrics);
+    /*!
+        Memory Utilization
+    */
+    CPNumber _memoryUtilization @accessors(property=memoryUtilization);
+    /*!
+        jesxmon process status
+    */
+    BOOL _jesxmonProcess @accessors(property=jesxmonProcess);
+    /*!
         VRS Agent Name
     */
     CPString _agentName @accessors(property=agentName);
@@ -60,18 +72,6 @@
         None
     */
     CPString _assocVCenterHypervisorID @accessors(property=assocVCenterHypervisorID);
-    /*!
-        jesxmon process status
-    */
-    BOOL _jesxmonProcess @accessors(property=jesxmonProcess);
-    /*!
-        Memory Utilization
-    */
-    CPNumber _memoryUtilization @accessors(property=memoryUtilization);
-    /*!
-        Is the VRS VM Sending Metrics to the hypervisor on VCIN
-    */
-    BOOL _receivingMetrics @accessors(property=receivingMetrics);
     
     
 }
@@ -97,11 +97,11 @@
         [self exposeLocalKeyPathToREST:@"CPUUtilization"];
         [self exposeLocalKeyPathToREST:@"VRSProcess"];
         [self exposeLocalKeyPathToREST:@"VRSVSCStatus"];
+        [self exposeLocalKeyPathToREST:@"receivingMetrics"];
+        [self exposeLocalKeyPathToREST:@"memoryUtilization"];
+        [self exposeLocalKeyPathToREST:@"jesxmonProcess"];
         [self exposeLocalKeyPathToREST:@"agentName"];
         [self exposeLocalKeyPathToREST:@"assocVCenterHypervisorID"];
-        [self exposeLocalKeyPathToREST:@"jesxmonProcess"];
-        [self exposeLocalKeyPathToREST:@"memoryUtilization"];
-        [self exposeLocalKeyPathToREST:@"receivingMetrics"];
         
         
         

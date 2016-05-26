@@ -29,11 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUKeyServerMonitorEncryptedSeedsFetcher.j"
 @import "Fetchers/NUKeyServerMonitorSeedsFetcher.j"
 @import "Fetchers/NUKeyServerMonitorSEKsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUKeyServerMonitorEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
@@ -45,17 +45,13 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUKeyServerMonitor : NURESTObject
 {
     /*!
-        Total number of Enterprise Secured Data records
+        The time the latest SEK or Seed was created/removed (milliseconds since epoch)
     */
-    CPNumber _enterpriseSecuredDataRecordCount @accessors(property=enterpriseSecuredDataRecordCount);
+    CPNumber _lastUpdateTime @accessors(property=lastUpdateTime);
     /*!
-        Specify if scope of entity is Data center or Enterprise level
+        ID of the user who last updated the object.
     */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Total number of Gateway Secured Data records
     */
@@ -77,19 +73,23 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _keyserverMonitorSeedCount @accessors(property=keyserverMonitorSeedCount);
     /*!
-        The time the latest SEK or Seed was created/removed (milliseconds since epoch)
+        Total number of Enterprise Secured Data records
     */
-    CPNumber _lastUpdateTime @accessors(property=lastUpdateTime);
+    CPNumber _enterpriseSecuredDataRecordCount @accessors(property=enterpriseSecuredDataRecordCount);
     /*!
-        ID of the user who last updated the object.
+        Specify if scope of entity is Data center or Enterprise level
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUKeyServerMonitorEncryptedSeedsFetcher _childrenKeyServerMonitorEncryptedSeeds @accessors(property=childrenKeyServerMonitorEncryptedSeeds);
     NUKeyServerMonitorSeedsFetcher _childrenKeyServerMonitorSeeds @accessors(property=childrenKeyServerMonitorSeeds);
     NUKeyServerMonitorSEKsFetcher _childrenKeyServerMonitorSEKs @accessors(property=childrenKeyServerMonitorSEKs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -110,22 +110,22 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"enterpriseSecuredDataRecordCount"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"lastUpdateTime"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gatewaySecuredDataRecordCount"];
         [self exposeLocalKeyPathToREST:@"keyserverMonitorEncryptedSEKCount"];
         [self exposeLocalKeyPathToREST:@"keyserverMonitorEncryptedSeedCount"];
         [self exposeLocalKeyPathToREST:@"keyserverMonitorSEKCount"];
         [self exposeLocalKeyPathToREST:@"keyserverMonitorSeedCount"];
-        [self exposeLocalKeyPathToREST:@"lastUpdateTime"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"enterpriseSecuredDataRecordCount"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenKeyServerMonitorEncryptedSeeds = [NUKeyServerMonitorEncryptedSeedsFetcher fetcherWithParentObject:self];
         _childrenKeyServerMonitorSeeds = [NUKeyServerMonitorSeedsFetcher fetcherWithParentObject:self];
         _childrenKeyServerMonitorSEKs = [NUKeyServerMonitorSEKsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

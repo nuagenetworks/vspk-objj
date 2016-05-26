@@ -29,12 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAlarmsFetcher.j"
-@import "Fetchers/NUEnterprisePermissionsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVLANsFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEnterprisePermissionsFetcher.j"
 
 NUVsgRedundantPortEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVsgRedundantPortEntityScope_GLOBAL = @"GLOBAL";
@@ -62,37 +62,29 @@ NUVsgRedundantPortStatus_READY = @"READY";
     */
     CPString _VLANRange @accessors(property=VLANRange);
     /*!
-        ID of the Egress QOS Policy associated with this Vlan.
+        Name of the Port
     */
-    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
-    /*!
-        A description of the Port
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _name @accessors(property=name);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Name of the Port
-    */
-    CPString _name @accessors(property=name);
-    /*!
         The permitted  action to USE/EXTEND  this Gateway.
     */
     CPString _permittedAction @accessors(property=permittedAction);
     /*!
+        A description of the Port
+    */
+    CPString _description @accessors(property=description);
+    /*!
         Identifier of the Port
     */
     CPString _physicalName @accessors(property=physicalName);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The master gateway peer port id.
     */
@@ -106,10 +98,6 @@ NUVsgRedundantPortStatus_READY = @"READY";
     */
     CPString _portType @accessors(property=portType);
     /*!
-        Status of the port.
-    */
-    CPString _status @accessors(property=status);
-    /*!
         determines whether to use user mnemonic of the Port
     */
     BOOL _useUserMnemonic @accessors(property=useUserMnemonic);
@@ -117,13 +105,25 @@ NUVsgRedundantPortStatus_READY = @"READY";
         user mnemonic of the Port
     */
     CPString _userMnemonic @accessors(property=userMnemonic);
+    /*!
+        ID of the Egress QOS Policy associated with this Vlan.
+    */
+    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
+    /*!
+        Status of the port.
+    */
+    CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
-    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVLANsFetcher _childrenVLANs @accessors(property=childrenVLANs);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     
 }
 
@@ -145,27 +145,27 @@ NUVsgRedundantPortStatus_READY = @"READY";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"VLANRange"];
-        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portPeer1ID"];
         [self exposeLocalKeyPathToREST:@"portPeer2ID"];
         [self exposeLocalKeyPathToREST:@"portType"];
-        [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
+        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
-        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVLANs = [NUVLANsFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         
         
     }

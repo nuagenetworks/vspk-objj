@@ -29,10 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NURedirectionTargetTemplateEndPointType_L3 = @"L3";
 NURedirectionTargetTemplateEndPointType_NONE = @"NONE";
@@ -49,6 +49,18 @@ NURedirectionTargetTemplateTriggerType_NONE = @"NONE";
 @implementation NURedirectionTargetTemplate : NURESTObject
 {
     /*!
+        Name of this redirection target template
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Allow/Disallow redundant appliances and VIP
+    */
+    BOOL _redundancyEnabled @accessors(property=redundancyEnabled);
+    /*!
         Description of this redirection target template
     */
     CPString _description @accessors(property=description);
@@ -61,30 +73,18 @@ NURedirectionTargetTemplateTriggerType_NONE = @"NONE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of this redirection target template
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Allow/Disallow redundant appliances and VIP
-    */
-    BOOL _redundancyEnabled @accessors(property=redundancyEnabled);
-    /*!
         Trigger type, could be NONE/GARP - THIS IS READONLY
     */
     CPString _triggerType @accessors(property=triggerType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -105,19 +105,19 @@ NURedirectionTargetTemplateTriggerType_NONE = @"NONE";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"redundancyEnabled"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"endPointType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"redundancyEnabled"];
         [self exposeLocalKeyPathToREST:@"triggerType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _endPointType = @"L3";
         

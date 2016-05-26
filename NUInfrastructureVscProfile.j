@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUInfrastructureVscProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
@@ -42,9 +42,25 @@ NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUInfrastructureVscProfile : NURESTObject
 {
     /*!
+        Name of the Infrastructure Profile
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Second VSC Controller :  IP Address of the secondary VSC system NSG instances associated to this profile will be reaching for.
+    */
+    CPString _secondController @accessors(property=secondController);
+    /*!
         A description of the Profile instance created.
     */
     CPString _description @accessors(property=description);
+    /*!
+        First VSC Controller :  IP Address of the first VSC system NSG instances associated to this profile will be reaching for.
+    */
+    CPString _firstController @accessors(property=firstController);
     /*!
         Enterprise/Organisation associated with this Profile instance.
     */
@@ -54,32 +70,16 @@ NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        First VSC Controller :  IP Address of the first VSC system NSG instances associated to this profile will be reaching for.
-    */
-    CPString _firstController @accessors(property=firstController);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the Infrastructure Profile
-    */
-    CPString _name @accessors(property=name);
-    /*!
         Openflow echo timer in millisecond
     */
     CPNumber _probeInterval @accessors(property=probeInterval);
     /*!
-        Second VSC Controller :  IP Address of the secondary VSC system NSG instances associated to this profile will be reaching for.
+        External object ID. Used for integration with third party systems
     */
-    CPString _secondController @accessors(property=secondController);
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -100,18 +100,18 @@ NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"secondController"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"firstController"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"firstController"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"probeInterval"];
-        [self exposeLocalKeyPathToREST:@"secondController"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         _probeInterval = 5000;
         

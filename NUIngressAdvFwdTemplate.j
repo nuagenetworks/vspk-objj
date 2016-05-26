@@ -29,10 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUIngressAdvFwdEntryTemplatesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 
 NUIngressAdvFwdTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIngressAdvFwdTemplateEntityScope_GLOBAL = @"GLOBAL";
@@ -49,13 +49,17 @@ NUIngressAdvFwdTemplatePriorityType_TOP = @"TOP";
 @implementation NUIngressAdvFwdTemplate : NURESTObject
 {
     /*!
+        The name of the entity
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         If enabled, it means that this ACL or QOS entry is active
     */
     BOOL _active @accessors(property=active);
-    /*!
-        In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
-    */
-    CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
         A description of the entity
     */
@@ -64,18 +68,6 @@ NUIngressAdvFwdTemplatePriorityType_TOP = @"TOP";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        The name of the entity
-    */
-    CPString _name @accessors(property=name);
     /*!
         
     */
@@ -88,11 +80,19 @@ NUIngressAdvFwdTemplatePriorityType_TOP = @"TOP";
         
     */
     CPString _priorityType @accessors(property=priorityType);
+    /*!
+        In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
+    */
+    CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUIngressAdvFwdEntryTemplatesFetcher _childrenIngressAdvFwdEntryTemplates @accessors(property=childrenIngressAdvFwdEntryTemplates);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     
 }
 
@@ -113,21 +113,21 @@ NUIngressAdvFwdTemplatePriorityType_TOP = @"TOP";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"active"];
-        [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"priorityType"];
+        [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdEntryTemplates = [NUIngressAdvFwdEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

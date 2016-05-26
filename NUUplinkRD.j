@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUUplinkRDEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUUplinkRDEntityScope_GLOBAL = @"GLOBAL";
@@ -46,17 +46,13 @@ NUUplinkRDUplinkType_RD_SECONDARY2 = @"RD_SECONDARY2";
 @implementation NUUplinkRD : NURESTObject
 {
     /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The uplink route distinguisher value is used to identify which route packets should be flowing through with regards to having multiple network ports on the VRS/NSG.
     */
@@ -65,9 +61,13 @@ NUUplinkRDUplinkType_RD_SECONDARY2 = @"RD_SECONDARY2";
         Indicates the uplink type associated with the instance of Uplink Route Distinguisher.
     */
     CPString _uplinkType @accessors(property=uplinkType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -88,14 +88,14 @@ NUUplinkRDUplinkType_RD_SECONDARY2 = @"RD_SECONDARY2";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"uplinkType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

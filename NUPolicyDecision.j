@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
 
 NUPolicyDecisionEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -43,6 +43,10 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUPolicyDecision : NURESTObject
 {
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         List of actual Egress ACLs that will be applied on the interface of this VM
     */
     CPArrayController _egressACLs @accessors(property=egressACLs);
@@ -50,14 +54,6 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
         Egress QoS primitive that was selected
     */
     NURESTObject _egressQos @accessors(property=egressQos);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
     /*!
         List of actual Egress ACLs that will be applied on the interface of this VM
     */
@@ -75,9 +71,9 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
     */
     CPArrayController _ingressExternalServiceACLs @accessors(property=ingressExternalServiceACLs);
     /*!
-        ID of the user who last updated the object.
+        Specify if scope of entity is Data center or Enterprise level
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         QoS primitive that was selected based on inheritance policies
     */
@@ -86,9 +82,13 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
         Stats primitive that was selected based on inheritance policies
     */
     NURESTObject _stats @accessors(property=stats);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     
 }
@@ -110,20 +110,20 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"egressACLs"];
         [self exposeLocalKeyPathToREST:@"egressQos"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"fipACLs"];
         [self exposeLocalKeyPathToREST:@"ingressACLs"];
         [self exposeLocalKeyPathToREST:@"ingressAdvFwd"];
         [self exposeLocalKeyPathToREST:@"ingressExternalServiceACLs"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"qos"];
         [self exposeLocalKeyPathToREST:@"stats"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         
         

@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUBootstrapActivationAction_AUTHENTICATE = @"AUTHENTICATE";
 NUBootstrapActivationAction_BOOTSTRAP_COMPLETE = @"BOOTSTRAP_COMPLETE";
@@ -55,33 +55,9 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUBootstrapActivation : NURESTObject
 {
     /*!
-        The bootstrap action to perform.
-    */
-    CPString _action @accessors(property=action);
-    /*!
         The CA Certificate Chain
     */
     CPString _cacert @accessors(property=cacert);
-    /*!
-        The signed Certificate
-    */
-    CPString _cert @accessors(property=cert);
-    /*!
-        The configuration URL
-    */
-    CPString _configURL @accessors(property=configURL);
-    /*!
-        The CSR of the request
-    */
-    CPString _csr @accessors(property=csr);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
     /*!
         The authentication hash of this request
     */
@@ -91,17 +67,25 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        The bootstrap action to perform.
+    */
+    CPString _action @accessors(property=action);
+    /*!
         The random seed for this request
     */
     CPString _seed @accessors(property=seed);
     /*!
-        TPM SRK passphrase
+        The signed Certificate
     */
-    CPString _srkPassword @accessors(property=srkPassword);
+    CPString _cert @accessors(property=cert);
     /*!
-        The agent status for the request
+        Specify if scope of entity is Data center or Enterprise level
     */
-    CPString _status @accessors(property=status);
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The configuration URL
+    */
+    CPString _configURL @accessors(property=configURL);
     /*!
         TPM owner passphrase
     */
@@ -111,12 +95,28 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _tpmState @accessors(property=tpmState);
     /*!
+        TPM SRK passphrase
+    */
+    CPString _srkPassword @accessors(property=srkPassword);
+    /*!
         VSD Server time when an NSG is initiating a Bootstrapping request
     */
     CPNumber _vsdTime @accessors(property=vsdTime);
+    /*!
+        The CSR of the request
+    */
+    CPString _csr @accessors(property=csr);
+    /*!
+        The agent status for the request
+    */
+    CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -137,24 +137,24 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"cacert"];
-        [self exposeLocalKeyPathToREST:@"cert"];
-        [self exposeLocalKeyPathToREST:@"configURL"];
-        [self exposeLocalKeyPathToREST:@"csr"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"hash"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"seed"];
-        [self exposeLocalKeyPathToREST:@"srkPassword"];
-        [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"cert"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"configURL"];
         [self exposeLocalKeyPathToREST:@"tpmOwnerPassword"];
         [self exposeLocalKeyPathToREST:@"tpmState"];
+        [self exposeLocalKeyPathToREST:@"srkPassword"];
         [self exposeLocalKeyPathToREST:@"vsdTime"];
+        [self exposeLocalKeyPathToREST:@"csr"];
+        [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

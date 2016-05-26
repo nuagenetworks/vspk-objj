@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVLANTemplatesFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUNSPortTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSPortTemplateEntityScope_GLOBAL = @"GLOBAL";
@@ -49,6 +49,34 @@ NUNSPortTemplatePortType_NETWORK = @"NETWORK";
     */
     CPString _VLANRange @accessors(property=VLANRange);
     /*!
+        Name of the Port
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        A description of the Port
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        Identifier of the Port
+    */
+    CPString _physicalName @accessors(property=physicalName);
+    /*!
+        The ID of the infrastructure profile this instance is associated with.
+    */
+    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Type of the Port.
+    */
+    CPString _portType @accessors(property=portType);
+    /*!
         ID of the Egress QOS Policy associated with this Vlan.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
@@ -57,41 +85,13 @@ NUNSPortTemplatePortType_NETWORK = @"NETWORK";
     */
     CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
     /*!
-        A description of the Port
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        The ID of the infrastructure profile this instance is associated with.
-    */
-    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the Port
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Identifier of the Port
-    */
-    CPString _physicalName @accessors(property=physicalName);
-    /*!
-        Type of the Port.
-    */
-    CPString _portType @accessors(property=portType);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVLANTemplatesFetcher _childrenVLANTemplates @accessors(property=childrenVLANTemplates);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -113,20 +113,20 @@ NUNSPortTemplatePortType_NETWORK = @"NETWORK";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"VLANRange"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"physicalName"];
+        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"portType"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"physicalName"];
-        [self exposeLocalKeyPathToREST:@"portType"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVLANTemplates = [NUVLANTemplatesFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

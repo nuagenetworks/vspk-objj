@@ -29,11 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAddressMapsFetcher.j"
-@import "Fetchers/NUEnterprisePermissionsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNATMapEntriesFetcher.j"
+@import "Fetchers/NUAddressMapsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEnterprisePermissionsFetcher.j"
 
 NUPATNATPoolAssociatedGatewayId_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUPATNATPoolAssociatedGatewayId_GATEWAY = @"GATEWAY";
@@ -59,29 +59,29 @@ NUPATNATPoolPermittedAction_USE = @"USE";
 @implementation NUPATNATPool : NURESTObject
 {
     /*!
+        Name of the PATNATPool
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Default PAT IP Address, must belong to the pool above
     */
     CPString _addressRange @accessors(property=addressRange);
-    /*!
-        
-    */
-    CPString _associatedGatewayId @accessors(property=associatedGatewayId);
-    /*!
-        
-    */
-    CPString _associatedGatewayType @accessors(property=associatedGatewayType);
     /*!
         Default PAT IP Address, must belong to the pool above
     */
     CPString _defaultPATIP @accessors(property=defaultPATIP);
     /*!
+        The permitted  action to USE/EXTEND  this Gateway.
+    */
+    CPString _permittedAction @accessors(property=permittedAction);
+    /*!
         A description of the PATNATPool
     */
     CPString _description @accessors(property=description);
-    /*!
-        Set to True if the address translation pool at the address translation pool definition level
-    */
-    BOOL _dynamicSourceEnabled @accessors(property=dynamicSourceEnabled);
     /*!
         Ending IP Address for the pool of available addresses for use
     */
@@ -95,21 +95,17 @@ NUPATNATPoolPermittedAction_USE = @"USE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
+        Used to clear out the dynamic address translations and free up the IP addresses for re-assignment.  Units are in second
     */
-    CPString _externalID @accessors(property=externalID);
+    CPNumber _translationTimeout @accessors(property=translationTimeout);
     /*!
-        ID of the user who last updated the object.
+        
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    CPString _associatedGatewayId @accessors(property=associatedGatewayId);
     /*!
-        Name of the PATNATPool
+        
     */
-    CPString _name @accessors(property=name);
-    /*!
-        The permitted  action to USE/EXTEND  this Gateway.
-    */
-    CPString _permittedAction @accessors(property=permittedAction);
+    CPString _associatedGatewayType @accessors(property=associatedGatewayType);
     /*!
         Starting IP Address for the pool of available addresses for use
     */
@@ -119,15 +115,19 @@ NUPATNATPoolPermittedAction_USE = @"USE";
     */
     CPString _startSourceAddress @accessors(property=startSourceAddress);
     /*!
-        Used to clear out the dynamic address translations and free up the IP addresses for re-assignment.  Units are in second
+        External object ID. Used for integration with third party systems
     */
-    CPNumber _translationTimeout @accessors(property=translationTimeout);
+    CPString _externalID @accessors(property=externalID);
+    /*!
+        Set to True if the address translation pool at the address translation pool definition level
+    */
+    BOOL _dynamicSourceEnabled @accessors(property=dynamicSourceEnabled);
     
-    NUAddressMapsFetcher _childrenAddressMaps @accessors(property=childrenAddressMaps);
-    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNATMapEntriesFetcher _childrenNATMapEntries @accessors(property=childrenNATMapEntries);
+    NUAddressMapsFetcher _childrenAddressMaps @accessors(property=childrenAddressMaps);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     
 }
 
@@ -148,28 +148,28 @@ NUPATNATPoolPermittedAction_USE = @"USE";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"addressRange"];
-        [self exposeLocalKeyPathToREST:@"associatedGatewayId"];
-        [self exposeLocalKeyPathToREST:@"associatedGatewayType"];
         [self exposeLocalKeyPathToREST:@"defaultPATIP"];
+        [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"dynamicSourceEnabled"];
         [self exposeLocalKeyPathToREST:@"endAddressRange"];
         [self exposeLocalKeyPathToREST:@"endSourceAddress"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"permittedAction"];
+        [self exposeLocalKeyPathToREST:@"translationTimeout"];
+        [self exposeLocalKeyPathToREST:@"associatedGatewayId"];
+        [self exposeLocalKeyPathToREST:@"associatedGatewayType"];
         [self exposeLocalKeyPathToREST:@"startAddressRange"];
         [self exposeLocalKeyPathToREST:@"startSourceAddress"];
-        [self exposeLocalKeyPathToREST:@"translationTimeout"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"dynamicSourceEnabled"];
         
-        _childrenAddressMaps = [NUAddressMapsFetcher fetcherWithParentObject:self];
-        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNATMapEntries = [NUNATMapEntriesFetcher fetcherWithParentObject:self];
+        _childrenAddressMaps = [NUAddressMapsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         
         
     }

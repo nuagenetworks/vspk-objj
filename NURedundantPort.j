@@ -29,10 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUNSPortsFetcher.j"
 @import "Fetchers/NUVLANsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUNSPortsFetcher.j"
 
 NURedundantPortEntityScope_ENTERPRISE = @"ENTERPRISE";
 NURedundantPortEntityScope_GLOBAL = @"GLOBAL";
@@ -60,41 +60,33 @@ NURedundantPortStatus_READY = @"READY";
     */
     CPString _VLANRange @accessors(property=VLANRange);
     /*!
-        ID of the Egress QOS Policy associated with this Vlan.
+        Name of the Port
     */
-    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
-    /*!
-        A description of the Port
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        The ID of the infrastructure profile this instance is associated with.
-    */
-    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
+    CPString _name @accessors(property=name);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Name of the Port
-    */
-    CPString _name @accessors(property=name);
-    /*!
         The permitted  action to USE/EXTEND  this Gateway.
     */
     CPString _permittedAction @accessors(property=permittedAction);
     /*!
+        A description of the Port
+    */
+    CPString _description @accessors(property=description);
+    /*!
         Identifier of the Port
     */
     CPString _physicalName @accessors(property=physicalName);
+    /*!
+        The ID of the infrastructure profile this instance is associated with.
+    */
+    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The master gateway peer port id.
     */
@@ -108,10 +100,6 @@ NURedundantPortStatus_READY = @"READY";
     */
     CPString _portType @accessors(property=portType);
     /*!
-        Status of the port.
-    */
-    CPString _status @accessors(property=status);
-    /*!
         A flag to indicate if for this redundant port an untagged heartbeat VLAN is to be used. If this is not set then will use the heartbeat VLAN set by the NS redundant group
     */
     BOOL _useUntaggedHeartbeatVlan @accessors(property=useUntaggedHeartbeatVlan);
@@ -123,11 +111,23 @@ NURedundantPortStatus_READY = @"READY";
         user mnemonic of the Port
     */
     CPString _userMnemonic @accessors(property=userMnemonic);
+    /*!
+        ID of the Egress QOS Policy associated with this Vlan.
+    */
+    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
+    /*!
+        Status of the port.
+    */
+    CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUNSPortsFetcher _childrenNSPorts @accessors(property=childrenNSPorts);
     NUVLANsFetcher _childrenVLANs @accessors(property=childrenVLANs);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUNSPortsFetcher _childrenNSPorts @accessors(property=childrenNSPorts);
     
 }
 
@@ -149,27 +149,27 @@ NURedundantPortStatus_READY = @"READY";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"VLANRange"];
-        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
+        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portPeer1ID"];
         [self exposeLocalKeyPathToREST:@"portPeer2ID"];
         [self exposeLocalKeyPathToREST:@"portType"];
-        [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"useUntaggedHeartbeatVlan"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
+        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenNSPorts = [NUNSPortsFetcher fetcherWithParentObject:self];
         _childrenVLANs = [NUVLANsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenNSPorts = [NUNSPortsFetcher fetcherWithParentObject:self];
         
         
     }

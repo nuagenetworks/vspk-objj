@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUBGPProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUBGPProfileEntityScope_GLOBAL = @"GLOBAL";
@@ -42,13 +42,9 @@ NUBGPProfileEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUBGPProfile : NURESTObject
 {
     /*!
-        export BGP policy ID
+        Per enterprise unique name
     */
-    CPString _associatedExportRoutingPolicyID @accessors(property=associatedExportRoutingPolicyID);
-    /*!
-        import BGP policy ID
-    */
-    CPString _associatedImportRoutingPolicyID @accessors(property=associatedImportRoutingPolicyID);
+    CPString _name @accessors(property=name);
     /*!
         The time in minutes to wait before decrementing dampening penalty.
     */
@@ -78,16 +74,20 @@ NUBGPProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        export BGP policy ID
+    */
+    CPString _associatedExportRoutingPolicyID @accessors(property=associatedExportRoutingPolicyID);
+    /*!
+        import BGP policy ID
+    */
+    CPString _associatedImportRoutingPolicyID @accessors(property=associatedImportRoutingPolicyID);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        Per enterprise unique name
-    */
-    CPString _name @accessors(property=name);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -108,8 +108,7 @@ NUBGPProfileEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];
-        [self exposeLocalKeyPathToREST:@"associatedImportRoutingPolicyID"];
+        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"dampeningHalfLife"];
         [self exposeLocalKeyPathToREST:@"dampeningMaxSuppress"];
         [self exposeLocalKeyPathToREST:@"dampeningName"];
@@ -117,11 +116,12 @@ NUBGPProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"dampeningSuppress"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedImportRoutingPolicyID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"name"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

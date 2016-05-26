@@ -30,8 +30,8 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUGatewaySecuredDatasFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUGatewaySecurityEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUGatewaySecurityEntityScope_GLOBAL = @"GLOBAL";
@@ -43,6 +43,18 @@ NUGatewaySecurityEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUGatewaySecurity : NURESTObject
 {
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        The gateway associated with this object. This is a read only attribute
+    */
+    CPString _gatewayID @accessors(property=gatewayID);
+    /*!
+        change revision number for the gateway security data
+    */
+    CPNumber _revision @accessors(property=revision);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -50,22 +62,10 @@ NUGatewaySecurityEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        The gateway associated with this object. This is a read only attribute
-    */
-    CPString _gatewayID @accessors(property=gatewayID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        change revision number for the gateway security data
-    */
-    CPNumber _revision @accessors(property=revision);
     
     NUGatewaySecuredDatasFetcher _childrenGatewaySecuredDatas @accessors(property=childrenGatewaySecuredDatas);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -86,15 +86,15 @@ NUGatewaySecurityEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gatewayID"];
+        [self exposeLocalKeyPathToREST:@"revision"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"gatewayID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"revision"];
         
         _childrenGatewaySecuredDatas = [NUGatewaySecuredDatasFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -37,17 +37,17 @@
 @implementation NUAutoDiscoverCluster : NURESTObject
 {
     /*!
-        The ID of the vcenter to which this host is attached
+        Name of the shared resource
     */
-    CPString _assocVCenterDataCenterId @accessors(property=assocVCenterDataCenterId);
+    CPString _name @accessors(property=name);
     /*!
         VCenter Managed Object ID of the Datacenter
     */
     CPString _managedObjectID @accessors(property=managedObjectID);
     /*!
-        Name of the shared resource
+        The ID of the vcenter to which this host is attached
     */
-    CPString _name @accessors(property=name);
+    CPString _assocVCenterDataCenterId @accessors(property=assocVCenterDataCenterId);
     
     
 }
@@ -69,9 +69,9 @@
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"assocVCenterDataCenterId"];
-        [self exposeLocalKeyPathToREST:@"managedObjectID"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"managedObjectID"];
+        [self exposeLocalKeyPathToREST:@"assocVCenterDataCenterId"];
         
         
         

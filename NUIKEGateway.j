@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUIKESubnetsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUIKESubnetsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUIKEGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIKEGatewayEntityScope_GLOBAL = @"GLOBAL";
@@ -53,9 +53,13 @@ NUIKEGatewayIKEVersion_V2 = @"V2";
     */
     CPString _IPAddress @accessors(property=IPAddress);
     /*!
-        The ID of the associated Enterprise
+        Name of the IKEv2 Gateway
     */
-    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Description of the IKEv2 Gateway
     */
@@ -65,21 +69,17 @@ NUIKEGatewayIKEVersion_V2 = @"V2";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        The ID of the associated Enterprise
+    */
+    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the IKEv2 Gateway
-    */
-    CPString _name @accessors(property=name);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUIKESubnetsFetcher _childrenIKESubnets @accessors(property=childrenIKESubnets);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUIKESubnetsFetcher _childrenIKESubnets @accessors(property=childrenIKESubnets);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -102,16 +102,16 @@ NUIKEGatewayIKEVersion_V2 = @"V2";
     {
         [self exposeLocalKeyPathToREST:@"IKEVersion"];
         [self exposeLocalKeyPathToREST:@"IPAddress"];
-        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenIKESubnets = [NUIKESubnetsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenIKESubnets = [NUIKESubnetsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

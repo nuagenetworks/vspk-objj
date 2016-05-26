@@ -29,11 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEndPointsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUMetadataTagsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEndPointsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUExternalServiceDirection_INGRESS = @"INGRESS";
 NUExternalServiceEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -49,6 +49,18 @@ NUExternalServiceStage_START = @"START";
 @implementation NUExternalService : NURESTObject
 {
     /*!
+        unique name of the External Service. 
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Type of the service.
+    */
+    CPString _serviceType @accessors(property=serviceType);
+    /*!
         Description of the External Service.
     */
     CPString _description @accessors(property=description);
@@ -61,31 +73,19 @@ NUExternalServiceStage_START = @"START";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        unique name of the External Service. 
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Type of the service.
-    */
-    CPString _serviceType @accessors(property=serviceType);
-    /*!
         Stage -  START,END Possible values are START, .
     */
     CPString _stage @accessors(property=stage);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUEndPointsFetcher _childrenEndPoints @accessors(property=childrenEndPoints);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUMetadataTagsFetcher _childrenMetadataTags @accessors(property=childrenMetadataTags);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEndPointsFetcher _childrenEndPoints @accessors(property=childrenEndPoints);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -106,20 +106,20 @@ NUExternalServiceStage_START = @"START";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"serviceType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"direction"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"serviceType"];
         [self exposeLocalKeyPathToREST:@"stage"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEndPoints = [NUEndPointsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadataTags = [NUMetadataTagsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEndPoints = [NUEndPointsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

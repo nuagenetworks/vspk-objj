@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUNetworkLayoutEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNetworkLayoutEntityScope_GLOBAL = @"GLOBAL";
@@ -45,32 +45,32 @@ NUNetworkLayoutServiceType_SUBNET_ONLY = @"SUBNET_ONLY";
 @implementation NUNetworkLayout : NURESTObject
 {
     /*!
-        The AS number associated with this data center
+        ID of the user who last updated the object.
     */
-    CPNumber _autonomousSystemNum @accessors(property=autonomousSystemNum);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Identifies whether L3 or L2 services are supported.
+    */
+    CPString _serviceType @accessors(property=serviceType);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
         The IP address of the route reflector that can be used by the VSCs
     */
     CPString _routeReflectorIP @accessors(property=routeReflectorIP);
     /*!
-        Identifies whether L3 or L2 services are supported.
+        The AS number associated with this data center
     */
-    CPString _serviceType @accessors(property=serviceType);
+    CPNumber _autonomousSystemNum @accessors(property=autonomousSystemNum);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -91,15 +91,15 @@ NUNetworkLayoutServiceType_SUBNET_ONLY = @"SUBNET_ONLY";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"autonomousSystemNum"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"routeReflectorIP"];
         [self exposeLocalKeyPathToREST:@"serviceType"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"routeReflectorIP"];
+        [self exposeLocalKeyPathToREST:@"autonomousSystemNum"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

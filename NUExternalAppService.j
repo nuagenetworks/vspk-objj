@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUExternalAppServiceEgressType_REDIRECT = @"REDIRECT";
 NUExternalAppServiceEgressType_ROUTE = @"ROUTE";
@@ -46,21 +46,13 @@ NUExternalAppServiceIngressType_ROUTE = @"ROUTE";
 @implementation NUExternalAppService : NURESTObject
 {
     /*!
-        ID of service port group identifying the output ports
+        Name of the flow.
     */
-    CPString _associatedServiceEgressGroupID @accessors(property=associatedServiceEgressGroupID);
+    CPString _name @accessors(property=name);
     /*!
-        the redirect target ID that identifies the output ports
+        ID of the user who last updated the object.
     */
-    CPString _associatedServiceEgressRedirectID @accessors(property=associatedServiceEgressRedirectID);
-    /*!
-        ID of service port group identifying the input ports
-    */
-    CPString _associatedServiceIngressGroupID @accessors(property=associatedServiceIngressGroupID);
-    /*!
-        the redirect target ID that identifies the input ports
-    */
-    CPString _associatedServiceIngressRedirectID @accessors(property=associatedServiceIngressRedirectID);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Description of the flow.
     */
@@ -78,33 +70,29 @@ NUExternalAppServiceIngressType_ROUTE = @"ROUTE";
     */
     CPString _destinationNATMask @accessors(property=destinationNATMask);
     /*!
+        metadata
+    */
+    CPString _metadata @accessors(property=metadata);
+    /*!
         Egress type.
     */
     CPString _egressType @accessors(property=egressType);
     /*!
-        Specify if scope of entity is Data center or Enterprise level
+        Virtual IP Address
     */
-    CPString _entityScope @accessors(property=entityScope);
+    CPString _virtualIP @accessors(property=virtualIP);
     /*!
-        External object ID. Used for integration with third party systems
+        Boolean flag to indicate whether we require a VIP
     */
-    CPString _externalID @accessors(property=externalID);
+    BOOL _virtualIPRequired @accessors(property=virtualIPRequired);
     /*!
         Ingress type.
     */
     CPString _ingressType @accessors(property=ingressType);
     /*!
-        ID of the user who last updated the object.
+        Specify if scope of entity is Data center or Enterprise level
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        metadata
-    */
-    CPString _metadata @accessors(property=metadata);
-    /*!
-        Name of the flow.
-    */
-    CPString _name @accessors(property=name);
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Source NAT Address
     */
@@ -114,16 +102,28 @@ NUExternalAppServiceIngressType_ROUTE = @"ROUTE";
     */
     BOOL _sourceNATEnabled @accessors(property=sourceNATEnabled);
     /*!
-        Virtual IP Address
+        ID of service port group identifying the output ports
     */
-    CPString _virtualIP @accessors(property=virtualIP);
+    CPString _associatedServiceEgressGroupID @accessors(property=associatedServiceEgressGroupID);
     /*!
-        Boolean flag to indicate whether we require a VIP
+        the redirect target ID that identifies the output ports
     */
-    BOOL _virtualIPRequired @accessors(property=virtualIPRequired);
+    CPString _associatedServiceEgressRedirectID @accessors(property=associatedServiceEgressRedirectID);
+    /*!
+        ID of service port group identifying the input ports
+    */
+    CPString _associatedServiceIngressGroupID @accessors(property=associatedServiceIngressGroupID);
+    /*!
+        the redirect target ID that identifies the input ports
+    */
+    CPString _associatedServiceIngressRedirectID @accessors(property=associatedServiceIngressRedirectID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -144,28 +144,28 @@ NUExternalAppServiceIngressType_ROUTE = @"ROUTE";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"associatedServiceEgressGroupID"];
-        [self exposeLocalKeyPathToREST:@"associatedServiceEgressRedirectID"];
-        [self exposeLocalKeyPathToREST:@"associatedServiceIngressGroupID"];
-        [self exposeLocalKeyPathToREST:@"associatedServiceIngressRedirectID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationNATAddress"];
         [self exposeLocalKeyPathToREST:@"destinationNATEnabled"];
         [self exposeLocalKeyPathToREST:@"destinationNATMask"];
-        [self exposeLocalKeyPathToREST:@"egressType"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"ingressType"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"metadata"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"sourceNATAddress"];
-        [self exposeLocalKeyPathToREST:@"sourceNATEnabled"];
+        [self exposeLocalKeyPathToREST:@"egressType"];
         [self exposeLocalKeyPathToREST:@"virtualIP"];
         [self exposeLocalKeyPathToREST:@"virtualIPRequired"];
+        [self exposeLocalKeyPathToREST:@"ingressType"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"sourceNATAddress"];
+        [self exposeLocalKeyPathToREST:@"sourceNATEnabled"];
+        [self exposeLocalKeyPathToREST:@"associatedServiceEgressGroupID"];
+        [self exposeLocalKeyPathToREST:@"associatedServiceEgressRedirectID"];
+        [self exposeLocalKeyPathToREST:@"associatedServiceIngressGroupID"];
+        [self exposeLocalKeyPathToREST:@"associatedServiceIngressRedirectID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

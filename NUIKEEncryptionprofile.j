@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUIKEEncryptionprofileDPDMode_ON_DEMAND = @"ON_DEMAND";
 NUIKEEncryptionprofileDPDMode_PERIODIC = @"PERIODIC";
@@ -141,9 +141,17 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
     */
     CPString _ISAKMPHashAlgorithm @accessors(property=ISAKMPHashAlgorithm);
     /*!
-        The ID of the associated Enterprise
+        Name of the Encryption Profile
     */
-    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        
+    */
+    CPNumber _sequence @accessors(property=sequence);
     /*!
         A description of the Profile instance created.
     */
@@ -153,24 +161,16 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        The ID of the associated Enterprise
+    */
+    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the Encryption Profile
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        
-    */
-    CPNumber _sequence @accessors(property=sequence);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -207,16 +207,16 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
         [self exposeLocalKeyPathToREST:@"ISAKMPEncryptionAlgorithm"];
         [self exposeLocalKeyPathToREST:@"ISAKMPEncryptionKeyLifetime"];
         [self exposeLocalKeyPathToREST:@"ISAKMPHashAlgorithm"];
-        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"sequence"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"sequence"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

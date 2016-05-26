@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUMonitoringPortEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUMonitoringPortEntityScope_GLOBAL = @"GLOBAL";
@@ -48,6 +48,14 @@ NUMonitoringPortState_UP = @"UP";
 @implementation NUMonitoringPort : NURESTObject
 {
     /*!
+        Name for the port.
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        Last port state change timestamp.
+    */
+    CPNumber _lastStateChange @accessors(property=lastStateChange);
+    /*!
         Flag to indicate that it is a access port or network port.
     */
     BOOL _access @accessors(property=access);
@@ -55,22 +63,6 @@ NUMonitoringPortState_UP = @"UP";
         Optional port description.
     */
     CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Last port state change timestamp.
-    */
-    CPNumber _lastStateChange @accessors(property=lastStateChange);
-    /*!
-        Name for the port.
-    */
-    CPString _name @accessors(property=name);
     /*!
         
     */
@@ -80,16 +72,24 @@ NUMonitoringPortState_UP = @"UP";
     */
     BOOL _resilient @accessors(property=resilient);
     /*!
-        The current state of the port.
+        Specify if scope of entity is Data center or Enterprise level
     */
-    CPString _state @accessors(property=state);
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Flag to indicate that is an uplink or downlink port.
     */
     BOOL _uplink @accessors(property=uplink);
+    /*!
+        The current state of the port.
+    */
+    CPString _state @accessors(property=state);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -110,19 +110,19 @@ NUMonitoringPortState_UP = @"UP";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"access"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastStateChange"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"resiliencyState"];
         [self exposeLocalKeyPathToREST:@"resilient"];
-        [self exposeLocalKeyPathToREST:@"state"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"uplink"];
+        [self exposeLocalKeyPathToREST:@"state"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

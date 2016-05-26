@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUMetadataTagsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUGlobalMetadataEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUGlobalMetadataEntityScope_GLOBAL = @"GLOBAL";
@@ -43,13 +43,33 @@ NUGlobalMetadataEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUGlobalMetadata : NURESTObject
 {
     /*!
-        Metadata that describes about the entity attached to it.
+        name of the Metadata.
     */
-    CPString _blob @accessors(property=blob);
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Description of the Metadata.
     */
     CPString _description @accessors(property=description);
+    /*!
+        metadata tag IDs associated with this metadata you can filter metadata based on this attribute for example  X-Nuage-Filter: '2d6fb627-603b-421c-b63a-eb0a6d712761' IN metadataTagIDs 
+    */
+    CPArrayController _metadataTagIDs @accessors(property=metadataTagIDs);
+    /*!
+        specifies metadata changes need to be notified to controller,by default it is notified
+    */
+    BOOL _networkNotificationDisabled @accessors(property=networkNotificationDisabled);
+    /*!
+        Metadata that describes about the entity attached to it.
+    */
+    CPString _blob @accessors(property=blob);
+    /*!
+        specifies metadata is global or local
+    */
+    BOOL _globalMetadata @accessors(property=globalMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -58,30 +78,10 @@ NUGlobalMetadataEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        specifies metadata is global or local
-    */
-    BOOL _globalMetadata @accessors(property=globalMetadata);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        metadata tag IDs associated with this metadata you can filter metadata based on this attribute for example  X-Nuage-Filter: '2d6fb627-603b-421c-b63a-eb0a6d712761' IN metadataTagIDs 
-    */
-    CPArrayController _metadataTagIDs @accessors(property=metadataTagIDs);
-    /*!
-        name of the Metadata.
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        specifies metadata changes need to be notified to controller,by default it is notified
-    */
-    BOOL _networkNotificationDisabled @accessors(property=networkNotificationDisabled);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUMetadataTagsFetcher _childrenMetadataTags @accessors(property=childrenMetadataTags);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -102,19 +102,19 @@ NUGlobalMetadataEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"blob"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"metadataTagIDs"];
+        [self exposeLocalKeyPathToREST:@"networkNotificationDisabled"];
+        [self exposeLocalKeyPathToREST:@"blob"];
+        [self exposeLocalKeyPathToREST:@"globalMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"globalMetadata"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"metadataTagIDs"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"networkNotificationDisabled"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadataTags = [NUMetadataTagsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUIKEPSKEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
@@ -42,41 +42,17 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUIKEPSK : NURESTObject
 {
     /*!
-        The ID of the associated Enterprise
+        Name of the Encryption Profile
     */
-    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
-    /*!
-        Was this object autocreated from the connection
-    */
-    BOOL _autoCreated @accessors(property=autoCreated);
-    /*!
-        Description of the IKEv2 Authentication
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Base64 Encoded Encrypted PSK
-    */
-    CPString _encryptedPSK @accessors(property=encryptedPSK);
-    /*!
-        Serial Number of the certificate of the public key that encrypted this data
-    */
-    CPNumber _encryptingCertificateSerialNumber @accessors(property=encryptingCertificateSerialNumber);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _name @accessors(property=name);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Name of the Encryption Profile
+        Description of the IKEv2 Authentication
     */
-    CPString _name @accessors(property=name);
+    CPString _description @accessors(property=description);
     /*!
         Base64 Encoded private key signature
     */
@@ -86,12 +62,36 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _signingCertificateSerialNumber @accessors(property=signingCertificateSerialNumber);
     /*!
+        Base64 Encoded Encrypted PSK
+    */
+    CPString _encryptedPSK @accessors(property=encryptedPSK);
+    /*!
+        Serial Number of the certificate of the public key that encrypted this data
+    */
+    CPNumber _encryptingCertificateSerialNumber @accessors(property=encryptingCertificateSerialNumber);
+    /*!
         Unencrypted PSK
     */
     CPString _unencryptedPSK @accessors(property=unencryptedPSK);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The ID of the associated Enterprise
+    */
+    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
+    /*!
+        Was this object autocreated from the connection
+    */
+    BOOL _autoCreated @accessors(property=autoCreated);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -112,21 +112,21 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
-        [self exposeLocalKeyPathToREST:@"autoCreated"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"encryptedPSK"];
-        [self exposeLocalKeyPathToREST:@"encryptingCertificateSerialNumber"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"signature"];
         [self exposeLocalKeyPathToREST:@"signingCertificateSerialNumber"];
+        [self exposeLocalKeyPathToREST:@"encryptedPSK"];
+        [self exposeLocalKeyPathToREST:@"encryptingCertificateSerialNumber"];
         [self exposeLocalKeyPathToREST:@"unencryptedPSK"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
+        [self exposeLocalKeyPathToREST:@"autoCreated"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

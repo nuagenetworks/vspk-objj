@@ -29,11 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdEntryTemplatesFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVPortMirrorsFetcher.j"
 
 NUMirrorDestinationEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -46,6 +46,18 @@ NUMirrorDestinationEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUMirrorDestination : NURESTObject
 {
     /*!
+        Name of the mirror destination. Valid characters are alphabets, numbers, space and hyphen( - ).
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Service ID of the mirror destination.
+    */
+    CPNumber _serviceId @accessors(property=serviceId);
+    /*!
         IP address of the destination server where you want your traffic to be mirrored.
     */
     CPString _destinationIp @accessors(property=destinationIp);
@@ -57,24 +69,12 @@ NUMirrorDestinationEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the mirror destination. Valid characters are alphabets, numbers, space and hyphen( - ).
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Service ID of the mirror destination.
-    */
-    CPNumber _serviceId @accessors(property=serviceId);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressAdvFwdEntryTemplatesFetcher _childrenIngressAdvFwdEntryTemplates @accessors(property=childrenIngressAdvFwdEntryTemplates);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVPortMirrorsFetcher _childrenVPortMirrors @accessors(property=childrenVPortMirrors);
     
 }
@@ -96,18 +96,18 @@ NUMirrorDestinationEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"serviceId"];
         [self exposeLocalKeyPathToREST:@"destinationIp"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"serviceId"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdEntryTemplates = [NUIngressAdvFwdEntryTemplatesFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVPortMirrors = [NUVPortMirrorsFetcher fetcherWithParentObject:self];
         
         

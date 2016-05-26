@@ -29,15 +29,15 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAlarmsFetcher.j"
-@import "Fetchers/NUBGPNeighborsFetcher.j"
-@import "Fetchers/NUEnterprisePermissionsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUIKEGatewayConnectionsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUPATNATPoolsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUBGPNeighborsFetcher.j"
+@import "Fetchers/NUIKEGatewayConnectionsFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEnterprisePermissionsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUVLANEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVLANEntityScope_GLOBAL = @"GLOBAL";
@@ -59,53 +59,45 @@ NUVLANStatus_READY = @"READY";
 @implementation NUVLAN : NURESTObject
 {
     /*!
-        The ID of the associated BGP profile
+        value of VLAN
     */
-    CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
-    /*!
-        ID of the Egress QOS Policy associated with this VLAN.
-    */
-    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
-    /*!
-        A description of the Port
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        The Gateway associated with this  VLAN  . This is a read only attribute
-    */
-    CPString _gatewayID @accessors(property=gatewayID);
+    CPNumber _value @accessors(property=value);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The permitted  action to USE/EXTEND  this Gateway.
+        The Gateway associated with this  VLAN  . This is a read only attribute
     */
-    CPString _permittedAction @accessors(property=permittedAction);
+    CPString _gatewayID @accessors(property=gatewayID);
     /*!
         Determines whether this entity is read only.  Read only objects cannot be modified or deleted.
     */
     BOOL _readonly @accessors(property=readonly);
     /*!
+        The ID of the template that this Port was created from
+    */
+    CPString _templateID @accessors(property=templateID);
+    /*!
+        The permitted  action to USE/EXTEND  this Gateway.
+    */
+    CPString _permittedAction @accessors(property=permittedAction);
+    /*!
+        A description of the Port
+    */
+    CPString _description @accessors(property=description);
+    /*!
         Determines whether this entity can be used in associations with other properties.
     */
     BOOL _restricted @accessors(property=restricted);
     /*!
-        Status of the VLAN.
+        Specify if scope of entity is Data center or Enterprise level
     */
-    CPString _status @accessors(property=status);
+    CPString _entityScope @accessors(property=entityScope);
     /*!
-        The ID of the template that this Port was created from
+        The Vport associated with this  VLAN  . This is a read only attribute
     */
-    CPString _templateID @accessors(property=templateID);
+    CPString _vportID @accessors(property=vportID);
     /*!
         determines whether to use user mnemonic of the Port
     */
@@ -115,23 +107,31 @@ NUVLANStatus_READY = @"READY";
     */
     CPString _userMnemonic @accessors(property=userMnemonic);
     /*!
-        value of VLAN
+        The ID of the associated BGP profile
     */
-    CPNumber _value @accessors(property=value);
+    CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
     /*!
-        The Vport associated with this  VLAN  . This is a read only attribute
+        ID of the Egress QOS Policy associated with this VLAN.
     */
-    CPString _vportID @accessors(property=vportID);
+    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
+    /*!
+        Status of the VLAN.
+    */
+    CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
-    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
-    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUIKEGatewayConnectionsFetcher _childrenIKEGatewayConnections @accessors(property=childrenIKEGatewayConnections);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
+    NUIKEGatewayConnectionsFetcher _childrenIKEGatewayConnections @accessors(property=childrenIKEGatewayConnections);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -152,32 +152,32 @@ NUVLANStatus_READY = @"READY";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
-        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"gatewayID"];
+        [self exposeLocalKeyPathToREST:@"value"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"permittedAction"];
+        [self exposeLocalKeyPathToREST:@"gatewayID"];
         [self exposeLocalKeyPathToREST:@"readonly"];
-        [self exposeLocalKeyPathToREST:@"restricted"];
-        [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"templateID"];
+        [self exposeLocalKeyPathToREST:@"permittedAction"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"restricted"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"vportID"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
-        [self exposeLocalKeyPathToREST:@"value"];
-        [self exposeLocalKeyPathToREST:@"vportID"];
+        [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
+        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
-        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
-        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenIKEGatewayConnections = [NUIKEGatewayConnectionsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
+        _childrenIKEGatewayConnections = [NUIKEGatewayConnectionsFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

@@ -37,17 +37,17 @@
 @implementation NUAutodiscovereddatacenter : NURESTObject
 {
     /*!
-        The ID of the vcenter to which this host is attached
+        Name of the shared resource. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
-    CPString _assocVCenterId @accessors(property=assocVCenterId);
+    CPString _name @accessors(property=name);
     /*!
         VCenter Managed Object ID of the Datacenter
     */
     CPString _managedObjectID @accessors(property=managedObjectID);
     /*!
-        Name of the shared resource. Valid characters are alphabets, numbers, space and hyphen( - ).
+        The ID of the vcenter to which this host is attached
     */
-    CPString _name @accessors(property=name);
+    CPString _assocVCenterId @accessors(property=assocVCenterId);
     
     
 }
@@ -69,9 +69,9 @@
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"assocVCenterId"];
-        [self exposeLocalKeyPathToREST:@"managedObjectID"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"managedObjectID"];
+        [self exposeLocalKeyPathToREST:@"assocVCenterId"];
         
         
         

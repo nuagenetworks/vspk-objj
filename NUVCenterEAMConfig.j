@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUVCenterEAMConfigEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterEAMConfigEntityScope_GLOBAL = @"GLOBAL";
@@ -54,9 +54,21 @@ NUVCenterEAMConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _eamServerPortType @accessors(property=eamServerPortType);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        The url for the optional vib
+    */
+    CPString _vibURL @accessors(property=vibURL);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The url for the ovf
+    */
+    CPString _ovfURL @accessors(property=ovfURL);
     /*!
         Key of the extension that the solution registers
     */
@@ -65,21 +77,9 @@ NUVCenterEAMConfigEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        The url for the ovf
-    */
-    CPString _ovfURL @accessors(property=ovfURL);
-    /*!
-        The url for the optional vib
-    */
-    CPString _vibURL @accessors(property=vibURL);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -103,15 +103,15 @@ NUVCenterEAMConfigEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"eamServerIP"];
         [self exposeLocalKeyPathToREST:@"eamServerPortNumber"];
         [self exposeLocalKeyPathToREST:@"eamServerPortType"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"vibURL"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"ovfURL"];
         [self exposeLocalKeyPathToREST:@"extensionKey"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"ovfURL"];
-        [self exposeLocalKeyPathToREST:@"vibURL"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUIKEGatewayProfileAssociatedIKEAuthenticationType_ACLENTRY_LOCATION = @"ACLENTRY_LOCATION";
 NUIKEGatewayProfileAssociatedIKEAuthenticationType_ADDRESS_RANGE = @"ADDRESS_RANGE";
@@ -305,9 +305,29 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
     */
     CPString _IKEGatewayIdentifierType @accessors(property=IKEGatewayIdentifierType);
     /*!
+        Name of the IKEv2 Gateway Profile
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Class of service to be used.  Service classes in order of priority are A, B, C, D, E, F, G, and H.
+    */
+    CPString _serviceClass @accessors(property=serviceClass);
+    /*!
+        Description of the IKEv2 Gateway Profile
+    */
+    CPString _description @accessors(property=description);
+    /*!
         Allow any local subnets to be used
     */
     BOOL _antiReplayCheck @accessors(property=antiReplayCheck);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The ID of the associated Enterprise
     */
@@ -329,32 +349,12 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
     */
     CPString _associatedIKEGatewayID @accessors(property=associatedIKEGatewayID);
     /*!
-        Description of the IKEv2 Gateway Profile
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the IKEv2 Gateway Profile
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Class of service to be used.  Service classes in order of priority are A, B, C, D, E, F, G, and H.
-    */
-    CPString _serviceClass @accessors(property=serviceClass);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -377,21 +377,21 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
     {
         [self exposeLocalKeyPathToREST:@"IKEGatewayIdentifier"];
         [self exposeLocalKeyPathToREST:@"IKEGatewayIdentifierType"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"serviceClass"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"antiReplayCheck"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEAuthenticationID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEAuthenticationType"];
         [self exposeLocalKeyPathToREST:@"associatedIKEEncryptionProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEGatewayID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"serviceClass"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUBGPNeighborEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUBGPNeighborEntityScope_GLOBAL = @"GLOBAL";
@@ -42,33 +42,13 @@ NUBGPNeighborEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUBGPNeighbor : NURESTObject
 {
     /*!
-        export policy ID
+        Name of the peer
     */
-    CPString _associatedExportRoutingPolicyID @accessors(property=associatedExportRoutingPolicyID);
-    /*!
-        import routing policy ID
-    */
-    CPString _associatedImportRoutingPolicyID @accessors(property=associatedImportRoutingPolicyID);
+    CPString _name @accessors(property=name);
     /*!
         Enable/disable route flap damping.
     */
     BOOL _dampeningEnabled @accessors(property=dampeningEnabled);
-    /*!
-        Short description for this peer
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Name of the peer
-    */
-    CPString _name @accessors(property=name);
     /*!
         Local autonomous system to be used when establishing a session with the remote peer if it is different from the global BGP router autonomous system number.
     */
@@ -78,12 +58,32 @@ NUBGPNeighborEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _peerIP @accessors(property=peerIP);
     /*!
+        Short description for this peer
+    */
+    CPString _description @accessors(property=description);
+    /*!
         neighbor session yang blob
     */
     CPString _session @accessors(property=session);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        export policy ID
+    */
+    CPString _associatedExportRoutingPolicyID @accessors(property=associatedExportRoutingPolicyID);
+    /*!
+        import routing policy ID
+    */
+    CPString _associatedImportRoutingPolicyID @accessors(property=associatedImportRoutingPolicyID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -104,19 +104,19 @@ NUBGPNeighborEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];
-        [self exposeLocalKeyPathToREST:@"associatedImportRoutingPolicyID"];
-        [self exposeLocalKeyPathToREST:@"dampeningEnabled"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"dampeningEnabled"];
         [self exposeLocalKeyPathToREST:@"peerAS"];
         [self exposeLocalKeyPathToREST:@"peerIP"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"session"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedImportRoutingPolicyID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

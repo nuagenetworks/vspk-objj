@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NULocationEntityScope_ENTERPRISE = @"ENTERPRISE";
 NULocationEntityScope_GLOBAL = @"GLOBAL";
@@ -42,26 +42,6 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
 @implementation NULocation : NURESTObject
 {
     /*!
-        Formatted address including property number, street name, suite or office number, ...
-    */
-    CPString _address @accessors(property=address);
-    /*!
-        Country
-    */
-    CPString _country @accessors(property=country);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Request BSS to perform a geocode on the address - If no value passed, requestGeocode will be set to true
-    */
-    BOOL _ignoreGeocode @accessors(property=ignoreGeocode);
-    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
@@ -69,6 +49,22 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
         Latitude in decimal format.
     */
     CPNumber _latitude @accessors(property=latitude);
+    /*!
+        Formatted address including property number, street name, suite or office number, ...
+    */
+    CPString _address @accessors(property=address);
+    /*!
+        Request BSS to perform a geocode on the address - If no value passed, requestGeocode will be set to true
+    */
+    BOOL _ignoreGeocode @accessors(property=ignoreGeocode);
+    /*!
+        Time zone in which the Gateway is located.  This can be in the form of a UTC/GMT offset, continent/city location, or country/region.  The available time zones can be found in /usr/share/zoneinfo on a Linux machine or retrieved with TimeZone.getAvailableIDs() in Java.  Refer to the IANA (Internet Assigned Numbers Authority) for a list of time zones.  URL :  http://www.iana.org/time-zones  Default value is UTC (translating to Etc/Zulu)
+    */
+    CPString _timeZoneID @accessors(property=timeZoneID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Locality/City/County
     */
@@ -78,16 +74,20 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _longitude @accessors(property=longitude);
     /*!
+        Country
+    */
+    CPString _country @accessors(property=country);
+    /*!
         State/Province/Region
     */
     CPString _state @accessors(property=state);
     /*!
-        Time zone in which the Gateway is located.  This can be in the form of a UTC/GMT offset, continent/city location, or country/region.  The available time zones can be found in /usr/share/zoneinfo on a Linux machine or retrieved with TimeZone.getAvailableIDs() in Java.  Refer to the IANA (Internet Assigned Numbers Authority) for a list of time zones.  URL :  http://www.iana.org/time-zones  Default value is UTC (translating to Etc/Zulu)
+        External object ID. Used for integration with third party systems
     */
-    CPString _timeZoneID @accessors(property=timeZoneID);
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -108,20 +108,20 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"country"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"ignoreGeocode"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"latitude"];
+        [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"ignoreGeocode"];
+        [self exposeLocalKeyPathToREST:@"timeZoneID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locality"];
         [self exposeLocalKeyPathToREST:@"longitude"];
+        [self exposeLocalKeyPathToREST:@"country"];
         [self exposeLocalKeyPathToREST:@"state"];
-        [self exposeLocalKeyPathToREST:@"timeZoneID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         _timeZoneID = @"UTC";
         

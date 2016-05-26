@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUEnterpriseSecuredDataEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEnterpriseSecuredDataEntityScope_GLOBAL = @"GLOBAL";
@@ -42,9 +42,29 @@ NUEnterpriseSecuredDataEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUEnterpriseSecuredData : NURESTObject
 {
     /*!
+        authentication hash
+    */
+    CPString _hash @accessors(property=hash);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         encrypted data
     */
     CPString _data @accessors(property=data);
+    /*!
+        Seed Encryption Key id that encrypted this data
+    */
+    CPNumber _sekId @accessors(property=sekId);
+    /*!
+        Serial Number of the certificate needed to verify the encrypted data
+    */
+    CPString _keyserverCertSerialNumber @accessors(property=keyserverCertSerialNumber);
+    /*!
+        private key signed hash
+    */
+    CPString _signedHash @accessors(property=signedHash);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -53,29 +73,9 @@ NUEnterpriseSecuredDataEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        authentication hash
-    */
-    CPString _hash @accessors(property=hash);
-    /*!
-        Serial Number of the certificate needed to verify the encrypted data
-    */
-    CPString _keyserverCertSerialNumber @accessors(property=keyserverCertSerialNumber);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Seed Encryption Key id that encrypted this data
-    */
-    CPNumber _sekId @accessors(property=sekId);
-    /*!
-        private key signed hash
-    */
-    CPString _signedHash @accessors(property=signedHash);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -96,17 +96,17 @@ NUEnterpriseSecuredDataEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"hash"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"data"];
+        [self exposeLocalKeyPathToREST:@"sekId"];
+        [self exposeLocalKeyPathToREST:@"keyserverCertSerialNumber"];
+        [self exposeLocalKeyPathToREST:@"signedHash"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"hash"];
-        [self exposeLocalKeyPathToREST:@"keyserverCertSerialNumber"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"sekId"];
-        [self exposeLocalKeyPathToREST:@"signedHash"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

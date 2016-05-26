@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUDomainFIPAclTemplateEntriesFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 
 NUDomainFIPAclTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUDomainFIPAclTemplateEntityScope_GLOBAL = @"GLOBAL";
@@ -48,13 +48,17 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
 @implementation NUDomainFIPAclTemplate : NURESTObject
 {
     /*!
+        The name of the entity
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         If enabled, it means that this ACL or QOS entry is active
     */
     BOOL _active @accessors(property=active);
-    /*!
-        ID of the associated live entity
-    */
-    CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
         If enabled a default ACL of Allow All is added as the last entry in the list of ACL entries
     */
@@ -76,18 +80,6 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
     */
     CPArrayController _entries @accessors(property=entries);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        The name of the entity
-    */
-    CPString _name @accessors(property=name);
-    /*!
         State of the policy
     */
     CPString _policyState @accessors(property=policyState);
@@ -99,10 +91,18 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
         
     */
     CPString _priorityType @accessors(property=priorityType);
+    /*!
+        ID of the associated live entity
+    */
+    CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUDomainFIPAclTemplateEntriesFetcher _childrenDomainFIPAclTemplateEntries @accessors(property=childrenDomainFIPAclTemplateEntries);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     
 }
 
@@ -123,23 +123,23 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"active"];
-        [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
         [self exposeLocalKeyPathToREST:@"defaultAllowIP"];
         [self exposeLocalKeyPathToREST:@"defaultAllowNonIP"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"entries"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"priorityType"];
+        [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenDomainFIPAclTemplateEntries = [NUDomainFIPAclTemplateEntriesFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

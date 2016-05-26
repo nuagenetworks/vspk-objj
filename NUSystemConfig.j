@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUSystemConfigDomainTunnelType_DC_DEFAULT = @"DC_DEFAULT";
 NUSystemConfigDomainTunnelType_GRE = @"GRE";
@@ -78,41 +78,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _ACLAllowOrigin @accessors(property=ACLAllowOrigin);
     /*!
-        Timers in sec for undefined vms to be deleted(min =7200, max = 86400).
-    */
-    CPNumber _ADGatewayPurgeTime @accessors(property=ADGatewayPurgeTime);
-    /*!
-        Defines the interval in seconds, before the expiry time, that can used to renew the apiKey by making me API call. Minimum value is 1 min and maximum is 5 min.
-    */
-    CPNumber _APIKeyRenewalInterval @accessors(property=APIKeyRenewalInterval);
-    /*!
-        Defines the apiKey validity duration in seconds. Default is 24 hours and minimum value is 10 min.
-    */
-    CPNumber _APIKeyValidity @accessors(property=APIKeyValidity);
-    /*!
-         Autonomous System Number,Used for RT/RD auto-generation
-    */
-    CPNumber _ASNumber @accessors(property=ASNumber);
-    /*!
-        Defines total DHCP options that can be set on a domain.
-    */
-    CPNumber _DHCPOptionSize @accessors(property=DHCPOptionSize);
-    /*!
         System Default Equal-cost multi-path routing count,Every Domain derives ECMP count from this value unless specifically set for the domain
     */
     CPNumber _ECMPCount @accessors(property=ECMPCount);
-    /*!
-        Autonomous System Number,Used for EVPNBGPCommunityTag auto-generation
-    */
-    CPNumber _EVPNBGPCommunityTagASNumber @accessors(property=EVPNBGPCommunityTagASNumber);
-    /*!
-        EVPNBGPCommunityTag lower limit
-    */
-    CPNumber _EVPNBGPCommunityTagLowerLimit @accessors(property=EVPNBGPCommunityTagLowerLimit);
-    /*!
-        EVPNBGPCommunityTag upper limit
-    */
-    CPNumber _EVPNBGPCommunityTagUpperLimit @accessors(property=EVPNBGPCommunityTagUpperLimit);
     /*!
         LDAP Sync-Up task interval in seconds.
     */
@@ -126,9 +94,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _LDAPTrustStorePassword @accessors(property=LDAPTrustStorePassword);
     /*!
-        LRU Map size per subnet (to hold the deleted vm's ip addresses).
+        Timers in sec for undefined vms to be deleted(min =7200, max = 86400).
     */
-    CPNumber _LRUCacheSizePerSubnet @accessors(property=LRUCacheSizePerSubnet);
+    CPNumber _ADGatewayPurgeTime @accessors(property=ADGatewayPurgeTime);
     /*!
         route distinguisher lower limit
     */
@@ -146,21 +114,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _RDUpperLimit @accessors(property=RDUpperLimit);
     /*!
-        route target lower limit
+        Defines total DHCP options that can be set on a domain.
     */
-    CPNumber _RTLowerLimit @accessors(property=RTLowerLimit);
-    /*!
-        route target public network lower limit
-    */
-    CPNumber _RTPublicNetworkLowerLimit @accessors(property=RTPublicNetworkLowerLimit);
-    /*!
-        route target public network upper limit
-    */
-    CPNumber _RTPublicNetworkUpperLimit @accessors(property=RTPublicNetworkUpperLimit);
-    /*!
-        route target upper limit
-    */
-    CPNumber _RTUpperLimit @accessors(property=RTUpperLimit);
+    CPNumber _DHCPOptionSize @accessors(property=DHCPOptionSize);
     /*!
         LRU Map size for vm, this value has to set based on memory given to VSD jvm not finalized.
     */
@@ -202,9 +158,21 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _VNIDUpperLimit @accessors(property=VNIDUpperLimit);
     /*!
+        Defines the interval in seconds, before the expiry time, that can used to renew the apiKey by making me API call. Minimum value is 1 min and maximum is 5 min.
+    */
+    CPNumber _APIKeyRenewalInterval @accessors(property=APIKeyRenewalInterval);
+    /*!
+        Defines the apiKey validity duration in seconds. Default is 24 hours and minimum value is 10 min.
+    */
+    CPNumber _APIKeyValidity @accessors(property=APIKeyValidity);
+    /*!
         Defines the timeout in seconds for vport initialization to stateful. Default value is 300 secs and the timeout should be between 0 to 86400 seconds.
     */
     CPNumber _VPortInitStatefulTimer @accessors(property=VPortInitStatefulTimer);
+    /*!
+        LRU Map size per subnet (to hold the deleted vm's ip addresses).
+    */
+    CPNumber _LRUCacheSizePerSubnet @accessors(property=LRUCacheSizePerSubnet);
     /*!
         This flag is used to indicate that whether VSC is on the same version as VSD or not.
     */
@@ -218,37 +186,77 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     BOOL _VSDUpgradeIsComplete @accessors(property=VSDUpgradeIsComplete);
     /*!
-        Maximum alarms per object for example max distinct alarms for specific VM (min = 5, max =20)
+         Autonomous System Number,Used for RT/RD auto-generation
     */
-    CPNumber _alarmsMaxPerObject @accessors(property=alarmsMaxPerObject);
+    CPNumber _ASNumber @accessors(property=ASNumber);
     /*!
-        Allow Enterprise Avatar to be populated on NSG Portal
+        route target lower limit
     */
-    BOOL _allowEnterpriseAvatarOnNSG @accessors(property=allowEnterpriseAvatarOnNSG);
+    CPNumber _RTLowerLimit @accessors(property=RTLowerLimit);
     /*!
-        Defines location where image files needs to be copied. Above URL should be configured to read the file from this location.
+        route target public network lower limit
     */
-    CPString _avatarBasePath @accessors(property=avatarBasePath);
+    CPNumber _RTPublicNetworkLowerLimit @accessors(property=RTPublicNetworkLowerLimit);
     /*!
-        Defines the url to read the avatar image files
+        route target public network upper limit
     */
-    CPString _avatarBaseURL @accessors(property=avatarBaseURL);
+    CPNumber _RTPublicNetworkUpperLimit @accessors(property=RTPublicNetworkUpperLimit);
     /*!
-        Customer id upper limit, system wide value
+        route target upper limit
     */
-    CPNumber _customerIDUpperLimit @accessors(property=customerIDUpperLimit);
+    CPNumber _RTUpperLimit @accessors(property=RTUpperLimit);
     /*!
-        Customer key associated with the licese
+        Autonomous System Number,Used for EVPNBGPCommunityTag auto-generation
     */
-    CPString _customerKey @accessors(property=customerKey);
+    CPNumber _EVPNBGPCommunityTagASNumber @accessors(property=EVPNBGPCommunityTagASNumber);
     /*!
-        Default Domain Tunnel Type .Possible values are VXLAN,GRE Possible values are DC_DEFAULT, GRE, VXLAN, .
+        EVPNBGPCommunityTag lower limit
     */
-    CPString _domainTunnelType @accessors(property=domainTunnelType);
+    CPNumber _EVPNBGPCommunityTagLowerLimit @accessors(property=EVPNBGPCommunityTagLowerLimit);
     /*!
-        Timers in sec for  dynamic WAN Services to be considered not seen by 7X50.
+        EVPNBGPCommunityTag upper limit
     */
-    CPNumber _dynamicWANServiceDiffTime @accessors(property=dynamicWANServiceDiffTime);
+    CPNumber _EVPNBGPCommunityTagUpperLimit @accessors(property=EVPNBGPCommunityTagUpperLimit);
+    /*!
+        Defines upper bound for the page size. Configured or input page size should be less than this max page size.
+    */
+    CPNumber _pageMaxSize @accessors(property=pageMaxSize);
+    /*!
+        Defines the page size for the results returned by the REST call.
+    */
+    CPNumber _pageSize @accessors(property=pageSize);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Maximum failed login attempts before the account is locked (min = 5, max = 10). 0 = not enforced (unlimited attempts). This is not enforced if LDAP is used for authorization
+    */
+    CPNumber _maxFailedLogins @accessors(property=maxFailedLogins);
+    /*!
+        Defines maximum results returned by the REST call (allowed max=5000).
+    */
+    CPNumber _maxResponse @accessors(property=maxResponse);
+    /*!
+        Service id upper limit system wide value
+    */
+    CPNumber _serviceIDUpperLimit @accessors(property=serviceIDUpperLimit);
+    /*!
+        Enable the keyserver debug monitor (ie. ksmon command)
+    */
+    BOOL _keyServerMonitorEnabled @accessors(property=keyServerMonitorEnabled);
+    /*!
+        KeyServer time in seconds between full resyncs of VSD data (just in case of missed events)
+    */
+    CPNumber _keyServerVSDDataSynchronizationInterval @accessors(property=keyServerVSDDataSynchronizationInterval);
+    /*!
+        Customer id offset, this value has to be set before jboss starts , after that any change of value is ignored (minexclusive = 0, max = 20000) system wide value
+    */
+    CPNumber _offsetCustomerID @accessors(property=offsetCustomerID);
+    /*!
+        Service id offset, this value has to be set before jboss starts during install time, after that any change of value is ignored (minexclusive = 0, max = 40000) system wide value
+    */
+    CPNumber _offsetServiceID @accessors(property=offsetServiceID);
     /*!
         EJBCA NSG Certificate Profile
     */
@@ -270,37 +278,29 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _ejbcaVspRootCa @accessors(property=ejbcaVspRootCa);
     /*!
+        Maximum alarms per object for example max distinct alarms for specific VM (min = 5, max =20)
+    */
+    CPNumber _alarmsMaxPerObject @accessors(property=alarmsMaxPerObject);
+    /*!
+        Allow Enterprise Avatar to be populated on NSG Portal
+    */
+    BOOL _allowEnterpriseAvatarOnNSG @accessors(property=allowEnterpriseAvatarOnNSG);
+    /*!
+        Defines the inactive timeout for the client. If the client is inactive for more than timeout, server clears off all the cache/information regarding the client. This value should be greater than event processor max timeout
+    */
+    CPNumber _inactiveTimeout @accessors(property=inactiveTimeout);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        ESI ID offset
+        Default Domain Tunnel Type .Possible values are VXLAN,GRE Possible values are DC_DEFAULT, GRE, VXLAN, .
     */
-    CPNumber _esiID @accessors(property=esiID);
+    CPString _domainTunnelType @accessors(property=domainTunnelType);
     /*!
-        Cleanup task run interval in seconds.
+        Post processor thread count.
     */
-    CPNumber _eventLogCleanupInterval @accessors(property=eventLogCleanupInterval);
-    /*!
-        Maximum age in days for cleanup of the eventlog entries. On every periodic interval run, any eventlog entries older than this max age will be deleted.
-    */
-    CPNumber _eventLogEntryMaxAge @accessors(property=eventLogEntryMaxAge);
-    /*!
-        Defines time interval in milliseconds when events collected for a client should be processed.
-    */
-    CPNumber _eventProcessorInterval @accessors(property=eventProcessorInterval);
-    /*!
-        Defines the maximum number of events to be collected in case of events burst.
-    */
-    CPNumber _eventProcessorMaxEventsCount @accessors(property=eventProcessorMaxEventsCount);
-    /*!
-        Defines the maximum time period in milliseconds for the Rest server to wait before sending the events from the system.
-    */
-    CPNumber _eventProcessorTimeout @accessors(property=eventProcessorTimeout);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPNumber _postProcessorThreadsCount @accessors(property=postProcessorThreadsCount);
     /*!
         Group Key Encryption Profile Default SEK Generation Interval
     */
@@ -378,30 +378,6 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _groupKeyMinimumTrafficEncryptionKeyLifetime @accessors(property=groupKeyMinimumTrafficEncryptionKeyLifetime);
     /*!
-        Defines the inactive timeout for the client. If the client is inactive for more than timeout, server clears off all the cache/information regarding the client. This value should be greater than event processor max timeout
-    */
-    CPNumber _inactiveTimeout @accessors(property=inactiveTimeout);
-    /*!
-        Enable the keyserver debug monitor (ie. ksmon command)
-    */
-    BOOL _keyServerMonitorEnabled @accessors(property=keyServerMonitorEnabled);
-    /*!
-        KeyServer time in seconds between full resyncs of VSD data (just in case of missed events)
-    */
-    CPNumber _keyServerVSDDataSynchronizationInterval @accessors(property=keyServerVSDDataSynchronizationInterval);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Maximum failed login attempts before the account is locked (min = 5, max = 10). 0 = not enforced (unlimited attempts). This is not enforced if LDAP is used for authorization
-    */
-    CPNumber _maxFailedLogins @accessors(property=maxFailedLogins);
-    /*!
-        Defines maximum results returned by the REST call (allowed max=5000).
-    */
-    CPNumber _maxResponse @accessors(property=maxResponse);
-    /*!
         NSG Bootstrap Endpoint
     */
     CPString _nsgBootstrapEndpoint @accessors(property=nsgBootstrapEndpoint);
@@ -414,29 +390,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _nsgLocalUiUrl @accessors(property=nsgLocalUiUrl);
     /*!
-        Customer id offset, this value has to be set before jboss starts , after that any change of value is ignored (minexclusive = 0, max = 20000) system wide value
+        ESI ID offset
     */
-    CPNumber _offsetCustomerID @accessors(property=offsetCustomerID);
-    /*!
-        Service id offset, this value has to be set before jboss starts during install time, after that any change of value is ignored (minexclusive = 0, max = 40000) system wide value
-    */
-    CPNumber _offsetServiceID @accessors(property=offsetServiceID);
-    /*!
-        Defines upper bound for the page size. Configured or input page size should be less than this max page size.
-    */
-    CPNumber _pageMaxSize @accessors(property=pageMaxSize);
-    /*!
-        Defines the page size for the results returned by the REST call.
-    */
-    CPNumber _pageSize @accessors(property=pageSize);
-    /*!
-        Post processor thread count.
-    */
-    CPNumber _postProcessorThreadsCount @accessors(property=postProcessorThreadsCount);
-    /*!
-        Service id upper limit system wide value
-    */
-    CPNumber _serviceIDUpperLimit @accessors(property=serviceIDUpperLimit);
+    CPNumber _esiID @accessors(property=esiID);
     /*!
         True to enable stacktrace in the REST call.
     */
@@ -490,6 +446,62 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _subnetResyncOutstandingInterval @accessors(property=subnetResyncOutstandingInterval);
     /*!
+        Customer id upper limit, system wide value
+    */
+    CPNumber _customerIDUpperLimit @accessors(property=customerIDUpperLimit);
+    /*!
+        Customer key associated with the licese
+    */
+    CPString _customerKey @accessors(property=customerKey);
+    /*!
+        Defines location where image files needs to be copied. Above URL should be configured to read the file from this location.
+    */
+    CPString _avatarBasePath @accessors(property=avatarBasePath);
+    /*!
+        Defines the url to read the avatar image files
+    */
+    CPString _avatarBaseURL @accessors(property=avatarBaseURL);
+    /*!
+        Cleanup task run interval in seconds.
+    */
+    CPNumber _eventLogCleanupInterval @accessors(property=eventLogCleanupInterval);
+    /*!
+        Maximum age in days for cleanup of the eventlog entries. On every periodic interval run, any eventlog entries older than this max age will be deleted.
+    */
+    CPNumber _eventLogEntryMaxAge @accessors(property=eventLogEntryMaxAge);
+    /*!
+        Defines time interval in milliseconds when events collected for a client should be processed.
+    */
+    CPNumber _eventProcessorInterval @accessors(property=eventProcessorInterval);
+    /*!
+        Defines the maximum number of events to be collected in case of events burst.
+    */
+    CPNumber _eventProcessorMaxEventsCount @accessors(property=eventProcessorMaxEventsCount);
+    /*!
+        Defines the maximum time period in milliseconds for the Rest server to wait before sending the events from the system.
+    */
+    CPNumber _eventProcessorTimeout @accessors(property=eventProcessorTimeout);
+    /*!
+        Two Factor Code Expiry in Seconds
+    */
+    CPNumber _twoFactorCodeExpiry @accessors(property=twoFactorCodeExpiry);
+    /*!
+        Two Factor Code Length
+    */
+    CPNumber _twoFactorCodeLength @accessors(property=twoFactorCodeLength);
+    /*!
+        Two Factor Seed length in bytes
+    */
+    CPNumber _twoFactorCodeSeedLength @accessors(property=twoFactorCodeSeedLength);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
+        Timers in sec for  dynamic WAN Services to be considered not seen by 7X50.
+    */
+    CPNumber _dynamicWANServiceDiffTime @accessors(property=dynamicWANServiceDiffTime);
+    /*!
         Specifies the remote syslog destination host
     */
     CPString _syslogDestinationHost @accessors(property=syslogDestinationHost);
@@ -517,21 +529,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         None
     */
     CPString _systemAvatarType @accessors(property=systemAvatarType);
-    /*!
-        Two Factor Code Expiry in Seconds
-    */
-    CPNumber _twoFactorCodeExpiry @accessors(property=twoFactorCodeExpiry);
-    /*!
-        Two Factor Code Length
-    */
-    CPNumber _twoFactorCodeLength @accessors(property=twoFactorCodeLength);
-    /*!
-        Two Factor Seed length in bytes
-    */
-    CPNumber _twoFactorCodeSeedLength @accessors(property=twoFactorCodeSeedLength);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -553,27 +553,16 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"ACLAllowOrigin"];
-        [self exposeLocalKeyPathToREST:@"ADGatewayPurgeTime"];
-        [self exposeLocalKeyPathToREST:@"APIKeyRenewalInterval"];
-        [self exposeLocalKeyPathToREST:@"APIKeyValidity"];
-        [self exposeLocalKeyPathToREST:@"ASNumber"];
-        [self exposeLocalKeyPathToREST:@"DHCPOptionSize"];
         [self exposeLocalKeyPathToREST:@"ECMPCount"];
-        [self exposeLocalKeyPathToREST:@"EVPNBGPCommunityTagASNumber"];
-        [self exposeLocalKeyPathToREST:@"EVPNBGPCommunityTagLowerLimit"];
-        [self exposeLocalKeyPathToREST:@"EVPNBGPCommunityTagUpperLimit"];
         [self exposeLocalKeyPathToREST:@"LDAPSyncInterval"];
         [self exposeLocalKeyPathToREST:@"LDAPTrustStoreCertifcate"];
         [self exposeLocalKeyPathToREST:@"LDAPTrustStorePassword"];
-        [self exposeLocalKeyPathToREST:@"LRUCacheSizePerSubnet"];
+        [self exposeLocalKeyPathToREST:@"ADGatewayPurgeTime"];
         [self exposeLocalKeyPathToREST:@"RDLowerLimit"];
         [self exposeLocalKeyPathToREST:@"RDPublicNetworkLowerLimit"];
         [self exposeLocalKeyPathToREST:@"RDPublicNetworkUpperLimit"];
         [self exposeLocalKeyPathToREST:@"RDUpperLimit"];
-        [self exposeLocalKeyPathToREST:@"RTLowerLimit"];
-        [self exposeLocalKeyPathToREST:@"RTPublicNetworkLowerLimit"];
-        [self exposeLocalKeyPathToREST:@"RTPublicNetworkUpperLimit"];
-        [self exposeLocalKeyPathToREST:@"RTUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"DHCPOptionSize"];
         [self exposeLocalKeyPathToREST:@"VMCacheSize"];
         [self exposeLocalKeyPathToREST:@"VMPurgeTime"];
         [self exposeLocalKeyPathToREST:@"VMResyncDeletionWaitTime"];
@@ -584,31 +573,42 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"VNIDPublicNetworkLowerLimit"];
         [self exposeLocalKeyPathToREST:@"VNIDPublicNetworkUpperLimit"];
         [self exposeLocalKeyPathToREST:@"VNIDUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"APIKeyRenewalInterval"];
+        [self exposeLocalKeyPathToREST:@"APIKeyValidity"];
         [self exposeLocalKeyPathToREST:@"VPortInitStatefulTimer"];
+        [self exposeLocalKeyPathToREST:@"LRUCacheSizePerSubnet"];
         [self exposeLocalKeyPathToREST:@"VSCOnSameVersionAsVSD"];
         [self exposeLocalKeyPathToREST:@"VSDReadOnlyMode"];
         [self exposeLocalKeyPathToREST:@"VSDUpgradeIsComplete"];
-        [self exposeLocalKeyPathToREST:@"alarmsMaxPerObject"];
-        [self exposeLocalKeyPathToREST:@"allowEnterpriseAvatarOnNSG"];
-        [self exposeLocalKeyPathToREST:@"avatarBasePath"];
-        [self exposeLocalKeyPathToREST:@"avatarBaseURL"];
-        [self exposeLocalKeyPathToREST:@"customerIDUpperLimit"];
-        [self exposeLocalKeyPathToREST:@"customerKey"];
-        [self exposeLocalKeyPathToREST:@"domainTunnelType"];
-        [self exposeLocalKeyPathToREST:@"dynamicWANServiceDiffTime"];
+        [self exposeLocalKeyPathToREST:@"ASNumber"];
+        [self exposeLocalKeyPathToREST:@"RTLowerLimit"];
+        [self exposeLocalKeyPathToREST:@"RTPublicNetworkLowerLimit"];
+        [self exposeLocalKeyPathToREST:@"RTPublicNetworkUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"RTUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"EVPNBGPCommunityTagASNumber"];
+        [self exposeLocalKeyPathToREST:@"EVPNBGPCommunityTagLowerLimit"];
+        [self exposeLocalKeyPathToREST:@"EVPNBGPCommunityTagUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"pageMaxSize"];
+        [self exposeLocalKeyPathToREST:@"pageSize"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"maxFailedLogins"];
+        [self exposeLocalKeyPathToREST:@"maxResponse"];
+        [self exposeLocalKeyPathToREST:@"serviceIDUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"keyServerMonitorEnabled"];
+        [self exposeLocalKeyPathToREST:@"keyServerVSDDataSynchronizationInterval"];
+        [self exposeLocalKeyPathToREST:@"offsetCustomerID"];
+        [self exposeLocalKeyPathToREST:@"offsetServiceID"];
         [self exposeLocalKeyPathToREST:@"ejbcaNSGCertificateProfile"];
         [self exposeLocalKeyPathToREST:@"ejbcaNSGEndEntityProfile"];
         [self exposeLocalKeyPathToREST:@"ejbcaOCSPResponderCN"];
         [self exposeLocalKeyPathToREST:@"ejbcaOCSPResponderURI"];
         [self exposeLocalKeyPathToREST:@"ejbcaVspRootCa"];
+        [self exposeLocalKeyPathToREST:@"alarmsMaxPerObject"];
+        [self exposeLocalKeyPathToREST:@"allowEnterpriseAvatarOnNSG"];
+        [self exposeLocalKeyPathToREST:@"inactiveTimeout"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"esiID"];
-        [self exposeLocalKeyPathToREST:@"eventLogCleanupInterval"];
-        [self exposeLocalKeyPathToREST:@"eventLogEntryMaxAge"];
-        [self exposeLocalKeyPathToREST:@"eventProcessorInterval"];
-        [self exposeLocalKeyPathToREST:@"eventProcessorMaxEventsCount"];
-        [self exposeLocalKeyPathToREST:@"eventProcessorTimeout"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"domainTunnelType"];
+        [self exposeLocalKeyPathToREST:@"postProcessorThreadsCount"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKGenerationInterval"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKLifetime"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKPayloadEncryptionAlgorithm"];
@@ -628,21 +628,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"groupKeyMinimumSeedGenerationInterval"];
         [self exposeLocalKeyPathToREST:@"groupKeyMinimumSeedLifetime"];
         [self exposeLocalKeyPathToREST:@"groupKeyMinimumTrafficEncryptionKeyLifetime"];
-        [self exposeLocalKeyPathToREST:@"inactiveTimeout"];
-        [self exposeLocalKeyPathToREST:@"keyServerMonitorEnabled"];
-        [self exposeLocalKeyPathToREST:@"keyServerVSDDataSynchronizationInterval"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"maxFailedLogins"];
-        [self exposeLocalKeyPathToREST:@"maxResponse"];
         [self exposeLocalKeyPathToREST:@"nsgBootstrapEndpoint"];
         [self exposeLocalKeyPathToREST:@"nsgConfigEndpoint"];
         [self exposeLocalKeyPathToREST:@"nsgLocalUiUrl"];
-        [self exposeLocalKeyPathToREST:@"offsetCustomerID"];
-        [self exposeLocalKeyPathToREST:@"offsetServiceID"];
-        [self exposeLocalKeyPathToREST:@"pageMaxSize"];
-        [self exposeLocalKeyPathToREST:@"pageSize"];
-        [self exposeLocalKeyPathToREST:@"postProcessorThreadsCount"];
-        [self exposeLocalKeyPathToREST:@"serviceIDUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"esiID"];
         [self exposeLocalKeyPathToREST:@"stackTraceEnabled"];
         [self exposeLocalKeyPathToREST:@"statefulACLNonTCPTimeout"];
         [self exposeLocalKeyPathToREST:@"statefulACLTCPTimeout"];
@@ -656,6 +645,20 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"statsTSDBServerAddress"];
         [self exposeLocalKeyPathToREST:@"subnetResyncInterval"];
         [self exposeLocalKeyPathToREST:@"subnetResyncOutstandingInterval"];
+        [self exposeLocalKeyPathToREST:@"customerIDUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"customerKey"];
+        [self exposeLocalKeyPathToREST:@"avatarBasePath"];
+        [self exposeLocalKeyPathToREST:@"avatarBaseURL"];
+        [self exposeLocalKeyPathToREST:@"eventLogCleanupInterval"];
+        [self exposeLocalKeyPathToREST:@"eventLogEntryMaxAge"];
+        [self exposeLocalKeyPathToREST:@"eventProcessorInterval"];
+        [self exposeLocalKeyPathToREST:@"eventProcessorMaxEventsCount"];
+        [self exposeLocalKeyPathToREST:@"eventProcessorTimeout"];
+        [self exposeLocalKeyPathToREST:@"twoFactorCodeExpiry"];
+        [self exposeLocalKeyPathToREST:@"twoFactorCodeLength"];
+        [self exposeLocalKeyPathToREST:@"twoFactorCodeSeedLength"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"dynamicWANServiceDiffTime"];
         [self exposeLocalKeyPathToREST:@"syslogDestinationHost"];
         [self exposeLocalKeyPathToREST:@"syslogDestinationPort"];
         [self exposeLocalKeyPathToREST:@"sysmonCleanupTaskInterval"];
@@ -663,12 +666,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"sysmonProbeResponseTimeout"];
         [self exposeLocalKeyPathToREST:@"systemAvatarData"];
         [self exposeLocalKeyPathToREST:@"systemAvatarType"];
-        [self exposeLocalKeyPathToREST:@"twoFactorCodeExpiry"];
-        [self exposeLocalKeyPathToREST:@"twoFactorCodeLength"];
-        [self exposeLocalKeyPathToREST:@"twoFactorCodeSeedLength"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

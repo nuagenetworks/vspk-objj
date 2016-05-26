@@ -29,12 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUVMsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUIngressACLTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIngressACLTemplateEntityScope_GLOBAL = @"GLOBAL";
@@ -51,25 +51,17 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
 @implementation NUIngressACLTemplate : NURESTObject
 {
     /*!
+        The name of the entity
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         If enabled, it means that this ACL or QOS entry is active
     */
     BOOL _active @accessors(property=active);
-    /*!
-        If enabled, it will disable the default anti-spoof ACL for this domain that essentially prevents any VM to send packets that do not originate from that particular VM
-    */
-    BOOL _allowAddressSpoof @accessors(property=allowAddressSpoof);
-    /*!
-        If enabled, it will disable the default anti-spoof ACL for this domain that essentially prevents any VM to send packets that do not originate from that particular VM
-    */
-    BOOL _allowL2AddressSpoof @accessors(property=allowL2AddressSpoof);
-    /*!
-        ID of the ACL template associated with this ACL template
-    */
-    CPString _assocAclTemplateId @accessors(property=assocAclTemplateId);
-    /*!
-        In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
-    */
-    CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
         If enabled a default ACL of Allow All is added as the last entry in the list of ACL entries
     */
@@ -83,21 +75,17 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
     */
     CPString _description @accessors(property=description);
     /*!
+        If enabled, it will disable the default anti-spoof ACL for this domain that essentially prevents any VM to send packets that do not originate from that particular VM
+    */
+    BOOL _allowAddressSpoof @accessors(property=allowAddressSpoof);
+    /*!
+        If enabled, it will disable the default anti-spoof ACL for this domain that essentially prevents any VM to send packets that do not originate from that particular VM
+    */
+    BOOL _allowL2AddressSpoof @accessors(property=allowL2AddressSpoof);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        The name of the entity
-    */
-    CPString _name @accessors(property=name);
     /*!
         None
     */
@@ -110,13 +98,25 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
         None
     */
     CPString _priorityType @accessors(property=priorityType);
+    /*!
+        ID of the ACL template associated with this ACL template
+    */
+    CPString _assocAclTemplateId @accessors(property=assocAclTemplateId);
+    /*!
+        In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
+    */
+    CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -137,28 +137,28 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"active"];
-        [self exposeLocalKeyPathToREST:@"allowAddressSpoof"];
-        [self exposeLocalKeyPathToREST:@"allowL2AddressSpoof"];
-        [self exposeLocalKeyPathToREST:@"assocAclTemplateId"];
-        [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
         [self exposeLocalKeyPathToREST:@"defaultAllowIP"];
         [self exposeLocalKeyPathToREST:@"defaultAllowNonIP"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"allowAddressSpoof"];
+        [self exposeLocalKeyPathToREST:@"allowL2AddressSpoof"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"priorityType"];
+        [self exposeLocalKeyPathToREST:@"assocAclTemplateId"];
+        [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

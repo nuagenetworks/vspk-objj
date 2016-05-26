@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUFloatingIPACLTemplateEntryAction_DROP = @"DROP";
 NUFloatingIPACLTemplateEntryAction_FORWARD = @"FORWARD";
@@ -305,10 +305,6 @@ NUFloatingIPACLTemplateEntryPolicyState_LIVE = @"LIVE";
 @implementation NUFloatingIPACLTemplateEntry : NURESTObject
 {
     /*!
-        DSCP match condition to be set in the rule. It is either * or from 0-63
-    */
-    CPString _DSCP @accessors(property=DSCP);
-    /*!
         The ICMP Code when protocol selected is ICMP
     */
     CPString _ICMPCode @accessors(property=ICMPCode);
@@ -317,6 +313,14 @@ NUFloatingIPACLTemplateEntryPolicyState_LIVE = @"LIVE";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
+        DSCP match condition to be set in the rule. It is either * or from 0-63
+    */
+    CPString _DSCP @accessors(property=DSCP);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         The action of the ACL entry DROP or FORWARD or REDIRECT. Action REDIRECT is allowed only for IngressAdvancedForwardingEntry
     */
     CPString _action @accessors(property=action);
@@ -324,6 +328,62 @@ NUFloatingIPACLTemplateEntryPolicyState_LIVE = @"LIVE";
         Overrides the source IP for Ingress and destination IP for Egress, macentries will use this adress as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
+    /*!
+        True means that this ACL entry is reflexive, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
+    */
+    BOOL _reflexive @accessors(property=reflexive);
+    /*!
+        Description of the ACL entry
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        The destination port to be matched if protocol is UDP or TCP. Value should be either * or single port number or a port range
+    */
+    CPString _destinationPort @accessors(property=destinationPort);
+    /*!
+        The destination network entity that is referenced(subnet/zone/macro)
+    */
+    CPString _networkID @accessors(property=networkID);
+    /*!
+        Type of the source network -    VM_SUBNET or VM_ZONE or VM_DOMAIN or SUBNET or ZONE or ENTERPRISE_NETWORK or PUBLIC_NETWORK or ANY
+    */
+    CPString _networkType @accessors(property=networkType);
+    /*!
+        This is the ID of the mirrorDestination entity associated with this entity
+    */
+    CPString _mirrorDestinationID @accessors(property=mirrorDestinationID);
+    /*!
+        Is flow logging enabled for this particular template
+    */
+    BOOL _flowLoggingEnabled @accessors(property=flowLoggingEnabled);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The ID of the location entity (Subnet/Zone/VportTag)
+    */
+    CPString _locationID @accessors(property=locationID);
+    /*!
+        Type of the location entity - ANY or SUBNET or ZONE or VPORTTAG
+    */
+    CPString _locationType @accessors(property=locationType);
+    /*!
+        State of the policy. 
+    */
+    CPString _policyState @accessors(property=policyState);
+    /*!
+        Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range
+    */
+    CPString _sourcePort @accessors(property=sourcePort);
+    /*!
+        The priority of the ACL entry that determines the order of entries
+    */
+    CPNumber _priority @accessors(property=priority);
+    /*!
+        Protocol number that must be matched
+    */
+    CPString _protocol @accessors(property=protocol);
     /*!
         The associated application ID
     */
@@ -341,74 +401,6 @@ NUFloatingIPACLTemplateEntryPolicyState_LIVE = @"LIVE";
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
-        Description of the ACL entry
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        The destination port to be matched if protocol is UDP or TCP. Value should be either * or single port number or a port range
-    */
-    CPString _destinationPort @accessors(property=destinationPort);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        Ether type of the packet to be matched. etherType can be * or a valid hexadecimal value
-    */
-    CPString _etherType @accessors(property=etherType);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Is flow logging enabled for this particular template
-    */
-    BOOL _flowLoggingEnabled @accessors(property=flowLoggingEnabled);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        The ID of the location entity (Subnet/Zone/VportTag)
-    */
-    CPString _locationID @accessors(property=locationID);
-    /*!
-        Type of the location entity - ANY or SUBNET or ZONE or VPORTTAG
-    */
-    CPString _locationType @accessors(property=locationType);
-    /*!
-        This is the ID of the mirrorDestination entity associated with this entity
-    */
-    CPString _mirrorDestinationID @accessors(property=mirrorDestinationID);
-    /*!
-        The destination network entity that is referenced(subnet/zone/macro)
-    */
-    CPString _networkID @accessors(property=networkID);
-    /*!
-        Type of the source network -    VM_SUBNET or VM_ZONE or VM_DOMAIN or SUBNET or ZONE or ENTERPRISE_NETWORK or PUBLIC_NETWORK or ANY
-    */
-    CPString _networkType @accessors(property=networkType);
-    /*!
-        State of the policy. 
-    */
-    CPString _policyState @accessors(property=policyState);
-    /*!
-        The priority of the ACL entry that determines the order of entries
-    */
-    CPNumber _priority @accessors(property=priority);
-    /*!
-        Protocol number that must be matched
-    */
-    CPString _protocol @accessors(property=protocol);
-    /*!
-        True means that this ACL entry is reflexive, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
-    */
-    BOOL _reflexive @accessors(property=reflexive);
-    /*!
-        Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range
-    */
-    CPString _sourcePort @accessors(property=sourcePort);
-    /*!
         True means that this ACL entry is stateful, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
     */
     BOOL _stateful @accessors(property=stateful);
@@ -420,9 +412,17 @@ NUFloatingIPACLTemplateEntryPolicyState_LIVE = @"LIVE";
         Is stats logging enabled for this particular template
     */
     BOOL _statsLoggingEnabled @accessors(property=statsLoggingEnabled);
+    /*!
+        Ether type of the packet to be matched. etherType can be * or a valid hexadecimal value
+    */
+    CPString _etherType @accessors(property=etherType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -443,38 +443,38 @@ NUFloatingIPACLTemplateEntryPolicyState_LIVE = @"LIVE";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
+        [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
+        [self exposeLocalKeyPathToREST:@"reflexive"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"destinationPort"];
+        [self exposeLocalKeyPathToREST:@"networkID"];
+        [self exposeLocalKeyPathToREST:@"networkType"];
+        [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
+        [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"locationID"];
+        [self exposeLocalKeyPathToREST:@"locationType"];
+        [self exposeLocalKeyPathToREST:@"policyState"];
+        [self exposeLocalKeyPathToREST:@"sourcePort"];
+        [self exposeLocalKeyPathToREST:@"priority"];
+        [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationID"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationObjectID"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationObjectType"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"destinationPort"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"etherType"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"locationID"];
-        [self exposeLocalKeyPathToREST:@"locationType"];
-        [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
-        [self exposeLocalKeyPathToREST:@"networkID"];
-        [self exposeLocalKeyPathToREST:@"networkType"];
-        [self exposeLocalKeyPathToREST:@"policyState"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"protocol"];
-        [self exposeLocalKeyPathToREST:@"reflexive"];
-        [self exposeLocalKeyPathToREST:@"sourcePort"];
         [self exposeLocalKeyPathToREST:@"stateful"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];
+        [self exposeLocalKeyPathToREST:@"etherType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

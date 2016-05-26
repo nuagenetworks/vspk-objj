@@ -29,16 +29,16 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAlarmsFetcher.j"
-@import "Fetchers/NUEnterprisePermissionsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUPATNATPoolsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
-@import "Fetchers/NUPortsFetcher.j"
 @import "Fetchers/NUWANServicesFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEnterprisePermissionsFetcher.j"
+@import "Fetchers/NUJobsFetcher.j"
+@import "Fetchers/NUPortsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUGatewayEntityScope_GLOBAL = @"GLOBAL";
@@ -63,37 +63,25 @@ NUGatewayPersonality_VSG = @"VSG";
 @implementation NUGateway : NURESTObject
 {
     /*!
-        The Auto Discovered Gateway associated with this Gateway Instance
+        Name of the Gateway
     */
-    CPString _autoDiscGatewayID @accessors(property=autoDiscGatewayID);
-    /*!
-        A description of the Gateway
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        The enterprise associated with this Gateway. This is a read only attribute
-    */
-    CPString _enterpriseID @accessors(property=enterpriseID);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _name @accessors(property=name);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Name of the Gateway
+        The Redundancy Gateway Group associated with this Gateway Instance. This is a read only attribute
     */
-    CPString _name @accessors(property=name);
+    CPString _redundancyGroupID @accessors(property=redundancyGroupID);
     /*!
         The System ID of the peer gateway associated with this Gateway instance when it is discovered by the network manager (VSD) as being redundant.
     */
     CPString _peer @accessors(property=peer);
+    /*!
+        The ID of the template that this Gateway was created from. This should be set when instantiating a Gateway
+    */
+    CPString _templateID @accessors(property=templateID);
     /*!
         Indicates that this gateway is pending state or state. When in pending state it cannot be modified from REST.
     */
@@ -107,32 +95,44 @@ NUGatewayPersonality_VSG = @"VSG";
     */
     CPString _personality @accessors(property=personality);
     /*!
-        The Redundancy Gateway Group associated with this Gateway Instance. This is a read only attribute
+        A description of the Gateway
     */
-    CPString _redundancyGroupID @accessors(property=redundancyGroupID);
+    CPString _description @accessors(property=description);
     /*!
-        Identifier of the Gateway, cannot be modified after creation
+        The enterprise associated with this Gateway. This is a read only attribute
     */
-    CPString _systemID @accessors(property=systemID);
+    CPString _enterpriseID @accessors(property=enterpriseID);
     /*!
-        The ID of the template that this Gateway was created from. This should be set when instantiating a Gateway
+        Specify if scope of entity is Data center or Enterprise level
     */
-    CPString _templateID @accessors(property=templateID);
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Represent the system ID or the Virtual IP of a service used by a Gateway (VSG for now) to establish a tunnel with a remote VSG or hypervisor.  The format of this field is consistent with an IP address.
     */
     CPString _vtep @accessors(property=vtep);
+    /*!
+        The Auto Discovered Gateway associated with this Gateway Instance
+    */
+    CPString _autoDiscGatewayID @accessors(property=autoDiscGatewayID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
+        Identifier of the Gateway, cannot be modified after creation
+    */
+    CPString _systemID @accessors(property=systemID);
     
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
-    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
-    NUPortsFetcher _childrenPorts @accessors(property=childrenPorts);
     NUWANServicesFetcher _childrenWANServices @accessors(property=childrenWANServices);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
+    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
+    NUPortsFetcher _childrenPorts @accessors(property=childrenPorts);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -153,32 +153,32 @@ NUGatewayPersonality_VSG = @"VSG";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"enterpriseID"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"redundancyGroupID"];
         [self exposeLocalKeyPathToREST:@"peer"];
+        [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"pending"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
-        [self exposeLocalKeyPathToREST:@"redundancyGroupID"];
-        [self exposeLocalKeyPathToREST:@"systemID"];
-        [self exposeLocalKeyPathToREST:@"templateID"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"enterpriseID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"vtep"];
+        [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"systemID"];
         
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
-        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
-        _childrenPorts = [NUPortsFetcher fetcherWithParentObject:self];
         _childrenWANServices = [NUWANServicesFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
+        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
+        _childrenPorts = [NUPortsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _personality = @"VRSG";
         

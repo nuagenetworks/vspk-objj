@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVRSAddressRangesFetcher.j"
 
 NUVCenterHypervisorEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -44,25 +44,33 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUVCenterHypervisor : NURESTObject
 {
     /*!
+        IP Address of the VCenter.
+    */
+    CPString _vCenterIP @accessors(property=vCenterIP);
+    /*!
+        Password for VCenter.
+    */
+    CPString _vCenterPassword @accessors(property=vCenterPassword);
+    /*!
+        Username for VCenter.
+    */
+    CPString _vCenterUser @accessors(property=vCenterUser);
+    /*!
         ID of the VRS metrics object.
     */
     CPString _VRSMetricsID @accessors(property=VRSMetricsID);
     /*!
-        Whether to get the Data IP for the VRS VM from DHCP or statically
+        Whether split-activation or not (Openstack/CloudStack)
     */
-    BOOL _allowDataDHCP @accessors(property=allowDataDHCP);
+    BOOL _vRequireNuageMetadata @accessors(property=vRequireNuageMetadata);
     /*!
-        Whether to get the management IP for the VRS VM from DHCP or statically
+        Name of the Hypervisor
     */
-    BOOL _allowMgmtDHCP @accessors(property=allowMgmtDHCP);
+    CPString _name @accessors(property=name);
     /*!
-        List of the available network list for the hypervisor.
+        ID of the user who last updated the object.
     */
-    CPArrayController _availableNetworks @accessors(property=availableNetworks);
-    /*!
-        To provide a URL to install a custom app on VRS
-    */
-    CPString _customizedScriptURL @accessors(property=customizedScriptURL);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Data DNS 1
     */
@@ -92,41 +100,25 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _datapathSyncTimeout @accessors(property=datapathSyncTimeout);
     /*!
+        Cluster in scope or not in scope.
+    */
+    BOOL _scope @accessors(property=scope);
+    /*!
+        IP address of the secondary Controller (VSC)
+    */
+    CPString _secondaryNuageController @accessors(property=secondaryNuageController);
+    /*!
+        Whether Data will use the management network or not
+    */
+    BOOL _separateDataNetwork @accessors(property=separateDataNetwork);
+    /*!
+        VRS/VRS-G
+    */
+    CPString _personality @accessors(property=personality);
+    /*!
         Description of the Hypervisor
     */
     CPString _description @accessors(property=description);
-    /*!
-        To provide IP address of the interface from which you will connect to the DHCP relay server
-    */
-    CPString _dhcpRelayServer @accessors(property=dhcpRelayServer);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Flow Eviction Threshold
-    */
-    CPNumber _flowEvictionThreshold @accessors(property=flowEvictionThreshold);
-    /*!
-        IP Address of the Hypervisor
-    */
-    CPString _hypervisorIP @accessors(property=hypervisorIP);
-    /*!
-        Hypervisor username
-    */
-    CPString _hypervisorPassword @accessors(property=hypervisorPassword);
-    /*!
-        Hypervisor username
-    */
-    CPString _hypervisorUser @accessors(property=hypervisorUser);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Metadata Server IP
     */
@@ -143,6 +135,30 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         Metadata Service Enabled
     */
     BOOL _metadataServiceEnabled @accessors(property=metadataServiceEnabled);
+    /*!
+        Network Upling Interface to support PAT/NAT with no tunnels on VRS-VM
+    */
+    CPString _networkUplinkInterface @accessors(property=networkUplinkInterface);
+    /*!
+        Network Uplink Interface Gateway
+    */
+    CPString _networkUplinkInterfaceGateway @accessors(property=networkUplinkInterfaceGateway);
+    /*!
+        Ip Address to support PAT/NAT with no tunnels on VRS-VM
+    */
+    CPString _networkUplinkInterfaceIp @accessors(property=networkUplinkInterfaceIp);
+    /*!
+        Network Uplink Interface Netmask
+    */
+    CPString _networkUplinkInterfaceNetmask @accessors(property=networkUplinkInterfaceNetmask);
+    /*!
+        IP address of NFS server to send the VRS log
+    */
+    CPString _nfsLogServer @accessors(property=nfsLogServer);
+    /*!
+        Location to mount the NFS server
+    */
+    CPString _nfsMountPath @accessors(property=nfsMountPath);
     /*!
         DNS server 1
     */
@@ -167,6 +183,130 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         Management Network Port group
     */
     CPString _mgmtNetworkPortgroup @accessors(property=mgmtNetworkPortgroup);
+    /*!
+        To provide IP address of the interface from which you will connect to the DHCP relay server
+    */
+    CPString _dhcpRelayServer @accessors(property=dhcpRelayServer);
+    /*!
+        Site ID field for object profiles to support VSD Geo-redundancy
+    */
+    CPString _siteId @accessors(property=siteId);
+    /*!
+        Whether to get the Data IP for the VRS VM from DHCP or statically
+    */
+    BOOL _allowDataDHCP @accessors(property=allowDataDHCP);
+    /*!
+        Whether to get the management IP for the VRS VM from DHCP or statically
+    */
+    BOOL _allowMgmtDHCP @accessors(property=allowMgmtDHCP);
+    /*!
+        Flow Eviction Threshold
+    */
+    CPNumber _flowEvictionThreshold @accessors(property=flowEvictionThreshold);
+    /*!
+        VM Network Port Group Name
+    */
+    CPString _vmNetworkPortgroup @accessors(property=vmNetworkPortgroup);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Flag to specify if VRS is deployed using tool box.
+    */
+    BOOL _toolboxDeploymentMode @accessors(property=toolboxDeploymentMode);
+    /*!
+        Deployment Toolbox Group.
+    */
+    CPString _toolboxGroup @accessors(property=toolboxGroup);
+    /*!
+        Deployment Toolbox IP.
+    */
+    CPString _toolboxIP @accessors(property=toolboxIP);
+    /*!
+        Deployment Toolbox password.
+    */
+    CPString _toolboxPassword @accessors(property=toolboxPassword);
+    /*!
+        Deployment Toolbox username.
+    */
+    CPString _toolboxUserName @accessors(property=toolboxUserName);
+    /*!
+        Port Group Meta data
+    */
+    BOOL _portgroupMetadata @accessors(property=portgroupMetadata);
+    /*!
+        Nova client Version 
+    */
+    CPNumber _novaClientVersion @accessors(property=novaClientVersion);
+    /*!
+        Nova metadata service auth url
+    */
+    CPString _novaMetadataServiceAuthUrl @accessors(property=novaMetadataServiceAuthUrl);
+    /*!
+        Nova metadata service endpoint
+    */
+    CPString _novaMetadataServiceEndpoint @accessors(property=novaMetadataServiceEndpoint);
+    /*!
+        Nova metadata service password
+    */
+    CPString _novaMetadataServicePassword @accessors(property=novaMetadataServicePassword);
+    /*!
+        Nova metadata service tenant
+    */
+    CPString _novaMetadataServiceTenant @accessors(property=novaMetadataServiceTenant);
+    /*!
+        Nova metadata service username
+    */
+    CPString _novaMetadataServiceUsername @accessors(property=novaMetadataServiceUsername);
+    /*!
+        Nova metadata shared secret
+    */
+    CPString _novaMetadataSharedSecret @accessors(property=novaMetadataSharedSecret);
+    /*!
+        Nova region name
+    */
+    CPString _novaRegionName @accessors(property=novaRegionName);
+    /*!
+        IP address of the primary Controller (VSC)
+    */
+    CPString _primaryNuageController @accessors(property=primaryNuageController);
+    /*!
+        VCenter Name or Id used by toolbox to identify the VRS virtual machine
+    */
+    CPString _vrsId @accessors(property=vrsId);
+    /*!
+        ID of the vrsMetrics Entity
+    */
+    CPString _vrsMetricsID @accessors(property=vrsMetricsID);
+    /*!
+        VRS password to be used by toolbox to communicate with VRS
+    */
+    CPString _vrsPassword @accessors(property=vrsPassword);
+    /*!
+        VRS user name to be used by toolbox to communicate with VRS
+    */
+    CPString _vrsUserName @accessors(property=vrsUserName);
+    /*!
+        static route to be configured in the VRS
+    */
+    CPString _staticRoute @accessors(property=staticRoute);
+    /*!
+        Gateway for the static route given above
+    */
+    CPString _staticRouteGateway @accessors(property=staticRouteGateway);
+    /*!
+        Nova region name
+    */
+    CPString _staticRouteNetmask @accessors(property=staticRouteNetmask);
+    /*!
+        IP of the NTP server 1
+    */
+    CPString _ntpServer1 @accessors(property=ntpServer1);
+    /*!
+        IP of the NTP server 1
+    */
+    CPString _ntpServer2 @accessors(property=ntpServer2);
     /*!
         Maximum Transmission Unit for eth2 interface
     */
@@ -208,173 +348,33 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _multicastSourcePortgroup @accessors(property=multicastSourcePortgroup);
     /*!
-        Name of the Hypervisor
+        To provide a URL to install a custom app on VRS
     */
-    CPString _name @accessors(property=name);
+    CPString _customizedScriptURL @accessors(property=customizedScriptURL);
     /*!
-        Network Upling Interface to support PAT/NAT with no tunnels on VRS-VM
+        List of the available network list for the hypervisor.
     */
-    CPString _networkUplinkInterface @accessors(property=networkUplinkInterface);
+    CPArrayController _availableNetworks @accessors(property=availableNetworks);
     /*!
-        Network Uplink Interface Gateway
+        External object ID. Used for integration with third party systems
     */
-    CPString _networkUplinkInterfaceGateway @accessors(property=networkUplinkInterfaceGateway);
+    CPString _externalID @accessors(property=externalID);
     /*!
-        Ip Address to support PAT/NAT with no tunnels on VRS-VM
+        IP Address of the Hypervisor
     */
-    CPString _networkUplinkInterfaceIp @accessors(property=networkUplinkInterfaceIp);
+    CPString _hypervisorIP @accessors(property=hypervisorIP);
     /*!
-        Network Uplink Interface Netmask
+        Hypervisor username
     */
-    CPString _networkUplinkInterfaceNetmask @accessors(property=networkUplinkInterfaceNetmask);
+    CPString _hypervisorPassword @accessors(property=hypervisorPassword);
     /*!
-        IP address of NFS server to send the VRS log
+        Hypervisor username
     */
-    CPString _nfsLogServer @accessors(property=nfsLogServer);
-    /*!
-        Location to mount the NFS server
-    */
-    CPString _nfsMountPath @accessors(property=nfsMountPath);
-    /*!
-        Nova client Version 
-    */
-    CPNumber _novaClientVersion @accessors(property=novaClientVersion);
-    /*!
-        Nova metadata service auth url
-    */
-    CPString _novaMetadataServiceAuthUrl @accessors(property=novaMetadataServiceAuthUrl);
-    /*!
-        Nova metadata service endpoint
-    */
-    CPString _novaMetadataServiceEndpoint @accessors(property=novaMetadataServiceEndpoint);
-    /*!
-        Nova metadata service password
-    */
-    CPString _novaMetadataServicePassword @accessors(property=novaMetadataServicePassword);
-    /*!
-        Nova metadata service tenant
-    */
-    CPString _novaMetadataServiceTenant @accessors(property=novaMetadataServiceTenant);
-    /*!
-        Nova metadata service username
-    */
-    CPString _novaMetadataServiceUsername @accessors(property=novaMetadataServiceUsername);
-    /*!
-        Nova metadata shared secret
-    */
-    CPString _novaMetadataSharedSecret @accessors(property=novaMetadataSharedSecret);
-    /*!
-        Nova region name
-    */
-    CPString _novaRegionName @accessors(property=novaRegionName);
-    /*!
-        IP of the NTP server 1
-    */
-    CPString _ntpServer1 @accessors(property=ntpServer1);
-    /*!
-        IP of the NTP server 1
-    */
-    CPString _ntpServer2 @accessors(property=ntpServer2);
-    /*!
-        VRS/VRS-G
-    */
-    CPString _personality @accessors(property=personality);
-    /*!
-        Port Group Meta data
-    */
-    BOOL _portgroupMetadata @accessors(property=portgroupMetadata);
-    /*!
-        IP address of the primary Controller (VSC)
-    */
-    CPString _primaryNuageController @accessors(property=primaryNuageController);
-    /*!
-        Cluster in scope or not in scope.
-    */
-    BOOL _scope @accessors(property=scope);
-    /*!
-        IP address of the secondary Controller (VSC)
-    */
-    CPString _secondaryNuageController @accessors(property=secondaryNuageController);
-    /*!
-        Whether Data will use the management network or not
-    */
-    BOOL _separateDataNetwork @accessors(property=separateDataNetwork);
-    /*!
-        Site ID field for object profiles to support VSD Geo-redundancy
-    */
-    CPString _siteId @accessors(property=siteId);
-    /*!
-        static route to be configured in the VRS
-    */
-    CPString _staticRoute @accessors(property=staticRoute);
-    /*!
-        Gateway for the static route given above
-    */
-    CPString _staticRouteGateway @accessors(property=staticRouteGateway);
-    /*!
-        Nova region name
-    */
-    CPString _staticRouteNetmask @accessors(property=staticRouteNetmask);
-    /*!
-        Flag to specify if VRS is deployed using tool box.
-    */
-    BOOL _toolboxDeploymentMode @accessors(property=toolboxDeploymentMode);
-    /*!
-        Deployment Toolbox Group.
-    */
-    CPString _toolboxGroup @accessors(property=toolboxGroup);
-    /*!
-        Deployment Toolbox IP.
-    */
-    CPString _toolboxIP @accessors(property=toolboxIP);
-    /*!
-        Deployment Toolbox password.
-    */
-    CPString _toolboxPassword @accessors(property=toolboxPassword);
-    /*!
-        Deployment Toolbox username.
-    */
-    CPString _toolboxUserName @accessors(property=toolboxUserName);
-    /*!
-        IP Address of the VCenter.
-    */
-    CPString _vCenterIP @accessors(property=vCenterIP);
-    /*!
-        Password for VCenter.
-    */
-    CPString _vCenterPassword @accessors(property=vCenterPassword);
-    /*!
-        Username for VCenter.
-    */
-    CPString _vCenterUser @accessors(property=vCenterUser);
-    /*!
-        Whether split-activation or not (Openstack/CloudStack)
-    */
-    BOOL _vRequireNuageMetadata @accessors(property=vRequireNuageMetadata);
-    /*!
-        VM Network Port Group Name
-    */
-    CPString _vmNetworkPortgroup @accessors(property=vmNetworkPortgroup);
-    /*!
-        VCenter Name or Id used by toolbox to identify the VRS virtual machine
-    */
-    CPString _vrsId @accessors(property=vrsId);
-    /*!
-        ID of the vrsMetrics Entity
-    */
-    CPString _vrsMetricsID @accessors(property=vrsMetricsID);
-    /*!
-        VRS password to be used by toolbox to communicate with VRS
-    */
-    CPString _vrsPassword @accessors(property=vrsPassword);
-    /*!
-        VRS user name to be used by toolbox to communicate with VRS
-    */
-    CPString _vrsUserName @accessors(property=vrsUserName);
+    CPString _hypervisorUser @accessors(property=hypervisorUser);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVRSAddressRangesFetcher _childrenVRSAddressRanges @accessors(property=childrenVRSAddressRanges);
     
 }
@@ -396,11 +396,13 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"vCenterIP"];
+        [self exposeLocalKeyPathToREST:@"vCenterPassword"];
+        [self exposeLocalKeyPathToREST:@"vCenterUser"];
         [self exposeLocalKeyPathToREST:@"VRSMetricsID"];
-        [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
-        [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
-        [self exposeLocalKeyPathToREST:@"availableNetworks"];
-        [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
+        [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"dataDNS1"];
         [self exposeLocalKeyPathToREST:@"dataDNS2"];
         [self exposeLocalKeyPathToREST:@"dataGateway"];
@@ -408,25 +410,58 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"dataNetmask"];
         [self exposeLocalKeyPathToREST:@"dataNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
+        [self exposeLocalKeyPathToREST:@"scope"];
+        [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
+        [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
-        [self exposeLocalKeyPathToREST:@"hypervisorIP"];
-        [self exposeLocalKeyPathToREST:@"hypervisorPassword"];
-        [self exposeLocalKeyPathToREST:@"hypervisorUser"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
         [self exposeLocalKeyPathToREST:@"metadataServerListenPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerPort"];
         [self exposeLocalKeyPathToREST:@"metadataServiceEnabled"];
+        [self exposeLocalKeyPathToREST:@"networkUplinkInterface"];
+        [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceGateway"];
+        [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceIp"];
+        [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceNetmask"];
+        [self exposeLocalKeyPathToREST:@"nfsLogServer"];
+        [self exposeLocalKeyPathToREST:@"nfsMountPath"];
         [self exposeLocalKeyPathToREST:@"mgmtDNS1"];
         [self exposeLocalKeyPathToREST:@"mgmtDNS2"];
         [self exposeLocalKeyPathToREST:@"mgmtGateway"];
         [self exposeLocalKeyPathToREST:@"mgmtIPAddress"];
         [self exposeLocalKeyPathToREST:@"mgmtNetmask"];
         [self exposeLocalKeyPathToREST:@"mgmtNetworkPortgroup"];
+        [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
+        [self exposeLocalKeyPathToREST:@"siteId"];
+        [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
+        [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
+        [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
+        [self exposeLocalKeyPathToREST:@"vmNetworkPortgroup"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"toolboxDeploymentMode"];
+        [self exposeLocalKeyPathToREST:@"toolboxGroup"];
+        [self exposeLocalKeyPathToREST:@"toolboxIP"];
+        [self exposeLocalKeyPathToREST:@"toolboxPassword"];
+        [self exposeLocalKeyPathToREST:@"toolboxUserName"];
+        [self exposeLocalKeyPathToREST:@"portgroupMetadata"];
+        [self exposeLocalKeyPathToREST:@"novaClientVersion"];
+        [self exposeLocalKeyPathToREST:@"novaMetadataServiceAuthUrl"];
+        [self exposeLocalKeyPathToREST:@"novaMetadataServiceEndpoint"];
+        [self exposeLocalKeyPathToREST:@"novaMetadataServicePassword"];
+        [self exposeLocalKeyPathToREST:@"novaMetadataServiceTenant"];
+        [self exposeLocalKeyPathToREST:@"novaMetadataServiceUsername"];
+        [self exposeLocalKeyPathToREST:@"novaMetadataSharedSecret"];
+        [self exposeLocalKeyPathToREST:@"novaRegionName"];
+        [self exposeLocalKeyPathToREST:@"primaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"vrsId"];
+        [self exposeLocalKeyPathToREST:@"vrsMetricsID"];
+        [self exposeLocalKeyPathToREST:@"vrsPassword"];
+        [self exposeLocalKeyPathToREST:@"vrsUserName"];
+        [self exposeLocalKeyPathToREST:@"staticRoute"];
+        [self exposeLocalKeyPathToREST:@"staticRouteGateway"];
+        [self exposeLocalKeyPathToREST:@"staticRouteNetmask"];
+        [self exposeLocalKeyPathToREST:@"ntpServer1"];
+        [self exposeLocalKeyPathToREST:@"ntpServer2"];
         [self exposeLocalKeyPathToREST:@"mtu"];
         [self exposeLocalKeyPathToREST:@"multiVMSsupport"];
         [self exposeLocalKeyPathToREST:@"multicastReceiveInterface"];
@@ -437,51 +472,16 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"multicastSendInterfaceIP"];
         [self exposeLocalKeyPathToREST:@"multicastSendInterfaceNetmask"];
         [self exposeLocalKeyPathToREST:@"multicastSourcePortgroup"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"networkUplinkInterface"];
-        [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceGateway"];
-        [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceIp"];
-        [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceNetmask"];
-        [self exposeLocalKeyPathToREST:@"nfsLogServer"];
-        [self exposeLocalKeyPathToREST:@"nfsMountPath"];
-        [self exposeLocalKeyPathToREST:@"novaClientVersion"];
-        [self exposeLocalKeyPathToREST:@"novaMetadataServiceAuthUrl"];
-        [self exposeLocalKeyPathToREST:@"novaMetadataServiceEndpoint"];
-        [self exposeLocalKeyPathToREST:@"novaMetadataServicePassword"];
-        [self exposeLocalKeyPathToREST:@"novaMetadataServiceTenant"];
-        [self exposeLocalKeyPathToREST:@"novaMetadataServiceUsername"];
-        [self exposeLocalKeyPathToREST:@"novaMetadataSharedSecret"];
-        [self exposeLocalKeyPathToREST:@"novaRegionName"];
-        [self exposeLocalKeyPathToREST:@"ntpServer1"];
-        [self exposeLocalKeyPathToREST:@"ntpServer2"];
-        [self exposeLocalKeyPathToREST:@"personality"];
-        [self exposeLocalKeyPathToREST:@"portgroupMetadata"];
-        [self exposeLocalKeyPathToREST:@"primaryNuageController"];
-        [self exposeLocalKeyPathToREST:@"scope"];
-        [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
-        [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
-        [self exposeLocalKeyPathToREST:@"siteId"];
-        [self exposeLocalKeyPathToREST:@"staticRoute"];
-        [self exposeLocalKeyPathToREST:@"staticRouteGateway"];
-        [self exposeLocalKeyPathToREST:@"staticRouteNetmask"];
-        [self exposeLocalKeyPathToREST:@"toolboxDeploymentMode"];
-        [self exposeLocalKeyPathToREST:@"toolboxGroup"];
-        [self exposeLocalKeyPathToREST:@"toolboxIP"];
-        [self exposeLocalKeyPathToREST:@"toolboxPassword"];
-        [self exposeLocalKeyPathToREST:@"toolboxUserName"];
-        [self exposeLocalKeyPathToREST:@"vCenterIP"];
-        [self exposeLocalKeyPathToREST:@"vCenterPassword"];
-        [self exposeLocalKeyPathToREST:@"vCenterUser"];
-        [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
-        [self exposeLocalKeyPathToREST:@"vmNetworkPortgroup"];
-        [self exposeLocalKeyPathToREST:@"vrsId"];
-        [self exposeLocalKeyPathToREST:@"vrsMetricsID"];
-        [self exposeLocalKeyPathToREST:@"vrsPassword"];
-        [self exposeLocalKeyPathToREST:@"vrsUserName"];
+        [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
+        [self exposeLocalKeyPathToREST:@"availableNetworks"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"hypervisorIP"];
+        [self exposeLocalKeyPathToREST:@"hypervisorPassword"];
+        [self exposeLocalKeyPathToREST:@"hypervisorUser"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVRSAddressRanges = [NUVRSAddressRangesFetcher fetcherWithParentObject:self];
         
         

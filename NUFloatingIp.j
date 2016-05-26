@@ -29,10 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUFloatingIpEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
@@ -44,6 +44,10 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUFloatingIp : NURESTObject
 {
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         If access control is enabled this FIP is part of the Internet PG.
     */
     BOOL _accessControl @accessors(property=accessControl);
@@ -51,6 +55,10 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
         Floating IP address assigned to the Domain
     */
     CPString _address @accessors(property=address);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         True if this floating IP is assigned to a network interface else the value is false
     */
@@ -64,22 +72,14 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedSharedNetworkResourceID @accessors(property=associatedSharedNetworkResourceID);
     /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -100,19 +100,19 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"accessControl"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"assigned"];
         [self exposeLocalKeyPathToREST:@"assignedToObjectType"];
         [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

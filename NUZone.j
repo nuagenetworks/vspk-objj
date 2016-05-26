@@ -29,20 +29,20 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUDHCPOptionsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUGroupsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUDHCPOptionsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUVMsFetcher.j"
+@import "Fetchers/NUVMInterfacesFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
+@import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUGroupsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
-@import "Fetchers/NUTCAsFetcher.j"
-@import "Fetchers/NUVMsFetcher.j"
-@import "Fetchers/NUVMInterfacesFetcher.j"
-@import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUZoneAssociatedApplicationObjectType_ACLENTRY_LOCATION = @"ACLENTRY_LOCATION";
 NUZoneAssociatedApplicationObjectType_ADDRESS_RANGE = @"ADDRESS_RANGE";
@@ -310,9 +310,45 @@ NUZoneMulticast_INHERITED = @"INHERITED";
     */
     CPString _IPType @accessors(property=IPType);
     /*!
+        Indicates if the Zone is accepting VM activation requests.
+    */
+    CPString _maintenanceMode @accessors(property=maintenanceMode);
+    /*!
+        Name of the current entity(Zone or zone template or subnet etc..) Valid characters are alphabets, numbers, space and hyphen( - ).
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         IP address of the subnet defined. In case of zone, this is an optional field for and allows users to allocate an IP address range to a zone. The VSD will auto-assign IP addresses to subnets from this range if a specific IP address is not defined for the subnet
     */
     CPString _address @accessors(property=address);
+    /*!
+        The ID of the template that this zone was derived from
+    */
+    CPString _templateID @accessors(property=templateID);
+    /*!
+        A description of the zone
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        Netmask of the subnet defined
+    */
+    CPString _netmask @accessors(property=netmask);
+    /*!
+        Determines whether or not IPSEC is enabled.
+    */
+    CPString _encryption @accessors(property=encryption);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        PG ID for the subnet. This is unique per domain and will be in the range 1-4095
+    */
+    CPNumber _policyGroupID @accessors(property=policyGroupID);
     /*!
         The associated application ID.
     */
@@ -330,72 +366,36 @@ NUZoneMulticast_INHERITED = @"INHERITED";
     */
     CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
     /*!
-        A description of the zone
+        If a zone is marked as public, then it is lined to the public network associated with this data center
     */
-    CPString _description @accessors(property=description);
-    /*!
-        Determines whether or not IPSEC is enabled.
-    */
-    CPString _encryption @accessors(property=encryption);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Indicates if the Zone is accepting VM activation requests.
-    */
-    CPString _maintenanceMode @accessors(property=maintenanceMode);
+    BOOL _publicZone @accessors(property=publicZone);
     /*!
         Indicates multicast policy on zone.
     */
     CPString _multicast @accessors(property=multicast);
     /*!
-        Name of the current entity(Zone or zone template or subnet etc..) Valid characters are alphabets, numbers, space and hyphen( - ).
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Netmask of the subnet defined
-    */
-    CPString _netmask @accessors(property=netmask);
-    /*!
         Number of hosts in each of the subnets that can be created under a zone and are auto-assigned IP addresses
     */
     CPNumber _numberOfHostsInSubnets @accessors(property=numberOfHostsInSubnets);
     /*!
-        PG ID for the subnet. This is unique per domain and will be in the range 1-4095
+        External object ID. Used for integration with third party systems
     */
-    CPNumber _policyGroupID @accessors(property=policyGroupID);
-    /*!
-        If a zone is marked as public, then it is lined to the public network associated with this data center
-    */
-    BOOL _publicZone @accessors(property=publicZone);
-    /*!
-        The ID of the template that this zone was derived from
-    */
-    CPString _templateID @accessors(property=templateID);
+    CPString _externalID @accessors(property=externalID);
     
-    NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
+    NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
+    NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
-    NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
-    NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
-    NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
-    NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -417,39 +417,39 @@ NUZoneMulticast_INHERITED = @"INHERITED";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"maintenanceMode"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"templateID"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"encryption"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"policyGroupID"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationID"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationObjectID"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationObjectType"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"encryption"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"maintenanceMode"];
-        [self exposeLocalKeyPathToREST:@"multicast"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"numberOfHostsInSubnets"];
-        [self exposeLocalKeyPathToREST:@"policyGroupID"];
         [self exposeLocalKeyPathToREST:@"publicZone"];
-        [self exposeLocalKeyPathToREST:@"templateID"];
+        [self exposeLocalKeyPathToREST:@"multicast"];
+        [self exposeLocalKeyPathToREST:@"numberOfHostsInSubnets"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
+        _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
+        _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
-        _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
-        _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
-        _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
-        _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _multicast = @"INHERITED";
         _maintenanceMode = @"DISABLED";

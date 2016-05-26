@@ -37,6 +37,10 @@
 @implementation NUAutoDiscoverHypervisorFromCluster : NURESTObject
 {
     /*!
+        The available network list
+    */
+    CPArrayController _networkList @accessors(property=networkList);
+    /*!
         The ID of the cluster to which this host is attached
     */
     CPString _assocClusterId @accessors(property=assocClusterId);
@@ -44,10 +48,6 @@
         IP Address of the Hypervisor
     */
     CPString _hypervisorIP @accessors(property=hypervisorIP);
-    /*!
-        The available network list
-    */
-    CPArrayController _networkList @accessors(property=networkList);
     
     
 }
@@ -69,9 +69,9 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"networkList"];
         [self exposeLocalKeyPathToREST:@"assocClusterId"];
         [self exposeLocalKeyPathToREST:@"hypervisorIP"];
-        [self exposeLocalKeyPathToREST:@"networkList"];
         
         
         

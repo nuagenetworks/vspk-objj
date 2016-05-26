@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUApplicationServiceDirection_REFLEXIVE = @"REFLEXIVE";
 NUApplicationServiceDirection_UNIDIRECTIONAL = @"UNIDIRECTIONAL";
@@ -49,6 +49,14 @@ NUApplicationServiceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
+        Name of the application service.
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Description of the application service.
     */
     CPString _description @accessors(property=description);
@@ -65,6 +73,14 @@ NUApplicationServiceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range.
+    */
+    CPString _sourcePort @accessors(property=sourcePort);
+    /*!
+        Protocol that must be matched.  Needs to be 6 (TCP) or 17 (UDP)
+    */
+    CPString _protocol @accessors(property=protocol);
+    /*!
         Ether type of the packet to be matched. Ether type can be * or a valid hexadecimal value
     */
     CPString _etherType @accessors(property=etherType);
@@ -72,26 +88,10 @@ NUApplicationServiceEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the application service.
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Protocol that must be matched.  Needs to be 6 (TCP) or 17 (UDP)
-    */
-    CPString _protocol @accessors(property=protocol);
-    /*!
-        Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range.
-    */
-    CPString _sourcePort @accessors(property=sourcePort);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -113,20 +113,20 @@ NUApplicationServiceEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"direction"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"sourcePort"];
+        [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"etherType"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"protocol"];
-        [self exposeLocalKeyPathToREST:@"sourcePort"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _etherType = @"0x0800";
         _direction = @"REFLEXIVE";

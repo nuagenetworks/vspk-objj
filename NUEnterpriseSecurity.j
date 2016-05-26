@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEnterpriseSecuredDatasFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEnterpriseSecuredDatasFetcher.j"
 
 NUEnterpriseSecurityEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEnterpriseSecurityEntityScope_GLOBAL = @"GLOBAL";
@@ -42,6 +42,18 @@ NUEnterpriseSecurityEntityScope_GLOBAL = @"GLOBAL";
 */
 @implementation NUEnterpriseSecurity : NURESTObject
 {
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        change revision number for the gateway security data
+    */
+    CPNumber _gatewaySecurityRevision @accessors(property=gatewaySecurityRevision);
+    /*!
+        revision number for the enterprise security data
+    */
+    CPNumber _revision @accessors(property=revision);
     /*!
         The enterprise associated with this object. This is a read only attribute
     */
@@ -54,22 +66,10 @@ NUEnterpriseSecurityEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        change revision number for the gateway security data
-    */
-    CPNumber _gatewaySecurityRevision @accessors(property=gatewaySecurityRevision);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        revision number for the enterprise security data
-    */
-    CPNumber _revision @accessors(property=revision);
     
-    NUEnterpriseSecuredDatasFetcher _childrenEnterpriseSecuredDatas @accessors(property=childrenEnterpriseSecuredDatas);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEnterpriseSecuredDatasFetcher _childrenEnterpriseSecuredDatas @accessors(property=childrenEnterpriseSecuredDatas);
     
 }
 
@@ -90,16 +90,16 @@ NUEnterpriseSecurityEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gatewaySecurityRevision"];
+        [self exposeLocalKeyPathToREST:@"revision"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"gatewaySecurityRevision"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"revision"];
         
-        _childrenEnterpriseSecuredDatas = [NUEnterpriseSecuredDatasFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEnterpriseSecuredDatas = [NUEnterpriseSecuredDatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,12 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUHSCsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVSCsFetcher.j"
 @import "Fetchers/NUVSDsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUVSPEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVSPEntityScope_GLOBAL = @"GLOBAL";
@@ -46,6 +46,14 @@ NUVSPEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUVSP : NURESTObject
 {
     /*!
+        Name of the VSP
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Description of the VSP
     */
     CPString _description @accessors(property=description);
@@ -54,32 +62,24 @@ NUVSPEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
         Installed location of the VSP product
     */
     CPString _location @accessors(property=location);
     /*!
-        Name of the VSP
-    */
-    CPString _name @accessors(property=name);
-    /*!
         Product version number for VSP
     */
     CPString _productVersion @accessors(property=productVersion);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUHSCsFetcher _childrenHSCs @accessors(property=childrenHSCs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVSCsFetcher _childrenVSCs @accessors(property=childrenVSCs);
     NUVSDsFetcher _childrenVSDs @accessors(property=childrenVSDs);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -100,20 +100,20 @@ NUVSPEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"location"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenHSCs = [NUHSCsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVSCs = [NUVSCsFetcher fetcherWithParentObject:self];
         _childrenVSDs = [NUVSDsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

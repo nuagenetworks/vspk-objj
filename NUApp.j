@@ -29,12 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUFlowsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUTiersFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUFlowsFetcher.j"
+@import "Fetchers/NUJobsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUAppAssociatedDomainType_DOMAIN = @"DOMAIN";
 NUAppAssociatedDomainType_L2DOMAIN = @"L2DOMAIN";
@@ -49,6 +49,22 @@ NUAppEntityScope_GLOBAL = @"GLOBAL";
 */
 @implementation NUApp : NURESTObject
 {
+    /*!
+        Name of the application.
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Description of the application.
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The ID of the ACL template that this application is pointing to.
     */
@@ -74,32 +90,16 @@ NUAppEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedNetworkObjectType @accessors(property=associatedNetworkObjectType);
     /*!
-        Description of the application.
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the application.
-    */
-    CPString _name @accessors(property=name);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUFlowsFetcher _childrenFlows @accessors(property=childrenFlows);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUTiersFetcher _childrenTiers @accessors(property=childrenTiers);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUFlowsFetcher _childrenFlows @accessors(property=childrenFlows);
+    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -120,24 +120,24 @@ NUAppEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"assocEgressACLTemplateId"];
         [self exposeLocalKeyPathToREST:@"assocIngressACLTemplateId"];
         [self exposeLocalKeyPathToREST:@"associatedDomainID"];
         [self exposeLocalKeyPathToREST:@"associatedDomainType"];
         [self exposeLocalKeyPathToREST:@"associatedNetworkObjectID"];
         [self exposeLocalKeyPathToREST:@"associatedNetworkObjectType"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenFlows = [NUFlowsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenTiers = [NUTiersFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenFlows = [NUFlowsFetcher fetcherWithParentObject:self];
+        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,10 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAlarmsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUTCAEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUTCAEntityScope_GLOBAL = @"GLOBAL";
@@ -65,9 +65,33 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
     */
     CPString _URLEndPoint @accessors(property=URLEndPoint);
     /*!
+        The name of the TCA
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        GLOBAL or LOCAL scope. Global refers to aggregate values across subnets, zones or domains. Local refers to traffic from/to individual VMs.
+    */
+    CPString _scope @accessors(property=scope);
+    /*!
+        The averaging period
+    */
+    CPNumber _period @accessors(property=period);
+    /*!
         Desription of the TCA
     */
     CPString _description @accessors(property=description);
+    /*!
+        The metric associated with the TCA.
+    */
+    CPString _metric @accessors(property=metric);
+    /*!
+        The threshold that must be exceeded before an alarm is issued
+    */
+    CPNumber _threshold @accessors(property=threshold);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -77,38 +101,14 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        The metric associated with the TCA.
-    */
-    CPString _metric @accessors(property=metric);
-    /*!
-        The name of the TCA
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        The averaging period
-    */
-    CPNumber _period @accessors(property=period);
-    /*!
-        GLOBAL or LOCAL scope. Global refers to aggregate values across subnets, zones or domains. Local refers to traffic from/to individual VMs.
-    */
-    CPString _scope @accessors(property=scope);
-    /*!
-        The threshold that must be exceeded before an alarm is issued
-    */
-    CPNumber _threshold @accessors(property=threshold);
-    /*!
         Rolling average or sequence of samples over the averaging period.
     */
     CPString _type @accessors(property=type);
     
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -130,21 +130,21 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"URLEndPoint"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"scope"];
+        [self exposeLocalKeyPathToREST:@"period"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"metric"];
+        [self exposeLocalKeyPathToREST:@"threshold"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"metric"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"period"];
-        [self exposeLocalKeyPathToREST:@"scope"];
-        [self exposeLocalKeyPathToREST:@"threshold"];
         [self exposeLocalKeyPathToREST:@"type"];
         
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _scope = @"LOCAL";
         _metric = @"BYTES_IN";

@@ -40,13 +40,29 @@ NUAggregateMetadataEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUAggregateMetadata : NURESTObject
 {
     /*!
-        Metadata that describes about the entity attached to it.
+        Name of the Metadata.
     */
-    CPString _blob @accessors(property=blob);
+    CPString _name @accessors(property=name);
     /*!
         Description of the Metadata.
     */
     CPString _description @accessors(property=description);
+    /*!
+        Metadata tag IDs associated with this metadata. You can filter metadata based on this attribute for example  X-Nuage-Filter: '2d6fb627-603b-421c-b63a-eb0a6d712761' IN metadataTagIDs 
+    */
+    CPArrayController _metadataTagIDs @accessors(property=metadataTagIDs);
+    /*!
+        Specifies metadata changes need to be notified to controller,by default it is notified
+    */
+    BOOL _networkNotificationDisabled @accessors(property=networkNotificationDisabled);
+    /*!
+        Metadata that describes about the entity attached to it.
+    */
+    CPString _blob @accessors(property=blob);
+    /*!
+        Specifies whether the metadata is global or local
+    */
+    BOOL _globalMetadata @accessors(property=globalMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -55,22 +71,6 @@ NUAggregateMetadataEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        Specifies whether the metadata is global or local
-    */
-    BOOL _globalMetadata @accessors(property=globalMetadata);
-    /*!
-        Metadata tag IDs associated with this metadata. You can filter metadata based on this attribute for example  X-Nuage-Filter: '2d6fb627-603b-421c-b63a-eb0a6d712761' IN metadataTagIDs 
-    */
-    CPArrayController _metadataTagIDs @accessors(property=metadataTagIDs);
-    /*!
-        Name of the Metadata.
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Specifies metadata changes need to be notified to controller,by default it is notified
-    */
-    BOOL _networkNotificationDisabled @accessors(property=networkNotificationDisabled);
     
     
 }
@@ -92,14 +92,14 @@ NUAggregateMetadataEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"blob"];
+        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"metadataTagIDs"];
+        [self exposeLocalKeyPathToREST:@"networkNotificationDisabled"];
+        [self exposeLocalKeyPathToREST:@"blob"];
+        [self exposeLocalKeyPathToREST:@"globalMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"globalMetadata"];
-        [self exposeLocalKeyPathToREST:@"metadataTagIDs"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"networkNotificationDisabled"];
         
         
         

@@ -29,11 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUGroupsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
+@import "Fetchers/NUGroupsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUUserAvatarType_BASE64 = @"BASE64";
 NUUserAvatarType_COMPUTEDURL = @"COMPUTEDURL";
@@ -50,13 +50,25 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
 @implementation NUUser : NURESTObject
 {
     /*!
-        URL to the avatar data associated with the enterprise. If the avatarType is URL then value of avatarData should an URL of the image. If the avatarType BASE64 then avatarData should be BASE64 encoded value of the image
+        Management mode of the user object - allows for override of external authorization and syncup
     */
-    CPString _avatarData @accessors(property=avatarData);
+    CPString _managementMode @accessors(property=managementMode);
     /*!
-        Avatar type.
+        User password stored as a hash (SHA-1 encrpted)
     */
-    CPString _avatarType @accessors(property=avatarType);
+    CPString _password @accessors(property=password);
+    /*!
+        Last name of the user
+    */
+    CPString _lastName @accessors(property=lastName);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        First name of the user
+    */
+    CPString _firstName @accessors(property=firstName);
     /*!
         Status of the user account; true=disabled, false=not disabled; default value = false
     */
@@ -70,43 +82,31 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        First name of the user
-    */
-    CPString _firstName @accessors(property=firstName);
-    /*!
-        Last name of the user
-    */
-    CPString _lastName @accessors(property=lastName);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Management mode of the user object - allows for override of external authorization and syncup
-    */
-    CPString _managementMode @accessors(property=managementMode);
-    /*!
         Mobile Number of the user
     */
     CPString _mobileNumber @accessors(property=mobileNumber);
     /*!
-        User password stored as a hash (SHA-1 encrpted)
-    */
-    CPString _password @accessors(property=password);
-    /*!
         Unique Username of the user. Valid characters are alphabets, numbers and hyphen( - ).
     */
     CPString _userName @accessors(property=userName);
+    /*!
+        URL to the avatar data associated with the enterprise. If the avatarType is URL then value of avatarData should an URL of the image. If the avatarType BASE64 then avatarData should be BASE64 encoded value of the image
+    */
+    CPString _avatarData @accessors(property=avatarData);
+    /*!
+        Avatar type.
+    */
+    CPString _avatarType @accessors(property=avatarType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
+    NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -127,25 +127,25 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"avatarData"];
-        [self exposeLocalKeyPathToREST:@"avatarType"];
+        [self exposeLocalKeyPathToREST:@"managementMode"];
+        [self exposeLocalKeyPathToREST:@"password"];
+        [self exposeLocalKeyPathToREST:@"lastName"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"firstName"];
         [self exposeLocalKeyPathToREST:@"disabled"];
         [self exposeLocalKeyPathToREST:@"email"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"firstName"];
-        [self exposeLocalKeyPathToREST:@"lastName"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"managementMode"];
         [self exposeLocalKeyPathToREST:@"mobileNumber"];
-        [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"userName"];
+        [self exposeLocalKeyPathToREST:@"avatarData"];
+        [self exposeLocalKeyPathToREST:@"avatarType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
+        _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

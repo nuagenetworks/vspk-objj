@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUIKESubnetEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIKESubnetEntityScope_GLOBAL = @"GLOBAL";
@@ -42,28 +42,28 @@ NUIKESubnetEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUIKESubnet : NURESTObject
 {
     /*!
-        The ID of the associated IKEGateway
+        ID of the user who last updated the object.
     */
-    CPString _associatedIKEGatewayID @accessors(property=associatedIKEGatewayID);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
         The subnet prefix (eg: 10.0.0.0/24)
     */
     CPString _prefix @accessors(property=prefix);
+    /*!
+        The ID of the associated IKEGateway
+    */
+    CPString _associatedIKEGatewayID @accessors(property=associatedIKEGatewayID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -84,14 +84,14 @@ NUIKESubnetEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"associatedIKEGatewayID"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"prefix"];
+        [self exposeLocalKeyPathToREST:@"associatedIKEGatewayID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

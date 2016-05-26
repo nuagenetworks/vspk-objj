@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
 
 NUIKEGatewayConnectionAssociatedIKEAuthenticationType_ACLENTRY_LOCATION = @"ACLENTRY_LOCATION";
@@ -303,9 +303,37 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
     */
     CPString _NSGRole @accessors(property=NSGRole);
     /*!
+        Optional Name of the connection
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        
+    */
+    CPNumber _sequence @accessors(property=sequence);
+    /*!
         Allow any local subnets to be used
     */
     BOOL _allowAnySubnet @accessors(property=allowAnySubnet);
+    /*!
+        Unencrypted PSK
+    */
+    CPString _unencryptedPSK @accessors(property=unencryptedPSK);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The Name of the Port and Vlan the IKEv2 Connection is on
+    */
+    CPString _portVLANName @accessors(property=portVLANName);
+    /*!
+        Priority of the IKEv2 Gateway Connection
+    */
+    CPNumber _priority @accessors(property=priority);
     /*!
         Associated Authentication ID
     */
@@ -327,40 +355,12 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
     */
     CPString _associatedVLANID @accessors(property=associatedVLANID);
     /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Optional Name of the connection
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        The Name of the Port and Vlan the IKEv2 Connection is on
-    */
-    CPString _portVLANName @accessors(property=portVLANName);
-    /*!
-        Priority of the IKEv2 Gateway Connection
-    */
-    CPNumber _priority @accessors(property=priority);
-    /*!
-        
-    */
-    CPNumber _sequence @accessors(property=sequence);
-    /*!
-        Unencrypted PSK
-    */
-    CPString _unencryptedPSK @accessors(property=unencryptedPSK);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
     
 }
@@ -385,23 +385,23 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
         [self exposeLocalKeyPathToREST:@"NSGIdentifier"];
         [self exposeLocalKeyPathToREST:@"NSGIdentifierType"];
         [self exposeLocalKeyPathToREST:@"NSGRole"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"sequence"];
         [self exposeLocalKeyPathToREST:@"allowAnySubnet"];
+        [self exposeLocalKeyPathToREST:@"unencryptedPSK"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"portVLANName"];
+        [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"associatedIKEAuthenticationID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEAuthenticationType"];
         [self exposeLocalKeyPathToREST:@"associatedIKEEncryptionProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEGatewayProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedVLANID"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"portVLANName"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"sequence"];
-        [self exposeLocalKeyPathToREST:@"unencryptedPSK"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
         
         

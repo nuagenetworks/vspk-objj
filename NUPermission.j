@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUPermissionEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPermissionEntityScope_GLOBAL = @"GLOBAL";
@@ -49,21 +49,13 @@ NUPermissionPermittedAction_USE = @"USE";
 @implementation NUPermission : NURESTObject
 {
     /*!
-        Specify if scope of entity is Data center or Enterprise level
+        Name of the  Permission
     */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _name @accessors(property=name);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the  Permission
-    */
-    CPString _name @accessors(property=name);
     /*!
         The permitted  action to USE/EXTEND/READ/INSTANTIATE  an entity.
     */
@@ -84,10 +76,18 @@ NUPermissionPermittedAction_USE = @"USE";
         Type of the entity for which we have given permission.
     */
     CPString _permittedEntityType @accessors(property=permittedEntityType);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -108,19 +108,19 @@ NUPermissionPermittedAction_USE = @"USE";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"permittedEntityDescription"];
         [self exposeLocalKeyPathToREST:@"permittedEntityID"];
         [self exposeLocalKeyPathToREST:@"permittedEntityName"];
         [self exposeLocalKeyPathToREST:@"permittedEntityType"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

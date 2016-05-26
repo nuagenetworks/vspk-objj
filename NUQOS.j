@@ -29,10 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUQOSEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUQOSEntityScope_GLOBAL = @"GLOBAL";
@@ -52,26 +52,6 @@ NUQOSServiceClass_NONE = @"NONE";
 */
 @implementation NUQOS : NURESTObject
 {
-    /*!
-        Committed burst size setting in kilo-bytes (kilo-octets) for BUM Shaper.
-    */
-    CPString _BUMCommittedBurstSize @accessors(property=BUMCommittedBurstSize);
-    /*!
-        Committed information rate setting in Mb/s for BUM Shaper.
-    */
-    CPString _BUMCommittedInformationRate @accessors(property=BUMCommittedInformationRate);
-    /*!
-        Peak burst size setting in kilo-bytes (kilo-octets) for Broadcast/Multicast rate limiting (BUM).
-    */
-    CPString _BUMPeakBurstSize @accessors(property=BUMPeakBurstSize);
-    /*!
-        Peak rate setting in Mb/s for Broadcast/Multicast rate limiting 
-    */
-    CPString _BUMPeakInformationRate @accessors(property=BUMPeakInformationRate);
-    /*!
-        Flag the indicates whether Broadcast/Multicast rate limiting is enabled or disabled
-    */
-    BOOL _BUMRateLimitingActive @accessors(property=BUMRateLimitingActive);
     /*!
         Committed burst size setting in kilo-bytes (kilo-octets) for FIP Shaper.
     */
@@ -93,9 +73,73 @@ NUQOSServiceClass_NONE = @"NONE";
     */
     BOOL _FIPRateLimitingActive @accessors(property=FIPRateLimitingActive);
     /*!
+        Committed burst size setting in kilo-bytes (kilo-octets) for BUM Shaper.
+    */
+    CPString _BUMCommittedBurstSize @accessors(property=BUMCommittedBurstSize);
+    /*!
+        Committed information rate setting in Mb/s for BUM Shaper.
+    */
+    CPString _BUMCommittedInformationRate @accessors(property=BUMCommittedInformationRate);
+    /*!
+        Peak burst size setting in kilo-bytes (kilo-octets) for Broadcast/Multicast rate limiting (BUM).
+    */
+    CPString _BUMPeakBurstSize @accessors(property=BUMPeakBurstSize);
+    /*!
+        Peak rate setting in Mb/s for Broadcast/Multicast rate limiting 
+    */
+    CPString _BUMPeakInformationRate @accessors(property=BUMPeakInformationRate);
+    /*!
+        Flag the indicates whether Broadcast/Multicast rate limiting is enabled or disabled
+    */
+    BOOL _BUMRateLimitingActive @accessors(property=BUMRateLimitingActive);
+    /*!
+        A unique name of the QoS object
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Identifies if rate limiting must be implemented
+    */
+    BOOL _rateLimitingActive @accessors(property=rateLimitingActive);
+    /*!
         If enabled, it means that this ACL or QOS entry is active
     */
     BOOL _active @accessors(property=active);
+    /*!
+        Peak Information Rate :  Peak bandwidth that is allowed from each VM in Mb/s; only whole values allowed and 'INFINITY' if rate limiting is disabled.
+    */
+    CPString _peak @accessors(property=peak);
+    /*!
+        Class of service to be used. Service classes in order of priority are A(1), B(2), C(3), D(4), E(5), F(6), G(7) and H(8) Possible values are NONE, A, B, C, D, E, F, G, H, .
+    */
+    CPString _serviceClass @accessors(property=serviceClass);
+    /*!
+        A description of the QoS object
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        Specifies if the rewrite flag is set for the QoS policy / template
+    */
+    BOOL _rewriteForwardingClass @accessors(property=rewriteForwardingClass);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Committed Burst Size :  Burst size associated with the rate limiter in kilo-bytes (kilo-octets); only whole values are supported.
+    */
+    CPString _committedBurstSize @accessors(property=committedBurstSize);
+    /*!
+        Committed Information Rate :  Committed bandwidth that is allowed from each VM in Mb/s; only whole values supported.
+    */
+    CPString _committedInformationRate @accessors(property=committedInformationRate);
+    /*!
+        Specifies if the trusted flag is set for the QoS policy / template
+    */
+    BOOL _trustedForwardingClass @accessors(property=trustedForwardingClass);
     /*!
         ID of object associated with this QoS object
     */
@@ -113,58 +157,14 @@ NUQOSServiceClass_NONE = @"NONE";
     */
     CPString _burst @accessors(property=burst);
     /*!
-        Committed Burst Size :  Burst size associated with the rate limiter in kilo-bytes (kilo-octets); only whole values are supported.
-    */
-    CPString _committedBurstSize @accessors(property=committedBurstSize);
-    /*!
-        Committed Information Rate :  Committed bandwidth that is allowed from each VM in Mb/s; only whole values supported.
-    */
-    CPString _committedInformationRate @accessors(property=committedInformationRate);
-    /*!
-        A description of the QoS object
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        A unique name of the QoS object
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Peak Information Rate :  Peak bandwidth that is allowed from each VM in Mb/s; only whole values allowed and 'INFINITY' if rate limiting is disabled.
-    */
-    CPString _peak @accessors(property=peak);
-    /*!
-        Identifies if rate limiting must be implemented
-    */
-    BOOL _rateLimitingActive @accessors(property=rateLimitingActive);
-    /*!
-        Specifies if the rewrite flag is set for the QoS policy / template
-    */
-    BOOL _rewriteForwardingClass @accessors(property=rewriteForwardingClass);
-    /*!
-        Class of service to be used. Service classes in order of priority are A(1), B(2), C(3), D(4), E(5), F(6), G(7) and H(8) Possible values are NONE, A, B, C, D, E, F, G, H, .
-    */
-    CPString _serviceClass @accessors(property=serviceClass);
-    /*!
-        Specifies if the trusted flag is set for the QoS policy / template
-    */
-    BOOL _trustedForwardingClass @accessors(property=trustedForwardingClass);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -185,38 +185,38 @@ NUQOSServiceClass_NONE = @"NONE";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"BUMCommittedBurstSize"];
-        [self exposeLocalKeyPathToREST:@"BUMCommittedInformationRate"];
-        [self exposeLocalKeyPathToREST:@"BUMPeakBurstSize"];
-        [self exposeLocalKeyPathToREST:@"BUMPeakInformationRate"];
-        [self exposeLocalKeyPathToREST:@"BUMRateLimitingActive"];
         [self exposeLocalKeyPathToREST:@"FIPCommittedBurstSize"];
         [self exposeLocalKeyPathToREST:@"FIPCommittedInformationRate"];
         [self exposeLocalKeyPathToREST:@"FIPPeakBurstSize"];
         [self exposeLocalKeyPathToREST:@"FIPPeakInformationRate"];
         [self exposeLocalKeyPathToREST:@"FIPRateLimitingActive"];
+        [self exposeLocalKeyPathToREST:@"BUMCommittedBurstSize"];
+        [self exposeLocalKeyPathToREST:@"BUMCommittedInformationRate"];
+        [self exposeLocalKeyPathToREST:@"BUMPeakBurstSize"];
+        [self exposeLocalKeyPathToREST:@"BUMPeakInformationRate"];
+        [self exposeLocalKeyPathToREST:@"BUMRateLimitingActive"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"rateLimitingActive"];
         [self exposeLocalKeyPathToREST:@"active"];
+        [self exposeLocalKeyPathToREST:@"peak"];
+        [self exposeLocalKeyPathToREST:@"serviceClass"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"rewriteForwardingClass"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"committedBurstSize"];
+        [self exposeLocalKeyPathToREST:@"committedInformationRate"];
+        [self exposeLocalKeyPathToREST:@"trustedForwardingClass"];
         [self exposeLocalKeyPathToREST:@"assocQosId"];
         [self exposeLocalKeyPathToREST:@"associatedDSCPForwardingClassTableID"];
         [self exposeLocalKeyPathToREST:@"associatedDSCPForwardingClassTableName"];
         [self exposeLocalKeyPathToREST:@"burst"];
-        [self exposeLocalKeyPathToREST:@"committedBurstSize"];
-        [self exposeLocalKeyPathToREST:@"committedInformationRate"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"peak"];
-        [self exposeLocalKeyPathToREST:@"rateLimitingActive"];
-        [self exposeLocalKeyPathToREST:@"rewriteForwardingClass"];
-        [self exposeLocalKeyPathToREST:@"serviceClass"];
-        [self exposeLocalKeyPathToREST:@"trustedForwardingClass"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

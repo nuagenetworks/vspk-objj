@@ -29,10 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUIngressExternalServiceTemplateEntriesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 
 NUIngressExternalServiceTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIngressExternalServiceTemplateEntityScope_GLOBAL = @"GLOBAL";
@@ -49,13 +49,13 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
 @implementation NUIngressExternalServiceTemplate : NURESTObject
 {
     /*!
+        The name of the entity
+    */
+    CPString _name @accessors(property=name);
+    /*!
         If enabled, it means that this ACL or QOS entry is active
     */
     BOOL _active @accessors(property=active);
-    /*!
-        In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
-    */
-    CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
         A description of the entity
     */
@@ -64,14 +64,6 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        The name of the entity
-    */
-    CPString _name @accessors(property=name);
     /*!
         
     */
@@ -84,11 +76,19 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
         
     */
     CPString _priorityType @accessors(property=priorityType);
+    /*!
+        In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
+    */
+    CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUIngressExternalServiceTemplateEntriesFetcher _childrenIngressExternalServiceTemplateEntries @accessors(property=childrenIngressExternalServiceTemplateEntries);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     
 }
 
@@ -109,20 +109,20 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"active"];
-        [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"priorityType"];
+        [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenIngressExternalServiceTemplateEntries = [NUIngressExternalServiceTemplateEntriesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

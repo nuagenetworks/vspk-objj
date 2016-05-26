@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUIKECertificateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIKECertificateEntityScope_GLOBAL = @"GLOBAL";
@@ -46,9 +46,17 @@ NUIKECertificateEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _PEMEncoded @accessors(property=PEMEncoded);
     /*!
-        The ID of the associated Enterprise
+        Name of the Encryption Profile
     */
-    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Serial Number of the Certificate - Read Only Attribute
+    */
+    CPNumber _serialNumber @accessors(property=serialNumber);
     /*!
         Description of the IKEv2 Authentication
     */
@@ -58,22 +66,6 @@ NUIKECertificateEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Issuer Distinguished Name of the Certificate - Read Only Attribute
-    */
-    CPString _issuerDN @accessors(property=issuerDN);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the Encryption Profile
-    */
-    CPString _name @accessors(property=name);
-    /*!
         Date this Certificate is valid to - Read Only Attribute
     */
     CPNumber _notAfter @accessors(property=notAfter);
@@ -82,16 +74,24 @@ NUIKECertificateEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _notBefore @accessors(property=notBefore);
     /*!
-        Serial Number of the Certificate - Read Only Attribute
+        The ID of the associated Enterprise
     */
-    CPNumber _serialNumber @accessors(property=serialNumber);
+    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
+    /*!
+        Issuer Distinguished Name of the Certificate - Read Only Attribute
+    */
+    CPString _issuerDN @accessors(property=issuerDN);
     /*!
         Subject Distinguished Name of the Certificate - Read Only Attribute
     */
     CPString _subjectDN @accessors(property=subjectDN);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -113,20 +113,20 @@ NUIKECertificateEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"PEMEncoded"];
-        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"issuerDN"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"notAfter"];
         [self exposeLocalKeyPathToREST:@"notBefore"];
-        [self exposeLocalKeyPathToREST:@"serialNumber"];
+        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
+        [self exposeLocalKeyPathToREST:@"issuerDN"];
         [self exposeLocalKeyPathToREST:@"subjectDN"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

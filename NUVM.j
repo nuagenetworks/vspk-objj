@@ -29,13 +29,13 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAlarmsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVMResyncsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
 @import "Fetchers/NUVRSsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUVMDeleteMode_TIMER = @"TIMER";
 NUVMEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -98,17 +98,29 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
 @implementation NUVM : NURESTObject
 {
     /*!
-        UUID of the VM
+        Array of IDs of the l2 domain that the VM is connected to
     */
-    CPString _UUID @accessors(property=UUID);
+    CPArrayController _l2DomainIDs @accessors(property=l2DomainIDs);
     /*!
         Id of the VRS that this VM is attached to.
     */
     CPString _VRSID @accessors(property=VRSID);
     /*!
-        Application name that this VM belongs to
+        UUID of the VM
     */
-    CPString _appName @accessors(property=appName);
+    CPString _UUID @accessors(property=UUID);
+    /*!
+        Name of the VM
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Reason of the event associated with the VM.
+    */
+    CPString _reasonType @accessors(property=reasonType);
     /*!
         reflects the  VM Deletion expiry timer in secs , deleteMode needs to be non-null value for deleteExpiry to be taken in to effect. CMS created VM's will always have deleteMode set to TIMER
     */
@@ -118,9 +130,17 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPString _deleteMode @accessors(property=deleteMode);
     /*!
-        Array of IDs of the domain that the VM is connected to
+        Information of the status of the resync operation of a VM
     */
-    CPArrayController _domainIDs @accessors(property=domainIDs);
+    NURESTObject _resyncInfo @accessors(property=resyncInfo);
+    /*!
+        This property specifies the site the VM belongs to, for Geo-redundancy.
+    */
+    CPString _siteIdentifier @accessors(property=siteIdentifier);
+    /*!
+        List of VM interfaces associated with the VM
+    */
+    CPArrayController _interfaces @accessors(property=interfaces);
     /*!
         ID of the enterprise that this VM belongs to
     */
@@ -134,49 +154,17 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
+        Array of IDs of the domain that the VM is connected to
     */
-    CPString _externalID @accessors(property=externalID);
+    CPArrayController _domainIDs @accessors(property=domainIDs);
     /*!
-        IP address of the hypervisor that this VM is currently running in
+        Array of IDs of the zone that this VM is attached to
     */
-    CPString _hypervisorIP @accessors(property=hypervisorIP);
+    CPArrayController _zoneIDs @accessors(property=zoneIDs);
     /*!
-        List of VM interfaces associated with the VM
+        Application name that this VM belongs to
     */
-    CPArrayController _interfaces @accessors(property=interfaces);
-    /*!
-        Array of IDs of the l2 domain that the VM is connected to
-    */
-    CPArrayController _l2DomainIDs @accessors(property=l2DomainIDs);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the VM
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Reason of the event associated with the VM.
-    */
-    CPString _reasonType @accessors(property=reasonType);
-    /*!
-        Information of the status of the resync operation of a VM
-    */
-    NURESTObject _resyncInfo @accessors(property=resyncInfo);
-    /*!
-        This property specifies the site the VM belongs to, for Geo-redundancy.
-    */
-    CPString _siteIdentifier @accessors(property=siteIdentifier);
-    /*!
-        Status of the VM.
-    */
-    CPString _status @accessors(property=status);
-    /*!
-        Array of IDs of the subnets that the VM is connected to
-    */
-    CPArrayController _subnetIDs @accessors(property=subnetIDs);
+    CPString _appName @accessors(property=appName);
     /*!
         ID of the user that created this VM
     */
@@ -186,17 +174,29 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPString _userName @accessors(property=userName);
     /*!
-        Array of IDs of the zone that this VM is attached to
+        Status of the VM.
     */
-    CPArrayController _zoneIDs @accessors(property=zoneIDs);
+    CPString _status @accessors(property=status);
+    /*!
+        Array of IDs of the subnets that the VM is connected to
+    */
+    CPArrayController _subnetIDs @accessors(property=subnetIDs);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
+        IP address of the hypervisor that this VM is currently running in
+    */
+    CPString _hypervisorIP @accessors(property=hypervisorIP);
     
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVMResyncsFetcher _childrenVMResyncs @accessors(property=childrenVMResyncs);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
     NUVRSsFetcher _childrenVRSs @accessors(property=childrenVRSs);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -217,37 +217,37 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"UUID"];
+        [self exposeLocalKeyPathToREST:@"l2DomainIDs"];
         [self exposeLocalKeyPathToREST:@"VRSID"];
-        [self exposeLocalKeyPathToREST:@"appName"];
+        [self exposeLocalKeyPathToREST:@"UUID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"reasonType"];
         [self exposeLocalKeyPathToREST:@"deleteExpiry"];
         [self exposeLocalKeyPathToREST:@"deleteMode"];
-        [self exposeLocalKeyPathToREST:@"domainIDs"];
+        [self exposeLocalKeyPathToREST:@"resyncInfo"];
+        [self exposeLocalKeyPathToREST:@"siteIdentifier"];
+        [self exposeLocalKeyPathToREST:@"interfaces"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"hypervisorIP"];
-        [self exposeLocalKeyPathToREST:@"interfaces"];
-        [self exposeLocalKeyPathToREST:@"l2DomainIDs"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"reasonType"];
-        [self exposeLocalKeyPathToREST:@"resyncInfo"];
-        [self exposeLocalKeyPathToREST:@"siteIdentifier"];
-        [self exposeLocalKeyPathToREST:@"status"];
-        [self exposeLocalKeyPathToREST:@"subnetIDs"];
+        [self exposeLocalKeyPathToREST:@"domainIDs"];
+        [self exposeLocalKeyPathToREST:@"zoneIDs"];
+        [self exposeLocalKeyPathToREST:@"appName"];
         [self exposeLocalKeyPathToREST:@"userID"];
         [self exposeLocalKeyPathToREST:@"userName"];
-        [self exposeLocalKeyPathToREST:@"zoneIDs"];
+        [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"subnetIDs"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"hypervisorIP"];
         
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMResyncs = [NUVMResyncsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
         _childrenVRSs = [NUVRSsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

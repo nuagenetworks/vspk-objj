@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUDSCPForwardingClassMappingEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUDSCPForwardingClassMappingEntityScope_GLOBAL = @"GLOBAL";
@@ -55,24 +55,24 @@ NUDSCPForwardingClassMappingForwardingClass_NONE = @"NONE";
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
     /*!
         Class of service to be used.  Service classes in order of priority are A, B, C, D, E, F, G, and H.
     */
     CPString _forwardingClass @accessors(property=forwardingClass);
     /*!
-        ID of the user who last updated the object.
+        External object ID. Used for integration with third party systems
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -94,13 +94,13 @@ NUDSCPForwardingClassMappingForwardingClass_NONE = @"NONE";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"DSCP"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"forwardingClass"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"forwardingClass"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

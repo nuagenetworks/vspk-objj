@@ -29,16 +29,16 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAlarmsFetcher.j"
-@import "Fetchers/NUEnterprisePermissionsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
 @import "Fetchers/NUGatewaysFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
-@import "Fetchers/NUPortsFetcher.j"
 @import "Fetchers/NUWANServicesFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEnterprisePermissionsFetcher.j"
+@import "Fetchers/NUPortsFetcher.j"
 @import "Fetchers/NUVsgRedundantPortsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NURedundancyGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
 NURedundancyGroupEntityScope_GLOBAL = @"GLOBAL";
@@ -65,21 +65,13 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
 @implementation NURedundancyGroup : NURESTObject
 {
     /*!
-         Description of the Redundancy Group
+        Name of the Redundancy Group 
     */
-    CPString _description @accessors(property=description);
+    CPString _name @accessors(property=name);
     /*!
-        The enterprise associated with this Redundant Group. This is a read only attribute
+        ID of the user who last updated the object.
     */
-    CPString _enterpriseID @accessors(property=enterpriseID);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         The Auto Discovered Gateway configuration owner in this Redundant Group. 
     */
@@ -101,13 +93,9 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _gatewayPeer2Name @accessors(property=gatewayPeer2Name);
     /*!
-        ID of the user who last updated the object.
+        The status of  Redundant Group, possible values are FAILED, SUCCESS Possible values are FAILED, SUCCESS, .
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the Redundancy Group 
-    */
-    CPString _name @accessors(property=name);
+    CPString _redundantGatewayStatus @accessors(property=redundantGatewayStatus);
     /*!
         The permitted  action to USE/EXTEND  this Gateway Possible values are USE, READ, ALL, INSTANTIATE, EXTEND, DEPLOY, .
     */
@@ -117,24 +105,36 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _personality @accessors(property=personality);
     /*!
-        The status of  Redundant Group, possible values are FAILED, SUCCESS Possible values are FAILED, SUCCESS, .
+         Description of the Redundancy Group
     */
-    CPString _redundantGatewayStatus @accessors(property=redundantGatewayStatus);
+    CPString _description @accessors(property=description);
+    /*!
+        The enterprise associated with this Redundant Group. This is a read only attribute
+    */
+    CPString _enterpriseID @accessors(property=enterpriseID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Represent the system ID or the Virtual IP of a service used by a Gateway (VSG for now) to establish a tunnel with a remote VSG or hypervisor.  The format of this field is consistent with an IP address.
     */
     CPString _vtep @accessors(property=vtep);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
-    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
-    NUPortsFetcher _childrenPorts @accessors(property=childrenPorts);
     NUWANServicesFetcher _childrenWANServices @accessors(property=childrenWANServices);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
+    NUPortsFetcher _childrenPorts @accessors(property=childrenPorts);
     NUVsgRedundantPortsFetcher _childrenVsgRedundantPorts @accessors(property=childrenVsgRedundantPorts);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -155,32 +155,32 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"enterpriseID"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1AutodiscoveredGatewayID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1ID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1Name"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2AutodiscoveredGatewayID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2Name"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"redundantGatewayStatus"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
-        [self exposeLocalKeyPathToREST:@"redundantGatewayStatus"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"enterpriseID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"vtep"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
-        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
-        _childrenPorts = [NUPortsFetcher fetcherWithParentObject:self];
         _childrenWANServices = [NUWANServicesFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
+        _childrenPorts = [NUPortsFetcher fetcherWithParentObject:self];
         _childrenVsgRedundantPorts = [NUVsgRedundantPortsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

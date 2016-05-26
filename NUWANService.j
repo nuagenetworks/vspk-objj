@@ -29,12 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUPermissionsFetcher.j"
 
 NUWANServiceConfigType_DYNAMIC = @"DYNAMIC";
 NUWANServiceConfigType_STATIC = @"STATIC";
@@ -59,61 +59,21 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
 @implementation NUWANService : NURESTObject
 {
     /*!
-        Determines whether Integrated Routing and Bridging is enabled on the WAN Service
-    */
-    BOOL _IRBEnabled @accessors(property=IRBEnabled);
-    /*!
         Identifier of the WAN Service
     */
     CPString _WANServiceIdentifier @accessors(property=WANServiceIdentifier);
     /*!
-        ID of the entity to which the WAN Service is attached to. This could be ID DOMAIN/L2DOMAIN
+        Determines whether Integrated Routing and Bridging is enabled on the WAN Service
     */
-    CPString _associatedDomainID @accessors(property=associatedDomainID);
-    /*!
-        The associated vpn connect ID.
-    */
-    CPString _associatedVPNConnectID @accessors(property=associatedVPNConnectID);
-    /*!
-        Type of the CONFIG.
-    */
-    CPString _configType @accessors(property=configType);
-    /*!
-        A description of the WAN Service
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        The associated domain name.
-    */
-    CPString _domainName @accessors(property=domainName);
-    /*!
-        The associated enterprise name.
-    */
-    CPString _enterpriseName @accessors(property=enterpriseName);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Route target associated with the WAN. It is an optional parameterthat can be provided by the user
-    */
-    CPString _externalRouteTarget @accessors(property=externalRouteTarget);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    BOOL _IRBEnabled @accessors(property=IRBEnabled);
     /*!
         Name of the WAN Service
     */
     CPString _name @accessors(property=name);
     /*!
-        Indicates if this WAN Service is orphan or not.
+        ID of the user who last updated the object.
     */
-    BOOL _orphan @accessors(property=orphan);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         The permitted  action to USE/EXTEND  this Gateway.
     */
@@ -127,9 +87,33 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
     */
     CPString _serviceType @accessors(property=serviceType);
     /*!
-        Type of the tunnel.
+        A description of the WAN Service
     */
-    CPString _tunnelType @accessors(property=tunnelType);
+    CPString _description @accessors(property=description);
+    /*!
+        VNID of the BackHaul Subnet of L3Domain /L2Domain to which this WANService is associated
+    */
+    CPNumber _vnId @accessors(property=vnId);
+    /*!
+        The associated enterprise name.
+    */
+    CPString _enterpriseName @accessors(property=enterpriseName);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The associated domain name.
+    */
+    CPString _domainName @accessors(property=domainName);
+    /*!
+        Type of the CONFIG.
+    */
+    CPString _configType @accessors(property=configType);
+    /*!
+        Indicates if this WAN Service is orphan or not.
+    */
+    BOOL _orphan @accessors(property=orphan);
     /*!
         Determines whether to use user mnemonic of the WAN Service
     */
@@ -139,16 +123,32 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
     */
     CPString _userMnemonic @accessors(property=userMnemonic);
     /*!
-        VNID of the BackHaul Subnet of L3Domain /L2Domain to which this WANService is associated
+        ID of the entity to which the WAN Service is attached to. This could be ID DOMAIN/L2DOMAIN
     */
-    CPNumber _vnId @accessors(property=vnId);
+    CPString _associatedDomainID @accessors(property=associatedDomainID);
+    /*!
+        The associated vpn connect ID.
+    */
+    CPString _associatedVPNConnectID @accessors(property=associatedVPNConnectID);
+    /*!
+        Type of the tunnel.
+    */
+    CPString _tunnelType @accessors(property=tunnelType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
+        Route target associated with the WAN. It is an optional parameterthat can be provided by the user
+    */
+    CPString _externalRouteTarget @accessors(property=externalRouteTarget);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     
 }
 
@@ -169,34 +169,34 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"IRBEnabled"];
         [self exposeLocalKeyPathToREST:@"WANServiceIdentifier"];
-        [self exposeLocalKeyPathToREST:@"associatedDomainID"];
-        [self exposeLocalKeyPathToREST:@"associatedVPNConnectID"];
-        [self exposeLocalKeyPathToREST:@"configType"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"domainName"];
-        [self exposeLocalKeyPathToREST:@"enterpriseName"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"externalRouteTarget"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"IRBEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"orphan"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"servicePolicy"];
         [self exposeLocalKeyPathToREST:@"serviceType"];
-        [self exposeLocalKeyPathToREST:@"tunnelType"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"vnId"];
+        [self exposeLocalKeyPathToREST:@"enterpriseName"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"domainName"];
+        [self exposeLocalKeyPathToREST:@"configType"];
+        [self exposeLocalKeyPathToREST:@"orphan"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
-        [self exposeLocalKeyPathToREST:@"vnId"];
+        [self exposeLocalKeyPathToREST:@"associatedDomainID"];
+        [self exposeLocalKeyPathToREST:@"associatedVPNConnectID"];
+        [self exposeLocalKeyPathToREST:@"tunnelType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"externalRouteTarget"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         
         _configType = @"STATIC";
         _serviceType = @"L3";

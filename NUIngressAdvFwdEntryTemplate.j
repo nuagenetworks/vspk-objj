@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 
 NUIngressAdvFwdEntryTemplateAction_DROP = @"DROP";
@@ -321,14 +321,6 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 @implementation NUIngressAdvFwdEntryTemplate : NURESTObject
 {
     /*!
-        DSCP match condition to be set in the rule. It is either * or from 0-63
-    */
-    CPString _DSCP @accessors(property=DSCP);
-    /*!
-        Value of the Service Class to be overridden in the packet when the match conditions are satisfied Possible values are NONE, A, B, C, D, E, F, G, H, .
-    */
-    CPString _FCOverride @accessors(property=FCOverride);
-    /*!
         The ICMP Code when protocol selected is ICMP.
     */
     CPString _ICMPCode @accessors(property=ICMPCode);
@@ -337,6 +329,18 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
+        Value of the Service Class to be overridden in the packet when the match conditions are satisfied Possible values are NONE, A, B, C, D, E, F, G, H, .
+    */
+    CPString _FCOverride @accessors(property=FCOverride);
+    /*!
+        DSCP match condition to be set in the rule. It is either * or from 0-63
+    */
+    CPString _DSCP @accessors(property=DSCP);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         The action of the ACL entry DROP or FORWARD or REDIRECT. Action REDIRECT is allowed only for IngressAdvancedForwardingEntry Possible values are DROP, FORWARD, REDIRECT, .
     */
     CPString _action @accessors(property=action);
@@ -344,6 +348,66 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Overrides the source IP for Ingress and destination IP for Egress, macentries will use this adress as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
+    /*!
+        VPort tag to which traffic will be redirected to, when ACL entry match criteria succeeds
+    */
+    CPString _redirectVPortTagID @accessors(property=redirectVPortTagID);
+    /*!
+        Description of the ACL entry
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        The destination port to be matched if protocol is UDP or TCP. Value should be either * or single port number or a port range
+    */
+    CPString _destinationPort @accessors(property=destinationPort);
+    /*!
+        The destination network entity that is referenced(subnet/zone/macro)
+    */
+    CPString _networkID @accessors(property=networkID);
+    /*!
+        Type of the source network.
+    */
+    CPString _networkType @accessors(property=networkType);
+    /*!
+        Destination ID of the mirror destination object.
+    */
+    CPString _mirrorDestinationID @accessors(property=mirrorDestinationID);
+    /*!
+        Is flow logging enabled for this particular template
+    */
+    BOOL _flowLoggingEnabled @accessors(property=flowLoggingEnabled);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The ID of the location entity (Subnet/Zone/VportTag)
+    */
+    CPString _locationID @accessors(property=locationID);
+    /*!
+        Type of the location entity.
+    */
+    CPString _locationType @accessors(property=locationType);
+    /*!
+        State of the policy.  Possible values are DRAFT, LIVE, .
+    */
+    CPString _policyState @accessors(property=policyState);
+    /*!
+        Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range
+    */
+    CPString _sourcePort @accessors(property=sourcePort);
+    /*!
+        Indicates the preferencial path selection for network traffic for this ACL - Default is Primary 1 and Secondary 2 when the attribute is applicable.
+    */
+    CPString _uplinkPreference @accessors(property=uplinkPreference);
+    /*!
+        The priority of the ACL entry that determines the order of entries
+    */
+    CPNumber _priority @accessors(property=priority);
+    /*!
+        Protocol number that must be matched
+    */
+    CPString _protocol @accessors(property=protocol);
     /*!
         The associated application ID
     */
@@ -361,74 +425,6 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
-        Description of the ACL entry
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        The destination port to be matched if protocol is UDP or TCP. Value should be either * or single port number or a port range
-    */
-    CPString _destinationPort @accessors(property=destinationPort);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        Ether type of the packet to be matched. etherType can be * or a valid hexadecimal value
-    */
-    CPString _etherType @accessors(property=etherType);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Is flow logging enabled for this particular template
-    */
-    BOOL _flowLoggingEnabled @accessors(property=flowLoggingEnabled);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        The ID of the location entity (Subnet/Zone/VportTag)
-    */
-    CPString _locationID @accessors(property=locationID);
-    /*!
-        Type of the location entity.
-    */
-    CPString _locationType @accessors(property=locationType);
-    /*!
-        Destination ID of the mirror destination object.
-    */
-    CPString _mirrorDestinationID @accessors(property=mirrorDestinationID);
-    /*!
-        The destination network entity that is referenced(subnet/zone/macro)
-    */
-    CPString _networkID @accessors(property=networkID);
-    /*!
-        Type of the source network.
-    */
-    CPString _networkType @accessors(property=networkType);
-    /*!
-        State of the policy.  Possible values are DRAFT, LIVE, .
-    */
-    CPString _policyState @accessors(property=policyState);
-    /*!
-        The priority of the ACL entry that determines the order of entries
-    */
-    CPNumber _priority @accessors(property=priority);
-    /*!
-        Protocol number that must be matched
-    */
-    CPString _protocol @accessors(property=protocol);
-    /*!
-        VPort tag to which traffic will be redirected to, when ACL entry match criteria succeeds
-    */
-    CPString _redirectVPortTagID @accessors(property=redirectVPortTagID);
-    /*!
-        Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range
-    */
-    CPString _sourcePort @accessors(property=sourcePort);
-    /*!
         The statsID that is created in the VSD and identifies this ACL Template Entry. This is auto-generated by VSD
     */
     CPString _statsID @accessors(property=statsID);
@@ -437,13 +433,17 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     BOOL _statsLoggingEnabled @accessors(property=statsLoggingEnabled);
     /*!
-        Indicates the preferencial path selection for network traffic for this ACL - Default is Primary 1 and Secondary 2 when the attribute is applicable.
+        Ether type of the packet to be matched. etherType can be * or a valid hexadecimal value
     */
-    CPString _uplinkPreference @accessors(property=uplinkPreference);
+    CPString _etherType @accessors(property=etherType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     
 }
@@ -465,40 +465,40 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DSCP"];
-        [self exposeLocalKeyPathToREST:@"FCOverride"];
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
+        [self exposeLocalKeyPathToREST:@"FCOverride"];
+        [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
+        [self exposeLocalKeyPathToREST:@"redirectVPortTagID"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"destinationPort"];
+        [self exposeLocalKeyPathToREST:@"networkID"];
+        [self exposeLocalKeyPathToREST:@"networkType"];
+        [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
+        [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"locationID"];
+        [self exposeLocalKeyPathToREST:@"locationType"];
+        [self exposeLocalKeyPathToREST:@"policyState"];
+        [self exposeLocalKeyPathToREST:@"sourcePort"];
+        [self exposeLocalKeyPathToREST:@"uplinkPreference"];
+        [self exposeLocalKeyPathToREST:@"priority"];
+        [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationID"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationObjectID"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationObjectType"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"destinationPort"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"etherType"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"locationID"];
-        [self exposeLocalKeyPathToREST:@"locationType"];
-        [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
-        [self exposeLocalKeyPathToREST:@"networkID"];
-        [self exposeLocalKeyPathToREST:@"networkType"];
-        [self exposeLocalKeyPathToREST:@"policyState"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"protocol"];
-        [self exposeLocalKeyPathToREST:@"redirectVPortTagID"];
-        [self exposeLocalKeyPathToREST:@"sourcePort"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];
-        [self exposeLocalKeyPathToREST:@"uplinkPreference"];
+        [self exposeLocalKeyPathToREST:@"etherType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         
         _protocol = 6;

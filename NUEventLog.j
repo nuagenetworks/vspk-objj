@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUEventLogEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEventLogEntityScope_GLOBAL = @"GLOBAL";
@@ -74,6 +74,10 @@ NUEventLogEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityType @accessors(property=entityType);
     /*!
+        The authenticated user who triggered this event.
+    */
+    CPString _user @accessors(property=user);
+    /*!
         The time that event was received.
     */
     CPNumber _eventReceivedTime @accessors(property=eventReceivedTime);
@@ -85,13 +89,9 @@ NUEventLogEntityScope_GLOBAL = @"GLOBAL";
         The event type (CREATE, UPDATE or DELETE).
     */
     CPString _type @accessors(property=type);
-    /*!
-        The authenticated user who triggered this event.
-    */
-    CPString _user @accessors(property=user);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -120,13 +120,13 @@ NUEventLogEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityParentType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"entityType"];
+        [self exposeLocalKeyPathToREST:@"user"];
         [self exposeLocalKeyPathToREST:@"eventReceivedTime"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
-        [self exposeLocalKeyPathToREST:@"user"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,10 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUPolicyGroupTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPolicyGroupTemplateEntityScope_GLOBAL = @"GLOBAL";
@@ -50,6 +50,14 @@ NUPolicyGroupTemplateType_SOFTWARE = @"SOFTWARE";
     */
     CPString _EVPNCommunityTag @accessors(property=EVPNCommunityTag);
     /*!
+        Name of the policy group
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Describes this policy group
     */
     CPString _description @accessors(property=description);
@@ -66,22 +74,14 @@ NUPolicyGroupTemplateType_SOFTWARE = @"SOFTWARE";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the policy group
-    */
-    CPString _name @accessors(property=name);
-    /*!
         Type of policy group.
     */
     CPString _type @accessors(property=type);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -103,18 +103,18 @@ NUPolicyGroupTemplateType_SOFTWARE = @"SOFTWARE";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"EVPNCommunityTag"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"external"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"type"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _type = @"SOFTWARE";
         

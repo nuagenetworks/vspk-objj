@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUNSPortTemplatesFetcher.j"
 
 NUNSGatewayTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -43,9 +43,21 @@ NUNSGatewayTemplateEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUNSGatewayTemplate : NURESTObject
 {
     /*!
+        Name of the Gateway
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         A description of the Gateway
     */
     CPString _description @accessors(property=description);
+    /*!
+        The ID of the infrastructure gateway profile this instance of a Gateway is associated with.
+    */
+    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
     /*!
         The enterprise associated with this Gateway. This is a read only attribute
     */
@@ -58,21 +70,9 @@ NUNSGatewayTemplateEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        The ID of the infrastructure gateway profile this instance of a Gateway is associated with.
-    */
-    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the Gateway
-    */
-    CPString _name @accessors(property=name);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUNSPortTemplatesFetcher _childrenNSPortTemplates @accessors(property=childrenNSPortTemplates);
     
 }
@@ -94,16 +94,16 @@ NUNSGatewayTemplateEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenNSPortTemplates = [NUNSPortTemplatesFetcher fetcherWithParentObject:self];
         
         

@@ -49,18 +49,6 @@ NUDiskStatUnit_ZB = @"ZB";
 @implementation NUDiskStat : NURESTObject
 {
     /*!
-        Available disk space.
-    */
-    CPNumber _available @accessors(property=available);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
         Name of the disk.
     */
     CPString _name @accessors(property=name);
@@ -73,9 +61,21 @@ NUDiskStatUnit_ZB = @"ZB";
     */
     CPString _unit @accessors(property=unit);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Disk space used.
     */
     CPNumber _used @accessors(property=used);
+    /*!
+        Available disk space.
+    */
+    CPNumber _available @accessors(property=available);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
     
 }
@@ -97,13 +97,13 @@ NUDiskStatUnit_ZB = @"ZB";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"available"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"size"];
         [self exposeLocalKeyPathToREST:@"unit"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"used"];
+        [self exposeLocalKeyPathToREST:@"available"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
         
         

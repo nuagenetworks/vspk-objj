@@ -29,26 +29,26 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAggregateMetadatasFetcher.j"
-@import "Fetchers/NUAlarmsFetcher.j"
-@import "Fetchers/NUBGPNeighborsFetcher.j"
-@import "Fetchers/NUBridgeInterfacesFetcher.j"
-@import "Fetchers/NUDHCPOptionsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUHostInterfacesFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUPolicyGroupsFetcher.j"
-@import "Fetchers/NUQOSsFetcher.j"
-@import "Fetchers/NURedirectionTargetsFetcher.j"
-@import "Fetchers/NUStatisticsFetcher.j"
-@import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUTCAsFetcher.j"
+@import "Fetchers/NURedirectionTargetsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUAggregateMetadatasFetcher.j"
+@import "Fetchers/NUBGPNeighborsFetcher.j"
+@import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUVirtualIPsFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
+@import "Fetchers/NUPolicyGroupsFetcher.j"
+@import "Fetchers/NUQOSsFetcher.j"
+@import "Fetchers/NUHostInterfacesFetcher.j"
 @import "Fetchers/NUVPortMirrorsFetcher.j"
+@import "Fetchers/NUBridgeInterfacesFetcher.j"
 @import "Fetchers/NUVRSsFetcher.j"
+@import "Fetchers/NUStatisticsFetcher.j"
+@import "Fetchers/NUStatisticsPoliciesFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUVPortAddressSpoofing_DISABLED = @"DISABLED";
 NUVPortAddressSpoofing_ENABLED = @"ENABLED";
@@ -82,6 +82,18 @@ NUVPortType_VM = @"VM";
     */
     CPString _VLANID @accessors(property=VLANID);
     /*!
+        Name of the vport. Valid characters are alphabets, numbers, space and hyphen( - ).
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        Indicates that this vport has attached interfaces
+    */
+    BOOL _hasAttachedInterfaces @accessors(property=hasAttachedInterfaces);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Indicates if this vport is up or down
     */
     BOOL _active @accessors(property=active);
@@ -89,6 +101,26 @@ NUVPortType_VM = @"VM";
         Indicates if address spoofing is ENABLED/DISABLED/INHERITED for this vport Possible values are INHERITED, ENABLED, DISABLED, .
     */
     CPString _addressSpoofing @accessors(property=addressSpoofing);
+    /*!
+        Description for this vport
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        ID the Domain associated with the VPort
+    */
+    CPString _domainID @accessors(property=domainID);
+    /*!
+        ID the Zone associated with the VPort
+    */
+    CPString _zoneID @accessors(property=zoneID);
+    /*!
+        Operational State of the VPort - RUNNING/SHUTDOWN Possible values are INIT, UP, DOWN, .
+    */
+    CPString _operationalState @accessors(property=operationalState);
     /*!
         Id of Floating IP address associated to this vport
     */
@@ -102,30 +134,6 @@ NUVPortType_VM = @"VM";
     */
     CPString _associatedSendMulticastChannelMapID @accessors(property=associatedSendMulticastChannelMapID);
     /*!
-        Description for this vport
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        ID the Domain associated with the VPort
-    */
-    CPString _domainID @accessors(property=domainID);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Indicates that this vport has attached interfaces
-    */
-    BOOL _hasAttachedInterfaces @accessors(property=hasAttachedInterfaces);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
         ID of the Multi NIC VPort associated with the VPort
     */
     CPString _multiNICVPortID @accessors(property=multiNICVPortID);
@@ -134,46 +142,38 @@ NUVPortType_VM = @"VM";
     */
     CPString _multicast @accessors(property=multicast);
     /*!
-        Name of the vport. Valid characters are alphabets, numbers, space and hyphen( - ).
+        External object ID. Used for integration with third party systems
     */
-    CPString _name @accessors(property=name);
-    /*!
-        Operational State of the VPort - RUNNING/SHUTDOWN Possible values are INIT, UP, DOWN, .
-    */
-    CPString _operationalState @accessors(property=operationalState);
-    /*!
-        Indicates what system it is.
-    */
-    CPString _systemType @accessors(property=systemType);
+    CPString _externalID @accessors(property=externalID);
     /*!
         Type of vport - possible values VM/HOST/BRIDGE Possible values are VM, HOST, BRIDGE, .
     */
     CPString _type @accessors(property=type);
     /*!
-        ID the Zone associated with the VPort
+        Indicates what system it is.
     */
-    CPString _zoneID @accessors(property=zoneID);
+    CPString _systemType @accessors(property=systemType);
     
-    NUAggregateMetadatasFetcher _childrenAggregateMetadatas @accessors(property=childrenAggregateMetadatas);
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
-    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
-    NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
-    NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
-    NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
-    NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
-    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
-    NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
+    NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUAggregateMetadatasFetcher _childrenAggregateMetadatas @accessors(property=childrenAggregateMetadatas);
+    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
+    NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUVirtualIPsFetcher _childrenVirtualIPs @accessors(property=childrenVirtualIPs);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
+    NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
+    NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
+    NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
     NUVPortMirrorsFetcher _childrenVPortMirrors @accessors(property=childrenVPortMirrors);
+    NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
     NUVRSsFetcher _childrenVRSs @accessors(property=childrenVRSs);
+    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
+    NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -195,45 +195,45 @@ NUVPortType_VM = @"VM";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"VLANID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"hasAttachedInterfaces"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"active"];
         [self exposeLocalKeyPathToREST:@"addressSpoofing"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"domainID"];
+        [self exposeLocalKeyPathToREST:@"zoneID"];
+        [self exposeLocalKeyPathToREST:@"operationalState"];
         [self exposeLocalKeyPathToREST:@"associatedFloatingIPID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedSendMulticastChannelMapID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"domainID"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"hasAttachedInterfaces"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"multiNICVPortID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"operationalState"];
-        [self exposeLocalKeyPathToREST:@"systemType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
-        [self exposeLocalKeyPathToREST:@"zoneID"];
+        [self exposeLocalKeyPathToREST:@"systemType"];
         
-        _childrenAggregateMetadatas = [NUAggregateMetadatasFetcher fetcherWithParentObject:self];
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
-        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
-        _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
-        _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
-        _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
-        _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
-        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
-        _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
+        _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenAggregateMetadatas = [NUAggregateMetadatasFetcher fetcherWithParentObject:self];
+        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
+        _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenVirtualIPs = [NUVirtualIPsFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
+        _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
+        _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
+        _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
         _childrenVPortMirrors = [NUVPortMirrorsFetcher fetcherWithParentObject:self];
+        _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
         _childrenVRSs = [NUVRSsFetcher fetcherWithParentObject:self];
+        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
+        _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _multicast = @"INHERITED";
         _type = @"VM";

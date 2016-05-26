@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUMetadataTagEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUMetadataTagEntityScope_GLOBAL = @"GLOBAL";
@@ -43,13 +43,13 @@ NUMetadataTagEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUMetadataTag : NURESTObject
 {
     /*!
-        ID of the entity to which the Metadata tag is  associated to
+        name of the Metadata tag.
     */
-    CPString _associatedExternalServiceID @accessors(property=associatedExternalServiceID);
+    CPString _name @accessors(property=name);
     /*!
-        set to true if it is the default metadata tag created as part of external service creation
+        ID of the user who last updated the object.
     */
-    BOOL _autoCreated @accessors(property=autoCreated);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Description of the Metadata tag.
     */
@@ -59,21 +59,21 @@ NUMetadataTagEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        ID of the entity to which the Metadata tag is  associated to
+    */
+    CPString _associatedExternalServiceID @accessors(property=associatedExternalServiceID);
+    /*!
+        set to true if it is the default metadata tag created as part of external service creation
+    */
+    BOOL _autoCreated @accessors(property=autoCreated);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        name of the Metadata tag.
-    */
-    CPString _name @accessors(property=name);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -94,17 +94,17 @@ NUMetadataTagEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"associatedExternalServiceID"];
-        [self exposeLocalKeyPathToREST:@"autoCreated"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedExternalServiceID"];
+        [self exposeLocalKeyPathToREST:@"autoCreated"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

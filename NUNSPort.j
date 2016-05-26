@@ -29,16 +29,16 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAlarmsFetcher.j"
-@import "Fetchers/NUEnterprisePermissionsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUNSPortStaticConfigurationsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUVLANsFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEnterprisePermissionsFetcher.j"
+@import "Fetchers/NUNSPortStaticConfigurationsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
-@import "Fetchers/NUVLANsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUNSPortEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSPortEntityScope_GLOBAL = @"GLOBAL";
@@ -73,6 +73,50 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _VLANRange @accessors(property=VLANRange);
     /*!
+        Name of the Port
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        The ID of the template that this Port was created from
+    */
+    CPString _templateID @accessors(property=templateID);
+    /*!
+        The permitted  action to USE/EXTEND  this Gateway.
+    */
+    CPString _permittedAction @accessors(property=permittedAction);
+    /*!
+        A description of the Port
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        Identifier of the Port
+    */
+    CPString _physicalName @accessors(property=physicalName);
+    /*!
+        The ID of the infrastructure profile this instance is associated with.
+    */
+    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Type of the Port.
+    */
+    CPString _portType @accessors(property=portType);
+    /*!
+        determines whether to use user mnemonic of the Port
+    */
+    BOOL _useUserMnemonic @accessors(property=useUserMnemonic);
+    /*!
+        user mnemonic of the Port
+    */
+    CPString _userMnemonic @accessors(property=userMnemonic);
+    /*!
         ID of the Egress QOS Policy associated with this Vlan.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
@@ -85,68 +129,24 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
     /*!
-        A description of the Port
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        The ID of the infrastructure profile this instance is associated with.
-    */
-    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the Port
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        The permitted  action to USE/EXTEND  this Gateway.
-    */
-    CPString _permittedAction @accessors(property=permittedAction);
-    /*!
-        Identifier of the Port
-    */
-    CPString _physicalName @accessors(property=physicalName);
-    /*!
-        Type of the Port.
-    */
-    CPString _portType @accessors(property=portType);
-    /*!
         Status of the port.
     */
     CPString _status @accessors(property=status);
     /*!
-        The ID of the template that this Port was created from
+        External object ID. Used for integration with third party systems
     */
-    CPString _templateID @accessors(property=templateID);
-    /*!
-        determines whether to use user mnemonic of the Port
-    */
-    BOOL _useUserMnemonic @accessors(property=useUserMnemonic);
-    /*!
-        user mnemonic of the Port
-    */
-    CPString _userMnemonic @accessors(property=userMnemonic);
+    CPString _externalID @accessors(property=externalID);
     
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
-    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUNSPortStaticConfigurationsFetcher _childrenNSPortStaticConfigurations @accessors(property=childrenNSPortStaticConfigurations);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUVLANsFetcher _childrenVLANs @accessors(property=childrenVLANs);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
+    NUNSPortStaticConfigurationsFetcher _childrenNSPortStaticConfigurations @accessors(property=childrenNSPortStaticConfigurations);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
-    NUVLANsFetcher _childrenVLANs @accessors(property=childrenVLANs);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -169,33 +169,33 @@ NUNSPortStatus_READY = @"READY";
     {
         [self exposeLocalKeyPathToREST:@"NATTraversal"];
         [self exposeLocalKeyPathToREST:@"VLANRange"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"templateID"];
+        [self exposeLocalKeyPathToREST:@"permittedAction"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"physicalName"];
+        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"portType"];
+        [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
+        [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedRedundantPortID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"permittedAction"];
-        [self exposeLocalKeyPathToREST:@"physicalName"];
-        [self exposeLocalKeyPathToREST:@"portType"];
         [self exposeLocalKeyPathToREST:@"status"];
-        [self exposeLocalKeyPathToREST:@"templateID"];
-        [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
-        [self exposeLocalKeyPathToREST:@"userMnemonic"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
-        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenNSPortStaticConfigurations = [NUNSPortStaticConfigurationsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenVLANs = [NUVLANsFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
+        _childrenNSPortStaticConfigurations = [NUNSPortStaticConfigurationsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
-        _childrenVLANs = [NUVLANsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

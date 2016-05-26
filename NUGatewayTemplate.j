@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUPortTemplatesFetcher.j"
 
 NUGatewayTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -50,6 +50,18 @@ NUGatewayTemplatePersonality_VSG = @"VSG";
 @implementation NUGatewayTemplate : NURESTObject
 {
     /*!
+        Name of the Gateway
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Personality of the Gateway, cannot be changed after creation.
+    */
+    CPString _personality @accessors(property=personality);
+    /*!
         A description of the Gateway
     */
     CPString _description @accessors(property=description);
@@ -65,21 +77,9 @@ NUGatewayTemplatePersonality_VSG = @"VSG";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the Gateway
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Personality of the Gateway, cannot be changed after creation.
-    */
-    CPString _personality @accessors(property=personality);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUPortTemplatesFetcher _childrenPortTemplates @accessors(property=childrenPortTemplates);
     
 }
@@ -101,16 +101,16 @@ NUGatewayTemplatePersonality_VSG = @"VSG";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"personality"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenPortTemplates = [NUPortTemplatesFetcher fetcherWithParentObject:self];
         
         _personality = @"VRSG";
