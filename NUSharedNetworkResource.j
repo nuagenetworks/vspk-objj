@@ -30,12 +30,12 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUAddressRangesFetcher.j"
-@import "Fetchers/NUDHCPOptionsFetcher.j"
-@import "Fetchers/NUEnterprisePermissionsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUStaticRoutesFetcher.j"
+@import "Fetchers/NUDHCPOptionsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUVPNConnectionsFetcher.j"
+@import "Fetchers/NUStaticRoutesFetcher.j"
 
 NUSharedNetworkResourceEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUSharedNetworkResourceEntityScope_GLOBAL = @"GLOBAL";
@@ -57,21 +57,13 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
 @implementation NUSharedNetworkResource : NURESTObject
 {
     /*!
-        true if DHCP is enabled else it is false. This value is always true for network resource of type PUBLIC or FLOATING.
-    */
-    BOOL _DHCPManaged @accessors(property=DHCPManaged);
-    /*!
         Domain specific Equal-cost multi-path routing count, ECMPCount = 1 means no ECMP
     */
     CPNumber _ECMPCount @accessors(property=ECMPCount);
     /*!
-        Boolean indicates that this shared network resource is avaiable to everyone by default or not
+        true if DHCP is enabled else it is false. This value is always true for network resource of type PUBLIC or FLOATING.
     */
-    BOOL _accessRestrictionEnabled @accessors(property=accessRestrictionEnabled);
-    /*!
-        Address configured on the shared resource
-    */
-    CPString _address @accessors(property=address);
+    BOOL _DHCPManaged @accessors(property=DHCPManaged);
     /*!
         backHaulRouteDistinguisher of the Shared Resource
     */
@@ -85,9 +77,53 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
     */
     CPNumber _backHaulVNID @accessors(property=backHaulVNID);
     /*!
+        Name of the shared resource. Valid characters are alphabets, numbers, space and hyphen( - ).
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Gatemask configured on the shared resource
+    */
+    CPString _gateway @accessors(property=gateway);
+    /*!
+        Boolean indicates that this shared network resource is avaiable to everyone by default or not
+    */
+    BOOL _accessRestrictionEnabled @accessors(property=accessRestrictionEnabled);
+    /*!
+        Address configured on the shared resource
+    */
+    CPString _address @accessors(property=address);
+    /*!
+        Permitted action on this shared network resource
+    */
+    CPString _permittedActionType @accessors(property=permittedActionType);
+    /*!
         Description of the shared resource
     */
     CPString _description @accessors(property=description);
+    /*!
+        Netmask configured on the shared resource
+    */
+    CPString _netmask @accessors(property=netmask);
+    /*!
+        Parent ID of the floating IP subnet to which this FIP subnet must be attached. If empty it will be created in a new domain.
+    */
+    CPString _sharedResourceParentID @accessors(property=sharedResourceParentID);
+    /*!
+        VNID of the Shared Resource
+    */
+    CPNumber _vnID @accessors(property=vnID);
+    /*!
+        Indicates whether this shared subnet is in underlay or not.
+    */
+    BOOL _underlay @accessors(property=underlay);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Route distinguisher configured on the shared resource
     */
@@ -96,46 +132,6 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
         Route target configured on the shared resource
     */
     CPString _domainRouteTarget @accessors(property=domainRouteTarget);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Gatemask configured on the shared resource
-    */
-    CPString _gateway @accessors(property=gateway);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the shared resource. Valid characters are alphabets, numbers, space and hyphen( - ).
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Netmask configured on the shared resource
-    */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        Permitted action on this shared network resource
-    */
-    CPString _permittedActionType @accessors(property=permittedActionType);
-    /*!
-        Parent ID of the floating IP subnet to which this FIP subnet must be attached. If empty it will be created in a new domain.
-    */
-    CPString _sharedResourceParentID @accessors(property=sharedResourceParentID);
-    /*!
-        Type of the shared resource.
-    */
-    CPString _type @accessors(property=type);
-    /*!
-        Indicates whether this shared subnet is in underlay or not.
-    */
-    BOOL _underlay @accessors(property=underlay);
     /*!
         VLAN ID to which this vport must be attached
     */
@@ -153,17 +149,21 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
     */
     CPString _uplinkVPortName @accessors(property=uplinkVPortName);
     /*!
-        VNID of the Shared Resource
+        External object ID. Used for integration with third party systems
     */
-    CPNumber _vnID @accessors(property=vnID);
+    CPString _externalID @accessors(property=externalID);
+    /*!
+        Type of the shared resource.
+    */
+    CPString _type @accessors(property=type);
     
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
-    NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
-    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
+    NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUVPNConnectionsFetcher _childrenVPNConnections @accessors(property=childrenVPNConnections);
+    NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
     
 }
 
@@ -184,39 +184,39 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DHCPManaged"];
         [self exposeLocalKeyPathToREST:@"ECMPCount"];
-        [self exposeLocalKeyPathToREST:@"accessRestrictionEnabled"];
-        [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"DHCPManaged"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteDistinguisher"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteTarget"];
         [self exposeLocalKeyPathToREST:@"backHaulVNID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gateway"];
+        [self exposeLocalKeyPathToREST:@"accessRestrictionEnabled"];
+        [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"permittedActionType"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"sharedResourceParentID"];
+        [self exposeLocalKeyPathToREST:@"vnID"];
+        [self exposeLocalKeyPathToREST:@"underlay"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainRouteDistinguisher"];
         [self exposeLocalKeyPathToREST:@"domainRouteTarget"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"permittedActionType"];
-        [self exposeLocalKeyPathToREST:@"sharedResourceParentID"];
-        [self exposeLocalKeyPathToREST:@"type"];
-        [self exposeLocalKeyPathToREST:@"underlay"];
         [self exposeLocalKeyPathToREST:@"uplinkGWVlanAttachmentID"];
         [self exposeLocalKeyPathToREST:@"uplinkInterfaceIP"];
         [self exposeLocalKeyPathToREST:@"uplinkInterfaceMAC"];
         [self exposeLocalKeyPathToREST:@"uplinkVPortName"];
-        [self exposeLocalKeyPathToREST:@"vnID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
-        _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
-        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
+        _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenVPNConnections = [NUVPNConnectionsFetcher fetcherWithParentObject:self];
+        _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
         
         _type = @"PUBLIC";
         _DHCPManaged = YES;

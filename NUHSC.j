@@ -29,14 +29,14 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUBGPPeersFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUMonitoringPortsFetcher.j"
 @import "Fetchers/NUVRSsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUHSCEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUHSCEntityScope_GLOBAL = @"GLOBAL";
@@ -55,45 +55,13 @@ NUHSCType_VSG = @"VSG";
 @implementation NUHSC : NURESTObject
 {
     /*!
-        The IP of the VRS entity
+        Identifies the entity with a name.
     */
-    CPString _address @accessors(property=address);
+    CPString _name @accessors(property=name);
     /*!
-        Flag to indicate that it is already marked a unavailable.
+        The management IP of the VSC/HSC entity
     */
-    BOOL _alreadyMarkedForUnavailable @accessors(property=alreadyMarkedForUnavailable);
-    /*!
-        Average CPU usage percentage.
-    */
-    CPNumber _averageCPUUsage @accessors(property=averageCPUUsage);
-    /*!
-        Average memory usage percentage.
-    */
-    CPNumber _averageMemoryUsage @accessors(property=averageMemoryUsage);
-    /*!
-        Current CPU usage percentage.
-    */
-    CPNumber _currentCPUUsage @accessors(property=currentCPUUsage);
-    /*!
-        Current memory usage percentage.
-    */
-    CPNumber _currentMemoryUsage @accessors(property=currentMemoryUsage);
-    /*!
-        Description of the entity.
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Set of disk usage details.
-    */
-    CPArrayController _disks @accessors(property=disks);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _managementIP @accessors(property=managementIP);
     /*!
         Last state change timestamp (in millis).
     */
@@ -103,25 +71,9 @@ NUHSCType_VSG = @"VSG";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Identifies the entity to be associated with a location.
+        The IP of the VRS entity
     */
-    CPString _location @accessors(property=location);
-    /*!
-        The management IP of the VSC/HSC entity
-    */
-    CPString _managementIP @accessors(property=managementIP);
-    /*!
-        An array of degraded messages.
-    */
-    CPArrayController _messages @accessors(property=messages);
-    /*!
-        The model of the hardware service controller
-    */
-    CPString _model @accessors(property=model);
-    /*!
-        Identifies the entity with a name.
-    */
-    CPString _name @accessors(property=name);
+    CPString _address @accessors(property=address);
     /*!
         Peek CPU usage percentage.
     */
@@ -131,34 +83,82 @@ NUHSCType_VSG = @"VSG";
     */
     CPNumber _peakMemoryUsage @accessors(property=peakMemoryUsage);
     /*!
-        Product version supported by this entity.
+        Description of the entity.
     */
-    CPString _productVersion @accessors(property=productVersion);
+    CPString _description @accessors(property=description);
     /*!
-        Computed status of the entity. Possible values are UP, DOWN, ADMIN_DOWN, .
+        An array of degraded messages.
     */
-    CPString _status @accessors(property=status);
+    CPArrayController _messages @accessors(property=messages);
     /*!
-        The type of the hardware service controller.
+        Set of disk usage details.
     */
-    CPString _type @accessors(property=type);
+    CPArrayController _disks @accessors(property=disks);
+    /*!
+        Flag to indicate that it is already marked a unavailable.
+    */
+    BOOL _alreadyMarkedForUnavailable @accessors(property=alreadyMarkedForUnavailable);
     /*!
         The duration the controller is unavailable (in millis).
     */
     CPNumber _unavailableTimestamp @accessors(property=unavailableTimestamp);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Identifies the entity to be associated with a location.
+    */
+    CPString _location @accessors(property=location);
+    /*!
+        The model of the hardware service controller
+    */
+    CPString _model @accessors(property=model);
+    /*!
+        Product version supported by this entity.
+    */
+    CPString _productVersion @accessors(property=productVersion);
+    /*!
         A collection of VSD id(s) which are identified by this controller.
     */
     CPArrayController _vsds @accessors(property=vsds);
+    /*!
+        Computed status of the entity. Possible values are UP, DOWN, ADMIN_DOWN, .
+    */
+    CPString _status @accessors(property=status);
+    /*!
+        Current CPU usage percentage.
+    */
+    CPNumber _currentCPUUsage @accessors(property=currentCPUUsage);
+    /*!
+        Current memory usage percentage.
+    */
+    CPNumber _currentMemoryUsage @accessors(property=currentMemoryUsage);
+    /*!
+        Average CPU usage percentage.
+    */
+    CPNumber _averageCPUUsage @accessors(property=averageCPUUsage);
+    /*!
+        Average memory usage percentage.
+    */
+    CPNumber _averageMemoryUsage @accessors(property=averageMemoryUsage);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
+        The type of the hardware service controller.
+    */
+    CPString _type @accessors(property=type);
     
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUBGPPeersFetcher _childrenBGPPeers @accessors(property=childrenBGPPeers);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUMonitoringPortsFetcher _childrenMonitoringPorts @accessors(property=childrenMonitoringPorts);
     NUVRSsFetcher _childrenVRSs @accessors(property=childrenVRSs);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -179,39 +179,39 @@ NUHSCType_VSG = @"VSG";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"alreadyMarkedForUnavailable"];
-        [self exposeLocalKeyPathToREST:@"averageCPUUsage"];
-        [self exposeLocalKeyPathToREST:@"averageMemoryUsage"];
-        [self exposeLocalKeyPathToREST:@"currentCPUUsage"];
-        [self exposeLocalKeyPathToREST:@"currentMemoryUsage"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"disks"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"managementIP"];
         [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"location"];
-        [self exposeLocalKeyPathToREST:@"managementIP"];
-        [self exposeLocalKeyPathToREST:@"messages"];
-        [self exposeLocalKeyPathToREST:@"model"];
-        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"peakCPUUsage"];
         [self exposeLocalKeyPathToREST:@"peakMemoryUsage"];
-        [self exposeLocalKeyPathToREST:@"productVersion"];
-        [self exposeLocalKeyPathToREST:@"status"];
-        [self exposeLocalKeyPathToREST:@"type"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"messages"];
+        [self exposeLocalKeyPathToREST:@"disks"];
+        [self exposeLocalKeyPathToREST:@"alreadyMarkedForUnavailable"];
         [self exposeLocalKeyPathToREST:@"unavailableTimestamp"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"location"];
+        [self exposeLocalKeyPathToREST:@"model"];
+        [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"vsds"];
+        [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"currentCPUUsage"];
+        [self exposeLocalKeyPathToREST:@"currentMemoryUsage"];
+        [self exposeLocalKeyPathToREST:@"averageCPUUsage"];
+        [self exposeLocalKeyPathToREST:@"averageMemoryUsage"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenBGPPeers = [NUBGPPeersFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenMonitoringPorts = [NUMonitoringPortsFetcher fetcherWithParentObject:self];
         _childrenVRSs = [NUVRSsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

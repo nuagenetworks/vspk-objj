@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUIPReservationEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIPReservationEntityScope_GLOBAL = @"GLOBAL";
@@ -43,17 +43,17 @@ NUIPReservationEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUIPReservation : NURESTObject
 {
     /*!
-        Static IP Address
-    */
-    CPString _IPAddress @accessors(property=IPAddress);
-    /*!
         MAC Address
     */
     CPString _MAC @accessors(property=MAC);
     /*!
-        Binding is static or dynamic
+        Static IP Address
     */
-    BOOL _dynamicAllocationEnabled @accessors(property=dynamicAllocationEnabled);
+    CPString _IPAddress @accessors(property=IPAddress);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -63,13 +63,13 @@ NUIPReservationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        ID of the user who last updated the object.
+        Binding is static or dynamic
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    BOOL _dynamicAllocationEnabled @accessors(property=dynamicAllocationEnabled);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -90,16 +90,16 @@ NUIPReservationEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"IPAddress"];
         [self exposeLocalKeyPathToREST:@"MAC"];
-        [self exposeLocalKeyPathToREST:@"dynamicAllocationEnabled"];
+        [self exposeLocalKeyPathToREST:@"IPAddress"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"dynamicAllocationEnabled"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

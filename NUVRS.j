@@ -29,17 +29,17 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUAlarmsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUHSCsFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUMonitoringPortsFetcher.j"
-@import "Fetchers/NUMultiNICVPortsFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
+@import "Fetchers/NUJobsFetcher.j"
+@import "Fetchers/NUMonitoringPortsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUHSCsFetcher.j"
 @import "Fetchers/NUVSCsFetcher.j"
+@import "Fetchers/NUMultiNICVPortsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUVRSClusterNodeRole_NONE = @"NONE";
 NUVRSClusterNodeRole_PRIMARY = @"PRIMARY";
@@ -75,73 +75,17 @@ NUVRSStatus_UP = @"UP";
     */
     CPString _JSONRPCConnectionState @accessors(property=JSONRPCConnectionState);
     /*!
-        The IP of the VRS entity
+        Identifies the entity with a name.
     */
-    CPString _address @accessors(property=address);
+    CPString _name @accessors(property=name);
     /*!
-        Average CPU usage percentage.
+        The management IP of the VRS entity
     */
-    CPNumber _averageCPUUsage @accessors(property=averageCPUUsage);
+    CPString _managementIP @accessors(property=managementIP);
     /*!
-        Average memory usage percentage.
+        Holds VRS controllers ids
     */
-    CPNumber _averageMemoryUsage @accessors(property=averageMemoryUsage);
-    /*!
-        Indicate that the controller associated is primary, secondary or unknown.
-    */
-    CPString _clusterNodeRole @accessors(property=clusterNodeRole);
-    /*!
-        Current CPU usage percentage.
-    */
-    CPNumber _currentCPUUsage @accessors(property=currentCPUUsage);
-    /*!
-        Current memory usage percentage.
-    */
-    CPNumber _currentMemoryUsage @accessors(property=currentMemoryUsage);
-    /*!
-        Flag to indicate if the ovs database is synced between the NSG pair part of a redundant group
-    */
-    BOOL _dbSynced @accessors(property=dbSynced);
-    /*!
-        Description of the entity.
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Set of disk usage details.
-    */
-    CPArrayController _disks @accessors(property=disks);
-    /*!
-        Flag to indicate it is dynamically configured or not.
-    */
-    BOOL _dynamic @accessors(property=dynamic);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        The VRS connection state with the hypervisor.
-    */
-    CPString _hypervisorConnectionState @accessors(property=hypervisorConnectionState);
-    /*!
-        The hypervisor IP (or name) associated with the VRS.
-    */
-    CPString _hypervisorIdentifier @accessors(property=hypervisorIdentifier);
-    /*!
-        The hypervisor name associated with the VRS.
-    */
-    CPString _hypervisorName @accessors(property=hypervisorName);
-    /*!
-        The hypervisor type associated with the VRS.
-    */
-    CPString _hypervisorType @accessors(property=hypervisorType);
-    /*!
-        Flag to indicate that the VRS is part of a redundant group.
-    */
-    BOOL _isResilient @accessors(property=isResilient);
+    CPArrayController _parentIDs @accessors(property=parentIDs);
     /*!
         The last event name from the hypervisor.
     */
@@ -163,41 +107,13 @@ NUVRSStatus_UP = @"UP";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Identifies the entity to be associated with a location.
+        Flag to indicate if the ovs database is synced between the NSG pair part of a redundant group
     */
-    CPString _location @accessors(property=location);
+    BOOL _dbSynced @accessors(property=dbSynced);
     /*!
-        The management IP of the VRS entity
+        The IP of the VRS entity
     */
-    CPString _managementIP @accessors(property=managementIP);
-    /*!
-        An array of degraded messages.
-    */
-    CPArrayController _messages @accessors(property=messages);
-    /*!
-        VRS is in Multi-NIC VPORT Mode
-    */
-    BOOL _multiNICVPortEnabled @accessors(property=multiNICVPortEnabled);
-    /*!
-        Identifies the entity with a name.
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Number of bridge interfaces defined in this VRS.
-    */
-    CPNumber _numberOfBridgeInterfaces @accessors(property=numberOfBridgeInterfaces);
-    /*!
-        Number of host interfaces defined in this VRS.
-    */
-    CPNumber _numberOfHostInterfaces @accessors(property=numberOfHostInterfaces);
-    /*!
-        Number of VMs defined in this VRS.
-    */
-    CPNumber _numberOfVirtualMachines @accessors(property=numberOfVirtualMachines);
-    /*!
-        Holds VRS controllers ids
-    */
-    CPArrayController _parentIDs @accessors(property=parentIDs);
+    CPString _address @accessors(property=address);
     /*!
         Peek CPU usage percentage.
     */
@@ -215,33 +131,117 @@ NUVRSStatus_UP = @"UP";
     */
     CPString _personality @accessors(property=personality);
     /*!
-        Product version supported by this entity.
+        Description of the entity.
     */
-    CPString _productVersion @accessors(property=productVersion);
+    CPString _description @accessors(property=description);
+    /*!
+        An array of degraded messages.
+    */
+    CPArrayController _messages @accessors(property=messages);
+    /*!
+        Set of disk usage details.
+    */
+    CPArrayController _disks @accessors(property=disks);
+    /*!
+        Indicate that the controller associated is primary, secondary or unknown.
+    */
+    CPString _clusterNodeRole @accessors(property=clusterNodeRole);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Identifies the entity to be associated with a location.
+    */
+    CPString _location @accessors(property=location);
     /*!
         Flag to indicate that VRS-G redundancy state (active/standby/standalone).  Only applicable for gateways.
     */
     CPString _role @accessors(property=role);
     /*!
+        How long the VRS was up.
+    */
+    CPNumber _uptime @accessors(property=uptime);
+    /*!
+        Product version supported by this entity.
+    */
+    CPString _productVersion @accessors(property=productVersion);
+    /*!
+        Flag to indicate that the VRS is part of a redundant group.
+    */
+    BOOL _isResilient @accessors(property=isResilient);
+    /*!
         Computed status of the entity.
     */
     CPString _status @accessors(property=status);
     /*!
-        How long the VRS was up.
+        VRS is in Multi-NIC VPORT Mode
     */
-    CPNumber _uptime @accessors(property=uptime);
+    BOOL _multiNICVPortEnabled @accessors(property=multiNICVPortEnabled);
+    /*!
+        Number of bridge interfaces defined in this VRS.
+    */
+    CPNumber _numberOfBridgeInterfaces @accessors(property=numberOfBridgeInterfaces);
+    /*!
+        Number of host interfaces defined in this VRS.
+    */
+    CPNumber _numberOfHostInterfaces @accessors(property=numberOfHostInterfaces);
+    /*!
+        Number of VMs defined in this VRS.
+    */
+    CPNumber _numberOfVirtualMachines @accessors(property=numberOfVirtualMachines);
+    /*!
+        Current CPU usage percentage.
+    */
+    CPNumber _currentCPUUsage @accessors(property=currentCPUUsage);
+    /*!
+        Current memory usage percentage.
+    */
+    CPNumber _currentMemoryUsage @accessors(property=currentMemoryUsage);
+    /*!
+        Average CPU usage percentage.
+    */
+    CPNumber _averageCPUUsage @accessors(property=averageCPUUsage);
+    /*!
+        Average memory usage percentage.
+    */
+    CPNumber _averageMemoryUsage @accessors(property=averageMemoryUsage);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
+        Flag to indicate it is dynamically configured or not.
+    */
+    BOOL _dynamic @accessors(property=dynamic);
+    /*!
+        The VRS connection state with the hypervisor.
+    */
+    CPString _hypervisorConnectionState @accessors(property=hypervisorConnectionState);
+    /*!
+        The hypervisor IP (or name) associated with the VRS.
+    */
+    CPString _hypervisorIdentifier @accessors(property=hypervisorIdentifier);
+    /*!
+        The hypervisor name associated with the VRS.
+    */
+    CPString _hypervisorName @accessors(property=hypervisorName);
+    /*!
+        The hypervisor type associated with the VRS.
+    */
+    CPString _hypervisorType @accessors(property=hypervisorType);
     
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUHSCsFetcher _childrenHSCs @accessors(property=childrenHSCs);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUMonitoringPortsFetcher _childrenMonitoringPorts @accessors(property=childrenMonitoringPorts);
-    NUMultiNICVPortsFetcher _childrenMultiNICVPorts @accessors(property=childrenMultiNICVPorts);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
+    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
+    NUMonitoringPortsFetcher _childrenMonitoringPorts @accessors(property=childrenMonitoringPorts);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUHSCsFetcher _childrenHSCs @accessors(property=childrenHSCs);
     NUVSCsFetcher _childrenVSCs @accessors(property=childrenVSCs);
+    NUMultiNICVPortsFetcher _childrenMultiNICVPorts @accessors(property=childrenMultiNICVPorts);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -263,57 +263,57 @@ NUVRSStatus_UP = @"UP";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"JSONRPCConnectionState"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"averageCPUUsage"];
-        [self exposeLocalKeyPathToREST:@"averageMemoryUsage"];
-        [self exposeLocalKeyPathToREST:@"clusterNodeRole"];
-        [self exposeLocalKeyPathToREST:@"currentCPUUsage"];
-        [self exposeLocalKeyPathToREST:@"currentMemoryUsage"];
-        [self exposeLocalKeyPathToREST:@"dbSynced"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"disks"];
-        [self exposeLocalKeyPathToREST:@"dynamic"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"hypervisorConnectionState"];
-        [self exposeLocalKeyPathToREST:@"hypervisorIdentifier"];
-        [self exposeLocalKeyPathToREST:@"hypervisorName"];
-        [self exposeLocalKeyPathToREST:@"hypervisorType"];
-        [self exposeLocalKeyPathToREST:@"isResilient"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"managementIP"];
+        [self exposeLocalKeyPathToREST:@"parentIDs"];
         [self exposeLocalKeyPathToREST:@"lastEventName"];
         [self exposeLocalKeyPathToREST:@"lastEventObject"];
         [self exposeLocalKeyPathToREST:@"lastEventTimestamp"];
         [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"location"];
-        [self exposeLocalKeyPathToREST:@"managementIP"];
-        [self exposeLocalKeyPathToREST:@"messages"];
-        [self exposeLocalKeyPathToREST:@"multiNICVPortEnabled"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"numberOfBridgeInterfaces"];
-        [self exposeLocalKeyPathToREST:@"numberOfHostInterfaces"];
-        [self exposeLocalKeyPathToREST:@"numberOfVirtualMachines"];
-        [self exposeLocalKeyPathToREST:@"parentIDs"];
+        [self exposeLocalKeyPathToREST:@"dbSynced"];
+        [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"peakCPUUsage"];
         [self exposeLocalKeyPathToREST:@"peakMemoryUsage"];
         [self exposeLocalKeyPathToREST:@"peer"];
         [self exposeLocalKeyPathToREST:@"personality"];
-        [self exposeLocalKeyPathToREST:@"productVersion"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"messages"];
+        [self exposeLocalKeyPathToREST:@"disks"];
+        [self exposeLocalKeyPathToREST:@"clusterNodeRole"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"location"];
         [self exposeLocalKeyPathToREST:@"role"];
-        [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"uptime"];
+        [self exposeLocalKeyPathToREST:@"productVersion"];
+        [self exposeLocalKeyPathToREST:@"isResilient"];
+        [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"multiNICVPortEnabled"];
+        [self exposeLocalKeyPathToREST:@"numberOfBridgeInterfaces"];
+        [self exposeLocalKeyPathToREST:@"numberOfHostInterfaces"];
+        [self exposeLocalKeyPathToREST:@"numberOfVirtualMachines"];
+        [self exposeLocalKeyPathToREST:@"currentCPUUsage"];
+        [self exposeLocalKeyPathToREST:@"currentMemoryUsage"];
+        [self exposeLocalKeyPathToREST:@"averageCPUUsage"];
+        [self exposeLocalKeyPathToREST:@"averageMemoryUsage"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"dynamic"];
+        [self exposeLocalKeyPathToREST:@"hypervisorConnectionState"];
+        [self exposeLocalKeyPathToREST:@"hypervisorIdentifier"];
+        [self exposeLocalKeyPathToREST:@"hypervisorName"];
+        [self exposeLocalKeyPathToREST:@"hypervisorType"];
         
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenHSCs = [NUHSCsFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMonitoringPorts = [NUMonitoringPortsFetcher fetcherWithParentObject:self];
-        _childrenMultiNICVPorts = [NUMultiNICVPortsFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
+        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
+        _childrenMonitoringPorts = [NUMonitoringPortsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenHSCs = [NUHSCsFetcher fetcherWithParentObject:self];
         _childrenVSCs = [NUVSCsFetcher fetcherWithParentObject:self];
+        _childrenMultiNICVPorts = [NUMultiNICVPortsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

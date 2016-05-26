@@ -29,10 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUUsersFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUGroupEntityScope_GLOBAL = @"GLOBAL";
@@ -57,6 +57,18 @@ NUGroupRole_USER = @"USER";
 @implementation NUGroup : NURESTObject
 {
     /*!
+        A unique name of the group
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        Management mode of the user object - allows for override of external authorization and syncup
+    */
+    CPString _managementMode @accessors(property=managementMode);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Determines whether group is disabled or not.
     */
     BOOL _accountRestrictions @accessors(property=accountRestrictions);
@@ -65,42 +77,30 @@ NUGroupRole_USER = @"USER";
     */
     CPString _description @accessors(property=description);
     /*!
+        When the group was disabled.
+    */
+    CPNumber _restrictionDate @accessors(property=restrictionDate);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
+        The role associated with this group.
     */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Management mode of the user object - allows for override of external authorization and syncup
-    */
-    CPString _managementMode @accessors(property=managementMode);
-    /*!
-        A unique name of the group
-    */
-    CPString _name @accessors(property=name);
+    CPString _role @accessors(property=role);
     /*!
         A private group is visible only by the owner of the group. Public groups are visible by all users in the enterprise
     */
     BOOL _private @accessors(property=private);
     /*!
-        When the group was disabled.
+        External object ID. Used for integration with third party systems
     */
-    CPNumber _restrictionDate @accessors(property=restrictionDate);
-    /*!
-        The role associated with this group.
-    */
-    CPString _role @accessors(property=role);
+    CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -121,21 +121,21 @@ NUGroupRole_USER = @"USER";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"managementMode"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"accountRestrictions"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"managementMode"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"private"];
         [self exposeLocalKeyPathToREST:@"restrictionDate"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"role"];
+        [self exposeLocalKeyPathToREST:@"private"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

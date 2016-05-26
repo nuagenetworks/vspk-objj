@@ -29,18 +29,18 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUDHCPOptionsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUTCAsFetcher.j"
+@import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUMultiCastChannelMapsFetcher.j"
+@import "Fetchers/NUDHCPOptionsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUPolicyDecisionsFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
-@import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NUStaticRoutesFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
-@import "Fetchers/NUTCAsFetcher.j"
+@import "Fetchers/NUMultiCastChannelMapsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUHostInterfaceAttachedNetworkType_L2DOMAIN = @"L2DOMAIN";
 NUHostInterfaceAttachedNetworkType_SUBNET = @"SUBNET";
@@ -54,13 +54,13 @@ NUHostInterfaceEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUHostInterface : NURESTObject
 {
     /*!
-        IP address of the  interface
-    */
-    CPString _IPAddress @accessors(property=IPAddress);
-    /*!
         MAC address of the  interface, cannot be modified after creation.
     */
     CPString _MAC @accessors(property=MAC);
+    /*!
+        IP address of the  interface
+    */
+    CPString _IPAddress @accessors(property=IPAddress);
     /*!
         ID of the vport that the interface is attached to
     */
@@ -69,6 +69,54 @@ NUHostInterfaceEntityScope_GLOBAL = @"GLOBAL";
         Name of the vport that the VM is attached to
     */
     CPString _VPortName @accessors(property=VPortName);
+    /*!
+        Device name associated with this interface
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Gateway of the subnet that the VM is connected to
+    */
+    CPString _gateway @accessors(property=gateway);
+    /*!
+        Netmask of the subnet that the VM is attached to
+    */
+    CPString _netmask @accessors(property=netmask);
+    /*!
+        Name of the network that the VM is attached to
+    */
+    CPString _networkName @accessors(property=networkName);
+    /*!
+        ID of the tier that the interface is attached to.
+    */
+    CPString _tierID @accessors(property=tierID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The policy decision ID for this particular  interface
+    */
+    CPString _policyDecisionID @accessors(property=policyDecisionID);
+    /*!
+        ID of the domain that the VM is attached to
+    */
+    CPString _domainID @accessors(property=domainID);
+    /*!
+        Name of the domain that the VM is attached to
+    */
+    CPString _domainName @accessors(property=domainName);
+    /*!
+        ID of the zone that the interface is attached to
+    */
+    CPString _zoneID @accessors(property=zoneID);
+    /*!
+        Name of the zone that the VM is attached to
+    */
+    CPString _zoneName @accessors(property=zoneName);
     /*!
         Floating Ip Address of this network interface eg: 10.1.2.1
     */
@@ -82,70 +130,22 @@ NUHostInterfaceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _attachedNetworkType @accessors(property=attachedNetworkType);
     /*!
-        ID of the domain that the VM is attached to
-    */
-    CPString _domainID @accessors(property=domainID);
-    /*!
-        Name of the domain that the VM is attached to
-    */
-    CPString _domainName @accessors(property=domainName);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        Gateway of the subnet that the VM is connected to
-    */
-    CPString _gateway @accessors(property=gateway);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Device name associated with this interface
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Netmask of the subnet that the VM is attached to
-    */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        Name of the network that the VM is attached to
-    */
-    CPString _networkName @accessors(property=networkName);
-    /*!
-        The policy decision ID for this particular  interface
-    */
-    CPString _policyDecisionID @accessors(property=policyDecisionID);
-    /*!
-        ID of the tier that the interface is attached to.
-    */
-    CPString _tierID @accessors(property=tierID);
-    /*!
-        ID of the zone that the interface is attached to
-    */
-    CPString _zoneID @accessors(property=zoneID);
-    /*!
-        Name of the zone that the VM is attached to
-    */
-    CPString _zoneName @accessors(property=zoneName);
     
-    NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
+    NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUMultiCastChannelMapsFetcher _childrenMultiCastChannelMaps @accessors(property=childrenMultiCastChannelMaps);
+    NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUPolicyDecisionsFetcher _childrenPolicyDecisions @accessors(property=childrenPolicyDecisions);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
-    NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
-    NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
+    NUMultiCastChannelMapsFetcher _childrenMultiCastChannelMaps @accessors(property=childrenMultiCastChannelMaps);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -166,39 +166,39 @@ NUHostInterfaceEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"IPAddress"];
         [self exposeLocalKeyPathToREST:@"MAC"];
+        [self exposeLocalKeyPathToREST:@"IPAddress"];
         [self exposeLocalKeyPathToREST:@"VPortID"];
         [self exposeLocalKeyPathToREST:@"VPortName"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gateway"];
+        [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"networkName"];
+        [self exposeLocalKeyPathToREST:@"tierID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"policyDecisionID"];
+        [self exposeLocalKeyPathToREST:@"domainID"];
+        [self exposeLocalKeyPathToREST:@"domainName"];
+        [self exposeLocalKeyPathToREST:@"zoneID"];
+        [self exposeLocalKeyPathToREST:@"zoneName"];
         [self exposeLocalKeyPathToREST:@"associatedFloatingIPAddress"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkID"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
-        [self exposeLocalKeyPathToREST:@"domainID"];
-        [self exposeLocalKeyPathToREST:@"domainName"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"networkName"];
-        [self exposeLocalKeyPathToREST:@"policyDecisionID"];
-        [self exposeLocalKeyPathToREST:@"tierID"];
-        [self exposeLocalKeyPathToREST:@"zoneID"];
-        [self exposeLocalKeyPathToREST:@"zoneName"];
         
-        _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
+        _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMultiCastChannelMaps = [NUMultiCastChannelMapsFetcher fetcherWithParentObject:self];
+        _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenPolicyDecisions = [NUPolicyDecisionsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
-        _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
-        _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
+        _childrenMultiCastChannelMaps = [NUMultiCastChannelMapsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

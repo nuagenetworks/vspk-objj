@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUDHCPOptionEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUDHCPOptionEntityScope_GLOBAL = @"GLOBAL";
@@ -43,6 +43,14 @@ NUDHCPOptionEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUDHCPOption : NURESTObject
 {
     /*!
+        DHCP option value. Value should be a hexadecimal value(ie. Hex value 0xac40 would be passed as 'ac40')
+    */
+    CPString _value @accessors(property=value);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         This will be used to send actual type instead of the hexadecimal. Note: If actualType is set, it will override the entry set in the type attribute
     */
     CPNumber _actualType @accessors(property=actualType);
@@ -50,6 +58,10 @@ NUDHCPOptionEntityScope_GLOBAL = @"GLOBAL";
         This will be used to send actual values instead of the hexadecimal. Note: If actualValues are set, it will override entry set in the value attribute
     */
     CPArrayController _actualValues @accessors(property=actualValues);
+    /*!
+        DHCP option length. Length should be a hexadecimal value(ie. Hex value 0x04 would be passed as '04')
+    */
+    CPString _length @accessors(property=length);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -59,25 +71,13 @@ NUDHCPOptionEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        DHCP option length. Length should be a hexadecimal value(ie. Hex value 0x04 would be passed as '04')
-    */
-    CPString _length @accessors(property=length);
-    /*!
         DHCP option type. Type should be a hexadecimal value(ie. Hex value 0x06 would be passed as '06')
     */
     CPString _type @accessors(property=type);
-    /*!
-        DHCP option value. Value should be a hexadecimal value(ie. Hex value 0xac40 would be passed as 'ac40')
-    */
-    CPString _value @accessors(property=value);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -98,18 +98,18 @@ NUDHCPOptionEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"value"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"actualType"];
         [self exposeLocalKeyPathToREST:@"actualValues"];
+        [self exposeLocalKeyPathToREST:@"length"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"length"];
         [self exposeLocalKeyPathToREST:@"type"];
-        [self exposeLocalKeyPathToREST:@"value"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

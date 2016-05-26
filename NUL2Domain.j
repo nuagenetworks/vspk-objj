@@ -29,34 +29,34 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NUAddressRangesFetcher.j"
-@import "Fetchers/NUBridgeInterfacesFetcher.j"
-@import "Fetchers/NUDHCPOptionsFetcher.j"
+@import "Fetchers/NURedirectionTargetsFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUGroupsFetcher.j"
-@import "Fetchers/NUHostInterfacesFetcher.j"
+@import "Fetchers/NUVMsFetcher.j"
+@import "Fetchers/NUVMInterfacesFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdTemplatesFetcher.j"
 @import "Fetchers/NUIngressExternalServiceTemplatesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
-@import "Fetchers/NURedirectionTargetsFetcher.j"
+@import "Fetchers/NUHostInterfacesFetcher.j"
+@import "Fetchers/NUUplinkRDsFetcher.j"
+@import "Fetchers/NUVPNConnectionsFetcher.j"
+@import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUBridgeInterfacesFetcher.j"
+@import "Fetchers/NUGroupsFetcher.j"
 @import "Fetchers/NUStaticRoutesFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
-@import "Fetchers/NUTCAsFetcher.j"
-@import "Fetchers/NUUplinkRDsFetcher.j"
-@import "Fetchers/NUVMsFetcher.j"
-@import "Fetchers/NUVMInterfacesFetcher.j"
-@import "Fetchers/NUVPNConnectionsFetcher.j"
-@import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUL2DomainEncryption_DISABLED = @"DISABLED";
 NUL2DomainEncryption_ENABLED = @"ENABLED";
@@ -94,33 +94,17 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _IPType @accessors(property=IPType);
     /*!
-        Network address of the L2Domain / L2Domain template defined. 
+        maintenanceMode is an enum that indicates if the L2Domain is accepting VM activation requests. Possible values are DISABLED, ENABLED and ENABLED_INHERITED Possible values are .
     */
-    CPString _address @accessors(property=address);
+    CPString _maintenanceMode @accessors(property=maintenanceMode);
     /*!
-        The ID of the Multi Cast Channel Map this L2Domain / L2Domain template template is associated with. This has to be set when  enableMultiCast is set to ENABLED
+        Name of the L2Domain / L2Domain template,has to be unique within a Enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
-    CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
+    CPString _name @accessors(property=name);
     /*!
-        The ID of the L2 Domain  that this L2 Domain object is pointing to
+        ID of the user who last updated the object.
     */
-    CPString _associatedSharedNetworkResourceID @accessors(property=associatedSharedNetworkResourceID);
-    /*!
-        A description field provided by the user that identifies the L2Domain / L2Domain template.
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Determines whether IPSEC is enabled Possible values are ENABLED, DISABLED, .
-    */
-    CPString _encryption @accessors(property=encryption);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         The IP address of the gateway of this l2 domain
     */
@@ -130,25 +114,37 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _gatewayMACAddress @accessors(property=gatewayMACAddress);
     /*!
-        ID of the user who last updated the object.
+        Network address of the L2Domain / L2Domain template defined. 
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    CPString _address @accessors(property=address);
     /*!
-        maintenanceMode is an enum that indicates if the L2Domain is accepting VM activation requests. Possible values are DISABLED, ENABLED and ENABLED_INHERITED Possible values are .
+        The ID of the L2 Domain template that this L2 Domain object was derived from
     */
-    CPString _maintenanceMode @accessors(property=maintenanceMode);
+    CPString _templateID @accessors(property=templateID);
     /*!
-        Indicates multicast policy on L2Domain.
+        The service ID used by the VSCs to identify this subnet
     */
-    CPString _multicast @accessors(property=multicast);
+    CPNumber _serviceID @accessors(property=serviceID);
     /*!
-        Name of the L2Domain / L2Domain template,has to be unique within a Enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
+        A description field provided by the user that identifies the L2Domain / L2Domain template.
     */
-    CPString _name @accessors(property=name);
+    CPString _description @accessors(property=description);
     /*!
         Netmask of the L2Domain / L2Domain template defined
     */
     CPString _netmask @accessors(property=netmask);
+    /*!
+        Current Network's  globally unique  VXLAN network identifier generated by VSD
+    */
+    CPNumber _vnId @accessors(property=vnId);
+    /*!
+        Determines whether IPSEC is enabled Possible values are ENABLED, DISABLED, .
+    */
+    CPString _encryption @accessors(property=encryption);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         
     */
@@ -162,54 +158,58 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _routeTarget @accessors(property=routeTarget);
     /*!
-        The service ID used by the VSCs to identify this subnet
+        Indicates the preferencial path selection for network traffic in this domain - Default is Primary 1 and Secondary 2. Possible values are PRIMARY_SECONDARY, SECONDARY_PRIMARY, PRIMARY, SECONDARY, SYMMETRIC, .
     */
-    CPNumber _serviceID @accessors(property=serviceID);
+    CPString _uplinkPreference @accessors(property=uplinkPreference);
+    /*!
+        The ID of the Multi Cast Channel Map this L2Domain / L2Domain template template is associated with. This has to be set when  enableMultiCast is set to ENABLED
+    */
+    CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
+    /*!
+        The ID of the L2 Domain  that this L2 Domain object is pointing to
+    */
+    CPString _associatedSharedNetworkResourceID @accessors(property=associatedSharedNetworkResourceID);
     /*!
         Indicates whether this domain is streched,if so remote VM resolutions will be allowed
     */
     BOOL _stretched @accessors(property=stretched);
     /*!
-        The ID of the L2 Domain template that this L2 Domain object was derived from
+        Indicates multicast policy on L2Domain.
     */
-    CPString _templateID @accessors(property=templateID);
+    CPString _multicast @accessors(property=multicast);
     /*!
-        Indicates the preferencial path selection for network traffic in this domain - Default is Primary 1 and Secondary 2. Possible values are PRIMARY_SECONDARY, SECONDARY_PRIMARY, PRIMARY, SECONDARY, SYMMETRIC, .
+        External object ID. Used for integration with third party systems
     */
-    CPString _uplinkPreference @accessors(property=uplinkPreference);
-    /*!
-        Current Network's  globally unique  VXLAN network identifier generated by VSD
-    */
-    CPNumber _vnId @accessors(property=vnId);
+    CPString _externalID @accessors(property=externalID);
     
+    NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
-    NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
-    NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
+    NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
-    NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
+    NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
+    NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdTemplatesFetcher _childrenIngressAdvFwdTemplates @accessors(property=childrenIngressAdvFwdTemplates);
     NUIngressExternalServiceTemplatesFetcher _childrenIngressExternalServiceTemplates @accessors(property=childrenIngressExternalServiceTemplates);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
-    NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
+    NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
+    NUUplinkRDsFetcher _childrenUplinkRDs @accessors(property=childrenUplinkRDs);
+    NUVPNConnectionsFetcher _childrenVPNConnections @accessors(property=childrenVPNConnections);
+    NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
+    NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
     NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
-    NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
-    NUUplinkRDsFetcher _childrenUplinkRDs @accessors(property=childrenUplinkRDs);
-    NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
-    NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
-    NUVPNConnectionsFetcher _childrenVPNConnections @accessors(property=childrenVPNConnections);
-    NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -232,57 +232,57 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     {
         [self exposeLocalKeyPathToREST:@"DHCPManaged"];
         [self exposeLocalKeyPathToREST:@"IPType"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
-        [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"encryption"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"maintenanceMode"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"maintenanceMode"];
-        [self exposeLocalKeyPathToREST:@"multicast"];
-        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"templateID"];
+        [self exposeLocalKeyPathToREST:@"serviceID"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"vnId"];
+        [self exposeLocalKeyPathToREST:@"encryption"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"routeTarget"];
-        [self exposeLocalKeyPathToREST:@"serviceID"];
-        [self exposeLocalKeyPathToREST:@"stretched"];
-        [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
-        [self exposeLocalKeyPathToREST:@"vnId"];
+        [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
+        [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
+        [self exposeLocalKeyPathToREST:@"stretched"];
+        [self exposeLocalKeyPathToREST:@"multicast"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
-        _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
-        _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
+        _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
-        _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
+        _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
+        _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdTemplates = [NUIngressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressExternalServiceTemplates = [NUIngressExternalServiceTemplatesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
-        _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
+        _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
+        _childrenUplinkRDs = [NUUplinkRDsFetcher fetcherWithParentObject:self];
+        _childrenVPNConnections = [NUVPNConnectionsFetcher fetcherWithParentObject:self];
+        _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
+        _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
         _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
-        _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
-        _childrenUplinkRDs = [NUUplinkRDsFetcher fetcherWithParentObject:self];
-        _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
-        _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
-        _childrenVPNConnections = [NUVPNConnectionsFetcher fetcherWithParentObject:self];
-        _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _maintenanceMode = @"DISABLED";
         

@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUKeyServerMonitorEncryptedSeedsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUKeyServerMonitorEncryptedSeedsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUKeyServerMonitorSeedEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUKeyServerMonitorSeedEntityScope_GLOBAL = @"GLOBAL";
@@ -52,25 +52,9 @@ NUKeyServerMonitorSeedSeedTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_D
 @implementation NUKeyServerMonitorSeed : NURESTObject
 {
     /*!
-        The time this entry was created (milliseconds since epoch)
-    */
-    CPNumber _creationTime @accessors(property=creationTime);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        The lifetime of this entry (seconds)
-    */
-    CPNumber _lifetime @accessors(property=lifetime);
     /*!
         Seed traffic Authentication Algorithm.
     */
@@ -84,13 +68,29 @@ NUKeyServerMonitorSeedSeedTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_D
     */
     CPNumber _seedTrafficEncryptionKeyLifetime @accessors(property=seedTrafficEncryptionKeyLifetime);
     /*!
+        The lifetime of this entry (seconds)
+    */
+    CPNumber _lifetime @accessors(property=lifetime);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The time this entry was created (milliseconds since epoch)
+    */
+    CPNumber _creationTime @accessors(property=creationTime);
+    /*!
         The time this entry  was activated (milliseconds since epoch)
     */
     CPNumber _startTime @accessors(property=startTime);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUKeyServerMonitorEncryptedSeedsFetcher _childrenKeyServerMonitorEncryptedSeeds @accessors(property=childrenKeyServerMonitorEncryptedSeeds);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUKeyServerMonitorEncryptedSeedsFetcher _childrenKeyServerMonitorEncryptedSeeds @accessors(property=childrenKeyServerMonitorEncryptedSeeds);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -111,19 +111,19 @@ NUKeyServerMonitorSeedSeedTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_D
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"creationTime"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"lifetime"];
         [self exposeLocalKeyPathToREST:@"seedTrafficAuthenticationAlgorithm"];
         [self exposeLocalKeyPathToREST:@"seedTrafficEncryptionAlgorithm"];
         [self exposeLocalKeyPathToREST:@"seedTrafficEncryptionKeyLifetime"];
+        [self exposeLocalKeyPathToREST:@"lifetime"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationTime"];
         [self exposeLocalKeyPathToREST:@"startTime"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenKeyServerMonitorEncryptedSeeds = [NUKeyServerMonitorEncryptedSeedsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenKeyServerMonitorEncryptedSeeds = [NUKeyServerMonitorEncryptedSeedsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

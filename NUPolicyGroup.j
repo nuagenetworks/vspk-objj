@@ -29,11 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUPolicyGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPolicyGroupEntityScope_GLOBAL = @"GLOBAL";
@@ -51,6 +51,18 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
     */
     CPString _EVPNCommunityTag @accessors(property=EVPNCommunityTag);
     /*!
+        Name of the policy group
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Determines which template ID this policy group belongs to.
+    */
+    CPString _templateID @accessors(property=templateID);
+    /*!
         Describes this policy group
     */
     CPString _description @accessors(property=description);
@@ -58,6 +70,10 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        PG ID for the subnet. This is unique per domain and will be in the range 1-4095
+    */
+    CPNumber _policyGroupID @accessors(property=policyGroupID);
     /*!
         Indicates whether this PG is internal to VSP or not.
     */
@@ -67,31 +83,15 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the policy group
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        PG ID for the subnet. This is unique per domain and will be in the range 1-4095
-    */
-    CPNumber _policyGroupID @accessors(property=policyGroupID);
-    /*!
-        Determines which template ID this policy group belongs to.
-    */
-    CPString _templateID @accessors(property=templateID);
-    /*!
         Type of policy group.
     */
     CPString _type @accessors(property=type);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -113,21 +113,21 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"EVPNCommunityTag"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"policyGroupID"];
         [self exposeLocalKeyPathToREST:@"external"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"policyGroupID"];
-        [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _type = @"SOFTWARE";
         

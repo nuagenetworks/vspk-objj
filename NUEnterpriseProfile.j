@@ -29,12 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEnterprisesFetcher.j"
+@import "Fetchers/NUMultiCastListsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 @import "Fetchers/NUExternalServicesFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUMultiCastListsFetcher.j"
 
 NUEnterpriseProfileAllowedForwardingClasses_A = @"A";
 NUEnterpriseProfileAllowedForwardingClasses_B = @"B";
@@ -61,6 +61,26 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _DHCPLeaseInterval @accessors(property=DHCPLeaseInterval);
     /*!
+        The unique name of the enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Readonly ID of the auto generated receive multicast list associated with this enterprise profile
+    */
+    CPString _receiveMultiCastListID @accessors(property=receiveMultiCastListID);
+    /*!
+        Readonly ID of the auto generated send multicast list associated with this enterprise profile
+    */
+    CPString _sendMultiCastListID @accessors(property=sendMultiCastListID);
+    /*!
+        A description of the enterprise/organisation profile.
+    */
+    CPString _description @accessors(property=description);
+    /*!
         Controls whether this enterprise has access to advanced QoS settings.
     */
     BOOL _allowAdvancedQOSConfiguration @accessors(property=allowAdvancedQOSConfiguration);
@@ -77,9 +97,9 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPArrayController _allowedForwardingClasses @accessors(property=allowedForwardingClasses);
     /*!
-        A description of the enterprise/organisation profile.
+        Quota set for the number of floating IPs to be used by an enterprise.
     */
-    CPString _description @accessors(property=description);
+    CPNumber _floatingIPsQuota @accessors(property=floatingIPsQuota);
     /*!
         encryption management mode for this enterprise Possible values are DISABLED, MANAGED, .
     */
@@ -92,33 +112,13 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        Quota set for the number of floating IPs to be used by an enterprise.
-    */
-    CPNumber _floatingIPsQuota @accessors(property=floatingIPsQuota);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        The unique name of the enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Readonly ID of the auto generated receive multicast list associated with this enterprise profile
-    */
-    CPString _receiveMultiCastListID @accessors(property=receiveMultiCastListID);
-    /*!
-        Readonly ID of the auto generated send multicast list associated with this enterprise profile
-    */
-    CPString _sendMultiCastListID @accessors(property=sendMultiCastListID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUEnterprisesFetcher _childrenEnterprises @accessors(property=childrenEnterprises);
+    NUMultiCastListsFetcher _childrenMultiCastLists @accessors(property=childrenMultiCastLists);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     NUExternalServicesFetcher _childrenExternalServices @accessors(property=childrenExternalServices);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUMultiCastListsFetcher _childrenMultiCastLists @accessors(property=childrenMultiCastLists);
     
 }
 
@@ -140,26 +140,26 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"DHCPLeaseInterval"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
+        [self exposeLocalKeyPathToREST:@"sendMultiCastListID"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"allowAdvancedQOSConfiguration"];
         [self exposeLocalKeyPathToREST:@"allowGatewayManagement"];
         [self exposeLocalKeyPathToREST:@"allowTrustedForwardingClass"];
         [self exposeLocalKeyPathToREST:@"allowedForwardingClasses"];
-        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"floatingIPsQuota"];
         [self exposeLocalKeyPathToREST:@"encryptionManagementMode"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"floatingIPsQuota"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
-        [self exposeLocalKeyPathToREST:@"sendMultiCastListID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenEnterprises = [NUEnterprisesFetcher fetcherWithParentObject:self];
+        _childrenMultiCastLists = [NUMultiCastListsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         _childrenExternalServices = [NUExternalServicesFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMultiCastLists = [NUMultiCastListsFetcher fetcherWithParentObject:self];
         
         _floatingIPsQuota = 100;
         _DHCPLeaseInterval = 24;

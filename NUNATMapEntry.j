@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUNATMapEntryEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNATMapEntryEntityScope_GLOBAL = @"GLOBAL";
@@ -42,32 +42,32 @@ NUNATMapEntryEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUNATMapEntry : NURESTObject
 {
     /*!
-        Indicates which PATNATPool this entry belongs to
+        ID of the user who last updated the object.
     */
-    CPString _associatedPATNATPoolID @accessors(property=associatedPATNATPoolID);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
         Private IP address of the interface
     */
     CPString _privateIP @accessors(property=privateIP);
     /*!
+        Indicates which PATNATPool this entry belongs to
+    */
+    CPString _associatedPATNATPoolID @accessors(property=associatedPATNATPoolID);
+    /*!
         Public IP address of the interface
     */
     CPString _publicIP @accessors(property=publicIP);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -88,15 +88,15 @@ NUNATMapEntryEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"associatedPATNATPoolID"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"privateIP"];
+        [self exposeLocalKeyPathToREST:@"associatedPATNATPoolID"];
         [self exposeLocalKeyPathToREST:@"publicIP"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

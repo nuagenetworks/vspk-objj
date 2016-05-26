@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVLANTemplatesFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUPortTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPortTemplateEntityScope_GLOBAL = @"GLOBAL";
@@ -49,41 +49,41 @@ NUPortTemplatePortType_NETWORK = @"NETWORK";
     */
     CPString _VLANRange @accessors(property=VLANRange);
     /*!
-        ID of the Egress QOS Policy associated with this Vlan.
+        Name of the Port
     */
-    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
-    /*!
-        A description of the Port
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _name @accessors(property=name);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Name of the Port
+        A description of the Port
     */
-    CPString _name @accessors(property=name);
+    CPString _description @accessors(property=description);
     /*!
         Identifier of the Port
     */
     CPString _physicalName @accessors(property=physicalName);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Type of the Port - NETWORK, ACCESS Possible values are ACCESS, NETWORK, .
     */
     CPString _portType @accessors(property=portType);
+    /*!
+        ID of the Egress QOS Policy associated with this Vlan.
+    */
+    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVLANTemplatesFetcher _childrenVLANTemplates @accessors(property=childrenVLANTemplates);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -105,18 +105,18 @@ NUPortTemplatePortType_NETWORK = @"NETWORK";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"VLANRange"];
-        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];
+        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVLANTemplates = [NUVLANTemplatesFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUGroupKeyEncryptionProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUGroupKeyEncryptionProfileEntityScope_GLOBAL = @"GLOBAL";
@@ -92,25 +92,13 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
     */
     CPString _SEKPayloadSigningAlgorithm @accessors(property=SEKPayloadSigningAlgorithm);
     /*!
-        A description of the Profile instance created.
+        Name of the Encryption Profile
     */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _name @accessors(property=name);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Name of the Encryption Profile
-    */
-    CPString _name @accessors(property=name);
     /*!
         Group Key SEED Generation Interval in Seconds.
     */
@@ -148,6 +136,14 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
     */
     CPString _seedPayloadSigningAlgorithm @accessors(property=seedPayloadSigningAlgorithm);
     /*!
+        A description of the Profile instance created.
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Group Key traffic Authentication Algorithm. Possible values are HMAC_SHA1, HMAC_SHA256, HMAC_SHA384, HMAC_SHA512, HMAC_MD5, .
     */
     CPString _trafficAuthenticationAlgorithm @accessors(property=trafficAuthenticationAlgorithm);
@@ -159,9 +155,13 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
         Group Key Traffic Encryption Key Lifetime in Seconds. Min=1, Max=86400
     */
     CPNumber _trafficEncryptionKeyLifetime @accessors(property=trafficEncryptionKeyLifetime);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -188,11 +188,8 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
         [self exposeLocalKeyPathToREST:@"SEKPayloadEncryptionBCAlgorithm"];
         [self exposeLocalKeyPathToREST:@"SEKPayloadEncryptionKeyLength"];
         [self exposeLocalKeyPathToREST:@"SEKPayloadSigningAlgorithm"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"seedGenerationInterval"];
         [self exposeLocalKeyPathToREST:@"seedLifetime"];
         [self exposeLocalKeyPathToREST:@"seedPayloadAuthenticationAlgorithm"];
@@ -202,12 +199,15 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
         [self exposeLocalKeyPathToREST:@"seedPayloadEncryptionBCAlgorithm"];
         [self exposeLocalKeyPathToREST:@"seedPayloadEncryptionKeyLength"];
         [self exposeLocalKeyPathToREST:@"seedPayloadSigningAlgorithm"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"trafficAuthenticationAlgorithm"];
         [self exposeLocalKeyPathToREST:@"trafficEncryptionAlgorithm"];
         [self exposeLocalKeyPathToREST:@"trafficEncryptionKeyLifetime"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

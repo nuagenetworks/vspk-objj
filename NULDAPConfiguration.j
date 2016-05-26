@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NULDAPConfigurationEntityScope_ENTERPRISE = @"ENTERPRISE";
 NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
@@ -46,21 +46,25 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
     */
     BOOL _SSLEnabled @accessors(property=SSLEnabled);
     /*!
+        This attribute is a mandatory field for LDAP authorization. Password that will be used to verify the integrity of groups and users in LDAP server for the enterprise.
+    */
+    CPString _password @accessors(property=password);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Accept all certificates from the LDAP server
     */
     BOOL _acceptAllCertificates @accessors(property=acceptAllCertificates);
     /*!
-        To enable LDAP authorization for an enterprise, both authorizationEnabled and enabled attributes must be set to true. If enabled attribute is not set, this attribute is ignored. The relationship between enabled and authorizationEnabled attributes is as follows, enabled = true, authorizationEnabled = false, LDAP is used only for Authentication. enabled = true, authorizationEnabled = true, LDAP is used for both authentication and authorization. enabled = false, authorizationEnabled = true, LDAP is not used. enabled = false, authorizationEnabled = false, LDAP is not used.
-    */
-    BOOL _authorizationEnabled @accessors(property=authorizationEnabled);
-    /*!
-        This attribute is a mandatory field for LDAP authorization. When LDAP is used for authorization for an enterprise, the user DN that will be used to verify the integrity of groups and users in LDAP server for the enterprise. For example, CN=groupAdmin,OU=VSD_USERS,OU=Personal,OU=Domain Users,DC=company,DC=com
-    */
-    CPString _authorizingUserDN @accessors(property=authorizingUserDN);
-    /*!
         The certificate to authenticate with the LDAP server
     */
     CPString _certificate @accessors(property=certificate);
+    /*!
+        The LDAP server IP or FQDN
+    */
+    CPString _server @accessors(property=server);
     /*!
         To enable LDAP authentication for an enterprise, set this attribute to true. If enabled is set to false, authorizationEnabled attribute is ignored and LDAP is not used for authentication as well as authorization. The relationship between enabled and authorizationEnabled attributes is as follows, enabled = true, authorizationEnabled = false, LDAP is used only for Authentication enabled = true, authorizationEnabled = true, LDAP is used for both authentication and authorization. enabled = false, authorizationEnabled = true, LDAP is not used. enabled = false, authorizationEnabled = false, LDAP is not used.
     */
@@ -70,36 +74,32 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
+        Port to be used for the LDAP server
     */
-    CPString _externalID @accessors(property=externalID);
+    CPString _port @accessors(property=port);
     /*!
         This attribute is a mandatory field for LDAP authorization. When LDAP is used for authorization for an enterprise, the group DN will be used to get the list of VSD specific groups in LDAP server for the enterprise. For example, OU=VSDGroups,DC=company,DC=com
     */
     CPString _groupDN @accessors(property=groupDN);
     /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        This attribute is a mandatory field for LDAP authorization. Password that will be used to verify the integrity of groups and users in LDAP server for the enterprise.
-    */
-    CPString _password @accessors(property=password);
-    /*!
-        Port to be used for the LDAP server
-    */
-    CPString _port @accessors(property=port);
-    /*!
-        The LDAP server IP or FQDN
-    */
-    CPString _server @accessors(property=server);
-    /*!
         The DN template to be used for authentication. The template needs to have a string _USERID_ in it. This will be replaced by  the userId of the user who makes the REST API call. For example, template UID=_USERID_,OU=company,DC=com will converted to  UID=admin,OU=company,DC=com and this will be used as DN for LDAP authentication.
     */
     CPString _userDNTemplate @accessors(property=userDNTemplate);
+    /*!
+        To enable LDAP authorization for an enterprise, both authorizationEnabled and enabled attributes must be set to true. If enabled attribute is not set, this attribute is ignored. The relationship between enabled and authorizationEnabled attributes is as follows, enabled = true, authorizationEnabled = false, LDAP is used only for Authentication. enabled = true, authorizationEnabled = true, LDAP is used for both authentication and authorization. enabled = false, authorizationEnabled = true, LDAP is not used. enabled = false, authorizationEnabled = false, LDAP is not used.
+    */
+    BOOL _authorizationEnabled @accessors(property=authorizationEnabled);
+    /*!
+        This attribute is a mandatory field for LDAP authorization. When LDAP is used for authorization for an enterprise, the user DN that will be used to verify the integrity of groups and users in LDAP server for the enterprise. For example, CN=groupAdmin,OU=VSD_USERS,OU=Personal,OU=Domain Users,DC=company,DC=com
+    */
+    CPString _authorizingUserDN @accessors(property=authorizingUserDN);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -121,22 +121,22 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"SSLEnabled"];
+        [self exposeLocalKeyPathToREST:@"password"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"acceptAllCertificates"];
-        [self exposeLocalKeyPathToREST:@"authorizationEnabled"];
-        [self exposeLocalKeyPathToREST:@"authorizingUserDN"];
         [self exposeLocalKeyPathToREST:@"certificate"];
+        [self exposeLocalKeyPathToREST:@"server"];
         [self exposeLocalKeyPathToREST:@"enabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"groupDN"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"port"];
-        [self exposeLocalKeyPathToREST:@"server"];
+        [self exposeLocalKeyPathToREST:@"groupDN"];
         [self exposeLocalKeyPathToREST:@"userDNTemplate"];
+        [self exposeLocalKeyPathToREST:@"authorizationEnabled"];
+        [self exposeLocalKeyPathToREST:@"authorizingUserDN"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

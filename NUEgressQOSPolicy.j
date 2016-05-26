@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUEgressQOSPolicyEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEgressQOSPolicyEntityScope_GLOBAL = @"GLOBAL";
@@ -78,9 +78,17 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
 @implementation NUEgressQOSPolicy : NURESTObject
 {
     /*!
-        ID of object associated with this QoS object
+        A unique name of the QoS object
     */
-    CPString _assocEgressQosId @accessors(property=assocEgressQosId);
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the parent rate limiter associated with this Egress QOS policy.
+    */
+    CPString _parentQueueAssociatedRateLimiterID @accessors(property=parentQueueAssociatedRateLimiterID);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         A description of the QoS object
     */
@@ -90,21 +98,9 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
+        ID of object associated with this QoS object
     */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        A unique name of the QoS object
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        ID of the parent rate limiter associated with this Egress QOS policy.
-    */
-    CPString _parentQueueAssociatedRateLimiterID @accessors(property=parentQueueAssociatedRateLimiterID);
+    CPString _assocEgressQosId @accessors(property=assocEgressQosId);
     /*!
         ID of the queue1 rate limiter associated with this Egress QOS policy.
     */
@@ -137,9 +133,13 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         Queue4 Forwarding Classes for this Egress QOS Policy Possible values are NONE, A, B, C, D, E, F, G, H, .
     */
     CPArrayController _queue4ForwardingClasses @accessors(property=queue4ForwardingClasses);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -160,13 +160,12 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"assocEgressQosId"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"parentQueueAssociatedRateLimiterID"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"assocEgressQosId"];
         [self exposeLocalKeyPathToREST:@"queue1AssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"queue1ForwardingClasses"];
         [self exposeLocalKeyPathToREST:@"queue2AssociatedRateLimiterID"];
@@ -175,9 +174,10 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"queue3ForwardingClasses"];
         [self exposeLocalKeyPathToREST:@"queue4AssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"queue4ForwardingClasses"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUFlowForwardingPolicyAssociatedNetworkObjectType_ACLENTRY_LOCATION = @"ACLENTRY_LOCATION";
 NUFlowForwardingPolicyAssociatedNetworkObjectType_ADDRESS_RANGE = @"ADDRESS_RANGE";
@@ -270,6 +270,26 @@ NUFlowForwardingPolicyType_SERVICEPROVIDER = @"SERVICEPROVIDER";
     /*!
         The associated service id.
     */
+    CPString _redirectTargetID @accessors(property=redirectTargetID);
+    /*!
+        The destination address overwrite. Needs to be in CIDR format x.x.x.x/n
+    */
+    CPString _destinationAddressOverwrite @accessors(property=destinationAddressOverwrite);
+    /*!
+        The associated service id.
+    */
+    CPString _flowID @accessors(property=flowID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The source address overwrite. Needs to be in CIDR format x.x.x.x/n
+    */
+    CPString _sourceAddressOverwrite @accessors(property=sourceAddressOverwrite);
+    /*!
+        The associated service id.
+    */
     CPString _associatedApplicationServiceID @accessors(property=associatedApplicationServiceID);
     /*!
         The associated network object id.
@@ -280,37 +300,17 @@ NUFlowForwardingPolicyType_SERVICEPROVIDER = @"SERVICEPROVIDER";
     */
     CPString _associatedNetworkObjectType @accessors(property=associatedNetworkObjectType);
     /*!
-        The destination address overwrite. Needs to be in CIDR format x.x.x.x/n
-    */
-    CPString _destinationAddressOverwrite @accessors(property=destinationAddressOverwrite);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        The associated service id.
-    */
-    CPString _flowID @accessors(property=flowID);
-    /*!
-        The associated service id.
-    */
-    CPString _redirectTargetID @accessors(property=redirectTargetID);
-    /*!
-        The source address overwrite. Needs to be in CIDR format x.x.x.x/n
-    */
-    CPString _sourceAddressOverwrite @accessors(property=sourceAddressOverwrite);
     /*!
         The redirect type.
     */
     CPString _type @accessors(property=type);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -331,20 +331,20 @@ NUFlowForwardingPolicyType_SERVICEPROVIDER = @"SERVICEPROVIDER";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"redirectTargetID"];
+        [self exposeLocalKeyPathToREST:@"destinationAddressOverwrite"];
+        [self exposeLocalKeyPathToREST:@"flowID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"sourceAddressOverwrite"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationServiceID"];
         [self exposeLocalKeyPathToREST:@"associatedNetworkObjectID"];
         [self exposeLocalKeyPathToREST:@"associatedNetworkObjectType"];
-        [self exposeLocalKeyPathToREST:@"destinationAddressOverwrite"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"flowID"];
-        [self exposeLocalKeyPathToREST:@"redirectTargetID"];
-        [self exposeLocalKeyPathToREST:@"sourceAddressOverwrite"];
         [self exposeLocalKeyPathToREST:@"type"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

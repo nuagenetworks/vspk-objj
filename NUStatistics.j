@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 
 /*!
@@ -39,13 +39,13 @@
 @implementation NUStatistics : NURESTObject
 {
     /*!
+        Version of this Sequence number.
+    */
+    CPNumber _version @accessors(property=version);
+    /*!
         End time for the statistics to be retrieved
     */
     CPNumber _endTime @accessors(property=endTime);
-    /*!
-        Number of data points between start time and end time
-    */
-    CPNumber _numberOfDataPoints @accessors(property=numberOfDataPoints);
     /*!
         Start time for the statistics to be retrieved
     */
@@ -55,12 +55,12 @@
     */
     NURESTObject _statsData @accessors(property=statsData);
     /*!
-        Version of this Sequence number.
+        Number of data points between start time and end time
     */
-    CPNumber _version @accessors(property=version);
+    CPNumber _numberOfDataPoints @accessors(property=numberOfDataPoints);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -81,14 +81,14 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"version"];
         [self exposeLocalKeyPathToREST:@"endTime"];
-        [self exposeLocalKeyPathToREST:@"numberOfDataPoints"];
         [self exposeLocalKeyPathToREST:@"startTime"];
         [self exposeLocalKeyPathToREST:@"statsData"];
-        [self exposeLocalKeyPathToREST:@"version"];
+        [self exposeLocalKeyPathToREST:@"numberOfDataPoints"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

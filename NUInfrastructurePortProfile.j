@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUInfrastructurePortProfileDuplex_FULL = @"FULL";
 NUInfrastructurePortProfileDuplex_HALF = @"HALF";
@@ -54,13 +54,17 @@ NUInfrastructurePortProfileUplinkTag_UNKNOWN = @"UNKNOWN";
 @implementation NUInfrastructurePortProfile : NURESTObject
 {
     /*!
+        Name of the Infrastructure Profile
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         A description of the Profile instance created.
     */
     CPString _description @accessors(property=description);
-    /*!
-        Port Duplex :  Supported values are FULL where both parties can communicate to the other simultaneously and HALF where each party can only communicate to each other in one direction at a time.
-    */
-    CPString _duplex @accessors(property=duplex);
     /*!
         Enterprise/Organisation associated with this Profile instance.
     */
@@ -70,22 +74,6 @@ NUInfrastructurePortProfileUplinkTag_UNKNOWN = @"UNKNOWN";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Port MTU (Maximum Transmission Unit) :  The size in octets of the largest protocol data unit (PDU) that the layer can pass on.  The default value is normally 1500 octets for Ethernet v2 and can go up to 9198 for Jumbo Frames.
-    */
-    CPNumber _mtu @accessors(property=mtu);
-    /*!
-        Name of the Infrastructure Profile
-    */
-    CPString _name @accessors(property=name);
-    /*!
         Port Speed in Mb/s :  Supported Ethernet speeds are 10 (10Base-T), 100 (Fast-ethernet 100Base-TX), 1000 (Gigabit Ethernet 1000Base-T), 10 000 (10 Gigabit Ethernet 10GBase-X), and Auto-Negotiate.
     */
     CPString _speed @accessors(property=speed);
@@ -93,9 +81,21 @@ NUInfrastructurePortProfileUplinkTag_UNKNOWN = @"UNKNOWN";
         To allow prioritisation of traffic, the NSG network ports must be configured with an uplink type or tag value which will be used in the identification of packets being forwarded.  That identification is at the base of the selection of which network port will serve in sending packets to the outside world.  The default value is PRIMARY. Possible values are PRIMARY, SECONDARY, TERTIARY, UNKNOWN, .
     */
     CPString _uplinkTag @accessors(property=uplinkTag);
+    /*!
+        Port MTU (Maximum Transmission Unit) :  The size in octets of the largest protocol data unit (PDU) that the layer can pass on.  The default value is normally 1500 octets for Ethernet v2 and can go up to 9198 for Jumbo Frames.
+    */
+    CPNumber _mtu @accessors(property=mtu);
+    /*!
+        Port Duplex :  Supported values are FULL where both parties can communicate to the other simultaneously and HALF where each party can only communicate to each other in one direction at a time.
+    */
+    CPString _duplex @accessors(property=duplex);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -116,19 +116,19 @@ NUInfrastructurePortProfileUplinkTag_UNKNOWN = @"UNKNOWN";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"duplex"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"mtu"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"speed"];
         [self exposeLocalKeyPathToREST:@"uplinkTag"];
+        [self exposeLocalKeyPathToREST:@"mtu"];
+        [self exposeLocalKeyPathToREST:@"duplex"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         _duplex = @"FULL";
         _speed = @"AUTONEGOTIATE";

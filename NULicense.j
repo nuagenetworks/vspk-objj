@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NULicenseEntityScope_ENTERPRISE = @"ENTERPRISE";
 NULicenseEntityScope_GLOBAL = @"GLOBAL";
@@ -46,6 +46,46 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
 */
 @implementation NULicense : NURESTObject
 {
+    /*!
+        Major software release associated with this license
+    */
+    CPNumber _majorRelease @accessors(property=majorRelease);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Phone number of the owner associated with the license file
+    */
+    CPString _phone @accessors(property=phone);
+    /*!
+        Base 64 value of the license
+    */
+    CPString _license @accessors(property=license);
+    /*!
+        License encryption
+    */
+    CPString _licenseEncryption @accessors(property=licenseEncryption);
+    /*!
+        Unique identifier of the license file
+    */
+    CPNumber _licenseID @accessors(property=licenseID);
+    /*!
+        
+    */
+    CPString _licenseType @accessors(property=licenseType);
+    /*!
+        Minor software release for which this license has been issued
+    */
+    CPNumber _minorRelease @accessors(property=minorRelease);
+    /*!
+        Zipcode of the owner associated with the license file
+    */
+    CPString _zip @accessors(property=zip);
+    /*!
+        City of the owner associated with the license file
+    */
+    CPString _city @accessors(property=city);
     /*!
         Maximum number of CPEs enabled with this license. A value of -1 indicates an unlimited number of CPEs
     */
@@ -67,22 +107,6 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPNumber _allowedVRSsCount @accessors(property=allowedVRSsCount);
     /*!
-        City of the owner associated with the license file
-    */
-    CPString _city @accessors(property=city);
-    /*!
-        Company of the owner associated with the license file
-    */
-    CPString _company @accessors(property=company);
-    /*!
-        Country of the owner associated with the license file
-    */
-    CPString _country @accessors(property=country);
-    /*!
-        Customer key associated with the licese
-    */
-    CPString _customerKey @accessors(property=customerKey);
-    /*!
         Email of the owner associated with the license file
     */
     CPString _email @accessors(property=email);
@@ -95,49 +119,13 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Expiration date of this license
+        Company of the owner associated with the license file
     */
-    CPNumber _expirationDate @accessors(property=expirationDate);
+    CPString _company @accessors(property=company);
     /*!
-        External object ID. Used for integration with third party systems
+        Country of the owner associated with the license file
     */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Indicates if the license is associated with standlone or cluster setup of VSD
-    */
-    BOOL _isClusterLicense @accessors(property=isClusterLicense);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Base 64 value of the license
-    */
-    CPString _license @accessors(property=license);
-    /*!
-        License encryption
-    */
-    CPString _licenseEncryption @accessors(property=licenseEncryption);
-    /*!
-        Unique identifier of the license file
-    */
-    CPNumber _licenseID @accessors(property=licenseID);
-    /*!
-        
-    */
-    CPString _licenseType @accessors(property=licenseType);
-    /*!
-        Major software release associated with this license
-    */
-    CPNumber _majorRelease @accessors(property=majorRelease);
-    /*!
-        Minor software release for which this license has been issued
-    */
-    CPNumber _minorRelease @accessors(property=minorRelease);
-    /*!
-        Phone number of the owner associated with the license file
-    */
-    CPString _phone @accessors(property=phone);
+    CPString _country @accessors(property=country);
     /*!
         Version of the product that this license applies to
     */
@@ -147,6 +135,14 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPString _provider @accessors(property=provider);
     /*!
+        Indicates if the license is associated with standlone or cluster setup of VSD
+    */
+    BOOL _isClusterLicense @accessors(property=isClusterLicense);
+    /*!
+        The name of the user associated with the license
+    */
+    CPString _userName @accessors(property=userName);
+    /*!
         State of the owner associated with the license file
     */
     CPString _state @accessors(property=state);
@@ -155,17 +151,21 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPString _street @accessors(property=street);
     /*!
-        The name of the user associated with the license
+        Customer key associated with the licese
     */
-    CPString _userName @accessors(property=userName);
+    CPString _customerKey @accessors(property=customerKey);
     /*!
-        Zipcode of the owner associated with the license file
+        Expiration date of this license
     */
-    CPString _zip @accessors(property=zip);
+    CPNumber _expirationDate @accessors(property=expirationDate);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -186,39 +186,39 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"majorRelease"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"phone"];
+        [self exposeLocalKeyPathToREST:@"license"];
+        [self exposeLocalKeyPathToREST:@"licenseEncryption"];
+        [self exposeLocalKeyPathToREST:@"licenseID"];
+        [self exposeLocalKeyPathToREST:@"licenseType"];
+        [self exposeLocalKeyPathToREST:@"minorRelease"];
+        [self exposeLocalKeyPathToREST:@"zip"];
+        [self exposeLocalKeyPathToREST:@"city"];
         [self exposeLocalKeyPathToREST:@"allowedCPEsCount"];
         [self exposeLocalKeyPathToREST:@"allowedNICsCount"];
         [self exposeLocalKeyPathToREST:@"allowedVMsCount"];
         [self exposeLocalKeyPathToREST:@"allowedVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"allowedVRSsCount"];
-        [self exposeLocalKeyPathToREST:@"city"];
-        [self exposeLocalKeyPathToREST:@"company"];
-        [self exposeLocalKeyPathToREST:@"country"];
-        [self exposeLocalKeyPathToREST:@"customerKey"];
         [self exposeLocalKeyPathToREST:@"email"];
         [self exposeLocalKeyPathToREST:@"encryptionMode"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"expirationDate"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"isClusterLicense"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"license"];
-        [self exposeLocalKeyPathToREST:@"licenseEncryption"];
-        [self exposeLocalKeyPathToREST:@"licenseID"];
-        [self exposeLocalKeyPathToREST:@"licenseType"];
-        [self exposeLocalKeyPathToREST:@"majorRelease"];
-        [self exposeLocalKeyPathToREST:@"minorRelease"];
-        [self exposeLocalKeyPathToREST:@"phone"];
+        [self exposeLocalKeyPathToREST:@"company"];
+        [self exposeLocalKeyPathToREST:@"country"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"provider"];
+        [self exposeLocalKeyPathToREST:@"isClusterLicense"];
+        [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"state"];
         [self exposeLocalKeyPathToREST:@"street"];
-        [self exposeLocalKeyPathToREST:@"userName"];
-        [self exposeLocalKeyPathToREST:@"zip"];
+        [self exposeLocalKeyPathToREST:@"customerKey"];
+        [self exposeLocalKeyPathToREST:@"expirationDate"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

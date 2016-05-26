@@ -29,14 +29,14 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUStatisticsFetcher.j"
-@import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUTCAsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUStatisticsFetcher.j"
+@import "Fetchers/NUStatisticsPoliciesFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUTierAssociatedNetworkObjectType_ACLENTRY_LOCATION = @"ACLENTRY_LOCATION";
 NUTierAssociatedNetworkObjectType_ADDRESS_RANGE = @"ADDRESS_RANGE";
@@ -275,9 +275,37 @@ NUTierType_STANDARD = @"STANDARD";
 @implementation NUTier : NURESTObject
 {
     /*!
+        Name of the application tier.
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        The IP address of the gateway for this tier.
+    */
+    CPString _gateway @accessors(property=gateway);
+    /*!
         IP address of the tier defined.
     */
     CPString _address @accessors(property=address);
+    /*!
+        Description of the application tier.
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        Metadata field to store tier related data.
+    */
+    CPString _metadata @accessors(property=metadata);
+    /*!
+        Netmask for the tier.
+    */
+    CPString _netmask @accessors(property=netmask);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The associated network macro ID.
     */
@@ -299,50 +327,22 @@ NUTierType_STANDARD = @"STANDARD";
     */
     CPString _associatedNetworkObjectType @accessors(property=associatedNetworkObjectType);
     /*!
-        Description of the application tier.
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        The IP address of the gateway for this tier.
-    */
-    CPString _gateway @accessors(property=gateway);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Metadata field to store tier related data.
-    */
-    CPString _metadata @accessors(property=metadata);
-    /*!
-        Name of the application tier.
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Netmask for the tier.
-    */
-    CPString _netmask @accessors(property=netmask);
     /*!
         Type of the application tier.
     */
     CPString _type @accessors(property=type);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
-    NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
+    NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -363,30 +363,30 @@ NUTierType_STANDARD = @"STANDARD";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"metadata"];
+        [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationID"];
         [self exposeLocalKeyPathToREST:@"associatedFloatingIPPoolID"];
         [self exposeLocalKeyPathToREST:@"associatedNetworkMacroID"];
         [self exposeLocalKeyPathToREST:@"associatedNetworkObjectID"];
         [self exposeLocalKeyPathToREST:@"associatedNetworkObjectType"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"metadata"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"type"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
-        _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
+        _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _type = @"STANDARD";
         

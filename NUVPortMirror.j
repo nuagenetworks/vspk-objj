@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUVPortMirrorEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVPortMirrorEntityScope_GLOBAL = @"GLOBAL";
@@ -49,29 +49,13 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
     */
     CPString _VPortName @accessors(property=VPortName);
     /*!
-        Type of the network attached - L2/L3
-    */
-    CPString _attachedNetworkType @accessors(property=attachedNetworkType);
-    /*!
-        Domain name of the vport associated with the mirror destination
-    */
-    CPString _domainName @accessors(property=domainName);
-    /*!
-        Enterprise to which the vport associated with the mirror destination belongs to.
-    */
-    CPString _enterpiseName @accessors(property=enterpiseName);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Name of the network to which the vport belongs to
+    */
+    CPString _networkName @accessors(property=networkName);
     /*!
         Destination ID of the mirror destination object.
     */
@@ -85,16 +69,32 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
     */
     CPString _mirrorDirection @accessors(property=mirrorDirection);
     /*!
-        Name of the network to which the vport belongs to
+        Enterprise to which the vport associated with the mirror destination belongs to.
     */
-    CPString _networkName @accessors(property=networkName);
+    CPString _enterpiseName @accessors(property=enterpiseName);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Domain name of the vport associated with the mirror destination
+    */
+    CPString _domainName @accessors(property=domainName);
     /*!
         Id of the vport to which the mirror destination is associated with.
     */
     CPString _vportId @accessors(property=vportId);
+    /*!
+        Type of the network attached - L2/L3
+    */
+    CPString _attachedNetworkType @accessors(property=attachedNetworkType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -116,20 +116,20 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"VPortName"];
-        [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
-        [self exposeLocalKeyPathToREST:@"domainName"];
-        [self exposeLocalKeyPathToREST:@"enterpiseName"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"networkName"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationName"];
         [self exposeLocalKeyPathToREST:@"mirrorDirection"];
-        [self exposeLocalKeyPathToREST:@"networkName"];
+        [self exposeLocalKeyPathToREST:@"enterpiseName"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"vportId"];
+        [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         _mirrorDirection = @"BOTH";
         

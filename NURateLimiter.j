@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NURateLimiterEntityScope_ENTERPRISE = @"ENTERPRISE";
 NURateLimiterEntityScope_GLOBAL = @"GLOBAL";
@@ -42,9 +42,21 @@ NURateLimiterEntityScope_GLOBAL = @"GLOBAL";
 @implementation NURateLimiter : NURESTObject
 {
     /*!
-        Committed Information Rate :  Committed bandwidth that is allowed in Mb/s; only whole values supported.
+        A unique name of the Rate Limiter object
     */
-    CPString _committedInformationRate @accessors(property=committedInformationRate);
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Peak Burst Size :  The maximum burst size associated with the rate limiter in kilo-bits; only whole values are supported.
+    */
+    CPString _peakBurstSize @accessors(property=peakBurstSize);
+    /*!
+        Peak Information Rate :  Peak bandwidth allowed in Mb/s; only whole values supported.
+    */
+    CPString _peakInformationRate @accessors(property=peakInformationRate);
     /*!
         A description of the Rate Limiter object
     */
@@ -54,28 +66,16 @@ NURateLimiterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Committed Information Rate :  Committed bandwidth that is allowed in Mb/s; only whole values supported.
+    */
+    CPString _committedInformationRate @accessors(property=committedInformationRate);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        A unique name of the Rate Limiter object
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Peak Burst Size :  The maximum burst size associated with the rate limiter in kilo-bits; only whole values are supported.
-    */
-    CPString _peakBurstSize @accessors(property=peakBurstSize);
-    /*!
-        Peak Information Rate :  Peak bandwidth allowed in Mb/s; only whole values supported.
-    */
-    CPString _peakInformationRate @accessors(property=peakInformationRate);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -96,17 +96,17 @@ NURateLimiterEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"committedInformationRate"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"peakBurstSize"];
         [self exposeLocalKeyPathToREST:@"peakInformationRate"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"committedInformationRate"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

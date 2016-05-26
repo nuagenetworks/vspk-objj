@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUVirtualIPEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVirtualIPEntityScope_GLOBAL = @"GLOBAL";
@@ -47,33 +47,33 @@ NUVirtualIPEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _MAC @accessors(property=MAC);
     /*!
-        Id of Floating IP address associated to this virtual ip
+        ID of the user who last updated the object.
     */
-    CPString _associatedFloatingIPID @accessors(property=associatedFloatingIPID);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Virtual IP address
+    */
+    CPString _virtualIP @accessors(property=virtualIP);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
+        Id of Floating IP address associated to this virtual ip
     */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    CPString _associatedFloatingIPID @accessors(property=associatedFloatingIPID);
     /*!
         Id of subnet to which this ip address belongs
     */
     CPString _subnetID @accessors(property=subnetID);
     /*!
-        Virtual IP address
+        External object ID. Used for integration with third party systems
     */
-    CPString _virtualIP @accessors(property=virtualIP);
+    CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -95,16 +95,16 @@ NUVirtualIPEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"MAC"];
-        [self exposeLocalKeyPathToREST:@"associatedFloatingIPID"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"subnetID"];
         [self exposeLocalKeyPathToREST:@"virtualIP"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedFloatingIPID"];
+        [self exposeLocalKeyPathToREST:@"subnetID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUVSDComponentEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVSDComponentEntityScope_GLOBAL = @"GLOBAL";
@@ -52,6 +52,14 @@ NUVSDComponentType_TCA = @"TCA";
 @implementation NUVSDComponent : NURESTObject
 {
     /*!
+        Identifies the entity with a name.
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        An optional management IP to log into this component.
+    */
+    CPString _managementIP @accessors(property=managementIP);
+    /*!
         An optional IP to access this component.
     */
     CPString _address @accessors(property=address);
@@ -64,21 +72,9 @@ NUVSDComponentType_TCA = @"TCA";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
         Identifies the entity to be associated with a location.
     */
     CPString _location @accessors(property=location);
-    /*!
-        An optional management IP to log into this component.
-    */
-    CPString _managementIP @accessors(property=managementIP);
-    /*!
-        Identifies the entity with a name.
-    */
-    CPString _name @accessors(property=name);
     /*!
         Product version supported by this entity.
     */
@@ -88,12 +84,16 @@ NUVSDComponentType_TCA = @"TCA";
     */
     CPString _status @accessors(property=status);
     /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
         Type of the component.
     */
     CPString _type @accessors(property=type);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -114,19 +114,19 @@ NUVSDComponentType_TCA = @"TCA";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"managementIP"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"location"];
-        [self exposeLocalKeyPathToREST:@"managementIP"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

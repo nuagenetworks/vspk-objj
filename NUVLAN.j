@@ -29,12 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUPermissionsFetcher.j"
 
 NUVLANEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVLANEntityScope_GLOBAL = @"GLOBAL";
@@ -56,49 +56,45 @@ NUVLANStatus_READY = @"READY";
 @implementation NUVLAN : NURESTObject
 {
     /*!
-        ID of the Egress QOS Policy associated with this Vlan.
+        value of VLAN
     */
-    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
-    /*!
-        A description of the Port
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        The Gateway associated with this  VLAN  . This is a read only attribute
-    */
-    CPString _gatewayID @accessors(property=gatewayID);
+    CPNumber _value @accessors(property=value);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The permitted  action to USE/EXTEND  this Gateway.
+        The Gateway associated with this  VLAN  . This is a read only attribute
     */
-    CPString _permittedAction @accessors(property=permittedAction);
+    CPString _gatewayID @accessors(property=gatewayID);
     /*!
         Determines whether this entity is read only.  Read only objects cannot be modified or deleted.
     */
     BOOL _readonly @accessors(property=readonly);
     /*!
+        The ID of the template that this Port was created from
+    */
+    CPString _templateID @accessors(property=templateID);
+    /*!
+        The permitted  action to USE/EXTEND  this Gateway.
+    */
+    CPString _permittedAction @accessors(property=permittedAction);
+    /*!
+        A description of the Port
+    */
+    CPString _description @accessors(property=description);
+    /*!
         Determines whether this entity can be used in associations with other properties.
     */
     BOOL _restricted @accessors(property=restricted);
     /*!
-        Status of the VLAN.
+        Specify if scope of entity is Data center or Enterprise level
     */
-    CPString _status @accessors(property=status);
+    CPString _entityScope @accessors(property=entityScope);
     /*!
-        The ID of the template that this Port was created from
+        The Vport associated with this  VLAN  . This is a read only attribute
     */
-    CPString _templateID @accessors(property=templateID);
+    CPString _vportID @accessors(property=vportID);
     /*!
         determines whether to use user mnemonic of the Port
     */
@@ -108,20 +104,24 @@ NUVLANStatus_READY = @"READY";
     */
     CPString _userMnemonic @accessors(property=userMnemonic);
     /*!
-        value of VLAN
+        ID of the Egress QOS Policy associated with this Vlan.
     */
-    CPNumber _value @accessors(property=value);
+    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
-        The Vport associated with this  VLAN  . This is a read only attribute
+        Status of the VLAN.
     */
-    CPString _vportID @accessors(property=vportID);
+    CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     
 }
 
@@ -142,28 +142,28 @@ NUVLANStatus_READY = @"READY";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"gatewayID"];
+        [self exposeLocalKeyPathToREST:@"value"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"permittedAction"];
+        [self exposeLocalKeyPathToREST:@"gatewayID"];
         [self exposeLocalKeyPathToREST:@"readonly"];
-        [self exposeLocalKeyPathToREST:@"restricted"];
-        [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"templateID"];
+        [self exposeLocalKeyPathToREST:@"permittedAction"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"restricted"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"vportID"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
-        [self exposeLocalKeyPathToREST:@"value"];
-        [self exposeLocalKeyPathToREST:@"vportID"];
+        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,11 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUFlowForwardingPoliciesFetcher.j"
 @import "Fetchers/NUFlowSecurityPoliciesFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUFlowEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUFlowEntityScope_GLOBAL = @"GLOBAL";
@@ -45,6 +45,14 @@ NUFlowEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUFlow : NURESTObject
 {
     /*!
+        Name of the flow.
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Description of the flow.
     */
     CPString _description @accessors(property=description);
@@ -53,35 +61,27 @@ NUFlowEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _destinationTierID @accessors(property=destinationTierID);
     /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
         Metadata field to store flow related data.
     */
     CPString _metadata @accessors(property=metadata);
     /*!
-        Name of the flow.
+        Specify if scope of entity is Data center or Enterprise level
     */
-    CPString _name @accessors(property=name);
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Flow origin tier id.
     */
     CPString _originTierID @accessors(property=originTierID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUFlowForwardingPoliciesFetcher _childrenFlowForwardingPolicies @accessors(property=childrenFlowForwardingPolicies);
     NUFlowSecurityPoliciesFetcher _childrenFlowSecurityPolicies @accessors(property=childrenFlowSecurityPolicies);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -102,20 +102,20 @@ NUFlowEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationTierID"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"metadata"];
-        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"originTierID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenFlowForwardingPolicies = [NUFlowForwardingPoliciesFetcher fetcherWithParentObject:self];
         _childrenFlowSecurityPolicies = [NUFlowSecurityPoliciesFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

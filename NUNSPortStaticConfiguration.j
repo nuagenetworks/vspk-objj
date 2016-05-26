@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUNSPortStaticConfigurationEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSPortStaticConfigurationEntityScope_GLOBAL = @"GLOBAL";
@@ -46,9 +46,21 @@ NUNSPortStaticConfigurationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _DNSAddress @accessors(property=DNSAddress);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        IP address of the gateway bound to the Network NSPort.
+    */
+    CPString _gateway @accessors(property=gateway);
+    /*!
         IP address of the Network NSPort.
     */
     CPString _address @accessors(property=address);
+    /*!
+        IP address netmask of the Network NSPort.
+    */
+    CPString _netmask @accessors(property=netmask);
     /*!
         Boolean value that states if the NSG Port static configuration needs to be applied.
     */
@@ -61,21 +73,9 @@ NUNSPortStaticConfigurationEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        IP address of the gateway bound to the Network NSPort.
-    */
-    CPString _gateway @accessors(property=gateway);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        IP address netmask of the Network NSPort.
-    */
-    CPString _netmask @accessors(property=netmask);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -97,16 +97,16 @@ NUNSPortStaticConfigurationEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"DNSAddress"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"enabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

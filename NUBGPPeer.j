@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUBGPPeerEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUBGPPeerEntityScope_GLOBAL = @"GLOBAL";
@@ -45,6 +45,10 @@ NUBGPPeerStatus_UP = @"UP";
 @implementation NUBGPPeer : NURESTObject
 {
     /*!
+        Last state change timestamp.
+    */
+    CPNumber _lastStateChange @accessors(property=lastStateChange);
+    /*!
         IP of the BGP peer.
     */
     CPString _address @accessors(property=address);
@@ -53,20 +57,16 @@ NUBGPPeerStatus_UP = @"UP";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
-    /*!
-        Last state change timestamp.
-    */
-    CPNumber _lastStateChange @accessors(property=lastStateChange);
-    /*!
         Current connection status of the BGP peer.
     */
     CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -87,14 +87,14 @@ NUBGPPeerStatus_UP = @"UP";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUKeyServerMonitorEncryptedSeedEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUKeyServerMonitorEncryptedSeedEntityScope_GLOBAL = @"GLOBAL";
@@ -45,6 +45,22 @@ NUKeyServerMonitorEncryptedSeedEntityScope_GLOBAL = @"GLOBAL";
         SEK Creation Time
     */
     CPNumber _SEKCreationTime @accessors(property=SEKCreationTime);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        KeyServer Certificate Serial Number
+    */
+    CPNumber _keyServerCertificateSerialNumber @accessors(property=keyServerCertificateSerialNumber);
+    /*!
+        Enterprise Secured ID record this monitor represents
+    */
+    CPString _enterpriseSecuredDataID @accessors(property=enterpriseSecuredDataID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The creation time of the associated KeyServer Monitor Seed ID
     */
@@ -62,28 +78,12 @@ NUKeyServerMonitorEncryptedSeedEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedKeyServerMonitorSeedID @accessors(property=associatedKeyServerMonitorSeedID);
     /*!
-        Enterprise Secured ID record this monitor represents
-    */
-    CPString _enterpriseSecuredDataID @accessors(property=enterpriseSecuredDataID);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        KeyServer Certificate Serial Number
-    */
-    CPNumber _keyServerCertificateSerialNumber @accessors(property=keyServerCertificateSerialNumber);
-    /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -105,18 +105,18 @@ NUKeyServerMonitorEncryptedSeedEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"SEKCreationTime"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"keyServerCertificateSerialNumber"];
+        [self exposeLocalKeyPathToREST:@"enterpriseSecuredDataID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorSEKCreationTime"];
         [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorSEKID"];
         [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorSeedCreationTime"];
         [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorSeedID"];
-        [self exposeLocalKeyPathToREST:@"enterpriseSecuredDataID"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"keyServerCertificateSerialNumber"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

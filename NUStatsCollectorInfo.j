@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUStatsCollectorInfoAddressType_FQDN = @"fqdn";
 NUStatsCollectorInfoAddressType_IP = @"ip";
@@ -44,6 +44,10 @@ NUStatsCollectorInfoEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUStatsCollectorInfo : NURESTObject
 {
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Type for stats collector address Possible values are ip, fqdn, .
     */
     CPString _addressType @accessors(property=addressType);
@@ -52,28 +56,24 @@ NUStatsCollectorInfoEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
+        Port(s) of the stats collector process
     */
-    CPString _externalID @accessors(property=externalID);
+    CPString _port @accessors(property=port);
     /*!
         IP address(es) of the stats collector process
     */
     CPString _ipAddress @accessors(property=ipAddress);
     /*!
-        ID of the user who last updated the object.
-    */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Port(s) of the stats collector process
-    */
-    CPString _port @accessors(property=port);
-    /*!
         Protobuf Port(s) of the stats collector process
     */
     CPString _protoBufPort @accessors(property=protoBufPort);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -94,16 +94,16 @@ NUStatsCollectorInfoEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"addressType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"ipAddress"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"port"];
+        [self exposeLocalKeyPathToREST:@"ipAddress"];
         [self exposeLocalKeyPathToREST:@"protoBufPort"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

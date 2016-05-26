@@ -29,8 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUJobAssocEntityType_ACLENTRY_LOCATION = @"ACLENTRY_LOCATION";
 NUJobAssocEntityType_ADDRESS_RANGE = @"ADDRESS_RANGE";
@@ -294,44 +294,44 @@ NUJobStatus_SUCCESS = @"SUCCESS";
 @implementation NUJob : NURESTObject
 {
     /*!
-        Entity with which this job is associated Refer to API section for supported types.
+        Additional arguments required for the specific command. Differs based on types of command.
     */
-    CPString _assocEntityType @accessors(property=assocEntityType);
-    /*!
-        Name of the command.
-    */
-    CPString _command @accessors(property=command);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    NURESTObject _parameters @accessors(property=parameters);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Additional arguments required for the specific command. Differs based on types of command.
+        Results from the execution of the job
     */
-    NURESTObject _parameters @accessors(property=parameters);
+    NURESTObject _result @accessors(property=result);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Name of the command.
+    */
+    CPString _command @accessors(property=command);
     /*!
         Indicates the progress of the job as a faction. eg : 0.5 means 50% done.
     */
     CPNumber _progress @accessors(property=progress);
     /*!
-        Results from the execution of the job
+        Entity with which this job is associated Refer to API section for supported types.
     */
-    NURESTObject _result @accessors(property=result);
+    CPString _assocEntityType @accessors(property=assocEntityType);
     /*!
         Current status of the job. Possible values are RUNNING, FAILED, SUCCESS, .
     */
     CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -352,18 +352,18 @@ NUJobStatus_SUCCESS = @"SUCCESS";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"assocEntityType"];
-        [self exposeLocalKeyPathToREST:@"command"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"parameters"];
-        [self exposeLocalKeyPathToREST:@"progress"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"result"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"command"];
+        [self exposeLocalKeyPathToREST:@"progress"];
+        [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

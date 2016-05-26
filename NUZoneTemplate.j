@@ -29,11 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUSubnetTemplatesFetcher.j"
+@import "Fetchers/NUEventLogsFetcher.j"
 
 NUZoneTemplateEncryption_DISABLED = @"DISABLED";
 NUZoneTemplateEncryption_ENABLED = @"ENABLED";
@@ -57,17 +57,25 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
     */
     CPString _IPType @accessors(property=IPType);
     /*!
+        Name of the current entity(Zone or zone template or subnet etc..) Valid characters are alphabets, numbers, space and hyphen( - ).
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         IP address of the subnet defined. In case of zone, this is an optional field for and allows users to allocate an IP address range to a zone. The VSD will auto-assign IP addresses to subnets from this range if a specific IP address is not defined for the subnet
     */
     CPString _address @accessors(property=address);
     /*!
-        The ID of the Multi Cast Channel Map  this zone/zone template is associated with. This has to be set when  enableMultiCast is set to ENABLED
-    */
-    CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
-    /*!
         A description of the Zone template
     */
     CPString _description @accessors(property=description);
+    /*!
+        Netmask of the subnet defined
+    */
+    CPString _netmask @accessors(property=netmask);
     /*!
         Determines whether or not IPSEC is enabled.
     */
@@ -77,39 +85,31 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        External object ID. Used for integration with third party systems
+        The ID of the Multi Cast Channel Map  this zone/zone template is associated with. This has to be set when  enableMultiCast is set to ENABLED
     */
-    CPString _externalID @accessors(property=externalID);
+    CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
     /*!
-        ID of the user who last updated the object.
+        Identifies if the zone is a public zone, in which case any subnets associated with this zone are actually connected to the public subnet of the data center
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    BOOL _publicZone @accessors(property=publicZone);
     /*!
         Indicates multicast policy on zone template.
     */
     CPString _multicast @accessors(property=multicast);
     /*!
-        Name of the current entity(Zone or zone template or subnet etc..) Valid characters are alphabets, numbers, space and hyphen( - ).
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Netmask of the subnet defined
-    */
-    CPString _netmask @accessors(property=netmask);
-    /*!
         Number of hosts in the subnets where IP addresses are automatically assigned from the zone IP pool
     */
     CPNumber _numberOfHostsInSubnets @accessors(property=numberOfHostsInSubnets);
     /*!
-        Identifies if the zone is a public zone, in which case any subnets associated with this zone are actually connected to the public subnet of the data center
+        External object ID. Used for integration with third party systems
     */
-    BOOL _publicZone @accessors(property=publicZone);
+    CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUSubnetTemplatesFetcher _childrenSubnetTemplates @accessors(property=childrenSubnetTemplates);
+    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -131,24 +131,24 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"multicast"];
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"numberOfHostsInSubnets"];
+        [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"publicZone"];
+        [self exposeLocalKeyPathToREST:@"multicast"];
+        [self exposeLocalKeyPathToREST:@"numberOfHostsInSubnets"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenSubnetTemplates = [NUSubnetTemplatesFetcher fetcherWithParentObject:self];
+        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _multicast = @"INHERITED";
         
