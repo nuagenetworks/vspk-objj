@@ -89,6 +89,10 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _gatewayPeer2AutodiscoveredGatewayID @accessors(property=gatewayPeer2AutodiscoveredGatewayID);
     /*!
+        The gateway peer in this Redundant Group. when Redundant Group is deleted this gateway will not recieve vport associations
+    */
+    CPString _gatewayPeer2ID @accessors(property=gatewayPeer2ID);
+    /*!
         The gateway peer name in this Redundant Group
     */
     CPString _gatewayPeer2Name @accessors(property=gatewayPeer2Name);
@@ -161,6 +165,7 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         [self exposeLocalKeyPathToREST:@"gatewayPeer1ID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1Name"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2AutodiscoveredGatewayID"];
+        [self exposeLocalKeyPathToREST:@"gatewayPeer2ID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2Name"];
         [self exposeLocalKeyPathToREST:@"redundantGatewayStatus"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];

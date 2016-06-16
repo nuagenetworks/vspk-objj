@@ -108,6 +108,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
     /*!
+        Whether split-activation is needed from VRO
+    */
+    BOOL _genericSplitActivation @accessors(property=genericSplitActivation);
+    /*!
         Whether Data will use the management network or not
     */
     BOOL _separateDataNetwork @accessors(property=separateDataNetwork);
@@ -412,6 +416,7 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"scope"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];

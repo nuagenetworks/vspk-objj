@@ -337,6 +337,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
+        Name of the entity.
+    */
+    CPString _name @accessors(property=name);
+    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
@@ -469,6 +473,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"ICMPType"];
         [self exposeLocalKeyPathToREST:@"FCOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];

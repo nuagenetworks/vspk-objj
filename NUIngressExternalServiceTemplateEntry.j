@@ -319,6 +319,10 @@ NUIngressExternalServiceTemplateEntryPolicyState_LIVE = @"LIVE";
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
+        Name of the entity.
+    */
+    CPString _name @accessors(property=name);
+    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
@@ -446,6 +450,7 @@ NUIngressExternalServiceTemplateEntryPolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];

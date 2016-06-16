@@ -40,6 +40,7 @@ NUAppAssociatedDomainType_DOMAIN = @"DOMAIN";
 NUAppAssociatedDomainType_L2DOMAIN = @"L2DOMAIN";
 NUAppAssociatedNetworkObjectType_DOMAIN = @"DOMAIN";
 NUAppAssociatedNetworkObjectType_ENTERPRISE = @"ENTERPRISE";
+NUAppAssociatedNetworkObjectType_ZONE = @"ZONE";
 NUAppEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUAppEntityScope_GLOBAL = @"GLOBAL";
 
