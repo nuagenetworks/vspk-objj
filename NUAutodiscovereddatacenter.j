@@ -30,6 +30,9 @@
 @import <Bambou/NURESTObject.j>
 
 
+NUAutodiscovereddatacenterEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUAutodiscovereddatacenterEntityScope_GLOBAL = @"GLOBAL";
+
 
 /*!
     None
@@ -45,9 +48,21 @@
     */
     CPString _managedObjectID @accessors(property=managedObjectID);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         The ID of the vcenter to which this host is attached
     */
-    CPString _assocVCenterId @accessors(property=assocVCenterId);
+    CPString _associatedVCenterID @accessors(property=associatedVCenterID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
     
 }
@@ -71,7 +86,10 @@
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"managedObjectID"];
-        [self exposeLocalKeyPathToREST:@"assocVCenterId"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedVCenterID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
         
         

@@ -36,6 +36,8 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
+@import "Fetchers/NUContainersFetcher.j"
+@import "Fetchers/NUContainerInterfacesFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
 @import "Fetchers/NUGroupsFetcher.j"
@@ -70,6 +72,7 @@ NUZoneAssociatedApplicationObjectType_BRIDGEINTERFACE = @"BRIDGEINTERFACE";
 NUZoneAssociatedApplicationObjectType_CERTIFICATE = @"CERTIFICATE";
 NUZoneAssociatedApplicationObjectType_CHILD_ENTITY_POLICY_CHANGE = @"CHILD_ENTITY_POLICY_CHANGE";
 NUZoneAssociatedApplicationObjectType_CLOUD_MGMT_SYSTEM = @"CLOUD_MGMT_SYSTEM";
+NUZoneAssociatedApplicationObjectType_CONTAINER_RESYNC = @"CONTAINER_RESYNC";
 NUZoneAssociatedApplicationObjectType_CUSTOMER_VRF_SEQUENCENO = @"CUSTOMER_VRF_SEQUENCENO";
 NUZoneAssociatedApplicationObjectType_DC_CONFIG = @"DC_CONFIG";
 NUZoneAssociatedApplicationObjectType_DHCP_ALLOC_MESSAGE = @"DHCP_ALLOC_MESSAGE";
@@ -217,7 +220,6 @@ NUZoneAssociatedApplicationObjectType_QOS_PRIMITIVE = @"QOS_PRIMITIVE";
 NUZoneAssociatedApplicationObjectType_RATE_LIMITER = @"RATE_LIMITER";
 NUZoneAssociatedApplicationObjectType_RD_SEQUENCENO = @"RD_SEQUENCENO";
 NUZoneAssociatedApplicationObjectType_REDUNDANT_GW_GRP = @"REDUNDANT_GW_GRP";
-NUZoneAssociatedApplicationObjectType_RESYNC = @"RESYNC";
 NUZoneAssociatedApplicationObjectType_ROUTING_POLICY = @"ROUTING_POLICY";
 NUZoneAssociatedApplicationObjectType_ROUTING_POL_MED_RESPONSE = @"ROUTING_POL_MED_RESPONSE";
 NUZoneAssociatedApplicationObjectType_RTRD_ENTITY = @"RTRD_ENTITY";
@@ -266,6 +268,7 @@ NUZoneAssociatedApplicationObjectType_VMWARE_VCENTER_VRS_CONFIG = @"VMWARE_VCENT
 NUZoneAssociatedApplicationObjectType_VMWARE_VRS_ADDRESS_RANGE = @"VMWARE_VRS_ADDRESS_RANGE";
 NUZoneAssociatedApplicationObjectType_VM_DESCRIPTION = @"VM_DESCRIPTION";
 NUZoneAssociatedApplicationObjectType_VM_INTERFACE = @"VM_INTERFACE";
+NUZoneAssociatedApplicationObjectType_VM_RESYNC = @"VM_RESYNC";
 NUZoneAssociatedApplicationObjectType_VNID_SEQUENCENO = @"VNID_SEQUENCENO";
 NUZoneAssociatedApplicationObjectType_VPN_CONNECT = @"VPN_CONNECT";
 NUZoneAssociatedApplicationObjectType_VPORT = @"VPORT";
@@ -389,6 +392,8 @@ NUZoneMulticast_INHERITED = @"INHERITED";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
+    NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
+    NUContainerInterfacesFetcher _childrenContainerInterfaces @accessors(property=childrenContainerInterfaces);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
@@ -443,6 +448,8 @@ NUZoneMulticast_INHERITED = @"INHERITED";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
+        _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
+        _childrenContainerInterfaces = [NUContainerInterfacesFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];

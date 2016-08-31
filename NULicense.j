@@ -55,6 +55,10 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Indicates additional versions supported by the license.
+    */
+    CPString _additionalSupportedVersions @accessors(property=additionalSupportedVersions);
+    /*!
         Phone number of the owner associated with the license file
     */
     CPString _phone @accessors(property=phone);
@@ -75,7 +79,7 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPNumber _licenseID @accessors(property=licenseID);
     /*!
-        
+        None
     */
     CPString _licenseType @accessors(property=licenseType);
     /*!
@@ -196,6 +200,7 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     {
         [self exposeLocalKeyPathToREST:@"majorRelease"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"additionalSupportedVersions"];
         [self exposeLocalKeyPathToREST:@"phone"];
         [self exposeLocalKeyPathToREST:@"license"];
         [self exposeLocalKeyPathToREST:@"licenseEncryption"];

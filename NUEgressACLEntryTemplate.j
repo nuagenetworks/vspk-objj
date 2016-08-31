@@ -62,6 +62,7 @@ NUEgressACLEntryTemplateAssociatedApplicationObjectType_BRIDGEINTERFACE = @"BRID
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_CERTIFICATE = @"CERTIFICATE";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_CHILD_ENTITY_POLICY_CHANGE = @"CHILD_ENTITY_POLICY_CHANGE";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_CLOUD_MGMT_SYSTEM = @"CLOUD_MGMT_SYSTEM";
+NUEgressACLEntryTemplateAssociatedApplicationObjectType_CONTAINER_RESYNC = @"CONTAINER_RESYNC";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_CUSTOMER_VRF_SEQUENCENO = @"CUSTOMER_VRF_SEQUENCENO";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_DC_CONFIG = @"DC_CONFIG";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_DHCP_ALLOC_MESSAGE = @"DHCP_ALLOC_MESSAGE";
@@ -209,7 +210,6 @@ NUEgressACLEntryTemplateAssociatedApplicationObjectType_QOS_PRIMITIVE = @"QOS_PR
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_RATE_LIMITER = @"RATE_LIMITER";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_RD_SEQUENCENO = @"RD_SEQUENCENO";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_REDUNDANT_GW_GRP = @"REDUNDANT_GW_GRP";
-NUEgressACLEntryTemplateAssociatedApplicationObjectType_RESYNC = @"RESYNC";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_ROUTING_POLICY = @"ROUTING_POLICY";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_ROUTING_POL_MED_RESPONSE = @"ROUTING_POL_MED_RESPONSE";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_RTRD_ENTITY = @"RTRD_ENTITY";
@@ -258,6 +258,7 @@ NUEgressACLEntryTemplateAssociatedApplicationObjectType_VMWARE_VCENTER_VRS_CONFI
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_VMWARE_VRS_ADDRESS_RANGE = @"VMWARE_VRS_ADDRESS_RANGE";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_VM_DESCRIPTION = @"VM_DESCRIPTION";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_VM_INTERFACE = @"VM_INTERFACE";
+NUEgressACLEntryTemplateAssociatedApplicationObjectType_VM_RESYNC = @"VM_RESYNC";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_VNID_SEQUENCENO = @"VNID_SEQUENCENO";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_VPN_CONNECT = @"VPN_CONNECT";
 NUEgressACLEntryTemplateAssociatedApplicationObjectType_VPORT = @"VPORT";
@@ -305,6 +306,10 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
 */
 @implementation NUEgressACLEntryTemplate : NURESTObject
 {
+    /*!
+        The name of the parent Template for this acl entry
+    */
+    CPString _ACLTemplateName @accessors(property=ACLTemplateName);
     /*!
         The ICMP Code when selected protocol is ICMP
     */
@@ -358,6 +363,10 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     BOOL _flowLoggingEnabled @accessors(property=flowLoggingEnabled);
     /*!
+        The name of the enterprise for the domains parent
+    */
+    CPString _enterpriseName @accessors(property=enterpriseName);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -373,6 +382,10 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         State of the policy.  Possible values are DRAFT, LIVE, .
     */
     CPString _policyState @accessors(property=policyState);
+    /*!
+        The name of the domain/domain template for the aclTemplateNames parent
+    */
+    CPString _domainName @accessors(property=domainName);
     /*!
         Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range
     */
@@ -446,6 +459,7 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"ACLTemplateName"];
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
@@ -459,10 +473,12 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"networkType"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
+        [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"locationType"];
         [self exposeLocalKeyPathToREST:@"policyState"];
+        [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"sourcePort"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"protocol"];

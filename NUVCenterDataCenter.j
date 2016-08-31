@@ -34,7 +34,9 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVRSAddressRangesFetcher.j"
+@import "Fetchers/NUVRSRedeploymentpoliciesFetcher.j"
 @import "Fetchers/NUAutoDiscoverClustersFetcher.j"
+@import "Fetchers/NUAutoDiscoverHypervisorFromClustersFetcher.j"
 
 NUVCenterDataCenterEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
@@ -85,6 +87,10 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
+    /*!
+        Whether split-activation is needed from VRO
+    */
+    BOOL _genericSplitActivation @accessors(property=genericSplitActivation);
     /*!
         Whether Data will use the management network or not
     */
@@ -307,7 +313,9 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVRSAddressRangesFetcher _childrenVRSAddressRanges @accessors(property=childrenVRSAddressRanges);
+    NUVRSRedeploymentpoliciesFetcher _childrenVRSRedeploymentpolicies @accessors(property=childrenVRSRedeploymentpolicies);
     NUAutoDiscoverClustersFetcher _childrenAutoDiscoverClusters @accessors(property=childrenAutoDiscoverClusters);
+    NUAutoDiscoverHypervisorFromClustersFetcher _childrenAutoDiscoverHypervisorFromClusters @accessors(property=childrenAutoDiscoverHypervisorFromClusters);
     
 }
 
@@ -338,6 +346,7 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"dataNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -398,7 +407,9 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVRSAddressRanges = [NUVRSAddressRangesFetcher fetcherWithParentObject:self];
+        _childrenVRSRedeploymentpolicies = [NUVRSRedeploymentpoliciesFetcher fetcherWithParentObject:self];
         _childrenAutoDiscoverClusters = [NUAutoDiscoverClustersFetcher fetcherWithParentObject:self];
+        _childrenAutoDiscoverHypervisorFromClusters = [NUAutoDiscoverHypervisorFromClustersFetcher fetcherWithParentObject:self];
         
         
     }

@@ -39,6 +39,12 @@ NUBootstrapStatus_CERTIFICATE_SIGNED = @"CERTIFICATE_SIGNED";
 NUBootstrapStatus_INACTIVE = @"INACTIVE";
 NUBootstrapStatus_NOTIFICATION_APP_REQ_ACK = @"NOTIFICATION_APP_REQ_ACK";
 NUBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
+NUBootstrapZFBMatchAttribute_HOSTNAME = @"HOSTNAME";
+NUBootstrapZFBMatchAttribute_IP_ADDRESS = @"IP_ADDRESS";
+NUBootstrapZFBMatchAttribute_MAC_ADDRESS = @"MAC_ADDRESS";
+NUBootstrapZFBMatchAttribute_NONE = @"NONE";
+NUBootstrapZFBMatchAttribute_NSGATEWAY_ID = @"NSGATEWAY_ID";
+NUBootstrapZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
 
 
 /*!
@@ -46,6 +52,18 @@ NUBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
 */
 @implementation NUBootstrap : NURESTObject
 {
+    /*!
+        Base64 Encoded JSON String of NSG ZFB Attribute Value Pairs
+    */
+    CPString _ZFBInfo @accessors(property=ZFBInfo);
+    /*!
+        Attribute to auto match on
+    */
+    CPString _ZFBMatchAttribute @accessors(property=ZFBMatchAttribute);
+    /*!
+        Attribute value to auto match on
+    */
+    CPString _ZFBMatchValue @accessors(property=ZFBMatchValue);
     /*!
         ID of the user who last updated the object.
     */
@@ -89,6 +107,9 @@ NUBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"ZFBInfo"];
+        [self exposeLocalKeyPathToREST:@"ZFBMatchAttribute"];
+        [self exposeLocalKeyPathToREST:@"ZFBMatchValue"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"installerID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

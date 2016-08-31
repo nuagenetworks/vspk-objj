@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPATIPEntriesFetcher.j"
 @import "Fetchers/NUAddressRangesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
@@ -52,7 +53,7 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
 
 
 /*!
-    This defines shared infrastructure resources that are created by user with CSPROOT role. These resources can be used by all the enterprises in the data center for various purposes. Examples of  shared resources are public subnet, floating subnet, public L2 domain, etc.
+    This defines shared infrastructure resources that are created by user with CSPROOT role. These resources can be used by all the enterprises in the data center for various purposes. Examples of  shared resources are public subnet, floating subnet, public L2 domain.
 */
 @implementation NUSharedNetworkResource : NURESTObject
 {
@@ -157,7 +158,7 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        Indicates if PAT Mapping is enabled for the SharedNetworkResource or not.
+        Indicates if PAT Mapping is enabled for the SharedNetworkResource or not
     */
     BOOL _dynamicPATAllocationEnabled @accessors(property=dynamicPATAllocationEnabled);
     /*!
@@ -165,6 +166,7 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
     */
     CPString _type @accessors(property=type);
     
+    NUPATIPEntriesFetcher _childrenPATIPEntries @accessors(property=childrenPATIPEntries);
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
@@ -220,6 +222,7 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
         [self exposeLocalKeyPathToREST:@"dynamicPATAllocationEnabled"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenPATIPEntries = [NUPATIPEntriesFetcher fetcherWithParentObject:self];
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];

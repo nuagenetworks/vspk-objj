@@ -60,7 +60,7 @@ NUNSPortStatus_READY = @"READY";
 
 
 /*!
-    Represents a Port of a particular NS gateway object.
+    Represents a Port of a particular NS Gateway object.
 */
 @implementation NUNSPort : NURESTObject
 {

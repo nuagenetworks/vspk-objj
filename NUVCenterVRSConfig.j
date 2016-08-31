@@ -32,6 +32,7 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVRSAddressRangesFetcher.j"
+@import "Fetchers/NUVRSRedeploymentpoliciesFetcher.j"
 
 NUVCenterVRSConfigEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
@@ -74,6 +75,10 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
+    /*!
+        Whether split-activation is needed from VRO
+    */
+    BOOL _genericSplitActivation @accessors(property=genericSplitActivation);
     /*!
         Whether Data will use the management network or not
     */
@@ -286,6 +291,7 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVRSAddressRangesFetcher _childrenVRSAddressRanges @accessors(property=childrenVRSAddressRanges);
+    NUVRSRedeploymentpoliciesFetcher _childrenVRSRedeploymentpolicies @accessors(property=childrenVRSRedeploymentpolicies);
     
 }
 
@@ -314,6 +320,7 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"dataNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
@@ -370,6 +377,7 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVRSAddressRanges = [NUVRSAddressRangesFetcher fetcherWithParentObject:self];
+        _childrenVRSRedeploymentpolicies = [NUVRSRedeploymentpoliciesFetcher fetcherWithParentObject:self];
         
         
     }

@@ -162,9 +162,9 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPArrayController _zoneIDs @accessors(property=zoneIDs);
     /*!
-        Application name that this VM belongs to
+        Orchestration ID
     */
-    CPString _appName @accessors(property=appName);
+    CPString _orchestrationID @accessors(property=orchestrationID);
     /*!
         ID of the user that created this VM
     */
@@ -233,7 +233,7 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainIDs"];
         [self exposeLocalKeyPathToREST:@"zoneIDs"];
-        [self exposeLocalKeyPathToREST:@"appName"];
+        [self exposeLocalKeyPathToREST:@"orchestrationID"];
         [self exposeLocalKeyPathToREST:@"userID"];
         [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"status"];

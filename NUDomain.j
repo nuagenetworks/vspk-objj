@@ -38,6 +38,7 @@
 @import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
 @import "Fetchers/NUFloatingIPACLTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
+@import "Fetchers/NULinksFetcher.j"
 @import "Fetchers/NUFloatingIpsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
@@ -51,6 +52,8 @@
 @import "Fetchers/NUDomainsFetcher.j"
 @import "Fetchers/NUDomainTemplatesFetcher.j"
 @import "Fetchers/NUZonesFetcher.j"
+@import "Fetchers/NUContainersFetcher.j"
+@import "Fetchers/NUContainerInterfacesFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUHostInterfacesFetcher.j"
 @import "Fetchers/NURoutingPoliciesFetcher.j"
@@ -107,7 +110,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 
 
 /*!
-    This object is used to manipulate domain state. A domain corresponds to a distributed Virtual Router and Switch (dVRS).
+    This object is used to manipulate domain state. A domain corresponds to a distributed Virtual Router and Switch.
 */
 @implementation NUDomain : NURESTObject
 {
@@ -236,7 +239,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
     /*!
-        The ID of the PatMapper entity to which this domain is associated to.
+        The ID of the PatMapper entity to which this l3-domain is associated to.
     */
     CPString _associatedPATMapperID @accessors(property=associatedPATMapperID);
     /*!
@@ -273,6 +276,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
     NUFloatingIPACLTemplatesFetcher _childrenFloatingIPACLTemplates @accessors(property=childrenFloatingIPACLTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
+    NULinksFetcher _childrenLinks @accessors(property=childrenLinks);
     NUFloatingIpsFetcher _childrenFloatingIps @accessors(property=childrenFloatingIps);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
@@ -286,6 +290,8 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
     NUDomainTemplatesFetcher _childrenDomainTemplates @accessors(property=childrenDomainTemplates);
     NUZonesFetcher _childrenZones @accessors(property=childrenZones);
+    NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
+    NUContainerInterfacesFetcher _childrenContainerInterfaces @accessors(property=childrenContainerInterfaces);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
     NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
@@ -368,6 +374,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
         _childrenFloatingIPACLTemplates = [NUFloatingIPACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
+        _childrenLinks = [NULinksFetcher fetcherWithParentObject:self];
         _childrenFloatingIps = [NUFloatingIpsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
@@ -381,6 +388,8 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
         _childrenDomainTemplates = [NUDomainTemplatesFetcher fetcherWithParentObject:self];
         _childrenZones = [NUZonesFetcher fetcherWithParentObject:self];
+        _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
+        _childrenContainerInterfaces = [NUContainerInterfacesFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
         _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];

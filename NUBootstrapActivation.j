@@ -111,6 +111,10 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _status @accessors(property=status);
     /*!
+        Indicates whether auto bootstrap is being used to bootstrap this NSG
+    */
+    BOOL _autoBootstrap @accessors(property=autoBootstrap);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -151,6 +155,7 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"vsdTime"];
         [self exposeLocalKeyPathToREST:@"csr"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"autoBootstrap"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

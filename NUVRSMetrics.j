@@ -30,11 +30,14 @@
 @import <Bambou/NURESTObject.j>
 
 
+NUVRSMetricsEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
+
 
 /*!
     None
 */
-@implementation NUVrsMetrics : NURESTObject
+@implementation NUVRSMetrics : NURESTObject
 {
     /*!
         alubr0 status
@@ -53,6 +56,10 @@
     */
     BOOL _VRSVSCStatus @accessors(property=VRSVSCStatus);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Is the VRS VM Sending Metrics to the hypervisor on VCIN
     */
     BOOL _receivingMetrics @accessors(property=receivingMetrics);
@@ -69,9 +76,17 @@
     */
     CPString _agentName @accessors(property=agentName);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         None
     */
-    CPString _assocVCenterHypervisorID @accessors(property=assocVCenterHypervisorID);
+    CPString _associatedVCenterHypervisorID @accessors(property=associatedVCenterHypervisorID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
     
 }
@@ -97,11 +112,14 @@
         [self exposeLocalKeyPathToREST:@"CPUUtilization"];
         [self exposeLocalKeyPathToREST:@"VRSProcess"];
         [self exposeLocalKeyPathToREST:@"VRSVSCStatus"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"receivingMetrics"];
         [self exposeLocalKeyPathToREST:@"memoryUtilization"];
         [self exposeLocalKeyPathToREST:@"jesxmonProcess"];
         [self exposeLocalKeyPathToREST:@"agentName"];
-        [self exposeLocalKeyPathToREST:@"assocVCenterHypervisorID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedVCenterHypervisorID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
         
         

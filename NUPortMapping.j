@@ -26,16 +26,71 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <Bambou/NURESTFetcher.j>
+@import <AppKit/CPArrayController.j>
+@import <Bambou/NURESTObject.j>
 
-@class NUAutoDiscoverHypervisorFromDatacenter
+
+NUPortMappingEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUPortMappingEntityScope_GLOBAL = @"GLOBAL";
 
 
-@implementation NUAutoDiscoverHypervisorFromDatacentersFetcher : NURESTFetcher
-
-+ (Class)managedObjectClass
+/*!
+    missing documentation.
+*/
+@implementation NUPortMapping : NURESTObject
 {
-    return NUAutoDiscoverHypervisorFromDatacenter;
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The vport's port-number.
+    */
+    CPString _privatePort @accessors(property=privatePort);
+    /*!
+        The public port used for Static PAT.
+    */
+    CPString _publicPort @accessors(property=publicPort);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    
+    
+}
+
+
+#pragma mark -
+#pragma mark Class Method
+
++ (CPString)RESTName
+{
+    return @"portmapping";
+}
+
+
+#pragma mark -
+#pragma mark Initialization
+
+- (id)init
+{
+    if (self = [super init])
+    {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"privatePort"];
+        [self exposeLocalKeyPathToREST:@"publicPort"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
+        
+        
+        
+    }
+
+    return self;
 }
 
 @end

@@ -26,58 +26,16 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <AppKit/CPArrayController.j>
-@import <Bambou/NURESTObject.j>
+@import <Bambou/NURESTFetcher.j>
+
+@class NUContainerInterface
 
 
+@implementation NUContainerInterfacesFetcher : NURESTFetcher
 
-/*!
-    None
-*/
-@implementation NUAutoDiscoverHypervisorFromDatacenter : NURESTObject
++ (Class)managedObjectClass
 {
-    /*!
-        The available network list
-    */
-    CPArrayController _networkList @accessors(property=networkList);
-    /*!
-        The ID of the vcenter datacenter to which this host is attached
-    */
-    CPString _assocVCenterDataCenterId @accessors(property=assocVCenterDataCenterId);
-    /*!
-        IP Address of the Hypervisor
-    */
-    CPString _hypervisorIP @accessors(property=hypervisorIP);
-    
-    
-}
-
-
-#pragma mark -
-#pragma mark Class Method
-
-+ (CPString)RESTName
-{
-    return @"autodiscoveredcomputeresource";
-}
-
-
-#pragma mark -
-#pragma mark Initialization
-
-- (id)init
-{
-    if (self = [super init])
-    {
-        [self exposeLocalKeyPathToREST:@"networkList"];
-        [self exposeLocalKeyPathToREST:@"assocVCenterDataCenterId"];
-        [self exposeLocalKeyPathToREST:@"hypervisorIP"];
-        
-        
-        
-    }
-
-    return self;
+    return NUContainerInterface;
 }
 
 @end

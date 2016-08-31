@@ -33,40 +33,36 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUIKEEncryptionprofileDPDMode_ON_DEMAND = @"ON_DEMAND";
-NUIKEEncryptionprofileDPDMode_PERIODIC = @"PERIODIC";
 NUIKEEncryptionprofileDPDMode_REPLY_ONLY = @"REPLY_ONLY";
 NUIKEEncryptionprofileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIKEEncryptionprofileEntityScope_GLOBAL = @"GLOBAL";
-NUIKEEncryptionprofileIPSecAuthenticationAlgorithm_HMAC_SHA1 = @"HMAC_SHA1";
-NUIKEEncryptionprofileIPSecAuthenticationAlgorithm_HMAC_SHA256 = @"HMAC_SHA256";
-NUIKEEncryptionprofileIPSecAuthenticationAlgorithm_HMAC_SHA512 = @"HMAC_SHA512";
-NUIKEEncryptionprofileIPSecEncryptionAlgorithm_AES128 = @"AES128";
-NUIKEEncryptionprofileIPSecEncryptionAlgorithm_AES192 = @"AES192";
-NUIKEEncryptionprofileIPSecEncryptionAlgorithm_AES256 = @"AES256";
-NUIKEEncryptionprofileIPSecEncryptionAlgorithm_TRIPLE_DES = @"TRIPLE_DES";
-NUIKEEncryptionprofileIPSecSAReplayWindowSize_WINDOW_SIZE_0 = @"WINDOW_SIZE_0";
-NUIKEEncryptionprofileIPSecSAReplayWindowSize_WINDOW_SIZE_1024 = @"WINDOW_SIZE_1024";
-NUIKEEncryptionprofileIPSecSAReplayWindowSize_WINDOW_SIZE_128 = @"WINDOW_SIZE_128";
-NUIKEEncryptionprofileIPSecSAReplayWindowSize_WINDOW_SIZE_256 = @"WINDOW_SIZE_256";
-NUIKEEncryptionprofileIPSecSAReplayWindowSize_WINDOW_SIZE_32 = @"WINDOW_SIZE_32";
-NUIKEEncryptionprofileIPSecSAReplayWindowSize_WINDOW_SIZE_512 = @"WINDOW_SIZE_512";
-NUIKEEncryptionprofileIPSecSAReplayWindowSize_WINDOW_SIZE_64 = @"WINDOW_SIZE_64";
+NUIKEEncryptionprofileIPsecAuthenticationAlgorithm_HMAC_SHA1 = @"HMAC_SHA1";
+NUIKEEncryptionprofileIPsecAuthenticationAlgorithm_HMAC_SHA256 = @"HMAC_SHA256";
+NUIKEEncryptionprofileIPsecAuthenticationAlgorithm_HMAC_SHA512 = @"HMAC_SHA512";
+NUIKEEncryptionprofileIPsecEncryptionAlgorithm_AES128 = @"AES128";
+NUIKEEncryptionprofileIPsecEncryptionAlgorithm_AES192 = @"AES192";
+NUIKEEncryptionprofileIPsecEncryptionAlgorithm_AES256 = @"AES256";
+NUIKEEncryptionprofileIPsecEncryptionAlgorithm_TRIPLE_DES = @"TRIPLE_DES";
+NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_0 = @"WINDOW_SIZE_0";
+NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_1024 = @"WINDOW_SIZE_1024";
+NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_128 = @"WINDOW_SIZE_128";
+NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_256 = @"WINDOW_SIZE_256";
+NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_32 = @"WINDOW_SIZE_32";
+NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_512 = @"WINDOW_SIZE_512";
+NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_64 = @"WINDOW_SIZE_64";
 NUIKEEncryptionprofileISAKMPAuthenticationMode_PRE_SHARED_KEY = @"PRE_SHARED_KEY";
-NUIKEEncryptionprofileISAKMPAuthenticationMode_RSA_SIGNATURE = @"RSA_SIGNATURE";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_14_2048_BIT_DH = @"GROUP_14_2048_BIT_DH";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_15_3072_BIT_DH = @"GROUP_15_3072_BIT_DH";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_16_4096_BIT_DH = @"GROUP_16_4096_BIT_DH";
-NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_19_256_BIT_ECDH = @"GROUP_19_256_BIT_ECDH";
+NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_17_6144_BIT_DH = @"GROUP_17_6144_BIT_DH";
+NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_18_8192_BIT_DH = @"GROUP_18_8192_BIT_DH";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_1_768_BIT_DH = @"GROUP_1_768_BIT_DH";
-NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_20_384_BIT_ECDH = @"GROUP_20_384_BIT_ECDH";
-NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_24_2048_BIT_ECDH = @"GROUP_24_2048_BIT_ECDH";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_2_1024_BIT_DH = @"GROUP_2_1024_BIT_DH";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_5_1536_BIT_DH = @"GROUP_5_1536_BIT_DH";
 NUIKEEncryptionprofileISAKMPEncryptionAlgorithm_AES128 = @"AES128";
 NUIKEEncryptionprofileISAKMPEncryptionAlgorithm_AES192 = @"AES192";
 NUIKEEncryptionprofileISAKMPEncryptionAlgorithm_AES256 = @"AES256";
 NUIKEEncryptionprofileISAKMPEncryptionAlgorithm_TRIPLE_DES = @"TRIPLE_DES";
-NUIKEEncryptionprofileISAKMPHashAlgorithm_MD5 = @"MD5";
 NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA1 = @"SHA1";
 NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
 
@@ -85,41 +81,37 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
     */
     CPString _DPDMode @accessors(property=DPDMode);
     /*!
-        DPD Retry Interval.
-    */
-    CPNumber _DPDRetryInterval @accessors(property=DPDRetryInterval);
-    /*!
         DPD Timeout.
     */
     CPNumber _DPDTimeout @accessors(property=DPDTimeout);
     /*!
-        IPSec Authentication Algorithm.
+        IPsec Authentication Algorithm.
     */
-    CPString _IPSecAuthenticationAlgorithm @accessors(property=IPSecAuthenticationAlgorithm);
+    CPString _IPsecAuthenticationAlgorithm @accessors(property=IPsecAuthenticationAlgorithm);
     /*!
-        IPSec Don't Fragment
+        IPsec Don't Fragment
     */
-    BOOL _IPSecDontFragment @accessors(property=IPSecDontFragment);
+    BOOL _IPsecDontFragment @accessors(property=IPsecDontFragment);
     /*!
-        IPSec Enable PFS
+        IPsec Enable PFS
     */
-    BOOL _IPSecEnablePFS @accessors(property=IPSecEnablePFS);
+    BOOL _IPsecEnablePFS @accessors(property=IPsecEnablePFS);
     /*!
-        IPSec Encryption Algorithm.
+        IPsec Encryption Algorithm.
     */
-    CPString _IPSecEncryptionAlgorithm @accessors(property=IPSecEncryptionAlgorithm);
+    CPString _IPsecEncryptionAlgorithm @accessors(property=IPsecEncryptionAlgorithm);
     /*!
-        IPSec PreFragment
+        IPsec PreFragment
     */
-    BOOL _IPSecPreFragment @accessors(property=IPSecPreFragment);
+    BOOL _IPsecPreFragment @accessors(property=IPsecPreFragment);
     /*!
-        IPSec SA Lifetime in Seconds.
+        IPsec SA Lifetime in Seconds.
     */
-    CPNumber _IPSecSALifetime @accessors(property=IPSecSALifetime);
+    CPNumber _IPsecSALifetime @accessors(property=IPsecSALifetime);
     /*!
-        IPSec Replay Window Size in Packets.
+        IPsec Replay Window Size in Packets.
     */
-    CPString _IPSecSAReplayWindowSize @accessors(property=IPSecSAReplayWindowSize);
+    CPString _IPsecSAReplayWindowSize @accessors(property=IPsecSAReplayWindowSize);
     /*!
         ISAKMP Authentication Algorithm.
     */
@@ -149,7 +141,7 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        
+        None
     */
     CPNumber _sequence @accessors(property=sequence);
     /*!
@@ -193,15 +185,14 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
     {
         [self exposeLocalKeyPathToREST:@"DPDInterval"];
         [self exposeLocalKeyPathToREST:@"DPDMode"];
-        [self exposeLocalKeyPathToREST:@"DPDRetryInterval"];
         [self exposeLocalKeyPathToREST:@"DPDTimeout"];
-        [self exposeLocalKeyPathToREST:@"IPSecAuthenticationAlgorithm"];
-        [self exposeLocalKeyPathToREST:@"IPSecDontFragment"];
-        [self exposeLocalKeyPathToREST:@"IPSecEnablePFS"];
-        [self exposeLocalKeyPathToREST:@"IPSecEncryptionAlgorithm"];
-        [self exposeLocalKeyPathToREST:@"IPSecPreFragment"];
-        [self exposeLocalKeyPathToREST:@"IPSecSALifetime"];
-        [self exposeLocalKeyPathToREST:@"IPSecSAReplayWindowSize"];
+        [self exposeLocalKeyPathToREST:@"IPsecAuthenticationAlgorithm"];
+        [self exposeLocalKeyPathToREST:@"IPsecDontFragment"];
+        [self exposeLocalKeyPathToREST:@"IPsecEnablePFS"];
+        [self exposeLocalKeyPathToREST:@"IPsecEncryptionAlgorithm"];
+        [self exposeLocalKeyPathToREST:@"IPsecPreFragment"];
+        [self exposeLocalKeyPathToREST:@"IPsecSALifetime"];
+        [self exposeLocalKeyPathToREST:@"IPsecSAReplayWindowSize"];
         [self exposeLocalKeyPathToREST:@"ISAKMPAuthenticationMode"];
         [self exposeLocalKeyPathToREST:@"ISAKMPDiffieHelmanGroupIdentifier"];
         [self exposeLocalKeyPathToREST:@"ISAKMPEncryptionAlgorithm"];

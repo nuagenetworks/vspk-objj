@@ -61,7 +61,7 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
 
 
 /*!
-    Domains in VSD are created from domain templates. This object provides the definition of the DomainTemplate.
+    Domains in VSD are created from domain templates. This object provides the definition of the Domain Template.
 */
 @implementation NUDomainTemplate : NURESTObject
 {

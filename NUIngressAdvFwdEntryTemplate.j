@@ -63,6 +63,7 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BRIDGEINTERFACE = @"
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_CERTIFICATE = @"CERTIFICATE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_CHILD_ENTITY_POLICY_CHANGE = @"CHILD_ENTITY_POLICY_CHANGE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_CLOUD_MGMT_SYSTEM = @"CLOUD_MGMT_SYSTEM";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_CONTAINER_RESYNC = @"CONTAINER_RESYNC";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_CUSTOMER_VRF_SEQUENCENO = @"CUSTOMER_VRF_SEQUENCENO";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_DC_CONFIG = @"DC_CONFIG";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_DHCP_ALLOC_MESSAGE = @"DHCP_ALLOC_MESSAGE";
@@ -210,7 +211,6 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_QOS_PRIMITIVE = @"QO
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_RATE_LIMITER = @"RATE_LIMITER";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_RD_SEQUENCENO = @"RD_SEQUENCENO";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_REDUNDANT_GW_GRP = @"REDUNDANT_GW_GRP";
-NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_RESYNC = @"RESYNC";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_ROUTING_POLICY = @"ROUTING_POLICY";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_ROUTING_POL_MED_RESPONSE = @"ROUTING_POL_MED_RESPONSE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_RTRD_ENTITY = @"RTRD_ENTITY";
@@ -259,6 +259,7 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VMWARE_VCENTER_VRS_C
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VMWARE_VRS_ADDRESS_RANGE = @"VMWARE_VRS_ADDRESS_RANGE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VM_DESCRIPTION = @"VM_DESCRIPTION";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VM_INTERFACE = @"VM_INTERFACE";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VM_RESYNC = @"VM_RESYNC";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VNID_SEQUENCENO = @"VNID_SEQUENCENO";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VPN_CONNECT = @"VPN_CONNECT";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_VPORT = @"VPORT";
@@ -321,6 +322,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 @implementation NUIngressAdvFwdEntryTemplate : NURESTObject
 {
     /*!
+        The name of the parent Template for this acl entry
+    */
+    CPString _ACLTemplateName @accessors(property=ACLTemplateName);
+    /*!
         The ICMP Code when protocol selected is ICMP.
     */
     CPString _ICMPCode @accessors(property=ICMPCode);
@@ -381,6 +386,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     BOOL _flowLoggingEnabled @accessors(property=flowLoggingEnabled);
     /*!
+        The name of the enterprise for the domains parent
+    */
+    CPString _enterpriseName @accessors(property=enterpriseName);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -396,6 +405,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         State of the policy.  Possible values are DRAFT, LIVE, .
     */
     CPString _policyState @accessors(property=policyState);
+    /*!
+        The name of the domain/domain template for the aclTemplateNames parent
+    */
+    CPString _domainName @accessors(property=domainName);
     /*!
         Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range
     */
@@ -469,6 +482,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"ACLTemplateName"];
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
         [self exposeLocalKeyPathToREST:@"FCOverride"];
@@ -484,10 +498,12 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"networkType"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
+        [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"locationType"];
         [self exposeLocalKeyPathToREST:@"policyState"];
+        [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"sourcePort"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
         [self exposeLocalKeyPathToREST:@"priority"];

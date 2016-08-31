@@ -41,6 +41,7 @@
 @import "Fetchers/NUMetadataTagsFetcher.j"
 @import "Fetchers/NUNetworkMacroGroupsFetcher.j"
 @import "Fetchers/NUKeyServerMonitorsFetcher.j"
+@import "Fetchers/NUZFBRequestsFetcher.j"
 @import "Fetchers/NUBGPProfilesFetcher.j"
 @import "Fetchers/NUEgressQOSPoliciesFetcher.j"
 @import "Fetchers/NUSharedNetworkResourcesFetcher.j"
@@ -50,6 +51,7 @@
 @import "Fetchers/NUIKEGatewayProfilesFetcher.j"
 @import "Fetchers/NUIKEPSKsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUInfrastructurePortProfilesFetcher.j"
@@ -58,6 +60,7 @@
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
 @import "Fetchers/NUDomainTemplatesFetcher.j"
+@import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NURoutingPoliciesFetcher.j"
 @import "Fetchers/NUAppsFetcher.j"
 @import "Fetchers/NUApplicationServicesFetcher.j"
@@ -70,6 +73,7 @@
 @import "Fetchers/NUNSRedundantGatewayGroupsFetcher.j"
 @import "Fetchers/NUPublicNetworkMacrosFetcher.j"
 @import "Fetchers/NUMultiCastListsFetcher.j"
+@import "Fetchers/NUAvatarsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 @import "Fetchers/NUExternalAppServicesFetcher.j"
 @import "Fetchers/NUExternalServicesFetcher.j"
@@ -214,6 +218,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUMetadataTagsFetcher _childrenMetadataTags @accessors(property=childrenMetadataTags);
     NUNetworkMacroGroupsFetcher _childrenNetworkMacroGroups @accessors(property=childrenNetworkMacroGroups);
     NUKeyServerMonitorsFetcher _childrenKeyServerMonitors @accessors(property=childrenKeyServerMonitors);
+    NUZFBRequestsFetcher _childrenZFBRequests @accessors(property=childrenZFBRequests);
     NUBGPProfilesFetcher _childrenBGPProfiles @accessors(property=childrenBGPProfiles);
     NUEgressQOSPoliciesFetcher _childrenEgressQOSPolicies @accessors(property=childrenEgressQOSPolicies);
     NUSharedNetworkResourcesFetcher _childrenSharedNetworkResources @accessors(property=childrenSharedNetworkResources);
@@ -223,6 +228,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUIKEGatewayProfilesFetcher _childrenIKEGatewayProfiles @accessors(property=childrenIKEGatewayProfiles);
     NUIKEPSKsFetcher _childrenIKEPSKs @accessors(property=childrenIKEPSKs);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUInfrastructurePortProfilesFetcher _childrenInfrastructurePortProfiles @accessors(property=childrenInfrastructurePortProfiles);
@@ -231,6 +237,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
     NUDomainTemplatesFetcher _childrenDomainTemplates @accessors(property=childrenDomainTemplates);
+    NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
     NUAppsFetcher _childrenApps @accessors(property=childrenApps);
     NUApplicationServicesFetcher _childrenApplicationServices @accessors(property=childrenApplicationServices);
@@ -243,6 +250,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUNSRedundantGatewayGroupsFetcher _childrenNSRedundantGatewayGroups @accessors(property=childrenNSRedundantGatewayGroups);
     NUPublicNetworkMacrosFetcher _childrenPublicNetworkMacros @accessors(property=childrenPublicNetworkMacros);
     NUMultiCastListsFetcher _childrenMultiCastLists @accessors(property=childrenMultiCastLists);
+    NUAvatarsFetcher _childrenAvatars @accessors(property=childrenAvatars);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     NUExternalAppServicesFetcher _childrenExternalAppServices @accessors(property=childrenExternalAppServices);
     NUExternalServicesFetcher _childrenExternalServices @accessors(property=childrenExternalServices);
@@ -305,6 +313,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenMetadataTags = [NUMetadataTagsFetcher fetcherWithParentObject:self];
         _childrenNetworkMacroGroups = [NUNetworkMacroGroupsFetcher fetcherWithParentObject:self];
         _childrenKeyServerMonitors = [NUKeyServerMonitorsFetcher fetcherWithParentObject:self];
+        _childrenZFBRequests = [NUZFBRequestsFetcher fetcherWithParentObject:self];
         _childrenBGPProfiles = [NUBGPProfilesFetcher fetcherWithParentObject:self];
         _childrenEgressQOSPolicies = [NUEgressQOSPoliciesFetcher fetcherWithParentObject:self];
         _childrenSharedNetworkResources = [NUSharedNetworkResourcesFetcher fetcherWithParentObject:self];
@@ -314,6 +323,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenIKEGatewayProfiles = [NUIKEGatewayProfilesFetcher fetcherWithParentObject:self];
         _childrenIKEPSKs = [NUIKEPSKsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenInfrastructurePortProfiles = [NUInfrastructurePortProfilesFetcher fetcherWithParentObject:self];
@@ -322,6 +332,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
         _childrenDomainTemplates = [NUDomainTemplatesFetcher fetcherWithParentObject:self];
+        _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
         _childrenApps = [NUAppsFetcher fetcherWithParentObject:self];
         _childrenApplicationServices = [NUApplicationServicesFetcher fetcherWithParentObject:self];
@@ -334,6 +345,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenNSRedundantGatewayGroups = [NUNSRedundantGatewayGroupsFetcher fetcherWithParentObject:self];
         _childrenPublicNetworkMacros = [NUPublicNetworkMacrosFetcher fetcherWithParentObject:self];
         _childrenMultiCastLists = [NUMultiCastListsFetcher fetcherWithParentObject:self];
+        _childrenAvatars = [NUAvatarsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         _childrenExternalAppServices = [NUExternalAppServicesFetcher fetcherWithParentObject:self];
         _childrenExternalServices = [NUExternalServicesFetcher fetcherWithParentObject:self];

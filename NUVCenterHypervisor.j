@@ -33,6 +33,8 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUVRSAddressRangesFetcher.j"
+@import "Fetchers/NUVRSMetricsFetcher.j"
+@import "Fetchers/NUVRSRedeploymentpoliciesFetcher.j"
 
 NUVCenterHypervisorEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
@@ -71,6 +73,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Determines the time the vrs vm was last deployed.
+    */
+    CPNumber _lastVRSDeployedDate @accessors(property=lastVRSDeployedDate);
     /*!
         Data DNS 1
     */
@@ -115,6 +121,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         Whether Data will use the management network or not
     */
     BOOL _separateDataNetwork @accessors(property=separateDataNetwork);
+    /*!
+        The number of times the vrs was deployed on this hypervisor
+    */
+    CPNumber _deploymentCount @accessors(property=deploymentCount);
     /*!
         VRS/VRS-G
     */
@@ -280,10 +290,6 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _vrsId @accessors(property=vrsId);
     /*!
-        ID of the vrsMetrics Entity
-    */
-    CPString _vrsMetricsID @accessors(property=vrsMetricsID);
-    /*!
         VRS password to be used by toolbox to communicate with VRS
     */
     CPString _vrsPassword @accessors(property=vrsPassword);
@@ -380,6 +386,8 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUVRSAddressRangesFetcher _childrenVRSAddressRanges @accessors(property=childrenVRSAddressRanges);
+    NUVRSMetricsFetcher _childrenVRSMetrics @accessors(property=childrenVRSMetrics);
+    NUVRSRedeploymentpoliciesFetcher _childrenVRSRedeploymentpolicies @accessors(property=childrenVRSRedeploymentpolicies);
     
 }
 
@@ -407,6 +415,7 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastVRSDeployedDate"];
         [self exposeLocalKeyPathToREST:@"dataDNS1"];
         [self exposeLocalKeyPathToREST:@"dataDNS2"];
         [self exposeLocalKeyPathToREST:@"dataGateway"];
@@ -418,6 +427,7 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
         [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
+        [self exposeLocalKeyPathToREST:@"deploymentCount"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
@@ -459,7 +469,6 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"novaRegionName"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsId"];
-        [self exposeLocalKeyPathToREST:@"vrsMetricsID"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
         [self exposeLocalKeyPathToREST:@"vrsUserName"];
         [self exposeLocalKeyPathToREST:@"staticRoute"];
@@ -488,6 +497,8 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenVRSAddressRanges = [NUVRSAddressRangesFetcher fetcherWithParentObject:self];
+        _childrenVRSMetrics = [NUVRSMetricsFetcher fetcherWithParentObject:self];
+        _childrenVRSRedeploymentpolicies = [NUVRSRedeploymentpoliciesFetcher fetcherWithParentObject:self];
         
         
     }

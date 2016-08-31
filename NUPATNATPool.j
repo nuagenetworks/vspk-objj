@@ -34,11 +34,10 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
+@import "Fetchers/NUStatisticsFetcher.j"
+@import "Fetchers/NUStatisticsPoliciesFetcher.j"
+@import "Fetchers/NUBulkStatisticsFetcher.j"
 
-NUPATNATPoolAssociatedGatewayId_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
-NUPATNATPoolAssociatedGatewayId_GATEWAY = @"GATEWAY";
-NUPATNATPoolAssociatedGatewayId_IKEV2_GATEWAY = @"IKEV2_GATEWAY";
-NUPATNATPoolAssociatedGatewayId_NSGATEWAY = @"NSGATEWAY";
 NUPATNATPoolAssociatedGatewayType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUPATNATPoolAssociatedGatewayType_GATEWAY = @"GATEWAY";
 NUPATNATPoolAssociatedGatewayType_IKE_GATEWAY = @"IKE_GATEWAY";
@@ -95,17 +94,21 @@ NUPATNATPoolPermittedAction_USE = @"USE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Used to clear out the dynamic address translations and free up the IP addresses for re-assignment.  Units are in second
-    */
-    CPNumber _translationTimeout @accessors(property=translationTimeout);
-    /*!
-        
+        UUID of the NSG instance this Pool is assocated with. This attribute may be auto-populated when the pool is assigned to a Network VLAN instance.
     */
     CPString _associatedGatewayId @accessors(property=associatedGatewayId);
     /*!
         
     */
     CPString _associatedGatewayType @accessors(property=associatedGatewayType);
+    /*!
+        ID of the Subnet for which the information will be used to populate Source Address Range (Dynamic Source NAT).
+    */
+    CPString _associatedSubnetId @accessors(property=associatedSubnetId);
+    /*!
+        ID of the network port VLAN on which the pool is associated.
+    */
+    CPString _associatedVlanId @accessors(property=associatedVlanId);
     /*!
         Starting IP Address for the pool of available addresses for use
     */
@@ -128,6 +131,9 @@ NUPATNATPoolPermittedAction_USE = @"USE";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
+    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
+    NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
+    NUBulkStatisticsFetcher _childrenBulkStatistics @accessors(property=childrenBulkStatistics);
     
 }
 
@@ -157,9 +163,10 @@ NUPATNATPoolPermittedAction_USE = @"USE";
         [self exposeLocalKeyPathToREST:@"endAddressRange"];
         [self exposeLocalKeyPathToREST:@"endSourceAddress"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"translationTimeout"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayId"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayType"];
+        [self exposeLocalKeyPathToREST:@"associatedSubnetId"];
+        [self exposeLocalKeyPathToREST:@"associatedVlanId"];
         [self exposeLocalKeyPathToREST:@"startAddressRange"];
         [self exposeLocalKeyPathToREST:@"startSourceAddress"];
         [self exposeLocalKeyPathToREST:@"externalID"];
@@ -170,6 +177,9 @@ NUPATNATPoolPermittedAction_USE = @"USE";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
+        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
+        _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
+        _childrenBulkStatistics = [NUBulkStatisticsFetcher fetcherWithParentObject:self];
         
         
     }

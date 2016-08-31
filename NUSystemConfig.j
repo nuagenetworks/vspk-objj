@@ -114,6 +114,18 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _RDUpperLimit @accessors(property=RDUpperLimit);
     /*!
+        Whether the NSG should auto bootstrap using ZFB
+    */
+    BOOL _ZFBBootstrapEnabled @accessors(property=ZFBBootstrapEnabled);
+    /*!
+        Retry time for the ZFB daemon to recheck ZFBRequest Status in seconds
+    */
+    CPNumber _ZFBRequestRetryTimer @accessors(property=ZFBRequestRetryTimer);
+    /*!
+        Time for the ZFB scheduler to wait in seconds before deleting a stale request
+    */
+    CPNumber _ZFBSchedulerStaleRequestTimeout @accessors(property=ZFBSchedulerStaleRequestTimeout);
+    /*!
         Defines total DHCP options that can be set on a domain.
     */
     CPNumber _DHCPOptionSize @accessors(property=DHCPOptionSize);
@@ -282,6 +294,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _alarmsMaxPerObject @accessors(property=alarmsMaxPerObject);
     /*!
+        Specifies the name of the Elastic Search Cluster.
+    */
+    CPString _elasticClusterName @accessors(property=elasticClusterName);
+    /*!
         Allow Enterprise Avatar to be populated on NSG Portal
     */
     BOOL _allowEnterpriseAvatarOnNSG @accessors(property=allowEnterpriseAvatarOnNSG);
@@ -409,6 +425,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Timers in sec for unreacheable static WAN Services to be deleted.
     */
     CPNumber _staticWANServicePurgeTime @accessors(property=staticWANServicePurgeTime);
+    /*!
+        This flag is used to indicate if statistics is enabled in the system. CSProot is expected to activate this through the enable statistics script.
+    */
+    BOOL _statisticsEnabled @accessors(property=statisticsEnabled);
     /*!
         Specify the ip address(es) of the stats collector.
     */
@@ -562,6 +582,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"RDPublicNetworkLowerLimit"];
         [self exposeLocalKeyPathToREST:@"RDPublicNetworkUpperLimit"];
         [self exposeLocalKeyPathToREST:@"RDUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"ZFBBootstrapEnabled"];
+        [self exposeLocalKeyPathToREST:@"ZFBRequestRetryTimer"];
+        [self exposeLocalKeyPathToREST:@"ZFBSchedulerStaleRequestTimeout"];
         [self exposeLocalKeyPathToREST:@"DHCPOptionSize"];
         [self exposeLocalKeyPathToREST:@"VMCacheSize"];
         [self exposeLocalKeyPathToREST:@"VMPurgeTime"];
@@ -604,6 +627,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"ejbcaOCSPResponderURI"];
         [self exposeLocalKeyPathToREST:@"ejbcaVspRootCa"];
         [self exposeLocalKeyPathToREST:@"alarmsMaxPerObject"];
+        [self exposeLocalKeyPathToREST:@"elasticClusterName"];
         [self exposeLocalKeyPathToREST:@"allowEnterpriseAvatarOnNSG"];
         [self exposeLocalKeyPathToREST:@"inactiveTimeout"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
@@ -636,6 +660,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"statefulACLNonTCPTimeout"];
         [self exposeLocalKeyPathToREST:@"statefulACLTCPTimeout"];
         [self exposeLocalKeyPathToREST:@"staticWANServicePurgeTime"];
+        [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
         [self exposeLocalKeyPathToREST:@"statsCollectorAddress"];
         [self exposeLocalKeyPathToREST:@"statsCollectorPort"];
         [self exposeLocalKeyPathToREST:@"statsCollectorProtoBufPort"];

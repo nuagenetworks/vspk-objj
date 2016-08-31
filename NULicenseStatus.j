@@ -30,6 +30,9 @@
 @import <Bambou/NURESTObject.j>
 
 
+NULicenseStatusEntityScope_ENTERPRISE = @"ENTERPRISE";
+NULicenseStatusEntityScope_GLOBAL = @"GLOBAL";
+
 
 /*!
     None
@@ -37,45 +40,53 @@
 @implementation NULicenseStatus : NURESTObject
 {
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Indicates total NIC count for all the licenses in the system
     */
-    CPString _totalLicensedNICsCount @accessors(property=totalLicensedNICsCount);
+    CPNumber _totalLicensedNICsCount @accessors(property=totalLicensedNICsCount);
     /*!
         Indicates total NSG count for all the licenses in the system
     */
-    CPString _totalLicensedNSGsCount @accessors(property=totalLicensedNSGsCount);
+    CPNumber _totalLicensedNSGsCount @accessors(property=totalLicensedNSGsCount);
     /*!
         Indicates total used NIC count for all the licenses in the system
     */
-    CPString _totalLicensedUsedNICsCount @accessors(property=totalLicensedUsedNICsCount);
+    CPNumber _totalLicensedUsedNICsCount @accessors(property=totalLicensedUsedNICsCount);
     /*!
         Indicates total used NSG count for all the licenses in the system
     */
-    CPString _totalLicensedUsedNSGsCount @accessors(property=totalLicensedUsedNSGsCount);
+    CPNumber _totalLicensedUsedNSGsCount @accessors(property=totalLicensedUsedNSGsCount);
     /*!
         Indicates total used VM count for all the licenses in the system
     */
-    CPString _totalLicensedUsedVMsCount @accessors(property=totalLicensedUsedVMsCount);
+    CPNumber _totalLicensedUsedVMsCount @accessors(property=totalLicensedUsedVMsCount);
     /*!
         Indicates total used VRSG count for all the licenses in the system
     */
-    CPString _totalLicensedUsedVRSGsCount @accessors(property=totalLicensedUsedVRSGsCount);
+    CPNumber _totalLicensedUsedVRSGsCount @accessors(property=totalLicensedUsedVRSGsCount);
     /*!
         Indicates total used VRS count for all the licenses in the system
     */
-    CPString _totalLicensedUsedVRSsCount @accessors(property=totalLicensedUsedVRSsCount);
+    CPNumber _totalLicensedUsedVRSsCount @accessors(property=totalLicensedUsedVRSsCount);
     /*!
         Indicates total VM count for all the licenses in the system
     */
-    CPString _totalLicensedVMsCount @accessors(property=totalLicensedVMsCount);
+    CPNumber _totalLicensedVMsCount @accessors(property=totalLicensedVMsCount);
     /*!
         Indicates total VRSG count for all the licenses in the system
     */
-    CPString _totalLicensedVRSGsCount @accessors(property=totalLicensedVRSGsCount);
+    CPNumber _totalLicensedVRSGsCount @accessors(property=totalLicensedVRSGsCount);
     /*!
         Indicates total VRS count for all the licenses in the system
     */
-    CPString _totalLicensedVRSsCount @accessors(property=totalLicensedVRSsCount);
+    CPNumber _totalLicensedVRSsCount @accessors(property=totalLicensedVRSsCount);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
     
 }
@@ -97,6 +108,7 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"totalLicensedNICsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedNSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedNICsCount"];
@@ -107,6 +119,7 @@
         [self exposeLocalKeyPathToREST:@"totalLicensedVMsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSsCount"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
         
         

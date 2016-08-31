@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUVrsMetrics
+@class NUZFBRequest
 
 
-@implementation NUVrsMetricsFetcher : NURESTFetcher
+@implementation NUZFBRequestsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUVrsMetrics;
+    return NUZFBRequest;
 }
 
 @end

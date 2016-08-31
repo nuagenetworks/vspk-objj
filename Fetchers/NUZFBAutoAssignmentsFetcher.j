@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUGatewaySecurityProfile
+@class NUZFBAutoAssignment
 
 
-@implementation NUGatewaySecurityProfilesFetcher : NURESTFetcher
+@implementation NUZFBAutoAssignmentsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUGatewaySecurityProfile;
+    return NUZFBAutoAssignment;
 }
 
 @end

@@ -35,6 +35,7 @@
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUMonitoringPortsFetcher.j"
+@import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
 @import "Fetchers/NUHSCsFetcher.j"
 @import "Fetchers/NUVSCsFetcher.j"
@@ -52,6 +53,8 @@ NUVRSHypervisorConnectionState_UP = @"UP";
 NUVRSJSONRPCConnectionState_ADMIN_DOWN = @"ADMIN_DOWN";
 NUVRSJSONRPCConnectionState_DOWN = @"DOWN";
 NUVRSJSONRPCConnectionState_UP = @"UP";
+NUVRSLicensedState_LICENSED = @"LICENSED";
+NUVRSLicensedState_UNLICENSED = @"UNLICENSED";
 NUVRSPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUVRSPersonality_NONE = @"NONE";
 NUVRSPersonality_NSG = @"NSG";
@@ -159,6 +162,10 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
     */
     CPNumber _revertFailedCount @accessors(property=revertFailedCount);
     /*!
+        Licensed state.
+    */
+    CPString _licensedState @accessors(property=licensedState);
+    /*!
         Set of disk usage details.
     */
     CPArrayController _disks @accessors(property=disks);
@@ -215,6 +222,10 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
     */
     CPNumber _numberOfBridgeInterfaces @accessors(property=numberOfBridgeInterfaces);
     /*!
+        Number of containers defined in this VRS.
+    */
+    CPNumber _numberOfContainers @accessors(property=numberOfContainers);
+    /*!
         Number of host interfaces defined in this VRS.
     */
     CPNumber _numberOfHostInterfaces @accessors(property=numberOfHostInterfaces);
@@ -269,6 +280,7 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUMonitoringPortsFetcher _childrenMonitoringPorts @accessors(property=childrenMonitoringPorts);
+    NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     NUHSCsFetcher _childrenHSCs @accessors(property=childrenHSCs);
     NUVSCsFetcher _childrenVSCs @accessors(property=childrenVSCs);
@@ -315,6 +327,7 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         [self exposeLocalKeyPathToREST:@"revertCompleted"];
         [self exposeLocalKeyPathToREST:@"revertCount"];
         [self exposeLocalKeyPathToREST:@"revertFailedCount"];
+        [self exposeLocalKeyPathToREST:@"licensedState"];
         [self exposeLocalKeyPathToREST:@"disks"];
         [self exposeLocalKeyPathToREST:@"clusterNodeRole"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
@@ -329,6 +342,7 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"multiNICVPortEnabled"];
         [self exposeLocalKeyPathToREST:@"numberOfBridgeInterfaces"];
+        [self exposeLocalKeyPathToREST:@"numberOfContainers"];
         [self exposeLocalKeyPathToREST:@"numberOfHostInterfaces"];
         [self exposeLocalKeyPathToREST:@"numberOfVirtualMachines"];
         [self exposeLocalKeyPathToREST:@"currentCPUUsage"];
@@ -348,6 +362,7 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenMonitoringPorts = [NUMonitoringPortsFetcher fetcherWithParentObject:self];
+        _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         _childrenHSCs = [NUHSCsFetcher fetcherWithParentObject:self];
         _childrenVSCs = [NUVSCsFetcher fetcherWithParentObject:self];

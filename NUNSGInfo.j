@@ -29,41 +29,68 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
-NUGatewaySecurityProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUGatewaySecurityProfileEntityScope_GLOBAL = @"GLOBAL";
+NUNSGInfoEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUNSGInfoEntityScope_GLOBAL = @"GLOBAL";
+NUNSGInfoFamily_ANY = @"ANY";
+NUNSGInfoFamily_NSG_E = @"NSG_E";
+NUNSGInfoFamily_NSG_V = @"NSG_V";
+NUNSGInfoTPMStatus_DISABLED = @"DISABLED";
+NUNSGInfoTPMStatus_ENABLED_NOT_OPERATIONAL = @"ENABLED_NOT_OPERATIONAL";
+NUNSGInfoTPMStatus_ENABLED_OPERATIONAL = @"ENABLED_OPERATIONAL";
+NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
 
 
 /*!
-    This object represents the gateway security object
+    Device information coming from the NSG
 */
-@implementation NUGatewaySecurityProfile : NURESTObject
+@implementation NUNSGInfo : NURESTObject
 {
     /*!
-        ID of the user who last updated the object.
+        MAC Address of the NSG
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    CPString _MACAddress @accessors(property=MACAddress);
     /*!
-        The gateway associated with this object. This is a read only attribute
+        The part number of the NSG
     */
-    CPString _gatewayID @accessors(property=gatewayID);
+    CPString _SKU @accessors(property=SKU);
     /*!
-        revision number for the gateway security profile data
+        TPM status
     */
-    CPNumber _revision @accessors(property=revision);
+    CPString _TPMStatus @accessors(property=TPMStatus);
+    /*!
+        The NSG Processor Type
+    */
+    CPString _CPUType @accessors(property=CPUType);
+    /*!
+        The NSG Version
+    */
+    CPString _NSGVersion @accessors(property=NSGVersion);
+    /*!
+        The Redhat UUID of the NSG
+    */
+    CPString _UUID @accessors(property=UUID);
+    /*!
+        The NSG Type
+    */
+    CPString _family @accessors(property=family);
+    /*!
+        The NSG's serial number
+    */
+    CPString _serialNumber @accessors(property=serialNumber);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Associated NS Gateway ID
+    */
+    CPString _associatedNSGatewayID @accessors(property=associatedNSGatewayID);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
     
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -73,7 +100,7 @@ NUGatewaySecurityProfileEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"gatewaysecurityprofile";
+    return @"nsginfo";
 }
 
 
@@ -84,14 +111,18 @@ NUGatewaySecurityProfileEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"gatewayID"];
-        [self exposeLocalKeyPathToREST:@"revision"];
+        [self exposeLocalKeyPathToREST:@"MACAddress"];
+        [self exposeLocalKeyPathToREST:@"SKU"];
+        [self exposeLocalKeyPathToREST:@"TPMStatus"];
+        [self exposeLocalKeyPathToREST:@"CPUType"];
+        [self exposeLocalKeyPathToREST:@"NSGVersion"];
+        [self exposeLocalKeyPathToREST:@"UUID"];
+        [self exposeLocalKeyPathToREST:@"family"];
+        [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

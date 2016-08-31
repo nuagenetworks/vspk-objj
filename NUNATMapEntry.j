@@ -34,6 +34,10 @@
 
 NUNATMapEntryEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNATMapEntryEntityScope_GLOBAL = @"GLOBAL";
+NUNATMapEntryType_MANY_TO_ONE_PAT = @"MANY_TO_ONE_PAT";
+NUNATMapEntryType_ONE_TO_MANY_PAT = @"ONE_TO_MANY_PAT";
+NUNATMapEntryType_ONE_TO_ONE_NAT = @"ONE_TO_ONE_NAT";
+NUNATMapEntryType_UNKNOWN = @"UNKNOWN";
 
 
 /*!
@@ -54,6 +58,10 @@ NUNATMapEntryEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _privateIP @accessors(property=privateIP);
     /*!
+        Private port identification
+    */
+    CPNumber _privatePort @accessors(property=privatePort);
+    /*!
         Indicates which PATNATPool this entry belongs to
     */
     CPString _associatedPATNATPoolID @accessors(property=associatedPATNATPoolID);
@@ -62,9 +70,17 @@ NUNATMapEntryEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _publicIP @accessors(property=publicIP);
     /*!
+        Public port identification
+    */
+    CPNumber _publicPort @accessors(property=publicPort);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        The type of address mapping this instance is.
+    */
+    CPString _type @accessors(property=type);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -91,9 +107,12 @@ NUNATMapEntryEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"privateIP"];
+        [self exposeLocalKeyPathToREST:@"privatePort"];
         [self exposeLocalKeyPathToREST:@"associatedPATNATPoolID"];
         [self exposeLocalKeyPathToREST:@"publicIP"];
+        [self exposeLocalKeyPathToREST:@"publicPort"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

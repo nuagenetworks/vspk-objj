@@ -30,6 +30,9 @@
 @import <Bambou/NURESTObject.j>
 
 
+NUAutoDiscoverHypervisorFromClusterEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUAutoDiscoverHypervisorFromClusterEntityScope_GLOBAL = @"GLOBAL";
+
 
 /*!
     None
@@ -37,13 +40,25 @@
 @implementation NUAutoDiscoverHypervisorFromCluster : NURESTObject
 {
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         The available network list
     */
     CPArrayController _networkList @accessors(property=networkList);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         The ID of the cluster to which this host is attached
     */
-    CPString _assocClusterId @accessors(property=assocClusterId);
+    CPString _assocEntityID @accessors(property=assocEntityID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     /*!
         IP Address of the Hypervisor
     */
@@ -69,8 +84,11 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"networkList"];
-        [self exposeLocalKeyPathToREST:@"assocClusterId"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"assocEntityID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"hypervisorIP"];
         
         

@@ -33,7 +33,6 @@
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAggregateMetadatasFetcher.j"
-@import "Fetchers/NUBGPNeighborsFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUVirtualIPsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
@@ -41,6 +40,9 @@
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
+@import "Fetchers/NUContainersFetcher.j"
+@import "Fetchers/NUContainerInterfacesFetcher.j"
+@import "Fetchers/NUPortMappingsFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUHostInterfacesFetcher.j"
 @import "Fetchers/NUVPortMirrorsFetcher.j"
@@ -68,12 +70,13 @@ NUVPortSystemType_NUAGE_2 = @"NUAGE_2";
 NUVPortSystemType_NUAGE_VRSG = @"NUAGE_VRSG";
 NUVPortSystemType_SOFTWARE = @"SOFTWARE";
 NUVPortType_BRIDGE = @"BRIDGE";
+NUVPortType_CONTAINER = @"CONTAINER";
 NUVPortType_HOST = @"HOST";
 NUVPortType_VM = @"VM";
 
 
 /*!
-    VPorts are a new level in the domain hierarchy, intended to provide more granular configuration than at subnet, and also support a split workflow, where the vPort is configured and associated with a VM port (or gateway port) before the port exists on the hypervisor or gateway.
+    VPorts are a new level in the domain hierarchy, intended to provide more granular configuration than at subnet, and also support a split workflow, where the vPort is configured and associated with a VM port (or gateway port) before the port exists.
 */
 @implementation NUVPort : NURESTObject
 {
@@ -158,7 +161,6 @@ NUVPortType_VM = @"VM";
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAggregateMetadatasFetcher _childrenAggregateMetadatas @accessors(property=childrenAggregateMetadatas);
-    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUVirtualIPsFetcher _childrenVirtualIPs @accessors(property=childrenVirtualIPs);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
@@ -166,6 +168,9 @@ NUVPortType_VM = @"VM";
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
+    NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
+    NUContainerInterfacesFetcher _childrenContainerInterfaces @accessors(property=childrenContainerInterfaces);
+    NUPortMappingsFetcher _childrenPortMappings @accessors(property=childrenPortMappings);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
     NUVPortMirrorsFetcher _childrenVPortMirrors @accessors(property=childrenVPortMirrors);
@@ -218,7 +223,6 @@ NUVPortType_VM = @"VM";
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAggregateMetadatas = [NUAggregateMetadatasFetcher fetcherWithParentObject:self];
-        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenVirtualIPs = [NUVirtualIPsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
@@ -226,6 +230,9 @@ NUVPortType_VM = @"VM";
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
+        _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
+        _childrenContainerInterfaces = [NUContainerInterfacesFetcher fetcherWithParentObject:self];
+        _childrenPortMappings = [NUPortMappingsFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
         _childrenVPortMirrors = [NUVPortMirrorsFetcher fetcherWithParentObject:self];

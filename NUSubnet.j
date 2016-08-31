@@ -33,12 +33,16 @@
 @import "Fetchers/NUAddressRangesFetcher.j"
 @import "Fetchers/NUVMResyncsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUBGPNeighborsFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUVirtualIPsFetcher.j"
 @import "Fetchers/NUIKEGatewayConnectionsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
+@import "Fetchers/NUContainersFetcher.j"
+@import "Fetchers/NUContainerInterfacesFetcher.j"
+@import "Fetchers/NUContainerResyncsFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
 @import "Fetchers/NUIPReservationsFetcher.j"
@@ -72,6 +76,7 @@ NUSubnetAssociatedApplicationObjectType_BRIDGEINTERFACE = @"BRIDGEINTERFACE";
 NUSubnetAssociatedApplicationObjectType_CERTIFICATE = @"CERTIFICATE";
 NUSubnetAssociatedApplicationObjectType_CHILD_ENTITY_POLICY_CHANGE = @"CHILD_ENTITY_POLICY_CHANGE";
 NUSubnetAssociatedApplicationObjectType_CLOUD_MGMT_SYSTEM = @"CLOUD_MGMT_SYSTEM";
+NUSubnetAssociatedApplicationObjectType_CONTAINER_RESYNC = @"CONTAINER_RESYNC";
 NUSubnetAssociatedApplicationObjectType_CUSTOMER_VRF_SEQUENCENO = @"CUSTOMER_VRF_SEQUENCENO";
 NUSubnetAssociatedApplicationObjectType_DC_CONFIG = @"DC_CONFIG";
 NUSubnetAssociatedApplicationObjectType_DHCP_ALLOC_MESSAGE = @"DHCP_ALLOC_MESSAGE";
@@ -219,7 +224,6 @@ NUSubnetAssociatedApplicationObjectType_QOS_PRIMITIVE = @"QOS_PRIMITIVE";
 NUSubnetAssociatedApplicationObjectType_RATE_LIMITER = @"RATE_LIMITER";
 NUSubnetAssociatedApplicationObjectType_RD_SEQUENCENO = @"RD_SEQUENCENO";
 NUSubnetAssociatedApplicationObjectType_REDUNDANT_GW_GRP = @"REDUNDANT_GW_GRP";
-NUSubnetAssociatedApplicationObjectType_RESYNC = @"RESYNC";
 NUSubnetAssociatedApplicationObjectType_ROUTING_POLICY = @"ROUTING_POLICY";
 NUSubnetAssociatedApplicationObjectType_ROUTING_POL_MED_RESPONSE = @"ROUTING_POL_MED_RESPONSE";
 NUSubnetAssociatedApplicationObjectType_RTRD_ENTITY = @"RTRD_ENTITY";
@@ -268,6 +272,7 @@ NUSubnetAssociatedApplicationObjectType_VMWARE_VCENTER_VRS_CONFIG = @"VMWARE_VCE
 NUSubnetAssociatedApplicationObjectType_VMWARE_VRS_ADDRESS_RANGE = @"VMWARE_VRS_ADDRESS_RANGE";
 NUSubnetAssociatedApplicationObjectType_VM_DESCRIPTION = @"VM_DESCRIPTION";
 NUSubnetAssociatedApplicationObjectType_VM_INTERFACE = @"VM_INTERFACE";
+NUSubnetAssociatedApplicationObjectType_VM_RESYNC = @"VM_RESYNC";
 NUSubnetAssociatedApplicationObjectType_VNID_SEQUENCENO = @"VNID_SEQUENCENO";
 NUSubnetAssociatedApplicationObjectType_VPN_CONNECT = @"VPN_CONNECT";
 NUSubnetAssociatedApplicationObjectType_VPORT = @"VPORT";
@@ -314,7 +319,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
 @implementation NUSubnet : NURESTObject
 {
     /*!
-        
+        None
     */
     CPString _PATEnabled @accessors(property=PATEnabled);
     /*!
@@ -338,7 +343,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     */
     CPString _gateway @accessors(property=gateway);
     /*!
-        
+        None
     */
     CPString _gatewayMACAddress @accessors(property=gatewayMACAddress);
     /*!
@@ -438,12 +443,16 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
     NUVMResyncsFetcher _childrenVMResyncs @accessors(property=childrenVMResyncs);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUVirtualIPsFetcher _childrenVirtualIPs @accessors(property=childrenVirtualIPs);
     NUIKEGatewayConnectionsFetcher _childrenIKEGatewayConnections @accessors(property=childrenIKEGatewayConnections);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
+    NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
+    NUContainerInterfacesFetcher _childrenContainerInterfaces @accessors(property=childrenContainerInterfaces);
+    NUContainerResyncsFetcher _childrenContainerResyncs @accessors(property=childrenContainerResyncs);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     NUIPReservationsFetcher _childrenIPReservations @accessors(property=childrenIPReservations);
@@ -505,12 +514,16 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
         _childrenVMResyncs = [NUVMResyncsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenVirtualIPs = [NUVirtualIPsFetcher fetcherWithParentObject:self];
         _childrenIKEGatewayConnections = [NUIKEGatewayConnectionsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
+        _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
+        _childrenContainerInterfaces = [NUContainerInterfacesFetcher fetcherWithParentObject:self];
+        _childrenContainerResyncs = [NUContainerResyncsFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         _childrenIPReservations = [NUIPReservationsFetcher fetcherWithParentObject:self];

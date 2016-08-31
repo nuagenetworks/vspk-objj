@@ -34,6 +34,7 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
+@import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUEgressACLTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -108,6 +109,7 @@ NUEgressACLTemplatePriorityType_TOP = @"TOP";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
+    NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -148,6 +150,7 @@ NUEgressACLTemplatePriorityType_TOP = @"TOP";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
+        _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _defaultInstallACLImplicitRules = YES;

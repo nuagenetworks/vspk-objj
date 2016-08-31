@@ -30,6 +30,7 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUIKEGatewayConfigsFetcher.j"
 @import "Fetchers/NUIKESubnetsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
@@ -78,6 +79,7 @@ NUIKEGatewayIKEVersion_V2 = @"V2";
     CPString _externalID @accessors(property=externalID);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUIKEGatewayConfigsFetcher _childrenIKEGatewayConfigs @accessors(property=childrenIKEGatewayConfigs);
     NUIKESubnetsFetcher _childrenIKESubnets @accessors(property=childrenIKESubnets);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
@@ -110,6 +112,7 @@ NUIKEGatewayIKEVersion_V2 = @"V2";
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenIKEGatewayConfigs = [NUIKEGatewayConfigsFetcher fetcherWithParentObject:self];
         _childrenIKESubnets = [NUIKESubnetsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         

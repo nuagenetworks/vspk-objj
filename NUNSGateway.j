@@ -41,6 +41,7 @@
 @import "Fetchers/NULocationsFetcher.j"
 @import "Fetchers/NUBootstrapsFetcher.j"
 @import "Fetchers/NUBootstrapActivationsFetcher.j"
+@import "Fetchers/NUNSGInfosFetcher.j"
 @import "Fetchers/NUNSPortsFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
@@ -59,6 +60,9 @@ NUNSGatewayConfigurationStatus_SUCCESS = @"SUCCESS";
 NUNSGatewayConfigurationStatus_UNKNOWN = @"UNKNOWN";
 NUNSGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGatewayEntityScope_GLOBAL = @"GLOBAL";
+NUNSGatewayFamily_ANY = @"ANY";
+NUNSGatewayFamily_NSG_E = @"NSG_E";
+NUNSGatewayFamily_NSG_V = @"NSG_V";
 NUNSGatewayPermittedAction_ALL = @"ALL";
 NUNSGatewayPermittedAction_DEPLOY = @"DEPLOY";
 NUNSGatewayPermittedAction_EXTEND = @"EXTEND";
@@ -84,17 +88,41 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
 @implementation NUNSGateway : NURESTObject
 {
     /*!
+        MAC Address of the NSG
+    */
+    CPString _MACAddress @accessors(property=MACAddress);
+    /*!
         This attribute is deprecated in version 4.0.
     */
     BOOL _NATTraversalEnabled @accessors(property=NATTraversalEnabled);
+    /*!
+        The part number of the NSG
+    */
+    CPString _SKU @accessors(property=SKU);
     /*!
         TPM Status of the NSG based on the information received by the device during bootstrapping or upgrade.
     */
     CPString _TPMStatus @accessors(property=TPMStatus);
     /*!
+        The NSG Processor Type
+    */
+    CPString _CPUType @accessors(property=CPUType);
+    /*!
+        The NSG Version
+    */
+    CPString _NSGVersion @accessors(property=NSGVersion);
+    /*!
+        The Redhat UUID of the NSG
+    */
+    CPString _UUID @accessors(property=UUID);
+    /*!
         Name of the Gateway
     */
     CPString _name @accessors(property=name);
+    /*!
+        The NSG Type
+    */
+    CPString _family @accessors(property=family);
     /*!
         Time stamp of the last known configuration update of the NSG.  This timestamp gets updated when a bootstrap is successful or when a configuration reload request triggered by VSD is successful.
     */
@@ -119,6 +147,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         Indicates that this gateway is pending state or state. When in pending state it cannot be modified from REST.
     */
     BOOL _pending @accessors(property=pending);
+    /*!
+        The NSG's serial number
+    */
+    CPString _serialNumber @accessors(property=serialNumber);
     /*!
         The permitted  action to USE/EXTEND  this Gateway.
     */
@@ -168,6 +200,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _associatedGatewaySecurityProfileID @accessors(property=associatedGatewaySecurityProfileID);
     /*!
+        Readonly Id of the associated nsg info object
+    */
+    CPString _associatedNSGInfoID @accessors(property=associatedNSGInfoID);
+    /*!
         The Auto Discovered Gateway associated with this Gateway Instance
     */
     CPString _autoDiscGatewayID @accessors(property=autoDiscGatewayID);
@@ -192,6 +228,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     NULocationsFetcher _childrenLocations @accessors(property=childrenLocations);
     NUBootstrapsFetcher _childrenBootstraps @accessors(property=childrenBootstraps);
     NUBootstrapActivationsFetcher _childrenBootstrapActivations @accessors(property=childrenBootstrapActivations);
+    NUNSGInfosFetcher _childrenNSGInfos @accessors(property=childrenNSGInfos);
     NUNSPortsFetcher _childrenNSPorts @accessors(property=childrenNSPorts);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
@@ -215,15 +252,22 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"MACAddress"];
         [self exposeLocalKeyPathToREST:@"NATTraversalEnabled"];
+        [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
+        [self exposeLocalKeyPathToREST:@"CPUType"];
+        [self exposeLocalKeyPathToREST:@"NSGVersion"];
+        [self exposeLocalKeyPathToREST:@"UUID"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"family"];
         [self exposeLocalKeyPathToREST:@"lastConfigurationReloadTimestamp"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
         [self exposeLocalKeyPathToREST:@"redundancyGroupID"];
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"pending"];
+        [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -236,6 +280,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityProfileID"];
+        [self exposeLocalKeyPathToREST:@"associatedNSGInfoID"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
@@ -252,6 +297,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         _childrenLocations = [NULocationsFetcher fetcherWithParentObject:self];
         _childrenBootstraps = [NUBootstrapsFetcher fetcherWithParentObject:self];
         _childrenBootstrapActivations = [NUBootstrapActivationsFetcher fetcherWithParentObject:self];
+        _childrenNSGInfos = [NUNSGInfosFetcher fetcherWithParentObject:self];
         _childrenNSPorts = [NUNSPortsFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];

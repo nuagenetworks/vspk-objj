@@ -34,6 +34,7 @@
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
+@import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUIngressACLTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -116,6 +117,7 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
+    NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -158,6 +160,7 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
+        _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         

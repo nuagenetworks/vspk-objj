@@ -33,6 +33,7 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
+@import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
@@ -64,6 +65,7 @@ NUTierAssociatedNetworkObjectType_BRIDGEINTERFACE = @"BRIDGEINTERFACE";
 NUTierAssociatedNetworkObjectType_CERTIFICATE = @"CERTIFICATE";
 NUTierAssociatedNetworkObjectType_CHILD_ENTITY_POLICY_CHANGE = @"CHILD_ENTITY_POLICY_CHANGE";
 NUTierAssociatedNetworkObjectType_CLOUD_MGMT_SYSTEM = @"CLOUD_MGMT_SYSTEM";
+NUTierAssociatedNetworkObjectType_CONTAINER_RESYNC = @"CONTAINER_RESYNC";
 NUTierAssociatedNetworkObjectType_CUSTOMER_VRF_SEQUENCENO = @"CUSTOMER_VRF_SEQUENCENO";
 NUTierAssociatedNetworkObjectType_DC_CONFIG = @"DC_CONFIG";
 NUTierAssociatedNetworkObjectType_DHCP_ALLOC_MESSAGE = @"DHCP_ALLOC_MESSAGE";
@@ -211,7 +213,6 @@ NUTierAssociatedNetworkObjectType_QOS_PRIMITIVE = @"QOS_PRIMITIVE";
 NUTierAssociatedNetworkObjectType_RATE_LIMITER = @"RATE_LIMITER";
 NUTierAssociatedNetworkObjectType_RD_SEQUENCENO = @"RD_SEQUENCENO";
 NUTierAssociatedNetworkObjectType_REDUNDANT_GW_GRP = @"REDUNDANT_GW_GRP";
-NUTierAssociatedNetworkObjectType_RESYNC = @"RESYNC";
 NUTierAssociatedNetworkObjectType_ROUTING_POLICY = @"ROUTING_POLICY";
 NUTierAssociatedNetworkObjectType_ROUTING_POL_MED_RESPONSE = @"ROUTING_POL_MED_RESPONSE";
 NUTierAssociatedNetworkObjectType_RTRD_ENTITY = @"RTRD_ENTITY";
@@ -260,6 +261,7 @@ NUTierAssociatedNetworkObjectType_VMWARE_VCENTER_VRS_CONFIG = @"VMWARE_VCENTER_V
 NUTierAssociatedNetworkObjectType_VMWARE_VRS_ADDRESS_RANGE = @"VMWARE_VRS_ADDRESS_RANGE";
 NUTierAssociatedNetworkObjectType_VM_DESCRIPTION = @"VM_DESCRIPTION";
 NUTierAssociatedNetworkObjectType_VM_INTERFACE = @"VM_INTERFACE";
+NUTierAssociatedNetworkObjectType_VM_RESYNC = @"VM_RESYNC";
 NUTierAssociatedNetworkObjectType_VNID_SEQUENCENO = @"VNID_SEQUENCENO";
 NUTierAssociatedNetworkObjectType_VPN_CONNECT = @"VPN_CONNECT";
 NUTierAssociatedNetworkObjectType_VPORT = @"VPORT";
@@ -357,6 +359,7 @@ NUTierType_STANDARD = @"STANDARD";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
+    NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
@@ -401,6 +404,7 @@ NUTierType_STANDARD = @"STANDARD";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
+        _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];

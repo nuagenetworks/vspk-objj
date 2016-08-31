@@ -31,10 +31,12 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUStatisticsFetcher.j"
+@import "Fetchers/NUStatisticsPoliciesFetcher.j"
 
 NUAddressMapEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUAddressMapEntityScope_GLOBAL = @"GLOBAL";
-NUAddressMapType_ONE_TO_MANY_PAT = @"ONE_TO_MANY_PAT";
+NUAddressMapType_MANY_TO_ONE_PAT = @"MANY_TO_ONE_PAT";
 NUAddressMapType_ONE_TO_ONE_NAT = @"ONE_TO_ONE_NAT";
 
 
@@ -56,9 +58,9 @@ NUAddressMapType_ONE_TO_ONE_NAT = @"ONE_TO_ONE_NAT";
     */
     CPString _privateIP @accessors(property=privateIP);
     /*!
-        
+        None
     */
-    CPString _privatePort @accessors(property=privatePort);
+    CPNumber _privatePort @accessors(property=privatePort);
     /*!
         Read Only - Indicates which PATNATPool this entry belongs to
     */
@@ -70,7 +72,7 @@ NUAddressMapType_ONE_TO_ONE_NAT = @"ONE_TO_ONE_NAT";
     /*!
         None
     */
-    CPString _publicPort @accessors(property=publicPort);
+    CPNumber _publicPort @accessors(property=publicPort);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -82,6 +84,8 @@ NUAddressMapType_ONE_TO_ONE_NAT = @"ONE_TO_ONE_NAT";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
+    NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     
 }
 
@@ -114,6 +118,8 @@ NUAddressMapType_ONE_TO_ONE_NAT = @"ONE_TO_ONE_NAT";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
+        _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         
         
     }
