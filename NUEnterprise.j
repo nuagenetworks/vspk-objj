@@ -51,7 +51,7 @@
 @import "Fetchers/NUIKEGatewayProfilesFetcher.j"
 @import "Fetchers/NUIKEPSKsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
-@import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUAllAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUInfrastructurePortProfilesFetcher.j"
@@ -228,7 +228,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUIKEGatewayProfilesFetcher _childrenIKEGatewayProfiles @accessors(property=childrenIKEGatewayProfiles);
     NUIKEPSKsFetcher _childrenIKEPSKs @accessors(property=childrenIKEPSKs);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUAllAlarmsFetcher _childrenAllAlarms @accessors(property=childrenAllAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUInfrastructurePortProfilesFetcher _childrenInfrastructurePortProfiles @accessors(property=childrenInfrastructurePortProfiles);
@@ -323,7 +323,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenIKEGatewayProfiles = [NUIKEGatewayProfilesFetcher fetcherWithParentObject:self];
         _childrenIKEPSKs = [NUIKEPSKsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenAllAlarms = [NUAllAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenInfrastructurePortProfiles = [NUInfrastructurePortProfilesFetcher fetcherWithParentObject:self];

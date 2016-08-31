@@ -32,6 +32,7 @@
 @import "NUAddressRange.j"
 @import "NUAggregateMetadata.j"
 @import "NUAlarm.j"
+@import "NUAllAlarm.j"
 @import "NUApp.j"
 @import "NUApplicationService.j"
 @import "NUAutoDiscoverClusters.j"
@@ -205,6 +206,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUAddressRange];
 [[NURESTModelController defaultController] registerModelClass:NUAggregateMetadata];
 [[NURESTModelController defaultController] registerModelClass:NUAlarm];
+[[NURESTModelController defaultController] registerModelClass:NUAllAlarm];
 [[NURESTModelController defaultController] registerModelClass:NUApp];
 [[NURESTModelController defaultController] registerModelClass:NUApplicationService];
 [[NURESTModelController defaultController] registerModelClass:NUAutoDiscoverClusters];
