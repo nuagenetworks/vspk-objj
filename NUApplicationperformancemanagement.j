@@ -31,6 +31,9 @@
 
 @import "Fetchers/NUApplicationBindingsFetcher.j"
 
+NUApplicationperformancemanagementApplicationGroupType_DISCOVERY = @"DISCOVERY";
+NUApplicationperformancemanagementApplicationGroupType_MONITOR_PATH = @"MONITOR_PATH";
+
 
 /*!
     Application Group is a container for group of applications 

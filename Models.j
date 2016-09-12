@@ -146,6 +146,7 @@
 @import "NUNetworkMacroGroup.j"
 @import "NUNetworkPerformanceBinding.j"
 @import "NUNetworkPerformanceMeasurement.j"
+@import "NUNextHop.j"
 @import "NUNextHopAddress.j"
 @import "NUOverlayAddressPool.j"
 @import "NUOverlayPATNATEntry.j"
@@ -332,6 +333,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUNetworkMacroGroup];
 [[NURESTModelController defaultController] registerModelClass:NUNetworkPerformanceBinding];
 [[NURESTModelController defaultController] registerModelClass:NUNetworkPerformanceMeasurement];
+[[NURESTModelController defaultController] registerModelClass:NUNextHop];
 [[NURESTModelController defaultController] registerModelClass:NUNextHopAddress];
 [[NURESTModelController defaultController] registerModelClass:NUOverlayAddressPool];
 [[NURESTModelController defaultController] registerModelClass:NUOverlayPATNATEntry];

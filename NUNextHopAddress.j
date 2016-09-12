@@ -29,41 +29,26 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-
-NUNextHopAddressEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUNextHopAddressEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    This represents a /32 IPv4 address as the next-hop. In the future can be a /128 IPv6 address.
+    None
 */
 @implementation NUNextHopAddress : NURESTObject
 {
     /*!
-        ID of the user who last updated the object.
+        IP address for the next hop.
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    CPString _address @accessors(property=address);
     /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        The next-hop's route distinguisher. A unique 8 byte long. If not provided one will be generated.
+        A unique route distinguisher associated with the nexthop. If one is not provided the system generated one automatically. 
     */
     CPString _routeDistinguisher @accessors(property=routeDistinguisher);
     /*!
-        This is the /32 or /128 next-hop IP address. Currently we support only IPv4 address family.
+        Next hop type: IP only supported for service chaining
     */
-    CPString _ip @accessors(property=ip);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _type @accessors(property=type);
     
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -73,7 +58,7 @@ NUNextHopAddressEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"nexthop";
+    return @"nexthopaddress";
 }
 
 
@@ -84,14 +69,10 @@ NUNextHopAddressEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
-        [self exposeLocalKeyPathToREST:@"ip"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

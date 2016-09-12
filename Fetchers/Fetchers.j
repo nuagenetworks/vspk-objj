@@ -144,6 +144,7 @@
 @import "NUNetworkPerformanceBindingsFetcher.j"
 @import "NUNetworkPerformanceMeasurementsFetcher.j"
 @import "NUNextHopAddressFetcher.j"
+@import "NUNextHopsFetcher.j"
 @import "NUOverlayAddressPoolsFetcher.j"
 @import "NUOverlayPATNATEntriesFetcher.j"
 @import "NUPATIPEntriesFetcher.j"
