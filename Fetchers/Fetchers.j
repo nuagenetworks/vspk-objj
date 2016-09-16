@@ -29,6 +29,7 @@
 @import "NUAddressRangesFetcher.j"
 @import "NUAggregateMetadatasFetcher.j"
 @import "NUAlarmsFetcher.j"
+@import "NUAllAlarmsFetcher.j"
 @import "NUApplicationBindingsFetcher.j"
 @import "NUApplicationServicesFetcher.j"
 @import "NUApplicationperformancemanagementbindingsFetcher.j"
