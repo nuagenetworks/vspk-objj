@@ -45,6 +45,9 @@
 @import "Fetchers/NUGroupsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUL2DomainTemplateDPI_DISABLED = @"DISABLED";
+NUL2DomainTemplateDPI_ENABLED = @"ENABLED";
+NUL2DomainTemplateDPI_INHERITED = @"INHERITED";
 NUL2DomainTemplateEncryption_DISABLED = @"DISABLED";
 NUL2DomainTemplateEncryption_ENABLED = @"ENABLED";
 NUL2DomainTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -73,7 +76,7 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     /*!
         determines whether or not Deep packet inspection is enabled
     */
-    BOOL _DPI @accessors(property=DPI);
+    CPString _DPI @accessors(property=DPI);
     /*!
         IPv4 or IPv6
     */
