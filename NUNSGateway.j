@@ -64,6 +64,8 @@ NUNSGatewayEntityScope_GLOBAL = @"GLOBAL";
 NUNSGatewayFamily_ANY = @"ANY";
 NUNSGatewayFamily_NSG_E = @"NSG_E";
 NUNSGatewayFamily_NSG_V = @"NSG_V";
+NUNSGatewayInheritedSSHServiceState_DISABLED = @"DISABLED";
+NUNSGatewayInheritedSSHServiceState_ENABLED = @"ENABLED";
 NUNSGatewayPermittedAction_ALL = @"ALL";
 NUNSGatewayPermittedAction_DEPLOY = @"DEPLOY";
 NUNSGatewayPermittedAction_EXTEND = @"EXTEND";
@@ -78,6 +80,9 @@ NUNSGatewayPersonality_OTHER = @"OTHER";
 NUNSGatewayPersonality_VRSG = @"VRSG";
 NUNSGatewayPersonality_VSA = @"VSA";
 NUNSGatewayPersonality_VSG = @"VSG";
+NUNSGatewaySSHService_DISABLED = @"DISABLED";
+NUNSGatewaySSHService_ENABLED = @"ENABLED";
+NUNSGatewaySSHService_INHERITED = @"INHERITED";
 NUNSGatewayTPMStatus_DISABLED = @"DISABLED";
 NUNSGatewayTPMStatus_ENABLED_NOT_OPERATIONAL = @"ENABLED_NOT_OPERATIONAL";
 NUNSGatewayTPMStatus_ENABLED_OPERATIONAL = @"ENABLED_OPERATIONAL";
@@ -113,6 +118,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         The NSG Version
     */
     CPString _NSGVersion @accessors(property=NSGVersion);
+    /*!
+        Indicates if SSH Service is enabled/disabled on a NSG. The value configured for this attribute is used only when instanceSSHOverride is allowed on the associated Gateway Template.
+    */
+    CPString _SSHService @accessors(property=SSHService);
     /*!
         The Redhat UUID of the NSG
     */
@@ -169,6 +178,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         Transient representation of the same property on NSGInfo.
     */
     CPString _libraries @accessors(property=libraries);
+    /*!
+        Indicates the SSH Service state which is configured on the associated template instance.
+    */
+    CPString _inheritedSSHServiceState @accessors(property=inheritedSSHServiceState);
     /*!
         The enterprise associated with this Gateway. This is a read only attribute
     */
@@ -265,6 +278,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
         [self exposeLocalKeyPathToREST:@"CPUType"];
         [self exposeLocalKeyPathToREST:@"NSGVersion"];
+        [self exposeLocalKeyPathToREST:@"SSHService"];
         [self exposeLocalKeyPathToREST:@"UUID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"family"];
@@ -279,6 +293,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"libraries"];
+        [self exposeLocalKeyPathToREST:@"inheritedSSHServiceState"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];

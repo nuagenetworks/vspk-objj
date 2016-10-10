@@ -31,51 +31,39 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUNSPortTemplatesFetcher.j"
 
-NUNSGatewayTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUNSGatewayTemplateEntityScope_GLOBAL = @"GLOBAL";
-NUNSGatewayTemplateInstanceSSHOverride_ALLOWED = @"ALLOWED";
-NUNSGatewayTemplateInstanceSSHOverride_DISALLOWED = @"DISALLOWED";
-NUNSGatewayTemplateSSHService_DISABLED = @"DISABLED";
-NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
+NUInfrastructureaccessprofileEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUInfrastructureaccessprofileEntityScope_GLOBAL = @"GLOBAL";
+NUInfrastructureaccessprofileSSHAuthMode_PASSWORD_BASED = @"PASSWORD_BASED";
 
 
 /*!
-    Represents a Network Service Gateway Template.
+    Represents an Infrastructure Access Profile
 */
-@implementation NUNSGatewayTemplate : NURESTObject
+@implementation NUInfrastructureaccessprofile : NURESTObject
 {
     /*!
-        Enable/Disable SSH Service on all the Gateway instances which inherit from this template.
+        Indicates the Authentication method used during a SSH session.
     */
-    CPString _SSHService @accessors(property=SSHService);
+    CPString _SSHAuthMode @accessors(property=SSHAuthMode);
     /*!
-        Name of the Gateway
+        Name of the Infrastructure Profile
     */
     CPString _name @accessors(property=name);
+    /*!
+        Password of the default user associated to the access profile.
+    */
+    CPString _password @accessors(property=password);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        A description of the Gateway
+        A description of the Profile instance created.
     */
     CPString _description @accessors(property=description);
     /*!
-        The ID of the infrastructure access profile associated to this Gateway Template.
-    */
-    CPString _infrastructureAccessProfileID @accessors(property=infrastructureAccessProfileID);
-    /*!
-        The ID of the infrastructure gateway profile this instance of a Gateway is associated with.
-    */
-    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
-    /*!
-        Indicates if this template instance allows the gateway instance(s) which inherit from it to independently enable/disable SSH service.
-    */
-    CPString _instanceSSHOverride @accessors(property=instanceSSHOverride);
-    /*!
-        The enterprise associated with this Gateway. This is a read only attribute
+        Enterprise/Organisation associated with this Profile instance.
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
     /*!
@@ -83,13 +71,16 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Default user name which is associated to the access profile.
+    */
+    CPString _userName @accessors(property=userName);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUNSPortTemplatesFetcher _childrenNSPortTemplates @accessors(property=childrenNSPortTemplates);
     
 }
 
@@ -99,7 +90,7 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
 
 + (CPString)RESTName
 {
-    return @"nsgatewaytemplate";
+    return @"infrastructureaccessprofile";
 }
 
 
@@ -110,20 +101,18 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"SSHService"];
+        [self exposeLocalKeyPathToREST:@"SSHAuthMode"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"infrastructureAccessProfileID"];
-        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
-        [self exposeLocalKeyPathToREST:@"instanceSSHOverride"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenNSPortTemplates = [NUNSPortTemplatesFetcher fetcherWithParentObject:self];
         
         
     }

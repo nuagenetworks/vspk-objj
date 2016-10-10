@@ -130,6 +130,10 @@ NUApplicationProtocol_UDP = @"UDP";
         Ether type of the packet to be matched. etherType can be * or a valid hexadecimal value
     */
     CPString _etherType @accessors(property=etherType);
+    /*!
+        Maintain path symmetry during SLA violation
+    */
+    BOOL _symmetry @accessors(property=symmetry);
     
     NUMonitorscopesFetcher _childrenMonitorscopes @accessors(property=childrenMonitorscopes);
     NUApplicationBindingsFetcher _childrenApplicationBindings @accessors(property=childrenApplicationBindings);
@@ -172,6 +176,7 @@ NUApplicationProtocol_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"associatedL7ApplicationSignatureID"];
         [self exposeLocalKeyPathToREST:@"etherType"];
+        [self exposeLocalKeyPathToREST:@"symmetry"];
         
         _childrenMonitorscopes = [NUMonitorscopesFetcher fetcherWithParentObject:self];
         _childrenApplicationBindings = [NUApplicationBindingsFetcher fetcherWithParentObject:self];

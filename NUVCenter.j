@@ -37,6 +37,11 @@
 @import "Fetchers/NUVRSRedeploymentpoliciesFetcher.j"
 @import "Fetchers/NUAutodiscovereddatacentersFetcher.j"
 
+NUVCenterDestinationMirrorPort_ENS160 = @"ens160";
+NUVCenterDestinationMirrorPort_ENS161 = @"ens161";
+NUVCenterDestinationMirrorPort_ENS224 = @"ens224";
+NUVCenterDestinationMirrorPort_ENS256 = @"ens256";
+NUVCenterDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterEntityScope_GLOBAL = @"GLOBAL";
 
@@ -103,6 +108,10 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _description @accessors(property=description);
     /*!
+        Extra Vnic to mirror access port
+    */
+    CPString _destinationMirrorPort @accessors(property=destinationMirrorPort);
+    /*!
         Metadata Server IP
     */
     CPString _metadataServerIP @accessors(property=metadataServerIP);
@@ -162,6 +171,10 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         To provide IP address of the interface from which you will connect to the DHCP relay server
     */
     CPString _dhcpRelayServer @accessors(property=dhcpRelayServer);
+    /*!
+        Mirror Port Group Name
+    */
+    CPString _mirrorNetworkPortgroup @accessors(property=mirrorNetworkPortgroup);
     /*!
         Site ID field for object profiles to support VSD Geo-redundancy
     */
@@ -380,6 +393,7 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"destinationMirrorPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
         [self exposeLocalKeyPathToREST:@"metadataServerListenPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerPort"];
@@ -395,6 +409,7 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"mgmtGateway"];
         [self exposeLocalKeyPathToREST:@"mgmtNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
+        [self exposeLocalKeyPathToREST:@"mirrorNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"siteId"];
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];

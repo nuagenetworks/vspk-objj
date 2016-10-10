@@ -36,6 +36,11 @@
 @import "Fetchers/NUVRSMetricsFetcher.j"
 @import "Fetchers/NUVRSRedeploymentpoliciesFetcher.j"
 
+NUVCenterHypervisorDestinationMirrorPort_ENS160 = @"ens160";
+NUVCenterHypervisorDestinationMirrorPort_ENS161 = @"ens161";
+NUVCenterHypervisorDestinationMirrorPort_ENS224 = @"ens224";
+NUVCenterHypervisorDestinationMirrorPort_ENS256 = @"ens256";
+NUVCenterHypervisorDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterHypervisorEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
 
@@ -114,6 +119,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
     /*!
+        Set to true if the hypervisor is removed from Vcenter inventory datacenter or cluster
+    */
+    BOOL _removedFromVCenterInventory @accessors(property=removedFromVCenterInventory);
+    /*!
         Whether split-activation is needed from VRO
     */
     BOOL _genericSplitActivation @accessors(property=genericSplitActivation);
@@ -133,6 +142,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         Description of the Hypervisor
     */
     CPString _description @accessors(property=description);
+    /*!
+        Extra Vnic to mirror access port
+    */
+    CPString _destinationMirrorPort @accessors(property=destinationMirrorPort);
     /*!
         Metadata Server IP
     */
@@ -201,6 +214,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         To provide IP address of the interface from which you will connect to the DHCP relay server
     */
     CPString _dhcpRelayServer @accessors(property=dhcpRelayServer);
+    /*!
+        Mirror Port Group Name
+    */
+    CPString _mirrorNetworkPortgroup @accessors(property=mirrorNetworkPortgroup);
     /*!
         Site ID field for object profiles to support VSD Geo-redundancy
     */
@@ -425,11 +442,13 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"scope"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"removedFromVCenterInventory"];
         [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"deploymentCount"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"destinationMirrorPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
         [self exposeLocalKeyPathToREST:@"metadataServerListenPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerPort"];
@@ -447,6 +466,7 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"mgmtNetmask"];
         [self exposeLocalKeyPathToREST:@"mgmtNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
+        [self exposeLocalKeyPathToREST:@"mirrorNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"siteId"];
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];

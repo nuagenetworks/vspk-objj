@@ -55,6 +55,10 @@ NUPerformanceMonitorServiceClass_H = @"H";
     */
     CPNumber _payloadSize @accessors(property=payloadSize);
     /*!
+        Determines whether this entity is read only.  Read only objects cannot be modified or deleted.
+    */
+    BOOL _readOnly @accessors(property=readOnly);
+    /*!
         Class of service to be used.  Service classes in order of priority are A, B, C, D, E, F, G, and H.
     */
     CPString _serviceClass @accessors(property=serviceClass);
@@ -94,6 +98,7 @@ NUPerformanceMonitorServiceClass_H = @"H";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"payloadSize"];
+        [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"serviceClass"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"interval"];

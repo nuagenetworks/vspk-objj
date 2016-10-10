@@ -32,6 +32,8 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUSystemConfigCsprootAuthenticationMethod_LDAP = @"LDAP";
+NUSystemConfigCsprootAuthenticationMethod_LOCAL = @"LOCAL";
 NUSystemConfigDomainTunnelType_DC_DEFAULT = @"DC_DEFAULT";
 NUSystemConfigDomainTunnelType_GRE = @"GRE";
 NUSystemConfigDomainTunnelType_VXLAN = @"VXLAN";
@@ -422,6 +424,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _esiID @accessors(property=esiID);
     /*!
+        Authentication method for csproot when local authentication is not used for CSP organization
+    */
+    CPString _csprootAuthenticationMethod @accessors(property=csprootAuthenticationMethod);
+    /*!
         True to enable stacktrace in the REST call.
     */
     BOOL _stackTraceEnabled @accessors(property=stackTraceEnabled);
@@ -469,6 +475,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Specifies the TSDB server location.
     */
     CPString _statsTSDBServerAddress @accessors(property=statsTSDBServerAddress);
+    /*!
+        sticky ECMP Idle Timeout in seconds
+    */
+    CPNumber _stickyECMPIdleTimeout @accessors(property=stickyECMPIdleTimeout);
     /*!
         After resync on a subnet , another resync on the same subnet is allowed based on the below value subnet resync complete wait time in min.
     */
@@ -671,6 +681,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"nsgConfigEndpoint"];
         [self exposeLocalKeyPathToREST:@"nsgLocalUiUrl"];
         [self exposeLocalKeyPathToREST:@"esiID"];
+        [self exposeLocalKeyPathToREST:@"csprootAuthenticationMethod"];
         [self exposeLocalKeyPathToREST:@"stackTraceEnabled"];
         [self exposeLocalKeyPathToREST:@"statefulACLNonTCPTimeout"];
         [self exposeLocalKeyPathToREST:@"statefulACLTCPTimeout"];
@@ -683,6 +694,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"statsMinDuration"];
         [self exposeLocalKeyPathToREST:@"statsNumberOfDataPoints"];
         [self exposeLocalKeyPathToREST:@"statsTSDBServerAddress"];
+        [self exposeLocalKeyPathToREST:@"stickyECMPIdleTimeout"];
         [self exposeLocalKeyPathToREST:@"subnetResyncInterval"];
         [self exposeLocalKeyPathToREST:@"subnetResyncOutstandingInterval"];
         [self exposeLocalKeyPathToREST:@"customerIDUpperLimit"];

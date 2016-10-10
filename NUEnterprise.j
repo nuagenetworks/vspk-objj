@@ -42,6 +42,7 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUMetadataTagsFetcher.j"
 @import "Fetchers/NUNetworkMacroGroupsFetcher.j"
+@import "Fetchers/NUNetworkPerformanceMeasurementsFetcher.j"
 @import "Fetchers/NUKeyServerMonitorsFetcher.j"
 @import "Fetchers/NUZFBRequestsFetcher.j"
 @import "Fetchers/NUBGPProfilesFetcher.j"
@@ -229,6 +230,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUMetadataTagsFetcher _childrenMetadataTags @accessors(property=childrenMetadataTags);
     NUNetworkMacroGroupsFetcher _childrenNetworkMacroGroups @accessors(property=childrenNetworkMacroGroups);
+    NUNetworkPerformanceMeasurementsFetcher _childrenNetworkPerformanceMeasurements @accessors(property=childrenNetworkPerformanceMeasurements);
     NUKeyServerMonitorsFetcher _childrenKeyServerMonitors @accessors(property=childrenKeyServerMonitors);
     NUZFBRequestsFetcher _childrenZFBRequests @accessors(property=childrenZFBRequests);
     NUBGPProfilesFetcher _childrenBGPProfiles @accessors(property=childrenBGPProfiles);
@@ -328,6 +330,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadataTags = [NUMetadataTagsFetcher fetcherWithParentObject:self];
         _childrenNetworkMacroGroups = [NUNetworkMacroGroupsFetcher fetcherWithParentObject:self];
+        _childrenNetworkPerformanceMeasurements = [NUNetworkPerformanceMeasurementsFetcher fetcherWithParentObject:self];
         _childrenKeyServerMonitors = [NUKeyServerMonitorsFetcher fetcherWithParentObject:self];
         _childrenZFBRequests = [NUZFBRequestsFetcher fetcherWithParentObject:self];
         _childrenBGPProfiles = [NUBGPProfilesFetcher fetcherWithParentObject:self];

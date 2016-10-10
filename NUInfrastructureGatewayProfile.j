@@ -32,6 +32,9 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUInfrastructureGatewayProfileControllerLessForwardingMode_DISABLED = @"DISABLED";
+NUInfrastructureGatewayProfileControllerLessForwardingMode_LOCAL_AND_REMOTE = @"LOCAL_AND_REMOTE";
+NUInfrastructureGatewayProfileControllerLessForwardingMode_LOCAL_ONLY = @"LOCAL_ONLY";
 NUInfrastructureGatewayProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUInfrastructureGatewayProfileEntityScope_GLOBAL = @"GLOBAL";
 NUInfrastructureGatewayProfileRemoteLogMode_DISABLED = @"DISABLED";
@@ -126,13 +129,21 @@ Because the years and month are units that vary in length, for the time being th
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Duration for a controller-less operation (in ISO-duration format).
+        Duration for a controller-less local operation (in ISO-duration format).
     */
     CPString _controllerLessDuration @accessors(property=controllerLessDuration);
     /*!
         Flag to enable controller-less operations.
     */
     BOOL _controllerLessEnabled @accessors(property=controllerLessEnabled);
+    /*!
+        The forwarding mode to use for controllerLess operations
+    */
+    CPString _controllerLessForwardingMode @accessors(property=controllerLessForwardingMode);
+    /*!
+        Duration for a controller-less remote operation (in ISO-duration format).
+    */
+    CPString _controllerLessRemoteDuration @accessors(property=controllerLessRemoteDuration);
     /*!
         Usually the synchronization will span across 1 hour window after the defined synchronization time. Forcing an immediate synchronization can overload the system and can have a negative impact on the system.
     */
@@ -200,6 +211,8 @@ Because the years and month are units that vary in length, for the time being th
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"controllerLessDuration"];
         [self exposeLocalKeyPathToREST:@"controllerLessEnabled"];
+        [self exposeLocalKeyPathToREST:@"controllerLessForwardingMode"];
+        [self exposeLocalKeyPathToREST:@"controllerLessRemoteDuration"];
         [self exposeLocalKeyPathToREST:@"forceImmediateSystemSync"];
         [self exposeLocalKeyPathToREST:@"upgradeAction"];
         [self exposeLocalKeyPathToREST:@"proxyDNSName"];

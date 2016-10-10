@@ -102,6 +102,7 @@
 @import "NUInfrastructureConfigsFetcher.j"
 @import "NUInfrastructureGatewayProfilesFetcher.j"
 @import "NUInfrastructureVscProfilesFetcher.j"
+@import "NUInfrastructureaccessprofilesFetcher.j"
 @import "NUIngressACLEntryTemplatesFetcher.j"
 @import "NUIngressACLTemplatesFetcher.j"
 @import "NUIngressAdvFwdEntryTemplatesFetcher.j"

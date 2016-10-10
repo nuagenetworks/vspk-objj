@@ -105,6 +105,7 @@
 @import "NUInfrastructureConfig.j"
 @import "NUInfrastructureGatewayProfile.j"
 @import "NUInfrastructureVscProfile.j"
+@import "NUInfrastructureaccessprofile.j"
 @import "NUIngressACLEntryTemplate.j"
 @import "NUIngressACLTemplate.j"
 @import "NUIngressAdvFwdEntryTemplate.j"
@@ -293,6 +294,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUInfrastructureConfig];
 [[NURESTModelController defaultController] registerModelClass:NUInfrastructureGatewayProfile];
 [[NURESTModelController defaultController] registerModelClass:NUInfrastructureVscProfile];
+[[NURESTModelController defaultController] registerModelClass:NUInfrastructureaccessprofile];
 [[NURESTModelController defaultController] registerModelClass:NUIngressACLEntryTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUIngressACLTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUIngressAdvFwdEntryTemplate];
