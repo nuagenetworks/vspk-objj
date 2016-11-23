@@ -34,12 +34,16 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUTCAAction_ALERT = @"ALERT";
+NUTCAAction_ALERT_POLICYGROUPCHANGE = @"ALERT_POLICYGROUPCHANGE";
 NUTCAEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUTCAEntityScope_GLOBAL = @"GLOBAL";
+NUTCAMetric_ACL_DENY_EVENT_COUNT = @"ACL_DENY_EVENT_COUNT";
 NUTCAMetric_ADDRESS_MAP_EGRESS_BYTE_CNT = @"ADDRESS_MAP_EGRESS_BYTE_CNT";
 NUTCAMetric_ADDRESS_MAP_EGRESS_PKT_CNT = @"ADDRESS_MAP_EGRESS_PKT_CNT";
 NUTCAMetric_ADDRESS_MAP_INGRESS_BYTE_CNT = @"ADDRESS_MAP_INGRESS_BYTE_CNT";
 NUTCAMetric_ADDRESS_MAP_INGRESS_PKT_CNT = @"ADDRESS_MAP_INGRESS_PKT_CNT";
+NUTCAMetric_ANTI_SPOOF_EVENT_COUNT = @"ANTI_SPOOF_EVENT_COUNT";
 NUTCAMetric_BYTES_IN = @"BYTES_IN";
 NUTCAMetric_BYTES_OUT = @"BYTES_OUT";
 NUTCAMetric_EGRESS_BYTE_COUNT = @"EGRESS_BYTE_COUNT";
@@ -53,8 +57,7 @@ NUTCAMetric_PACKETS_IN_ERROR = @"PACKETS_IN_ERROR";
 NUTCAMetric_PACKETS_OUT = @"PACKETS_OUT";
 NUTCAMetric_PACKETS_OUT_DROPPED = @"PACKETS_OUT_DROPPED";
 NUTCAMetric_PACKETS_OUT_ERROR = @"PACKETS_OUT_ERROR";
-NUTCAScope_GLOBAL = @"GLOBAL";
-NUTCAScope_LOCAL = @"LOCAL";
+NUTCAMetric_TCP_SYN_EVENT_COUNT = @"TCP_SYN_EVENT_COUNT";
 NUTCAType_BREACH = @"BREACH";
 NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
 
@@ -73,13 +76,17 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
     */
     CPString _name @accessors(property=name);
     /*!
+        Target policygroup when TCA is triggered
+    */
+    CPString _targetPolicyGroupID @accessors(property=targetPolicyGroupID);
+    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        GLOBAL or LOCAL scope. Global refers to aggregate values across subnets, zones or domains. Local refers to traffic from/to individual VMs.
+        Action to be taken when TCA is fired - Alert or PolicyGroupChange
     */
-    CPString _scope @accessors(property=scope);
+    CPString _action @accessors(property=action);
     /*!
         The averaging period
     */
@@ -97,9 +104,29 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
     */
     CPNumber _threshold @accessors(property=threshold);
     /*!
+        Throttle time in secs
+    */
+    CPNumber _throttleTime @accessors(property=throttleTime);
+    /*!
+        This flag is used to indicate whether the watch(TCA) is enabled/disabled
+    */
+    BOOL _disable @accessors(property=disable);
+    /*!
+        Explanation of the TCA status
+    */
+    CPString _displayStatus @accessors(property=displayStatus);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Count of the attempts by maintenanace thread to create/update watcher
+    */
+    CPNumber _count @accessors(property=count);
+    /*!
+        This flag is used to indicate the status of TCA
+    */
+    BOOL _status @accessors(property=status);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -135,13 +162,19 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
     {
         [self exposeLocalKeyPathToREST:@"URLEndPoint"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"targetPolicyGroupID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"scope"];
+        [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"period"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"metric"];
         [self exposeLocalKeyPathToREST:@"threshold"];
+        [self exposeLocalKeyPathToREST:@"throttleTime"];
+        [self exposeLocalKeyPathToREST:@"disable"];
+        [self exposeLocalKeyPathToREST:@"displayStatus"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"count"];
+        [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

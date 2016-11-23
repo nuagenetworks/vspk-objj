@@ -30,45 +30,28 @@
 @import <Bambou/NURESTObject.j>
 
 
-NUBRConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
-NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
-NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
-NUBRConnectionMode_STATIC = @"Static";
-
 
 /*!
     None
 */
-@implementation NUBRConnection : NURESTObject
+@implementation NUDUCGroupBinding : NURESTObject
 {
     /*!
-        DNS Address for the vlan
+        VSD UUID of the UBR Group Binding instance.
     */
-    CPString _DNSAddress @accessors(property=DNSAddress);
+    CPString _id @accessors(property=id);
     /*!
-        IP address of the gateway bound to the VLAN.
+        SLA delay value in milliseconds that is tolerated between NSG instances and NSG-UBR (DUC) instances being bound through this binding instance.  If delay is to be ignored, then the value of -1 is to be entered.  Value 0 is not permitted.
     */
-    CPString _gateway @accessors(property=gateway);
+    CPNumber _oneWayDelay @accessors(property=oneWayDelay);
     /*!
-        Static IP address for the VLAN
+        The priority for NSG Group to UBR Group relationship.
     */
-    CPString _address @accessors(property=address);
+    CPNumber _priority @accessors(property=priority);
     /*!
-        Advertisement Criteria for Traffic Flow
+        Identification of the UBR Group associated to this group binding instance.
     */
-    CPString _advertisementCriteria @accessors(property=advertisementCriteria);
-    /*!
-        network mask
-    */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        Connection mode: Static.
-    */
-    CPString _mode @accessors(property=mode);
-    /*!
-        Internally generated ID in the range that idenitifies the uplink within the cotext of NSG
-    */
-    CPNumber _uplinkID @accessors(property=uplinkID);
+    CPString _associatedDUCGroupID @accessors(property=associatedDUCGroupID);
     
     
 }
@@ -79,7 +62,7 @@ NUBRConnectionMode_STATIC = @"Static";
 
 + (CPString)RESTName
 {
-    return @"brconnections";
+    return @"ducgroupbinding";
 }
 
 
@@ -90,13 +73,10 @@ NUBRConnectionMode_STATIC = @"Static";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DNSAddress"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"mode"];
-        [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"id"];
+        [self exposeLocalKeyPathToREST:@"oneWayDelay"];
+        [self exposeLocalKeyPathToREST:@"priority"];
+        [self exposeLocalKeyPathToREST:@"associatedDUCGroupID"];
         
         
         

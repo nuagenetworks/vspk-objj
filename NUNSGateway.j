@@ -59,6 +59,11 @@ NUNSGatewayConfigurationReloadState_UNKNOWN = @"UNKNOWN";
 NUNSGatewayConfigurationStatus_FAILURE = @"FAILURE";
 NUNSGatewayConfigurationStatus_SUCCESS = @"SUCCESS";
 NUNSGatewayConfigurationStatus_UNKNOWN = @"UNKNOWN";
+NUNSGatewayDerivedSSHServiceState_INHERITED_DISABLED = @"INHERITED_DISABLED";
+NUNSGatewayDerivedSSHServiceState_INHERITED_ENABLED = @"INHERITED_ENABLED";
+NUNSGatewayDerivedSSHServiceState_INSTANCE_DISABLED = @"INSTANCE_DISABLED";
+NUNSGatewayDerivedSSHServiceState_INSTANCE_ENABLED = @"INSTANCE_ENABLED";
+NUNSGatewayDerivedSSHServiceState_UNKNOWN = @"UNKNOWN";
 NUNSGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGatewayEntityScope_GLOBAL = @"GLOBAL";
 NUNSGatewayFamily_ANY = @"ANY";
@@ -76,6 +81,7 @@ NUNSGatewayPersonality_DC7X50 = @"DC7X50";
 NUNSGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUNSGatewayPersonality_NSG = @"NSG";
 NUNSGatewayPersonality_NSGBR = @"NSGBR";
+NUNSGatewayPersonality_NSGDUC = @"NSGDUC";
 NUNSGatewayPersonality_OTHER = @"OTHER";
 NUNSGatewayPersonality_VRSG = @"VRSG";
 NUNSGatewayPersonality_VSA = @"VSA";
@@ -162,6 +168,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         The NSG's serial number
     */
     CPString _serialNumber @accessors(property=serialNumber);
+    /*!
+        Indicates the SSH Service state on a NSG. This value is derived based on the SSHService configuration on the NSG and the associated Gateway Template.
+    */
+    CPString _derivedSSHServiceState @accessors(property=derivedSSHServiceState);
     /*!
         The permitted  action to USE/EXTEND  this Gateway.
     */
@@ -289,6 +299,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"pending"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
+        [self exposeLocalKeyPathToREST:@"derivedSSHServiceState"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];

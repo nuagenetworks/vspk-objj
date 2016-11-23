@@ -30,45 +30,30 @@
 @import <Bambou/NURESTObject.j>
 
 
-NUBRConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
-NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
-NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
-NUBRConnectionMode_STATIC = @"Static";
+NUSSHKeyKeyType_RSA = @"RSA";
 
 
 /*!
     None
 */
-@implementation NUBRConnection : NURESTObject
+@implementation NUSSHKey : NURESTObject
 {
     /*!
-        DNS Address for the vlan
+        Name of the SSH Key.
     */
-    CPString _DNSAddress @accessors(property=DNSAddress);
+    CPString _name @accessors(property=name);
     /*!
-        IP address of the gateway bound to the VLAN.
+        A description of the SSH Key.
     */
-    CPString _gateway @accessors(property=gateway);
+    CPString _description @accessors(property=description);
     /*!
-        Static IP address for the VLAN
+        Type of SSH Key defined. Only RSA supported for now.
     */
-    CPString _address @accessors(property=address);
+    CPString _keyType @accessors(property=keyType);
     /*!
-        Advertisement Criteria for Traffic Flow
+        Public Key of a SSH Key Pair.
     */
-    CPString _advertisementCriteria @accessors(property=advertisementCriteria);
-    /*!
-        network mask
-    */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        Connection mode: Static.
-    */
-    CPString _mode @accessors(property=mode);
-    /*!
-        Internally generated ID in the range that idenitifies the uplink within the cotext of NSG
-    */
-    CPNumber _uplinkID @accessors(property=uplinkID);
+    CPString _publicKey @accessors(property=publicKey);
     
     
 }
@@ -79,7 +64,7 @@ NUBRConnectionMode_STATIC = @"Static";
 
 + (CPString)RESTName
 {
-    return @"brconnections";
+    return @"sshkey";
 }
 
 
@@ -90,13 +75,10 @@ NUBRConnectionMode_STATIC = @"Static";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DNSAddress"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"mode"];
-        [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"keyType"];
+        [self exposeLocalKeyPathToREST:@"publicKey"];
         
         
         

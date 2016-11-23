@@ -37,6 +37,8 @@ NUNSGatewayTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGatewayTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUNSGatewayTemplateInstanceSSHOverride_ALLOWED = @"ALLOWED";
 NUNSGatewayTemplateInstanceSSHOverride_DISALLOWED = @"DISALLOWED";
+NUNSGatewayTemplatePersonality_NSG = @"NSG";
+NUNSGatewayTemplatePersonality_NSGBR = @"NSGBR";
 NUNSGatewayTemplateSSHService_DISABLED = @"DISABLED";
 NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
 
@@ -58,6 +60,10 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Personality of the Gateway - NSG, NSGBR, cannot be changed after creation.
+    */
+    CPString _personality @accessors(property=personality);
     /*!
         A description of the Gateway
     */
@@ -113,6 +119,7 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"SSHService"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"infrastructureAccessProfileID"];
         [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];

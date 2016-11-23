@@ -73,6 +73,7 @@
 @import "Fetchers/NUUsersFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
 @import "Fetchers/NUNSGatewayTemplatesFetcher.j"
+@import "Fetchers/NUNSGGroupsFetcher.j"
 @import "Fetchers/NUNSRedundantGatewayGroupsFetcher.j"
 @import "Fetchers/NUPublicNetworkMacrosFetcher.j"
 @import "Fetchers/NUMultiCastListsFetcher.j"
@@ -261,6 +262,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     NUNSGatewayTemplatesFetcher _childrenNSGatewayTemplates @accessors(property=childrenNSGatewayTemplates);
+    NUNSGGroupsFetcher _childrenNSGGroups @accessors(property=childrenNSGGroups);
     NUNSRedundantGatewayGroupsFetcher _childrenNSRedundantGatewayGroups @accessors(property=childrenNSRedundantGatewayGroups);
     NUPublicNetworkMacrosFetcher _childrenPublicNetworkMacros @accessors(property=childrenPublicNetworkMacros);
     NUMultiCastListsFetcher _childrenMultiCastLists @accessors(property=childrenMultiCastLists);
@@ -361,6 +363,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         _childrenNSGatewayTemplates = [NUNSGatewayTemplatesFetcher fetcherWithParentObject:self];
+        _childrenNSGGroups = [NUNSGGroupsFetcher fetcherWithParentObject:self];
         _childrenNSRedundantGatewayGroups = [NUNSRedundantGatewayGroupsFetcher fetcherWithParentObject:self];
         _childrenPublicNetworkMacros = [NUPublicNetworkMacrosFetcher fetcherWithParentObject:self];
         _childrenMultiCastLists = [NUMultiCastListsFetcher fetcherWithParentObject:self];

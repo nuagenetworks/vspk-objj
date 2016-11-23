@@ -68,6 +68,10 @@ NUVLANTemplateEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
     /*!
+        When set to true, this specifies that this VLAN template instance serves as an underlay connection endpoint on an NSG-UBR gateway.
+    */
+    BOOL _ducVlan @accessors(property=ducVlan);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -102,6 +106,7 @@ NUVLANTemplateEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
+        [self exposeLocalKeyPathToREST:@"ducVlan"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -29,47 +29,36 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-
-NUBRConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
-NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
-NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
-NUBRConnectionMode_STATIC = @"Static";
+@import "Fetchers/NUNSGatewaysFetcher.j"
 
 
 /*!
     None
 */
-@implementation NUBRConnection : NURESTObject
+@implementation NUDUCGroup : NURESTObject
 {
     /*!
-        DNS Address for the vlan
+        Name given to the UBR Group.
     */
-    CPString _DNSAddress @accessors(property=DNSAddress);
+    CPString _name @accessors(property=name);
     /*!
-        IP address of the gateway bound to the VLAN.
+        VSD System unique UUID of the UBR Group instance.
     */
-    CPString _gateway @accessors(property=gateway);
+    CPString _id @accessors(property=id);
     /*!
-        Static IP address for the VLAN
+        Description of the UBR Group.
     */
-    CPString _address @accessors(property=address);
+    CPString _Description  @accessors(property=Description );
     /*!
-        Advertisement Criteria for Traffic Flow
+        List of NSG UBRs (formely named DUCs) that belong to this Disjoint Underlay Connector Group. 
     */
-    CPString _advertisementCriteria @accessors(property=advertisementCriteria);
+    CPArrayController _associatedDUCs @accessors(property=associatedDUCs);
     /*!
-        network mask
+        Identification of the Performance Monitoring Probe that is associated with this instance of a UBR Group.
     */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        Connection mode: Static.
-    */
-    CPString _mode @accessors(property=mode);
-    /*!
-        Internally generated ID in the range that idenitifies the uplink within the cotext of NSG
-    */
-    CPNumber _uplinkID @accessors(property=uplinkID);
+    CPString _associatedPerformanceMonitorID @accessors(property=associatedPerformanceMonitorID);
     
+    NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     
 }
 
@@ -79,7 +68,7 @@ NUBRConnectionMode_STATIC = @"Static";
 
 + (CPString)RESTName
 {
-    return @"brconnections";
+    return @"ducgroup";
 }
 
 
@@ -90,14 +79,13 @@ NUBRConnectionMode_STATIC = @"Static";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DNSAddress"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"mode"];
-        [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"id"];
+        [self exposeLocalKeyPathToREST:@"Description "];
+        [self exposeLocalKeyPathToREST:@"associatedDUCs"];
+        [self exposeLocalKeyPathToREST:@"associatedPerformanceMonitorID"];
         
+        _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         
         
     }

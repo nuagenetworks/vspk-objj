@@ -30,45 +30,35 @@
 @import <Bambou/NURESTObject.j>
 
 
-NUBRConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
-NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
-NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
-NUBRConnectionMode_STATIC = @"Static";
+NUConnectionendpointEndPointType_SOURCE = @"SOURCE";
+NUConnectionendpointIPType_IPV4 = @"IPV4";
 
 
 /*!
     None
 */
-@implementation NUBRConnection : NURESTObject
+@implementation NUConnectionendpoint : NURESTObject
 {
     /*!
-        DNS Address for the vlan
+        IP Address of the end point.
     */
-    CPString _DNSAddress @accessors(property=DNSAddress);
+    CPString _IPAddress @accessors(property=IPAddress);
     /*!
-        IP address of the gateway bound to the VLAN.
+        IPv4 or IPv6 (only IPv4 supported for now).
     */
-    CPString _gateway @accessors(property=gateway);
+    CPString _IPType @accessors(property=IPType);
     /*!
-        Static IP address for the VLAN
+        Name of the connection endpoint.
     */
-    CPString _address @accessors(property=address);
+    CPString _name @accessors(property=name);
     /*!
-        Advertisement Criteria for Traffic Flow
+        A description of the connection endpoint.
     */
-    CPString _advertisementCriteria @accessors(property=advertisementCriteria);
+    CPString _description @accessors(property=description);
     /*!
-        network mask
+        Indicates if this endpoint is the source/destination of a network connection.
     */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        Connection mode: Static.
-    */
-    CPString _mode @accessors(property=mode);
-    /*!
-        Internally generated ID in the range that idenitifies the uplink within the cotext of NSG
-    */
-    CPNumber _uplinkID @accessors(property=uplinkID);
+    CPString _endPointType @accessors(property=endPointType);
     
     
 }
@@ -79,7 +69,7 @@ NUBRConnectionMode_STATIC = @"Static";
 
 + (CPString)RESTName
 {
-    return @"brconnections";
+    return @"connectionendpoint";
 }
 
 
@@ -90,13 +80,11 @@ NUBRConnectionMode_STATIC = @"Static";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DNSAddress"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"mode"];
-        [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"IPAddress"];
+        [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"endPointType"];
         
         
         

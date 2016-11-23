@@ -29,13 +29,18 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUUnderlaysFetcher.j"
 
 NUUplinkConnectionAddress_IPV4 = @"IPv4";
 NUUplinkConnectionAddress_IPV6 = @"IPv6";
+NUUplinkConnectionAdvertisementCriteria_CONTROL_SESSION = @"CONTROL_SESSION";
+NUUplinkConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
+NUUplinkConnectionAdvertisementCriteria_OPERATIONAL_LINK = @"OPERATIONAL_LINK";
 NUUplinkConnectionMode_ANY = @"Any";
 NUUplinkConnectionMode_DYNAMIC = @"Dynamic";
 NUUplinkConnectionMode_PPPOE = @"PPPoE";
 NUUplinkConnectionMode_STATIC = @"Static";
+NUUplinkConnectionRole_NONE = @"NONE";
 NUUplinkConnectionRole_PRIMARY = @"PRIMARY";
 NUUplinkConnectionRole_SECONDARY = @"SECONDARY";
 NUUplinkConnectionRole_TERTIARY = @"TERTIARY";
@@ -56,9 +61,17 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _password @accessors(property=password);
     /*!
+        IP address of the gateway bound to the port
+    */
+    CPString _gateway @accessors(property=gateway);
+    /*!
         IP address for static configuration
     */
     CPString _address @accessors(property=address);
+    /*!
+        Advertisement Criteria for Traffic Flow
+    */
+    CPString _advertisementCriteria @accessors(property=advertisementCriteria);
     /*!
         Subnet mask
     */
@@ -72,14 +85,23 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _role @accessors(property=role);
     /*!
+        ID that unqiuely identifies the uplink. 
+    */
+    CPString _uplinkID @accessors(property=uplinkID);
+    /*!
         PPPoE username
     */
     CPString _username @accessors(property=username);
+    /*!
+        UUID of the underlay associated to the uplink.
+    */
+    CPString _assocUnderlayID @accessors(property=assocUnderlayID);
     /*!
         The ID of the infrastructure VSC profile this is associated with this instance of a vlan or vlan template.
     */
     CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
     
+    NUUnderlaysFetcher _childrenUnderlays @accessors(property=childrenUnderlays);
     
 }
 
@@ -102,13 +124,18 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     {
         [self exposeLocalKeyPathToREST:@"DNSAddress"];
         [self exposeLocalKeyPathToREST:@"password"];
+        [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"mode"];
         [self exposeLocalKeyPathToREST:@"role"];
+        [self exposeLocalKeyPathToREST:@"uplinkID"];
         [self exposeLocalKeyPathToREST:@"username"];
+        [self exposeLocalKeyPathToREST:@"assocUnderlayID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         
+        _childrenUnderlays = [NUUnderlaysFetcher fetcherWithParentObject:self];
         
         
     }

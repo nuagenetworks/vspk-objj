@@ -43,6 +43,11 @@ NUVCenterHypervisorDestinationMirrorPort_ENS256 = @"ens256";
 NUVCenterHypervisorDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterHypervisorEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
+NUVCenterHypervisorVRSState_DEPLOYED = @"DEPLOYED";
+NUVCenterHypervisorVRSState_DEPLOYING = @"DEPLOYING";
+NUVCenterHypervisorVRSState_NOT_DEPLOYED = @"NOT_DEPLOYED";
+NUVCenterHypervisorVRSState_TIMEDOUT = @"TIMEDOUT";
+NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
 
 
 /*!
@@ -63,9 +68,17 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _vCenterUser @accessors(property=vCenterUser);
     /*!
+        The maximum wait time limit in minutes to get VRS configured at cluster level
+    */
+    CPNumber _VRSConfigurationTime @accessors(property=VRSConfigurationTime);
+    /*!
         ID of the VRS metrics object.
     */
     CPString _VRSMetricsID @accessors(property=VRSMetricsID);
+    /*!
+        Current state of the VRS VM on the hypervisor
+    */
+    CPString _VRSState @accessors(property=VRSState);
     /*!
         Whether split-activation or not (Openstack/CloudStack)
     */
@@ -74,6 +87,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         Name of the Hypervisor
     */
     CPString _name @accessors(property=name);
+    /*!
+        managed Object ID of hypervisor
+    */
+    CPString _managedObjectID @accessors(property=managedObjectID);
     /*!
         ID of the user who last updated the object.
     */
@@ -383,6 +400,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPArrayController _availableNetworks @accessors(property=availableNetworks);
     /*!
+        ovf url
+    */
+    CPString _ovfURL @accessors(property=ovfURL);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -428,9 +449,12 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"vCenterIP"];
         [self exposeLocalKeyPathToREST:@"vCenterPassword"];
         [self exposeLocalKeyPathToREST:@"vCenterUser"];
+        [self exposeLocalKeyPathToREST:@"VRSConfigurationTime"];
         [self exposeLocalKeyPathToREST:@"VRSMetricsID"];
+        [self exposeLocalKeyPathToREST:@"VRSState"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"managedObjectID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"lastVRSDeployedDate"];
         [self exposeLocalKeyPathToREST:@"dataDNS1"];
@@ -508,6 +532,7 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"multicastSourcePortgroup"];
         [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
         [self exposeLocalKeyPathToREST:@"availableNetworks"];
+        [self exposeLocalKeyPathToREST:@"ovfURL"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"hypervisorIP"];
         [self exposeLocalKeyPathToREST:@"hypervisorPassword"];

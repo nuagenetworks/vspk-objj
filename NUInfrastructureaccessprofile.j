@@ -34,7 +34,11 @@
 
 NUInfrastructureaccessprofileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUInfrastructureaccessprofileEntityScope_GLOBAL = @"GLOBAL";
+NUInfrastructureaccessprofileSSHAuthMode_KEY_BASED = @"KEY_BASED";
+NUInfrastructureaccessprofileSSHAuthMode_PASSWORD_AND_KEY_BASED = @"PASSWORD_AND_KEY_BASED";
 NUInfrastructureaccessprofileSSHAuthMode_PASSWORD_BASED = @"PASSWORD_BASED";
+NUInfrastructureaccessprofileSourceIPFilter_DISABLED = @"DISABLED";
+NUInfrastructureaccessprofileSourceIPFilter_ENABLED = @"ENABLED";
 
 
 /*!
@@ -70,6 +74,10 @@ NUInfrastructureaccessprofileSSHAuthMode_PASSWORD_BASED = @"PASSWORD_BASED";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Indicates if source based IP filtering is enabled for this access profile.
+    */
+    CPString _sourceIPFilter @accessors(property=sourceIPFilter);
     /*!
         Default user name which is associated to the access profile.
     */
@@ -108,6 +116,7 @@ NUInfrastructureaccessprofileSSHAuthMode_PASSWORD_BASED = @"PASSWORD_BASED";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"sourceIPFilter"];
         [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

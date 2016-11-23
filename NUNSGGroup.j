@@ -29,47 +29,34 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-
-NUBRConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
-NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
-NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
-NUBRConnectionMode_STATIC = @"Static";
+@import "Fetchers/NUNSGatewaysFetcher.j"
+@import "Fetchers/NUDUCGroupBindingsFetcher.j"
 
 
 /*!
     None
 */
-@implementation NUBRConnection : NURESTObject
+@implementation NUNSGGroup : NURESTObject
 {
     /*!
-        DNS Address for the vlan
+        Name of the NSG Group
     */
-    CPString _DNSAddress @accessors(property=DNSAddress);
+    CPString _name @accessors(property=name);
     /*!
-        IP address of the gateway bound to the VLAN.
+        UUID of the NSG Group
     */
-    CPString _gateway @accessors(property=gateway);
+    CPString _id @accessors(property=id);
     /*!
-        Static IP address for the VLAN
+        Description of the NSG Group
     */
-    CPString _address @accessors(property=address);
+    CPString _description  @accessors(property=description );
     /*!
-        Advertisement Criteria for Traffic Flow
+        List of NSGs that belong to NSG Group
     */
-    CPString _advertisementCriteria @accessors(property=advertisementCriteria);
-    /*!
-        network mask
-    */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        Connection mode: Static.
-    */
-    CPString _mode @accessors(property=mode);
-    /*!
-        Internally generated ID in the range that idenitifies the uplink within the cotext of NSG
-    */
-    CPNumber _uplinkID @accessors(property=uplinkID);
+    CPArrayController _associatedNSGs @accessors(property=associatedNSGs);
     
+    NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
+    NUDUCGroupBindingsFetcher _childrenDUCGroupBindings @accessors(property=childrenDUCGroupBindings);
     
 }
 
@@ -79,7 +66,7 @@ NUBRConnectionMode_STATIC = @"Static";
 
 + (CPString)RESTName
 {
-    return @"brconnections";
+    return @"nsggroup";
 }
 
 
@@ -90,14 +77,13 @@ NUBRConnectionMode_STATIC = @"Static";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DNSAddress"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"mode"];
-        [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"id"];
+        [self exposeLocalKeyPathToREST:@"description "];
+        [self exposeLocalKeyPathToREST:@"associatedNSGs"];
         
+        _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
+        _childrenDUCGroupBindings = [NUDUCGroupBindingsFetcher fetcherWithParentObject:self];
         
         
     }

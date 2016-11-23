@@ -53,6 +53,10 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUVCenterDataCenter : NURESTObject
 {
     /*!
+        The maximum wait time limit in minutes to get VRS configured at cluster level
+    */
+    CPNumber _VRSConfigurationTime @accessors(property=VRSConfigurationTime);
+    /*!
         Whether split-activation or not (Openstack/CloudStack)
     */
     BOOL _vRequireNuageMetadata @accessors(property=vRequireNuageMetadata);
@@ -321,6 +325,10 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _customizedScriptURL @accessors(property=customizedScriptURL);
     /*!
+        ovf url
+    */
+    CPString _ovfURL @accessors(property=ovfURL);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -353,6 +361,7 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"VRSConfigurationTime"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"managedObjectID"];
@@ -420,6 +429,7 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"multicastSendInterfaceNetmask"];
         [self exposeLocalKeyPathToREST:@"multicastSourcePortgroup"];
         [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
+        [self exposeLocalKeyPathToREST:@"ovfURL"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenVCenterClusters = [NUVCenterClustersFetcher fetcherWithParentObject:self];

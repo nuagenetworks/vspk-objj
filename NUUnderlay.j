@@ -30,45 +30,24 @@
 @import <Bambou/NURESTObject.j>
 
 
-NUBRConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
-NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
-NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
-NUBRConnectionMode_STATIC = @"Static";
-
 
 /*!
     None
 */
-@implementation NUBRConnection : NURESTObject
+@implementation NUUnderlay : NURESTObject
 {
     /*!
-        DNS Address for the vlan
+        Name of the underlay
     */
-    CPString _DNSAddress @accessors(property=DNSAddress);
+    CPString _name @accessors(property=name);
     /*!
-        IP address of the gateway bound to the VLAN.
+        Description of the underlay
     */
-    CPString _gateway @accessors(property=gateway);
+    CPString _description @accessors(property=description);
     /*!
-        Static IP address for the VLAN
+        None
     */
-    CPString _address @accessors(property=address);
-    /*!
-        Advertisement Criteria for Traffic Flow
-    */
-    CPString _advertisementCriteria @accessors(property=advertisementCriteria);
-    /*!
-        network mask
-    */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        Connection mode: Static.
-    */
-    CPString _mode @accessors(property=mode);
-    /*!
-        Internally generated ID in the range that idenitifies the uplink within the cotext of NSG
-    */
-    CPNumber _uplinkID @accessors(property=uplinkID);
+    CPNumber _underlayID @accessors(property=underlayID);
     
     
 }
@@ -79,7 +58,7 @@ NUBRConnectionMode_STATIC = @"Static";
 
 + (CPString)RESTName
 {
-    return @"brconnections";
+    return @"underlay";
 }
 
 
@@ -90,13 +69,9 @@ NUBRConnectionMode_STATIC = @"Static";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DNSAddress"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"mode"];
-        [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"underlayID"];
         
         
         

@@ -316,6 +316,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _globalMACAddress @accessors(property=globalMACAddress);
     /*!
+        This flag is used to indicate if flow collection is enabled in the system.
+    */
+    BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
+    /*!
         Defines the inactive timeout for the client. If the client is inactive for more than timeout, server clears off all the cache/information regarding the client. This value should be greater than event processor max timeout
     */
     CPNumber _inactiveTimeout @accessors(property=inactiveTimeout);
@@ -654,6 +658,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"elasticSearchUIAddress"];
         [self exposeLocalKeyPathToREST:@"allowEnterpriseAvatarOnNSG"];
         [self exposeLocalKeyPathToREST:@"globalMACAddress"];
+        [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"inactiveTimeout"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainTunnelType"];

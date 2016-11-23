@@ -129,6 +129,10 @@ NUVLANStatus_READY = @"READY";
     */
     CPString _status @accessors(property=status);
     /*!
+        When set to true, this specifies that this VLAN instance serves as an underlay connection endpoint on an NSG-UBR gateway.
+    */
+    BOOL _ducVlan @accessors(property=ducVlan);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -181,6 +185,7 @@ NUVLANStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"ducVlan"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
