@@ -54,7 +54,7 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
     /*!
         The maximum wait time limit in minutes to get VRS configured at cluster level
     */
-    CPNumber _VRSConfigurationTime @accessors(property=VRSConfigurationTime);
+    CPNumber _VRSConfigurationTimeLimit @accessors(property=VRSConfigurationTimeLimit);
     /*!
         Whether split-activation or not (Openstack/CloudStack)
     */
@@ -183,6 +183,10 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         Site ID field for object profiles to support VSD Geo-redundancy
     */
     CPString _siteId @accessors(property=siteId);
+    /*!
+        Old Agency Name
+    */
+    CPString _oldAgencyName @accessors(property=oldAgencyName);
     /*!
         Whether to get the Data IP for the VRS VM from DHCP or statically
     */
@@ -383,7 +387,7 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"VRSConfigurationTime"];
+        [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"password"];
@@ -416,6 +420,7 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
         [self exposeLocalKeyPathToREST:@"mirrorNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"siteId"];
+        [self exposeLocalKeyPathToREST:@"oldAgencyName"];
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
         [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];

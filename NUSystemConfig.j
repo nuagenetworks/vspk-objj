@@ -252,6 +252,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _maxResponse @accessors(property=maxResponse);
     /*!
+        Whether the various VRS license flavours be merged in one pool
+    */
+    BOOL _accumulateLicensesEnabled  @accessors(property=accumulateLicensesEnabled );
+    /*!
         performance Path Selection Virtual Network ID
     */
     CPNumber _performancePathSelectionVNID @accessors(property=performancePathSelectionVNID);
@@ -642,6 +646,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"maxFailedLogins"];
         [self exposeLocalKeyPathToREST:@"maxResponse"];
+        [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled "];
         [self exposeLocalKeyPathToREST:@"performancePathSelectionVNID"];
         [self exposeLocalKeyPathToREST:@"serviceIDUpperLimit"];
         [self exposeLocalKeyPathToREST:@"keyServerMonitorEnabled"];

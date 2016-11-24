@@ -70,7 +70,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     /*!
         The maximum wait time limit in minutes to get VRS configured at cluster level
     */
-    CPNumber _VRSConfigurationTime @accessors(property=VRSConfigurationTime);
+    CPNumber _VRSConfigurationTimeLimit @accessors(property=VRSConfigurationTimeLimit);
     /*!
         ID of the VRS metrics object.
     */
@@ -449,7 +449,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"vCenterIP"];
         [self exposeLocalKeyPathToREST:@"vCenterPassword"];
         [self exposeLocalKeyPathToREST:@"vCenterUser"];
-        [self exposeLocalKeyPathToREST:@"VRSConfigurationTime"];
+        [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
         [self exposeLocalKeyPathToREST:@"VRSMetricsID"];
         [self exposeLocalKeyPathToREST:@"VRSState"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];

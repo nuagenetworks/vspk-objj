@@ -54,7 +54,7 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
     /*!
         The maximum wait time limit in minutes to get VRS configured at cluster level
     */
-    CPNumber _VRSConfigurationTime @accessors(property=VRSConfigurationTime);
+    CPNumber _VRSConfigurationTimeLimit @accessors(property=VRSConfigurationTimeLimit);
     /*!
         Whether split-activation or not (Openstack/CloudStack)
     */
@@ -367,7 +367,7 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"VRSConfigurationTime"];
+        [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"managedObjectID"];

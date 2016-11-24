@@ -37,6 +37,14 @@
 @implementation NULicenseStatus : NURESTObject
 {
     /*!
+        Whether the various VRS license flavours be merged in one pool
+    */
+    CPString _accumulateLicensesEnabled @accessors(property=accumulateLicensesEnabled);
+    /*!
+         Indicates total VRS+VRSG+VRSB licenses licensed in the system
+    */
+    CPNumber _totalLicensedGatewaysCount  @accessors(property=totalLicensedGatewaysCount );
+    /*!
         Indicates total NIC count for all the licenses in the system
     */
     CPNumber _totalLicensedNICsCount @accessors(property=totalLicensedNICsCount);
@@ -76,6 +84,10 @@
         Indicates total VRS count for all the licenses in the system
     */
     CPNumber _totalLicensedVRSsCount @accessors(property=totalLicensedVRSsCount);
+    /*!
+        Indicates total VRS+VRSG+VRSB licenses used in the system
+    */
+    CPNumber _totalUsedGatewaysCount  @accessors(property=totalUsedGatewaysCount );
     
     
 }
@@ -97,6 +109,8 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
+        [self exposeLocalKeyPathToREST:@"totalLicensedGatewaysCount "];
         [self exposeLocalKeyPathToREST:@"totalLicensedNICsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedNSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedNICsCount"];
@@ -107,6 +121,7 @@
         [self exposeLocalKeyPathToREST:@"totalLicensedVMsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSsCount"];
+        [self exposeLocalKeyPathToREST:@"totalUsedGatewaysCount "];
         
         
         
