@@ -26,66 +26,16 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <AppKit/CPArrayController.j>
-@import <Bambou/NURESTObject.j>
+@import <Bambou/NURESTFetcher.j>
 
-@import "Fetchers/NUNSGatewaysFetcher.j"
+@class NUFirewallRule
 
 
-/*!
-    None
-*/
-@implementation NUDUCGroup : NURESTObject
+@implementation NUFirewallRulesFetcher : NURESTFetcher
+
++ (Class)managedObjectClass
 {
-    /*!
-        Name given to the UBR Group.
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Description of the UBR Group.
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        List of NSG UBRs (formely named DUCs) that belong to this Disjoint Underlay Connector Group. 
-    */
-    CPArrayController _associatedDUCs @accessors(property=associatedDUCs);
-    /*!
-        Identification of the Performance Monitoring Probe that is associated with this instance of a UBR Group.
-    */
-    CPString _associatedPerformanceMonitorID @accessors(property=associatedPerformanceMonitorID);
-    
-    NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
-    
-}
-
-
-#pragma mark -
-#pragma mark Class Method
-
-+ (CPString)RESTName
-{
-    return @"ducgroup";
-}
-
-
-#pragma mark -
-#pragma mark Initialization
-
-- (id)init
-{
-    if (self = [super init])
-    {
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"associatedDUCs"];
-        [self exposeLocalKeyPathToREST:@"associatedPerformanceMonitorID"];
-        
-        _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
-        
-        
-    }
-
-    return self;
+    return NUFirewallRule;
 }
 
 @end

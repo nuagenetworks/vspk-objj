@@ -78,6 +78,8 @@
 @import "NUEventLogsFetcher.j"
 @import "NUExternalAppServicesFetcher.j"
 @import "NUExternalServicesFetcher.j"
+@import "NUFirewallAclsFetcher.j"
+@import "NUFirewallRulesFetcher.j"
 @import "NUFloatingIPACLTemplateEntriesFetcher.j"
 @import "NUFloatingIPACLTemplatesFetcher.j"
 @import "NUFloatingIpsFetcher.j"

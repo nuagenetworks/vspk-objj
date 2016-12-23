@@ -134,6 +134,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _elasticSearchUIAddress @accessors(property=elasticSearchUIAddress);
     /*!
+        Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires "statisticsEnabled".
+    */
+    BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
+    /*!
         Email address of the user
     */
     CPString _email @accessors(property=email);
@@ -153,6 +157,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         Mobile Number of the user
     */
     CPString _mobileNumber @accessors(property=mobileNumber);
+    /*!
+        This flag is used to indicate if statistics is enabled in the system. CSProot is expected to activate this through the enable statistics script.
+    */
+    BOOL _statisticsEnabled @accessors(property=statisticsEnabled);
     /*!
         URL to the avatar data associated with the enterprise. If the avatarType is URL then value of avatarData should an URL of the image. If the avatarType BASE64 then avatarData should be BASE64 encoded value of the image
     */
@@ -263,6 +271,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"firstName"];
         [self exposeLocalKeyPathToREST:@"disabled"];
         [self exposeLocalKeyPathToREST:@"elasticSearchUIAddress"];
+        [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"email"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
@@ -270,6 +279,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"mobileNumber"];
         [self exposeLocalKeyPathToREST:@"role"];
         [self exposeLocalKeyPathToREST:@"userName"];
+        [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
         [self exposeLocalKeyPathToREST:@"avatarData"];
         [self exposeLocalKeyPathToREST:@"avatarType"];
         [self exposeLocalKeyPathToREST:@"externalID"];

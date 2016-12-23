@@ -254,7 +254,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     /*!
         Whether the various VRS license flavours be merged in one pool
     */
-    BOOL _accumulateLicensesEnabled  @accessors(property=accumulateLicensesEnabled );
+    BOOL _accumulateLicensesEnabled @accessors(property=accumulateLicensesEnabled);
     /*!
         performance Path Selection Virtual Network ID
     */
@@ -320,7 +320,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _globalMACAddress @accessors(property=globalMACAddress);
     /*!
-        This flag is used to indicate if flow collection is enabled in the system.
+        Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires "statisticsEnabled".
     */
     BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
@@ -646,7 +646,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"maxFailedLogins"];
         [self exposeLocalKeyPathToREST:@"maxResponse"];
-        [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled "];
+        [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
         [self exposeLocalKeyPathToREST:@"performancePathSelectionVNID"];
         [self exposeLocalKeyPathToREST:@"serviceIDUpperLimit"];
         [self exposeLocalKeyPathToREST:@"keyServerMonitorEnabled"];

@@ -29,38 +29,42 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUFirewallRulesFetcher.j"
+@import "Fetchers/NUDomainsFetcher.j"
 
 
 /*!
-    This class tries to define the scope of probe (the NSGs between which the probe needs) to run.
+    None
 */
-@implementation NUMonitorscope : NURESTObject
+@implementation NUFirewallAcl : NURESTObject
 {
     /*!
-        Name for the given scope
+        The name of the entity
     */
     CPString _name @accessors(property=name);
     /*!
-        Determines whether this entity is read only. Read only objects cannot be modified or deleted.
+        If enabled, it means that this ACL or QOS entry is active
     */
-    BOOL _readOnly @accessors(property=readOnly);
+    BOOL _active @accessors(property=active);
     /*!
-        List of destination NSGs to which the probe needs to run
+        If enabled a default ACL of Allow All is added as the last entry in thelist of ACL entries 
     */
-    CPArrayController _destinationNSGs @accessors(property=destinationNSGs);
+    BOOL _defaultAllowIP @accessors(property=defaultAllowIP);
     /*!
-        When set true, allows all destination NSGs
+        If enabled, non ip traffic will be dropped
     */
-    BOOL _allowAllDestinationNSGs @accessors(property=allowAllDestinationNSGs);
+    BOOL _defaultAllowNonIP @accessors(property=defaultAllowNonIP);
     /*!
-        When set true, allows all Source NSGs
+        A description of the entity
     */
-    BOOL _allowAllSourceNSGs @accessors(property=allowAllSourceNSGs);
+    CPString _description @accessors(property=description);
     /*!
-        List of source NSGs from which the probe needs to be started.
+        Firewall rules associated with this firewall acl.
     */
-    CPArrayController _sourceNSGs @accessors(property=sourceNSGs);
+    CPArrayController _ruleIds @accessors(property=ruleIds);
     
+    NUFirewallRulesFetcher _childrenFirewallRules @accessors(property=childrenFirewallRules);
+    NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
     
 }
 
@@ -70,7 +74,7 @@
 
 + (CPString)RESTName
 {
-    return @"monitorscope";
+    return @"firewallacl";
 }
 
 
@@ -82,12 +86,14 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"readOnly"];
-        [self exposeLocalKeyPathToREST:@"destinationNSGs"];
-        [self exposeLocalKeyPathToREST:@"allowAllDestinationNSGs"];
-        [self exposeLocalKeyPathToREST:@"allowAllSourceNSGs"];
-        [self exposeLocalKeyPathToREST:@"sourceNSGs"];
+        [self exposeLocalKeyPathToREST:@"active"];
+        [self exposeLocalKeyPathToREST:@"defaultAllowIP"];
+        [self exposeLocalKeyPathToREST:@"defaultAllowNonIP"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"ruleIds"];
         
+        _childrenFirewallRules = [NUFirewallRulesFetcher fetcherWithParentObject:self];
+        _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
         
         
     }

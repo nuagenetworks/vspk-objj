@@ -43,7 +43,7 @@
     /*!
          Indicates total VRS+VRSG+VRSB licenses licensed in the system
     */
-    CPNumber _totalLicensedGatewaysCount  @accessors(property=totalLicensedGatewaysCount );
+    CPNumber _totalLicensedGatewaysCount @accessors(property=totalLicensedGatewaysCount);
     /*!
         Indicates total NIC count for all the licenses in the system
     */
@@ -87,7 +87,7 @@
     /*!
         Indicates total VRS+VRSG+VRSB licenses used in the system
     */
-    CPNumber _totalUsedGatewaysCount  @accessors(property=totalUsedGatewaysCount );
+    CPNumber _totalUsedGatewaysCount @accessors(property=totalUsedGatewaysCount);
     
     
 }
@@ -110,7 +110,7 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
-        [self exposeLocalKeyPathToREST:@"totalLicensedGatewaysCount "];
+        [self exposeLocalKeyPathToREST:@"totalLicensedGatewaysCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedNICsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedNSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedNICsCount"];
@@ -121,7 +121,7 @@
         [self exposeLocalKeyPathToREST:@"totalLicensedVMsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSsCount"];
-        [self exposeLocalKeyPathToREST:@"totalUsedGatewaysCount "];
+        [self exposeLocalKeyPathToREST:@"totalUsedGatewaysCount"];
         
         
         

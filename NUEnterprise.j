@@ -48,6 +48,8 @@
 @import "Fetchers/NUBGPProfilesFetcher.j"
 @import "Fetchers/NUEgressQOSPoliciesFetcher.j"
 @import "Fetchers/NUSharedNetworkResourcesFetcher.j"
+@import "Fetchers/NUFirewallAclsFetcher.j"
+@import "Fetchers/NUFirewallRulesFetcher.j"
 @import "Fetchers/NUIKECertificatesFetcher.j"
 @import "Fetchers/NUIKEEncryptionprofilesFetcher.j"
 @import "Fetchers/NUIKEGatewaysFetcher.j"
@@ -237,6 +239,8 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUBGPProfilesFetcher _childrenBGPProfiles @accessors(property=childrenBGPProfiles);
     NUEgressQOSPoliciesFetcher _childrenEgressQOSPolicies @accessors(property=childrenEgressQOSPolicies);
     NUSharedNetworkResourcesFetcher _childrenSharedNetworkResources @accessors(property=childrenSharedNetworkResources);
+    NUFirewallAclsFetcher _childrenFirewallAcls @accessors(property=childrenFirewallAcls);
+    NUFirewallRulesFetcher _childrenFirewallRules @accessors(property=childrenFirewallRules);
     NUIKECertificatesFetcher _childrenIKECertificates @accessors(property=childrenIKECertificates);
     NUIKEEncryptionprofilesFetcher _childrenIKEEncryptionprofiles @accessors(property=childrenIKEEncryptionprofiles);
     NUIKEGatewaysFetcher _childrenIKEGateways @accessors(property=childrenIKEGateways);
@@ -338,6 +342,8 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenBGPProfiles = [NUBGPProfilesFetcher fetcherWithParentObject:self];
         _childrenEgressQOSPolicies = [NUEgressQOSPoliciesFetcher fetcherWithParentObject:self];
         _childrenSharedNetworkResources = [NUSharedNetworkResourcesFetcher fetcherWithParentObject:self];
+        _childrenFirewallAcls = [NUFirewallAclsFetcher fetcherWithParentObject:self];
+        _childrenFirewallRules = [NUFirewallRulesFetcher fetcherWithParentObject:self];
         _childrenIKECertificates = [NUIKECertificatesFetcher fetcherWithParentObject:self];
         _childrenIKEEncryptionprofiles = [NUIKEEncryptionprofilesFetcher fetcherWithParentObject:self];
         _childrenIKEGateways = [NUIKEGatewaysFetcher fetcherWithParentObject:self];

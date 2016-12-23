@@ -81,6 +81,8 @@
 @import "NUEventLog.j"
 @import "NUExternalAppService.j"
 @import "NUExternalService.j"
+@import "NUFirewallAcl.j"
+@import "NUFirewallRule.j"
 @import "NUFloatingIPACLTemplate.j"
 @import "NUFloatingIPACLTemplateEntry.j"
 @import "NUFloatingIp.j"
@@ -276,6 +278,8 @@
 [[NURESTModelController defaultController] registerModelClass:NUEventLog];
 [[NURESTModelController defaultController] registerModelClass:NUExternalAppService];
 [[NURESTModelController defaultController] registerModelClass:NUExternalService];
+[[NURESTModelController defaultController] registerModelClass:NUFirewallAcl];
+[[NURESTModelController defaultController] registerModelClass:NUFirewallRule];
 [[NURESTModelController defaultController] registerModelClass:NUFloatingIPACLTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUFloatingIPACLTemplateEntry];
 [[NURESTModelController defaultController] registerModelClass:NUFloatingIp];

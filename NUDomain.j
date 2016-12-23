@@ -39,6 +39,7 @@
 @import "Fetchers/NUFloatingIPACLTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NULinksFetcher.j"
+@import "Fetchers/NUFirewallAclsFetcher.j"
 @import "Fetchers/NUFloatingIpsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
@@ -296,6 +297,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUFloatingIPACLTemplatesFetcher _childrenFloatingIPACLTemplates @accessors(property=childrenFloatingIPACLTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NULinksFetcher _childrenLinks @accessors(property=childrenLinks);
+    NUFirewallAclsFetcher _childrenFirewallAcls @accessors(property=childrenFirewallAcls);
     NUFloatingIpsFetcher _childrenFloatingIps @accessors(property=childrenFloatingIps);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
@@ -399,6 +401,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenFloatingIPACLTemplates = [NUFloatingIPACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenLinks = [NULinksFetcher fetcherWithParentObject:self];
+        _childrenFirewallAcls = [NUFirewallAclsFetcher fetcherWithParentObject:self];
         _childrenFloatingIps = [NUFloatingIpsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];

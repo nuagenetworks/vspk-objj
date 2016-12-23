@@ -43,13 +43,9 @@
     */
     CPString _name @accessors(property=name);
     /*!
-        UUID of the NSG Group
-    */
-    CPString _id @accessors(property=id);
-    /*!
         Description of the NSG Group
     */
-    CPString _description  @accessors(property=description );
+    CPString _description @accessors(property=description);
     /*!
         List of NSGs that belong to NSG Group
     */
@@ -78,8 +74,7 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"id"];
-        [self exposeLocalKeyPathToREST:@"description "];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"associatedNSGs"];
         
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
