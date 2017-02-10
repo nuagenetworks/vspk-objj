@@ -60,6 +60,10 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        re-Deploy
+    */
+    BOOL _reDeploy @accessors(property=reDeploy);
+    /*!
         Is the VRS VM Sending Metrics to the hypervisor on VCIN
     */
     BOOL _receivingMetrics @accessors(property=receivingMetrics);
@@ -113,6 +117,7 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"VRSProcess"];
         [self exposeLocalKeyPathToREST:@"VRSVSCStatus"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"reDeploy"];
         [self exposeLocalKeyPathToREST:@"receivingMetrics"];
         [self exposeLocalKeyPathToREST:@"memoryUtilization"];
         [self exposeLocalKeyPathToREST:@"jesxmonProcess"];

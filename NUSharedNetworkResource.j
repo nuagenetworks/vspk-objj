@@ -50,6 +50,8 @@ NUSharedNetworkResourceType_FLOATING = @"FLOATING";
 NUSharedNetworkResourceType_L2DOMAIN = @"L2DOMAIN";
 NUSharedNetworkResourceType_PUBLIC = @"PUBLIC";
 NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
+NUSharedNetworkResourceUseGlobalMAC_DISABLED = @"DISABLED";
+NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
 
 
 /*!
@@ -89,6 +91,10 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
         Gatemask configured on the shared resource
     */
     CPString _gateway @accessors(property=gateway);
+    /*!
+        MAC address for a public subnet or managed l2 domain
+    */
+    CPString _gatewayMACAddress @accessors(property=gatewayMACAddress);
     /*!
         Boolean indicates that this shared network resource is avaiable to everyone by default or not
     */
@@ -150,6 +156,10 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
     */
     CPString _uplinkVPortName @accessors(property=uplinkVPortName);
     /*!
+        if this flag is enabled, the system configured globalMACAddress will be used as the gateway mac address
+    */
+    CPString _useGlobalMAC @accessors(property=useGlobalMAC);
+    /*!
         The ID of the PatMapper entity to which this pool is associated to.
     */
     CPString _associatedPATMapperID @accessors(property=associatedPATMapperID);
@@ -202,6 +212,7 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
+        [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
         [self exposeLocalKeyPathToREST:@"accessRestrictionEnabled"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"permittedActionType"];
@@ -217,6 +228,7 @@ NUSharedNetworkResourceType_UPLINK_SUBNET = @"UPLINK_SUBNET";
         [self exposeLocalKeyPathToREST:@"uplinkInterfaceIP"];
         [self exposeLocalKeyPathToREST:@"uplinkInterfaceMAC"];
         [self exposeLocalKeyPathToREST:@"uplinkVPortName"];
+        [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicPATAllocationEnabled"];

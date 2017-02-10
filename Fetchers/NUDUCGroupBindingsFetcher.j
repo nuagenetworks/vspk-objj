@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUInfrastructurePortProfile
+@class NUDUCGroupBinding
 
 
-@implementation NUInfrastructurePortProfilesFetcher : NURESTFetcher
+@implementation NUDUCGroupBindingsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUInfrastructurePortProfile;
+    return NUDUCGroupBinding;
 }
 
 @end

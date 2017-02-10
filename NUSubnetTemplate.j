@@ -36,16 +36,22 @@
 @import "Fetchers/NUSubnetsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUSubnetTemplateDPI_DISABLED = @"DISABLED";
+NUSubnetTemplateDPI_ENABLED = @"ENABLED";
+NUSubnetTemplateDPI_INHERITED = @"INHERITED";
 NUSubnetTemplateEncryption_DISABLED = @"DISABLED";
 NUSubnetTemplateEncryption_ENABLED = @"ENABLED";
 NUSubnetTemplateEncryption_INHERITED = @"INHERITED";
 NUSubnetTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUSubnetTemplateEntityScope_GLOBAL = @"GLOBAL";
+NUSubnetTemplateIPType_DUALSTACK = @"DUALSTACK";
 NUSubnetTemplateIPType_IPV4 = @"IPV4";
 NUSubnetTemplateIPType_IPV6 = @"IPV6";
 NUSubnetTemplateMulticast_DISABLED = @"DISABLED";
 NUSubnetTemplateMulticast_ENABLED = @"ENABLED";
 NUSubnetTemplateMulticast_INHERITED = @"INHERITED";
+NUSubnetTemplateUseGlobalMAC_DISABLED = @"DISABLED";
+NUSubnetTemplateUseGlobalMAC_ENABLED = @"ENABLED";
 
 
 /*!
@@ -54,9 +60,21 @@ NUSubnetTemplateMulticast_INHERITED = @"INHERITED";
 @implementation NUSubnetTemplate : NURESTObject
 {
     /*!
+        determines whether or not Deep packet inspection is enabled
+    */
+    CPString _DPI @accessors(property=DPI);
+    /*!
         IPv4 or IPv6
     */
     CPString _IPType @accessors(property=IPType);
+    /*!
+        The IPv6 address of the gateway of this subnet
+    */
+    CPString _IPv6Gateway @accessors(property=IPv6Gateway);
+    /*!
+        IPv6 address of the subnet defined. In case of zone, this is an optional field for and allows users to allocate an IP address range to a zone. The VSD will auto-assign IP addresses to subnets from this range if a specific IP address is not defined for the subnet
+    */
+    CPString _IPv6address @accessors(property=IPv6address);
     /*!
         Name of the current entity(Zone or zone template or subnet etc..) Valid characters are alphabets, numbers, space and hyphen( - ).
     */
@@ -98,6 +116,10 @@ NUSubnetTemplateMulticast_INHERITED = @"INHERITED";
     */
     BOOL _proxyARP @accessors(property=proxyARP);
     /*!
+        if this flag is enabled, the system configured globalMACAddress will be used as the gateway mac address
+    */
+    CPString _useGlobalMAC @accessors(property=useGlobalMAC);
+    /*!
         The ID of the Multi Cast Channel Map  this Subnet/Subnet Template is associated with. This has to be set when enableMultiCast is set to ENABLED
     */
     CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
@@ -136,7 +158,10 @@ NUSubnetTemplateMulticast_INHERITED = @"INHERITED";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
+        [self exposeLocalKeyPathToREST:@"IPv6address"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
@@ -147,6 +172,7 @@ NUSubnetTemplateMulticast_INHERITED = @"INHERITED";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"splitSubnet"];
         [self exposeLocalKeyPathToREST:@"proxyARP"];
+        [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];

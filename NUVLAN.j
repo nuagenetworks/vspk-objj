@@ -37,6 +37,9 @@
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
+@import "Fetchers/NUUplinkConnectionsFetcher.j"
+@import "Fetchers/NUBRConnectionsFetcher.j"
+@import "Fetchers/NULtestatisticsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUVLANEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -115,9 +118,21 @@ NUVLANStatus_READY = @"READY";
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
+        Associated uplink connection ID
+    */
+    CPString _associatedUplinkConnectionID @accessors(property=associatedUplinkConnectionID);
+    /*!
+        The associated VSC profile for the uplink VLANS. This should be only be valid for the uplinks
+    */
+    CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
+    /*!
         Status of the VLAN.
     */
     CPString _status @accessors(property=status);
+    /*!
+        When set to true, this specifies that this VLAN instance serves as an underlay connection endpoint on an NSG-UBR gateway.
+    */
+    BOOL _ducVlan @accessors(property=ducVlan);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -131,6 +146,9 @@ NUVLANStatus_READY = @"READY";
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
+    NUUplinkConnectionsFetcher _childrenUplinkConnections @accessors(property=childrenUplinkConnections);
+    NUBRConnectionsFetcher _childrenBRConnections @accessors(property=childrenBRConnections);
+    NULtestatisticsFetcher _childrenLtestatistics @accessors(property=childrenLtestatistics);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -166,7 +184,10 @@ NUVLANStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
+        [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"ducVlan"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
@@ -177,6 +198,9 @@ NUVLANStatus_READY = @"READY";
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
+        _childrenUplinkConnections = [NUUplinkConnectionsFetcher fetcherWithParentObject:self];
+        _childrenBRConnections = [NUBRConnectionsFetcher fetcherWithParentObject:self];
+        _childrenLtestatistics = [NULtestatisticsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         

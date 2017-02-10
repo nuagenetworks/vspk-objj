@@ -35,6 +35,9 @@
 @import "Fetchers/NUSubnetTemplatesFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUZoneTemplateDPI_DISABLED = @"DISABLED";
+NUZoneTemplateDPI_ENABLED = @"ENABLED";
+NUZoneTemplateDPI_INHERITED = @"INHERITED";
 NUZoneTemplateEncryption_DISABLED = @"DISABLED";
 NUZoneTemplateEncryption_ENABLED = @"ENABLED";
 NUZoneTemplateEncryption_INHERITED = @"INHERITED";
@@ -52,6 +55,10 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
 */
 @implementation NUZoneTemplate : NURESTObject
 {
+    /*!
+        determines whether or not Deep packet inspection is enabled
+    */
+    CPString _DPI @accessors(property=DPI);
     /*!
         IPv4 or IPv6(only IPv4 is supported in R1.0) Possible values are IPV4, IPV6, .
     */
@@ -130,6 +137,7 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];

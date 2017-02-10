@@ -52,6 +52,10 @@ NUVRSRedeploymentpolicyEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _CPUUtilizationThreshold @accessors(property=CPUUtilizationThreshold);
     /*!
+        VRS Corrective Action Delay in seconds
+    */
+    CPNumber _VRSCorrectiveActionDelay @accessors(property=VRSCorrectiveActionDelay);
+    /*!
         VRS Process Redeployment Enabled
     */
     BOOL _VRSProcessRedeploymentEnabled @accessors(property=VRSProcessRedeploymentEnabled);
@@ -115,6 +119,7 @@ NUVRSRedeploymentpolicyEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"ALUbr0StatusRedeploymentEnabled"];
         [self exposeLocalKeyPathToREST:@"CPUUtilizationRedeploymentEnabled"];
         [self exposeLocalKeyPathToREST:@"CPUUtilizationThreshold"];
+        [self exposeLocalKeyPathToREST:@"VRSCorrectiveActionDelay"];
         [self exposeLocalKeyPathToREST:@"VRSProcessRedeploymentEnabled"];
         [self exposeLocalKeyPathToREST:@"VRSVSCStatusRedeploymentEnabled"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];

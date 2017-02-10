@@ -37,6 +37,9 @@ NUAddressRangeDHCPPoolType_BRIDGE = @"BRIDGE";
 NUAddressRangeDHCPPoolType_HOST = @"HOST";
 NUAddressRangeEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUAddressRangeEntityScope_GLOBAL = @"GLOBAL";
+NUAddressRangeIPType_DUALSTACK = @"DUALSTACK";
+NUAddressRangeIPType_IPV4 = @"IPV4";
+NUAddressRangeIPType_IPV6 = @"IPV6";
 
 
 /*!
@@ -48,6 +51,10 @@ NUAddressRangeEntityScope_GLOBAL = @"GLOBAL";
         DHCPPoolType is an enum that indicates if the DHCP Pool is for HOST/BRIDGE.
     */
     CPString _DHCPPoolType @accessors(property=DHCPPoolType);
+    /*!
+        IPv4 or IPv6(only IPv4 is supported in R1.0) Possible values are IPV4, IPV6, DUALSTACK.
+    */
+    CPString _IPType @accessors(property=IPType);
     /*!
         ID of the user who last updated the object.
     */
@@ -93,6 +100,7 @@ NUAddressRangeEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"DHCPPoolType"];
+        [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"maxAddress"];
         [self exposeLocalKeyPathToREST:@"minAddress"];

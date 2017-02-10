@@ -26,16 +26,58 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <Bambou/NURESTFetcher.j>
+@import <AppKit/CPArrayController.j>
+@import <Bambou/NURESTObject.j>
 
-@class NUApp
 
 
-@implementation NUAppsFetcher : NURESTFetcher
-
-+ (Class)managedObjectClass
+/*!
+    None
+*/
+@implementation NUNetworkPerformanceBinding : NURESTObject
 {
-    return NUApp;
+    /*!
+        Determines whether this entity is read only.  Read only objects cannot be modified or deleted.
+    */
+    BOOL _readOnly @accessors(property=readOnly);
+    /*!
+        Priority of the associated Network Performance Measurement
+    */
+    CPNumber _priority @accessors(property=priority);
+    /*!
+        Associated Network Performance Measurement UD
+    */
+    CPString _associatedNetworkMeasurementID @accessors(property=associatedNetworkMeasurementID);
+    
+    
+}
+
+
+#pragma mark -
+#pragma mark Class Method
+
++ (CPString)RESTName
+{
+    return @"networkperformancebinding";
+}
+
+
+#pragma mark -
+#pragma mark Initialization
+
+- (id)init
+{
+    if (self = [super init])
+    {
+        [self exposeLocalKeyPathToREST:@"readOnly"];
+        [self exposeLocalKeyPathToREST:@"priority"];
+        [self exposeLocalKeyPathToREST:@"associatedNetworkMeasurementID"];
+        
+        
+        
+    }
+
+    return self;
 }
 
 @end

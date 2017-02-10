@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUAutoDiscoverClusters
+@class NUAutoDiscoverCluster
 
 
 @implementation NUAutoDiscoverClustersFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUAutoDiscoverClusters;
+    return NUAutoDiscoverCluster;
 }
 
 @end

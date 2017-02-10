@@ -29,53 +29,41 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
-NUNSPortStaticConfigurationEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUNSPortStaticConfigurationEntityScope_GLOBAL = @"GLOBAL";
+NUAutoDiscoverClusterEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUAutoDiscoverClusterEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Represents a network port static configuration in the context of an Network Services Gateway.
+    None
 */
-@implementation NUNSPortStaticConfiguration : NURESTObject
+@implementation NUAutoDiscoverCluster : NURESTObject
 {
     /*!
-        DNS Address for Network NSPort.
+        Name of the shared resource
     */
-    CPString _DNSAddress @accessors(property=DNSAddress);
+    CPString _name @accessors(property=name);
+    /*!
+        VCenter Managed Object ID of the Datacenter
+    */
+    CPString _managedObjectID @accessors(property=managedObjectID);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        IP address of the gateway bound to the Network NSPort.
-    */
-    CPString _gateway @accessors(property=gateway);
-    /*!
-        IP address of the Network NSPort.
-    */
-    CPString _address @accessors(property=address);
-    /*!
-        IP address netmask of the Network NSPort.
-    */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        Boolean value that states if the NSG Port static configuration needs to be applied.
-    */
-    BOOL _enabled @accessors(property=enabled);
-    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The ID of the vcenter to which this host is attached
+    */
+    CPString _assocVCenterDataCenterID @accessors(property=assocVCenterDataCenterID);
     /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
     
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -85,7 +73,7 @@ NUNSPortStaticConfigurationEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"nsportstaticconfiguration";
+    return @"autodiscoveredcluster";
 }
 
 
@@ -96,17 +84,13 @@ NUNSPortStaticConfigurationEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DNSAddress"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"managedObjectID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"enabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"assocVCenterDataCenterID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

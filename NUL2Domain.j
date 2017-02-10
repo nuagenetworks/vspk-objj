@@ -53,6 +53,7 @@
 @import "Fetchers/NUUplinkRDsFetcher.j"
 @import "Fetchers/NUVPNConnectionsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUApplicationperformancemanagementbindingsFetcher.j"
 @import "Fetchers/NUBridgeInterfacesFetcher.j"
 @import "Fetchers/NUGroupsFetcher.j"
 @import "Fetchers/NUStaticRoutesFetcher.j"
@@ -60,6 +61,8 @@
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUL2DomainDPI_DISABLED = @"DISABLED";
+NUL2DomainDPI_ENABLED = @"ENABLED";
 NUL2DomainEncryption_DISABLED = @"DISABLED";
 NUL2DomainEncryption_ENABLED = @"ENABLED";
 NUL2DomainEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -91,6 +94,10 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         decides whether L2Domain / L2Domain template DHCP is managed by VSD
     */
     BOOL _DHCPManaged @accessors(property=DHCPManaged);
+    /*!
+        determines whether or not Deep packet inspection is enabled
+    */
+    CPString _DPI @accessors(property=DPI);
     /*!
         IPv4 or IPv6
     */
@@ -148,7 +155,7 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        
+        None
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
     /*!
@@ -208,6 +215,7 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUUplinkRDsFetcher _childrenUplinkRDs @accessors(property=childrenUplinkRDs);
     NUVPNConnectionsFetcher _childrenVPNConnections @accessors(property=childrenVPNConnections);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUApplicationperformancemanagementbindingsFetcher _childrenApplicationperformancemanagementbindings @accessors(property=childrenApplicationperformancemanagementbindings);
     NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
     NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
     NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
@@ -235,6 +243,7 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"DHCPManaged"];
+        [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
@@ -283,6 +292,7 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenUplinkRDs = [NUUplinkRDsFetcher fetcherWithParentObject:self];
         _childrenVPNConnections = [NUVPNConnectionsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenApplicationperformancemanagementbindings = [NUApplicationperformancemanagementbindingsFetcher fetcherWithParentObject:self];
         _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
         _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
         _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];

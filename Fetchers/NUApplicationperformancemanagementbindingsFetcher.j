@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUNSPortStaticConfiguration
+@class NUApplicationperformancemanagementbinding
 
 
-@implementation NUNSPortStaticConfigurationsFetcher : NURESTFetcher
+@implementation NUApplicationperformancemanagementbindingsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUNSPortStaticConfiguration;
+    return NUApplicationperformancemanagementbinding;
 }
 
 @end

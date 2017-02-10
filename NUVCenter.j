@@ -37,6 +37,11 @@
 @import "Fetchers/NUVRSRedeploymentpoliciesFetcher.j"
 @import "Fetchers/NUAutodiscovereddatacentersFetcher.j"
 
+NUVCenterDestinationMirrorPort_ENS160 = @"ens160";
+NUVCenterDestinationMirrorPort_ENS161 = @"ens161";
+NUVCenterDestinationMirrorPort_ENS224 = @"ens224";
+NUVCenterDestinationMirrorPort_ENS256 = @"ens256";
+NUVCenterDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterEntityScope_GLOBAL = @"GLOBAL";
 
@@ -46,6 +51,10 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
 */
 @implementation NUVCenter : NURESTObject
 {
+    /*!
+        The maximum wait time limit in minutes to get VRS configured at cluster level
+    */
+    CPNumber _VRSConfigurationTimeLimit @accessors(property=VRSConfigurationTimeLimit);
     /*!
         Whether split-activation or not (Openstack/CloudStack)
     */
@@ -102,6 +111,10 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         Description of the VCenter
     */
     CPString _description @accessors(property=description);
+    /*!
+        Extra Vnic to mirror access port
+    */
+    CPString _destinationMirrorPort @accessors(property=destinationMirrorPort);
     /*!
         Metadata Server IP
     */
@@ -163,9 +176,17 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _dhcpRelayServer @accessors(property=dhcpRelayServer);
     /*!
+        Mirror Port Group Name
+    */
+    CPString _mirrorNetworkPortgroup @accessors(property=mirrorNetworkPortgroup);
+    /*!
         Site ID field for object profiles to support VSD Geo-redundancy
     */
     CPString _siteId @accessors(property=siteId);
+    /*!
+        Old Agency Name
+    */
+    CPString _oldAgencyName @accessors(property=oldAgencyName);
     /*!
         Whether to get the Data IP for the VRS VM from DHCP or statically
     */
@@ -234,6 +255,22 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         IP Address of the VCenter
     */
     CPString _ipAddress @accessors(property=ipAddress);
+    /*!
+        upgradePackagePassword
+    */
+    CPString _upgradePackagePassword @accessors(property=upgradePackagePassword);
+    /*!
+        upgradePackageURL
+    */
+    CPString _upgradePackageURL @accessors(property=upgradePackageURL);
+    /*!
+        upgradePackageUsername
+    */
+    CPString _upgradePackageUsername @accessors(property=upgradePackageUsername);
+    /*!
+        upgradeScriptTimeLimit
+    */
+    CPNumber _upgradeScriptTimeLimit @accessors(property=upgradeScriptTimeLimit);
     /*!
         IP address of the primary Controller (VSC)
     */
@@ -366,6 +403,7 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"password"];
@@ -380,6 +418,7 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"destinationMirrorPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
         [self exposeLocalKeyPathToREST:@"metadataServerListenPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerPort"];
@@ -395,7 +434,9 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"mgmtGateway"];
         [self exposeLocalKeyPathToREST:@"mgmtNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
+        [self exposeLocalKeyPathToREST:@"mirrorNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"siteId"];
+        [self exposeLocalKeyPathToREST:@"oldAgencyName"];
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
         [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
@@ -413,6 +454,10 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"novaMetadataSharedSecret"];
         [self exposeLocalKeyPathToREST:@"novaRegionName"];
         [self exposeLocalKeyPathToREST:@"ipAddress"];
+        [self exposeLocalKeyPathToREST:@"upgradePackagePassword"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageURL"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageUsername"];
+        [self exposeLocalKeyPathToREST:@"upgradeScriptTimeLimit"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsConfigID"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];

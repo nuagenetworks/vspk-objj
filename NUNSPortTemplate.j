@@ -37,6 +37,11 @@ NUNSPortTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSPortTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUNSPortTemplatePortType_ACCESS = @"ACCESS";
 NUNSPortTemplatePortType_NETWORK = @"NETWORK";
+NUNSPortTemplateSpeed_AUTONEGOTIATE = @"AUTONEGOTIATE";
+NUNSPortTemplateSpeed_BASET10 = @"BASET10";
+NUNSPortTemplateSpeed_BASET1000 = @"BASET1000";
+NUNSPortTemplateSpeed_BASETX100 = @"BASETX100";
+NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
 
 
 /*!
@@ -77,13 +82,17 @@ NUNSPortTemplatePortType_NETWORK = @"NETWORK";
     */
     CPString _portType @accessors(property=portType);
     /*!
+        Port Speed in Mb/s :  Supported Ethernet speeds are 10 (10Base-T), 100 (Fast-ethernet 100Base-TX), 1000 (Gigabit Ethernet 1000Base-T), 10 000 (10 Gigabit Ethernet 10GBase-X), and Auto-Negotiate
+    */
+    CPString _speed @accessors(property=speed);
+    /*!
         ID of the Egress QOS Policy associated with this Vlan.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
-        The ID of the infrastructure VSC profile this is associated with this instance of a port or port template.
+        Port MTU (Maximum Transmission Unit) :  The size in octets of the largest protocol data unit hat the layer can pass on.
     */
-    CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
+    CPNumber _mtu @accessors(property=mtu);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -120,8 +129,9 @@ NUNSPortTemplatePortType_NETWORK = @"NETWORK";
         [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];
+        [self exposeLocalKeyPathToREST:@"speed"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
-        [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
+        [self exposeLocalKeyPathToREST:@"mtu"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

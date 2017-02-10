@@ -35,7 +35,6 @@
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
-@import "Fetchers/NUNSPortStaticConfigurationsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
@@ -53,6 +52,11 @@ NUNSPortPermittedAction_READ = @"READ";
 NUNSPortPermittedAction_USE = @"USE";
 NUNSPortPortType_ACCESS = @"ACCESS";
 NUNSPortPortType_NETWORK = @"NETWORK";
+NUNSPortSpeed_AUTONEGOTIATE = @"AUTONEGOTIATE";
+NUNSPortSpeed_BASE10 = @"BASE10";
+NUNSPortSpeed_BASET1000 = @"BASET1000";
+NUNSPortSpeed_BASETX100 = @"BASETX100";
+NUNSPortSpeed_BASEX10G = @"BASEX10G";
 NUNSPortStatus_INITIALIZED = @"INITIALIZED";
 NUNSPortStatus_MISMATCH = @"MISMATCH";
 NUNSPortStatus_ORPHAN = @"ORPHAN";
@@ -97,10 +101,6 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _physicalName @accessors(property=physicalName);
     /*!
-        The ID of the infrastructure profile this instance is associated with.
-    */
-    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
-    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -108,6 +108,10 @@ NUNSPortStatus_READY = @"READY";
         Type of the Port.
     */
     CPString _portType @accessors(property=portType);
+    /*!
+        Port Speed in Mb/s :  Supported Ethernet speeds are 10 (10Base-T), 100 (Fast-ethernet 100Base-TX), 1000 (Gigabit Ethernet 1000Base-T), 10 000 (10 Gigabit Ethernet 10GBase-X), and Auto-Negotiate.
+    */
+    CPString _speed @accessors(property=speed);
     /*!
         determines whether to use user mnemonic of the Port
     */
@@ -125,13 +129,13 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _associatedRedundantPortID @accessors(property=associatedRedundantPortID);
     /*!
-        The ID of the infrastructure VSC profile this is associated with this instance of a port or port template.
-    */
-    CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
-    /*!
         Status of the port.
     */
     CPString _status @accessors(property=status);
+    /*!
+        Port MTU (Maximum Transmission Unit) :  The size in octets of the largest protocol data unit (PDU) that the layer can pass on.  The default value is normally 1500 octets for Ethernet v2 and can go up to 9198 for Jumbo Frames.
+    */
+    CPNumber _mtu @accessors(property=mtu);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -143,7 +147,6 @@ NUNSPortStatus_READY = @"READY";
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
-    NUNSPortStaticConfigurationsFetcher _childrenNSPortStaticConfigurations @accessors(property=childrenNSPortStaticConfigurations);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
@@ -175,15 +178,15 @@ NUNSPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
-        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];
+        [self exposeLocalKeyPathToREST:@"speed"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedRedundantPortID"];
-        [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"mtu"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
@@ -192,7 +195,6 @@ NUNSPortStatus_READY = @"READY";
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
-        _childrenNSPortStaticConfigurations = [NUNSPortStaticConfigurationsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];

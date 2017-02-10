@@ -35,6 +35,7 @@
 
 NUPublicNetworkMacroEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPublicNetworkMacroEntityScope_GLOBAL = @"GLOBAL";
+NUPublicNetworkMacroIPType_DUALSTACK = @"DUALSTACK";
 NUPublicNetworkMacroIPType_IPV4 = @"IPV4";
 NUPublicNetworkMacroIPType_IPV6 = @"IPV6";
 
@@ -48,6 +49,10 @@ NUPublicNetworkMacroIPType_IPV6 = @"IPV6";
         IPv4 or IPv6(only IPv4 is supported in R1.0) Possible values are IPV4, IPV6, .
     */
     CPString _IPType @accessors(property=IPType);
+    /*!
+        IPv6 address of the subnet defined. In case of zone, this is an optional field for and allows users to allocate an IP address range to a zone. The VSD will auto-assign IP addresses to subnets from this range if a specific IP address is not defined for the subnet
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
     /*!
         Name of the current entity(Zone or zone template or subnet etc..) Valid characters are alphabets, numbers, space and hyphen( - ).
     */
@@ -97,6 +102,7 @@ NUPublicNetworkMacroIPType_IPV6 = @"IPV6";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"address"];

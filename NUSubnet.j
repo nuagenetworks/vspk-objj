@@ -292,11 +292,19 @@ NUSubnetAssociatedApplicationObjectType_VSP = @"VSP";
 NUSubnetAssociatedApplicationObjectType_WAN_SERVICE = @"WAN_SERVICE";
 NUSubnetAssociatedApplicationObjectType_ZONE = @"ZONE";
 NUSubnetAssociatedApplicationObjectType_ZONE_TEMPLATE = @"ZONE_TEMPLATE";
+NUSubnetDHCPRelayStatus_DISABLED = @"DISABLED";
+NUSubnetDHCPRelayStatus_ENABLED = @"ENABLED";
+NUSubnetDPI_DISABLED = @"DISABLED";
+NUSubnetDPI_ENABLED = @"ENABLED";
+NUSubnetDPI_INHERITED = @"INHERITED";
+NUSubnetDefaultAction_DROP_TRAFFIC = @"DROP_TRAFFIC";
+NUSubnetDefaultAction_USE_UNDERLAY = @"USE_UNDERLAY";
 NUSubnetEncryption_DISABLED = @"DISABLED";
 NUSubnetEncryption_ENABLED = @"ENABLED";
 NUSubnetEncryption_INHERITED = @"INHERITED";
 NUSubnetEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUSubnetEntityScope_GLOBAL = @"GLOBAL";
+NUSubnetIPType_DUALSTACK = @"DUALSTACK";
 NUSubnetIPType_IPV4 = @"IPV4";
 NUSubnetIPType_IPV6 = @"IPV6";
 NUSubnetMaintenanceMode_DISABLED = @"DISABLED";
@@ -311,6 +319,8 @@ NUSubnetPATEnabled_INHERITED = @"INHERITED";
 NUSubnetUnderlayEnabled_DISABLED = @"DISABLED";
 NUSubnetUnderlayEnabled_ENABLED = @"ENABLED";
 NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
+NUSubnetUseGlobalMAC_DISABLED = @"DISABLED";
+NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
 
 
 /*!
@@ -323,9 +333,25 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     */
     CPString _PATEnabled @accessors(property=PATEnabled);
     /*!
+        None
+    */
+    CPString _DHCPRelayStatus @accessors(property=DHCPRelayStatus);
+    /*!
+        determines whether or not Deep packet inspection is enabled
+    */
+    CPString _DPI @accessors(property=DPI);
+    /*!
         IPv4 or IPv6
     */
     CPString _IPType @accessors(property=IPType);
+    /*!
+        IP address of the subnet defined. In case of zone, this is an optional field for and allows users to allocate an IP address range to a zone. The VSD will auto-assign IP addresses to subnets from this range if a specific IP address is not defined for the subnet
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
+    /*!
+        The IPv6 address of the gateway of this subnet
+    */
+    CPString _IPv6Gateway @accessors(property=IPv6Gateway);
     /*!
         maintenanceMode is an enum that indicates if the SubNetwork is accepting VM activation requests.
     */
@@ -351,6 +377,10 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     */
     CPString _address @accessors(property=address);
     /*!
+        If PAT is disabled then this flag indicates what to do if routes don't exist in overlay, will default to drop | possible values USE_UNDERLAY, DROP_TRAFFIC Possible values are USE_UNDERLAY, DROP_TRAFFIC, .
+    */
+    CPString _defaultAction @accessors(property=defaultAction);
+    /*!
         The ID of the subnet template that this subnet object was derived from
     */
     CPString _templateID @accessors(property=templateID);
@@ -375,7 +405,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     */
     CPString _encryption @accessors(property=encryption);
     /*!
-        Boolean flag to indicate whether underlay is enabled directly or indirectly
+        Read Only Boolean flag to indicate whether underlay is enabled directly or indirectly
     */
     BOOL _underlay @accessors(property=underlay);
     /*!
@@ -406,6 +436,10 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
          when set VRS will act as  ARP Proxy
     */
     BOOL _proxyARP @accessors(property=proxyARP);
+    /*!
+        if this flag is enabled, the system configured globalMACAddress will be used as the gateway mac address
+    */
+    CPString _useGlobalMAC @accessors(property=useGlobalMAC);
     /*!
         The associated application ID.
     */
@@ -480,13 +514,18 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"PATEnabled"];
+        [self exposeLocalKeyPathToREST:@"DHCPRelayStatus"];
+        [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
+        [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"defaultAction"];
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"serviceID"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -501,6 +540,7 @@ NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"splitSubnet"];
         [self exposeLocalKeyPathToREST:@"proxyARP"];
+        [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationID"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationObjectID"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationObjectType"];

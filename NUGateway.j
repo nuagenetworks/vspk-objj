@@ -52,6 +52,7 @@ NUGatewayPersonality_DC7X50 = @"DC7X50";
 NUGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUGatewayPersonality_NSG = @"NSG";
 NUGatewayPersonality_OTHER = @"OTHER";
+NUGatewayPersonality_VRSB = @"VRSB";
 NUGatewayPersonality_VRSG = @"VRSG";
 NUGatewayPersonality_VSA = @"VSA";
 NUGatewayPersonality_VSG = @"VSG";
@@ -106,6 +107,10 @@ NUGatewayPersonality_VSG = @"VSG";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        When set, VLAN-VNID mapping must be unique for all the vports of the gateway
+    */
+    BOOL _useGatewayVLANVNID @accessors(property=useGatewayVLANVNID);
     /*!
         Represent the system ID or the Virtual IP of a service used by a Gateway (VSG for now) to establish a tunnel with a remote VSG or hypervisor.  The format of this field is consistent with an IP address.
     */
@@ -164,6 +169,7 @@ NUGatewayPersonality_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"useGatewayVLANVNID"];
         [self exposeLocalKeyPathToREST:@"vtep"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
         [self exposeLocalKeyPathToREST:@"externalID"];

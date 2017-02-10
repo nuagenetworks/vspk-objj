@@ -39,6 +39,7 @@
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NULocationsFetcher.j"
+@import "Fetchers/NUMonitorscopesFetcher.j"
 @import "Fetchers/NUBootstrapsFetcher.j"
 @import "Fetchers/NUBootstrapActivationsFetcher.j"
 @import "Fetchers/NUNSGInfosFetcher.j"
@@ -58,11 +59,18 @@ NUNSGatewayConfigurationReloadState_UNKNOWN = @"UNKNOWN";
 NUNSGatewayConfigurationStatus_FAILURE = @"FAILURE";
 NUNSGatewayConfigurationStatus_SUCCESS = @"SUCCESS";
 NUNSGatewayConfigurationStatus_UNKNOWN = @"UNKNOWN";
+NUNSGatewayDerivedSSHServiceState_INHERITED_DISABLED = @"INHERITED_DISABLED";
+NUNSGatewayDerivedSSHServiceState_INHERITED_ENABLED = @"INHERITED_ENABLED";
+NUNSGatewayDerivedSSHServiceState_INSTANCE_DISABLED = @"INSTANCE_DISABLED";
+NUNSGatewayDerivedSSHServiceState_INSTANCE_ENABLED = @"INSTANCE_ENABLED";
+NUNSGatewayDerivedSSHServiceState_UNKNOWN = @"UNKNOWN";
 NUNSGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGatewayEntityScope_GLOBAL = @"GLOBAL";
 NUNSGatewayFamily_ANY = @"ANY";
 NUNSGatewayFamily_NSG_E = @"NSG_E";
 NUNSGatewayFamily_NSG_V = @"NSG_V";
+NUNSGatewayInheritedSSHServiceState_DISABLED = @"DISABLED";
+NUNSGatewayInheritedSSHServiceState_ENABLED = @"ENABLED";
 NUNSGatewayPermittedAction_ALL = @"ALL";
 NUNSGatewayPermittedAction_DEPLOY = @"DEPLOY";
 NUNSGatewayPermittedAction_EXTEND = @"EXTEND";
@@ -72,10 +80,15 @@ NUNSGatewayPermittedAction_USE = @"USE";
 NUNSGatewayPersonality_DC7X50 = @"DC7X50";
 NUNSGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUNSGatewayPersonality_NSG = @"NSG";
+NUNSGatewayPersonality_NSGBR = @"NSGBR";
+NUNSGatewayPersonality_NSGDUC = @"NSGDUC";
 NUNSGatewayPersonality_OTHER = @"OTHER";
 NUNSGatewayPersonality_VRSG = @"VRSG";
 NUNSGatewayPersonality_VSA = @"VSA";
 NUNSGatewayPersonality_VSG = @"VSG";
+NUNSGatewaySSHService_DISABLED = @"DISABLED";
+NUNSGatewaySSHService_ENABLED = @"ENABLED";
+NUNSGatewaySSHService_INHERITED = @"INHERITED";
 NUNSGatewayTPMStatus_DISABLED = @"DISABLED";
 NUNSGatewayTPMStatus_ENABLED_NOT_OPERATIONAL = @"ENABLED_NOT_OPERATIONAL";
 NUNSGatewayTPMStatus_ENABLED_OPERATIONAL = @"ENABLED_OPERATIONAL";
@@ -111,6 +124,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         The NSG Version
     */
     CPString _NSGVersion @accessors(property=NSGVersion);
+    /*!
+        Indicates if SSH Service is enabled/disabled on a NSG. The value configured for this attribute is used only when instanceSSHOverride is allowed on the associated Gateway Template.
+    */
+    CPString _SSHService @accessors(property=SSHService);
     /*!
         The Redhat UUID of the NSG
     */
@@ -152,6 +169,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _serialNumber @accessors(property=serialNumber);
     /*!
+        Indicates the SSH Service state on a NSG. This value is derived based on the SSHService configuration on the NSG and the associated Gateway Template.
+    */
+    CPString _derivedSSHServiceState @accessors(property=derivedSSHServiceState);
+    /*!
         The permitted  action to USE/EXTEND  this Gateway.
     */
     CPString _permittedAction @accessors(property=permittedAction);
@@ -163,6 +184,14 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         A description of the Gateway
     */
     CPString _description @accessors(property=description);
+    /*!
+        Transient representation of the same property on NSGInfo.
+    */
+    CPString _libraries @accessors(property=libraries);
+    /*!
+        Indicates the SSH Service state which is configured on the associated template instance.
+    */
+    CPString _inheritedSSHServiceState @accessors(property=inheritedSSHServiceState);
     /*!
         The enterprise associated with this Gateway. This is a read only attribute
     */
@@ -226,6 +255,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NULocationsFetcher _childrenLocations @accessors(property=childrenLocations);
+    NUMonitorscopesFetcher _childrenMonitorscopes @accessors(property=childrenMonitorscopes);
     NUBootstrapsFetcher _childrenBootstraps @accessors(property=childrenBootstraps);
     NUBootstrapActivationsFetcher _childrenBootstrapActivations @accessors(property=childrenBootstrapActivations);
     NUNSGInfosFetcher _childrenNSGInfos @accessors(property=childrenNSGInfos);
@@ -258,6 +288,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
         [self exposeLocalKeyPathToREST:@"CPUType"];
         [self exposeLocalKeyPathToREST:@"NSGVersion"];
+        [self exposeLocalKeyPathToREST:@"SSHService"];
         [self exposeLocalKeyPathToREST:@"UUID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"family"];
@@ -268,9 +299,12 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"pending"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
+        [self exposeLocalKeyPathToREST:@"derivedSSHServiceState"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"libraries"];
+        [self exposeLocalKeyPathToREST:@"inheritedSSHServiceState"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];
@@ -295,6 +329,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenLocations = [NULocationsFetcher fetcherWithParentObject:self];
+        _childrenMonitorscopes = [NUMonitorscopesFetcher fetcherWithParentObject:self];
         _childrenBootstraps = [NUBootstrapsFetcher fetcherWithParentObject:self];
         _childrenBootstrapActivations = [NUBootstrapActivationsFetcher fetcherWithParentObject:self];
         _childrenNSGInfos = [NUNSGInfosFetcher fetcherWithParentObject:self];

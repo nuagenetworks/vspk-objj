@@ -46,6 +46,7 @@
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUHostInterfacesFetcher.j"
 @import "Fetchers/NUVPortMirrorsFetcher.j"
+@import "Fetchers/NUApplicationperformancemanagementsFetcher.j"
 @import "Fetchers/NUBridgeInterfacesFetcher.j"
 @import "Fetchers/NUVRSsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
@@ -55,6 +56,9 @@
 NUVPortAddressSpoofing_DISABLED = @"DISABLED";
 NUVPortAddressSpoofing_ENABLED = @"ENABLED";
 NUVPortAddressSpoofing_INHERITED = @"INHERITED";
+NUVPortDPI_DISABLED = @"DISABLED";
+NUVPortDPI_ENABLED = @"ENABLED";
+NUVPortDPI_INHERITED = @"INHERITED";
 NUVPortEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVPortEntityScope_GLOBAL = @"GLOBAL";
 NUVPortMulticast_DISABLED = @"DISABLED";
@@ -84,6 +88,10 @@ NUVPortType_VM = @"VM";
         associated Vlan of this vport - applicable for type host/bridge
     */
     CPString _VLANID @accessors(property=VLANID);
+    /*!
+        determines whether or not Deep packet inspection is enabled
+    */
+    CPString _DPI @accessors(property=DPI);
     /*!
         Name of the vport. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
@@ -174,6 +182,7 @@ NUVPortType_VM = @"VM";
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
     NUVPortMirrorsFetcher _childrenVPortMirrors @accessors(property=childrenVPortMirrors);
+    NUApplicationperformancemanagementsFetcher _childrenApplicationperformancemanagements @accessors(property=childrenApplicationperformancemanagements);
     NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
     NUVRSsFetcher _childrenVRSs @accessors(property=childrenVRSs);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
@@ -200,6 +209,7 @@ NUVPortType_VM = @"VM";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"VLANID"];
+        [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"hasAttachedInterfaces"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
@@ -236,6 +246,7 @@ NUVPortType_VM = @"VM";
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
         _childrenVPortMirrors = [NUVPortMirrorsFetcher fetcherWithParentObject:self];
+        _childrenApplicationperformancemanagements = [NUApplicationperformancemanagementsFetcher fetcherWithParentObject:self];
         _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
         _childrenVRSs = [NUVRSsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];

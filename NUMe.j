@@ -41,6 +41,7 @@
 @import "Fetchers/NUVCenterHypervisorsFetcher.j"
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NURedundancyGroupsFetcher.j"
+@import "Fetchers/NUPerformanceMonitorsFetcher.j"
 @import "Fetchers/NUCertificatesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUMetadataTagsFetcher.j"
@@ -65,8 +66,9 @@
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
 @import "Fetchers/NUCloudMgmtSystemsFetcher.j"
+@import "Fetchers/NUUnderlaysFetcher.j"
+@import "Fetchers/NUInfrastructureAccessProfilesFetcher.j"
 @import "Fetchers/NUInfrastructureGatewayProfilesFetcher.j"
-@import "Fetchers/NUInfrastructurePortProfilesFetcher.j"
 @import "Fetchers/NUInfrastructureVscProfilesFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
@@ -87,12 +89,13 @@
 @import "Fetchers/NUUsersFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
 @import "Fetchers/NUNSGatewayTemplatesFetcher.j"
+@import "Fetchers/NUNSGGroupsFetcher.j"
 @import "Fetchers/NUNSRedundantGatewayGroupsFetcher.j"
 @import "Fetchers/NUVSPsFetcher.j"
-@import "Fetchers/NUNSPortStaticConfigurationsFetcher.j"
 @import "Fetchers/NUStaticRoutesFetcher.j"
 @import "Fetchers/NUStatsCollectorInfosFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
+@import "Fetchers/NUDUCGroupsFetcher.j"
 @import "Fetchers/NUMultiCastChannelMapsFetcher.j"
 @import "Fetchers/NUAutoDiscoveredGatewaysFetcher.j"
 @import "Fetchers/NUExternalAppServicesFetcher.j"
@@ -128,6 +131,14 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     */
     BOOL _disabled @accessors(property=disabled);
     /*!
+        elastic search UI address
+    */
+    CPString _elasticSearchUIAddress @accessors(property=elasticSearchUIAddress);
+    /*!
+        Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires "statisticsEnabled".
+    */
+    BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
+    /*!
         Email address of the user
     */
     CPString _email @accessors(property=email);
@@ -147,6 +158,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         Mobile Number of the user
     */
     CPString _mobileNumber @accessors(property=mobileNumber);
+    /*!
+        This flag is used to indicate if statistics is enabled in the system. CSProot is expected to activate this through the enable statistics script.
+    */
+    BOOL _statisticsEnabled @accessors(property=statisticsEnabled);
     /*!
         URL to the avatar data associated with the enterprise. If the avatarType is URL then value of avatarData should an URL of the image. If the avatarType BASE64 then avatarData should be BASE64 encoded value of the image
     */
@@ -172,6 +187,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUVCenterHypervisorsFetcher _childrenVCenterHypervisors @accessors(property=childrenVCenterHypervisors);
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NURedundancyGroupsFetcher _childrenRedundancyGroups @accessors(property=childrenRedundancyGroups);
+    NUPerformanceMonitorsFetcher _childrenPerformanceMonitors @accessors(property=childrenPerformanceMonitors);
     NUCertificatesFetcher _childrenCertificates @accessors(property=childrenCertificates);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUMetadataTagsFetcher _childrenMetadataTags @accessors(property=childrenMetadataTags);
@@ -196,8 +212,9 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
     NUCloudMgmtSystemsFetcher _childrenCloudMgmtSystems @accessors(property=childrenCloudMgmtSystems);
+    NUUnderlaysFetcher _childrenUnderlays @accessors(property=childrenUnderlays);
+    NUInfrastructureAccessProfilesFetcher _childrenInfrastructureAccessProfiles @accessors(property=childrenInfrastructureAccessProfiles);
     NUInfrastructureGatewayProfilesFetcher _childrenInfrastructureGatewayProfiles @accessors(property=childrenInfrastructureGatewayProfiles);
-    NUInfrastructurePortProfilesFetcher _childrenInfrastructurePortProfiles @accessors(property=childrenInfrastructurePortProfiles);
     NUInfrastructureVscProfilesFetcher _childrenInfrastructureVscProfiles @accessors(property=childrenInfrastructureVscProfiles);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
@@ -218,12 +235,13 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     NUNSGatewayTemplatesFetcher _childrenNSGatewayTemplates @accessors(property=childrenNSGatewayTemplates);
+    NUNSGGroupsFetcher _childrenNSGGroups @accessors(property=childrenNSGGroups);
     NUNSRedundantGatewayGroupsFetcher _childrenNSRedundantGatewayGroups @accessors(property=childrenNSRedundantGatewayGroups);
     NUVSPsFetcher _childrenVSPs @accessors(property=childrenVSPs);
-    NUNSPortStaticConfigurationsFetcher _childrenNSPortStaticConfigurations @accessors(property=childrenNSPortStaticConfigurations);
     NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
     NUStatsCollectorInfosFetcher _childrenStatsCollectorInfos @accessors(property=childrenStatsCollectorInfos);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
+    NUDUCGroupsFetcher _childrenDUCGroups @accessors(property=childrenDUCGroups);
     NUMultiCastChannelMapsFetcher _childrenMultiCastChannelMaps @accessors(property=childrenMultiCastChannelMaps);
     NUAutoDiscoveredGatewaysFetcher _childrenAutoDiscoveredGateways @accessors(property=childrenAutoDiscoveredGateways);
     NUExternalAppServicesFetcher _childrenExternalAppServices @accessors(property=childrenExternalAppServices);
@@ -254,6 +272,8 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"firstName"];
         [self exposeLocalKeyPathToREST:@"disabled"];
+        [self exposeLocalKeyPathToREST:@"elasticSearchUIAddress"];
+        [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"email"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
@@ -261,6 +281,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"mobileNumber"];
         [self exposeLocalKeyPathToREST:@"role"];
         [self exposeLocalKeyPathToREST:@"userName"];
+        [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
         [self exposeLocalKeyPathToREST:@"avatarData"];
         [self exposeLocalKeyPathToREST:@"avatarType"];
         [self exposeLocalKeyPathToREST:@"externalID"];
@@ -277,6 +298,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenVCenterHypervisors = [NUVCenterHypervisorsFetcher fetcherWithParentObject:self];
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenRedundancyGroups = [NURedundancyGroupsFetcher fetcherWithParentObject:self];
+        _childrenPerformanceMonitors = [NUPerformanceMonitorsFetcher fetcherWithParentObject:self];
         _childrenCertificates = [NUCertificatesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenMetadataTags = [NUMetadataTagsFetcher fetcherWithParentObject:self];
@@ -301,8 +323,9 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
         _childrenCloudMgmtSystems = [NUCloudMgmtSystemsFetcher fetcherWithParentObject:self];
+        _childrenUnderlays = [NUUnderlaysFetcher fetcherWithParentObject:self];
+        _childrenInfrastructureAccessProfiles = [NUInfrastructureAccessProfilesFetcher fetcherWithParentObject:self];
         _childrenInfrastructureGatewayProfiles = [NUInfrastructureGatewayProfilesFetcher fetcherWithParentObject:self];
-        _childrenInfrastructurePortProfiles = [NUInfrastructurePortProfilesFetcher fetcherWithParentObject:self];
         _childrenInfrastructureVscProfiles = [NUInfrastructureVscProfilesFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
@@ -323,12 +346,13 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         _childrenNSGatewayTemplates = [NUNSGatewayTemplatesFetcher fetcherWithParentObject:self];
+        _childrenNSGGroups = [NUNSGGroupsFetcher fetcherWithParentObject:self];
         _childrenNSRedundantGatewayGroups = [NUNSRedundantGatewayGroupsFetcher fetcherWithParentObject:self];
         _childrenVSPs = [NUVSPsFetcher fetcherWithParentObject:self];
-        _childrenNSPortStaticConfigurations = [NUNSPortStaticConfigurationsFetcher fetcherWithParentObject:self];
         _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
         _childrenStatsCollectorInfos = [NUStatsCollectorInfosFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
+        _childrenDUCGroups = [NUDUCGroupsFetcher fetcherWithParentObject:self];
         _childrenMultiCastChannelMaps = [NUMultiCastChannelMapsFetcher fetcherWithParentObject:self];
         _childrenAutoDiscoveredGateways = [NUAutoDiscoveredGatewaysFetcher fetcherWithParentObject:self];
         _childrenExternalAppServices = [NUExternalAppServicesFetcher fetcherWithParentObject:self];

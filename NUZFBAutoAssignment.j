@@ -69,9 +69,17 @@ NUZFBAutoAssignmentZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Priority of the Auto Assignment
+    */
+    CPNumber _priority @accessors(property=priority);
+    /*!
         Associated Enterprise ID
     */
     CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
+    /*!
+        The name of the associated Enterprise
+    */
+    CPString _associatedEnterpriseName @accessors(property=associatedEnterpriseName);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -103,7 +111,9 @@ NUZFBAutoAssignmentZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
+        [self exposeLocalKeyPathToREST:@"associatedEnterpriseName"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

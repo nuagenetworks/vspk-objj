@@ -30,39 +30,28 @@
 @import <Bambou/NURESTObject.j>
 
 
-NUAutoDiscoverClustersEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUAutoDiscoverClustersEntityScope_GLOBAL = @"GLOBAL";
-
 
 /*!
     None
 */
-@implementation NUAutoDiscoverClusters : NURESTObject
+@implementation NUDUCGroupBinding : NURESTObject
 {
     /*!
-        Name of the shared resource
+        VSD UUID of the UBR Group Binding instance.
     */
-    CPString _name @accessors(property=name);
+    CPString _id @accessors(property=id);
     /*!
-        VCenter Managed Object ID of the Datacenter
+        SLA delay value in milliseconds that is tolerated between NSG instances and NSG-UBR (DUC) instances being bound through this binding instance.  If delay is to be ignored, then the value of -1 is to be entered.  Value 0 is not permitted.
     */
-    CPString _managedObjectID @accessors(property=managedObjectID);
+    CPNumber _oneWayDelay @accessors(property=oneWayDelay);
     /*!
-        ID of the user who last updated the object.
+        The priority for NSG Group to UBR Group relationship.
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    CPNumber _priority @accessors(property=priority);
     /*!
-        Specify if scope of entity is Data center or Enterprise level
+        Identification of the UBR Group associated to this group binding instance.
     */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        The ID of the vcenter to which this host is attached
-    */
-    CPString _assocVCenterDataCenterID @accessors(property=assocVCenterDataCenterID);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _associatedDUCGroupID @accessors(property=associatedDUCGroupID);
     
     
 }
@@ -73,7 +62,7 @@ NUAutoDiscoverClustersEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"autodiscoveredcluster";
+    return @"ducgroupbinding";
 }
 
 
@@ -84,12 +73,10 @@ NUAutoDiscoverClustersEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"managedObjectID"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"assocVCenterDataCenterID"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"id"];
+        [self exposeLocalKeyPathToREST:@"oneWayDelay"];
+        [self exposeLocalKeyPathToREST:@"priority"];
+        [self exposeLocalKeyPathToREST:@"associatedDUCGroupID"];
         
         
         

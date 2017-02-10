@@ -288,6 +288,9 @@ NUZoneAssociatedApplicationObjectType_VSP = @"VSP";
 NUZoneAssociatedApplicationObjectType_WAN_SERVICE = @"WAN_SERVICE";
 NUZoneAssociatedApplicationObjectType_ZONE = @"ZONE";
 NUZoneAssociatedApplicationObjectType_ZONE_TEMPLATE = @"ZONE_TEMPLATE";
+NUZoneDPI_DISABLED = @"DISABLED";
+NUZoneDPI_ENABLED = @"ENABLED";
+NUZoneDPI_INHERITED = @"INHERITED";
 NUZoneEncryption_DISABLED = @"DISABLED";
 NUZoneEncryption_ENABLED = @"ENABLED";
 NUZoneEncryption_INHERITED = @"INHERITED";
@@ -308,6 +311,10 @@ NUZoneMulticast_INHERITED = @"INHERITED";
 */
 @implementation NUZone : NURESTObject
 {
+    /*!
+        determines whether or not Deep packet inspection is enabled
+    */
+    CPString _DPI @accessors(property=DPI);
     /*!
         IPv4 or IPv6
     */
@@ -421,6 +428,7 @@ NUZoneMulticast_INHERITED = @"INHERITED";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];

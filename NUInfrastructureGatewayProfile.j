@@ -32,6 +32,9 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUInfrastructureGatewayProfileControllerLessForwardingMode_DISABLED = @"DISABLED";
+NUInfrastructureGatewayProfileControllerLessForwardingMode_LOCAL_AND_REMOTE = @"LOCAL_AND_REMOTE";
+NUInfrastructureGatewayProfileControllerLessForwardingMode_LOCAL_ONLY = @"LOCAL_ONLY";
 NUInfrastructureGatewayProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUInfrastructureGatewayProfileEntityScope_GLOBAL = @"GLOBAL";
 NUInfrastructureGatewayProfileRemoteLogMode_DISABLED = @"DISABLED";
@@ -72,7 +75,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPNumber _datapathSyncTimeout @accessors(property=datapathSyncTimeout);
     /*!
-        Time, in seconds, allowed for a Gateway to be inactive before the VSD revokes its certificates and marks it as untrusted.
+        ISO 8601 format duration: **P nYnMnD T nHnMnS**. **P** represents the period field and **T** the time field. Period field: **Y** = year, **M** = month, **D** = day. Time field: **H** = hours, **M** = minutes, **S** = seconds. **n** is the value of each field. Because the years and month are units that vary in length, for the time being those are not supported yet.
     */
     CPString _deadTimer @accessors(property=deadTimer);
     /*!
@@ -100,6 +103,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _metadataUpgradePath @accessors(property=metadataUpgradePath);
     /*!
+        Number of flows at which eviction from kernel flow table will be triggered (default: 2500)
+    */
+    CPNumber _flowEvictionThreshold @accessors(property=flowEvictionThreshold);
+    /*!
         Enterprise/Organisation associated with this Profile instance.
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
@@ -108,7 +115,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Duration for a controller-less operation (in ISO-duration format).
+        Duration for a controller-less local operation (in ISO-duration format).
     */
     CPString _controllerLessDuration @accessors(property=controllerLessDuration);
     /*!
@@ -116,9 +123,21 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     BOOL _controllerLessEnabled @accessors(property=controllerLessEnabled);
     /*!
+        The forwarding mode to use for controllerLess operations
+    */
+    CPString _controllerLessForwardingMode @accessors(property=controllerLessForwardingMode);
+    /*!
+        Duration for a controller-less remote operation (in ISO-duration format).
+    */
+    CPString _controllerLessRemoteDuration @accessors(property=controllerLessRemoteDuration);
+    /*!
         Usually the synchronization will span across 1 hour window after the defined synchronization time. Forcing an immediate synchronization can overload the system and can have a negative impact on the system.
     */
     BOOL _forceImmediateSystemSync @accessors(property=forceImmediateSystemSync);
+    /*!
+        Openflow audit timer in sec. Upon the expiry of this timer a set of cleanup operations will be performed
+    */
+    CPNumber _openFlowAuditTimer @accessors(property=openFlowAuditTimer);
     /*!
         Upgrade action for NSG associated with this Infrastructure Gateway Profile instance.
     */
@@ -178,11 +197,15 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"remoteLogServerPort"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"metadataUpgradePath"];
+        [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"controllerLessDuration"];
         [self exposeLocalKeyPathToREST:@"controllerLessEnabled"];
+        [self exposeLocalKeyPathToREST:@"controllerLessForwardingMode"];
+        [self exposeLocalKeyPathToREST:@"controllerLessRemoteDuration"];
         [self exposeLocalKeyPathToREST:@"forceImmediateSystemSync"];
+        [self exposeLocalKeyPathToREST:@"openFlowAuditTimer"];
         [self exposeLocalKeyPathToREST:@"upgradeAction"];
         [self exposeLocalKeyPathToREST:@"proxyDNSName"];
         [self exposeLocalKeyPathToREST:@"useTwoFactor"];

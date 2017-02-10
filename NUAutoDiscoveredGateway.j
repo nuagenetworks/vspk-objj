@@ -42,6 +42,7 @@ NUAutoDiscoveredGatewayPersonality_DC7X50 = @"DC7X50";
 NUAutoDiscoveredGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUAutoDiscoveredGatewayPersonality_NSG = @"NSG";
 NUAutoDiscoveredGatewayPersonality_OTHER = @"OTHER";
+NUAutoDiscoveredGatewayPersonality_VRSB = @"VRSB";
 NUAutoDiscoveredGatewayPersonality_VRSG = @"VRSG";
 NUAutoDiscoveredGatewayPersonality_VSA = @"VSA";
 NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
@@ -84,6 +85,10 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
         Controllers to which this gateway instance is associated with.
     */
     CPArrayController _controllers @accessors(property=controllers);
+    /*!
+        When set, VLAN-VNID mapping must be unique for all the vports of the gateway
+    */
+    BOOL _useGatewayVLANVNID @accessors(property=useGatewayVLANVNID);
     /*!
         Represent the system ID or the Virtual IP of a service used by a Gateway (VSG for now) to establish a tunnel with a remote VSG or hypervisor.  The format of this field is consistent with an IP address.
     */
@@ -131,6 +136,7 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"controllers"];
+        [self exposeLocalKeyPathToREST:@"useGatewayVLANVNID"];
         [self exposeLocalKeyPathToREST:@"vtep"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];

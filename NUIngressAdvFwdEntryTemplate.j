@@ -309,6 +309,7 @@ NUIngressAdvFwdEntryTemplateNetworkType_SUBNET = @"SUBNET";
 NUIngressAdvFwdEntryTemplateNetworkType_ZONE = @"ZONE";
 NUIngressAdvFwdEntryTemplatePolicyState_DRAFT = @"DRAFT";
 NUIngressAdvFwdEntryTemplatePolicyState_LIVE = @"LIVE";
+NUIngressAdvFwdEntryTemplateUplinkPreference_DEFAULT = @"DEFAULT";
 NUIngressAdvFwdEntryTemplateUplinkPreference_PRIMARY = @"PRIMARY";
 NUIngressAdvFwdEntryTemplateUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECONDARY";
 NUIngressAdvFwdEntryTemplateUplinkPreference_SECONDARY = @"SECONDARY";
@@ -337,6 +338,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Value of the Service Class to be overridden in the packet when the match conditions are satisfied Possible values are NONE, A, B, C, D, E, F, G, H, .
     */
     CPString _FCOverride @accessors(property=FCOverride);
+    /*!
+        Overrides the source IPv6 for Ingress and destination IPv6 for Egress, macentries will use this adress as the match criteria.
+    */
+    CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
     /*!
         DSCP match condition to be set in the rule. It is either * or from 0-63
     */
@@ -414,7 +419,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _sourcePort @accessors(property=sourcePort);
     /*!
-        Indicates the preferencial path selection for network traffic for this ACL - Default is Primary 1 and Secondary 2 when the attribute is applicable.
+        Indicates the preferencial path selection for network traffic for this ACL - default is DEFAULT when the attribute is applicable.
     */
     CPString _uplinkPreference @accessors(property=uplinkPreference);
     /*!
@@ -486,6 +491,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
         [self exposeLocalKeyPathToREST:@"FCOverride"];
+        [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];

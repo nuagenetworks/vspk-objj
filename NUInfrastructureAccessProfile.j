@@ -32,31 +32,32 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
-NUInfrastructurePortProfileDuplex_FULL = @"FULL";
-NUInfrastructurePortProfileDuplex_HALF = @"HALF";
-NUInfrastructurePortProfileDuplex_SIMPLEX = @"SIMPLEX";
-NUInfrastructurePortProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUInfrastructurePortProfileEntityScope_GLOBAL = @"GLOBAL";
-NUInfrastructurePortProfileSpeed_AUTONEGOTIATE = @"AUTONEGOTIATE";
-NUInfrastructurePortProfileSpeed_BASET10 = @"BASET10";
-NUInfrastructurePortProfileSpeed_BASET1000 = @"BASET1000";
-NUInfrastructurePortProfileSpeed_BASETX100 = @"BASETX100";
-NUInfrastructurePortProfileSpeed_BASEX10G = @"BASEX10G";
-NUInfrastructurePortProfileUplinkTag_PRIMARY = @"PRIMARY";
-NUInfrastructurePortProfileUplinkTag_SECONDARY = @"SECONDARY";
-NUInfrastructurePortProfileUplinkTag_TERTIARY = @"TERTIARY";
-NUInfrastructurePortProfileUplinkTag_UNKNOWN = @"UNKNOWN";
+NUInfrastructureAccessProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUInfrastructureAccessProfileEntityScope_GLOBAL = @"GLOBAL";
+NUInfrastructureAccessProfileSSHAuthMode_KEY_BASED = @"KEY_BASED";
+NUInfrastructureAccessProfileSSHAuthMode_PASSWORD_AND_KEY_BASED = @"PASSWORD_AND_KEY_BASED";
+NUInfrastructureAccessProfileSSHAuthMode_PASSWORD_BASED = @"PASSWORD_BASED";
+NUInfrastructureAccessProfileSourceIPFilter_DISABLED = @"DISABLED";
+NUInfrastructureAccessProfileSourceIPFilter_ENABLED = @"ENABLED";
 
 
 /*!
-    Represents an Infrastructure Port Profile.
+    Represents an Infrastructure Access Profile
 */
-@implementation NUInfrastructurePortProfile : NURESTObject
+@implementation NUInfrastructureAccessProfile : NURESTObject
 {
+    /*!
+        Indicates the Authentication method used during a SSH session.
+    */
+    CPString _SSHAuthMode @accessors(property=SSHAuthMode);
     /*!
         Name of the Infrastructure Profile
     */
     CPString _name @accessors(property=name);
+    /*!
+        Password of the default user associated to the access profile.
+    */
+    CPString _password @accessors(property=password);
     /*!
         ID of the user who last updated the object.
     */
@@ -74,21 +75,13 @@ NUInfrastructurePortProfileUplinkTag_UNKNOWN = @"UNKNOWN";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Port Speed in Mb/s :  Supported Ethernet speeds are 10 (10Base-T), 100 (Fast-ethernet 100Base-TX), 1000 (Gigabit Ethernet 1000Base-T), 10 000 (10 Gigabit Ethernet 10GBase-X), and Auto-Negotiate.
+        Indicates if source based IP filtering is enabled for this access profile.
     */
-    CPString _speed @accessors(property=speed);
+    CPString _sourceIPFilter @accessors(property=sourceIPFilter);
     /*!
-        To allow prioritisation of traffic, the NSG network ports must be configured with an uplink type or tag value which will be used in the identification of packets being forwarded.  That identification is at the base of the selection of which network port will serve in sending packets to the outside world.  The default value is PRIMARY. Possible values are PRIMARY, SECONDARY, TERTIARY, UNKNOWN, .
+        Default user name which is associated to the access profile.
     */
-    CPString _uplinkTag @accessors(property=uplinkTag);
-    /*!
-        Port MTU (Maximum Transmission Unit) :  The size in octets of the largest protocol data unit (PDU) that the layer can pass on.  The default value is normally 1500 octets for Ethernet v2 and can go up to 9198 for Jumbo Frames.
-    */
-    CPNumber _mtu @accessors(property=mtu);
-    /*!
-        Port Duplex :  Supported values are FULL where both parties can communicate to the other simultaneously and HALF where each party can only communicate to each other in one direction at a time.
-    */
-    CPString _duplex @accessors(property=duplex);
+    CPString _userName @accessors(property=userName);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -105,7 +98,7 @@ NUInfrastructurePortProfileUplinkTag_UNKNOWN = @"UNKNOWN";
 
 + (CPString)RESTName
 {
-    return @"infrastructureportprofile";
+    return @"infrastructureaccessprofile";
 }
 
 
@@ -116,23 +109,20 @@ NUInfrastructurePortProfileUplinkTag_UNKNOWN = @"UNKNOWN";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"SSHAuthMode"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"speed"];
-        [self exposeLocalKeyPathToREST:@"uplinkTag"];
-        [self exposeLocalKeyPathToREST:@"mtu"];
-        [self exposeLocalKeyPathToREST:@"duplex"];
+        [self exposeLocalKeyPathToREST:@"sourceIPFilter"];
+        [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
-        _duplex = @"FULL";
-        _speed = @"AUTONEGOTIATE";
-        _mtu = 1500;
         
     }
 

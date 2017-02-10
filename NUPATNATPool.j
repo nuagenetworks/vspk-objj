@@ -98,7 +98,7 @@ NUPATNATPoolPermittedAction_USE = @"USE";
     */
     CPString _associatedGatewayId @accessors(property=associatedGatewayId);
     /*!
-        
+        None
     */
     CPString _associatedGatewayType @accessors(property=associatedGatewayType);
     /*!

@@ -38,6 +38,9 @@ NUIKEGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIKEGatewayEntityScope_GLOBAL = @"GLOBAL";
 NUIKEGatewayIKEVersion_V1 = @"V1";
 NUIKEGatewayIKEVersion_V2 = @"V2";
+NUIKEGatewayIKEv1Mode_AGGRESSIVE = @"AGGRESSIVE";
+NUIKEGatewayIKEv1Mode_MAIN = @"MAIN";
+NUIKEGatewayIKEv1Mode_NONE = @"NONE";
 
 
 /*!
@@ -49,6 +52,10 @@ NUIKEGatewayIKEVersion_V2 = @"V2";
         The IKE Version
     */
     CPString _IKEVersion @accessors(property=IKEVersion);
+    /*!
+        Mode for IKEv1
+    */
+    CPString _IKEv1Mode @accessors(property=IKEv1Mode);
     /*!
         IP Address of the IKEv2 Gateway
     */
@@ -103,6 +110,7 @@ NUIKEGatewayIKEVersion_V2 = @"V2";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"IKEVersion"];
+        [self exposeLocalKeyPathToREST:@"IKEv1Mode"];
         [self exposeLocalKeyPathToREST:@"IPAddress"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];

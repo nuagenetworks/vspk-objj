@@ -38,6 +38,11 @@
 @import "Fetchers/NUAutoDiscoverClustersFetcher.j"
 @import "Fetchers/NUAutoDiscoverHypervisorFromClustersFetcher.j"
 
+NUVCenterDataCenterDestinationMirrorPort_ENS160 = @"ens160";
+NUVCenterDataCenterDestinationMirrorPort_ENS161 = @"ens161";
+NUVCenterDataCenterDestinationMirrorPort_ENS224 = @"ens224";
+NUVCenterDataCenterDestinationMirrorPort_ENS256 = @"ens256";
+NUVCenterDataCenterDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterDataCenterEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
 
@@ -47,6 +52,10 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
 */
 @implementation NUVCenterDataCenter : NURESTObject
 {
+    /*!
+        The maximum wait time limit in minutes to get VRS configured at cluster level
+    */
+    CPNumber _VRSConfigurationTimeLimit @accessors(property=VRSConfigurationTimeLimit);
     /*!
         Whether split-activation or not (Openstack/CloudStack)
     */
@@ -88,6 +97,10 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
     /*!
+        Set to true if the datacenter is deleted from Vcenter
+    */
+    BOOL _deletedFromVCenter @accessors(property=deletedFromVCenter);
+    /*!
         Whether split-activation is needed from VRO
     */
     BOOL _genericSplitActivation @accessors(property=genericSplitActivation);
@@ -103,6 +116,10 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         Description of the Datacenter
     */
     CPString _description @accessors(property=description);
+    /*!
+        Extra Vnic to mirror access port
+    */
+    CPString _destinationMirrorPort @accessors(property=destinationMirrorPort);
     /*!
         Metadata Server IP
     */
@@ -164,6 +181,10 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _dhcpRelayServer @accessors(property=dhcpRelayServer);
     /*!
+        Mirror Port Group Name
+    */
+    CPString _mirrorNetworkPortgroup @accessors(property=mirrorNetworkPortgroup);
+    /*!
         Site ID field for object profiles to support VSD Geo-redundancy
     */
     CPString _siteId @accessors(property=siteId);
@@ -223,6 +244,22 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         Nova region name
     */
     CPString _novaRegionName @accessors(property=novaRegionName);
+    /*!
+        upgradePackagePassword
+    */
+    CPString _upgradePackagePassword @accessors(property=upgradePackagePassword);
+    /*!
+        upgradePackageURL
+    */
+    CPString _upgradePackageURL @accessors(property=upgradePackageURL);
+    /*!
+        upgradePackageUsername
+    */
+    CPString _upgradePackageUsername @accessors(property=upgradePackageUsername);
+    /*!
+        upgradeScriptTimeLimit
+    */
+    CPNumber _upgradeScriptTimeLimit @accessors(property=upgradeScriptTimeLimit);
     /*!
         IP address of the primary Controller (VSC)
     */
@@ -304,6 +341,10 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _customizedScriptURL @accessors(property=customizedScriptURL);
     /*!
+        ovf url
+    */
+    CPString _ovfURL @accessors(property=ovfURL);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -336,6 +377,7 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"managedObjectID"];
@@ -346,10 +388,12 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"dataNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"deletedFromVCenter"];
         [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"destinationMirrorPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
         [self exposeLocalKeyPathToREST:@"metadataServerListenPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerPort"];
@@ -365,6 +409,7 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"mgmtGateway"];
         [self exposeLocalKeyPathToREST:@"mgmtNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
+        [self exposeLocalKeyPathToREST:@"mirrorNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"siteId"];
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
@@ -380,6 +425,10 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceUsername"];
         [self exposeLocalKeyPathToREST:@"novaMetadataSharedSecret"];
         [self exposeLocalKeyPathToREST:@"novaRegionName"];
+        [self exposeLocalKeyPathToREST:@"upgradePackagePassword"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageURL"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageUsername"];
+        [self exposeLocalKeyPathToREST:@"upgradeScriptTimeLimit"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
         [self exposeLocalKeyPathToREST:@"vrsUserName"];
@@ -400,6 +449,7 @@ NUVCenterDataCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"multicastSendInterfaceNetmask"];
         [self exposeLocalKeyPathToREST:@"multicastSourcePortgroup"];
         [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
+        [self exposeLocalKeyPathToREST:@"ovfURL"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenVCenterClusters = [NUVCenterClustersFetcher fetcherWithParentObject:self];

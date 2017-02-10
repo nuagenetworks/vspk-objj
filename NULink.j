@@ -29,9 +29,14 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUDemarcationServicesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUNextHopAddressFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUOverlayAddressPoolsFetcher.j"
 
+NULinkAcceptanceCriteria_ALL = @"ALL";
+NULinkAcceptanceCriteria_SUBNETS_ONLY = @"SUBNETS_ONLY";
 NULinkAssociatedDestinationType_ACLENTRY_LOCATION = @"ACLENTRY_LOCATION";
 NULinkAssociatedDestinationType_ADDRESS_RANGE = @"ADDRESS_RANGE";
 NULinkAssociatedDestinationType_ADDRESS_RANGE_STATE = @"ADDRESS_RANGE_STATE";
@@ -305,6 +310,10 @@ NULinkAssociatedDestinationType_ZONE = @"ZONE";
 NULinkAssociatedDestinationType_ZONE_TEMPLATE = @"ZONE_TEMPLATE";
 NULinkEntityScope_ENTERPRISE = @"ENTERPRISE";
 NULinkEntityScope_GLOBAL = @"GLOBAL";
+NULinkType_BORDER_ROUTER = @"BORDER_ROUTER";
+NULinkType_HUB_AND_SPOKE = @"HUB_AND_SPOKE";
+NULinkType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
+NULinkType_SERVICE_CHAINING = @"SERVICE_CHAINING";
 
 
 /*!
@@ -317,7 +326,7 @@ NULinkEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        a way of filtering routes to be imported from source domain into the destination domain.
+        A route filtering criteria enum. Defaults to ALL.
     */
     CPString _acceptanceCriteria @accessors(property=acceptanceCriteria);
     /*!
@@ -329,11 +338,11 @@ NULinkEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Associated destination ID
+        This is the  ID of the domain receiving the routes from the source. This can only be set for links of type OVERLAY_ADDRESS_TRANSLATION.
     */
     CPString _associatedDestinationID @accessors(property=associatedDestinationID);
     /*!
-        Associated destination name
+        None
     */
     CPString _associatedDestinationName @accessors(property=associatedDestinationName);
     /*!
@@ -341,15 +350,15 @@ NULinkEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedDestinationType @accessors(property=associatedDestinationType);
     /*!
-        This is the source leaking/exporting the routes to the destination
+        The ID of the domain receiving the routes from another domain
     */
     CPString _associatedSourceID @accessors(property=associatedSourceID);
     /*!
-        Associated destination name
+        None
     */
     CPString _associatedSourceName @accessors(property=associatedSourceName);
     /*!
-        Type of the entity type for the source
+        This is the source object type for the associatedSourceID
     */
     CPString _associatedSourceType @accessors(property=associatedSourceType);
     /*!
@@ -357,12 +366,15 @@ NULinkEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        Denotes the type of domain linking via objects: hub-and-spoke domain linking, next hop IPs or VNS border router
+        This is used to distinguish between different type of links: hub and spoke, ip address, VNS border router links.
     */
     CPString _type @accessors(property=type);
     
+    NUDemarcationServicesFetcher _childrenDemarcationServices @accessors(property=childrenDemarcationServices);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUNextHopAddressFetcher _childrenNextHopAddress @accessors(property=childrenNextHopAddress);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUOverlayAddressPoolsFetcher _childrenOverlayAddressPools @accessors(property=childrenOverlayAddressPools);
     
 }
 
@@ -396,8 +408,11 @@ NULinkEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenDemarcationServices = [NUDemarcationServicesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenNextHopAddress = [NUNextHopAddressFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenOverlayAddressPools = [NUOverlayAddressPoolsFetcher fetcherWithParentObject:self];
         
         
     }

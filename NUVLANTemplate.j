@@ -31,6 +31,8 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUUplinkConnectionsFetcher.j"
+@import "Fetchers/NUBRConnectionsFetcher.j"
 
 NUVLANTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVLANTemplateEntityScope_GLOBAL = @"GLOBAL";
@@ -62,12 +64,22 @@ NUVLANTemplateEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
+        The ID of the infrastructure VSC profile this is associated with this instance of a vlan or vlan template.
+    */
+    CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
+    /*!
+        When set to true, this specifies that this VLAN template instance serves as an underlay connection endpoint on an NSG-UBR gateway.
+    */
+    BOOL _ducVlan @accessors(property=ducVlan);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUUplinkConnectionsFetcher _childrenUplinkConnections @accessors(property=childrenUplinkConnections);
+    NUBRConnectionsFetcher _childrenBRConnections @accessors(property=childrenBRConnections);
     
 }
 
@@ -93,10 +105,14 @@ NUVLANTemplateEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
+        [self exposeLocalKeyPathToREST:@"ducVlan"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenUplinkConnections = [NUUplinkConnectionsFetcher fetcherWithParentObject:self];
+        _childrenBRConnections = [NUBRConnectionsFetcher fetcherWithParentObject:self];
         
         
     }

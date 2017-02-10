@@ -126,6 +126,22 @@ NUQOSServiceClass_NONE = @"NONE";
     */
     BOOL _rewriteForwardingClass @accessors(property=rewriteForwardingClass);
     /*!
+        Committed burst size setting in kilo-bytes (kilo-octets) for FIP Shaper on the Egress.
+    */
+    CPString _EgressFIPCommittedBurstSize @accessors(property=EgressFIPCommittedBurstSize);
+    /*!
+        Committed information rate setting in Mb/s for FIP Shaper on the egress side.
+    */
+    CPString _EgressFIPCommittedInformationRate @accessors(property=EgressFIPCommittedInformationRate);
+    /*!
+        Peak burst size setting in kilo-bytes (kilo-octets) for Egress FIP rate limiting.
+    */
+    CPString _EgressFIPPeakBurstSize @accessors(property=EgressFIPPeakBurstSize);
+    /*!
+        Peak rate setting for FIP rate limiting on egress in Mb/s
+    */
+    CPString _EgressFIPPeakInformationRate @accessors(property=EgressFIPPeakInformationRate);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -205,6 +221,10 @@ NUQOSServiceClass_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"serviceClass"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"rewriteForwardingClass"];
+        [self exposeLocalKeyPathToREST:@"EgressFIPCommittedBurstSize"];
+        [self exposeLocalKeyPathToREST:@"EgressFIPCommittedInformationRate"];
+        [self exposeLocalKeyPathToREST:@"EgressFIPPeakBurstSize"];
+        [self exposeLocalKeyPathToREST:@"EgressFIPPeakInformationRate"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"committedBurstSize"];
         [self exposeLocalKeyPathToREST:@"committedInformationRate"];

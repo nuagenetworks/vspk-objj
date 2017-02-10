@@ -36,8 +36,18 @@
 @import "Fetchers/NUVRSMetricsFetcher.j"
 @import "Fetchers/NUVRSRedeploymentpoliciesFetcher.j"
 
+NUVCenterHypervisorDestinationMirrorPort_ENS160 = @"ens160";
+NUVCenterHypervisorDestinationMirrorPort_ENS161 = @"ens161";
+NUVCenterHypervisorDestinationMirrorPort_ENS224 = @"ens224";
+NUVCenterHypervisorDestinationMirrorPort_ENS256 = @"ens256";
+NUVCenterHypervisorDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterHypervisorEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
+NUVCenterHypervisorVRSState_DEPLOYED = @"DEPLOYED";
+NUVCenterHypervisorVRSState_DEPLOYING = @"DEPLOYING";
+NUVCenterHypervisorVRSState_NOT_DEPLOYED = @"NOT_DEPLOYED";
+NUVCenterHypervisorVRSState_TIMEDOUT = @"TIMEDOUT";
+NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
 
 
 /*!
@@ -58,9 +68,17 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _vCenterUser @accessors(property=vCenterUser);
     /*!
+        The maximum wait time limit in minutes to get VRS configured at cluster level
+    */
+    CPNumber _VRSConfigurationTimeLimit @accessors(property=VRSConfigurationTimeLimit);
+    /*!
         ID of the VRS metrics object.
     */
     CPString _VRSMetricsID @accessors(property=VRSMetricsID);
+    /*!
+        Current state of the VRS VM on the hypervisor
+    */
+    CPString _VRSState @accessors(property=VRSState);
     /*!
         Whether split-activation or not (Openstack/CloudStack)
     */
@@ -69,6 +87,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         Name of the Hypervisor
     */
     CPString _name @accessors(property=name);
+    /*!
+        managed Object ID of hypervisor
+    */
+    CPString _managedObjectID @accessors(property=managedObjectID);
     /*!
         ID of the user who last updated the object.
     */
@@ -114,6 +136,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
     /*!
+        Set to true if the hypervisor is removed from Vcenter inventory datacenter or cluster
+    */
+    BOOL _removedFromVCenterInventory @accessors(property=removedFromVCenterInventory);
+    /*!
         Whether split-activation is needed from VRO
     */
     BOOL _genericSplitActivation @accessors(property=genericSplitActivation);
@@ -133,6 +159,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         Description of the Hypervisor
     */
     CPString _description @accessors(property=description);
+    /*!
+        Extra Vnic to mirror access port
+    */
+    CPString _destinationMirrorPort @accessors(property=destinationMirrorPort);
     /*!
         Metadata Server IP
     */
@@ -201,6 +231,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         To provide IP address of the interface from which you will connect to the DHCP relay server
     */
     CPString _dhcpRelayServer @accessors(property=dhcpRelayServer);
+    /*!
+        Mirror Port Group Name
+    */
+    CPString _mirrorNetworkPortgroup @accessors(property=mirrorNetworkPortgroup);
     /*!
         Site ID field for object profiles to support VSD Geo-redundancy
     */
@@ -281,6 +315,30 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         Nova region name
     */
     CPString _novaRegionName @accessors(property=novaRegionName);
+    /*!
+        upgradePackagePassword
+    */
+    CPString _upgradePackagePassword @accessors(property=upgradePackagePassword);
+    /*!
+        upgradePackageURL
+    */
+    CPString _upgradePackageURL @accessors(property=upgradePackageURL);
+    /*!
+        upgradePackageUsername
+    */
+    CPString _upgradePackageUsername @accessors(property=upgradePackageUsername);
+    /*!
+        upgradeScriptTimeLimit
+    */
+    CPNumber _upgradeScriptTimeLimit @accessors(property=upgradeScriptTimeLimit);
+    /*!
+        Script based upgrade Status
+    */
+    CPString _upgradeStatus @accessors(property=upgradeStatus);
+    /*!
+        upgrade Timedout
+    */
+    BOOL _upgradeTimedout @accessors(property=upgradeTimedout);
     /*!
         IP address of the primary Controller (VSC)
     */
@@ -366,6 +424,10 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPArrayController _availableNetworks @accessors(property=availableNetworks);
     /*!
+        ovf url
+    */
+    CPString _ovfURL @accessors(property=ovfURL);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -411,9 +473,12 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"vCenterIP"];
         [self exposeLocalKeyPathToREST:@"vCenterPassword"];
         [self exposeLocalKeyPathToREST:@"vCenterUser"];
+        [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
         [self exposeLocalKeyPathToREST:@"VRSMetricsID"];
+        [self exposeLocalKeyPathToREST:@"VRSState"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"managedObjectID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"lastVRSDeployedDate"];
         [self exposeLocalKeyPathToREST:@"dataDNS1"];
@@ -425,11 +490,13 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"scope"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"removedFromVCenterInventory"];
         [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"deploymentCount"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"destinationMirrorPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
         [self exposeLocalKeyPathToREST:@"metadataServerListenPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerPort"];
@@ -447,6 +514,7 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"mgmtNetmask"];
         [self exposeLocalKeyPathToREST:@"mgmtNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
+        [self exposeLocalKeyPathToREST:@"mirrorNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"siteId"];
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
@@ -467,6 +535,12 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceUsername"];
         [self exposeLocalKeyPathToREST:@"novaMetadataSharedSecret"];
         [self exposeLocalKeyPathToREST:@"novaRegionName"];
+        [self exposeLocalKeyPathToREST:@"upgradePackagePassword"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageURL"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageUsername"];
+        [self exposeLocalKeyPathToREST:@"upgradeScriptTimeLimit"];
+        [self exposeLocalKeyPathToREST:@"upgradeStatus"];
+        [self exposeLocalKeyPathToREST:@"upgradeTimedout"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsId"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
@@ -488,6 +562,7 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"multicastSourcePortgroup"];
         [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
         [self exposeLocalKeyPathToREST:@"availableNetworks"];
+        [self exposeLocalKeyPathToREST:@"ovfURL"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"hypervisorIP"];
         [self exposeLocalKeyPathToREST:@"hypervisorPassword"];

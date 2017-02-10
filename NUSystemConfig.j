@@ -32,6 +32,8 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUSystemConfigCsprootAuthenticationMethod_LDAP = @"LDAP";
+NUSystemConfigCsprootAuthenticationMethod_LOCAL = @"LOCAL";
 NUSystemConfigDomainTunnelType_DC_DEFAULT = @"DC_DEFAULT";
 NUSystemConfigDomainTunnelType_GRE = @"GRE";
 NUSystemConfigDomainTunnelType_VXLAN = @"VXLAN";
@@ -129,6 +131,14 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Defines total DHCP options that can be set on a domain.
     */
     CPNumber _DHCPOptionSize @accessors(property=DHCPOptionSize);
+    /*!
+        None
+    */
+    CPNumber _VLANIDLowerLimit @accessors(property=VLANIDLowerLimit);
+    /*!
+        None
+    */
+    CPNumber _VLANIDUpperLimit @accessors(property=VLANIDUpperLimit);
     /*!
         LRU Map size for vm, this value has to set based on memory given to VSD jvm not finalized.
     */
@@ -250,6 +260,18 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _maxResponse @accessors(property=maxResponse);
     /*!
+        Whether the various VRS license flavours be merged in one pool
+    */
+    BOOL _accumulateLicensesEnabled @accessors(property=accumulateLicensesEnabled);
+    /*!
+        None
+    */
+    BOOL _perDomainVlanIdEnabled @accessors(property=perDomainVlanIdEnabled);
+    /*!
+        performance Path Selection Virtual Network ID
+    */
+    CPNumber _performancePathSelectionVNID @accessors(property=performancePathSelectionVNID);
+    /*!
         Service id upper limit system wide value
     */
     CPNumber _serviceIDUpperLimit @accessors(property=serviceIDUpperLimit);
@@ -298,9 +320,21 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _elasticClusterName @accessors(property=elasticClusterName);
     /*!
+        Specifies the server address Elastic Search Cluster.
+    */
+    CPString _elasticSearchUIAddress @accessors(property=elasticSearchUIAddress);
+    /*!
         Allow Enterprise Avatar to be populated on NSG Portal
     */
     BOOL _allowEnterpriseAvatarOnNSG @accessors(property=allowEnterpriseAvatarOnNSG);
+    /*!
+        the MAC Address to use for those subnets that have the useGlobalMAC flag enabled.
+    */
+    CPString _globalMACAddress @accessors(property=globalMACAddress);
+    /*!
+        Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires "statisticsEnabled".
+    */
+    BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
         Defines the inactive timeout for the client. If the client is inactive for more than timeout, server clears off all the cache/information regarding the client. This value should be greater than event processor max timeout
     */
@@ -410,6 +444,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _esiID @accessors(property=esiID);
     /*!
+        Authentication method for csproot when local authentication is not used for CSP organization
+    */
+    CPString _csprootAuthenticationMethod @accessors(property=csprootAuthenticationMethod);
+    /*!
         True to enable stacktrace in the REST call.
     */
     BOOL _stackTraceEnabled @accessors(property=stackTraceEnabled);
@@ -457,6 +495,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Specifies the TSDB server location.
     */
     CPString _statsTSDBServerAddress @accessors(property=statsTSDBServerAddress);
+    /*!
+        sticky ECMP Idle Timeout in seconds
+    */
+    CPNumber _stickyECMPIdleTimeout @accessors(property=stickyECMPIdleTimeout);
     /*!
         After resync on a subnet , another resync on the same subnet is allowed based on the below value subnet resync complete wait time in min.
     */
@@ -586,6 +628,8 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"ZFBRequestRetryTimer"];
         [self exposeLocalKeyPathToREST:@"ZFBSchedulerStaleRequestTimeout"];
         [self exposeLocalKeyPathToREST:@"DHCPOptionSize"];
+        [self exposeLocalKeyPathToREST:@"VLANIDLowerLimit"];
+        [self exposeLocalKeyPathToREST:@"VLANIDUpperLimit"];
         [self exposeLocalKeyPathToREST:@"VMCacheSize"];
         [self exposeLocalKeyPathToREST:@"VMPurgeTime"];
         [self exposeLocalKeyPathToREST:@"VMResyncDeletionWaitTime"];
@@ -616,6 +660,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"maxFailedLogins"];
         [self exposeLocalKeyPathToREST:@"maxResponse"];
+        [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
+        [self exposeLocalKeyPathToREST:@"perDomainVlanIdEnabled"];
+        [self exposeLocalKeyPathToREST:@"performancePathSelectionVNID"];
         [self exposeLocalKeyPathToREST:@"serviceIDUpperLimit"];
         [self exposeLocalKeyPathToREST:@"keyServerMonitorEnabled"];
         [self exposeLocalKeyPathToREST:@"keyServerVSDDataSynchronizationInterval"];
@@ -628,7 +675,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"ejbcaVspRootCa"];
         [self exposeLocalKeyPathToREST:@"alarmsMaxPerObject"];
         [self exposeLocalKeyPathToREST:@"elasticClusterName"];
+        [self exposeLocalKeyPathToREST:@"elasticSearchUIAddress"];
         [self exposeLocalKeyPathToREST:@"allowEnterpriseAvatarOnNSG"];
+        [self exposeLocalKeyPathToREST:@"globalMACAddress"];
+        [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"inactiveTimeout"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainTunnelType"];
@@ -656,6 +706,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"nsgConfigEndpoint"];
         [self exposeLocalKeyPathToREST:@"nsgLocalUiUrl"];
         [self exposeLocalKeyPathToREST:@"esiID"];
+        [self exposeLocalKeyPathToREST:@"csprootAuthenticationMethod"];
         [self exposeLocalKeyPathToREST:@"stackTraceEnabled"];
         [self exposeLocalKeyPathToREST:@"statefulACLNonTCPTimeout"];
         [self exposeLocalKeyPathToREST:@"statefulACLTCPTimeout"];
@@ -668,6 +719,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"statsMinDuration"];
         [self exposeLocalKeyPathToREST:@"statsNumberOfDataPoints"];
         [self exposeLocalKeyPathToREST:@"statsTSDBServerAddress"];
+        [self exposeLocalKeyPathToREST:@"stickyECMPIdleTimeout"];
         [self exposeLocalKeyPathToREST:@"subnetResyncInterval"];
         [self exposeLocalKeyPathToREST:@"subnetResyncOutstandingInterval"];
         [self exposeLocalKeyPathToREST:@"customerIDUpperLimit"];

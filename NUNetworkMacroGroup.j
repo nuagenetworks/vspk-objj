@@ -55,6 +55,10 @@ NUNetworkMacroGroupEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _description @accessors(property=description);
     /*!
+        None
+    */
+    CPArrayController _networkMacros @accessors(property=networkMacros);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -89,6 +93,7 @@ NUNetworkMacroGroupEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"networkMacros"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

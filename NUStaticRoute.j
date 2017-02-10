@@ -35,6 +35,7 @@
 
 NUStaticRouteEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUStaticRouteEntityScope_GLOBAL = @"GLOBAL";
+NUStaticRouteIPType_DUALSTACK = @"DUALSTACK";
 NUStaticRouteIPType_IPV4 = @"IPV4";
 NUStaticRouteIPType_IPV6 = @"IPV6";
 NUStaticRouteType_EXIT_DOMAIN = @"EXIT_DOMAIN";
@@ -42,7 +43,7 @@ NUStaticRouteType_OVERLAY = @"OVERLAY";
 
 
 /*!
-    Static routes allow end users to define how traffic is routed through the dVRS in addition to the routes learned by VSC through VM activation. By using static routes, end users can define for example that all traffic with a destination address towards a specific subnet must be forwarded to a specific VM attached in the dVRS and this VM could be a firewall.
+    Static routes allow end users to define how traffic is routed through the dVRS in addition to the routes learned by VSC through VM activation. By using static routes, end users can define for example that all traffic with a destination address towards a specific subnet must be forwarded to a specific VM attached in the dVRS and this VM could be a firewall
 */
 @implementation NUStaticRoute : NURESTObject
 {
@@ -50,6 +51,10 @@ NUStaticRouteType_OVERLAY = @"OVERLAY";
         IPv4 or IPv6
     */
     CPString _IPType @accessors(property=IPType);
+    /*!
+        IPv6 address of the route
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
     /*!
         ID of the user who last updated the object.
     */
@@ -107,6 +112,7 @@ NUStaticRouteType_OVERLAY = @"OVERLAY";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"netmask"];

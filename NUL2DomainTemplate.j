@@ -45,6 +45,9 @@
 @import "Fetchers/NUGroupsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUL2DomainTemplateDPI_DISABLED = @"DISABLED";
+NUL2DomainTemplateDPI_ENABLED = @"ENABLED";
+NUL2DomainTemplateDPI_INHERITED = @"INHERITED";
 NUL2DomainTemplateEncryption_DISABLED = @"DISABLED";
 NUL2DomainTemplateEncryption_ENABLED = @"ENABLED";
 NUL2DomainTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -57,6 +60,8 @@ NUL2DomainTemplateMulticast_INHERITED = @"INHERITED";
 NUL2DomainTemplatePolicyChangeStatus_APPLIED = @"APPLIED";
 NUL2DomainTemplatePolicyChangeStatus_DISCARDED = @"DISCARDED";
 NUL2DomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
+NUL2DomainTemplateUseGlobalMAC_DISABLED = @"DISABLED";
+NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
 
 
 /*!
@@ -68,6 +73,10 @@ NUL2DomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
         decides whether L2Domain / L2Domain template DHCP is managed by VSD
     */
     BOOL _DHCPManaged @accessors(property=DHCPManaged);
+    /*!
+        determines whether or not Deep packet inspection is enabled
+    */
+    CPString _DPI @accessors(property=DPI);
     /*!
         IPv4 or IPv6
     */
@@ -84,6 +93,10 @@ NUL2DomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
         The IP address of the gateway of this l2 domain
     */
     CPString _gateway @accessors(property=gateway);
+    /*!
+        gateway MAC address for a managed l2 domain
+    */
+    CPString _gatewayMACAddress @accessors(property=gatewayMACAddress);
     /*!
         Network address of the L2Domain / L2Domain template defined. 
     */
@@ -105,9 +118,13 @@ NUL2DomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        
+        None
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
+    /*!
+        Enable this flag to use system configured globalMACAddress as the gateway mac address for managed l2 domains
+    */
+    CPString _useGlobalMAC @accessors(property=useGlobalMAC);
     /*!
         The ID of the Multi Cast Channel Map this L2Domain / L2Domain template template is associated with. This has to be set when  enableMultiCast is set to ENABLED
     */
@@ -157,16 +174,19 @@ NUL2DomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"DHCPManaged"];
+        [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
+        [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
+        [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];

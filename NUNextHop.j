@@ -30,77 +30,40 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUTiersFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUFlowsFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
 
-NUAppAssociatedDomainType_DOMAIN = @"DOMAIN";
-NUAppAssociatedDomainType_L2DOMAIN = @"L2DOMAIN";
-NUAppAssociatedNetworkObjectType_DOMAIN = @"DOMAIN";
-NUAppAssociatedNetworkObjectType_ENTERPRISE = @"ENTERPRISE";
-NUAppAssociatedNetworkObjectType_ZONE = @"ZONE";
-NUAppEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUAppEntityScope_GLOBAL = @"GLOBAL";
+NUNextHopEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUNextHopEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Represents a real life application like a vendor website, or a social network.
+    This represents a /32 IPv4 address as the next-hop. In the future can be a /128 IPv6 address.
 */
-@implementation NUApp : NURESTObject
+@implementation NUNextHop : NURESTObject
 {
-    /*!
-        Name of the application.
-    */
-    CPString _name @accessors(property=name);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Description of the application.
-    */
-    CPString _description @accessors(property=description);
-    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The ID of the ACL template that this application is pointing to.
+        The next-hop's route distinguisher. A unique 8 byte long. If not provided one will be generated.
     */
-    CPString _assocEgressACLTemplateId @accessors(property=assocEgressACLTemplateId);
+    CPString _routeDistinguisher @accessors(property=routeDistinguisher);
     /*!
-        The ID of the ACL template that this application is pointing to
+        This is the /32 or /128 next-hop IP address. Currently we support only IPv4 address family.
     */
-    CPString _assocIngressACLTemplateId @accessors(property=assocIngressACLTemplateId);
-    /*!
-        Domain id where the application is running.
-    */
-    CPString _associatedDomainID @accessors(property=associatedDomainID);
-    /*!
-        Type of domain (DOMAIN, L2DOMAIN). Refer to API section for supported types.
-    */
-    CPString _associatedDomainType @accessors(property=associatedDomainType);
-    /*!
-        ID of the network object that this App is associated with.
-    */
-    CPString _associatedNetworkObjectID @accessors(property=associatedNetworkObjectID);
-    /*!
-        Type of network object this App is associated with (ENTERPRISE, DOMAIN) Refer to API section for supported types.
-    */
-    CPString _associatedNetworkObjectType @accessors(property=associatedNetworkObjectType);
+    CPString _ip @accessors(property=ip);
     /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUTiersFetcher _childrenTiers @accessors(property=childrenTiers);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUFlowsFetcher _childrenFlows @accessors(property=childrenFlows);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -110,7 +73,7 @@ NUAppEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"application";
+    return @"nexthop";
 }
 
 
@@ -121,24 +84,14 @@ NUAppEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"assocEgressACLTemplateId"];
-        [self exposeLocalKeyPathToREST:@"assocIngressACLTemplateId"];
-        [self exposeLocalKeyPathToREST:@"associatedDomainID"];
-        [self exposeLocalKeyPathToREST:@"associatedDomainType"];
-        [self exposeLocalKeyPathToREST:@"associatedNetworkObjectID"];
-        [self exposeLocalKeyPathToREST:@"associatedNetworkObjectType"];
+        [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
+        [self exposeLocalKeyPathToREST:@"ip"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenTiers = [NUTiersFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenFlows = [NUFlowsFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

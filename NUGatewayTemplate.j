@@ -39,6 +39,7 @@ NUGatewayTemplatePersonality_DC7X50 = @"DC7X50";
 NUGatewayTemplatePersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUGatewayTemplatePersonality_NSG = @"NSG";
 NUGatewayTemplatePersonality_OTHER = @"OTHER";
+NUGatewayTemplatePersonality_VRSB = @"VRSB";
 NUGatewayTemplatePersonality_VRSG = @"VRSG";
 NUGatewayTemplatePersonality_VSA = @"VSA";
 NUGatewayTemplatePersonality_VSG = @"VSG";

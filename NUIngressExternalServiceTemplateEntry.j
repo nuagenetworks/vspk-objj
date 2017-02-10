@@ -320,6 +320,10 @@ NUIngressExternalServiceTemplateEntryPolicyState_LIVE = @"LIVE";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
+        Overrides the source IPv6 for Ingress and destination IPv6 for Egress, macentries will use this adress as the match criteria.
+    */
+    CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
+    /*!
         DSCP match condition to be set in the rule. It is either * or from 0-63
     */
     CPString _DSCP @accessors(property=DSCP);
@@ -463,6 +467,7 @@ NUIngressExternalServiceTemplateEntryPolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"ACLTemplateName"];
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];

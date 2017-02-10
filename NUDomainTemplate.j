@@ -48,6 +48,8 @@
 @import "Fetchers/NUSubnetTemplatesFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUDomainTemplateDPI_DISABLED = @"DISABLED";
+NUDomainTemplateDPI_ENABLED = @"ENABLED";
 NUDomainTemplateEncryption_DISABLED = @"DISABLED";
 NUDomainTemplateEncryption_ENABLED = @"ENABLED";
 NUDomainTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -65,6 +67,10 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
 */
 @implementation NUDomainTemplate : NURESTObject
 {
+    /*!
+        determines whether or not Deep packet inspection is enabled
+    */
+    CPString _DPI @accessors(property=DPI);
     /*!
         The name of the domain template, that is unique within an enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
@@ -86,7 +92,7 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        
+        None
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
     /*!
@@ -148,6 +154,7 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];

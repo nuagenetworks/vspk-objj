@@ -65,6 +65,10 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _DHCPLeaseInterval @accessors(property=DHCPLeaseInterval);
     /*!
+        Enable DPI for this Enterprise Profile
+    */
+    BOOL _DPIEnabled @accessors(property=DPIEnabled);
+    /*!
         The unique name of the enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
     CPString _name @accessors(property=name);
@@ -104,6 +108,10 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         Quota set for the number of floating IPs to be used by an enterprise.
     */
     CPNumber _floatingIPsQuota @accessors(property=floatingIPsQuota);
+    /*!
+        Enable DPI for this enterprise
+    */
+    BOOL _enableApplicationPerformanceManagement @accessors(property=enableApplicationPerformanceManagement);
     /*!
         encryption management mode for this enterprise Possible values are DISABLED, MANAGED, .
     */
@@ -145,6 +153,7 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPLeaseInterval"];
+        [self exposeLocalKeyPathToREST:@"DPIEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
@@ -155,6 +164,7 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"allowTrustedForwardingClass"];
         [self exposeLocalKeyPathToREST:@"allowedForwardingClasses"];
         [self exposeLocalKeyPathToREST:@"floatingIPsQuota"];
+        [self exposeLocalKeyPathToREST:@"enableApplicationPerformanceManagement"];
         [self exposeLocalKeyPathToREST:@"encryptionManagementMode"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];

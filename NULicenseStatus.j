@@ -30,9 +30,6 @@
 @import <Bambou/NURESTObject.j>
 
 
-NULicenseStatusEntityScope_ENTERPRISE = @"ENTERPRISE";
-NULicenseStatusEntityScope_GLOBAL = @"GLOBAL";
-
 
 /*!
     None
@@ -40,9 +37,13 @@ NULicenseStatusEntityScope_GLOBAL = @"GLOBAL";
 @implementation NULicenseStatus : NURESTObject
 {
     /*!
-        Specify if scope of entity is Data center or Enterprise level
+        Whether the various VRS license flavours be merged in one pool
     */
-    CPString _entityScope @accessors(property=entityScope);
+    CPString _accumulateLicensesEnabled @accessors(property=accumulateLicensesEnabled);
+    /*!
+         Indicates total VRS+VRSG+VRSB licenses licensed in the system
+    */
+    CPNumber _totalLicensedGatewaysCount @accessors(property=totalLicensedGatewaysCount);
     /*!
         Indicates total NIC count for all the licenses in the system
     */
@@ -84,9 +85,9 @@ NULicenseStatusEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _totalLicensedVRSsCount @accessors(property=totalLicensedVRSsCount);
     /*!
-        External object ID. Used for integration with third party systems
+        Indicates total VRS+VRSG+VRSB licenses used in the system
     */
-    CPString _externalID @accessors(property=externalID);
+    CPNumber _totalUsedGatewaysCount @accessors(property=totalUsedGatewaysCount);
     
     
 }
@@ -108,7 +109,8 @@ NULicenseStatusEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
+        [self exposeLocalKeyPathToREST:@"totalLicensedGatewaysCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedNICsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedNSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedNICsCount"];
@@ -119,7 +121,7 @@ NULicenseStatusEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"totalLicensedVMsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSsCount"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"totalUsedGatewaysCount"];
         
         
         

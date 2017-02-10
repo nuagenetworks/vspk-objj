@@ -35,6 +35,12 @@
 
 NUNSGatewayTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGatewayTemplateEntityScope_GLOBAL = @"GLOBAL";
+NUNSGatewayTemplateInstanceSSHOverride_ALLOWED = @"ALLOWED";
+NUNSGatewayTemplateInstanceSSHOverride_DISALLOWED = @"DISALLOWED";
+NUNSGatewayTemplatePersonality_NSG = @"NSG";
+NUNSGatewayTemplatePersonality_NSGBR = @"NSGBR";
+NUNSGatewayTemplateSSHService_DISABLED = @"DISABLED";
+NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
 
 
 /*!
@@ -42,6 +48,10 @@ NUNSGatewayTemplateEntityScope_GLOBAL = @"GLOBAL";
 */
 @implementation NUNSGatewayTemplate : NURESTObject
 {
+    /*!
+        Enable/Disable SSH Service on all the Gateway instances which inherit from this template.
+    */
+    CPString _SSHService @accessors(property=SSHService);
     /*!
         Name of the Gateway
     */
@@ -51,13 +61,25 @@ NUNSGatewayTemplateEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Personality of the Gateway - NSG, NSGBR, cannot be changed after creation.
+    */
+    CPString _personality @accessors(property=personality);
+    /*!
         A description of the Gateway
     */
     CPString _description @accessors(property=description);
     /*!
+        The ID of the infrastructure access profile associated to this Gateway Template.
+    */
+    CPString _infrastructureAccessProfileID @accessors(property=infrastructureAccessProfileID);
+    /*!
         The ID of the infrastructure gateway profile this instance of a Gateway is associated with.
     */
     CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
+    /*!
+        Indicates if this template instance allows the gateway instance(s) which inherit from it to independently enable/disable SSH service.
+    */
+    CPString _instanceSSHOverride @accessors(property=instanceSSHOverride);
     /*!
         The enterprise associated with this Gateway. This is a read only attribute
     */
@@ -94,10 +116,14 @@ NUNSGatewayTemplateEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"SSHService"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"infrastructureAccessProfileID"];
         [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
+        [self exposeLocalKeyPathToREST:@"instanceSSHOverride"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];

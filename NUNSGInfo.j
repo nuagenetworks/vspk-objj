@@ -79,6 +79,10 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _serialNumber @accessors(property=serialNumber);
     /*!
+        Tracks RPM package installed for some libraries installed on the NSG.
+    */
+    CPString _libraries @accessors(property=libraries);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -119,6 +123,7 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"UUID"];
         [self exposeLocalKeyPathToREST:@"family"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
+        [self exposeLocalKeyPathToREST:@"libraries"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
