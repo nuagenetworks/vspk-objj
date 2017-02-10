@@ -316,6 +316,30 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _novaRegionName @accessors(property=novaRegionName);
     /*!
+        upgradePackagePassword
+    */
+    CPString _upgradePackagePassword @accessors(property=upgradePackagePassword);
+    /*!
+        upgradePackageURL
+    */
+    CPString _upgradePackageURL @accessors(property=upgradePackageURL);
+    /*!
+        upgradePackageUsername
+    */
+    CPString _upgradePackageUsername @accessors(property=upgradePackageUsername);
+    /*!
+        upgradeScriptTimeLimit
+    */
+    CPNumber _upgradeScriptTimeLimit @accessors(property=upgradeScriptTimeLimit);
+    /*!
+        Script based upgrade Status
+    */
+    CPString _upgradeStatus @accessors(property=upgradeStatus);
+    /*!
+        upgrade Timedout
+    */
+    BOOL _upgradeTimedout @accessors(property=upgradeTimedout);
+    /*!
         IP address of the primary Controller (VSC)
     */
     CPString _primaryNuageController @accessors(property=primaryNuageController);
@@ -511,6 +535,12 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceUsername"];
         [self exposeLocalKeyPathToREST:@"novaMetadataSharedSecret"];
         [self exposeLocalKeyPathToREST:@"novaRegionName"];
+        [self exposeLocalKeyPathToREST:@"upgradePackagePassword"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageURL"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageUsername"];
+        [self exposeLocalKeyPathToREST:@"upgradeScriptTimeLimit"];
+        [self exposeLocalKeyPathToREST:@"upgradeStatus"];
+        [self exposeLocalKeyPathToREST:@"upgradeTimedout"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsId"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];

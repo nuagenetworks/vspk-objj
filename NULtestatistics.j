@@ -29,48 +29,34 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-
-NUBRConnectionAdvertisementCriteria_FATE_SHARING = @"FATE_SHARING";
-NUBRConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
-NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
-NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
-NUBRConnectionMode_STATIC = @"Static";
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 
 /*!
-    None
+    Retrieves statistics for LTE uplink
 */
-@implementation NUBRConnection : NURESTObject
+@implementation NULtestatistics : NURESTObject
 {
     /*!
-        DNS Address for the vlan
+        Version of this Sequence number.
     */
-    CPString _DNSAddress @accessors(property=DNSAddress);
+    CPNumber _version @accessors(property=version);
     /*!
-        IP address of the gateway bound to the VLAN.
+        End time for the statistics to be retrieved
     */
-    CPString _gateway @accessors(property=gateway);
+    CPNumber _endTime @accessors(property=endTime);
     /*!
-        Static IP address for the VLAN
+        Start time for the statistics to be retrieved
     */
-    CPString _address @accessors(property=address);
+    CPNumber _startTime @accessors(property=startTime);
     /*!
-        Advertisement Criteria for Traffic Flow
+        Map&lt;TCAMetric, Long[]&gt; TCAMetric is an Enum. Possible values are modem_status, signal_strength
     */
-    CPString _advertisementCriteria @accessors(property=advertisementCriteria);
-    /*!
-        network mask
-    */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        Connection mode: Static.
-    */
-    CPString _mode @accessors(property=mode);
-    /*!
-        Internally generated ID in the range that idenitifies the uplink within the cotext of NSG
-    */
-    CPNumber _uplinkID @accessors(property=uplinkID);
+    CPArrayController _statsData @accessors(property=statsData);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -80,7 +66,7 @@ NUBRConnectionMode_STATIC = @"Static";
 
 + (CPString)RESTName
 {
-    return @"brconnections";
+    return @"ltestatistics";
 }
 
 
@@ -91,14 +77,13 @@ NUBRConnectionMode_STATIC = @"Static";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DNSAddress"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"mode"];
-        [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"version"];
+        [self exposeLocalKeyPathToREST:@"endTime"];
+        [self exposeLocalKeyPathToREST:@"startTime"];
+        [self exposeLocalKeyPathToREST:@"statsData"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

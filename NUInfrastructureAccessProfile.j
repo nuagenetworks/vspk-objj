@@ -32,19 +32,19 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
-NUInfrastructureaccessprofileEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUInfrastructureaccessprofileEntityScope_GLOBAL = @"GLOBAL";
-NUInfrastructureaccessprofileSSHAuthMode_KEY_BASED = @"KEY_BASED";
-NUInfrastructureaccessprofileSSHAuthMode_PASSWORD_AND_KEY_BASED = @"PASSWORD_AND_KEY_BASED";
-NUInfrastructureaccessprofileSSHAuthMode_PASSWORD_BASED = @"PASSWORD_BASED";
-NUInfrastructureaccessprofileSourceIPFilter_DISABLED = @"DISABLED";
-NUInfrastructureaccessprofileSourceIPFilter_ENABLED = @"ENABLED";
+NUInfrastructureAccessProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUInfrastructureAccessProfileEntityScope_GLOBAL = @"GLOBAL";
+NUInfrastructureAccessProfileSSHAuthMode_KEY_BASED = @"KEY_BASED";
+NUInfrastructureAccessProfileSSHAuthMode_PASSWORD_AND_KEY_BASED = @"PASSWORD_AND_KEY_BASED";
+NUInfrastructureAccessProfileSSHAuthMode_PASSWORD_BASED = @"PASSWORD_BASED";
+NUInfrastructureAccessProfileSourceIPFilter_DISABLED = @"DISABLED";
+NUInfrastructureAccessProfileSourceIPFilter_ENABLED = @"ENABLED";
 
 
 /*!
     Represents an Infrastructure Access Profile
 */
-@implementation NUInfrastructureaccessprofile : NURESTObject
+@implementation NUInfrastructureAccessProfile : NURESTObject
 {
     /*!
         Indicates the Authentication method used during a SSH session.

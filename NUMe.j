@@ -67,6 +67,7 @@
 @import "Fetchers/NUVMInterfacesFetcher.j"
 @import "Fetchers/NUCloudMgmtSystemsFetcher.j"
 @import "Fetchers/NUUnderlaysFetcher.j"
+@import "Fetchers/NUInfrastructureAccessProfilesFetcher.j"
 @import "Fetchers/NUInfrastructureGatewayProfilesFetcher.j"
 @import "Fetchers/NUInfrastructureVscProfilesFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
@@ -212,6 +213,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
     NUCloudMgmtSystemsFetcher _childrenCloudMgmtSystems @accessors(property=childrenCloudMgmtSystems);
     NUUnderlaysFetcher _childrenUnderlays @accessors(property=childrenUnderlays);
+    NUInfrastructureAccessProfilesFetcher _childrenInfrastructureAccessProfiles @accessors(property=childrenInfrastructureAccessProfiles);
     NUInfrastructureGatewayProfilesFetcher _childrenInfrastructureGatewayProfiles @accessors(property=childrenInfrastructureGatewayProfiles);
     NUInfrastructureVscProfilesFetcher _childrenInfrastructureVscProfiles @accessors(property=childrenInfrastructureVscProfiles);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
@@ -322,6 +324,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
         _childrenCloudMgmtSystems = [NUCloudMgmtSystemsFetcher fetcherWithParentObject:self];
         _childrenUnderlays = [NUUnderlaysFetcher fetcherWithParentObject:self];
+        _childrenInfrastructureAccessProfiles = [NUInfrastructureAccessProfilesFetcher fetcherWithParentObject:self];
         _childrenInfrastructureGatewayProfiles = [NUInfrastructureGatewayProfilesFetcher fetcherWithParentObject:self];
         _childrenInfrastructureVscProfiles = [NUInfrastructureVscProfilesFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];

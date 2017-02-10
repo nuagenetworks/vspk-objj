@@ -75,7 +75,8 @@ NUDomainApplicationDeploymentPolicy_NONE = @"NONE";
 NUDomainApplicationDeploymentPolicy_ZONE = @"ZONE";
 NUDomainDHCPBehavior_CONSUME = @"CONSUME";
 NUDomainDHCPBehavior_FLOOD = @"FLOOD";
-NUDomainDHCPBehavior_RELAY = @"RELAY";
+NUDomainDHCPBehavior_OVERLAY_RELAY = @"OVERLAY_RELAY";
+NUDomainDHCPBehavior_UNDERLAY_RELAY = @"UNDERLAY_RELAY";
 NUDomainDPI_DISABLED = @"DISABLED";
 NUDomainDPI_ENABLED = @"ENABLED";
 NUDomainEncryption_DISABLED = @"DISABLED";
@@ -235,6 +236,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPNumber _domainID @accessors(property=domainID);
     /*!
+        None
+    */
+    CPNumber _domainVLANID @accessors(property=domainVLANID);
+    /*!
         Route distinguisher associated with the dVRS. It is an optional parameter that can be provided by the user or auto-managed by VSD. System generates this identifier automatically, if not provided
     */
     CPString _routeDistinguisher @accessors(property=routeDistinguisher);
@@ -377,6 +382,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
         [self exposeLocalKeyPathToREST:@"domainID"];
+        [self exposeLocalKeyPathToREST:@"domainVLANID"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];

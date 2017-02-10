@@ -57,6 +57,7 @@
 @import "NUContainer.j"
 @import "NUContainerInterface.j"
 @import "NUContainerResync.j"
+@import "NUCustomProperty.j"
 @import "NUDHCPOption.j"
 @import "NUDSCPForwardingClassMapping.j"
 @import "NUDSCPForwardingClassTable.j"
@@ -107,10 +108,10 @@
 @import "NUIKEPSK.j"
 @import "NUIKESubnet.j"
 @import "NUIPReservation.j"
+@import "NUInfrastructureAccessProfile.j"
 @import "NUInfrastructureConfig.j"
 @import "NUInfrastructureGatewayProfile.j"
 @import "NUInfrastructureVscProfile.j"
-@import "NUInfrastructureaccessprofile.j"
 @import "NUIngressACLEntryTemplate.j"
 @import "NUIngressACLTemplate.j"
 @import "NUIngressAdvFwdEntryTemplate.j"
@@ -132,6 +133,7 @@
 @import "NULicenseStatus.j"
 @import "NULink.j"
 @import "NULocation.j"
+@import "NULtestatistics.j"
 @import "NUMe.j"
 @import "NUMetadata.j"
 @import "NUMetadataTag.j"
@@ -254,6 +256,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUContainer];
 [[NURESTModelController defaultController] registerModelClass:NUContainerInterface];
 [[NURESTModelController defaultController] registerModelClass:NUContainerResync];
+[[NURESTModelController defaultController] registerModelClass:NUCustomProperty];
 [[NURESTModelController defaultController] registerModelClass:NUDHCPOption];
 [[NURESTModelController defaultController] registerModelClass:NUDSCPForwardingClassMapping];
 [[NURESTModelController defaultController] registerModelClass:NUDSCPForwardingClassTable];
@@ -304,10 +307,10 @@
 [[NURESTModelController defaultController] registerModelClass:NUIKEPSK];
 [[NURESTModelController defaultController] registerModelClass:NUIKESubnet];
 [[NURESTModelController defaultController] registerModelClass:NUIPReservation];
+[[NURESTModelController defaultController] registerModelClass:NUInfrastructureAccessProfile];
 [[NURESTModelController defaultController] registerModelClass:NUInfrastructureConfig];
 [[NURESTModelController defaultController] registerModelClass:NUInfrastructureGatewayProfile];
 [[NURESTModelController defaultController] registerModelClass:NUInfrastructureVscProfile];
-[[NURESTModelController defaultController] registerModelClass:NUInfrastructureaccessprofile];
 [[NURESTModelController defaultController] registerModelClass:NUIngressACLEntryTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUIngressACLTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUIngressAdvFwdEntryTemplate];
@@ -329,6 +332,7 @@
 [[NURESTModelController defaultController] registerModelClass:NULicenseStatus];
 [[NURESTModelController defaultController] registerModelClass:NULink];
 [[NURESTModelController defaultController] registerModelClass:NULocation];
+[[NURESTModelController defaultController] registerModelClass:NULtestatistics];
 [[NURESTModelController defaultController] registerModelClass:NUMe];
 [[NURESTModelController defaultController] registerModelClass:NUMetadata];
 [[NURESTModelController defaultController] registerModelClass:NUMetadataTag];

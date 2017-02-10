@@ -132,6 +132,14 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _DHCPOptionSize @accessors(property=DHCPOptionSize);
     /*!
+        None
+    */
+    CPNumber _VLANIDLowerLimit @accessors(property=VLANIDLowerLimit);
+    /*!
+        None
+    */
+    CPNumber _VLANIDUpperLimit @accessors(property=VLANIDUpperLimit);
+    /*!
         LRU Map size for vm, this value has to set based on memory given to VSD jvm not finalized.
     */
     CPNumber _VMCacheSize @accessors(property=VMCacheSize);
@@ -255,6 +263,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Whether the various VRS license flavours be merged in one pool
     */
     BOOL _accumulateLicensesEnabled @accessors(property=accumulateLicensesEnabled);
+    /*!
+        None
+    */
+    BOOL _perDomainVlanIdEnabled @accessors(property=perDomainVlanIdEnabled);
     /*!
         performance Path Selection Virtual Network ID
     */
@@ -616,6 +628,8 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"ZFBRequestRetryTimer"];
         [self exposeLocalKeyPathToREST:@"ZFBSchedulerStaleRequestTimeout"];
         [self exposeLocalKeyPathToREST:@"DHCPOptionSize"];
+        [self exposeLocalKeyPathToREST:@"VLANIDLowerLimit"];
+        [self exposeLocalKeyPathToREST:@"VLANIDUpperLimit"];
         [self exposeLocalKeyPathToREST:@"VMCacheSize"];
         [self exposeLocalKeyPathToREST:@"VMPurgeTime"];
         [self exposeLocalKeyPathToREST:@"VMResyncDeletionWaitTime"];
@@ -647,6 +661,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"maxFailedLogins"];
         [self exposeLocalKeyPathToREST:@"maxResponse"];
         [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
+        [self exposeLocalKeyPathToREST:@"perDomainVlanIdEnabled"];
         [self exposeLocalKeyPathToREST:@"performancePathSelectionVNID"];
         [self exposeLocalKeyPathToREST:@"serviceIDUpperLimit"];
         [self exposeLocalKeyPathToREST:@"keyServerMonitorEnabled"];

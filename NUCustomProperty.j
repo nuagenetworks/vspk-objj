@@ -26,16 +26,53 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <Bambou/NURESTFetcher.j>
+@import <AppKit/CPArrayController.j>
+@import <Bambou/NURESTObject.j>
 
-@class NUInfrastructureaccessprofile
 
 
-@implementation NUInfrastructureaccessprofilesFetcher : NURESTFetcher
-
-+ (Class)managedObjectClass
+/*!
+    Developed in the context of the Uplink Connection on the NSG, this API could be used for other types of objects.  It is used as a collection of name-value (or key-value) pairs for custom attributes that could be used to enrich existing class instances.
+*/
+@implementation NUCustomProperty : NURESTObject
 {
-    return NUInfrastructureaccessprofile;
+    /*!
+        The name of the custom attribute (key) used to enrich the object the customProperty instance is attached to.
+    */
+    CPString _attributeName @accessors(property=attributeName);
+    /*!
+        The value assigned to the custom attribute (key) of that customProperty instance.
+    */
+    CPString _attributeValue @accessors(property=attributeValue);
+    
+    
+}
+
+
+#pragma mark -
+#pragma mark Class Method
+
++ (CPString)RESTName
+{
+    return @"customproperty";
+}
+
+
+#pragma mark -
+#pragma mark Initialization
+
+- (id)init
+{
+    if (self = [super init])
+    {
+        [self exposeLocalKeyPathToREST:@"attributeName"];
+        [self exposeLocalKeyPathToREST:@"attributeValue"];
+        
+        
+        
+    }
+
+    return self;
 }
 
 @end

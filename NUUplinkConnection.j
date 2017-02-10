@@ -30,14 +30,22 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUUnderlaysFetcher.j"
+@import "Fetchers/NUCustomPropertiesFetcher.j"
 
 NUUplinkConnectionAddress_IPV4 = @"IPv4";
 NUUplinkConnectionAddress_IPV6 = @"IPv6";
 NUUplinkConnectionAdvertisementCriteria_CONTROL_SESSION = @"CONTROL_SESSION";
+NUUplinkConnectionAdvertisementCriteria_FATE_SHARING = @"FATE_SHARING";
 NUUplinkConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
 NUUplinkConnectionAdvertisementCriteria_OPERATIONAL_LINK = @"OPERATIONAL_LINK";
+NUUplinkConnectionInterfaceConnectionType_AUTOMATIC = @"AUTOMATIC";
+NUUplinkConnectionInterfaceConnectionType_EMBEDDED = @"EMBEDDED";
+NUUplinkConnectionInterfaceConnectionType_PCI_EXPRESS = @"PCI_EXPRESS";
+NUUplinkConnectionInterfaceConnectionType_USB_ETHERNET = @"USB_ETHERNET";
+NUUplinkConnectionInterfaceConnectionType_USB_MODEM = @"USB_MODEM";
 NUUplinkConnectionMode_ANY = @"Any";
 NUUplinkConnectionMode_DYNAMIC = @"Dynamic";
+NUUplinkConnectionMode_LTE = @"LTE";
 NUUplinkConnectionMode_PPPOE = @"PPPoE";
 NUUplinkConnectionMode_STATIC = @"Static";
 NUUplinkConnectionRole_NONE = @"NONE";
@@ -77,7 +85,11 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _netmask @accessors(property=netmask);
     /*!
-        Specify how to connect to the network. Possible values: Any, Dynamic (DHCP), Static (static configuration is required), PPPoE (pppoe configuration required). Default: Dynamic
+        The way the interface is connected via the NSG.  This value depends on if the interface internal or external to the NSG.
+    */
+    CPString _interfaceConnectionType @accessors(property=interfaceConnectionType);
+    /*!
+        Specify how to connect to the network. Possible values: Any, Dynamic (DHCP), Static (static configuration is required), PPPoE (pppoe configuration required), LTE (LTE configuration required). Default: Dynamic
     */
     CPString _mode @accessors(property=mode);
     /*!
@@ -97,11 +109,20 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _assocUnderlayID @accessors(property=assocUnderlayID);
     /*!
+        The display name of the Underlay instance associated with this uplink connection.
+    */
+    CPString _associatedUnderlayName @accessors(property=associatedUnderlayName);
+    /*!
         The ID of the infrastructure VSC profile this is associated with this instance of a vlan or vlan template.
     */
     CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
+    /*!
+        Make this uplink an auxiliary one that will only come up when all other uplinks are disconnected or can't perform their role.
+    */
+    BOOL _auxiliaryLink @accessors(property=auxiliaryLink);
     
     NUUnderlaysFetcher _childrenUnderlays @accessors(property=childrenUnderlays);
+    NUCustomPropertiesFetcher _childrenCustomProperties @accessors(property=childrenCustomProperties);
     
 }
 
@@ -128,14 +149,18 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"interfaceConnectionType"];
         [self exposeLocalKeyPathToREST:@"mode"];
         [self exposeLocalKeyPathToREST:@"role"];
         [self exposeLocalKeyPathToREST:@"uplinkID"];
         [self exposeLocalKeyPathToREST:@"username"];
         [self exposeLocalKeyPathToREST:@"assocUnderlayID"];
+        [self exposeLocalKeyPathToREST:@"associatedUnderlayName"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
+        [self exposeLocalKeyPathToREST:@"auxiliaryLink"];
         
         _childrenUnderlays = [NUUnderlaysFetcher fetcherWithParentObject:self];
+        _childrenCustomProperties = [NUCustomPropertiesFetcher fetcherWithParentObject:self];
         
         
     }

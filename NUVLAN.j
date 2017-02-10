@@ -39,6 +39,7 @@
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUUplinkConnectionsFetcher.j"
 @import "Fetchers/NUBRConnectionsFetcher.j"
+@import "Fetchers/NULtestatisticsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUVLANEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -147,6 +148,7 @@ NUVLANStatus_READY = @"READY";
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUUplinkConnectionsFetcher _childrenUplinkConnections @accessors(property=childrenUplinkConnections);
     NUBRConnectionsFetcher _childrenBRConnections @accessors(property=childrenBRConnections);
+    NULtestatisticsFetcher _childrenLtestatistics @accessors(property=childrenLtestatistics);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -198,6 +200,7 @@ NUVLANStatus_READY = @"READY";
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenUplinkConnections = [NUUplinkConnectionsFetcher fetcherWithParentObject:self];
         _childrenBRConnections = [NUBRConnectionsFetcher fetcherWithParentObject:self];
+        _childrenLtestatistics = [NULtestatisticsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         

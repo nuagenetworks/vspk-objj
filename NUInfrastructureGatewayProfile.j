@@ -103,6 +103,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _metadataUpgradePath @accessors(property=metadataUpgradePath);
     /*!
+        Number of flows at which eviction from kernel flow table will be triggered (default: 2500)
+    */
+    CPNumber _flowEvictionThreshold @accessors(property=flowEvictionThreshold);
+    /*!
         Enterprise/Organisation associated with this Profile instance.
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
@@ -130,6 +134,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         Usually the synchronization will span across 1 hour window after the defined synchronization time. Forcing an immediate synchronization can overload the system and can have a negative impact on the system.
     */
     BOOL _forceImmediateSystemSync @accessors(property=forceImmediateSystemSync);
+    /*!
+        Openflow audit timer in sec. Upon the expiry of this timer a set of cleanup operations will be performed
+    */
+    CPNumber _openFlowAuditTimer @accessors(property=openFlowAuditTimer);
     /*!
         Upgrade action for NSG associated with this Infrastructure Gateway Profile instance.
     */
@@ -189,6 +197,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"remoteLogServerPort"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"metadataUpgradePath"];
+        [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"controllerLessDuration"];
@@ -196,6 +205,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"controllerLessForwardingMode"];
         [self exposeLocalKeyPathToREST:@"controllerLessRemoteDuration"];
         [self exposeLocalKeyPathToREST:@"forceImmediateSystemSync"];
+        [self exposeLocalKeyPathToREST:@"openFlowAuditTimer"];
         [self exposeLocalKeyPathToREST:@"upgradeAction"];
         [self exposeLocalKeyPathToREST:@"proxyDNSName"];
         [self exposeLocalKeyPathToREST:@"useTwoFactor"];

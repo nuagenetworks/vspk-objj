@@ -256,6 +256,22 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _ipAddress @accessors(property=ipAddress);
     /*!
+        upgradePackagePassword
+    */
+    CPString _upgradePackagePassword @accessors(property=upgradePackagePassword);
+    /*!
+        upgradePackageURL
+    */
+    CPString _upgradePackageURL @accessors(property=upgradePackageURL);
+    /*!
+        upgradePackageUsername
+    */
+    CPString _upgradePackageUsername @accessors(property=upgradePackageUsername);
+    /*!
+        upgradeScriptTimeLimit
+    */
+    CPNumber _upgradeScriptTimeLimit @accessors(property=upgradeScriptTimeLimit);
+    /*!
         IP address of the primary Controller (VSC)
     */
     CPString _primaryNuageController @accessors(property=primaryNuageController);
@@ -438,6 +454,10 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"novaMetadataSharedSecret"];
         [self exposeLocalKeyPathToREST:@"novaRegionName"];
         [self exposeLocalKeyPathToREST:@"ipAddress"];
+        [self exposeLocalKeyPathToREST:@"upgradePackagePassword"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageURL"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageUsername"];
+        [self exposeLocalKeyPathToREST:@"upgradeScriptTimeLimit"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsConfigID"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];

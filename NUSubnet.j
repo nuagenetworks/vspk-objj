@@ -292,6 +292,8 @@ NUSubnetAssociatedApplicationObjectType_VSP = @"VSP";
 NUSubnetAssociatedApplicationObjectType_WAN_SERVICE = @"WAN_SERVICE";
 NUSubnetAssociatedApplicationObjectType_ZONE = @"ZONE";
 NUSubnetAssociatedApplicationObjectType_ZONE_TEMPLATE = @"ZONE_TEMPLATE";
+NUSubnetDHCPRelayStatus_DISABLED = @"DISABLED";
+NUSubnetDHCPRelayStatus_ENABLED = @"ENABLED";
 NUSubnetDPI_DISABLED = @"DISABLED";
 NUSubnetDPI_ENABLED = @"ENABLED";
 NUSubnetDPI_INHERITED = @"INHERITED";
@@ -330,6 +332,10 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         None
     */
     CPString _PATEnabled @accessors(property=PATEnabled);
+    /*!
+        None
+    */
+    CPString _DHCPRelayStatus @accessors(property=DHCPRelayStatus);
     /*!
         determines whether or not Deep packet inspection is enabled
     */
@@ -399,7 +405,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _encryption @accessors(property=encryption);
     /*!
-        Boolean flag to indicate whether underlay is enabled directly or indirectly
+        Read Only Boolean flag to indicate whether underlay is enabled directly or indirectly
     */
     BOOL _underlay @accessors(property=underlay);
     /*!
@@ -508,6 +514,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"PATEnabled"];
+        [self exposeLocalKeyPathToREST:@"DHCPRelayStatus"];
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"IPv6Address"];
