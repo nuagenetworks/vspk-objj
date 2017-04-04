@@ -109,6 +109,14 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     BOOL _NATTraversalEnabled @accessors(property=NATTraversalEnabled);
     /*!
+        Boolean flag to indicate whether MSS on TCP is enabled or not
+    */
+    BOOL _TCPMSSEnabled @accessors(property=TCPMSSEnabled);
+    /*!
+        Maximum Segment Size for TCP(min = 576, max = 7812).
+    */
+    CPNumber _TCPMaximumSegmentSize @accessors(property=TCPMaximumSegmentSize);
+    /*!
         The part number of the NSG
     */
     CPString _SKU @accessors(property=SKU);
@@ -284,6 +292,8 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     {
         [self exposeLocalKeyPathToREST:@"MACAddress"];
         [self exposeLocalKeyPathToREST:@"NATTraversalEnabled"];
+        [self exposeLocalKeyPathToREST:@"TCPMSSEnabled"];
+        [self exposeLocalKeyPathToREST:@"TCPMaximumSegmentSize"];
         [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
         [self exposeLocalKeyPathToREST:@"CPUType"];

@@ -131,9 +131,9 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     */
     BOOL _disabled @accessors(property=disabled);
     /*!
-        elastic search UI address
+        elastic search address
     */
-    CPString _elasticSearchUIAddress @accessors(property=elasticSearchUIAddress);
+    CPString _elasticSearchAddress @accessors(property=elasticSearchAddress);
     /*!
         Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires "statisticsEnabled".
     */
@@ -272,7 +272,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"firstName"];
         [self exposeLocalKeyPathToREST:@"disabled"];
-        [self exposeLocalKeyPathToREST:@"elasticSearchUIAddress"];
+        [self exposeLocalKeyPathToREST:@"elasticSearchAddress"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"email"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
