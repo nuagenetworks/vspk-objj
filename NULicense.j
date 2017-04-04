@@ -95,14 +95,6 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPString _city @accessors(property=city);
     /*!
-        Maximum number of AVRSGs enabled with this license. A value of -1 indicates an unlimited number of AVRSGs
-    */
-    CPNumber _allowedAVRSGsCount @accessors(property=allowedAVRSGsCount);
-    /*!
-        Maximum number of AVRSs enabled with this license. A value of -1 indicates an unlimited number of AVRSs
-    */
-    CPNumber _allowedAVRSsCount @accessors(property=allowedAVRSsCount);
-    /*!
         Maximum number of CPEs enabled with this license. A value of -1 indicates an unlimited number of CPEs
     */
     CPNumber _allowedCPEsCount @accessors(property=allowedCPEsCount);
@@ -179,10 +171,6 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPNumber _expirationDate @accessors(property=expirationDate);
     /*!
-        The Timestamp value of the expiration date of this license
-    */
-    CPNumber _expiryTimestamp @accessors(property=expiryTimestamp);
-    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -222,8 +210,6 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         [self exposeLocalKeyPathToREST:@"minorRelease"];
         [self exposeLocalKeyPathToREST:@"zip"];
         [self exposeLocalKeyPathToREST:@"city"];
-        [self exposeLocalKeyPathToREST:@"allowedAVRSGsCount"];
-        [self exposeLocalKeyPathToREST:@"allowedAVRSsCount"];
         [self exposeLocalKeyPathToREST:@"allowedCPEsCount"];
         [self exposeLocalKeyPathToREST:@"allowedNICsCount"];
         [self exposeLocalKeyPathToREST:@"allowedVMsCount"];
@@ -243,7 +229,6 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         [self exposeLocalKeyPathToREST:@"street"];
         [self exposeLocalKeyPathToREST:@"customerKey"];
         [self exposeLocalKeyPathToREST:@"expirationDate"];
-        [self exposeLocalKeyPathToREST:@"expiryTimestamp"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

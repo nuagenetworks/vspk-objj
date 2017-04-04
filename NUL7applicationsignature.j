@@ -38,6 +38,10 @@
 @implementation NUL7applicationsignature : NURESTObject
 {
     /*!
+        GUID of the Application
+    */
+    CPString _GUID @accessors(property=GUID);
+    /*!
          name of the L7 App
     */
     CPString _name @accessors(property=name);
@@ -46,10 +50,6 @@
     */
     CPString _category @accessors(property=category);
     /*!
-        Determines whether this entity is read only.  Read only objects cannot be modified or deleted.
-    */
-    BOOL _readonly @accessors(property=readonly);
-    /*!
         description for L7 App
     */
     CPString _description @accessors(property=description);
@@ -57,10 +57,6 @@
         Version of the L7 Application Type
     */
     CPNumber _dictionaryVersion @accessors(property=dictionaryVersion);
-    /*!
-        GUID of the Application
-    */
-    CPString _guidstring @accessors(property=guidstring);
     
     NUApplicationsFetcher _childrenApplications @accessors(property=childrenApplications);
     
@@ -83,12 +79,11 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"GUID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"category"];
-        [self exposeLocalKeyPathToREST:@"readonly"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"dictionaryVersion"];
-        [self exposeLocalKeyPathToREST:@"guidstring"];
         
         _childrenApplications = [NUApplicationsFetcher fetcherWithParentObject:self];
         

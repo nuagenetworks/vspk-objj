@@ -351,11 +351,11 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
-        The ID of the source endpoint (Subnet/Zone/Macro/MacroGroup/PortGroup)
+        The destination network entity that is referenced(subnet/zone/macro)
     */
     CPString _networkID @accessors(property=networkID);
     /*!
-        Type of the source endpoint (Subnet/Zone/Macro/MacroGroup/PortGroup)
+        Type of the source network.
     */
     CPString _networkType @accessors(property=networkType);
     /*!
@@ -375,11 +375,11 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The ID of the destination endpoint (Subnet/Zone/VportTag/PolicyGroup)
+        The ID of the location entity (Subnet/Zone/VportTag)
     */
     CPString _locationID @accessors(property=locationID);
     /*!
-        Type of the destination endpoint (Subnet/Zone/VportTag/PolicyGroup)
+        Type of the location entity.
     */
     CPString _locationType @accessors(property=locationType);
     /*!

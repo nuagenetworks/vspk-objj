@@ -320,6 +320,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _elasticClusterName @accessors(property=elasticClusterName);
     /*!
+        Specifies the server address Elastic Search Cluster.
+    */
+    CPString _elasticSearchUIAddress @accessors(property=elasticSearchUIAddress);
+    /*!
         Allow Enterprise Avatar to be populated on NSG Portal
     */
     BOOL _allowEnterpriseAvatarOnNSG @accessors(property=allowEnterpriseAvatarOnNSG);
@@ -671,6 +675,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"ejbcaVspRootCa"];
         [self exposeLocalKeyPathToREST:@"alarmsMaxPerObject"];
         [self exposeLocalKeyPathToREST:@"elasticClusterName"];
+        [self exposeLocalKeyPathToREST:@"elasticSearchUIAddress"];
         [self exposeLocalKeyPathToREST:@"allowEnterpriseAvatarOnNSG"];
         [self exposeLocalKeyPathToREST:@"globalMACAddress"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
