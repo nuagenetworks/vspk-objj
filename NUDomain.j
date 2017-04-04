@@ -33,6 +33,7 @@
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUNetworkPerformanceBindingsFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
 @import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
@@ -296,6 +297,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUNetworkPerformanceBindingsFetcher _childrenNetworkPerformanceBindings @accessors(property=childrenNetworkPerformanceBindings);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
     NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
@@ -401,6 +403,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenNetworkPerformanceBindings = [NUNetworkPerformanceBindingsFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
