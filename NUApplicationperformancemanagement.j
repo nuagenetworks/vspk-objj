@@ -31,9 +31,6 @@
 
 @import "Fetchers/NUApplicationBindingsFetcher.j"
 
-NUApplicationperformancemanagementApplicationGroupType_DISCOVERY = @"DISCOVERY";
-NUApplicationperformancemanagementApplicationGroupType_MONITOR_PATH = @"MONITOR_PATH";
-
 
 /*!
     Application Group is a container for group of applications 
@@ -52,10 +49,6 @@ NUApplicationperformancemanagementApplicationGroupType_MONITOR_PATH = @"MONITOR_
         Description of Application Group
     */
     CPString _description @accessors(property=description);
-    /*!
-        with values  MONITOR_PATH,DISCOVERY
-    */
-    CPString _applicationGroupType @accessors(property=applicationGroupType);
     /*!
         associated Probe ID
     */
@@ -85,7 +78,6 @@ NUApplicationperformancemanagementApplicationGroupType_MONITOR_PATH = @"MONITOR_
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"applicationGroupType"];
         [self exposeLocalKeyPathToREST:@"associatedPerformanceMonitorID"];
         
         _childrenApplicationBindings = [NUApplicationBindingsFetcher fetcherWithParentObject:self];

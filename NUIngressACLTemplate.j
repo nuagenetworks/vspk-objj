@@ -80,10 +80,6 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
     */
     BOOL _allowAddressSpoof @accessors(property=allowAddressSpoof);
     /*!
-        If enabled, it will disable the default anti-spoof ACL for this domain that essentially prevents any VM to send packets that do not originate from that particular VM
-    */
-    BOOL _allowL2AddressSpoof @accessors(property=allowL2AddressSpoof);
-    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -150,7 +146,6 @@ NUIngressACLTemplatePriorityType_TOP = @"TOP";
         [self exposeLocalKeyPathToREST:@"defaultAllowNonIP"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"allowAddressSpoof"];
-        [self exposeLocalKeyPathToREST:@"allowL2AddressSpoof"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"priority"];

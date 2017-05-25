@@ -46,7 +46,6 @@ NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_APPD_FLOW_FORWARDING
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_APPD_FLOW_SECURITY_POLICY = @"APPD_FLOW_SECURITY_POLICY";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_APPD_SERVICE = @"APPD_SERVICE";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_APPD_TIER = @"APPD_TIER";
-NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_APPLICATION = @"APPLICATION";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_BACK_HAUL_SERVICE_RESP = @"BACK_HAUL_SERVICE_RESP";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_BGPPEER = @"BGPPEER";
@@ -80,9 +79,7 @@ NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_EGRESS_ACL = @"EGRES
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_EGRESS_ACL_ENTRY = @"EGRESS_ACL_ENTRY";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE = @"EGRESS_ACL_TEMPLATE";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE_ENTRY = @"EGRESS_ACL_TEMPLATE_ENTRY";
-NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_EGRESS_QOS_MR = @"EGRESS_QOS_MR";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_EGRESS_QOS_PRIMITIVE = @"EGRESS_QOS_PRIMITIVE";
-NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_EGRESS_QOS_QUEUE_MR = @"EGRESS_QOS_QUEUE_MR";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_ENDPOINT = @"ENDPOINT";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_ENTERPRISE = @"ENTERPRISE";
 NUFloatingIPACLTemplateEntryAssociatedApplicationObjectType_ENTERPRISE_CONFIG = @"ENTERPRISE_CONFIG";
@@ -318,6 +315,10 @@ NUFloatingIPACLTemplateEntryPolicyState_LIVE = @"LIVE";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
+        Overrides the source IPv6 for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
+    */
+    CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
+    /*!
         DSCP match condition to be set in the rule. It is either * or from 0-63
     */
     CPString _DSCP @accessors(property=DSCP);
@@ -330,13 +331,9 @@ NUFloatingIPACLTemplateEntryPolicyState_LIVE = @"LIVE";
     */
     CPString _action @accessors(property=action);
     /*!
-        Overrides the source IP for Ingress and destination IP for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
-    /*!
-        True means that this ACL entry is reflexive, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
-    */
-    BOOL _reflexive @accessors(property=reflexive);
     /*!
         Description of the ACL entry
     */
@@ -459,11 +456,11 @@ NUFloatingIPACLTemplateEntryPolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"ACLTemplateName"];
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
-        [self exposeLocalKeyPathToREST:@"reflexive"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];

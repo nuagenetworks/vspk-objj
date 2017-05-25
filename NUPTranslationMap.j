@@ -26,16 +26,66 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <Bambou/NURESTFetcher.j>
+@import <AppKit/CPArrayController.j>
+@import <Bambou/NURESTObject.j>
 
-@class NUEndPoint
+
+NUPTranslationMapMappingType_NAT = @"NAT";
+NUPTranslationMapMappingType_PAT = @"PAT";
 
 
-@implementation NUEndPointsFetcher : NURESTFetcher
-
-+ (Class)managedObjectClass
+/*!
+    1:1 mappings of private IPs in provider domain to the provider  alias (public) IPs in customer domain and N:1 mappings of a collection of provider private IPs to a provider alias IP into the customer domain.
+*/
+@implementation NUPTranslationMap : NURESTObject
 {
-    return NUEndPoint;
+    /*!
+        The list of provider source IPs to be SPAT'd.
+    */
+    CPArrayController _SPATSourceList @accessors(property=SPATSourceList);
+    /*!
+        1:1 NATmapping, or *:1 PAT mappings
+    */
+    CPString _mappingType @accessors(property=mappingType);
+    /*!
+        Provider public IP in Customer Domain
+    */
+    CPString _providerAliasIP @accessors(property=providerAliasIP);
+    /*!
+        Provider private IP in Provider Domain.
+    */
+    CPString _providerIP @accessors(property=providerIP);
+    
+    
+}
+
+
+#pragma mark -
+#pragma mark Class Method
+
++ (CPString)RESTName
+{
+    return @"ptranslationmap";
+}
+
+
+#pragma mark -
+#pragma mark Initialization
+
+- (id)init
+{
+    if (self = [super init])
+    {
+        [self exposeLocalKeyPathToREST:@"SPATSourceList"];
+        [self exposeLocalKeyPathToREST:@"mappingType"];
+        [self exposeLocalKeyPathToREST:@"providerAliasIP"];
+        [self exposeLocalKeyPathToREST:@"providerIP"];
+        
+        
+        
+    }
+
+    return self;
 }
 
 @end

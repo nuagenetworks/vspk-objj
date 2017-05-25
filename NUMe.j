@@ -44,7 +44,6 @@
 @import "Fetchers/NUPerformanceMonitorsFetcher.j"
 @import "Fetchers/NUCertificatesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUMetadataTagsFetcher.j"
 @import "Fetchers/NUNetworkLayoutsFetcher.j"
 @import "Fetchers/NUKeyServerMembersFetcher.j"
 @import "Fetchers/NUZFBAutoAssignmentsFetcher.j"
@@ -98,8 +97,6 @@
 @import "Fetchers/NUDUCGroupsFetcher.j"
 @import "Fetchers/NUMultiCastChannelMapsFetcher.j"
 @import "Fetchers/NUAutoDiscoveredGatewaysFetcher.j"
-@import "Fetchers/NUExternalAppServicesFetcher.j"
-@import "Fetchers/NUExternalServicesFetcher.j"
 @import "Fetchers/NUSystemConfigsFetcher.j"
 
 NUMeAvatarType_BASE64 = @"BASE64";
@@ -131,9 +128,9 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     */
     BOOL _disabled @accessors(property=disabled);
     /*!
-        elastic search UI address
+        elastic search address
     */
-    CPString _elasticSearchUIAddress @accessors(property=elasticSearchUIAddress);
+    CPString _elasticSearchAddress @accessors(property=elasticSearchAddress);
     /*!
         Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires "statisticsEnabled".
     */
@@ -190,7 +187,6 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUPerformanceMonitorsFetcher _childrenPerformanceMonitors @accessors(property=childrenPerformanceMonitors);
     NUCertificatesFetcher _childrenCertificates @accessors(property=childrenCertificates);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUMetadataTagsFetcher _childrenMetadataTags @accessors(property=childrenMetadataTags);
     NUNetworkLayoutsFetcher _childrenNetworkLayouts @accessors(property=childrenNetworkLayouts);
     NUKeyServerMembersFetcher _childrenKeyServerMembers @accessors(property=childrenKeyServerMembers);
     NUZFBAutoAssignmentsFetcher _childrenZFBAutoAssignments @accessors(property=childrenZFBAutoAssignments);
@@ -244,8 +240,6 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUDUCGroupsFetcher _childrenDUCGroups @accessors(property=childrenDUCGroups);
     NUMultiCastChannelMapsFetcher _childrenMultiCastChannelMaps @accessors(property=childrenMultiCastChannelMaps);
     NUAutoDiscoveredGatewaysFetcher _childrenAutoDiscoveredGateways @accessors(property=childrenAutoDiscoveredGateways);
-    NUExternalAppServicesFetcher _childrenExternalAppServices @accessors(property=childrenExternalAppServices);
-    NUExternalServicesFetcher _childrenExternalServices @accessors(property=childrenExternalServices);
     NUSystemConfigsFetcher _childrenSystemConfigs @accessors(property=childrenSystemConfigs);
     
 }
@@ -272,7 +266,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"firstName"];
         [self exposeLocalKeyPathToREST:@"disabled"];
-        [self exposeLocalKeyPathToREST:@"elasticSearchUIAddress"];
+        [self exposeLocalKeyPathToREST:@"elasticSearchAddress"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"email"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
@@ -301,7 +295,6 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenPerformanceMonitors = [NUPerformanceMonitorsFetcher fetcherWithParentObject:self];
         _childrenCertificates = [NUCertificatesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadataTags = [NUMetadataTagsFetcher fetcherWithParentObject:self];
         _childrenNetworkLayouts = [NUNetworkLayoutsFetcher fetcherWithParentObject:self];
         _childrenKeyServerMembers = [NUKeyServerMembersFetcher fetcherWithParentObject:self];
         _childrenZFBAutoAssignments = [NUZFBAutoAssignmentsFetcher fetcherWithParentObject:self];
@@ -355,8 +348,6 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenDUCGroups = [NUDUCGroupsFetcher fetcherWithParentObject:self];
         _childrenMultiCastChannelMaps = [NUMultiCastChannelMapsFetcher fetcherWithParentObject:self];
         _childrenAutoDiscoveredGateways = [NUAutoDiscoveredGatewaysFetcher fetcherWithParentObject:self];
-        _childrenExternalAppServices = [NUExternalAppServicesFetcher fetcherWithParentObject:self];
-        _childrenExternalServices = [NUExternalServicesFetcher fetcherWithParentObject:self];
         _childrenSystemConfigs = [NUSystemConfigsFetcher fetcherWithParentObject:self];
         
         

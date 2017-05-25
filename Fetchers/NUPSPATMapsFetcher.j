@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUMetadataTag
+@class NUPSPATMap
 
 
-@implementation NUMetadataTagsFetcher : NURESTFetcher
+@implementation NUPSPATMapsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUMetadataTag;
+    return NUPSPATMap;
 }
 
 @end

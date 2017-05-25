@@ -30,24 +30,27 @@
 @import <Bambou/NURESTObject.j>
 
 
+NUCTranslationMapMappingType_NAT = @"NAT";
+NUCTranslationMapMappingType_PAT = @"PAT";
+
 
 /*!
-    None
+    1:1 mapping of customer private IPs in customer domain to customer alias (public) IPs in provider domain and N:1 mapping to customer alias SPAT IP in the provider domain.
 */
-@implementation NUDUCGroupBinding : NURESTObject
+@implementation NUCTranslationMap : NURESTObject
 {
     /*!
-        SLA delay value in milliseconds that is tolerated between NSG instances and NSG-UBR (DUC) instances being bound through this binding instance.  If delay is to be ignored, then the value of -1 is to be entered.  Value 0 is not permitted.
+        NAT for 1:1 mapping or PAT for *:1 mappings.
     */
-    CPNumber _oneWayDelay @accessors(property=oneWayDelay);
+    CPString _mappingType @accessors(property=mappingType);
     /*!
-        The priority for NSG Group to UBR Group relationship.
+        Customer public IP in the provider domain.
     */
-    CPNumber _priority @accessors(property=priority);
+    CPString _customerAliasIP @accessors(property=customerAliasIP);
     /*!
-        Identification of the UBR Group associated to this group binding instance.
+        Customer private IP in the customer domain.
     */
-    CPString _associatedDUCGroupID @accessors(property=associatedDUCGroupID);
+    CPString _customerIP @accessors(property=customerIP);
     
     
 }
@@ -58,7 +61,7 @@
 
 + (CPString)RESTName
 {
-    return @"ducgroupbinding";
+    return @"ctranslationmap";
 }
 
 
@@ -69,9 +72,9 @@
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"oneWayDelay"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedDUCGroupID"];
+        [self exposeLocalKeyPathToREST:@"mappingType"];
+        [self exposeLocalKeyPathToREST:@"customerAliasIP"];
+        [self exposeLocalKeyPathToREST:@"customerIP"];
         
         
         

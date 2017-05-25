@@ -57,7 +57,6 @@ NUZoneAssociatedApplicationObjectType_APPD_FLOW_FORWARDING_POLICY = @"APPD_FLOW_
 NUZoneAssociatedApplicationObjectType_APPD_FLOW_SECURITY_POLICY = @"APPD_FLOW_SECURITY_POLICY";
 NUZoneAssociatedApplicationObjectType_APPD_SERVICE = @"APPD_SERVICE";
 NUZoneAssociatedApplicationObjectType_APPD_TIER = @"APPD_TIER";
-NUZoneAssociatedApplicationObjectType_APPLICATION = @"APPLICATION";
 NUZoneAssociatedApplicationObjectType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUZoneAssociatedApplicationObjectType_BACK_HAUL_SERVICE_RESP = @"BACK_HAUL_SERVICE_RESP";
 NUZoneAssociatedApplicationObjectType_BGPPEER = @"BGPPEER";
@@ -91,9 +90,7 @@ NUZoneAssociatedApplicationObjectType_EGRESS_ACL = @"EGRESS_ACL";
 NUZoneAssociatedApplicationObjectType_EGRESS_ACL_ENTRY = @"EGRESS_ACL_ENTRY";
 NUZoneAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE = @"EGRESS_ACL_TEMPLATE";
 NUZoneAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE_ENTRY = @"EGRESS_ACL_TEMPLATE_ENTRY";
-NUZoneAssociatedApplicationObjectType_EGRESS_QOS_MR = @"EGRESS_QOS_MR";
 NUZoneAssociatedApplicationObjectType_EGRESS_QOS_PRIMITIVE = @"EGRESS_QOS_PRIMITIVE";
-NUZoneAssociatedApplicationObjectType_EGRESS_QOS_QUEUE_MR = @"EGRESS_QOS_QUEUE_MR";
 NUZoneAssociatedApplicationObjectType_ENDPOINT = @"ENDPOINT";
 NUZoneAssociatedApplicationObjectType_ENTERPRISE = @"ENTERPRISE";
 NUZoneAssociatedApplicationObjectType_ENTERPRISE_CONFIG = @"ENTERPRISE_CONFIG";
@@ -190,7 +187,7 @@ NUZoneAssociatedApplicationObjectType_NETWORK_LAYOUT = @"NETWORK_LAYOUT";
 NUZoneAssociatedApplicationObjectType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
 NUZoneAssociatedApplicationObjectType_NETWORK_POLICY_GROUP = @"NETWORK_POLICY_GROUP";
 NUZoneAssociatedApplicationObjectType_NEXT_HOP_RESP = @"NEXT_HOP_RESP";
-NUZoneAssociatedApplicationObjectType_NODE_EXECUTION_ERROR = @"NODE_EXECUTION_ERROR";
+NUZoneAssociatedApplicationObjectType_NODE_EXECUTION = @"NODE_EXECUTION";
 NUZoneAssociatedApplicationObjectType_NSGATEWAY = @"NSGATEWAY";
 NUZoneAssociatedApplicationObjectType_NSGATEWAY_CONFIG = @"NSGATEWAY_CONFIG";
 NUZoneAssociatedApplicationObjectType_NSGATEWAY_TEMPLATE = @"NSGATEWAY_TEMPLATE";
@@ -320,6 +317,10 @@ NUZoneMulticast_INHERITED = @"INHERITED";
     */
     CPString _IPType @accessors(property=IPType);
     /*!
+        IPv6 address range of the zone. This is an optional field that allows users to allocate an address range to a zone. The VSD will auto-assign IP ranges to subnets from this range if an IP range is not defined for a subnet.
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
+    /*!
         Indicates if the Zone is accepting VM activation requests.
     */
     CPString _maintenanceMode @accessors(property=maintenanceMode);
@@ -332,7 +333,7 @@ NUZoneMulticast_INHERITED = @"INHERITED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        IP address of the subnet defined. In case of zone, this is an optional field for and allows users to allocate an IP address range to a zone. The VSD will auto-assign IP addresses to subnets from this range if a specific IP address is not defined for the subnet
+        IPv4 address range of the zone. This is an optional field that allows users to allocate an address range to a zone. The VSD will auto-assign IP ranges to subnets from this range if an IP range is not defined for a subnet.
     */
     CPString _address @accessors(property=address);
     /*!
@@ -391,6 +392,10 @@ NUZoneMulticast_INHERITED = @"INHERITED";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        Turn on or off dynamic allocation of IPV6 address
+    */
+    BOOL _dynamicIpv6Address @accessors(property=dynamicIpv6Address);
     
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
@@ -430,6 +435,7 @@ NUZoneMulticast_INHERITED = @"INHERITED";
     {
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
@@ -448,6 +454,7 @@ NUZoneMulticast_INHERITED = @"INHERITED";
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"numberOfHostsInSubnets"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

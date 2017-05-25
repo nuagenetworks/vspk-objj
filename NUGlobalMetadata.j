@@ -30,7 +30,6 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUMetadataTagsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUGlobalMetadataEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -80,7 +79,6 @@ NUGlobalMetadataEntityScope_GLOBAL = @"GLOBAL";
     CPString _externalID @accessors(property=externalID);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUMetadataTagsFetcher _childrenMetadataTags @accessors(property=childrenMetadataTags);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
@@ -113,7 +111,6 @@ NUGlobalMetadataEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenMetadataTags = [NUMetadataTagsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         

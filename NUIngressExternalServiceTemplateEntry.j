@@ -320,7 +320,7 @@ NUIngressExternalServiceTemplateEntryPolicyState_LIVE = @"LIVE";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
-        Overrides the source IPv6 for Ingress and destination IPv6 for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IPv6 for Ingress and destination IPv6 for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
     /*!
@@ -340,7 +340,7 @@ NUIngressExternalServiceTemplateEntryPolicyState_LIVE = @"LIVE";
     */
     CPString _action @accessors(property=action);
     /*!
-        Overrides the source IP for Ingress and destination IP for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
     /*!

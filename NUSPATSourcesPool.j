@@ -26,16 +26,60 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <Bambou/NURESTFetcher.j>
+@import <AppKit/CPArrayController.j>
+@import <Bambou/NURESTObject.j>
 
-@class NUExternalService
+
+NUSPATSourcesPoolFamily_IPV4 = @"IPV4";
 
 
-@implementation NUExternalServicesFetcher : NURESTFetcher
-
-+ (Class)managedObjectClass
+/*!
+    The list of source IPs from the provider domain to be SPATed.
+*/
+@implementation NUSPATSourcesPool : NURESTObject
 {
-    return NUExternalService;
+    /*!
+        The name for this address pool
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        The IP address family. Supported IPV4 for the time being.
+    */
+    CPString _family @accessors(property=family);
+    /*!
+        The collection of IP addresses that will SPATed in the customer domain.
+    */
+    CPArrayController _addressList @accessors(property=addressList);
+    
+    
+}
+
+
+#pragma mark -
+#pragma mark Class Method
+
++ (CPString)RESTName
+{
+    return @"spatsourcespool";
+}
+
+
+#pragma mark -
+#pragma mark Initialization
+
+- (id)init
+{
+    if (self = [super init])
+    {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"family"];
+        [self exposeLocalKeyPathToREST:@"addressList"];
+        
+        
+        
+    }
+
+    return self;
 }
 
 @end

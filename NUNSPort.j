@@ -37,6 +37,7 @@
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
+@import "Fetchers/NULTEInformationsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUNSPortEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -97,6 +98,10 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _description @accessors(property=description);
     /*!
+        Flag to enable/disable network throughput acceleration on this port. If this flag is not set then the setting of the port's template will be taken into account.
+    */
+    BOOL _networkAccelerationEnabled @accessors(property=networkAccelerationEnabled);
+    /*!
         Identifier of the Port
     */
     CPString _physicalName @accessors(property=physicalName);
@@ -149,6 +154,7 @@ NUNSPortStatus_READY = @"READY";
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
+    NULTEInformationsFetcher _childrenLTEInformations @accessors(property=childrenLTEInformations);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -177,6 +183,7 @@ NUNSPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"networkAccelerationEnabled"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];
@@ -197,6 +204,7 @@ NUNSPortStatus_READY = @"READY";
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
+        _childrenLTEInformations = [NULTEInformationsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         

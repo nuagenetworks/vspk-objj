@@ -64,6 +64,10 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
     */
     CPString _IPType @accessors(property=IPType);
     /*!
+        IPv6 address range of the zone. This is an optional field that allows users to allocate an address range to a zone. The VSD will auto-assign IP ranges to subnets from this range if an IP range is not defined for a subnet.
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
+    /*!
         Name of the current entity(Zone or zone template or subnet etc..) Valid characters are alphabets, numbers, space and hyphen( - ).
     */
     CPString _name @accessors(property=name);
@@ -72,7 +76,7 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        IP address of the subnet defined. In case of zone, this is an optional field for and allows users to allocate an IP address range to a zone. The VSD will auto-assign IP addresses to subnets from this range if a specific IP address is not defined for the subnet
+        IPv4 address range of the zone. This is an optional field that allows users to allocate an address range to a zone. The VSD will auto-assign IP ranges to subnets from this range if an IP range is not defined for a subnet.
     */
     CPString _address @accessors(property=address);
     /*!
@@ -111,6 +115,10 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        Turn on or off dynamic allocation of IPV6 address
+    */
+    BOOL _dynamicIpv6Address @accessors(property=dynamicIpv6Address);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -139,6 +147,7 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
     {
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"address"];
@@ -151,6 +160,7 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"numberOfHostsInSubnets"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

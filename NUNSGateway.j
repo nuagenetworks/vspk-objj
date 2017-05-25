@@ -42,6 +42,7 @@
 @import "Fetchers/NUMonitorscopesFetcher.j"
 @import "Fetchers/NUBootstrapsFetcher.j"
 @import "Fetchers/NUBootstrapActivationsFetcher.j"
+@import "Fetchers/NUUplinkConnectionsFetcher.j"
 @import "Fetchers/NUNSGInfosFetcher.j"
 @import "Fetchers/NUNSPortsFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
@@ -53,6 +54,7 @@ NUNSGatewayBootstrapStatus_INACTIVE = @"INACTIVE";
 NUNSGatewayBootstrapStatus_NOTIFICATION_APP_REQ_ACK = @"NOTIFICATION_APP_REQ_ACK";
 NUNSGatewayBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
 NUNSGatewayConfigurationReloadState_APPLIED = @"APPLIED";
+NUNSGatewayConfigurationReloadState_FAILED_TO_APPLY = @"FAILED_TO_APPLY";
 NUNSGatewayConfigurationReloadState_PENDING = @"PENDING";
 NUNSGatewayConfigurationReloadState_SENT = @"SENT";
 NUNSGatewayConfigurationReloadState_UNKNOWN = @"UNKNOWN";
@@ -108,6 +110,14 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         This attribute is deprecated in version 4.0.
     */
     BOOL _NATTraversalEnabled @accessors(property=NATTraversalEnabled);
+    /*!
+        Boolean flag to indicate whether MSS on TCP is enabled or not
+    */
+    BOOL _TCPMSSEnabled @accessors(property=TCPMSSEnabled);
+    /*!
+        Maximum Segment Size for TCP(min = 576, max = 7812).
+    */
+    CPNumber _TCPMaximumSegmentSize @accessors(property=TCPMaximumSegmentSize);
     /*!
         The part number of the NSG
     */
@@ -205,11 +215,11 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _locationID @accessors(property=locationID);
     /*!
-        None
+        Status resulting from a manually triggered configuration reload operation on an NSG.  This value only reflects the state for a manual action requested by the operator, not the automatic periodic configuration reload triggered by the NSG itself.
     */
     CPString _configurationReloadState @accessors(property=configurationReloadState);
     /*!
-        None
+        NSG Configuration status represents the NSG update state following a query by the NSG to get the latest version of the infraconfig.json file.  This status will be updated following a Bootstrap request or a Configuration Reload.  Success means that the NSG was able to apply the changes included in the latest infraconfig.json file.  A Failure response will be returned if the NSG was unable to apply the changes; this is normally accompanied with a rollback of the NSG to the previous configuration.
     */
     CPString _configurationStatus @accessors(property=configurationStatus);
     /*!
@@ -220,6 +230,14 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         The bootstrap status of this NSGateway. NOTE: this is a read only property
     */
     CPString _bootstrapStatus @accessors(property=bootstrapStatus);
+    /*!
+        Operation mode of NSGateway
+    */
+    CPString _operationMode @accessors(property=operationMode);
+    /*!
+        Operation Status of NSGateway
+    */
+    CPString _operationStatus @accessors(property=operationStatus);
     /*!
         Readonly Id of the associated gateway security object
     */
@@ -258,6 +276,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     NUMonitorscopesFetcher _childrenMonitorscopes @accessors(property=childrenMonitorscopes);
     NUBootstrapsFetcher _childrenBootstraps @accessors(property=childrenBootstraps);
     NUBootstrapActivationsFetcher _childrenBootstrapActivations @accessors(property=childrenBootstrapActivations);
+    NUUplinkConnectionsFetcher _childrenUplinkConnections @accessors(property=childrenUplinkConnections);
     NUNSGInfosFetcher _childrenNSGInfos @accessors(property=childrenNSGInfos);
     NUNSPortsFetcher _childrenNSPorts @accessors(property=childrenNSPorts);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
@@ -284,6 +303,8 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     {
         [self exposeLocalKeyPathToREST:@"MACAddress"];
         [self exposeLocalKeyPathToREST:@"NATTraversalEnabled"];
+        [self exposeLocalKeyPathToREST:@"TCPMSSEnabled"];
+        [self exposeLocalKeyPathToREST:@"TCPMaximumSegmentSize"];
         [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
         [self exposeLocalKeyPathToREST:@"CPUType"];
@@ -312,6 +333,8 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"configurationStatus"];
         [self exposeLocalKeyPathToREST:@"bootstrapID"];
         [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
+        [self exposeLocalKeyPathToREST:@"operationMode"];
+        [self exposeLocalKeyPathToREST:@"operationStatus"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGInfoID"];
@@ -332,6 +355,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         _childrenMonitorscopes = [NUMonitorscopesFetcher fetcherWithParentObject:self];
         _childrenBootstraps = [NUBootstrapsFetcher fetcherWithParentObject:self];
         _childrenBootstrapActivations = [NUBootstrapActivationsFetcher fetcherWithParentObject:self];
+        _childrenUplinkConnections = [NUUplinkConnectionsFetcher fetcherWithParentObject:self];
         _childrenNSGInfos = [NUNSGInfosFetcher fetcherWithParentObject:self];
         _childrenNSPorts = [NUNSPortsFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];

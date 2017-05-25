@@ -55,13 +55,17 @@ NUApplicationProtocol_UDP = @"UDP";
 @implementation NUApplication : NURESTObject
 {
     /*!
-        DSCP match condition to be set in the rule
+        DSCP match condition to be set in the rule. It is either * or from 0-63.
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
         name of the application
     */
     CPString _name @accessors(property=name);
+    /*!
+        Minimum Failover Bandwidth of the application.
+    */
+    CPNumber _bandwidth @accessors(property=bandwidth);
     /*!
         determines whether this entity is read only.  Read only objects cannot be modified or deleted.
     */
@@ -111,6 +115,10 @@ NUApplicationProtocol_UDP = @"UDP";
     */
     CPString _sourcePort @accessors(property=sourcePort);
     /*!
+        a unique 2 byte id generated when a application is created and used by VRS  for probing.
+    */
+    CPNumber _appId @accessors(property=appId);
+    /*!
         with values being Latency, Jitter, PacketLoss
     */
     CPString _optimizePathSelection @accessors(property=optimizePathSelection);
@@ -159,6 +167,7 @@ NUApplicationProtocol_UDP = @"UDP";
     {
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"bandwidth"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"performanceMonitorType"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -171,6 +180,7 @@ NUApplicationProtocol_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"postClassificationPath"];
         [self exposeLocalKeyPathToREST:@"sourceIP"];
         [self exposeLocalKeyPathToREST:@"sourcePort"];
+        [self exposeLocalKeyPathToREST:@"appId"];
         [self exposeLocalKeyPathToREST:@"optimizePathSelection"];
         [self exposeLocalKeyPathToREST:@"preClassificationPath"];
         [self exposeLocalKeyPathToREST:@"protocol"];

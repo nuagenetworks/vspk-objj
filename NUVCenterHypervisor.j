@@ -288,6 +288,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPNumber _novaClientVersion @accessors(property=novaClientVersion);
     /*!
+        Keystone identity version to use for the Nova metadata configuration on the VRS
+    */
+    CPString _novaIdentityURLVersion @accessors(property=novaIdentityURLVersion);
+    /*!
         Nova metadata service auth url
     */
     CPString _novaMetadataServiceAuthUrl @accessors(property=novaMetadataServiceAuthUrl);
@@ -312,19 +316,35 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _novaMetadataSharedSecret @accessors(property=novaMetadataSharedSecret);
     /*!
+        Keystone username used by nova
+    */
+    CPString _novaOSKeystoneUsername @accessors(property=novaOSKeystoneUsername);
+    /*!
+        Name of the project that the Nova service uses, can be determined from the nova.conf on the OpenStack controller
+    */
+    CPString _novaProjectDomainName @accessors(property=novaProjectDomainName);
+    /*!
+        Name of the default Nova project (example: services)
+    */
+    CPString _novaProjectName @accessors(property=novaProjectName);
+    /*!
         Nova region name
     */
     CPString _novaRegionName @accessors(property=novaRegionName);
     /*!
-        upgradePackagePassword
+        Name of the user domain used by the Nova service, can be determined from the nova.conf on the OpenStack controller
+    */
+    CPString _novaUserDomainName @accessors(property=novaUserDomainName);
+    /*!
+        Upgrade package password used for script based upgrades
     */
     CPString _upgradePackagePassword @accessors(property=upgradePackagePassword);
     /*!
-        upgradePackageURL
+        Upgrade package URL used for script based upgrades
     */
     CPString _upgradePackageURL @accessors(property=upgradePackageURL);
     /*!
-        upgradePackageUsername
+        Upgrade package username  used for script based upgrades
     */
     CPString _upgradePackageUsername @accessors(property=upgradePackageUsername);
     /*!
@@ -336,7 +356,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _upgradeStatus @accessors(property=upgradeStatus);
     /*!
-        upgrade Timedout
+        Time limit for the patch based upgrade functionality. If the upgrade process of a VRS has not returned a success or failure status within this time limit, the status will be changed to TIMEOUT. Specified in seconds
     */
     BOOL _upgradeTimedout @accessors(property=upgradeTimedout);
     /*!
@@ -379,6 +399,22 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         Maximum Transmission Unit for eth2 interface
     */
     CPNumber _mtu @accessors(property=mtu);
+    /*!
+        The upgrade package Password that was successfully applied
+    */
+    CPString _successfullyAppliedUpgradePackagePassword @accessors(property=successfullyAppliedUpgradePackagePassword);
+    /*!
+        The upgrade package URL that was successfully applied
+    */
+    CPString _successfullyAppliedUpgradePackageURL @accessors(property=successfullyAppliedUpgradePackageURL);
+    /*!
+        The upgrade package Username that was successfully applied
+    */
+    CPString _successfullyAppliedUpgradePackageUsername @accessors(property=successfullyAppliedUpgradePackageUsername);
+    /*!
+        successfully Applied Version of the VRS VM
+    */
+    CPString _successfullyAppliedVersion @accessors(property=successfullyAppliedVersion);
     /*!
         Whether Multi VM is to be used or not
     */
@@ -528,13 +564,18 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"toolboxUserName"];
         [self exposeLocalKeyPathToREST:@"portgroupMetadata"];
         [self exposeLocalKeyPathToREST:@"novaClientVersion"];
+        [self exposeLocalKeyPathToREST:@"novaIdentityURLVersion"];
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceAuthUrl"];
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceEndpoint"];
         [self exposeLocalKeyPathToREST:@"novaMetadataServicePassword"];
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceTenant"];
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceUsername"];
         [self exposeLocalKeyPathToREST:@"novaMetadataSharedSecret"];
+        [self exposeLocalKeyPathToREST:@"novaOSKeystoneUsername"];
+        [self exposeLocalKeyPathToREST:@"novaProjectDomainName"];
+        [self exposeLocalKeyPathToREST:@"novaProjectName"];
         [self exposeLocalKeyPathToREST:@"novaRegionName"];
+        [self exposeLocalKeyPathToREST:@"novaUserDomainName"];
         [self exposeLocalKeyPathToREST:@"upgradePackagePassword"];
         [self exposeLocalKeyPathToREST:@"upgradePackageURL"];
         [self exposeLocalKeyPathToREST:@"upgradePackageUsername"];
@@ -551,6 +592,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"ntpServer1"];
         [self exposeLocalKeyPathToREST:@"ntpServer2"];
         [self exposeLocalKeyPathToREST:@"mtu"];
+        [self exposeLocalKeyPathToREST:@"successfullyAppliedUpgradePackagePassword"];
+        [self exposeLocalKeyPathToREST:@"successfullyAppliedUpgradePackageURL"];
+        [self exposeLocalKeyPathToREST:@"successfullyAppliedUpgradePackageUsername"];
+        [self exposeLocalKeyPathToREST:@"successfullyAppliedVersion"];
         [self exposeLocalKeyPathToREST:@"multiVMSsupport"];
         [self exposeLocalKeyPathToREST:@"multicastReceiveInterface"];
         [self exposeLocalKeyPathToREST:@"multicastReceiveInterfaceIP"];

@@ -48,7 +48,6 @@ NUIngressACLEntryTemplateAssociatedApplicationObjectType_APPD_FLOW_FORWARDING_PO
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_APPD_FLOW_SECURITY_POLICY = @"APPD_FLOW_SECURITY_POLICY";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_APPD_SERVICE = @"APPD_SERVICE";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_APPD_TIER = @"APPD_TIER";
-NUIngressACLEntryTemplateAssociatedApplicationObjectType_APPLICATION = @"APPLICATION";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_BACK_HAUL_SERVICE_RESP = @"BACK_HAUL_SERVICE_RESP";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_BGPPEER = @"BGPPEER";
@@ -82,9 +81,7 @@ NUIngressACLEntryTemplateAssociatedApplicationObjectType_EGRESS_ACL = @"EGRESS_A
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_EGRESS_ACL_ENTRY = @"EGRESS_ACL_ENTRY";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE = @"EGRESS_ACL_TEMPLATE";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE_ENTRY = @"EGRESS_ACL_TEMPLATE_ENTRY";
-NUIngressACLEntryTemplateAssociatedApplicationObjectType_EGRESS_QOS_MR = @"EGRESS_QOS_MR";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_EGRESS_QOS_PRIMITIVE = @"EGRESS_QOS_PRIMITIVE";
-NUIngressACLEntryTemplateAssociatedApplicationObjectType_EGRESS_QOS_QUEUE_MR = @"EGRESS_QOS_QUEUE_MR";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_ENDPOINT = @"ENDPOINT";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_ENTERPRISE = @"ENTERPRISE";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_ENTERPRISE_CONFIG = @"ENTERPRISE_CONFIG";
@@ -181,7 +178,7 @@ NUIngressACLEntryTemplateAssociatedApplicationObjectType_NETWORK_LAYOUT = @"NETW
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_NETWORK_POLICY_GROUP = @"NETWORK_POLICY_GROUP";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_NEXT_HOP_RESP = @"NEXT_HOP_RESP";
-NUIngressACLEntryTemplateAssociatedApplicationObjectType_NODE_EXECUTION_ERROR = @"NODE_EXECUTION_ERROR";
+NUIngressACLEntryTemplateAssociatedApplicationObjectType_NODE_EXECUTION = @"NODE_EXECUTION";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_NSGATEWAY = @"NSGATEWAY";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_NSGATEWAY_CONFIG = @"NSGATEWAY_CONFIG";
 NUIngressACLEntryTemplateAssociatedApplicationObjectType_NSGATEWAY_TEMPLATE = @"NSGATEWAY_TEMPLATE";
@@ -320,7 +317,7 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
-        Overrides the source IPv6 for Ingress and destination IPv6 for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IPv6 for Ingress and destination IPv6 for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
     /*!
@@ -336,13 +333,9 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _action @accessors(property=action);
     /*!
-        Overrides the source IP for Ingress and destination IP for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
-    /*!
-        True means that this ACL entry is reflexive, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
-    */
-    BOOL _reflexive @accessors(property=reflexive);
     /*!
         Description of the ACL entry
     */
@@ -352,11 +345,11 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
-        The destination network entity that is referenced(subnet/zone/macro)
+        The ID of the destination endpoint (Subnet/Zone/Macro/MacroGroup/PolicyGroup)
     */
     CPString _networkID @accessors(property=networkID);
     /*!
-        Type of the source network.
+        Type of the destination endpoint (Subnet/Zone/Macro/MacroGroup/PolicyGroup)
     */
     CPString _networkType @accessors(property=networkType);
     /*!
@@ -376,11 +369,11 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The ID of the location entity (Subnet/Zone/VportTag)
+        The ID of the source endpoint (Subnet/Zone/VportTag/PortGroup)
     */
     CPString _locationID @accessors(property=locationID);
     /*!
-        Type of the location entity.
+        Type of the source endpoint (Subnet/Zone/VportTag/PortGroup)
     */
     CPString _locationType @accessors(property=locationType);
     /*!
@@ -472,7 +465,6 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
-        [self exposeLocalKeyPathToREST:@"reflexive"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];

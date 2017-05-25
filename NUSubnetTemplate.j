@@ -68,13 +68,13 @@ NUSubnetTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _IPType @accessors(property=IPType);
     /*!
+        IPv6 range of the subnet. In case of zone, this is an optional field for and allows users to allocate an IP address range to a zone. The VSD will auto-assign IP addresses to subnets from this range if a specific IP address is not defined for the subnet
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
+    /*!
         The IPv6 address of the gateway of this subnet
     */
     CPString _IPv6Gateway @accessors(property=IPv6Gateway);
-    /*!
-        IPv6 address of the subnet defined. In case of zone, this is an optional field for and allows users to allocate an IP address range to a zone. The VSD will auto-assign IP addresses to subnets from this range if a specific IP address is not defined for the subnet
-    */
-    CPString _IPv6address @accessors(property=IPv6address);
     /*!
         Name of the current entity(Zone or zone template or subnet etc..) Valid characters are alphabets, numbers, space and hyphen( - ).
     */
@@ -131,6 +131,10 @@ NUSubnetTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        Turn on or off dynamic allocation of IPV6 address
+    */
+    BOOL _dynamicIpv6Address @accessors(property=dynamicIpv6Address);
     
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
@@ -160,8 +164,8 @@ NUSubnetTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     {
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
-        [self exposeLocalKeyPathToREST:@"IPv6address"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
@@ -176,6 +180,7 @@ NUSubnetTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUExternalAppService
+@class NUCSNATPool
 
 
-@implementation NUExternalAppServicesFetcher : NURESTFetcher
+@implementation NUCSNATPoolsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUExternalAppService;
+    return NUCSNATPool;
 }
 
 @end

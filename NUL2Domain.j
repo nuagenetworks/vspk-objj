@@ -67,6 +67,8 @@ NUL2DomainEncryption_DISABLED = @"DISABLED";
 NUL2DomainEncryption_ENABLED = @"ENABLED";
 NUL2DomainEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUL2DomainEntityScope_GLOBAL = @"GLOBAL";
+NUL2DomainEntityState_MARKED_FOR_DELETION = @"MARKED_FOR_DELETION";
+NUL2DomainEntityState_UNDER_CONSTRUCTION = @"UNDER_CONSTRUCTION";
 NUL2DomainIPType_IPV4 = @"IPV4";
 NUL2DomainIPType_IPV6 = @"IPV6";
 NUL2DomainMaintenanceMode_DISABLED = @"DISABLED";
@@ -83,6 +85,8 @@ NUL2DomainUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECONDARY";
 NUL2DomainUplinkPreference_SECONDARY = @"SECONDARY";
 NUL2DomainUplinkPreference_SECONDARY_PRIMARY = @"SECONDARY_PRIMARY";
 NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
+NUL2DomainUseGlobalMAC_DISABLED  = @"DISABLED ";
+NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
 
 
 /*!
@@ -102,6 +106,14 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         IPv4 or IPv6
     */
     CPString _IPType @accessors(property=IPType);
+    /*!
+        IPV6 address of the route - Optional
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
+    /*!
+        The IPv6 address of the gateway of this subnet
+    */
+    CPString _IPv6Gateway @accessors(property=IPv6Gateway);
     /*!
         maintenanceMode is an enum that indicates if the L2Domain is accepting VM activation requests. Possible values are DISABLED, ENABLED and ENABLED_INHERITED Possible values are .
     */
@@ -155,6 +167,10 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Intermediate State of L2 Domain.
+    */
+    CPString _entityState @accessors(property=entityState);
+    /*!
         None
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
@@ -170,6 +186,10 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Indicates the preferencial path selection for network traffic in this domain - Default is Primary 1 and Secondary 2. Possible values are PRIMARY_SECONDARY, SECONDARY_PRIMARY, PRIMARY, SECONDARY, SYMMETRIC, .
     */
     CPString _uplinkPreference @accessors(property=uplinkPreference);
+    /*!
+        Enable this flag to use system configured globalMACAddress as the gateway mac address for managed l2 domains
+    */
+    CPString _useGlobalMAC @accessors(property=useGlobalMAC);
     /*!
         The ID of the Multi Cast Channel Map this L2Domain / L2Domain template template is associated with. This has to be set when  enableMultiCast is set to ENABLED
     */
@@ -245,6 +265,8 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"DHCPManaged"];
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
+        [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
@@ -258,10 +280,12 @@ NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"vnId"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
+        [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
         [self exposeLocalKeyPathToREST:@"stretched"];

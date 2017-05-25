@@ -39,7 +39,15 @@
     /*!
         Whether the various VRS license flavours be merged in one pool
     */
-    CPString _accumulateLicensesEnabled @accessors(property=accumulateLicensesEnabled);
+    BOOL _accumulateLicensesEnabled @accessors(property=accumulateLicensesEnabled);
+    /*!
+        Indicates total AVRSG count for all the licenses in the system
+    */
+    CPNumber _totalLicensedAVRSGsCount @accessors(property=totalLicensedAVRSGsCount);
+    /*!
+        Indicates total AVRS count for all the licenses in the system
+    */
+    CPNumber _totalLicensedAVRSsCount @accessors(property=totalLicensedAVRSsCount);
     /*!
          Indicates total VRS+VRSG+VRSB licenses licensed in the system
     */
@@ -52,6 +60,14 @@
         Indicates total NSG count for all the licenses in the system
     */
     CPNumber _totalLicensedNSGsCount @accessors(property=totalLicensedNSGsCount);
+    /*!
+        Indicates total used AVRSG count for all the licenses in the system
+    */
+    CPNumber _totalLicensedUsedAVRSGsCount @accessors(property=totalLicensedUsedAVRSGsCount);
+    /*!
+        Indicates total used AVRS count for all the licenses in the system
+    */
+    CPNumber _totalLicensedUsedAVRSsCount @accessors(property=totalLicensedUsedAVRSsCount);
     /*!
         Indicates total used NIC count for all the licenses in the system
     */
@@ -110,9 +126,13 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
+        [self exposeLocalKeyPathToREST:@"totalLicensedAVRSGsCount"];
+        [self exposeLocalKeyPathToREST:@"totalLicensedAVRSsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedGatewaysCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedNICsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedNSGsCount"];
+        [self exposeLocalKeyPathToREST:@"totalLicensedUsedAVRSGsCount"];
+        [self exposeLocalKeyPathToREST:@"totalLicensedUsedAVRSsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedNICsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedNSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedVMsCount"];

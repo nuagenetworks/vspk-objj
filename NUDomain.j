@@ -33,6 +33,7 @@
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUNetworkPerformanceBindingsFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
 @import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
@@ -58,6 +59,7 @@
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUHostInterfacesFetcher.j"
 @import "Fetchers/NURoutingPoliciesFetcher.j"
+@import "Fetchers/NUSPATSourcesPoolsFetcher.j"
 @import "Fetchers/NUUplinkRDsFetcher.j"
 @import "Fetchers/NUVPNConnectionsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
@@ -69,8 +71,8 @@
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUExternalAppServicesFetcher.j"
 
+NUDomainAdvertiseCriteria_HUB_ROUTES = @"HUB_ROUTES";
 NUDomainApplicationDeploymentPolicy_NONE = @"NONE";
 NUDomainApplicationDeploymentPolicy_ZONE = @"ZONE";
 NUDomainDHCPBehavior_CONSUME = @"CONSUME";
@@ -179,6 +181,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Set this attribute to allow the spoke domain routes to be leaked into the hub domain.
+    */
+    CPString _advertiseCriteria @accessors(property=advertiseCriteria);
     /*!
         Indicates if this domain is a leakable domain or not - boolean true/false
     */
@@ -296,6 +302,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUNetworkPerformanceBindingsFetcher _childrenNetworkPerformanceBindings @accessors(property=childrenNetworkPerformanceBindings);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
     NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
@@ -321,6 +328,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
     NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
+    NUSPATSourcesPoolsFetcher _childrenSPATSourcesPools @accessors(property=childrenSPATSourcesPools);
     NUUplinkRDsFetcher _childrenUplinkRDs @accessors(property=childrenUplinkRDs);
     NUVPNConnectionsFetcher _childrenVPNConnections @accessors(property=childrenVPNConnections);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
@@ -332,7 +340,6 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUExternalAppServicesFetcher _childrenExternalAppServices @accessors(property=childrenExternalAppServices);
     
 }
 
@@ -368,6 +375,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"advertiseCriteria"];
         [self exposeLocalKeyPathToREST:@"leakingEnabled"];
         [self exposeLocalKeyPathToREST:@"secondaryDHCPServerAddress"];
         [self exposeLocalKeyPathToREST:@"templateID"];
@@ -401,6 +409,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenNetworkPerformanceBindings = [NUNetworkPerformanceBindingsFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
@@ -426,6 +435,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
         _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
+        _childrenSPATSourcesPools = [NUSPATSourcesPoolsFetcher fetcherWithParentObject:self];
         _childrenUplinkRDs = [NUUplinkRDsFetcher fetcherWithParentObject:self];
         _childrenVPNConnections = [NUVPNConnectionsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
@@ -437,7 +447,6 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenExternalAppServices = [NUExternalAppServicesFetcher fetcherWithParentObject:self];
         
         _PATEnabled = @"INHERITED";
         _DHCPBehavior = @"CONSUME";

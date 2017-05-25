@@ -81,9 +81,17 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _advertisementCriteria @accessors(property=advertisementCriteria);
     /*!
+        Secondary IP Address (Control IP Address) for Loopback. 
+    */
+    CPString _secondaryAddress @accessors(property=secondaryAddress);
+    /*!
         Subnet mask
     */
     CPString _netmask @accessors(property=netmask);
+    /*!
+        The tag of the uplink's parent VLAN
+    */
+    CPString _vlanId @accessors(property=vlanId);
     /*!
         The way the interface is connected via the NSG.  This value depends on if the interface internal or external to the NSG.
     */
@@ -97,6 +105,14 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _role @accessors(property=role);
     /*!
+        Role order: Primary 1, Primary 2, Secondary 3. Note: Order will be calculated when all uplink connections fetched for gateway
+    */
+    CPString _roleOrder @accessors(property=roleOrder);
+    /*!
+        Physical port name this uplink belongs to
+    */
+    CPString _portName @accessors(property=portName);
+    /*!
         ID that unqiuely identifies the uplink. 
     */
     CPString _uplinkID @accessors(property=uplinkID);
@@ -108,6 +124,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         UUID of the underlay associated to the uplink.
     */
     CPString _assocUnderlayID @accessors(property=assocUnderlayID);
+    /*!
+        UUID of BGP Neighbor associated to the Uplink which will be used for Bootstrap. This is mandatory if a secondaryAddress is defined.
+    */
+    CPString _associatedBGPNeighborID @accessors(property=associatedBGPNeighborID);
     /*!
         The display name of the Underlay instance associated with this uplink connection.
     */
@@ -148,13 +168,18 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
+        [self exposeLocalKeyPathToREST:@"secondaryAddress"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"vlanId"];
         [self exposeLocalKeyPathToREST:@"interfaceConnectionType"];
         [self exposeLocalKeyPathToREST:@"mode"];
         [self exposeLocalKeyPathToREST:@"role"];
+        [self exposeLocalKeyPathToREST:@"roleOrder"];
+        [self exposeLocalKeyPathToREST:@"portName"];
         [self exposeLocalKeyPathToREST:@"uplinkID"];
         [self exposeLocalKeyPathToREST:@"username"];
         [self exposeLocalKeyPathToREST:@"assocUnderlayID"];
+        [self exposeLocalKeyPathToREST:@"associatedBGPNeighborID"];
         [self exposeLocalKeyPathToREST:@"associatedUnderlayName"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"auxiliaryLink"];

@@ -34,7 +34,6 @@
 @import "Fetchers/NUEnterprisesFetcher.j"
 @import "Fetchers/NUMultiCastListsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
-@import "Fetchers/NUExternalServicesFetcher.j"
 
 NUEnterpriseProfileAllowedForwardingClasses_A = @"A";
 NUEnterpriseProfileAllowedForwardingClasses_B = @"B";
@@ -64,10 +63,6 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         DHCP Lease Interval (in hours) to be used by an enterprise.
     */
     CPNumber _DHCPLeaseInterval @accessors(property=DHCPLeaseInterval);
-    /*!
-        Enable DPI for this Enterprise Profile
-    */
-    BOOL _DPIEnabled @accessors(property=DPIEnabled);
     /*!
         The unique name of the enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
@@ -130,7 +125,6 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     NUEnterprisesFetcher _childrenEnterprises @accessors(property=childrenEnterprises);
     NUMultiCastListsFetcher _childrenMultiCastLists @accessors(property=childrenMultiCastLists);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
-    NUExternalServicesFetcher _childrenExternalServices @accessors(property=childrenExternalServices);
     
 }
 
@@ -153,7 +147,6 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPLeaseInterval"];
-        [self exposeLocalKeyPathToREST:@"DPIEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
@@ -174,7 +167,6 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         _childrenEnterprises = [NUEnterprisesFetcher fetcherWithParentObject:self];
         _childrenMultiCastLists = [NUMultiCastListsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
-        _childrenExternalServices = [NUExternalServicesFetcher fetcherWithParentObject:self];
         
         _floatingIPsQuota = 100;
         _DHCPLeaseInterval = 24;

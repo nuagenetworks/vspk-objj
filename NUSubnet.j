@@ -61,7 +61,6 @@ NUSubnetAssociatedApplicationObjectType_APPD_FLOW_FORWARDING_POLICY = @"APPD_FLO
 NUSubnetAssociatedApplicationObjectType_APPD_FLOW_SECURITY_POLICY = @"APPD_FLOW_SECURITY_POLICY";
 NUSubnetAssociatedApplicationObjectType_APPD_SERVICE = @"APPD_SERVICE";
 NUSubnetAssociatedApplicationObjectType_APPD_TIER = @"APPD_TIER";
-NUSubnetAssociatedApplicationObjectType_APPLICATION = @"APPLICATION";
 NUSubnetAssociatedApplicationObjectType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUSubnetAssociatedApplicationObjectType_BACK_HAUL_SERVICE_RESP = @"BACK_HAUL_SERVICE_RESP";
 NUSubnetAssociatedApplicationObjectType_BGPPEER = @"BGPPEER";
@@ -95,9 +94,7 @@ NUSubnetAssociatedApplicationObjectType_EGRESS_ACL = @"EGRESS_ACL";
 NUSubnetAssociatedApplicationObjectType_EGRESS_ACL_ENTRY = @"EGRESS_ACL_ENTRY";
 NUSubnetAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE = @"EGRESS_ACL_TEMPLATE";
 NUSubnetAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE_ENTRY = @"EGRESS_ACL_TEMPLATE_ENTRY";
-NUSubnetAssociatedApplicationObjectType_EGRESS_QOS_MR = @"EGRESS_QOS_MR";
 NUSubnetAssociatedApplicationObjectType_EGRESS_QOS_PRIMITIVE = @"EGRESS_QOS_PRIMITIVE";
-NUSubnetAssociatedApplicationObjectType_EGRESS_QOS_QUEUE_MR = @"EGRESS_QOS_QUEUE_MR";
 NUSubnetAssociatedApplicationObjectType_ENDPOINT = @"ENDPOINT";
 NUSubnetAssociatedApplicationObjectType_ENTERPRISE = @"ENTERPRISE";
 NUSubnetAssociatedApplicationObjectType_ENTERPRISE_CONFIG = @"ENTERPRISE_CONFIG";
@@ -194,7 +191,7 @@ NUSubnetAssociatedApplicationObjectType_NETWORK_LAYOUT = @"NETWORK_LAYOUT";
 NUSubnetAssociatedApplicationObjectType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
 NUSubnetAssociatedApplicationObjectType_NETWORK_POLICY_GROUP = @"NETWORK_POLICY_GROUP";
 NUSubnetAssociatedApplicationObjectType_NEXT_HOP_RESP = @"NEXT_HOP_RESP";
-NUSubnetAssociatedApplicationObjectType_NODE_EXECUTION_ERROR = @"NODE_EXECUTION_ERROR";
+NUSubnetAssociatedApplicationObjectType_NODE_EXECUTION = @"NODE_EXECUTION";
 NUSubnetAssociatedApplicationObjectType_NSGATEWAY = @"NSGATEWAY";
 NUSubnetAssociatedApplicationObjectType_NSGATEWAY_CONFIG = @"NSGATEWAY_CONFIG";
 NUSubnetAssociatedApplicationObjectType_NSGATEWAY_TEMPLATE = @"NSGATEWAY_TEMPLATE";
@@ -304,6 +301,8 @@ NUSubnetEncryption_ENABLED = @"ENABLED";
 NUSubnetEncryption_INHERITED = @"INHERITED";
 NUSubnetEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUSubnetEntityScope_GLOBAL = @"GLOBAL";
+NUSubnetEntityState_MARKED_FOR_DELETION = @"MARKED_FOR_DELETION";
+NUSubnetEntityState_UNDER_CONSTRUCTION = @"UNDER_CONSTRUCTION";
 NUSubnetIPType_DUALSTACK = @"DUALSTACK";
 NUSubnetIPType_IPV4 = @"IPV4";
 NUSubnetIPType_IPV6 = @"IPV6";
@@ -417,6 +416,10 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Intermediate State of L2 Domain.
+    */
+    CPString _entityState @accessors(property=entityState);
+    /*!
         PG ID for the subnet. This is unique per domain and will be in the range 1-4095
     */
     CPNumber _policyGroupID @accessors(property=policyGroupID);
@@ -472,6 +475,10 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        Turn on or off dynamic allocation of IPV6 address
+    */
+    BOOL _dynamicIpv6Address @accessors(property=dynamicIpv6Address);
     
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
@@ -535,6 +542,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"underlay"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyGroupID"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"routeTarget"];
@@ -549,6 +557,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"public"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];

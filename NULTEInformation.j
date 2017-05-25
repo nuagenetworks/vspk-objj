@@ -32,22 +32,14 @@
 
 
 /*!
-    None
+    Contains information about the LTE dongle plugged in USB port on NSG. This would have information like - Modem Manufacturer, Model Number, Subscriber Number, Operator etc. This information could vary from vendor to vendor.
 */
-@implementation NUDUCGroupBinding : NURESTObject
+@implementation NULTEInformation : NURESTObject
 {
     /*!
-        SLA delay value in milliseconds that is tolerated between NSG instances and NSG-UBR (DUC) instances being bound through this binding instance.  If delay is to be ignored, then the value of -1 is to be entered.  Value 0 is not permitted.
+        This attribute holds all the information about the LTE dongle plugged in to NSG. This is in JSON format and has information like - Modem Manufacturer, Model Number, Subscriber Number,  Operator etc.
     */
-    CPNumber _oneWayDelay @accessors(property=oneWayDelay);
-    /*!
-        The priority for NSG Group to UBR Group relationship.
-    */
-    CPNumber _priority @accessors(property=priority);
-    /*!
-        Identification of the UBR Group associated to this group binding instance.
-    */
-    CPString _associatedDUCGroupID @accessors(property=associatedDUCGroupID);
+    CPString _LTEConnectionInfo @accessors(property=LTEConnectionInfo);
     
     
 }
@@ -58,7 +50,7 @@
 
 + (CPString)RESTName
 {
-    return @"ducgroupbinding";
+    return @"lteinformation";
 }
 
 
@@ -69,9 +61,7 @@
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"oneWayDelay"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedDUCGroupID"];
+        [self exposeLocalKeyPathToREST:@"LTEConnectionInfo"];
         
         
         

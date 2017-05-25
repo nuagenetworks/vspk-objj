@@ -29,43 +29,26 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
-
-NUEndPointEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUEndPointEntityScope_GLOBAL = @"GLOBAL";
+@import "Fetchers/NUPSPATMapsFetcher.j"
+@import "Fetchers/NUPTranslationMapsFetcher.j"
 
 
 /*!
-    Representation of End Point
+    Provider alias IP range to map provider private IPs from provider domain to provider public IPs in the customer domain.
 */
-@implementation NUEndPoint : NURESTObject
+@implementation NUPSNATPool : NURESTObject
 {
     /*!
-        unique name of the External Service. 
+        The last IP address in the range.
     */
-    CPString _name @accessors(property=name);
+    CPString _endAddress @accessors(property=endAddress);
     /*!
-        ID of the user who last updated the object.
+        The first IP address in the range.
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
-    /*!
-        Description of the External Service.
-    */
-    CPString _description @accessors(property=description);
-    /*!
-        Specify if scope of entity is Data center or Enterprise level
-    */
-    CPString _entityScope @accessors(property=entityScope);
-    /*!
-        External object ID. Used for integration with third party systems
-    */
-    CPString _externalID @accessors(property=externalID);
+    CPString _startAddress @accessors(property=startAddress);
     
-    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUPSPATMapsFetcher _childrenPSPATMaps @accessors(property=childrenPSPATMaps);
+    NUPTranslationMapsFetcher _childrenPTranslationMaps @accessors(property=childrenPTranslationMaps);
     
 }
 
@@ -75,7 +58,7 @@ NUEndPointEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"endpoint";
+    return @"psnatpool";
 }
 
 
@@ -86,15 +69,11 @@ NUEndPointEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"endAddress"];
+        [self exposeLocalKeyPathToREST:@"startAddress"];
         
-        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenPSPATMaps = [NUPSPATMapsFetcher fetcherWithParentObject:self];
+        _childrenPTranslationMaps = [NUPTranslationMapsFetcher fetcherWithParentObject:self];
         
         
     }

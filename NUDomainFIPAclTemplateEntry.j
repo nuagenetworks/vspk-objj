@@ -46,7 +46,6 @@ NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_APPD_FLOW_FORWARDING_
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_APPD_FLOW_SECURITY_POLICY = @"APPD_FLOW_SECURITY_POLICY";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_APPD_SERVICE = @"APPD_SERVICE";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_APPD_TIER = @"APPD_TIER";
-NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_APPLICATION = @"APPLICATION";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_BACK_HAUL_SERVICE_RESP = @"BACK_HAUL_SERVICE_RESP";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_BGPPEER = @"BGPPEER";
@@ -80,9 +79,7 @@ NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_EGRESS_ACL = @"EGRESS
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_EGRESS_ACL_ENTRY = @"EGRESS_ACL_ENTRY";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE = @"EGRESS_ACL_TEMPLATE";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE_ENTRY = @"EGRESS_ACL_TEMPLATE_ENTRY";
-NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_EGRESS_QOS_MR = @"EGRESS_QOS_MR";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_EGRESS_QOS_PRIMITIVE = @"EGRESS_QOS_PRIMITIVE";
-NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_EGRESS_QOS_QUEUE_MR = @"EGRESS_QOS_QUEUE_MR";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_ENDPOINT = @"ENDPOINT";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_ENTERPRISE = @"ENTERPRISE";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_ENTERPRISE_CONFIG = @"ENTERPRISE_CONFIG";
@@ -179,7 +176,7 @@ NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_NETWORK_LAYOUT = @"NE
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_NETWORK_POLICY_GROUP = @"NETWORK_POLICY_GROUP";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_NEXT_HOP_RESP = @"NEXT_HOP_RESP";
-NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_NODE_EXECUTION_ERROR = @"NODE_EXECUTION_ERROR";
+NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_NODE_EXECUTION = @"NODE_EXECUTION";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_NSGATEWAY = @"NSGATEWAY";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_NSGATEWAY_CONFIG = @"NSGATEWAY_CONFIG";
 NUDomainFIPAclTemplateEntryAssociatedApplicationObjectType_NSGATEWAY_TEMPLATE = @"NSGATEWAY_TEMPLATE";
@@ -324,6 +321,10 @@ NUDomainFIPAclTemplateEntrySourceType_POLICYGROUP = @"POLICYGROUP";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
+        Overrides the source IPv6 for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
+    */
+    CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
+    /*!
         DSCP match condition to be set in the rule. It is either * or from 0-63
     */
     CPString _DSCP @accessors(property=DSCP);
@@ -340,13 +341,9 @@ NUDomainFIPAclTemplateEntrySourceType_POLICYGROUP = @"POLICYGROUP";
     */
     NURESTObject _actionDetails @accessors(property=actionDetails);
     /*!
-        Overrides the source IP for Ingress and destination IP for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
-    /*!
-        True means that this ACL entry is reflexive, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
-    */
-    BOOL _reflexive @accessors(property=reflexive);
     /*!
         Description of the ACL entry
     */
@@ -501,12 +498,12 @@ NUDomainFIPAclTemplateEntrySourceType_POLICYGROUP = @"POLICYGROUP";
         [self exposeLocalKeyPathToREST:@"ACLTemplateName"];
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"actionDetails"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
-        [self exposeLocalKeyPathToREST:@"reflexive"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destPgId"];
         [self exposeLocalKeyPathToREST:@"destPgType"];

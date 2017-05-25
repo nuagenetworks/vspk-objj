@@ -48,7 +48,6 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_APPD_FLOW_FORWARDING
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_APPD_FLOW_SECURITY_POLICY = @"APPD_FLOW_SECURITY_POLICY";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_APPD_SERVICE = @"APPD_SERVICE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_APPD_TIER = @"APPD_TIER";
-NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_APPLICATION = @"APPLICATION";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_AUTO_DISC_GATEWAY = @"AUTO_DISC_GATEWAY";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BACK_HAUL_SERVICE_RESP = @"BACK_HAUL_SERVICE_RESP";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_BGPPEER = @"BGPPEER";
@@ -82,9 +81,7 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_EGRESS_ACL = @"EGRES
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_EGRESS_ACL_ENTRY = @"EGRESS_ACL_ENTRY";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE = @"EGRESS_ACL_TEMPLATE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_EGRESS_ACL_TEMPLATE_ENTRY = @"EGRESS_ACL_TEMPLATE_ENTRY";
-NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_EGRESS_QOS_MR = @"EGRESS_QOS_MR";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_EGRESS_QOS_PRIMITIVE = @"EGRESS_QOS_PRIMITIVE";
-NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_EGRESS_QOS_QUEUE_MR = @"EGRESS_QOS_QUEUE_MR";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_ENDPOINT = @"ENDPOINT";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_ENTERPRISE = @"ENTERPRISE";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_ENTERPRISE_CONFIG = @"ENTERPRISE_CONFIG";
@@ -181,7 +178,7 @@ NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NETWORK_LAYOUT = @"N
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NETWORK_POLICY_GROUP = @"NETWORK_POLICY_GROUP";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NEXT_HOP_RESP = @"NEXT_HOP_RESP";
-NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NODE_EXECUTION_ERROR = @"NODE_EXECUTION_ERROR";
+NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NODE_EXECUTION = @"NODE_EXECUTION";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NSGATEWAY = @"NSGATEWAY";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NSGATEWAY_CONFIG = @"NSGATEWAY_CONFIG";
 NUIngressAdvFwdEntryTemplateAssociatedApplicationObjectType_NSGATEWAY_TEMPLATE = @"NSGATEWAY_TEMPLATE";
@@ -339,7 +336,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _FCOverride @accessors(property=FCOverride);
     /*!
-        Overrides the source IPv6 for Ingress and destination IPv6 for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IPv6 for Ingress and destination IPv6 for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
     /*!
@@ -359,7 +356,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _action @accessors(property=action);
     /*!
-        Overrides the source IP for Ingress and destination IP for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
     /*!

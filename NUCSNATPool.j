@@ -29,26 +29,24 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUCTranslationMapsFetcher.j"
 
 
 /*!
-    None
+    Customer Alias IP range to be used in provider domain. This pool is used to map customer private IPs from customer domain to customer public IPs in provider domain.
 */
-@implementation NUDUCGroupBinding : NURESTObject
+@implementation NUCSNATPool : NURESTObject
 {
     /*!
-        SLA delay value in milliseconds that is tolerated between NSG instances and NSG-UBR (DUC) instances being bound through this binding instance.  If delay is to be ignored, then the value of -1 is to be entered.  Value 0 is not permitted.
+        The last IP address in the range.
     */
-    CPNumber _oneWayDelay @accessors(property=oneWayDelay);
+    CPString _endAddress @accessors(property=endAddress);
     /*!
-        The priority for NSG Group to UBR Group relationship.
+        The first IP in the range.
     */
-    CPNumber _priority @accessors(property=priority);
-    /*!
-        Identification of the UBR Group associated to this group binding instance.
-    */
-    CPString _associatedDUCGroupID @accessors(property=associatedDUCGroupID);
+    CPString _startAddress @accessors(property=startAddress);
     
+    NUCTranslationMapsFetcher _childrenCTranslationMaps @accessors(property=childrenCTranslationMaps);
     
 }
 
@@ -58,7 +56,7 @@
 
 + (CPString)RESTName
 {
-    return @"ducgroupbinding";
+    return @"csnatpool";
 }
 
 
@@ -69,10 +67,10 @@
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"oneWayDelay"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedDUCGroupID"];
+        [self exposeLocalKeyPathToREST:@"endAddress"];
+        [self exposeLocalKeyPathToREST:@"startAddress"];
         
+        _childrenCTranslationMaps = [NUCTranslationMapsFetcher fetcherWithParentObject:self];
         
         
     }

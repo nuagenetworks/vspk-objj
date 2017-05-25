@@ -52,6 +52,8 @@ NUL2DomainTemplateEncryption_DISABLED = @"DISABLED";
 NUL2DomainTemplateEncryption_ENABLED = @"ENABLED";
 NUL2DomainTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUL2DomainTemplateEntityScope_GLOBAL = @"GLOBAL";
+NUL2DomainTemplateEntityState_MARKED_FOR_DELETION = @"MARKED_FOR_DELETION";
+NUL2DomainTemplateEntityState_UNDER_CONSTRUCTION = @"UNDER_CONSTRUCTION";
 NUL2DomainTemplateIPType_IPV4 = @"IPV4";
 NUL2DomainTemplateIPType_IPV6 = @"IPV6";
 NUL2DomainTemplateMulticast_DISABLED = @"DISABLED";
@@ -82,6 +84,14 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _IPType @accessors(property=IPType);
     /*!
+        IPV6 address of the route - Optional
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
+    /*!
+        The IPv6 address of the gateway of this subnet
+    */
+    CPString _IPv6Gateway @accessors(property=IPv6Gateway);
+    /*!
         Name of the L2Domain / L2Domain template,has to be unique within a Enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
     CPString _name @accessors(property=name);
@@ -93,10 +103,6 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         The IP address of the gateway of this l2 domain
     */
     CPString _gateway @accessors(property=gateway);
-    /*!
-        gateway MAC address for a managed l2 domain
-    */
-    CPString _gatewayMACAddress @accessors(property=gatewayMACAddress);
     /*!
         Network address of the L2Domain / L2Domain template defined. 
     */
@@ -117,6 +123,10 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Intermediate State of L2 Domain.
+    */
+    CPString _entityState @accessors(property=entityState);
     /*!
         None
     */
@@ -176,15 +186,17 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"DHCPManaged"];
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
+        [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];

@@ -79,7 +79,7 @@ NUFirewallRuleSourceType_POLICYGROUP = @"POLICYGROUP";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
-        Overrides the source IPV6 for Ingress and destination IPV6 for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IPV6 for Ingress and destination IPV6 for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
     /*!
@@ -91,7 +91,7 @@ NUFirewallRuleSourceType_POLICYGROUP = @"POLICYGROUP";
     */
     CPString _action @accessors(property=action);
     /*!
-        Overrides the source IP for Ingress and destination IP for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
     /*!

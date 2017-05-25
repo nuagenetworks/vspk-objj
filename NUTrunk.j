@@ -29,26 +29,24 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUVPortsFetcher.j"
 
 
 /*!
-    None
+    Trunk is an object that is an aggregator of sub-vports corresponding to segmentation-ids (vlans) in a trunk
 */
-@implementation NUDUCGroupBinding : NURESTObject
+@implementation NUTrunk : NURESTObject
 {
     /*!
-        SLA delay value in milliseconds that is tolerated between NSG instances and NSG-UBR (DUC) instances being bound through this binding instance.  If delay is to be ignored, then the value of -1 is to be entered.  Value 0 is not permitted.
+        The name of the trunk
     */
-    CPNumber _oneWayDelay @accessors(property=oneWayDelay);
+    CPString _name @accessors(property=name);
     /*!
-        The priority for NSG Group to UBR Group relationship.
+        the uuid of the parent vport (the trunkRole of the parent vport must be PARENT_PORT)
     */
-    CPNumber _priority @accessors(property=priority);
-    /*!
-        Identification of the UBR Group associated to this group binding instance.
-    */
-    CPString _associatedDUCGroupID @accessors(property=associatedDUCGroupID);
+    CPString _associatedVPortID @accessors(property=associatedVPortID);
     
+    NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     
 }
 
@@ -58,7 +56,7 @@
 
 + (CPString)RESTName
 {
-    return @"ducgroupbinding";
+    return @"trunk";
 }
 
 
@@ -69,10 +67,10 @@
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"oneWayDelay"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedDUCGroupID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"associatedVPortID"];
         
+        _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         
         
     }

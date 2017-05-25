@@ -29,7 +29,6 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUMetadataTagsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUMetadataEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -74,7 +73,6 @@ NUMetadataEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _externalID @accessors(property=externalID);
     
-    NUMetadataTagsFetcher _childrenMetadataTags @accessors(property=childrenMetadataTags);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -105,7 +103,6 @@ NUMetadataEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenMetadataTags = [NUMetadataTagsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         

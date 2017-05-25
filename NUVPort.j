@@ -33,12 +33,16 @@
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAggregateMetadatasFetcher.j"
+@import "Fetchers/NUBGPNeighborsFetcher.j"
+@import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUVirtualIPsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
+@import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
+@import "Fetchers/NUIngressAdvFwdEntryTemplatesFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUContainerInterfacesFetcher.j"
@@ -49,6 +53,7 @@
 @import "Fetchers/NUApplicationperformancemanagementsFetcher.j"
 @import "Fetchers/NUBridgeInterfacesFetcher.j"
 @import "Fetchers/NUVRSsFetcher.j"
+@import "Fetchers/NUTrunksFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
@@ -67,12 +72,15 @@ NUVPortMulticast_INHERITED = @"INHERITED";
 NUVPortOperationalState_DOWN = @"DOWN";
 NUVPortOperationalState_INIT = @"INIT";
 NUVPortOperationalState_UP = @"UP";
+NUVPortSegmentationType_VLAN = @"VLAN";
 NUVPortSystemType_HARDWARE = @"HARDWARE";
 NUVPortSystemType_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUVPortSystemType_NUAGE_1 = @"NUAGE_1";
 NUVPortSystemType_NUAGE_2 = @"NUAGE_2";
 NUVPortSystemType_NUAGE_VRSG = @"NUAGE_VRSG";
 NUVPortSystemType_SOFTWARE = @"SOFTWARE";
+NUVPortTrunkRole_PARENT_PORT = @"PARENT_PORT";
+NUVPortTrunkRole_SUB_PORT = @"SUB_PORT";
 NUVPortType_BRIDGE = @"BRIDGE";
 NUVPortType_CONTAINER = @"CONTAINER";
 NUVPortType_HOST = @"HOST";
@@ -109,9 +117,17 @@ NUVPortType_VM = @"VM";
     */
     BOOL _active @accessors(property=active);
     /*!
-        Indicates if address spoofing is ENABLED/DISABLED/INHERITED for this vport Possible values are INHERITED, ENABLED, DISABLED, .
+        Indicates if address spoofing is ENABLED/DISABLED/INHERITED for this vport.
     */
     CPString _addressSpoofing @accessors(property=addressSpoofing);
+    /*!
+        The VLAN Number (1-4095), valid only if the trunkRole is SUB_PORT
+    */
+    CPNumber _segmentationID @accessors(property=segmentationID);
+    /*!
+        The type of segmentation that is used. This must be VLAN for vports with trunkRole set to SUB_PORT. This can not be specified for a parent vport (trunkRole = PARENT_PORT)
+    */
+    CPString _segmentationType @accessors(property=segmentationType);
     /*!
         Description for this vport
     */
@@ -129,9 +145,13 @@ NUVPortType_VM = @"VM";
     */
     CPString _zoneID @accessors(property=zoneID);
     /*!
-        Operational State of the VPort - RUNNING/SHUTDOWN Possible values are INIT, UP, DOWN, .
+        Operational State of the VPort. Possible values are INIT, UP, DOWN.
     */
     CPString _operationalState @accessors(property=operationalState);
+    /*!
+        Indicates the role of the vport in trunking operations
+    */
+    CPString _trunkRole @accessors(property=trunkRole);
     /*!
         Id of Floating IP address associated to this vport
     */
@@ -145,6 +165,10 @@ NUVPortType_VM = @"VM";
     */
     CPString _associatedSendMulticastChannelMapID @accessors(property=associatedSendMulticastChannelMapID);
     /*!
+        The trunk uuid associated with another vport of trunkRole PARENT_PORT. Can be specified only if trunkRole of this vport is SUB_PORT.
+    */
+    CPString _associatedTrunkID @accessors(property=associatedTrunkID);
+    /*!
         ID of the Multi NIC VPort associated with the VPort
     */
     CPString _multiNICVPortID @accessors(property=multiNICVPortID);
@@ -157,7 +181,7 @@ NUVPortType_VM = @"VM";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        Type of vport - possible values VM/HOST/BRIDGE Possible values are VM, HOST, BRIDGE, .
+        Type of vport. Possible values are VM, HOST, BRIDGE, CONTAINER.
     */
     CPString _type @accessors(property=type);
     /*!
@@ -169,12 +193,16 @@ NUVPortType_VM = @"VM";
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAggregateMetadatasFetcher _childrenAggregateMetadatas @accessors(property=childrenAggregateMetadatas);
+    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
+    NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUVirtualIPsFetcher _childrenVirtualIPs @accessors(property=childrenVirtualIPs);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
+    NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
+    NUIngressAdvFwdEntryTemplatesFetcher _childrenIngressAdvFwdEntryTemplates @accessors(property=childrenIngressAdvFwdEntryTemplates);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUContainerInterfacesFetcher _childrenContainerInterfaces @accessors(property=childrenContainerInterfaces);
@@ -185,6 +213,7 @@ NUVPortType_VM = @"VM";
     NUApplicationperformancemanagementsFetcher _childrenApplicationperformancemanagements @accessors(property=childrenApplicationperformancemanagements);
     NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
     NUVRSsFetcher _childrenVRSs @accessors(property=childrenVRSs);
+    NUTrunksFetcher _childrenTrunks @accessors(property=childrenTrunks);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
@@ -215,14 +244,18 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"active"];
         [self exposeLocalKeyPathToREST:@"addressSpoofing"];
+        [self exposeLocalKeyPathToREST:@"segmentationID"];
+        [self exposeLocalKeyPathToREST:@"segmentationType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainID"];
         [self exposeLocalKeyPathToREST:@"zoneID"];
         [self exposeLocalKeyPathToREST:@"operationalState"];
+        [self exposeLocalKeyPathToREST:@"trunkRole"];
         [self exposeLocalKeyPathToREST:@"associatedFloatingIPID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedSendMulticastChannelMapID"];
+        [self exposeLocalKeyPathToREST:@"associatedTrunkID"];
         [self exposeLocalKeyPathToREST:@"multiNICVPortID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];
@@ -233,12 +266,16 @@ NUVPortType_VM = @"VM";
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAggregateMetadatas = [NUAggregateMetadatasFetcher fetcherWithParentObject:self];
+        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
+        _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenVirtualIPs = [NUVirtualIPsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
+        _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
+        _childrenIngressAdvFwdEntryTemplates = [NUIngressAdvFwdEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenContainerInterfaces = [NUContainerInterfacesFetcher fetcherWithParentObject:self];
@@ -249,6 +286,7 @@ NUVPortType_VM = @"VM";
         _childrenApplicationperformancemanagements = [NUApplicationperformancemanagementsFetcher fetcherWithParentObject:self];
         _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
         _childrenVRSs = [NUVRSsFetcher fetcherWithParentObject:self];
+        _childrenTrunks = [NUTrunksFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];

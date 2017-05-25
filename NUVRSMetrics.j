@@ -88,6 +88,10 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedVCenterHypervisorID @accessors(property=associatedVCenterHypervisorID);
     /*!
+        Current version of the VRS VM
+    */
+    CPString _currentVersion @accessors(property=currentVersion);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -124,6 +128,7 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"agentName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedVCenterHypervisorID"];
+        [self exposeLocalKeyPathToREST:@"currentVersion"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

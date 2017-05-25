@@ -42,6 +42,10 @@ NUEventLogEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUEventLog : NURESTObject
 {
     /*!
+        Holds the unique ID generated for the REST request associated with this event.
+    */
+    CPString _requestID @accessors(property=requestID);
+    /*!
         Holds the results of diff between two objects of same type.
     */
     NURESTObject _diff @accessors(property=diff);
@@ -112,6 +116,7 @@ NUEventLogEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"requestID"];
         [self exposeLocalKeyPathToREST:@"diff"];
         [self exposeLocalKeyPathToREST:@"enterprise"];
         [self exposeLocalKeyPathToREST:@"entities"];

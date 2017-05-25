@@ -26,58 +26,16 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <AppKit/CPArrayController.j>
-@import <Bambou/NURESTObject.j>
+@import <Bambou/NURESTFetcher.j>
+
+@class NUTrunk
 
 
+@implementation NUTrunksFetcher : NURESTFetcher
 
-/*!
-    None
-*/
-@implementation NUDUCGroupBinding : NURESTObject
++ (Class)managedObjectClass
 {
-    /*!
-        SLA delay value in milliseconds that is tolerated between NSG instances and NSG-UBR (DUC) instances being bound through this binding instance.  If delay is to be ignored, then the value of -1 is to be entered.  Value 0 is not permitted.
-    */
-    CPNumber _oneWayDelay @accessors(property=oneWayDelay);
-    /*!
-        The priority for NSG Group to UBR Group relationship.
-    */
-    CPNumber _priority @accessors(property=priority);
-    /*!
-        Identification of the UBR Group associated to this group binding instance.
-    */
-    CPString _associatedDUCGroupID @accessors(property=associatedDUCGroupID);
-    
-    
-}
-
-
-#pragma mark -
-#pragma mark Class Method
-
-+ (CPString)RESTName
-{
-    return @"ducgroupbinding";
-}
-
-
-#pragma mark -
-#pragma mark Initialization
-
-- (id)init
-{
-    if (self = [super init])
-    {
-        [self exposeLocalKeyPathToREST:@"oneWayDelay"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedDUCGroupID"];
-        
-        
-        
-    }
-
-    return self;
+    return NUTrunk;
 }
 
 @end

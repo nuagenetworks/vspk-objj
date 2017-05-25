@@ -54,6 +54,10 @@ NUVLANStatus_INITIALIZED = @"INITIALIZED";
 NUVLANStatus_MISMATCH = @"MISMATCH";
 NUVLANStatus_ORPHAN = @"ORPHAN";
 NUVLANStatus_READY = @"READY";
+NUVLANType_ACCESS = @"ACCESS";
+NUVLANType_BR = @"BR";
+NUVLANType_DUC = @"DUC";
+NUVLANType_UPLINK = @"UPLINK";
 
 
 /*!
@@ -137,6 +141,10 @@ NUVLANStatus_READY = @"READY";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        This type marks a VLAN for it's utility.
+    */
+    CPString _type @accessors(property=type);
     
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
@@ -189,6 +197,7 @@ NUVLANStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"ducVlan"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

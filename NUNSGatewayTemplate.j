@@ -39,6 +39,7 @@ NUNSGatewayTemplateInstanceSSHOverride_ALLOWED = @"ALLOWED";
 NUNSGatewayTemplateInstanceSSHOverride_DISALLOWED = @"DISALLOWED";
 NUNSGatewayTemplatePersonality_NSG = @"NSG";
 NUNSGatewayTemplatePersonality_NSGBR = @"NSGBR";
+NUNSGatewayTemplatePersonality_NSGDUC = @"NSGDUC";
 NUNSGatewayTemplateSSHService_DISABLED = @"DISABLED";
 NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
 

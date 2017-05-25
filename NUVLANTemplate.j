@@ -36,6 +36,10 @@
 
 NUVLANTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVLANTemplateEntityScope_GLOBAL = @"GLOBAL";
+NUVLANTemplateType_ACCESS = @"ACCESS";
+NUVLANTemplateType_BR = @"BR";
+NUVLANTemplateType_DUC = @"DUC";
+NUVLANTemplateType_UPLINK = @"UPLINK";
 
 
 /*!
@@ -75,6 +79,10 @@ NUVLANTemplateEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        This type marks a VLAN for it's utility.
+    */
+    CPString _type @accessors(property=type);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -108,6 +116,7 @@ NUVLANTemplateEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"ducVlan"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
