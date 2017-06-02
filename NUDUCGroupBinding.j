@@ -37,10 +37,6 @@
 @implementation NUDUCGroupBinding : NURESTObject
 {
     /*!
-        VSD UUID of the UBR Group Binding instance.
-    */
-    CPString _id @accessors(property=id);
-    /*!
         SLA delay value in milliseconds that is tolerated between NSG instances and NSG-UBR (DUC) instances being bound through this binding instance.  If delay is to be ignored, then the value of -1 is to be entered.  Value 0 is not permitted.
     */
     CPNumber _oneWayDelay @accessors(property=oneWayDelay);
@@ -73,7 +69,6 @@
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"id"];
         [self exposeLocalKeyPathToREST:@"oneWayDelay"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"associatedDUCGroupID"];

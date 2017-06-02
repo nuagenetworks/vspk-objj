@@ -33,6 +33,7 @@
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAggregateMetadatasFetcher.j"
+@import "Fetchers/NUBGPNeighborsFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUVirtualIPsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
@@ -109,7 +110,7 @@ NUVPortType_VM = @"VM";
     */
     BOOL _active @accessors(property=active);
     /*!
-        Indicates if address spoofing is ENABLED/DISABLED/INHERITED for this vport Possible values are INHERITED, ENABLED, DISABLED, .
+        Indicates if address spoofing is ENABLED/DISABLED/INHERITED for this vport.
     */
     CPString _addressSpoofing @accessors(property=addressSpoofing);
     /*!
@@ -129,7 +130,7 @@ NUVPortType_VM = @"VM";
     */
     CPString _zoneID @accessors(property=zoneID);
     /*!
-        Operational State of the VPort - RUNNING/SHUTDOWN Possible values are INIT, UP, DOWN, .
+        Operational State of the VPort. Possible values are INIT, UP, DOWN.
     */
     CPString _operationalState @accessors(property=operationalState);
     /*!
@@ -157,7 +158,7 @@ NUVPortType_VM = @"VM";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        Type of vport - possible values VM/HOST/BRIDGE Possible values are VM, HOST, BRIDGE, .
+        Type of vport. Possible values are VM, HOST, BRIDGE, CONTAINER.
     */
     CPString _type @accessors(property=type);
     /*!
@@ -169,6 +170,7 @@ NUVPortType_VM = @"VM";
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAggregateMetadatasFetcher _childrenAggregateMetadatas @accessors(property=childrenAggregateMetadatas);
+    NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUVirtualIPsFetcher _childrenVirtualIPs @accessors(property=childrenVirtualIPs);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
@@ -233,6 +235,7 @@ NUVPortType_VM = @"VM";
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAggregateMetadatas = [NUAggregateMetadatasFetcher fetcherWithParentObject:self];
+        _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenVirtualIPs = [NUVirtualIPsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];

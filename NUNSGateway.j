@@ -229,6 +229,14 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _bootstrapStatus @accessors(property=bootstrapStatus);
     /*!
+        Operation mode of NSGateway
+    */
+    CPString _operationMode @accessors(property=operationMode);
+    /*!
+        Operation Status of NSGateway
+    */
+    CPString _operationStatus @accessors(property=operationStatus);
+    /*!
         Readonly Id of the associated gateway security object
     */
     CPString _associatedGatewaySecurityID @accessors(property=associatedGatewaySecurityID);
@@ -322,6 +330,8 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"configurationStatus"];
         [self exposeLocalKeyPathToREST:@"bootstrapID"];
         [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
+        [self exposeLocalKeyPathToREST:@"operationMode"];
+        [self exposeLocalKeyPathToREST:@"operationStatus"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGInfoID"];

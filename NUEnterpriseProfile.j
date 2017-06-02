@@ -65,10 +65,6 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _DHCPLeaseInterval @accessors(property=DHCPLeaseInterval);
     /*!
-        Enable DPI for this Enterprise Profile
-    */
-    BOOL _DPIEnabled @accessors(property=DPIEnabled);
-    /*!
         The unique name of the enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
     CPString _name @accessors(property=name);
@@ -153,7 +149,6 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPLeaseInterval"];
-        [self exposeLocalKeyPathToREST:@"DPIEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];

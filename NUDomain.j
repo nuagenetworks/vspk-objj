@@ -72,6 +72,7 @@
 @import "Fetchers/NUEventLogsFetcher.j"
 @import "Fetchers/NUExternalAppServicesFetcher.j"
 
+NUDomainAdvertiseCriteria_HUB_ROUTES = @"HUB_ROUTES";
 NUDomainApplicationDeploymentPolicy_NONE = @"NONE";
 NUDomainApplicationDeploymentPolicy_ZONE = @"ZONE";
 NUDomainDHCPBehavior_CONSUME = @"CONSUME";
@@ -180,6 +181,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Set this attribute to allow the spoke domain routes to be leaked into the hub domain.
+    */
+    CPString _advertiseCriteria @accessors(property=advertiseCriteria);
     /*!
         Indicates if this domain is a leakable domain or not - boolean true/false
     */
@@ -370,6 +375,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"advertiseCriteria"];
         [self exposeLocalKeyPathToREST:@"leakingEnabled"];
         [self exposeLocalKeyPathToREST:@"secondaryDHCPServerAddress"];
         [self exposeLocalKeyPathToREST:@"templateID"];

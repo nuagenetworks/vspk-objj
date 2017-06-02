@@ -46,10 +46,6 @@
     */
     CPString _description @accessors(property=description);
     /*!
-        List of NSG UBRs (formely named DUCs) that belong to this Disjoint Underlay Connector Group. 
-    */
-    CPArrayController _associatedDUCs @accessors(property=associatedDUCs);
-    /*!
         Identification of the Performance Monitoring Probe that is associated with this instance of a UBR Group.
     */
     CPString _associatedPerformanceMonitorID @accessors(property=associatedPerformanceMonitorID);
@@ -77,7 +73,6 @@
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"associatedDUCs"];
         [self exposeLocalKeyPathToREST:@"associatedPerformanceMonitorID"];
         
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];

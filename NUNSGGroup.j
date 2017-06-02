@@ -46,10 +46,6 @@
         Description of the NSG Group
     */
     CPString _description @accessors(property=description);
-    /*!
-        List of NSGs that belong to NSG Group
-    */
-    CPArrayController _associatedNSGs @accessors(property=associatedNSGs);
     
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     NUDUCGroupBindingsFetcher _childrenDUCGroupBindings @accessors(property=childrenDUCGroupBindings);
@@ -75,7 +71,6 @@
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"associatedNSGs"];
         
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         _childrenDUCGroupBindings = [NUDUCGroupBindingsFetcher fetcherWithParentObject:self];

@@ -44,6 +44,11 @@ NURedundantPortPermittedAction_READ = @"READ";
 NURedundantPortPermittedAction_USE = @"USE";
 NURedundantPortPortType_ACCESS = @"ACCESS";
 NURedundantPortPortType_NETWORK = @"NETWORK";
+NURedundantPortSpeed_AUTONEGOTIATE = @"AUTONEGOTIATE";
+NURedundantPortSpeed_BASE10 = @"BASE10";
+NURedundantPortSpeed_BASET1000 = @"BASET1000";
+NURedundantPortSpeed_BASETX100 = @"BASETX100";
+NURedundantPortSpeed_BASEX10G = @"BASEX10G";
 NURedundantPortStatus_INITIALIZED = @"INITIALIZED";
 NURedundantPortStatus_MISMATCH = @"MISMATCH";
 NURedundantPortStatus_ORPHAN = @"ORPHAN";
@@ -59,6 +64,10 @@ NURedundantPortStatus_READY = @"READY";
         VLAN Range of the Port.  Format must conform to a-b,c,d-f where a,b,c,d,f are integers between 0 and 4095.
     */
     CPString _VLANRange @accessors(property=VLANRange);
+    /*!
+        Port MTU (Maximum Transmission Unit) :  The size in octets of the largest protocol data unit (PDU) that the layer can pass on.  The default value is normally 1500 octets for Ethernet v2 and can go up to 9198 for Jumbo Frames.
+    */
+    CPNumber _MTU @accessors(property=MTU);
     /*!
         Name of the Port
     */
@@ -99,6 +108,10 @@ NURedundantPortStatus_READY = @"READY";
         Type of the Port.
     */
     CPString _portType @accessors(property=portType);
+    /*!
+        Port Speed in Mb/s :  Supported Ethernet speeds are 10 (10Base-T), 100 (Fast-ethernet 100Base-TX), 1000 (Gigabit Ethernet 1000Base-T), 10 000 (10 Gigabit Ethernet 10GBase-X), and Auto-Negotiate.
+    */
+    CPString _speed @accessors(property=speed);
     /*!
         A flag to indicate if for this redundant port an untagged heartbeat VLAN is to be used. If this is not set then will use the heartbeat VLAN set by the NS redundant group
     */
@@ -149,6 +162,7 @@ NURedundantPortStatus_READY = @"READY";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"VLANRange"];
+        [self exposeLocalKeyPathToREST:@"MTU"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
@@ -159,6 +173,7 @@ NURedundantPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"portPeer1ID"];
         [self exposeLocalKeyPathToREST:@"portPeer2ID"];
         [self exposeLocalKeyPathToREST:@"portType"];
+        [self exposeLocalKeyPathToREST:@"speed"];
         [self exposeLocalKeyPathToREST:@"useUntaggedHeartbeatVlan"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
