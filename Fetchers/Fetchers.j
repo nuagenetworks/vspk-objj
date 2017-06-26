@@ -40,6 +40,7 @@
 @import "NUAutoDiscoveredGatewaysFetcher.j"
 @import "NUAutodiscovereddatacentersFetcher.j"
 @import "NUAvatarsFetcher.j"
+@import "NUBFDSessionsFetcher.j"
 @import "NUBGPNeighborsFetcher.j"
 @import "NUBGPPeersFetcher.j"
 @import "NUBGPProfilesFetcher.j"

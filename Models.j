@@ -43,6 +43,7 @@
 @import "NUAutoDiscoveredGateway.j"
 @import "NUAutodiscovereddatacenter.j"
 @import "NUAvatar.j"
+@import "NUBFDSession.j"
 @import "NUBGPNeighbor.j"
 @import "NUBGPPeer.j"
 @import "NUBGPProfile.j"
@@ -242,6 +243,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUAutoDiscoveredGateway];
 [[NURESTModelController defaultController] registerModelClass:NUAutodiscovereddatacenter];
 [[NURESTModelController defaultController] registerModelClass:NUAvatar];
+[[NURESTModelController defaultController] registerModelClass:NUBFDSession];
 [[NURESTModelController defaultController] registerModelClass:NUBGPNeighbor];
 [[NURESTModelController defaultController] registerModelClass:NUBGPPeer];
 [[NURESTModelController defaultController] registerModelClass:NUBGPProfile];

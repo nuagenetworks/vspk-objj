@@ -52,8 +52,8 @@ NUL2DomainTemplateEncryption_DISABLED = @"DISABLED";
 NUL2DomainTemplateEncryption_ENABLED = @"ENABLED";
 NUL2DomainTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUL2DomainTemplateEntityScope_GLOBAL = @"GLOBAL";
+NUL2DomainTemplateIPType_DUALSTACK = @"DUALSTACK";
 NUL2DomainTemplateIPType_IPV4 = @"IPV4";
-NUL2DomainTemplateIPType_IPV6 = @"IPV6";
 NUL2DomainTemplateMulticast_DISABLED = @"DISABLED";
 NUL2DomainTemplateMulticast_ENABLED = @"ENABLED";
 NUL2DomainTemplateMulticast_INHERITED = @"INHERITED";
@@ -78,7 +78,7 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _DPI @accessors(property=DPI);
     /*!
-        IPv4 or IPv6
+        IPv4 or DUALSTACK
     */
     CPString _IPType @accessors(property=IPType);
     /*!

@@ -82,6 +82,14 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _groupDN @accessors(property=groupDN);
     /*!
+        If this is specified, Prefix+Pre-definedGroupName will be used to look for users.
+    */
+    CPString _groupNamePrefix @accessors(property=groupNamePrefix);
+    /*!
+        If this is specified, Pre-definedGroupName+Suffix will be used to look for users.
+    */
+    CPString _groupNameSuffix @accessors(property=groupNameSuffix);
+    /*!
         The DN template to be used for authentication. The template needs to have a string _USERID_ in it. This will be replaced by  the userId of the user who makes the REST API call. For example, template UID=_USERID_,OU=company,DC=com will converted to  UID=admin,OU=company,DC=com and this will be used as DN for LDAP authentication.
     */
     CPString _userDNTemplate @accessors(property=userDNTemplate);
@@ -130,6 +138,8 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"port"];
         [self exposeLocalKeyPathToREST:@"groupDN"];
+        [self exposeLocalKeyPathToREST:@"groupNamePrefix"];
+        [self exposeLocalKeyPathToREST:@"groupNameSuffix"];
         [self exposeLocalKeyPathToREST:@"userDNTemplate"];
         [self exposeLocalKeyPathToREST:@"authorizationEnabled"];
         [self exposeLocalKeyPathToREST:@"authorizingUserDN"];

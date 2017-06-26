@@ -380,6 +380,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPNumber _mtu @accessors(property=mtu);
     /*!
+        Successfully applied version of the VRS VM (Provided by VRS VM)
+    */
+    CPString _successfullyAppliedVersion @accessors(property=successfullyAppliedVersion);
+    /*!
         Whether Multi VM is to be used or not
     */
     BOOL _multiVMSsupport @accessors(property=multiVMSsupport);
@@ -551,6 +555,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"ntpServer1"];
         [self exposeLocalKeyPathToREST:@"ntpServer2"];
         [self exposeLocalKeyPathToREST:@"mtu"];
+        [self exposeLocalKeyPathToREST:@"successfullyAppliedVersion"];
         [self exposeLocalKeyPathToREST:@"multiVMSsupport"];
         [self exposeLocalKeyPathToREST:@"multicastReceiveInterface"];
         [self exposeLocalKeyPathToREST:@"multicastReceiveInterfaceIP"];

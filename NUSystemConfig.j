@@ -76,6 +76,14 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
 @implementation NUSystemConfig : NURESTObject
 {
     /*!
+        AAR flow statistics collection frequency
+    */
+    CPNumber _AARFlowStatsInterval @accessors(property=AARFlowStatsInterval);
+    /*!
+        AAR probe statistics collection frequency
+    */
+    CPNumber _AARProbeStatsInterval @accessors(property=AARProbeStatsInterval);
+    /*!
         Defines the domains allowed for access control list.
     */
     CPString _ACLAllowOrigin @accessors(property=ACLAllowOrigin);
@@ -208,9 +216,17 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     BOOL _VSDUpgradeIsComplete @accessors(property=VSDUpgradeIsComplete);
     /*!
+        In case of an NSG with dual uplinks, when an uplink connection comes back after failure, the NSG does not use this uplink until the below timer (in seconds) expires, to account for propagation delay of the reachability information to neighboring NSGs.
+    */
+    CPNumber _NSGUplinkHoldDownTimer @accessors(property=NSGUplinkHoldDownTimer);
+    /*!
          Autonomous System Number,Used for RT/RD auto-generation
     */
     CPNumber _ASNumber @accessors(property=ASNumber);
+    /*!
+        VSS statistics collection frequency
+    */
+    CPNumber _VSSStatsInterval @accessors(property=VSSStatsInterval);
     /*!
         route target lower limit
     */
@@ -572,7 +588,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _sysmonCleanupTaskInterval @accessors(property=sysmonCleanupTaskInterval);
     /*!
-        Node presence timeout in seconds if no messages.
+        Time interval in seconds at which sysmon messages are reported by controller.
     */
     CPNumber _sysmonNodePresenceTimeout @accessors(property=sysmonNodePresenceTimeout);
     /*!
@@ -610,6 +626,8 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"AARFlowStatsInterval"];
+        [self exposeLocalKeyPathToREST:@"AARProbeStatsInterval"];
         [self exposeLocalKeyPathToREST:@"ACLAllowOrigin"];
         [self exposeLocalKeyPathToREST:@"ECMPCount"];
         [self exposeLocalKeyPathToREST:@"LDAPSyncInterval"];
@@ -643,7 +661,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"VSCOnSameVersionAsVSD"];
         [self exposeLocalKeyPathToREST:@"VSDReadOnlyMode"];
         [self exposeLocalKeyPathToREST:@"VSDUpgradeIsComplete"];
+        [self exposeLocalKeyPathToREST:@"NSGUplinkHoldDownTimer"];
         [self exposeLocalKeyPathToREST:@"ASNumber"];
+        [self exposeLocalKeyPathToREST:@"VSSStatsInterval"];
         [self exposeLocalKeyPathToREST:@"RTLowerLimit"];
         [self exposeLocalKeyPathToREST:@"RTPublicNetworkLowerLimit"];
         [self exposeLocalKeyPathToREST:@"RTPublicNetworkUpperLimit"];

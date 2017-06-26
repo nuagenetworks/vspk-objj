@@ -29,73 +29,49 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
-NUVRSMetricsEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
+NUBFDSessionEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUBFDSessionEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    None
+    Represents the Bidirectional Forwarding Detection session that can be configured on an uplink/BR connection.
 */
-@implementation NUVRSMetrics : NURESTObject
+@implementation NUBFDSession : NURESTObject
 {
     /*!
-        alubr0 status
+        Destination IP Address used for Bidirectional Forwarding Detection.
     */
-    BOOL _ALUbr0Status @accessors(property=ALUbr0Status);
+    CPString _BFDDestinationIP @accessors(property=BFDDestinationIP);
     /*!
-        cpu utilization
+        Multiplier used for Bidirectional Forwarding Detection Timer.
     */
-    CPNumber _CPUUtilization @accessors(property=CPUUtilization);
+    CPNumber _BFDMultiplier @accessors(property=BFDMultiplier);
     /*!
-        vrs vsc process status
+        Timer for Bidirectional Forwarding Detection. (min = 200, max = 100,000) Unit is milliseconds.
     */
-    BOOL _VRSProcess @accessors(property=VRSProcess);
-    /*!
-        vrs vrs connection status
-    */
-    BOOL _VRSVSCStatus @accessors(property=VRSVSCStatus);
+    CPNumber _BFDTimer @accessors(property=BFDTimer);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        re-Deploy
-    */
-    BOOL _reDeploy @accessors(property=reDeploy);
-    /*!
-        Is the VRS VM Sending Metrics to the hypervisor on VCIN
-    */
-    BOOL _receivingMetrics @accessors(property=receivingMetrics);
-    /*!
-        Memory Utilization
-    */
-    CPNumber _memoryUtilization @accessors(property=memoryUtilization);
-    /*!
-        jesxmon process status
-    */
-    BOOL _jesxmonProcess @accessors(property=jesxmonProcess);
-    /*!
-        VRS Agent Name
-    */
-    CPString _agentName @accessors(property=agentName);
-    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        None
+        Boolean flag to indicate whether the BFD Session has single hop or multi hop capability.
     */
-    CPString _associatedVCenterHypervisorID @accessors(property=associatedVCenterHypervisorID);
-    /*!
-        Current version of the VRS VM (Provided by VRS VM)
-    */
-    CPString _currentVersion @accessors(property=currentVersion);
+    BOOL _multiHopEnabled @accessors(property=multiHopEnabled);
     /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -105,7 +81,7 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"vrsmetrics";
+    return @"bfdsession";
 }
 
 
@@ -116,21 +92,16 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"ALUbr0Status"];
-        [self exposeLocalKeyPathToREST:@"CPUUtilization"];
-        [self exposeLocalKeyPathToREST:@"VRSProcess"];
-        [self exposeLocalKeyPathToREST:@"VRSVSCStatus"];
+        [self exposeLocalKeyPathToREST:@"BFDDestinationIP"];
+        [self exposeLocalKeyPathToREST:@"BFDMultiplier"];
+        [self exposeLocalKeyPathToREST:@"BFDTimer"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"reDeploy"];
-        [self exposeLocalKeyPathToREST:@"receivingMetrics"];
-        [self exposeLocalKeyPathToREST:@"memoryUtilization"];
-        [self exposeLocalKeyPathToREST:@"jesxmonProcess"];
-        [self exposeLocalKeyPathToREST:@"agentName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"associatedVCenterHypervisorID"];
-        [self exposeLocalKeyPathToREST:@"currentVersion"];
+        [self exposeLocalKeyPathToREST:@"multiHopEnabled"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

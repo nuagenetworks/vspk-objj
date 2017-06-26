@@ -306,7 +306,6 @@ NUSubnetEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUSubnetEntityScope_GLOBAL = @"GLOBAL";
 NUSubnetIPType_DUALSTACK = @"DUALSTACK";
 NUSubnetIPType_IPV4 = @"IPV4";
-NUSubnetIPType_IPV6 = @"IPV6";
 NUSubnetMaintenanceMode_DISABLED = @"DISABLED";
 NUSubnetMaintenanceMode_ENABLED = @"ENABLED";
 NUSubnetMaintenanceMode_ENABLED_INHERITED = @"ENABLED_INHERITED";
@@ -341,7 +340,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _DPI @accessors(property=DPI);
     /*!
-        IPv4 or IPv6
+        IPv4 or DUALSTACK
     */
     CPString _IPType @accessors(property=IPType);
     /*!

@@ -180,6 +180,10 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _mirrorNetworkPortgroup @accessors(property=mirrorNetworkPortgroup);
     /*!
+        This flag will disable network discovery. (trye - dont fetch port groups from vcenter, false - fetch portgroups from vcenter))
+    */
+    BOOL _disableNetworkDiscovery @accessors(property=disableNetworkDiscovery);
+    /*!
         Site ID field for object profiles to support VSD Geo-redundancy
     */
     CPString _siteId @accessors(property=siteId);
@@ -435,6 +439,7 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"mgmtNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
         [self exposeLocalKeyPathToREST:@"mirrorNetworkPortgroup"];
+        [self exposeLocalKeyPathToREST:@"disableNetworkDiscovery"];
         [self exposeLocalKeyPathToREST:@"siteId"];
         [self exposeLocalKeyPathToREST:@"oldAgencyName"];
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
