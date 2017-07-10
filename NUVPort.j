@@ -41,6 +41,7 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
+@import "Fetchers/NUVNFInterfacesFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdEntryTemplatesFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
@@ -73,6 +74,8 @@ NUVPortOperationalState_DOWN = @"DOWN";
 NUVPortOperationalState_INIT = @"INIT";
 NUVPortOperationalState_UP = @"UP";
 NUVPortSegmentationType_VLAN = @"VLAN";
+NUVPortSubType_NONE = @"NONE";
+NUVPortSubType_VNF = @"VNF";
 NUVPortSystemType_HARDWARE = @"HARDWARE";
 NUVPortSystemType_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUVPortSystemType_NUAGE_1 = @"NUAGE_1";
@@ -161,6 +164,10 @@ NUVPortType_VM = @"VM";
     */
     CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
     /*!
+        The UUID of the SSID Connection tied to this instance of a vPort.
+    */
+    CPString _associatedSSID @accessors(property=associatedSSID);
+    /*!
         The ID of the send Multicast Channel Map this Vport is associated with. This has to be set when enableMultiCast is set to ENABLED
     */
     CPString _associatedSendMulticastChannelMapID @accessors(property=associatedSendMulticastChannelMapID);
@@ -168,6 +175,10 @@ NUVPortType_VM = @"VM";
         The trunk uuid associated with another vport of trunkRole PARENT_PORT. Can be specified only if trunkRole of this vport is SUB_PORT.
     */
     CPString _associatedTrunkID @accessors(property=associatedTrunkID);
+    /*!
+        Sub type of vport - possible values are NONE/VNF
+    */
+    CPString _subType @accessors(property=subType);
     /*!
         ID of the Multi NIC VPort associated with the VPort
     */
@@ -201,6 +212,7 @@ NUVPortType_VM = @"VM";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
+    NUVNFInterfacesFetcher _childrenVNFInterfaces @accessors(property=childrenVNFInterfaces);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressAdvFwdEntryTemplatesFetcher _childrenIngressAdvFwdEntryTemplates @accessors(property=childrenIngressAdvFwdEntryTemplates);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
@@ -254,8 +266,10 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"trunkRole"];
         [self exposeLocalKeyPathToREST:@"associatedFloatingIPID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
+        [self exposeLocalKeyPathToREST:@"associatedSSID"];
         [self exposeLocalKeyPathToREST:@"associatedSendMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedTrunkID"];
+        [self exposeLocalKeyPathToREST:@"subType"];
         [self exposeLocalKeyPathToREST:@"multiNICVPortID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];
@@ -274,6 +288,7 @@ NUVPortType_VM = @"VM";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
+        _childrenVNFInterfaces = [NUVNFInterfacesFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdEntryTemplates = [NUIngressAdvFwdEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];

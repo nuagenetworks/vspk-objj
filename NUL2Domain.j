@@ -36,6 +36,7 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
+@import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
@@ -56,10 +57,10 @@
 @import "Fetchers/NUApplicationperformancemanagementbindingsFetcher.j"
 @import "Fetchers/NUBridgeInterfacesFetcher.j"
 @import "Fetchers/NUGroupsFetcher.j"
-@import "Fetchers/NUStaticRoutesFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUOverlayMirrorDestinationsFetcher.j"
 
 NUL2DomainDPI_DISABLED = @"DISABLED";
 NUL2DomainDPI_ENABLED = @"ENABLED";
@@ -69,8 +70,8 @@ NUL2DomainEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUL2DomainEntityScope_GLOBAL = @"GLOBAL";
 NUL2DomainEntityState_MARKED_FOR_DELETION = @"MARKED_FOR_DELETION";
 NUL2DomainEntityState_UNDER_CONSTRUCTION = @"UNDER_CONSTRUCTION";
+NUL2DomainIPType_DUALSTACK = @"DUALSTACK";
 NUL2DomainIPType_IPV4 = @"IPV4";
-NUL2DomainIPType_IPV6 = @"IPV6";
 NUL2DomainMaintenanceMode_DISABLED = @"DISABLED";
 NUL2DomainMaintenanceMode_ENABLED = @"ENABLED";
 NUL2DomainMaintenanceMode_ENABLED_INHERITED = @"ENABLED_INHERITED";
@@ -103,7 +104,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _DPI @accessors(property=DPI);
     /*!
-        IPv4 or IPv6
+        IPv4 or DUALSTACK
     */
     CPString _IPType @accessors(property=IPType);
     /*!
@@ -218,6 +219,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
+    NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
@@ -238,10 +240,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     NUApplicationperformancemanagementbindingsFetcher _childrenApplicationperformancemanagementbindings @accessors(property=childrenApplicationperformancemanagementbindings);
     NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
     NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
-    NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUOverlayMirrorDestinationsFetcher _childrenOverlayMirrorDestinations @accessors(property=childrenOverlayMirrorDestinations);
     
 }
 
@@ -299,6 +301,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
+        _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
@@ -319,10 +322,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenApplicationperformancemanagementbindings = [NUApplicationperformancemanagementbindingsFetcher fetcherWithParentObject:self];
         _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
         _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
-        _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenOverlayMirrorDestinations = [NUOverlayMirrorDestinationsFetcher fetcherWithParentObject:self];
         
         _maintenanceMode = @"DISABLED";
         

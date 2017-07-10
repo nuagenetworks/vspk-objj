@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUTier
+@class NUVNFMetadata
 
 
-@implementation NUTiersFetcher : NURESTFetcher
+@implementation NUVNFMetadatasFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUTier;
+    return NUVNFMetadata;
 }
 
 @end

@@ -31,8 +31,9 @@
 
 @import "Fetchers/NUDemarcationServicesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUNextHopAddressFetcher.j"
+@import "Fetchers/NUNextHopsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUPolicyStatementsFetcher.j"
 @import "Fetchers/NUCSNATPoolsFetcher.j"
 @import "Fetchers/NUPSNATPoolsFetcher.j"
 @import "Fetchers/NUOverlayAddressPoolsFetcher.j"
@@ -105,8 +106,9 @@ NULinkType_SERVICE_CHAINING = @"SERVICE_CHAINING";
     
     NUDemarcationServicesFetcher _childrenDemarcationServices @accessors(property=childrenDemarcationServices);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUNextHopAddressFetcher _childrenNextHopAddress @accessors(property=childrenNextHopAddress);
+    NUNextHopsFetcher _childrenNextHops @accessors(property=childrenNextHops);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUPolicyStatementsFetcher _childrenPolicyStatements @accessors(property=childrenPolicyStatements);
     NUCSNATPoolsFetcher _childrenCSNATPools @accessors(property=childrenCSNATPools);
     NUPSNATPoolsFetcher _childrenPSNATPools @accessors(property=childrenPSNATPools);
     NUOverlayAddressPoolsFetcher _childrenOverlayAddressPools @accessors(property=childrenOverlayAddressPools);
@@ -145,8 +147,9 @@ NULinkType_SERVICE_CHAINING = @"SERVICE_CHAINING";
         
         _childrenDemarcationServices = [NUDemarcationServicesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenNextHopAddress = [NUNextHopAddressFetcher fetcherWithParentObject:self];
+        _childrenNextHops = [NUNextHopsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenPolicyStatements = [NUPolicyStatementsFetcher fetcherWithParentObject:self];
         _childrenCSNATPools = [NUCSNATPoolsFetcher fetcherWithParentObject:self];
         _childrenPSNATPools = [NUPSNATPoolsFetcher fetcherWithParentObject:self];
         _childrenOverlayAddressPools = [NUOverlayAddressPoolsFetcher fetcherWithParentObject:self];

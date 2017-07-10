@@ -36,6 +36,7 @@
 @import "Fetchers/NUNetworkPerformanceBindingsFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
+@import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
 @import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
 @import "Fetchers/NUFloatingIPACLTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
@@ -73,8 +74,6 @@
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUDomainAdvertiseCriteria_HUB_ROUTES = @"HUB_ROUTES";
-NUDomainApplicationDeploymentPolicy_NONE = @"NONE";
-NUDomainApplicationDeploymentPolicy_ZONE = @"ZONE";
 NUDomainDHCPBehavior_CONSUME = @"CONSUME";
 NUDomainDHCPBehavior_FLOOD = @"FLOOD";
 NUDomainDHCPBehavior_OVERLAY_RELAY = @"OVERLAY_RELAY";
@@ -134,7 +133,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     BOOL _BGPEnabled @accessors(property=BGPEnabled);
     /*!
-        DHCPBehaviorType is an enum that indicates DHCP Behavior of VRS having VM's under this domain. Possible values are FLOOD, CONSUME ,RELAY Possible values are CONSUME, FLOOD, RELAY, .
+        DHCPBehaviorType is an enum that indicates DHCP Behavior of VRS having VM's under this domain. Possible values are FLOOD, CONSUME, OVERLAY_RELAY, UNDERLAY_RELAY.
     */
     CPString _DHCPBehavior @accessors(property=DHCPBehavior);
     /*!
@@ -234,6 +233,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Local autonomous system for the domain
+    */
+    CPNumber _localAS @accessors(property=localAS);
+    /*!
         None
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
@@ -257,10 +260,6 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Indicates the preferencial path selection for network traffic in this domain - Default is Primary 1 and Secondary 2. Possible values are PRIMARY_SECONDARY, SECONDARY_PRIMARY, PRIMARY, SECONDARY, SYMMETRIC, .
     */
     CPString _uplinkPreference @accessors(property=uplinkPreference);
-    /*!
-        Application deployment policy.
-    */
-    CPString _applicationDeploymentPolicy @accessors(property=applicationDeploymentPolicy);
     /*!
         None
     */
@@ -305,6 +304,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUNetworkPerformanceBindingsFetcher _childrenNetworkPerformanceBindings @accessors(property=childrenNetworkPerformanceBindings);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
+    NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
     NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
     NUFloatingIPACLTemplatesFetcher _childrenFloatingIPACLTemplates @accessors(property=childrenFloatingIPACLTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
@@ -388,13 +388,13 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"localAS"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
         [self exposeLocalKeyPathToREST:@"domainID"];
         [self exposeLocalKeyPathToREST:@"domainVLANID"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
-        [self exposeLocalKeyPathToREST:@"applicationDeploymentPolicy"];
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
@@ -412,6 +412,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenNetworkPerformanceBindings = [NUNetworkPerformanceBindingsFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
+        _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
         _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
         _childrenFloatingIPACLTemplates = [NUFloatingIPACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];

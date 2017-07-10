@@ -26,16 +26,53 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <Bambou/NURESTFetcher.j>
+@import <AppKit/CPArrayController.j>
+@import <Bambou/NURESTObject.j>
 
-@class NUFlowSecurityPolicy
 
 
-@implementation NUFlowSecurityPoliciesFetcher : NURESTFetcher
-
-+ (Class)managedObjectClass
+/*!
+    Represent VNF interface descriptor
+*/
+@implementation NUVNFInterfaceDescriptor : NURESTObject
 {
-    return NUFlowSecurityPolicy;
+    /*!
+        Device name associated with this interface
+    */
+    CPString _name @accessors(property=name);
+    /*!
+        Indicates if this is a management interface
+    */
+    BOOL _isManagementInterface @accessors(property=isManagementInterface);
+    
+    
+}
+
+
+#pragma mark -
+#pragma mark Class Method
+
++ (CPString)RESTName
+{
+    return @"vnfinterfacedescriptor";
+}
+
+
+#pragma mark -
+#pragma mark Initialization
+
+- (id)init
+{
+    if (self = [super init])
+    {
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"isManagementInterface"];
+        
+        
+        
+    }
+
+    return self;
 }
 
 @end

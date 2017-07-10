@@ -29,37 +29,24 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-
-NUDemarcationServiceType_BR_PORT = @"BR_PORT";
-NUDemarcationServiceType_GATEWAY = @"GATEWAY";
+@import "Fetchers/NUVNFDescriptorsFetcher.j"
 
 
 /*!
-    None
+    Represents VNF Catalog
 */
-@implementation NUDemarcationService : NURESTObject
+@implementation NUVNFCatalog : NURESTObject
 {
     /*!
-        The route distinguisher associated with the next hop. This is a read only property automatically created by VSD.
+        Name of the VNF catalog
     */
-    CPString _routeDistinguisher @accessors(property=routeDistinguisher);
+    CPString _name @accessors(property=name);
     /*!
-        Next hop priority assigned by the user.
+        Description of the VNF Catalog
     */
-    CPNumber _priority @accessors(property=priority);
-    /*!
-        The ID of the NSGBR Gateway used as next hop in the untrusted domain.
-    */
-    CPString _associatedGatewayID @accessors(property=associatedGatewayID);
-    /*!
-        The VLAN ID of the BR VLAN used as next hop in the trusted domain.
-    */
-    CPString _associatedVLANID @accessors(property=associatedVLANID);
-    /*!
-        The type of next hop determines linking direction for a demarcation service, possible values: BR_PORT, GATEWAY 
-    */
-    CPString _type @accessors(property=type);
+    CPString _description @accessors(property=description);
     
+    NUVNFDescriptorsFetcher _childrenVNFDescriptors @accessors(property=childrenVNFDescriptors);
     
 }
 
@@ -69,7 +56,7 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 
 + (CPString)RESTName
 {
-    return @"demarcationservice";
+    return @"vnfcatalog";
 }
 
 
@@ -80,12 +67,10 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
-        [self exposeLocalKeyPathToREST:@"associatedVLANID"];
-        [self exposeLocalKeyPathToREST:@"type"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"description"];
         
+        _childrenVNFDescriptors = [NUVNFDescriptorsFetcher fetcherWithParentObject:self];
         
         
     }

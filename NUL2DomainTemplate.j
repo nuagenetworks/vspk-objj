@@ -35,6 +35,7 @@
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
+@import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdTemplatesFetcher.j"
@@ -44,6 +45,7 @@
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUGroupsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUOverlayMirrorDestinationTemplatesFetcher.j"
 
 NUL2DomainTemplateDPI_DISABLED = @"DISABLED";
 NUL2DomainTemplateDPI_ENABLED = @"ENABLED";
@@ -54,8 +56,8 @@ NUL2DomainTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUL2DomainTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUL2DomainTemplateEntityState_MARKED_FOR_DELETION = @"MARKED_FOR_DELETION";
 NUL2DomainTemplateEntityState_UNDER_CONSTRUCTION = @"UNDER_CONSTRUCTION";
+NUL2DomainTemplateIPType_DUALSTACK = @"DUALSTACK";
 NUL2DomainTemplateIPType_IPV4 = @"IPV4";
-NUL2DomainTemplateIPType_IPV6 = @"IPV6";
 NUL2DomainTemplateMulticast_DISABLED = @"DISABLED";
 NUL2DomainTemplateMulticast_ENABLED = @"ENABLED";
 NUL2DomainTemplateMulticast_INHERITED = @"INHERITED";
@@ -80,7 +82,7 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _DPI @accessors(property=DPI);
     /*!
-        IPv4 or IPv6
+        IPv4 or DUALSTACK
     */
     CPString _IPType @accessors(property=IPType);
     /*!
@@ -154,6 +156,7 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
+    NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdTemplatesFetcher _childrenIngressAdvFwdTemplates @accessors(property=childrenIngressAdvFwdTemplates);
@@ -163,6 +166,7 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUOverlayMirrorDestinationTemplatesFetcher _childrenOverlayMirrorDestinationTemplates @accessors(property=childrenOverlayMirrorDestinationTemplates);
     
 }
 
@@ -209,6 +213,7 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
+        _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdTemplates = [NUIngressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
@@ -218,6 +223,7 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenOverlayMirrorDestinationTemplates = [NUOverlayMirrorDestinationTemplatesFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,37 +29,30 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUNSGatewaysFetcher.j"
 
-NUDemarcationServiceType_BR_PORT = @"BR_PORT";
-NUDemarcationServiceType_GATEWAY = @"GATEWAY";
+NUPolicyObjectGroupType_NSGATEWAY = @"NSGateway";
 
 
 /*!
     None
 */
-@implementation NUDemarcationService : NURESTObject
+@implementation NUPolicyObjectGroup : NURESTObject
 {
     /*!
-        The route distinguisher associated with the next hop. This is a read only property automatically created by VSD.
+        Name of the Policy Object Group
     */
-    CPString _routeDistinguisher @accessors(property=routeDistinguisher);
+    CPString _name @accessors(property=name);
     /*!
-        Next hop priority assigned by the user.
+        Description of the Policy Object Group
     */
-    CPNumber _priority @accessors(property=priority);
+    CPString _description @accessors(property=description);
     /*!
-        The ID of the NSGBR Gateway used as next hop in the untrusted domain.
-    */
-    CPString _associatedGatewayID @accessors(property=associatedGatewayID);
-    /*!
-        The VLAN ID of the BR VLAN used as next hop in the trusted domain.
-    */
-    CPString _associatedVLANID @accessors(property=associatedVLANID);
-    /*!
-        The type of next hop determines linking direction for a demarcation service, possible values: BR_PORT, GATEWAY 
+        Type of the Policy Object Group
     */
     CPString _type @accessors(property=type);
     
+    NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     
 }
 
@@ -69,7 +62,7 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 
 + (CPString)RESTName
 {
-    return @"demarcationservice";
+    return @"policyobjectgroup";
 }
 
 
@@ -80,12 +73,11 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
-        [self exposeLocalKeyPathToREST:@"associatedVLANID"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         
         
     }

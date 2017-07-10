@@ -33,6 +33,7 @@
 @import "Fetchers/NUPATNATPoolsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUWirelessPortsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUInfrastructureConfigsFetcher.j"
@@ -73,6 +74,10 @@ NUNSGatewayFamily_NSG_E = @"NSG_E";
 NUNSGatewayFamily_NSG_V = @"NSG_V";
 NUNSGatewayInheritedSSHServiceState_DISABLED = @"DISABLED";
 NUNSGatewayInheritedSSHServiceState_ENABLED = @"ENABLED";
+NUNSGatewayNetworkAcceleration_NONE = @"NONE";
+NUNSGatewayNetworkAcceleration_NORMAL = @"NORMAL";
+NUNSGatewayNetworkAcceleration_OPTIMAL = @"OPTIMAL";
+NUNSGatewayNetworkAcceleration_PERFORMANCE = @"PERFORMANCE";
 NUNSGatewayPermittedAction_ALL = @"ALL";
 NUNSGatewayPermittedAction_DEPLOY = @"DEPLOY";
 NUNSGatewayPermittedAction_EXTEND = @"EXTEND";
@@ -118,6 +123,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         Maximum Segment Size for TCP(min = 576, max = 7812).
     */
     CPNumber _TCPMaximumSegmentSize @accessors(property=TCPMaximumSegmentSize);
+    /*!
+        NSG BIOS Version
+    */
+    CPString _BIOSVersion @accessors(property=BIOSVersion);
     /*!
         The part number of the NSG
     */
@@ -195,6 +204,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _description @accessors(property=description);
     /*!
+        Network Acceleration type to be used when network acceleration is enabled
+    */
+    CPString _networkAcceleration @accessors(property=networkAcceleration);
+    /*!
         Transient representation of the same property on NSGInfo.
     */
     CPString _libraries @accessors(property=libraries);
@@ -239,6 +252,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _operationStatus @accessors(property=operationStatus);
     /*!
+        NSG Product Name
+    */
+    CPString _productName @accessors(property=productName);
+    /*!
         Readonly Id of the associated gateway security object
     */
     CPString _associatedGatewaySecurityID @accessors(property=associatedGatewaySecurityID);
@@ -267,6 +284,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUWirelessPortsFetcher _childrenWirelessPorts @accessors(property=childrenWirelessPorts);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUInfrastructureConfigsFetcher _childrenInfrastructureConfigs @accessors(property=childrenInfrastructureConfigs);
@@ -305,6 +323,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"NATTraversalEnabled"];
         [self exposeLocalKeyPathToREST:@"TCPMSSEnabled"];
         [self exposeLocalKeyPathToREST:@"TCPMaximumSegmentSize"];
+        [self exposeLocalKeyPathToREST:@"BIOSVersion"];
         [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
         [self exposeLocalKeyPathToREST:@"CPUType"];
@@ -324,6 +343,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"networkAcceleration"];
         [self exposeLocalKeyPathToREST:@"libraries"];
         [self exposeLocalKeyPathToREST:@"inheritedSSHServiceState"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
@@ -335,6 +355,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
         [self exposeLocalKeyPathToREST:@"operationMode"];
         [self exposeLocalKeyPathToREST:@"operationStatus"];
+        [self exposeLocalKeyPathToREST:@"productName"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGInfoID"];
@@ -346,6 +367,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenWirelessPorts = [NUWirelessPortsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenInfrastructureConfigs = [NUInfrastructureConfigsFetcher fetcherWithParentObject:self];

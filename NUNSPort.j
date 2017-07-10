@@ -98,10 +98,6 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _description @accessors(property=description);
     /*!
-        Flag to enable/disable network throughput acceleration on this port. If this flag is not set then the setting of the port's template will be taken into account.
-    */
-    BOOL _networkAccelerationEnabled @accessors(property=networkAccelerationEnabled);
-    /*!
         Identifier of the Port
     */
     CPString _physicalName @accessors(property=physicalName);
@@ -183,7 +179,6 @@ NUNSPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"networkAccelerationEnabled"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];

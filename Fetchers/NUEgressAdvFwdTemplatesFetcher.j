@@ -26,71 +26,16 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <AppKit/CPArrayController.j>
-@import <Bambou/NURESTObject.j>
+@import <Bambou/NURESTFetcher.j>
+
+@class NUEgressAdvFwdTemplate
 
 
-NUDemarcationServiceType_BR_PORT = @"BR_PORT";
-NUDemarcationServiceType_GATEWAY = @"GATEWAY";
+@implementation NUEgressAdvFwdTemplatesFetcher : NURESTFetcher
 
-
-/*!
-    None
-*/
-@implementation NUDemarcationService : NURESTObject
++ (Class)managedObjectClass
 {
-    /*!
-        The route distinguisher associated with the next hop. This is a read only property automatically created by VSD.
-    */
-    CPString _routeDistinguisher @accessors(property=routeDistinguisher);
-    /*!
-        Next hop priority assigned by the user.
-    */
-    CPNumber _priority @accessors(property=priority);
-    /*!
-        The ID of the NSGBR Gateway used as next hop in the untrusted domain.
-    */
-    CPString _associatedGatewayID @accessors(property=associatedGatewayID);
-    /*!
-        The VLAN ID of the BR VLAN used as next hop in the trusted domain.
-    */
-    CPString _associatedVLANID @accessors(property=associatedVLANID);
-    /*!
-        The type of next hop determines linking direction for a demarcation service, possible values: BR_PORT, GATEWAY 
-    */
-    CPString _type @accessors(property=type);
-    
-    
-}
-
-
-#pragma mark -
-#pragma mark Class Method
-
-+ (CPString)RESTName
-{
-    return @"demarcationservice";
-}
-
-
-#pragma mark -
-#pragma mark Initialization
-
-- (id)init
-{
-    if (self = [super init])
-    {
-        [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
-        [self exposeLocalKeyPathToREST:@"associatedVLANID"];
-        [self exposeLocalKeyPathToREST:@"type"];
-        
-        
-        
-    }
-
-    return self;
+    return NUEgressAdvFwdTemplate;
 }
 
 @end

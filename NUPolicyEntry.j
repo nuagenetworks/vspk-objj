@@ -30,35 +30,28 @@
 @import <Bambou/NURESTObject.j>
 
 
-NUDemarcationServiceType_BR_PORT = @"BR_PORT";
-NUDemarcationServiceType_GATEWAY = @"GATEWAY";
-
 
 /*!
     None
 */
-@implementation NUDemarcationService : NURESTObject
+@implementation NUPolicyEntry : NURESTObject
 {
     /*!
-        The route distinguisher associated with the next hop. This is a read only property automatically created by VSD.
+        Name of the Policy Entry
     */
-    CPString _routeDistinguisher @accessors(property=routeDistinguisher);
+    CPString _name @accessors(property=name);
     /*!
-        Next hop priority assigned by the user.
+        Match criteria BLOB
     */
-    CPNumber _priority @accessors(property=priority);
+    NURESTObject _matchCriteria @accessors(property=matchCriteria);
     /*!
-        The ID of the NSGBR Gateway used as next hop in the untrusted domain.
+        Action of Policy Entry
     */
-    CPString _associatedGatewayID @accessors(property=associatedGatewayID);
+    NURESTObject _actions @accessors(property=actions);
     /*!
-        The VLAN ID of the BR VLAN used as next hop in the trusted domain.
+        Description of the Policy Entry
     */
-    CPString _associatedVLANID @accessors(property=associatedVLANID);
-    /*!
-        The type of next hop determines linking direction for a demarcation service, possible values: BR_PORT, GATEWAY 
-    */
-    CPString _type @accessors(property=type);
+    CPString _description @accessors(property=description);
     
     
 }
@@ -69,7 +62,7 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 
 + (CPString)RESTName
 {
-    return @"demarcationservice";
+    return @"policyentry";
 }
 
 
@@ -80,11 +73,10 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
-        [self exposeLocalKeyPathToREST:@"associatedVLANID"];
-        [self exposeLocalKeyPathToREST:@"type"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"matchCriteria"];
+        [self exposeLocalKeyPathToREST:@"actions"];
+        [self exposeLocalKeyPathToREST:@"description"];
         
         
         

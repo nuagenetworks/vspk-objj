@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUFlowForwardingPolicy
+@class NUVNFInterfaceDescriptor
 
 
-@implementation NUFlowForwardingPoliciesFetcher : NURESTFetcher
+@implementation NUVNFInterfaceDescriptorsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUFlowForwardingPolicy;
+    return NUVNFInterfaceDescriptor;
 }
 
 @end

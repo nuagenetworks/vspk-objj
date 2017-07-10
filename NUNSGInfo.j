@@ -51,6 +51,10 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _MACAddress @accessors(property=MACAddress);
     /*!
+        NSG BIOS Version
+    */
+    CPString _BIOSVersion @accessors(property=BIOSVersion);
+    /*!
         The part number of the NSG
     */
     CPString _SKU @accessors(property=SKU);
@@ -87,6 +91,10 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        NSG Product Name
+    */
+    CPString _productName @accessors(property=productName);
+    /*!
         Associated NS Gateway ID
     */
     CPString _associatedNSGatewayID @accessors(property=associatedNSGatewayID);
@@ -116,6 +124,7 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"MACAddress"];
+        [self exposeLocalKeyPathToREST:@"BIOSVersion"];
         [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
         [self exposeLocalKeyPathToREST:@"CPUType"];
@@ -125,6 +134,7 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"libraries"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"productName"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

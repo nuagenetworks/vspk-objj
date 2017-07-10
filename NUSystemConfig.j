@@ -128,6 +128,14 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _ZFBSchedulerStaleRequestTimeout @accessors(property=ZFBSchedulerStaleRequestTimeout);
     /*!
+        Lower limit for the policy group id.
+    */
+    NURESTObject _PGIDLowerLimit @accessors(property=PGIDLowerLimit);
+    /*!
+        Upper limit for the policy group id.
+    */
+    NURESTObject _PGIDUpperLimit @accessors(property=PGIDUpperLimit);
+    /*!
         Defines total DHCP options that can be set on a domain.
     */
     CPNumber _DHCPOptionSize @accessors(property=DHCPOptionSize);
@@ -163,6 +171,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Timers in sec for unreachable VMs.
     */
     CPNumber _VMUnreachableTime @accessors(property=VMUnreachableTime);
+    /*!
+        Timeout for VNF task for nsg agent
+    */
+    CPNumber _VNFTaskTimeout @accessors(property=VNFTaskTimeout);
     /*!
         Virtual network ID offset
     */
@@ -572,7 +584,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _sysmonCleanupTaskInterval @accessors(property=sysmonCleanupTaskInterval);
     /*!
-        Node presence timeout in seconds if no messages.
+        Time interval in seconds at which sysmon messages are reported by controller.
     */
     CPNumber _sysmonNodePresenceTimeout @accessors(property=sysmonNodePresenceTimeout);
     /*!
@@ -623,6 +635,8 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"ZFBBootstrapEnabled"];
         [self exposeLocalKeyPathToREST:@"ZFBRequestRetryTimer"];
         [self exposeLocalKeyPathToREST:@"ZFBSchedulerStaleRequestTimeout"];
+        [self exposeLocalKeyPathToREST:@"PGIDLowerLimit"];
+        [self exposeLocalKeyPathToREST:@"PGIDUpperLimit"];
         [self exposeLocalKeyPathToREST:@"DHCPOptionSize"];
         [self exposeLocalKeyPathToREST:@"VLANIDLowerLimit"];
         [self exposeLocalKeyPathToREST:@"VLANIDUpperLimit"];
@@ -632,6 +646,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"VMResyncOutstandingInterval"];
         [self exposeLocalKeyPathToREST:@"VMUnreachableCleanupTime"];
         [self exposeLocalKeyPathToREST:@"VMUnreachableTime"];
+        [self exposeLocalKeyPathToREST:@"VNFTaskTimeout"];
         [self exposeLocalKeyPathToREST:@"VNIDLowerLimit"];
         [self exposeLocalKeyPathToREST:@"VNIDPublicNetworkLowerLimit"];
         [self exposeLocalKeyPathToREST:@"VNIDPublicNetworkUpperLimit"];

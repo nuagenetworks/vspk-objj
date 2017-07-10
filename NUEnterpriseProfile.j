@@ -64,6 +64,10 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _DHCPLeaseInterval @accessors(property=DHCPLeaseInterval);
     /*!
+        Enable VNF Management for this enterprise
+    */
+    BOOL _VNFManagementEnabled @accessors(property=VNFManagementEnabled);
+    /*!
         The unique name of the enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
     CPString _name @accessors(property=name);
@@ -147,6 +151,7 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPLeaseInterval"];
+        [self exposeLocalKeyPathToREST:@"VNFManagementEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];

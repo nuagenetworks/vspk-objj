@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUNextHopAddress
+@class NUWirelessPort
 
 
-@implementation NUNextHopAddressFetcher : NURESTFetcher
+@implementation NUWirelessPortsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUNextHopAddress;
+    return NUWirelessPort;
 }
 
 @end

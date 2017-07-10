@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUApplicationService
+@class NUVNFCatalog
 
 
-@implementation NUApplicationServicesFetcher : NURESTFetcher
+@implementation NUVNFCatalogsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUApplicationService;
+    return NUVNFCatalog;
 }
 
 @end

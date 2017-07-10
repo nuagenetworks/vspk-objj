@@ -58,16 +58,17 @@
 @import "Fetchers/NUAllAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
+@import "Fetchers/NUVNFsFetcher.j"
 @import "Fetchers/NUEnterpriseNetworksFetcher.j"
 @import "Fetchers/NUEnterpriseSecuritiesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
+@import "Fetchers/NUPolicyObjectGroupsFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
 @import "Fetchers/NUDomainTemplatesFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NURoutingPoliciesFetcher.j"
 @import "Fetchers/NUApplicationsFetcher.j"
 @import "Fetchers/NUApplicationperformancemanagementsFetcher.j"
-@import "Fetchers/NUApplicationServicesFetcher.j"
 @import "Fetchers/NUGroupsFetcher.j"
 @import "Fetchers/NUGroupKeyEncryptionProfilesFetcher.j"
 @import "Fetchers/NUTrunksFetcher.j"
@@ -247,16 +248,17 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUAllAlarmsFetcher _childrenAllAlarms @accessors(property=childrenAllAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
+    NUVNFsFetcher _childrenVNFs @accessors(property=childrenVNFs);
     NUEnterpriseNetworksFetcher _childrenEnterpriseNetworks @accessors(property=childrenEnterpriseNetworks);
     NUEnterpriseSecuritiesFetcher _childrenEnterpriseSecurities @accessors(property=childrenEnterpriseSecurities);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
+    NUPolicyObjectGroupsFetcher _childrenPolicyObjectGroups @accessors(property=childrenPolicyObjectGroups);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
     NUDomainTemplatesFetcher _childrenDomainTemplates @accessors(property=childrenDomainTemplates);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
     NUApplicationsFetcher _childrenApplications @accessors(property=childrenApplications);
     NUApplicationperformancemanagementsFetcher _childrenApplicationperformancemanagements @accessors(property=childrenApplicationperformancemanagements);
-    NUApplicationServicesFetcher _childrenApplicationServices @accessors(property=childrenApplicationServices);
     NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
     NUGroupKeyEncryptionProfilesFetcher _childrenGroupKeyEncryptionProfiles @accessors(property=childrenGroupKeyEncryptionProfiles);
     NUTrunksFetcher _childrenTrunks @accessors(property=childrenTrunks);
@@ -348,16 +350,17 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenAllAlarms = [NUAllAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
+        _childrenVNFs = [NUVNFsFetcher fetcherWithParentObject:self];
         _childrenEnterpriseNetworks = [NUEnterpriseNetworksFetcher fetcherWithParentObject:self];
         _childrenEnterpriseSecurities = [NUEnterpriseSecuritiesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
+        _childrenPolicyObjectGroups = [NUPolicyObjectGroupsFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
         _childrenDomainTemplates = [NUDomainTemplatesFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
         _childrenApplications = [NUApplicationsFetcher fetcherWithParentObject:self];
         _childrenApplicationperformancemanagements = [NUApplicationperformancemanagementsFetcher fetcherWithParentObject:self];
-        _childrenApplicationServices = [NUApplicationServicesFetcher fetcherWithParentObject:self];
         _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
         _childrenGroupKeyEncryptionProfiles = [NUGroupKeyEncryptionProfilesFetcher fetcherWithParentObject:self];
         _childrenTrunks = [NUTrunksFetcher fetcherWithParentObject:self];

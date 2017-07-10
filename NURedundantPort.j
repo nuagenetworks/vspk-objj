@@ -43,7 +43,6 @@ NURedundantPortPermittedAction_INSTANTIATE = @"INSTANTIATE";
 NURedundantPortPermittedAction_READ = @"READ";
 NURedundantPortPermittedAction_USE = @"USE";
 NURedundantPortPortType_ACCESS = @"ACCESS";
-NURedundantPortPortType_NETWORK = @"NETWORK";
 NURedundantPortSpeed_AUTONEGOTIATE = @"AUTONEGOTIATE";
 NURedundantPortSpeed_BASE10 = @"BASE10";
 NURedundantPortSpeed_BASET1000 = @"BASET1000";

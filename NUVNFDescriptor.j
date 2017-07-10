@@ -29,37 +29,48 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-
-NUDemarcationServiceType_BR_PORT = @"BR_PORT";
-NUDemarcationServiceType_GATEWAY = @"GATEWAY";
+@import "Fetchers/NUVNFInterfaceDescriptorsFetcher.j"
 
 
 /*!
-    None
+    Represent Virtual Network Function Descriptor Object
 */
-@implementation NUDemarcationService : NURESTObject
+@implementation NUVNFDescriptor : NURESTObject
 {
     /*!
-        The route distinguisher associated with the next hop. This is a read only property automatically created by VSD.
+        Number of CPUs to be allocated VNF instance when deployed
     */
-    CPString _routeDistinguisher @accessors(property=routeDistinguisher);
+    CPNumber _CPUCount @accessors(property=CPUCount);
     /*!
-        Next hop priority assigned by the user.
+        Name of the VNF Descriptor
     */
-    CPNumber _priority @accessors(property=priority);
+    CPString _name @accessors(property=name);
     /*!
-        The ID of the NSGBR Gateway used as next hop in the untrusted domain.
+        Memory (in MB) to be allocated for VNF instance when deployed
     */
-    CPString _associatedGatewayID @accessors(property=associatedGatewayID);
+    CPNumber _memoryMB @accessors(property=memoryMB);
     /*!
-        The VLAN ID of the BR VLAN used as next hop in the trusted domain.
+        The vendor generating this VNF Descriptor
     */
-    CPString _associatedVLANID @accessors(property=associatedVLANID);
+    CPString _vendor @accessors(property=vendor);
     /*!
-        The type of next hop determines linking direction for a demarcation service, possible values: BR_PORT, GATEWAY 
+        A description of the VNF Descriptor
     */
-    CPString _type @accessors(property=type);
+    CPString _description @accessors(property=description);
+    /*!
+        Id of referenced Metadata Object
+    */
+    CPString _metadataID @accessors(property=metadataID);
+    /*!
+        Controls if descriptor visible in catalog to create new VNF
+    */
+    BOOL _visible @accessors(property=visible);
+    /*!
+        Disk storage (in GB) to be allocated VNF instance when deployed
+    */
+    CPNumber _storageGB @accessors(property=storageGB);
     
+    NUVNFInterfaceDescriptorsFetcher _childrenVNFInterfaceDescriptors @accessors(property=childrenVNFInterfaceDescriptors);
     
 }
 
@@ -69,7 +80,7 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 
 + (CPString)RESTName
 {
-    return @"demarcationservice";
+    return @"vnfdescriptor";
 }
 
 
@@ -80,12 +91,16 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
-        [self exposeLocalKeyPathToREST:@"associatedVLANID"];
-        [self exposeLocalKeyPathToREST:@"type"];
+        [self exposeLocalKeyPathToREST:@"CPUCount"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"memoryMB"];
+        [self exposeLocalKeyPathToREST:@"vendor"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"metadataID"];
+        [self exposeLocalKeyPathToREST:@"visible"];
+        [self exposeLocalKeyPathToREST:@"storageGB"];
         
+        _childrenVNFInterfaceDescriptors = [NUVNFInterfaceDescriptorsFetcher fetcherWithParentObject:self];
         
         
     }

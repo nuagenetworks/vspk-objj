@@ -30,24 +30,37 @@
 @import <Bambou/NURESTObject.j>
 
 
+NUOverlayMirrorDestinationTemplateEndPointType_NONE = @"NONE";
+NUOverlayMirrorDestinationTemplateEndPointType_VIRTUAL_WIRE = @"VIRTUAL_WIRE";
+NUOverlayMirrorDestinationTemplateTriggerType_GARP = @"GARP";
+NUOverlayMirrorDestinationTemplateTriggerType_NONE = @"NONE";
+
 
 /*!
     None
 */
-@implementation NUNextHopAddress : NURESTObject
+@implementation NUOverlayMirrorDestinationTemplate : NURESTObject
 {
     /*!
-        IP address for the next hop.
+        Name of this overlay mirror destination template
     */
-    CPString _address @accessors(property=address);
+    CPString _name @accessors(property=name);
     /*!
-        A unique route distinguisher associated with the nexthop. If one is not provided the system generated one automatically. 
+        Allow/Disallow redundant appliances and VIP
     */
-    CPString _routeDistinguisher @accessors(property=routeDistinguisher);
+    BOOL _redundancyEnabled @accessors(property=redundancyEnabled);
     /*!
-        Next hop type: IP only supported for service chaining
+        Description of this overlay mirror destination template
     */
-    CPString _type @accessors(property=type);
+    CPString _description @accessors(property=description);
+    /*!
+        VPortTagEndPointType is an enum. It defines the type of header rewrite and forwarding performed by VRS when the endpoint is used as a overlay mirror destination. Possible value is VIRTUAL_WIRE.
+    */
+    CPString _endPointType @accessors(property=endPointType);
+    /*!
+        Trigger type, could be NONE/GARP - THIS IS READONLY
+    */
+    CPString _triggerType @accessors(property=triggerType);
     
     
 }
@@ -58,7 +71,7 @@
 
 + (CPString)RESTName
 {
-    return @"nexthopaddress";
+    return @"overlaymirrordestinationtemplate";
 }
 
 
@@ -69,9 +82,11 @@
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
-        [self exposeLocalKeyPathToREST:@"type"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"redundancyEnabled"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"endPointType"];
+        [self exposeLocalKeyPathToREST:@"triggerType"];
         
         
         

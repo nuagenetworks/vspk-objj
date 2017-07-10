@@ -34,36 +34,52 @@
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 
-NUIngressACLEntryTemplateAction_DROP = @"DROP";
-NUIngressACLEntryTemplateAction_FORWARD = @"FORWARD";
-NUIngressACLEntryTemplateAction_REDIRECT = @"REDIRECT";
-NUIngressACLEntryTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUIngressACLEntryTemplateEntityScope_GLOBAL = @"GLOBAL";
-NUIngressACLEntryTemplateLocationType_ANY = @"ANY";
-NUIngressACLEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
-NUIngressACLEntryTemplateLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
-NUIngressACLEntryTemplateLocationType_SUBNET = @"SUBNET";
-NUIngressACLEntryTemplateLocationType_VPORTTAG = @"VPORTTAG";
-NUIngressACLEntryTemplateLocationType_ZONE = @"ZONE";
-NUIngressACLEntryTemplateNetworkType_ANY = @"ANY";
-NUIngressACLEntryTemplateNetworkType_ENDPOINT_DOMAIN = @"ENDPOINT_DOMAIN";
-NUIngressACLEntryTemplateNetworkType_ENDPOINT_SUBNET = @"ENDPOINT_SUBNET";
-NUIngressACLEntryTemplateNetworkType_ENDPOINT_ZONE = @"ENDPOINT_ZONE";
-NUIngressACLEntryTemplateNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
-NUIngressACLEntryTemplateNetworkType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
-NUIngressACLEntryTemplateNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
-NUIngressACLEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
-NUIngressACLEntryTemplateNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
-NUIngressACLEntryTemplateNetworkType_SUBNET = @"SUBNET";
-NUIngressACLEntryTemplateNetworkType_ZONE = @"ZONE";
-NUIngressACLEntryTemplatePolicyState_DRAFT = @"DRAFT";
-NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
+NUEgressAdvFwdEntryTemplateAction_DROP = @"DROP";
+NUEgressAdvFwdEntryTemplateAction_FORWARD = @"FORWARD";
+NUEgressAdvFwdEntryTemplateAction_REDIRECT = @"REDIRECT";
+NUEgressAdvFwdEntryTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUEgressAdvFwdEntryTemplateEntityScope_GLOBAL = @"GLOBAL";
+NUEgressAdvFwdEntryTemplateFCOverride_A = @"A";
+NUEgressAdvFwdEntryTemplateFCOverride_B = @"B";
+NUEgressAdvFwdEntryTemplateFCOverride_C = @"C";
+NUEgressAdvFwdEntryTemplateFCOverride_D = @"D";
+NUEgressAdvFwdEntryTemplateFCOverride_E = @"E";
+NUEgressAdvFwdEntryTemplateFCOverride_F = @"F";
+NUEgressAdvFwdEntryTemplateFCOverride_G = @"G";
+NUEgressAdvFwdEntryTemplateFCOverride_H = @"H";
+NUEgressAdvFwdEntryTemplateFCOverride_NONE = @"NONE";
+NUEgressAdvFwdEntryTemplateLocationType_ANY = @"ANY";
+NUEgressAdvFwdEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
+NUEgressAdvFwdEntryTemplateLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
+NUEgressAdvFwdEntryTemplateLocationType_SUBNET = @"SUBNET";
+NUEgressAdvFwdEntryTemplateLocationType_VPORTTAG = @"VPORTTAG";
+NUEgressAdvFwdEntryTemplateLocationType_ZONE = @"ZONE";
+NUEgressAdvFwdEntryTemplateNetworkType_ANY = @"ANY";
+NUEgressAdvFwdEntryTemplateNetworkType_ENDPOINT_DOMAIN = @"ENDPOINT_DOMAIN";
+NUEgressAdvFwdEntryTemplateNetworkType_ENDPOINT_SUBNET = @"ENDPOINT_SUBNET";
+NUEgressAdvFwdEntryTemplateNetworkType_ENDPOINT_ZONE = @"ENDPOINT_ZONE";
+NUEgressAdvFwdEntryTemplateNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
+NUEgressAdvFwdEntryTemplateNetworkType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
+NUEgressAdvFwdEntryTemplateNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
+NUEgressAdvFwdEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
+NUEgressAdvFwdEntryTemplateNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
+NUEgressAdvFwdEntryTemplateNetworkType_SUBNET = @"SUBNET";
+NUEgressAdvFwdEntryTemplateNetworkType_UNDERLAY_INTERNET_POLICYGROUP = @"UNDERLAY_INTERNET_POLICYGROUP";
+NUEgressAdvFwdEntryTemplateNetworkType_ZONE = @"ZONE";
+NUEgressAdvFwdEntryTemplatePolicyState_DRAFT = @"DRAFT";
+NUEgressAdvFwdEntryTemplatePolicyState_LIVE = @"LIVE";
+NUEgressAdvFwdEntryTemplateUplinkPreference_DEFAULT = @"DEFAULT";
+NUEgressAdvFwdEntryTemplateUplinkPreference_PRIMARY = @"PRIMARY";
+NUEgressAdvFwdEntryTemplateUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECONDARY";
+NUEgressAdvFwdEntryTemplateUplinkPreference_SECONDARY = @"SECONDARY";
+NUEgressAdvFwdEntryTemplateUplinkPreference_SECONDARY_PRIMARY = @"SECONDARY_PRIMARY";
+NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 
 
 /*!
-    Defines the template of Ingress ACL entries
+    Defines the template of Egress Advanced Forwarding entries
 */
-@implementation NUIngressACLEntryTemplate : NURESTObject
+@implementation NUEgressAdvFwdEntryTemplate : NURESTObject
 {
     /*!
         The name of the parent Template for this acl entry
@@ -78,7 +94,11 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
-        Overrides the source IPv6 for Ingress and destination IPv6 for Egress, MAC entries will use this address as the match criteria.
+        Value of the Service Class to be overridden in the packet when the match conditions are satisfied Possible values are NONE, A, B, C, D, E, F, G, H, .
+    */
+    CPString _FCOverride @accessors(property=FCOverride);
+    /*!
+        Overrides the source IPv6 for Egress and destination IPv6 for Egress, mac entries will use this address as the match criteria.
     */
     CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
     /*!
@@ -86,17 +106,25 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
+        Name of the policy
+    */
+    CPString _name @accessors(property=name);
+    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The action of the ACL entry DROP or FORWARD or REDIRECT. Action REDIRECT is allowed only for IngressAdvancedForwardingEntry Possible values are DROP, FORWARD, REDIRECT, .
+        The action of the ACL entry. Possible values are DROP, FORWARD, REDIRECT. Action REDIRECT is allowed only for EgressAdvancedForwardingEntry.
     */
     CPString _action @accessors(property=action);
     /*!
-        Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
+        Overrides the source IP for Egress and destination IP for Ingress, mac entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
+    /*!
+        VPort tag to which traffic will be redirected to, when ACL entry match criteria succeeds
+    */
+    CPString _redirectVPortTagID @accessors(property=redirectVPortTagID);
     /*!
         Description of the ACL entry
     */
@@ -106,11 +134,11 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
-        The ID of the destination endpoint (Subnet/Zone/Macro/MacroGroup/PolicyGroup)
+        The source network entity id that is referenced(subnet/zone/macro)
     */
     CPString _networkID @accessors(property=networkID);
     /*!
-        Type of the destination endpoint (Subnet/Zone/Macro/MacroGroup/PolicyGroup)
+        Type of the source network.
     */
     CPString _networkType @accessors(property=networkType);
     /*!
@@ -130,15 +158,15 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The ID of the source endpoint (Subnet/Zone/VportTag/PortGroup)
+        The ID of the destination location entity (Subnet/Zone/VportTag)
     */
     CPString _locationID @accessors(property=locationID);
     /*!
-        Type of the source endpoint (Subnet/Zone/VportTag/PortGroup)
+        Type of the destination location entity.
     */
     CPString _locationType @accessors(property=locationType);
     /*!
-        State of the policy.
+        State of the policy.  Possible values are DRAFT, LIVE, .
     */
     CPString _policyState @accessors(property=policyState);
     /*!
@@ -149,6 +177,10 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range
     */
     CPString _sourcePort @accessors(property=sourcePort);
+    /*!
+        Indicates the preferencial path selection for network traffic for this ACL - default is DEFAULT when the attribute is applicable.
+    */
+    CPString _uplinkPreference @accessors(property=uplinkPreference);
     /*!
         The priority of the ACL entry that determines the order of entries
     */
@@ -162,10 +194,6 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
-        True means that this ACL entry is stateful, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
-    */
-    BOOL _stateful @accessors(property=stateful);
-    /*!
         The statsID that is created in the VSD and identifies this ACL Template Entry. This is auto-generated by VSD
     */
     CPString _statsID @accessors(property=statsID);
@@ -177,10 +205,6 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         Ether type of the packet to be matched. etherType can be * or a valid hexadecimal value
     */
     CPString _etherType @accessors(property=etherType);
-    /*!
-        ID of the overlay mirror destination
-    */
-    CPString _overlayMirrorDestinationID @accessors(property=overlayMirrorDestinationID);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -199,7 +223,7 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
 
 + (CPString)RESTName
 {
-    return @"ingressaclentrytemplate";
+    return @"egressadvfwdentrytemplate";
 }
 
 
@@ -213,11 +237,14 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"ACLTemplateName"];
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
+        [self exposeLocalKeyPathToREST:@"FCOverride"];
         [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
+        [self exposeLocalKeyPathToREST:@"redirectVPortTagID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];
@@ -231,14 +258,13 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"sourcePort"];
+        [self exposeLocalKeyPathToREST:@"uplinkPreference"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
-        [self exposeLocalKeyPathToREST:@"stateful"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"etherType"];
-        [self exposeLocalKeyPathToREST:@"overlayMirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
@@ -246,12 +272,6 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         
-        _protocol = 6;
-        _etherType = @"0x0800";
-        _DSCP = @"*";
-        _locationType = @"ANY";
-        _action = @"FORWARD";
-        _networkType = @"ANY";
         
     }
 

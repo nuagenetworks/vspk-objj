@@ -66,10 +66,6 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
     */
     CPString _description @accessors(property=description);
     /*!
-        Flag to enable/disable network throughput acceleration on this port. All port instantiated from this template will inherit this flag.If a particular port instance needs to have a different setting then overwrite the flag for that port instance.
-    */
-    BOOL _networkAccelerationEnabled @accessors(property=networkAccelerationEnabled);
-    /*!
         Identifier of the Port
     */
     CPString _physicalName @accessors(property=physicalName);
@@ -129,7 +125,6 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"networkAccelerationEnabled"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
         [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

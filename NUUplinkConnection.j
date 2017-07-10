@@ -113,6 +113,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _portName @accessors(property=portName);
     /*!
+        Download rate limit for this uplink in Mbits/sec.
+    */
+    CPNumber _downloadRateLimit @accessors(property=downloadRateLimit);
+    /*!
         ID that unqiuely identifies the uplink. 
     */
     CPString _uplinkID @accessors(property=uplinkID);
@@ -132,10 +136,6 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         The display name of the Underlay instance associated with this uplink connection.
     */
     CPString _associatedUnderlayName @accessors(property=associatedUnderlayName);
-    /*!
-        The ID of the infrastructure VSC profile this is associated with this instance of a vlan or vlan template.
-    */
-    CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
     /*!
         Make this uplink an auxiliary one that will only come up when all other uplinks are disconnected or can't perform their role.
     */
@@ -176,12 +176,12 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"role"];
         [self exposeLocalKeyPathToREST:@"roleOrder"];
         [self exposeLocalKeyPathToREST:@"portName"];
+        [self exposeLocalKeyPathToREST:@"downloadRateLimit"];
         [self exposeLocalKeyPathToREST:@"uplinkID"];
         [self exposeLocalKeyPathToREST:@"username"];
         [self exposeLocalKeyPathToREST:@"assocUnderlayID"];
         [self exposeLocalKeyPathToREST:@"associatedBGPNeighborID"];
         [self exposeLocalKeyPathToREST:@"associatedUnderlayName"];
-        [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"auxiliaryLink"];
         
         _childrenUnderlays = [NUUnderlaysFetcher fetcherWithParentObject:self];

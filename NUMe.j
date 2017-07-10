@@ -66,6 +66,8 @@
 @import "Fetchers/NUVMInterfacesFetcher.j"
 @import "Fetchers/NUCloudMgmtSystemsFetcher.j"
 @import "Fetchers/NUUnderlaysFetcher.j"
+@import "Fetchers/NUVNFCatalogsFetcher.j"
+@import "Fetchers/NUVNFMetadatasFetcher.j"
 @import "Fetchers/NUInfrastructureAccessProfilesFetcher.j"
 @import "Fetchers/NUInfrastructureGatewayProfilesFetcher.j"
 @import "Fetchers/NUInfrastructureVscProfilesFetcher.j"
@@ -83,7 +85,6 @@
 @import "Fetchers/NUHostInterfacesFetcher.j"
 @import "Fetchers/NURoutingPoliciesFetcher.j"
 @import "Fetchers/NUUplinkRDsFetcher.j"
-@import "Fetchers/NUApplicationServicesFetcher.j"
 @import "Fetchers/NUVCenterVRSConfigsFetcher.j"
 @import "Fetchers/NUUsersFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
@@ -209,6 +210,8 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
     NUCloudMgmtSystemsFetcher _childrenCloudMgmtSystems @accessors(property=childrenCloudMgmtSystems);
     NUUnderlaysFetcher _childrenUnderlays @accessors(property=childrenUnderlays);
+    NUVNFCatalogsFetcher _childrenVNFCatalogs @accessors(property=childrenVNFCatalogs);
+    NUVNFMetadatasFetcher _childrenVNFMetadatas @accessors(property=childrenVNFMetadatas);
     NUInfrastructureAccessProfilesFetcher _childrenInfrastructureAccessProfiles @accessors(property=childrenInfrastructureAccessProfiles);
     NUInfrastructureGatewayProfilesFetcher _childrenInfrastructureGatewayProfiles @accessors(property=childrenInfrastructureGatewayProfiles);
     NUInfrastructureVscProfilesFetcher _childrenInfrastructureVscProfiles @accessors(property=childrenInfrastructureVscProfiles);
@@ -226,7 +229,6 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
     NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
     NUUplinkRDsFetcher _childrenUplinkRDs @accessors(property=childrenUplinkRDs);
-    NUApplicationServicesFetcher _childrenApplicationServices @accessors(property=childrenApplicationServices);
     NUVCenterVRSConfigsFetcher _childrenVCenterVRSConfigs @accessors(property=childrenVCenterVRSConfigs);
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
@@ -317,6 +319,8 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
         _childrenCloudMgmtSystems = [NUCloudMgmtSystemsFetcher fetcherWithParentObject:self];
         _childrenUnderlays = [NUUnderlaysFetcher fetcherWithParentObject:self];
+        _childrenVNFCatalogs = [NUVNFCatalogsFetcher fetcherWithParentObject:self];
+        _childrenVNFMetadatas = [NUVNFMetadatasFetcher fetcherWithParentObject:self];
         _childrenInfrastructureAccessProfiles = [NUInfrastructureAccessProfilesFetcher fetcherWithParentObject:self];
         _childrenInfrastructureGatewayProfiles = [NUInfrastructureGatewayProfilesFetcher fetcherWithParentObject:self];
         _childrenInfrastructureVscProfiles = [NUInfrastructureVscProfilesFetcher fetcherWithParentObject:self];
@@ -334,7 +338,6 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
         _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
         _childrenUplinkRDs = [NUUplinkRDsFetcher fetcherWithParentObject:self];
-        _childrenApplicationServices = [NUApplicationServicesFetcher fetcherWithParentObject:self];
         _childrenVCenterVRSConfigs = [NUVCenterVRSConfigsFetcher fetcherWithParentObject:self];
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
