@@ -38,6 +38,7 @@
 
 NURedirectionTargetEndPointType_L3 = @"L3";
 NURedirectionTargetEndPointType_NONE = @"NONE";
+NURedirectionTargetEndPointType_NSG_VNF = @"NSG_VNF";
 NURedirectionTargetEndPointType_VIRTUAL_WIRE = @"VIRTUAL_WIRE";
 NURedirectionTargetEntityScope_ENTERPRISE = @"ENTERPRISE";
 NURedirectionTargetEntityScope_GLOBAL = @"GLOBAL";
@@ -79,7 +80,7 @@ NURedirectionTargetTriggerType_NONE = @"NONE";
     */
     CPString _virtualNetworkID @accessors(property=virtualNetworkID);
     /*!
-        EndpointType defines the type of header rewrite and forwarding performed by VRS when the endpoint is used as a PBR destination. NONE type is deprecated. Possible values are NONE, L3, VIRTUAL_WIRE, .
+        EndpointType defines the type of header rewrite and forwarding performed by VRS when the endpoint is used as a PBR destination. NONE type is deprecated. Possible values are NONE, L3, VIRTUAL_WIRE and NSG_VNF.
     */
     CPString _endPointType @accessors(property=endPointType);
     /*!

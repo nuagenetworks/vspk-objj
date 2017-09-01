@@ -92,6 +92,22 @@ NUVRSRedeploymentpolicyEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Log disk Utilization Redeployment Enabled
+    */
+    BOOL _logDiskUtilizationRedeploymentEnabled @accessors(property=logDiskUtilizationRedeploymentEnabled);
+    /*!
+        Log disk Utilization Threshold
+    */
+    CPNumber _logDiskUtilizationThreshold @accessors(property=logDiskUtilizationThreshold);
+    /*!
+        Root disk Utilization Redeployment Enabled
+    */
+    BOOL _rootDiskUtilizationRedeploymentEnabled @accessors(property=rootDiskUtilizationRedeploymentEnabled);
+    /*!
+        Root disk Utilization Threshold
+    */
+    CPNumber _rootDiskUtilizationThreshold @accessors(property=rootDiskUtilizationThreshold);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -129,6 +145,10 @@ NUVRSRedeploymentpolicyEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"deploymentCountThreshold"];
         [self exposeLocalKeyPathToREST:@"jesxmonProcessRedeploymentEnabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"logDiskUtilizationRedeploymentEnabled"];
+        [self exposeLocalKeyPathToREST:@"logDiskUtilizationThreshold"];
+        [self exposeLocalKeyPathToREST:@"rootDiskUtilizationRedeploymentEnabled"];
+        [self exposeLocalKeyPathToREST:@"rootDiskUtilizationThreshold"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

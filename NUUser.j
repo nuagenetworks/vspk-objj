@@ -52,6 +52,10 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
 @implementation NUUser : NURESTObject
 {
     /*!
+        The LDAP distinguished name (DN) for the user.
+    */
+    CPString _LDAPUserDN @accessors(property=LDAPUserDN);
+    /*!
         Management mode of the user object - allows for override of external authorization and syncup
     */
     CPString _managementMode @accessors(property=managementMode);
@@ -131,6 +135,7 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"LDAPUserDN"];
         [self exposeLocalKeyPathToREST:@"managementMode"];
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastName"];

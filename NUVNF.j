@@ -34,6 +34,8 @@
 @import "Fetchers/NUJobsFetcher.j"
 
 NUVNFAllowedActions_DEPLOY = @"DEPLOY";
+NUVNFAllowedActions_REDEPLOY = @"REDEPLOY";
+NUVNFAllowedActions_RESTART = @"RESTART";
 NUVNFAllowedActions_START = @"START";
 NUVNFAllowedActions_STOP = @"STOP";
 NUVNFAllowedActions_UNDEPLOY = @"UNDEPLOY";
@@ -121,6 +123,14 @@ NUVNFTaskState_UNDEPLOYING = @"UNDEPLOYING";
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
     /*!
+        This specifies if VNF instance is using VNF descriptor or it is decoupled from it
+    */
+    BOOL _isAttachedToDescriptor @accessors(property=isAttachedToDescriptor);
+    /*!
+        VNF metadata associated to VNF instance. 
+    */
+    CPString _associatedVNFMetadataID @accessors(property=associatedVNFMetadataID);
+    /*!
         State/Status of the VNF
     */
     CPString _status @accessors(property=status);
@@ -167,6 +177,8 @@ NUVNFTaskState_UNDEPLOYING = @"UNDEPLOYING";
         [self exposeLocalKeyPathToREST:@"metadataID"];
         [self exposeLocalKeyPathToREST:@"allowedActions"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
+        [self exposeLocalKeyPathToREST:@"isAttachedToDescriptor"];
+        [self exposeLocalKeyPathToREST:@"associatedVNFMetadataID"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"storageGB"];
         

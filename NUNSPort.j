@@ -102,6 +102,10 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _physicalName @accessors(property=physicalName);
     /*!
+        If enabled, probes will be sent to other NSGs and DTLS sessions for IPSEC and VXLAN will be set up to the VSCs. If disabled, no NAT probes are sent on that uplink and no DTLS sessions are set up to the VSCs.
+    */
+    BOOL _enableNATProbes @accessors(property=enableNATProbes);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -113,6 +117,10 @@ NUNSPortStatus_READY = @"READY";
         Port Speed in Mb/s :  Supported Ethernet speeds are 10 (10Base-T), 100 (Fast-ethernet 100Base-TX), 1000 (Gigabit Ethernet 1000Base-T), 10 000 (10 Gigabit Ethernet 10GBase-X), and Auto-Negotiate.
     */
     CPString _speed @accessors(property=speed);
+    /*!
+        If enabled, cuts down the number of probes to just the number of provisioned UBRs.
+    */
+    BOOL _TrafficThroughUBROnly @accessors(property=TrafficThroughUBROnly);
     /*!
         determines whether to use user mnemonic of the Port
     */
@@ -180,9 +188,11 @@ NUNSPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
+        [self exposeLocalKeyPathToREST:@"enableNATProbes"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];
         [self exposeLocalKeyPathToREST:@"speed"];
+        [self exposeLocalKeyPathToREST:@"TrafficThroughUBROnly"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];

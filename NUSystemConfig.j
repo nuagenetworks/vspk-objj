@@ -76,6 +76,14 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
 @implementation NUSystemConfig : NURESTObject
 {
     /*!
+        AAR flow statistics collection frequency
+    */
+    CPNumber _AARFlowStatsInterval @accessors(property=AARFlowStatsInterval);
+    /*!
+        AAR probe statistics collection frequency
+    */
+    CPNumber _AARProbeStatsInterval @accessors(property=AARProbeStatsInterval);
+    /*!
         Defines the domains allowed for access control list.
     */
     CPString _ACLAllowOrigin @accessors(property=ACLAllowOrigin);
@@ -223,6 +231,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
          Autonomous System Number,Used for RT/RD auto-generation
     */
     CPNumber _ASNumber @accessors(property=ASNumber);
+    /*!
+        VSS statistics collection frequency
+    */
+    CPNumber _VSSStatsInterval @accessors(property=VSSStatsInterval);
     /*!
         route target lower limit
     */
@@ -508,6 +520,14 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _stickyECMPIdleTimeout @accessors(property=stickyECMPIdleTimeout);
     /*!
+        Flag to attach/remove system generated probe to system generated NPM for IPSEC.
+    */
+    BOOL _attachProbeToIPsecNPM @accessors(property=attachProbeToIPsecNPM);
+    /*!
+        Flag to attach/remove system generated probe to system generated NPM for VXLAN.
+    */
+    BOOL _attachProbeToVXLANNPM @accessors(property=attachProbeToVXLANNPM);
+    /*!
         After resync on a subnet , another resync on the same subnet is allowed based on the below value subnet resync complete wait time in min.
     */
     CPNumber _subnetResyncInterval @accessors(property=subnetResyncInterval);
@@ -622,6 +642,8 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"AARFlowStatsInterval"];
+        [self exposeLocalKeyPathToREST:@"AARProbeStatsInterval"];
         [self exposeLocalKeyPathToREST:@"ACLAllowOrigin"];
         [self exposeLocalKeyPathToREST:@"ECMPCount"];
         [self exposeLocalKeyPathToREST:@"LDAPSyncInterval"];
@@ -659,6 +681,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"VSDReadOnlyMode"];
         [self exposeLocalKeyPathToREST:@"VSDUpgradeIsComplete"];
         [self exposeLocalKeyPathToREST:@"ASNumber"];
+        [self exposeLocalKeyPathToREST:@"VSSStatsInterval"];
         [self exposeLocalKeyPathToREST:@"RTLowerLimit"];
         [self exposeLocalKeyPathToREST:@"RTPublicNetworkLowerLimit"];
         [self exposeLocalKeyPathToREST:@"RTPublicNetworkUpperLimit"];
@@ -730,6 +753,8 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"statsNumberOfDataPoints"];
         [self exposeLocalKeyPathToREST:@"statsTSDBServerAddress"];
         [self exposeLocalKeyPathToREST:@"stickyECMPIdleTimeout"];
+        [self exposeLocalKeyPathToREST:@"attachProbeToIPsecNPM"];
+        [self exposeLocalKeyPathToREST:@"attachProbeToVXLANNPM"];
         [self exposeLocalKeyPathToREST:@"subnetResyncInterval"];
         [self exposeLocalKeyPathToREST:@"subnetResyncOutstandingInterval"];
         [self exposeLocalKeyPathToREST:@"customerIDUpperLimit"];

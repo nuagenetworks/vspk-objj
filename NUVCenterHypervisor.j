@@ -43,6 +43,9 @@ NUVCenterHypervisorDestinationMirrorPort_ENS256 = @"ens256";
 NUVCenterHypervisorDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterHypervisorEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
+NUVCenterHypervisorRemoteSyslogServerType_NONE = @"NONE";
+NUVCenterHypervisorRemoteSyslogServerType_TCP = @"TCP";
+NUVCenterHypervisorRemoteSyslogServerType_UDP = @"UDP";
 NUVCenterHypervisorVRSState_DEPLOYED = @"DEPLOYED";
 NUVCenterHypervisorVRSState_DEPLOYING = @"DEPLOYING";
 NUVCenterHypervisorVRSState_NOT_DEPLOYED = @"NOT_DEPLOYED";
@@ -68,6 +71,14 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _vCenterUser @accessors(property=vCenterUser);
     /*!
+        VRS agent MOID to uniquely identify VRS VM on the Vcenter
+    */
+    CPString _VRSAgentMOID @accessors(property=VRSAgentMOID);
+    /*!
+        VRS agent name on the Vcenter
+    */
+    CPString _VRSAgentName @accessors(property=VRSAgentName);
+    /*!
         The maximum wait time limit in minutes to get VRS configured at cluster level
     */
     CPNumber _VRSConfigurationTimeLimit @accessors(property=VRSConfigurationTimeLimit);
@@ -75,6 +86,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         ID of the VRS metrics object.
     */
     CPString _VRSMetricsID @accessors(property=VRSMetricsID);
+    /*!
+        The VRS Management Hostname that will be configured on the VRS and in case of vCenter 6.5 and above, will be used to rename the VRS Agent in vCenter
+    */
+    CPString _VRSMgmtHostname @accessors(property=VRSMgmtHostname);
     /*!
         Current state of the VRS VM on the hypervisor
     */
@@ -135,6 +150,18 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
+    /*!
+        Remote syslog server IP
+    */
+    CPString _remoteSyslogServerIP @accessors(property=remoteSyslogServerIP);
+    /*!
+        Remote syslog server port
+    */
+    CPNumber _remoteSyslogServerPort @accessors(property=remoteSyslogServerPort);
+    /*!
+        Remote syslog server type (UDP/TCP)
+    */
+    CPString _remoteSyslogServerType @accessors(property=remoteSyslogServerType);
     /*!
         Set to true if the hypervisor is removed from Vcenter inventory datacenter or cluster
     */
@@ -509,8 +536,11 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"vCenterIP"];
         [self exposeLocalKeyPathToREST:@"vCenterPassword"];
         [self exposeLocalKeyPathToREST:@"vCenterUser"];
+        [self exposeLocalKeyPathToREST:@"VRSAgentMOID"];
+        [self exposeLocalKeyPathToREST:@"VRSAgentName"];
         [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
         [self exposeLocalKeyPathToREST:@"VRSMetricsID"];
+        [self exposeLocalKeyPathToREST:@"VRSMgmtHostname"];
         [self exposeLocalKeyPathToREST:@"VRSState"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
@@ -526,6 +556,9 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"scope"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerIP"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerPort"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerType"];
         [self exposeLocalKeyPathToREST:@"removedFromVCenterInventory"];
         [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];

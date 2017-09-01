@@ -74,6 +74,7 @@
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdEntryTemplatesFetcher.j"
+@import "Fetchers/NUIngressQOSPoliciesFetcher.j"
 @import "Fetchers/NUEnterprisesFetcher.j"
 @import "Fetchers/NUEnterpriseProfilesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
@@ -82,15 +83,18 @@
 @import "Fetchers/NUZonesFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUContainerInterfacesFetcher.j"
+@import "Fetchers/NUCOSRemarkingPolicyTablesFetcher.j"
 @import "Fetchers/NUHostInterfacesFetcher.j"
 @import "Fetchers/NURoutingPoliciesFetcher.j"
 @import "Fetchers/NUUplinkRDsFetcher.j"
 @import "Fetchers/NUVCenterVRSConfigsFetcher.j"
+@import "Fetchers/NUDSCPRemarkingPolicyTablesFetcher.j"
 @import "Fetchers/NUUsersFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
 @import "Fetchers/NUNSGatewayTemplatesFetcher.j"
 @import "Fetchers/NUNSGGroupsFetcher.j"
 @import "Fetchers/NUNSRedundantGatewayGroupsFetcher.j"
+@import "Fetchers/NUNSGUpgradeProfilesFetcher.j"
 @import "Fetchers/NUVSPsFetcher.j"
 @import "Fetchers/NUStaticRoutesFetcher.j"
 @import "Fetchers/NUStatsCollectorInfosFetcher.j"
@@ -112,6 +116,18 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
 */
 @implementation NUMe : NURESTAbstractRoot
 {
+    /*!
+        AAR flow stats frequency
+    */
+    CPNumber _AARFlowStatsInterval @accessors(property=AARFlowStatsInterval);
+    /*!
+        AAR Probe stats frequency
+    */
+    CPNumber _AARProbeStatsInterval @accessors(property=AARProbeStatsInterval);
+    /*!
+        VSS flow stats frequency
+    */
+    CPNumber _VSSStatsInterval @accessors(property=VSSStatsInterval);
     /*!
         Last name of the user
     */
@@ -218,6 +234,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdEntryTemplatesFetcher _childrenIngressAdvFwdEntryTemplates @accessors(property=childrenIngressAdvFwdEntryTemplates);
+    NUIngressQOSPoliciesFetcher _childrenIngressQOSPolicies @accessors(property=childrenIngressQOSPolicies);
     NUEnterprisesFetcher _childrenEnterprises @accessors(property=childrenEnterprises);
     NUEnterpriseProfilesFetcher _childrenEnterpriseProfiles @accessors(property=childrenEnterpriseProfiles);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
@@ -226,15 +243,18 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUZonesFetcher _childrenZones @accessors(property=childrenZones);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUContainerInterfacesFetcher _childrenContainerInterfaces @accessors(property=childrenContainerInterfaces);
+    NUCOSRemarkingPolicyTablesFetcher _childrenCOSRemarkingPolicyTables @accessors(property=childrenCOSRemarkingPolicyTables);
     NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
     NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
     NUUplinkRDsFetcher _childrenUplinkRDs @accessors(property=childrenUplinkRDs);
     NUVCenterVRSConfigsFetcher _childrenVCenterVRSConfigs @accessors(property=childrenVCenterVRSConfigs);
+    NUDSCPRemarkingPolicyTablesFetcher _childrenDSCPRemarkingPolicyTables @accessors(property=childrenDSCPRemarkingPolicyTables);
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     NUNSGatewayTemplatesFetcher _childrenNSGatewayTemplates @accessors(property=childrenNSGatewayTemplates);
     NUNSGGroupsFetcher _childrenNSGGroups @accessors(property=childrenNSGGroups);
     NUNSRedundantGatewayGroupsFetcher _childrenNSRedundantGatewayGroups @accessors(property=childrenNSRedundantGatewayGroups);
+    NUNSGUpgradeProfilesFetcher _childrenNSGUpgradeProfiles @accessors(property=childrenNSGUpgradeProfiles);
     NUVSPsFetcher _childrenVSPs @accessors(property=childrenVSPs);
     NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
     NUStatsCollectorInfosFetcher _childrenStatsCollectorInfos @accessors(property=childrenStatsCollectorInfos);
@@ -263,6 +283,9 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"AARFlowStatsInterval"];
+        [self exposeLocalKeyPathToREST:@"AARProbeStatsInterval"];
+        [self exposeLocalKeyPathToREST:@"VSSStatsInterval"];
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastName"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
@@ -327,6 +350,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdEntryTemplates = [NUIngressAdvFwdEntryTemplatesFetcher fetcherWithParentObject:self];
+        _childrenIngressQOSPolicies = [NUIngressQOSPoliciesFetcher fetcherWithParentObject:self];
         _childrenEnterprises = [NUEnterprisesFetcher fetcherWithParentObject:self];
         _childrenEnterpriseProfiles = [NUEnterpriseProfilesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
@@ -335,15 +359,18 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenZones = [NUZonesFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenContainerInterfaces = [NUContainerInterfacesFetcher fetcherWithParentObject:self];
+        _childrenCOSRemarkingPolicyTables = [NUCOSRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
         _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
         _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
         _childrenUplinkRDs = [NUUplinkRDsFetcher fetcherWithParentObject:self];
         _childrenVCenterVRSConfigs = [NUVCenterVRSConfigsFetcher fetcherWithParentObject:self];
+        _childrenDSCPRemarkingPolicyTables = [NUDSCPRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         _childrenNSGatewayTemplates = [NUNSGatewayTemplatesFetcher fetcherWithParentObject:self];
         _childrenNSGGroups = [NUNSGGroupsFetcher fetcherWithParentObject:self];
         _childrenNSRedundantGatewayGroups = [NUNSRedundantGatewayGroupsFetcher fetcherWithParentObject:self];
+        _childrenNSGUpgradeProfiles = [NUNSGUpgradeProfilesFetcher fetcherWithParentObject:self];
         _childrenVSPs = [NUVSPsFetcher fetcherWithParentObject:self];
         _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
         _childrenStatsCollectorInfos = [NUStatsCollectorInfosFetcher fetcherWithParentObject:self];

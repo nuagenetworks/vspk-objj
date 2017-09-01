@@ -122,6 +122,10 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
+        ID of the Ingress QOS Policy / Tunnel Shaper associated with this VLAN.
+    */
+    CPString _associatedIngressQOSPolicyID @accessors(property=associatedIngressQOSPolicyID);
+    /*!
         Associated uplink connection ID
     */
     CPString _associatedUplinkConnectionID @accessors(property=associatedUplinkConnectionID);
@@ -192,6 +196,7 @@ NUVLANType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedIngressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"status"];

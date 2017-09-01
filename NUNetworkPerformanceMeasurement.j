@@ -32,12 +32,20 @@
 @import "Fetchers/NUNetworkPerformanceBindingsFetcher.j"
 @import "Fetchers/NUMonitorscopesFetcher.j"
 
+NUNetworkPerformanceMeasurementNPMType_IPSEC = @"IPSEC";
+NUNetworkPerformanceMeasurementNPMType_NONE = @"NONE";
+NUNetworkPerformanceMeasurementNPMType_VXLAN = @"VXLAN";
+
 
 /*!
     Network Performance Measurement is a container for group of applications and monitor scopes
 */
 @implementation NUNetworkPerformanceMeasurement : NURESTObject
 {
+    /*!
+        Type of network performance measurement
+    */
+    CPString _NPMType @accessors(property=NPMType);
     /*!
         name of the network performance measurement
     */
@@ -77,6 +85,7 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"NPMType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"description"];

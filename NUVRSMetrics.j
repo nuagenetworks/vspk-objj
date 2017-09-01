@@ -76,13 +76,17 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
     */
     BOOL _jesxmonProcess @accessors(property=jesxmonProcess);
     /*!
-        VRS Agent Name
-    */
-    CPString _agentName @accessors(property=agentName);
-    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Log Disk Partition Utilization
+    */
+    CPNumber _logDiskPartitionUtilization @accessors(property=logDiskPartitionUtilization);
+    /*!
+        Root Disk Partition Utilization
+    */
+    CPNumber _rootDiskPartitionUtilization @accessors(property=rootDiskPartitionUtilization);
     /*!
         None
     */
@@ -125,8 +129,9 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"receivingMetrics"];
         [self exposeLocalKeyPathToREST:@"memoryUtilization"];
         [self exposeLocalKeyPathToREST:@"jesxmonProcess"];
-        [self exposeLocalKeyPathToREST:@"agentName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"logDiskPartitionUtilization"];
+        [self exposeLocalKeyPathToREST:@"rootDiskPartitionUtilization"];
         [self exposeLocalKeyPathToREST:@"associatedVCenterHypervisorID"];
         [self exposeLocalKeyPathToREST:@"currentVersion"];
         [self exposeLocalKeyPathToREST:@"externalID"];

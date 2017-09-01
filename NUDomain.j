@@ -34,6 +34,7 @@
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetworkPerformanceBindingsFetcher.j"
+@import "Fetchers/NUPGExpressionsFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
 @import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
@@ -46,6 +47,7 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
+@import "Fetchers/NUVNFDomainMappingsFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdTemplatesFetcher.j"
@@ -140,6 +142,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         when DHCPBehaviorType is RELAY, then DHCP Server IP Address needs to be set
     */
     CPString _DHCPServerAddress @accessors(property=DHCPServerAddress);
+    /*!
+        Boolean flag to indicate whether this is a Floating IP to underlay domain or not
+    */
+    BOOL _FIPUnderlay @accessors(property=FIPUnderlay);
     /*!
         determines whether or not Deep packet inspection is enabled
     */
@@ -273,6 +279,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _associatedPATMapperID @accessors(property=associatedPATMapperID);
     /*!
+        The ID of the PatMapper entity to which this SharedNetworkResource is associated to.
+    */
+    CPString _associatedSharedPATMapperID @accessors(property=associatedSharedPATMapperID);
+    /*!
         Indicates whether this domain is streched,if so remote VM resolutions will be allowed
     */
     BOOL _stretched @accessors(property=stretched);
@@ -302,6 +312,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetworkPerformanceBindingsFetcher _childrenNetworkPerformanceBindings @accessors(property=childrenNetworkPerformanceBindings);
+    NUPGExpressionsFetcher _childrenPGExpressions @accessors(property=childrenPGExpressions);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
     NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
@@ -314,6 +325,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
+    NUVNFDomainMappingsFetcher _childrenVNFDomainMappings @accessors(property=childrenVNFDomainMappings);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdTemplatesFetcher _childrenIngressAdvFwdTemplates @accessors(property=childrenIngressAdvFwdTemplates);
@@ -365,6 +377,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPBehavior"];
         [self exposeLocalKeyPathToREST:@"DHCPServerAddress"];
+        [self exposeLocalKeyPathToREST:@"FIPUnderlay"];
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"labelID"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteDistinguisher"];
@@ -398,6 +411,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
+        [self exposeLocalKeyPathToREST:@"associatedSharedPATMapperID"];
         [self exposeLocalKeyPathToREST:@"stretched"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"tunnelType"];
@@ -410,6 +424,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetworkPerformanceBindings = [NUNetworkPerformanceBindingsFetcher fetcherWithParentObject:self];
+        _childrenPGExpressions = [NUPGExpressionsFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
@@ -422,6 +437,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
+        _childrenVNFDomainMappings = [NUVNFDomainMappingsFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdTemplates = [NUIngressAdvFwdTemplatesFetcher fetcherWithParentObject:self];

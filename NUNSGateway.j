@@ -40,6 +40,7 @@
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NULocationsFetcher.j"
+@import "Fetchers/NUCommandsFetcher.j"
 @import "Fetchers/NUMonitorscopesFetcher.j"
 @import "Fetchers/NUBootstrapsFetcher.j"
 @import "Fetchers/NUBootstrapActivationsFetcher.j"
@@ -70,8 +71,14 @@ NUNSGatewayDerivedSSHServiceState_UNKNOWN = @"UNKNOWN";
 NUNSGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGatewayEntityScope_GLOBAL = @"GLOBAL";
 NUNSGatewayFamily_ANY = @"ANY";
+NUNSGatewayFamily_NSG_AMI = @"NSG_AMI";
+NUNSGatewayFamily_NSG_C = @"NSG_C";
 NUNSGatewayFamily_NSG_E = @"NSG_E";
+NUNSGatewayFamily_NSG_E200 = @"NSG_E200";
+NUNSGatewayFamily_NSG_E300 = @"NSG_E300";
 NUNSGatewayFamily_NSG_V = @"NSG_V";
+NUNSGatewayFamily_NSG_X = @"NSG_X";
+NUNSGatewayFamily_NSG_X200 = @"NSG_X200";
 NUNSGatewayInheritedSSHServiceState_DISABLED = @"DISABLED";
 NUNSGatewayInheritedSSHServiceState_ENABLED = @"ENABLED";
 NUNSGatewayNetworkAcceleration_NONE = @"NONE";
@@ -236,6 +243,14 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _configurationStatus @accessors(property=configurationStatus);
     /*!
+        COS Value for Self Generated Traffic (Control Traffic). Min is 0 and Max is 7
+    */
+    CPNumber _controlTrafficCOSValue @accessors(property=controlTrafficCOSValue);
+    /*!
+        DSCP Value for Self Generated Traffic (Control Traffic). Min is 0 and Max is 63
+    */
+    CPNumber _controlTrafficDSCPValue @accessors(property=controlTrafficDSCPValue);
+    /*!
         The bootstrap details associated with this NSGateway. NOTE: this is a read only property, it can only be set during creation of an NSG
     */
     CPString _bootstrapID @accessors(property=bootstrapID);
@@ -268,6 +283,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _associatedNSGInfoID @accessors(property=associatedNSGInfoID);
     /*!
+        The UUID of the NSG Upgrade Profile associated to this NSG instance.
+    */
+    CPString _associatedNSGUpgradeProfileID @accessors(property=associatedNSGUpgradeProfileID);
+    /*!
         The Auto Discovered Gateway associated with this Gateway Instance
     */
     CPString _autoDiscGatewayID @accessors(property=autoDiscGatewayID);
@@ -291,6 +310,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NULocationsFetcher _childrenLocations @accessors(property=childrenLocations);
+    NUCommandsFetcher _childrenCommands @accessors(property=childrenCommands);
     NUMonitorscopesFetcher _childrenMonitorscopes @accessors(property=childrenMonitorscopes);
     NUBootstrapsFetcher _childrenBootstraps @accessors(property=childrenBootstraps);
     NUBootstrapActivationsFetcher _childrenBootstrapActivations @accessors(property=childrenBootstrapActivations);
@@ -351,6 +371,8 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"configurationReloadState"];
         [self exposeLocalKeyPathToREST:@"configurationStatus"];
+        [self exposeLocalKeyPathToREST:@"controlTrafficCOSValue"];
+        [self exposeLocalKeyPathToREST:@"controlTrafficDSCPValue"];
         [self exposeLocalKeyPathToREST:@"bootstrapID"];
         [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
         [self exposeLocalKeyPathToREST:@"operationMode"];
@@ -359,6 +381,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGInfoID"];
+        [self exposeLocalKeyPathToREST:@"associatedNSGUpgradeProfileID"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
@@ -374,6 +397,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenLocations = [NULocationsFetcher fetcherWithParentObject:self];
+        _childrenCommands = [NUCommandsFetcher fetcherWithParentObject:self];
         _childrenMonitorscopes = [NUMonitorscopesFetcher fetcherWithParentObject:self];
         _childrenBootstraps = [NUBootstrapsFetcher fetcherWithParentObject:self];
         _childrenBootstrapActivations = [NUBootstrapActivationsFetcher fetcherWithParentObject:self];

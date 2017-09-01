@@ -80,6 +80,10 @@ NUStaticRouteType_OVERLAY = @"OVERLAY";
     */
     CPString _routeDistinguisher @accessors(property=routeDistinguisher);
     /*!
+        UUID of Do Not Advertise Subnet
+    */
+    CPString _associatedSubnetID @accessors(property=associatedSubnetID);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -119,6 +123,7 @@ NUStaticRouteType_OVERLAY = @"OVERLAY";
         [self exposeLocalKeyPathToREST:@"nextHopIp"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
+        [self exposeLocalKeyPathToREST:@"associatedSubnetID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

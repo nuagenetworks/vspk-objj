@@ -36,6 +36,7 @@
 
 NURedirectionTargetTemplateEndPointType_L3 = @"L3";
 NURedirectionTargetTemplateEndPointType_NONE = @"NONE";
+NURedirectionTargetTemplateEndPointType_NSG_VNF = @"NSG_VNF";
 NURedirectionTargetTemplateEndPointType_VIRTUAL_WIRE = @"VIRTUAL_WIRE";
 NURedirectionTargetTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NURedirectionTargetTemplateEntityScope_GLOBAL = @"GLOBAL";
@@ -65,7 +66,7 @@ NURedirectionTargetTemplateTriggerType_NONE = @"NONE";
     */
     CPString _description @accessors(property=description);
     /*!
-        VPortTagEndPointType is an enum. It defines the type of header rewrite and forwarding performed by VRS when the endpoint is used as a PBR destination. Possible values are NONE, L3, VIRTUAL_WIRE.
+        VPortTagEndPointType is an enum. It defines the type of header rewrite and forwarding performed by VRS when the endpoint is used as a PBR destination. Possible values are NONE, L3, VIRTUAL_WIRE and NSG_VNF.
     */
     CPString _endPointType @accessors(property=endPointType);
     /*!

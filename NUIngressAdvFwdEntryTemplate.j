@@ -37,6 +37,11 @@
 NUIngressAdvFwdEntryTemplateAction_DROP = @"DROP";
 NUIngressAdvFwdEntryTemplateAction_FORWARD = @"FORWARD";
 NUIngressAdvFwdEntryTemplateAction_REDIRECT = @"REDIRECT";
+NUIngressAdvFwdEntryTemplateAppType_ALL = @"ALL";
+NUIngressAdvFwdEntryTemplateAppType_APPLICATION = @"APPLICATION";
+NUIngressAdvFwdEntryTemplateAppType_NONE = @"NONE";
+NUIngressAdvFwdEntryTemplateAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
+NUIngressAdvFwdEntryTemplateAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
 NUIngressAdvFwdEntryTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIngressAdvFwdEntryTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUIngressAdvFwdEntryTemplateFCOverride_A = @"A";
@@ -48,7 +53,10 @@ NUIngressAdvFwdEntryTemplateFCOverride_F = @"F";
 NUIngressAdvFwdEntryTemplateFCOverride_G = @"G";
 NUIngressAdvFwdEntryTemplateFCOverride_H = @"H";
 NUIngressAdvFwdEntryTemplateFCOverride_NONE = @"NONE";
+NUIngressAdvFwdEntryTemplateFailsafeDatapath_FAIL_TO_BLOCK = @"FAIL_TO_BLOCK";
+NUIngressAdvFwdEntryTemplateFailsafeDatapath_FAIL_TO_WIRE = @"FAIL_TO_WIRE";
 NUIngressAdvFwdEntryTemplateLocationType_ANY = @"ANY";
+NUIngressAdvFwdEntryTemplateLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressAdvFwdEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
 NUIngressAdvFwdEntryTemplateLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUIngressAdvFwdEntryTemplateLocationType_SUBNET = @"SUBNET";
@@ -61,6 +69,7 @@ NUIngressAdvFwdEntryTemplateNetworkType_ENDPOINT_ZONE = @"ENDPOINT_ZONE";
 NUIngressAdvFwdEntryTemplateNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
 NUIngressAdvFwdEntryTemplateNetworkType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
 NUIngressAdvFwdEntryTemplateNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
+NUIngressAdvFwdEntryTemplateNetworkType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressAdvFwdEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUIngressAdvFwdEntryTemplateNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
 NUIngressAdvFwdEntryTemplateNetworkType_SUBNET = @"SUBNET";
@@ -107,6 +116,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
+        Backup datapath option if VNF/VM is down
+    */
+    CPString _failsafeDatapath @accessors(property=failsafeDatapath);
+    /*!
         Name of the entity.
     */
     CPString _name @accessors(property=name);
@@ -143,7 +156,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
-        The destination network entity that is referenced(subnet/zone/macro)
+        The destination network entity that is referenced(subnet/zone/macro/PolicyGroupExpression)
     */
     CPString _networkID @accessors(property=networkID);
     /*!
@@ -171,7 +184,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The ID of the location entity (Subnet/Zone/VportTag)
+        The ID of the location entity (Subnet/Zone/VportTag/PolicyGroupExpression)
     */
     CPString _locationID @accessors(property=locationID);
     /*!
@@ -195,6 +208,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _uplinkPreference @accessors(property=uplinkPreference);
     /*!
+        Type of application selected, ALL (all applications in match criteria), NONE (no application in match criteria), APPLICATION (specific application in match criteria).
+    */
+    CPString _appType @accessors(property=appType);
+    /*!
         The priority of the ACL entry that determines the order of entries
     */
     CPNumber _priority @accessors(property=priority);
@@ -203,9 +220,25 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _protocol @accessors(property=protocol);
     /*!
+        This flag denotes whether the Uplink Preference configured by the user will work with AAR or will over-ride AAR.
+    */
+    BOOL _isSLAAware @accessors(property=isSLAAware);
+    /*!
+        Associated application UUID.
+    */
+    CPString _associatedApplicationID @accessors(property=associatedApplicationID);
+    /*!
         In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
+    /*!
+        This property reflects the type of traffic in case an ACL entry is created using an L4 Service or L4 Service Group. In case a protocol and port are specified for the ACL entry, this property has to be empty (null). Supported values are L4_SERVICE, L4_SERVICE_GROUP and empty.
+    */
+    CPString _associatedTrafficType @accessors(property=associatedTrafficType);
+    /*!
+        If a traffic type is specified as L4 Service or Service Group, then the associated Id of  Service / Service Group should be specifed here
+    */
+    CPString _associatedTrafficTypeID @accessors(property=associatedTrafficTypeID);
     /*!
         The statsID that is created in the VSD and identifies this ACL Template Entry. This is auto-generated by VSD
     */
@@ -253,6 +286,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"FCOverride"];
         [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"failsafeDatapath"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
@@ -275,9 +309,14 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"sourcePort"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
+        [self exposeLocalKeyPathToREST:@"appType"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"protocol"];
+        [self exposeLocalKeyPathToREST:@"isSLAAware"];
+        [self exposeLocalKeyPathToREST:@"associatedApplicationID"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"associatedTrafficType"];
+        [self exposeLocalKeyPathToREST:@"associatedTrafficTypeID"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"etherType"];

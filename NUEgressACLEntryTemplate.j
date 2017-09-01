@@ -36,9 +36,12 @@
 
 NUEgressACLEntryTemplateAction_DROP = @"DROP";
 NUEgressACLEntryTemplateAction_FORWARD = @"FORWARD";
+NUEgressACLEntryTemplateAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
+NUEgressACLEntryTemplateAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
 NUEgressACLEntryTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEgressACLEntryTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUEgressACLEntryTemplateLocationType_ANY = @"ANY";
+NUEgressACLEntryTemplateLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUEgressACLEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
 NUEgressACLEntryTemplateLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUEgressACLEntryTemplateLocationType_SUBNET = @"SUBNET";
@@ -51,6 +54,7 @@ NUEgressACLEntryTemplateNetworkType_ENDPOINT_ZONE = @"ENDPOINT_ZONE";
 NUEgressACLEntryTemplateNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
 NUEgressACLEntryTemplateNetworkType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
 NUEgressACLEntryTemplateNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
+NUEgressACLEntryTemplateNetworkType_PGEXPRESSION = @"PGEXPRESSION";
 NUEgressACLEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUEgressACLEntryTemplateNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
 NUEgressACLEntryTemplateNetworkType_SUBNET = @"SUBNET";
@@ -105,11 +109,11 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
-        The ID of the source endpoint (Subnet/Zone/Macro/MacroGroup/PortGroup)
+        The ID of the source endpoint (Subnet/Zone/Macro/MacroGroup/PortGroup/PolicyGroupExpression)
     */
     CPString _networkID @accessors(property=networkID);
     /*!
-        Type of the source endpoint (Subnet/Zone/Macro/MacroGroup/PortGroup)
+        Type of the source endpoint (Subnet/Zone/Macro/MacroGroup/PortGroup/PolicyGroupExpression)
     */
     CPString _networkType @accessors(property=networkType);
     /*!
@@ -129,11 +133,11 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The ID of the destination endpoint (Subnet/Zone/VportTag/PolicyGroup)
+        The ID of the destination endpoint (Subnet/Zone/VportTag/PolicyGroup/PolicyGroupExpression)
     */
     CPString _locationID @accessors(property=locationID);
     /*!
-        Type of the destination endpoint (Subnet/Zone/VportTag/PolicyGroup)
+        Type of the destination endpoint (Subnet/Zone/VportTag/PolicyGroup/PolicyGroupExpression
     */
     CPString _locationType @accessors(property=locationType);
     /*!
@@ -157,9 +161,21 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _protocol @accessors(property=protocol);
     /*!
+        The UUID of the associated L7 Application signature
+    */
+    CPString _associatedL7ApplicationSignatureID @accessors(property=associatedL7ApplicationSignatureID);
+    /*!
         In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
+    /*!
+        This property reflects the type of traffic in case an ACL entry is created using an L4 Service or L4 Service Group. In case a protocol and port are specified for the ACL entry, this property has to be empty (null). Supported values are L4_SERVICE, L4_SERVICE_GROUP and empty.
+    */
+    CPString _associatedTrafficType @accessors(property=associatedTrafficType);
+    /*!
+        If a traffic type is specified as L4 Service or Service Group, then the associated Id of  Service / Service Group should be specifed here
+    */
+    CPString _associatedTrafficTypeID @accessors(property=associatedTrafficTypeID);
     /*!
         True means that this ACL entry is stateful, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
     */
@@ -228,7 +244,10 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"sourcePort"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"protocol"];
+        [self exposeLocalKeyPathToREST:@"associatedL7ApplicationSignatureID"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"associatedTrafficType"];
+        [self exposeLocalKeyPathToREST:@"associatedTrafficTypeID"];
         [self exposeLocalKeyPathToREST:@"stateful"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];

@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPATIPEntriesFetcher.j"
 @import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NUAddressRangesFetcher.j"
 @import "Fetchers/NUVMResyncsFetcher.j"
@@ -40,12 +41,14 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
+@import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUContainerInterfacesFetcher.j"
 @import "Fetchers/NUContainerResyncsFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
 @import "Fetchers/NUIPReservationsFetcher.j"
+@import "Fetchers/NUProxyARPFiltersFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
@@ -75,6 +78,10 @@ NUSubnetMulticast_INHERITED = @"INHERITED";
 NUSubnetPATEnabled_DISABLED = @"DISABLED";
 NUSubnetPATEnabled_ENABLED = @"ENABLED";
 NUSubnetPATEnabled_INHERITED = @"INHERITED";
+NUSubnetResourceType_FLOATING = @"FLOATING";
+NUSubnetResourceType_NSG_VNF = @"NSG_VNF";
+NUSubnetResourceType_PUBLIC = @"PUBLIC";
+NUSubnetResourceType_STANDARD = @"STANDARD";
 NUSubnetUnderlayEnabled_DISABLED = @"DISABLED";
 NUSubnetUnderlayEnabled_ENABLED = @"ENABLED";
 NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
@@ -132,9 +139,17 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _gatewayMACAddress @accessors(property=gatewayMACAddress);
     /*!
+        This attribute specifies whether subnet is enabled with access restrictions. Note: Applicable to shared infrastructure enterprise subnets.
+    */
+    BOOL _accessRestrictionEnabled @accessors(property=accessRestrictionEnabled);
+    /*!
         IP address of the subnet defined. In case of zone, this is an optional field for and allows users to allocate an IP address range to a zone. The VSD will auto-assign IP addresses to subnets from this range if a specific IP address is not defined for the subnet
     */
     CPString _address @accessors(property=address);
+    /*!
+        Subnet will be advertised in Overlay and WAN BGP
+    */
+    BOOL _advertise @accessors(property=advertise);
     /*!
         If PAT is disabled then this flag indicates what to do if routes don't exist in overlay, will default to drop | possible values USE_UNDERLAY, DROP_TRAFFIC Possible values are USE_UNDERLAY, DROP_TRAFFIC, .
     */
@@ -151,6 +166,10 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         A description field provided by the user that identifies the subnet
     */
     CPString _description @accessors(property=description);
+    /*!
+        Defines the type of the subnet, PUBLIC,FLOATING,STANDARD OR NSG_VNF
+    */
+    CPString _resourceType @accessors(property=resourceType);
     /*!
         Netmask of the subnet defined
     */
@@ -228,6 +247,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     BOOL _dynamicIpv6Address @accessors(property=dynamicIpv6Address);
     
+    NUPATIPEntriesFetcher _childrenPATIPEntries @accessors(property=childrenPATIPEntries);
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
     NUVMResyncsFetcher _childrenVMResyncs @accessors(property=childrenVMResyncs);
@@ -239,12 +259,14 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
+    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUContainerInterfacesFetcher _childrenContainerInterfaces @accessors(property=childrenContainerInterfaces);
     NUContainerResyncsFetcher _childrenContainerResyncs @accessors(property=childrenContainerResyncs);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     NUIPReservationsFetcher _childrenIPReservations @accessors(property=childrenIPReservations);
+    NUProxyARPFiltersFetcher _childrenProxyARPFilters @accessors(property=childrenProxyARPFilters);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
@@ -279,11 +301,14 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
+        [self exposeLocalKeyPathToREST:@"accessRestrictionEnabled"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"advertise"];
         [self exposeLocalKeyPathToREST:@"defaultAction"];
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"serviceID"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"resourceType"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"vnId"];
         [self exposeLocalKeyPathToREST:@"encryption"];
@@ -304,6 +329,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
+        _childrenPATIPEntries = [NUPATIPEntriesFetcher fetcherWithParentObject:self];
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
         _childrenVMResyncs = [NUVMResyncsFetcher fetcherWithParentObject:self];
@@ -315,12 +341,14 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
+        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenContainerInterfaces = [NUContainerInterfacesFetcher fetcherWithParentObject:self];
         _childrenContainerResyncs = [NUContainerResyncsFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         _childrenIPReservations = [NUIPReservationsFetcher fetcherWithParentObject:self];
+        _childrenProxyARPFilters = [NUProxyARPFiltersFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];

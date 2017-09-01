@@ -44,6 +44,9 @@ NUVCenterClusterDestinationMirrorPort_ENS256 = @"ens256";
 NUVCenterClusterDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterClusterEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
+NUVCenterClusterRemoteSyslogServerType_NONE = @"NONE";
+NUVCenterClusterRemoteSyslogServerType_TCP = @"TCP";
+NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
 
 
 /*!
@@ -103,6 +106,18 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
         Set to true if the cluster is deleted from Vcenter
     */
     BOOL _deletedFromVCenterDataCenter @accessors(property=deletedFromVCenterDataCenter);
+    /*!
+        Remote syslog server IP
+    */
+    CPString _remoteSyslogServerIP @accessors(property=remoteSyslogServerIP);
+    /*!
+        Remote syslog server port
+    */
+    CPNumber _remoteSyslogServerPort @accessors(property=remoteSyslogServerPort);
+    /*!
+        Remote syslog server type (UDP/TCP)
+    */
+    CPString _remoteSyslogServerType @accessors(property=remoteSyslogServerType);
     /*!
         Whether split-activation is needed from VRO
     */
@@ -416,6 +431,9 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"scope"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
         [self exposeLocalKeyPathToREST:@"deletedFromVCenterDataCenter"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerIP"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerPort"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerType"];
         [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"personality"];

@@ -29,15 +29,19 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUCaptivePortalProfilesFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUSSIDConnectionAuthenticationMode_CAPTIVE_PORTAL = @"CAPTIVE_PORTAL";
 NUSSIDConnectionAuthenticationMode_OPEN = @"OPEN";
 NUSSIDConnectionAuthenticationMode_WEP = @"WEP";
 NUSSIDConnectionAuthenticationMode_WPA = @"WPA";
 NUSSIDConnectionAuthenticationMode_WPA2 = @"WPA2";
 NUSSIDConnectionAuthenticationMode_WPA_OTP = @"WPA_OTP";
 NUSSIDConnectionAuthenticationMode_WPA_WPA2 = @"WPA_WPA2";
+NUSSIDConnectionRedirectOption_CONFIGURED_URL = @"CONFIGURED_URL";
+NUSSIDConnectionRedirectOption_ORIGINAL_REQUEST = @"ORIGINAL_REQUEST";
 
 
 /*!
@@ -53,6 +57,14 @@ NUSSIDConnectionAuthenticationMode_WPA_WPA2 = @"WPA_WPA2";
         Password or passphrase associated to an SSID instance.  Based on the authenticationMode selected.
     */
     CPString _passphrase @accessors(property=passphrase);
+    /*!
+        Redirection action to exercise once the connecting user has accepted the use policy presented on the Wireless Captive Portal.
+    */
+    CPString _redirectOption @accessors(property=redirectOption);
+    /*!
+        URL to have a newly connected user redirected to once the use policy defined on the Wireless Captive Portal has been accepted by the user.
+    */
+    CPString _redirectURL @accessors(property=redirectURL);
     /*!
         Blob type attribute that serves to define non-mandatory properties that can be defined in the WiFi Card configuration file.
     */
@@ -78,6 +90,10 @@ NUSSIDConnectionAuthenticationMode_WPA_WPA2 = @"WPA_WPA2";
     */
     BOOL _broadcastSSID @accessors(property=broadcastSSID);
     /*!
+        Identification of the Captive Portal Profile that is associated with this instance of SSID connection.
+    */
+    CPString _associatedCaptivePortalProfileID @accessors(property=associatedCaptivePortalProfileID);
+    /*!
         Identification of the Egress QoS policy that is associated with this instance of an SSID Connection.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
@@ -86,6 +102,7 @@ NUSSIDConnectionAuthenticationMode_WPA_WPA2 = @"WPA_WPA2";
     */
     CPString _authenticationMode @accessors(property=authenticationMode);
     
+    NUCaptivePortalProfilesFetcher _childrenCaptivePortalProfiles @accessors(property=childrenCaptivePortalProfiles);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
@@ -110,15 +127,19 @@ NUSSIDConnectionAuthenticationMode_WPA_WPA2 = @"WPA_WPA2";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"passphrase"];
+        [self exposeLocalKeyPathToREST:@"redirectOption"];
+        [self exposeLocalKeyPathToREST:@"redirectURL"];
         [self exposeLocalKeyPathToREST:@"genericConfig"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"whiteList"];
         [self exposeLocalKeyPathToREST:@"blackList"];
         [self exposeLocalKeyPathToREST:@"interfaceName"];
         [self exposeLocalKeyPathToREST:@"broadcastSSID"];
+        [self exposeLocalKeyPathToREST:@"associatedCaptivePortalProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"authenticationMode"];
         
+        _childrenCaptivePortalProfiles = [NUCaptivePortalProfilesFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         

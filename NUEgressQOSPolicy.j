@@ -32,6 +32,14 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUEgressQOSPolicyDefaultServiceClass_A = @"A";
+NUEgressQOSPolicyDefaultServiceClass_B = @"B";
+NUEgressQOSPolicyDefaultServiceClass_C = @"C";
+NUEgressQOSPolicyDefaultServiceClass_D = @"D";
+NUEgressQOSPolicyDefaultServiceClass_E = @"E";
+NUEgressQOSPolicyDefaultServiceClass_F = @"F";
+NUEgressQOSPolicyDefaultServiceClass_G = @"G";
+NUEgressQOSPolicyDefaultServiceClass_H = @"H";
 NUEgressQOSPolicyEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEgressQOSPolicyEntityScope_GLOBAL = @"GLOBAL";
 NUEgressQOSPolicyQueue1ForwardingClasses_A = @"A";
@@ -90,6 +98,10 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        The Default Service Class for this Egress QoS Policy. The queue that contains the default service class will be treated as the default queue.
+    */
+    CPString _defaultServiceClass @accessors(property=defaultServiceClass);
+    /*!
         A description of the QoS object
     */
     CPString _description @accessors(property=description);
@@ -101,6 +113,14 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         ID of object associated with this QoS object
     */
     CPString _assocEgressQosId @accessors(property=assocEgressQosId);
+    /*!
+        ID of the associated CoS Remarking Policy table. 
+    */
+    CPString _associatedCOSRemarkingPolicyTableID @accessors(property=associatedCOSRemarkingPolicyTableID);
+    /*!
+        ID of the DSCP Remarking Policy Table associated with this Egress QOS policy.
+    */
+    CPString _associatedDSCPRemarkingPolicyTableID @accessors(property=associatedDSCPRemarkingPolicyTableID);
     /*!
         ID of the queue1 rate limiter associated with this Egress QOS policy.
     */
@@ -163,9 +183,12 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"parentQueueAssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"defaultServiceClass"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"assocEgressQosId"];
+        [self exposeLocalKeyPathToREST:@"associatedCOSRemarkingPolicyTableID"];
+        [self exposeLocalKeyPathToREST:@"associatedDSCPRemarkingPolicyTableID"];
         [self exposeLocalKeyPathToREST:@"queue1AssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"queue1ForwardingClasses"];
         [self exposeLocalKeyPathToREST:@"queue2AssociatedRateLimiterID"];

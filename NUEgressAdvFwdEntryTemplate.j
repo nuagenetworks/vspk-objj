@@ -48,7 +48,10 @@ NUEgressAdvFwdEntryTemplateFCOverride_F = @"F";
 NUEgressAdvFwdEntryTemplateFCOverride_G = @"G";
 NUEgressAdvFwdEntryTemplateFCOverride_H = @"H";
 NUEgressAdvFwdEntryTemplateFCOverride_NONE = @"NONE";
+NUEgressAdvFwdEntryTemplateFailsafeDatapath_FAIL_TO_BLOCK = @"FAIL_TO_BLOCK";
+NUEgressAdvFwdEntryTemplateFailsafeDatapath_FAIL_TO_WIRE = @"FAIL_TO_WIRE";
 NUEgressAdvFwdEntryTemplateLocationType_ANY = @"ANY";
+NUEgressAdvFwdEntryTemplateLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUEgressAdvFwdEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
 NUEgressAdvFwdEntryTemplateLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUEgressAdvFwdEntryTemplateLocationType_SUBNET = @"SUBNET";
@@ -61,6 +64,7 @@ NUEgressAdvFwdEntryTemplateNetworkType_ENDPOINT_ZONE = @"ENDPOINT_ZONE";
 NUEgressAdvFwdEntryTemplateNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
 NUEgressAdvFwdEntryTemplateNetworkType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
 NUEgressAdvFwdEntryTemplateNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
+NUEgressAdvFwdEntryTemplateNetworkType_PGEXPRESSION = @"PGEXPRESSION";
 NUEgressAdvFwdEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUEgressAdvFwdEntryTemplateNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
 NUEgressAdvFwdEntryTemplateNetworkType_SUBNET = @"SUBNET";
@@ -106,6 +110,10 @@ NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
+        Backup datapath option if VNF/VM is down
+    */
+    CPString _failsafeDatapath @accessors(property=failsafeDatapath);
+    /*!
         Name of the policy
     */
     CPString _name @accessors(property=name);
@@ -134,7 +142,7 @@ NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
-        The source network entity id that is referenced(subnet/zone/macro)
+        The source network entity id that is referenced(subnet/zone/macro/PolicyGroupExpression)
     */
     CPString _networkID @accessors(property=networkID);
     /*!
@@ -158,7 +166,7 @@ NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The ID of the destination location entity (Subnet/Zone/VportTag)
+        The ID of the destination location entity (Subnet/Zone/VportTag/PolicyGroupExpression)
     */
     CPString _locationID @accessors(property=locationID);
     /*!
@@ -240,6 +248,7 @@ NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"FCOverride"];
         [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"failsafeDatapath"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];

@@ -30,6 +30,7 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUSharedNetworkResourcesFetcher.j"
+@import "Fetchers/NUSubnetsFetcher.j"
 
 NUPATMapperEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPATMapperEntityScope_GLOBAL = @"GLOBAL";
@@ -62,6 +63,7 @@ NUPATMapperEntityScope_GLOBAL = @"GLOBAL";
     CPString _externalID @accessors(property=externalID);
     
     NUSharedNetworkResourcesFetcher _childrenSharedNetworkResources @accessors(property=childrenSharedNetworkResources);
+    NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
     
 }
 
@@ -89,6 +91,7 @@ NUPATMapperEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenSharedNetworkResources = [NUSharedNetworkResourcesFetcher fetcherWithParentObject:self];
+        _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
         
         
     }

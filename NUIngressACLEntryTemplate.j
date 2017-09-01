@@ -37,9 +37,12 @@
 NUIngressACLEntryTemplateAction_DROP = @"DROP";
 NUIngressACLEntryTemplateAction_FORWARD = @"FORWARD";
 NUIngressACLEntryTemplateAction_REDIRECT = @"REDIRECT";
+NUIngressACLEntryTemplateAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
+NUIngressACLEntryTemplateAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
 NUIngressACLEntryTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIngressACLEntryTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUIngressACLEntryTemplateLocationType_ANY = @"ANY";
+NUIngressACLEntryTemplateLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressACLEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
 NUIngressACLEntryTemplateLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUIngressACLEntryTemplateLocationType_SUBNET = @"SUBNET";
@@ -52,6 +55,7 @@ NUIngressACLEntryTemplateNetworkType_ENDPOINT_ZONE = @"ENDPOINT_ZONE";
 NUIngressACLEntryTemplateNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
 NUIngressACLEntryTemplateNetworkType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
 NUIngressACLEntryTemplateNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
+NUIngressACLEntryTemplateNetworkType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressACLEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUIngressACLEntryTemplateNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
 NUIngressACLEntryTemplateNetworkType_SUBNET = @"SUBNET";
@@ -106,11 +110,11 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
-        The ID of the destination endpoint (Subnet/Zone/Macro/MacroGroup/PolicyGroup)
+        The ID of the destination endpoint (Subnet/Zone/Macro/MacroGroup/PolicyGroup/PolicyGroupExpression)
     */
     CPString _networkID @accessors(property=networkID);
     /*!
-        Type of the destination endpoint (Subnet/Zone/Macro/MacroGroup/PolicyGroup)
+        Type of the destination endpoint (Subnet/Zone/Macro/MacroGroup/PolicyGroup/PolicyGroupExpression)
     */
     CPString _networkType @accessors(property=networkType);
     /*!
@@ -130,11 +134,11 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The ID of the source endpoint (Subnet/Zone/VportTag/PortGroup)
+        The ID of the source endpoint (Subnet/Zone/VportTag/PortGroup/PolicyGroupExpression)
     */
     CPString _locationID @accessors(property=locationID);
     /*!
-        Type of the source endpoint (Subnet/Zone/VportTag/PortGroup)
+        Type of the source endpoint (Subnet/Zone/VportTag/PortGroup/PolicyGroupExpression)
     */
     CPString _locationType @accessors(property=locationType);
     /*!
@@ -158,9 +162,21 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _protocol @accessors(property=protocol);
     /*!
+        The UUID of the associated L7 Application signature
+    */
+    CPString _associatedL7ApplicationSignatureID @accessors(property=associatedL7ApplicationSignatureID);
+    /*!
         In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
+    /*!
+        This property reflects the type of traffic in case an ACL entry is created using an L4 Service or L4 Service Group. In case a protocol and port are specified for the ACL entry, this property has to be empty (null). Supported values are L4_SERVICE, L4_SERVICE_GROUP and empty.
+    */
+    CPString _associatedTrafficType @accessors(property=associatedTrafficType);
+    /*!
+        If a traffic type is specified as L4 Service or Service Group, then the associated Id of  Service / Service Group should be specifed here
+    */
+    CPString _associatedTrafficTypeID @accessors(property=associatedTrafficTypeID);
     /*!
         True means that this ACL entry is stateful, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
     */
@@ -233,7 +249,10 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"sourcePort"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"protocol"];
+        [self exposeLocalKeyPathToREST:@"associatedL7ApplicationSignatureID"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"associatedTrafficType"];
+        [self exposeLocalKeyPathToREST:@"associatedTrafficTypeID"];
         [self exposeLocalKeyPathToREST:@"stateful"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];

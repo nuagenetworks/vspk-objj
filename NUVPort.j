@@ -44,6 +44,7 @@
 @import "Fetchers/NUVNFInterfacesFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdEntryTemplatesFetcher.j"
+@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUContainerInterfacesFetcher.j"
@@ -67,6 +68,8 @@ NUVPortDPI_ENABLED = @"ENABLED";
 NUVPortDPI_INHERITED = @"INHERITED";
 NUVPortEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVPortEntityScope_GLOBAL = @"GLOBAL";
+NUVPortGatewayMACMoveRole_SECONDARY = @"SECONDARY";
+NUVPortGatewayMACMoveRole_TERTIARY = @"TERTIARY";
 NUVPortMulticast_DISABLED = @"DISABLED";
 NUVPortMulticast_ENABLED = @"ENABLED";
 NUVPortMulticast_INHERITED = @"INHERITED";
@@ -115,6 +118,10 @@ NUVPortType_VM = @"VM";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Role of the gateway vport when handling mac move errors
+    */
+    CPString _gatewayMACMoveRole @accessors(property=gatewayMACMoveRole);
     /*!
         Indicates if this vport is up or down
     */
@@ -215,6 +222,7 @@ NUVPortType_VM = @"VM";
     NUVNFInterfacesFetcher _childrenVNFInterfaces @accessors(property=childrenVNFInterfaces);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressAdvFwdEntryTemplatesFetcher _childrenIngressAdvFwdEntryTemplates @accessors(property=childrenIngressAdvFwdEntryTemplates);
+    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUContainerInterfacesFetcher _childrenContainerInterfaces @accessors(property=childrenContainerInterfaces);
@@ -254,6 +262,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"hasAttachedInterfaces"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gatewayMACMoveRole"];
         [self exposeLocalKeyPathToREST:@"active"];
         [self exposeLocalKeyPathToREST:@"addressSpoofing"];
         [self exposeLocalKeyPathToREST:@"segmentationID"];
@@ -291,6 +300,7 @@ NUVPortType_VM = @"VM";
         _childrenVNFInterfaces = [NUVNFInterfacesFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdEntryTemplates = [NUIngressAdvFwdEntryTemplatesFetcher fetcherWithParentObject:self];
+        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenContainerInterfaces = [NUContainerInterfacesFetcher fetcherWithParentObject:self];

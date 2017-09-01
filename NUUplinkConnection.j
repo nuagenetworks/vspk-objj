@@ -29,21 +29,20 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUBFDSessionsFetcher.j"
 @import "Fetchers/NUUnderlaysFetcher.j"
 @import "Fetchers/NUCustomPropertiesFetcher.j"
 
 NUUplinkConnectionAddress_IPV4 = @"IPv4";
 NUUplinkConnectionAddress_IPV6 = @"IPv6";
+NUUplinkConnectionAdvertisementCriteria_BFD = @"BFD";
 NUUplinkConnectionAdvertisementCriteria_CONTROL_SESSION = @"CONTROL_SESSION";
-NUUplinkConnectionAdvertisementCriteria_FATE_SHARING = @"FATE_SHARING";
-NUUplinkConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
 NUUplinkConnectionAdvertisementCriteria_OPERATIONAL_LINK = @"OPERATIONAL_LINK";
 NUUplinkConnectionInterfaceConnectionType_AUTOMATIC = @"AUTOMATIC";
 NUUplinkConnectionInterfaceConnectionType_EMBEDDED = @"EMBEDDED";
 NUUplinkConnectionInterfaceConnectionType_PCI_EXPRESS = @"PCI_EXPRESS";
 NUUplinkConnectionInterfaceConnectionType_USB_ETHERNET = @"USB_ETHERNET";
 NUUplinkConnectionInterfaceConnectionType_USB_MODEM = @"USB_MODEM";
-NUUplinkConnectionMode_ANY = @"Any";
 NUUplinkConnectionMode_DYNAMIC = @"Dynamic";
 NUUplinkConnectionMode_LTE = @"LTE";
 NUUplinkConnectionMode_PPPOE = @"PPPoE";
@@ -97,7 +96,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _interfaceConnectionType @accessors(property=interfaceConnectionType);
     /*!
-        Specify how to connect to the network. Possible values: Any, Dynamic (DHCP), Static (static configuration is required), PPPoE (pppoe configuration required), LTE (LTE configuration required). Default: Dynamic
+        Specify how to connect to the network. Possible values: Dynamic (DHCP), Static (static configuration is required), PPPoE (pppoe configuration required), LTE (LTE configuration required). Default: Dynamic
     */
     CPString _mode @accessors(property=mode);
     /*!
@@ -141,6 +140,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     BOOL _auxiliaryLink @accessors(property=auxiliaryLink);
     
+    NUBFDSessionsFetcher _childrenBFDSessions @accessors(property=childrenBFDSessions);
     NUUnderlaysFetcher _childrenUnderlays @accessors(property=childrenUnderlays);
     NUCustomPropertiesFetcher _childrenCustomProperties @accessors(property=childrenCustomProperties);
     
@@ -184,6 +184,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"associatedUnderlayName"];
         [self exposeLocalKeyPathToREST:@"auxiliaryLink"];
         
+        _childrenBFDSessions = [NUBFDSessionsFetcher fetcherWithParentObject:self];
         _childrenUnderlays = [NUUnderlaysFetcher fetcherWithParentObject:self];
         _childrenCustomProperties = [NUCustomPropertiesFetcher fetcherWithParentObject:self];
         

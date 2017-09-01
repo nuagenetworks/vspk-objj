@@ -31,7 +31,10 @@
 
 @import "Fetchers/NUL2DomainsFetcher.j"
 @import "Fetchers/NUL2DomainTemplatesFetcher.j"
+@import "Fetchers/NUL4ServicesFetcher.j"
+@import "Fetchers/NUL4ServiceGroupsFetcher.j"
 @import "Fetchers/NUL7applicationsignaturesFetcher.j"
+@import "Fetchers/NUCaptivePortalProfilesFetcher.j"
 @import "Fetchers/NURateLimitersFetcher.j"
 @import "Fetchers/NUGatewaysFetcher.j"
 @import "Fetchers/NUGatewayTemplatesFetcher.j"
@@ -59,6 +62,8 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVNFsFetcher.j"
+@import "Fetchers/NUVNFMetadatasFetcher.j"
+@import "Fetchers/NUIngressQOSPoliciesFetcher.j"
 @import "Fetchers/NUEnterpriseNetworksFetcher.j"
 @import "Fetchers/NUEnterpriseSecuritiesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
@@ -66,6 +71,7 @@
 @import "Fetchers/NUDomainsFetcher.j"
 @import "Fetchers/NUDomainTemplatesFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
+@import "Fetchers/NUCOSRemarkingPolicyTablesFetcher.j"
 @import "Fetchers/NURoutingPoliciesFetcher.j"
 @import "Fetchers/NUApplicationsFetcher.j"
 @import "Fetchers/NUApplicationperformancemanagementsFetcher.j"
@@ -73,6 +79,7 @@
 @import "Fetchers/NUGroupKeyEncryptionProfilesFetcher.j"
 @import "Fetchers/NUTrunksFetcher.j"
 @import "Fetchers/NUDSCPForwardingClassTablesFetcher.j"
+@import "Fetchers/NUDSCPRemarkingPolicyTablesFetcher.j"
 @import "Fetchers/NUUsersFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
 @import "Fetchers/NUNSGatewayTemplatesFetcher.j"
@@ -123,6 +130,10 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _DHCPLeaseInterval @accessors(property=DHCPLeaseInterval);
     /*!
+        Read only flag to display if VNF management is enabled for this enterprise
+    */
+    BOOL _VNFManagementEnabled @accessors(property=VNFManagementEnabled);
+    /*!
         The unique name of the enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
     CPString _name @accessors(property=name);
@@ -142,6 +153,10 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         A description of the enterprise
     */
     CPString _description @accessors(property=description);
+    /*!
+        This flag indicates whether this is a Shared Infrastructure Enterprise or not. Its a read-only attribute and it cannot be set by anybody.
+    */
+    BOOL _sharedEnterprise @accessors(property=sharedEnterprise);
     /*!
         L7 Application Type version
     */
@@ -221,7 +236,10 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     
     NUL2DomainsFetcher _childrenL2Domains @accessors(property=childrenL2Domains);
     NUL2DomainTemplatesFetcher _childrenL2DomainTemplates @accessors(property=childrenL2DomainTemplates);
+    NUL4ServicesFetcher _childrenL4Services @accessors(property=childrenL4Services);
+    NUL4ServiceGroupsFetcher _childrenL4ServiceGroups @accessors(property=childrenL4ServiceGroups);
     NUL7applicationsignaturesFetcher _childrenL7applicationsignatures @accessors(property=childrenL7applicationsignatures);
+    NUCaptivePortalProfilesFetcher _childrenCaptivePortalProfiles @accessors(property=childrenCaptivePortalProfiles);
     NURateLimitersFetcher _childrenRateLimiters @accessors(property=childrenRateLimiters);
     NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
     NUGatewayTemplatesFetcher _childrenGatewayTemplates @accessors(property=childrenGatewayTemplates);
@@ -249,6 +267,8 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVNFsFetcher _childrenVNFs @accessors(property=childrenVNFs);
+    NUVNFMetadatasFetcher _childrenVNFMetadatas @accessors(property=childrenVNFMetadatas);
+    NUIngressQOSPoliciesFetcher _childrenIngressQOSPolicies @accessors(property=childrenIngressQOSPolicies);
     NUEnterpriseNetworksFetcher _childrenEnterpriseNetworks @accessors(property=childrenEnterpriseNetworks);
     NUEnterpriseSecuritiesFetcher _childrenEnterpriseSecurities @accessors(property=childrenEnterpriseSecurities);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
@@ -256,6 +276,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
     NUDomainTemplatesFetcher _childrenDomainTemplates @accessors(property=childrenDomainTemplates);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
+    NUCOSRemarkingPolicyTablesFetcher _childrenCOSRemarkingPolicyTables @accessors(property=childrenCOSRemarkingPolicyTables);
     NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
     NUApplicationsFetcher _childrenApplications @accessors(property=childrenApplications);
     NUApplicationperformancemanagementsFetcher _childrenApplicationperformancemanagements @accessors(property=childrenApplicationperformancemanagements);
@@ -263,6 +284,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUGroupKeyEncryptionProfilesFetcher _childrenGroupKeyEncryptionProfiles @accessors(property=childrenGroupKeyEncryptionProfiles);
     NUTrunksFetcher _childrenTrunks @accessors(property=childrenTrunks);
     NUDSCPForwardingClassTablesFetcher _childrenDSCPForwardingClassTables @accessors(property=childrenDSCPForwardingClassTables);
+    NUDSCPRemarkingPolicyTablesFetcher _childrenDSCPRemarkingPolicyTables @accessors(property=childrenDSCPRemarkingPolicyTables);
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     NUNSGatewayTemplatesFetcher _childrenNSGatewayTemplates @accessors(property=childrenNSGatewayTemplates);
@@ -296,11 +318,13 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"LDAPEnabled"];
         [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPLeaseInterval"];
+        [self exposeLocalKeyPathToREST:@"VNFManagementEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"sendMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"sharedEnterprise"];
         [self exposeLocalKeyPathToREST:@"dictionaryVersion"];
         [self exposeLocalKeyPathToREST:@"allowAdvancedQOSConfiguration"];
         [self exposeLocalKeyPathToREST:@"allowGatewayManagement"];
@@ -323,7 +347,10 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         
         _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];
         _childrenL2DomainTemplates = [NUL2DomainTemplatesFetcher fetcherWithParentObject:self];
+        _childrenL4Services = [NUL4ServicesFetcher fetcherWithParentObject:self];
+        _childrenL4ServiceGroups = [NUL4ServiceGroupsFetcher fetcherWithParentObject:self];
         _childrenL7applicationsignatures = [NUL7applicationsignaturesFetcher fetcherWithParentObject:self];
+        _childrenCaptivePortalProfiles = [NUCaptivePortalProfilesFetcher fetcherWithParentObject:self];
         _childrenRateLimiters = [NURateLimitersFetcher fetcherWithParentObject:self];
         _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
         _childrenGatewayTemplates = [NUGatewayTemplatesFetcher fetcherWithParentObject:self];
@@ -351,6 +378,8 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVNFs = [NUVNFsFetcher fetcherWithParentObject:self];
+        _childrenVNFMetadatas = [NUVNFMetadatasFetcher fetcherWithParentObject:self];
+        _childrenIngressQOSPolicies = [NUIngressQOSPoliciesFetcher fetcherWithParentObject:self];
         _childrenEnterpriseNetworks = [NUEnterpriseNetworksFetcher fetcherWithParentObject:self];
         _childrenEnterpriseSecurities = [NUEnterpriseSecuritiesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
@@ -358,6 +387,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
         _childrenDomainTemplates = [NUDomainTemplatesFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
+        _childrenCOSRemarkingPolicyTables = [NUCOSRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
         _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
         _childrenApplications = [NUApplicationsFetcher fetcherWithParentObject:self];
         _childrenApplicationperformancemanagements = [NUApplicationperformancemanagementsFetcher fetcherWithParentObject:self];
@@ -365,6 +395,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenGroupKeyEncryptionProfiles = [NUGroupKeyEncryptionProfilesFetcher fetcherWithParentObject:self];
         _childrenTrunks = [NUTrunksFetcher fetcherWithParentObject:self];
         _childrenDSCPForwardingClassTables = [NUDSCPForwardingClassTablesFetcher fetcherWithParentObject:self];
+        _childrenDSCPRemarkingPolicyTables = [NUDSCPRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         _childrenNSGatewayTemplates = [NUNSGatewayTemplatesFetcher fetcherWithParentObject:self];

@@ -29,9 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUBFDSessionsFetcher.j"
 
-NUBRConnectionAdvertisementCriteria_FATE_SHARING = @"FATE_SHARING";
-NUBRConnectionAdvertisementCriteria_GATEWAY_PING = @"GATEWAY_PING";
+NUBRConnectionAdvertisementCriteria_BFD = @"BFD";
 NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
 NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
 NUBRConnectionMode_STATIC = @"Static";
@@ -71,6 +71,7 @@ NUBRConnectionMode_STATIC = @"Static";
     */
     CPNumber _uplinkID @accessors(property=uplinkID);
     
+    NUBFDSessionsFetcher _childrenBFDSessions @accessors(property=childrenBFDSessions);
     
 }
 
@@ -99,6 +100,7 @@ NUBRConnectionMode_STATIC = @"Static";
         [self exposeLocalKeyPathToREST:@"mode"];
         [self exposeLocalKeyPathToREST:@"uplinkID"];
         
+        _childrenBFDSessions = [NUBFDSessionsFetcher fetcherWithParentObject:self];
         
         
     }

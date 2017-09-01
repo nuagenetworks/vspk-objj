@@ -44,6 +44,9 @@ NUVCenterDestinationMirrorPort_ENS256 = @"ens256";
 NUVCenterDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterEntityScope_GLOBAL = @"GLOBAL";
+NUVCenterRemoteSyslogServerType_NONE = @"NONE";
+NUVCenterRemoteSyslogServerType_TCP = @"TCP";
+NUVCenterRemoteSyslogServerType_UDP = @"UDP";
 
 
 /*!
@@ -95,6 +98,18 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
+    /*!
+        Remote syslog server IP
+    */
+    CPString _remoteSyslogServerIP @accessors(property=remoteSyslogServerIP);
+    /*!
+        Remote syslog server port
+    */
+    CPNumber _remoteSyslogServerPort @accessors(property=remoteSyslogServerPort);
+    /*!
+        Remote syslog server type (UDP/TCP)
+    */
+    CPString _remoteSyslogServerType @accessors(property=remoteSyslogServerType);
     /*!
         Whether split-activation is needed from VRO
     */
@@ -438,6 +453,9 @@ NUVCenterEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"dataNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerIP"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerPort"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerType"];
         [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"personality"];

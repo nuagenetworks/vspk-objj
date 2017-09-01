@@ -57,6 +57,10 @@ NUGroupRole_USER = @"USER";
 @implementation NUGroup : NURESTObject
 {
     /*!
+        The LDAP distinguished name (DN) for the group.
+    */
+    CPString _LDAPGroupDN @accessors(property=LDAPGroupDN);
+    /*!
         A unique name of the group
     */
     CPString _name @accessors(property=name);
@@ -121,6 +125,7 @@ NUGroupRole_USER = @"USER";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"LDAPGroupDN"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"managementMode"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
