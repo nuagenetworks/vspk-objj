@@ -113,10 +113,6 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _associatedUnderlayName @accessors(property=associatedUnderlayName);
     /*!
-        The ID of the infrastructure VSC profile this is associated with this instance of a vlan or vlan template.
-    */
-    CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
-    /*!
         Make this uplink an auxiliary one that will only come up when all other uplinks are disconnected or can't perform their role.
     */
     BOOL _auxiliaryLink @accessors(property=auxiliaryLink);
@@ -157,7 +153,6 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"username"];
         [self exposeLocalKeyPathToREST:@"assocUnderlayID"];
         [self exposeLocalKeyPathToREST:@"associatedUnderlayName"];
-        [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"auxiliaryLink"];
         
         _childrenBFDSessions = [NUBFDSessionsFetcher fetcherWithParentObject:self];
