@@ -150,6 +150,10 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        Turn on or off dynamic allocation of IPV6 address
+    */
+    BOOL _dynamicIpv6Address @accessors(property=dynamicIpv6Address);
     
     NUL2DomainsFetcher _childrenL2Domains @accessors(property=childrenL2Domains);
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
@@ -208,6 +212,7 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
         _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];

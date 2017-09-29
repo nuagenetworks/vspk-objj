@@ -30,6 +30,7 @@
 @import <Bambou/NURESTAbstractRoot.j>
 
 @import "Fetchers/NUL2DomainsFetcher.j"
+@import "Fetchers/NUL4ServicesFetcher.j"
 @import "Fetchers/NUVCenterEAMConfigsFetcher.j"
 @import "Fetchers/NURateLimitersFetcher.j"
 @import "Fetchers/NUGatewaysFetcher.j"
@@ -190,6 +191,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     CPString _externalID @accessors(property=externalID);
     
     NUL2DomainsFetcher _childrenL2Domains @accessors(property=childrenL2Domains);
+    NUL4ServicesFetcher _childrenL4Services @accessors(property=childrenL4Services);
     NUVCenterEAMConfigsFetcher _childrenVCenterEAMConfigs @accessors(property=childrenVCenterEAMConfigs);
     NURateLimitersFetcher _childrenRateLimiters @accessors(property=childrenRateLimiters);
     NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
@@ -306,6 +308,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];
+        _childrenL4Services = [NUL4ServicesFetcher fetcherWithParentObject:self];
         _childrenVCenterEAMConfigs = [NUVCenterEAMConfigsFetcher fetcherWithParentObject:self];
         _childrenRateLimiters = [NURateLimitersFetcher fetcherWithParentObject:self];
         _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];

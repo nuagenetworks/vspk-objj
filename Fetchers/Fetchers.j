@@ -246,7 +246,6 @@
 @import "NUVirtualIPsFetcher.j"
 @import "NUVsgRedundantPortsFetcher.j"
 @import "NUWANServicesFetcher.j"
-@import "NUWirelessPortTemplatesFetcher.j"
 @import "NUWirelessPortsFetcher.j"
 @import "NUZFBAutoAssignmentsFetcher.j"
 @import "NUZFBRequestsFetcher.j"

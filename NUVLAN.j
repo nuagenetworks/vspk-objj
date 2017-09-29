@@ -42,6 +42,8 @@
 @import "Fetchers/NULtestatisticsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUVLANAssociatedConnectionType_BR_CONNECTION = @"BR_CONNECTION";
+NUVLANAssociatedConnectionType_UPLINK_CONNECTION = @"UPLINK_CONNECTION";
 NUVLANEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVLANEntityScope_GLOBAL = @"GLOBAL";
 NUVLANPermittedAction_ALL = @"ALL";
@@ -102,9 +104,13 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The Vport associated with this  VLAN  . This is a read only attribute
+        The Vport associated with this VLAN. This is a read only attribute
     */
     CPString _vportID @accessors(property=vportID);
+    /*!
+        Indicates if the VLAN is used as an uplink.
+    */
+    BOOL _isUplink @accessors(property=isUplink);
     /*!
         determines whether to use user mnemonic of the Port
     */
@@ -117,6 +123,10 @@ NUVLANType_UPLINK = @"UPLINK";
         The ID of the associated BGP profile
     */
     CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
+    /*!
+        Specifies the type of Connection (uplink, BR) associated to this VLAN instance.
+    */
+    CPString _associatedConnectionType @accessors(property=associatedConnectionType);
     /*!
         ID of the Egress QOS Policy associated with this VLAN.
     */
@@ -192,9 +202,11 @@ NUVLANType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"restricted"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"vportID"];
+        [self exposeLocalKeyPathToREST:@"isUplink"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
+        [self exposeLocalKeyPathToREST:@"associatedConnectionType"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedIngressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];

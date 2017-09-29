@@ -250,7 +250,6 @@
 @import "NUVsgRedundantPort.j"
 @import "NUWANService.j"
 @import "NUWirelessPort.j"
-@import "NUWirelessPortTemplate.j"
 @import "NUZFBAutoAssignment.j"
 @import "NUZFBRequest.j"
 @import "NUZone.j"
@@ -479,7 +478,6 @@
 [[NURESTModelController defaultController] registerModelClass:NUVsgRedundantPort];
 [[NURESTModelController defaultController] registerModelClass:NUWANService];
 [[NURESTModelController defaultController] registerModelClass:NUWirelessPort];
-[[NURESTModelController defaultController] registerModelClass:NUWirelessPortTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUZFBAutoAssignment];
 [[NURESTModelController defaultController] registerModelClass:NUZFBRequest];
 [[NURESTModelController defaultController] registerModelClass:NUZone];
