@@ -119,6 +119,7 @@
 @import "NUIngressAdvFwdTemplate.j"
 @import "NUIngressExternalServiceTemplate.j"
 @import "NUIngressExternalServiceTemplateEntry.j"
+@import "NUIngressQOSPolicy.j"
 @import "NUJob.j"
 @import "NUKeyServerMember.j"
 @import "NUKeyServerMonitor.j"
@@ -319,6 +320,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUIngressAdvFwdTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUIngressExternalServiceTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUIngressExternalServiceTemplateEntry];
+[[NURESTModelController defaultController] registerModelClass:NUIngressQOSPolicy];
 [[NURESTModelController defaultController] registerModelClass:NUJob];
 [[NURESTModelController defaultController] registerModelClass:NUKeyServerMember];
 [[NURESTModelController defaultController] registerModelClass:NUKeyServerMonitor];

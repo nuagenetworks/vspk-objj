@@ -31,6 +31,8 @@
 
 @import "Fetchers/NUApplicationperformancemanagementsFetcher.j"
 
+NUPerformanceMonitorEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUPerformanceMonitorEntityScope_GLOBAL = @"GLOBAL";
 NUPerformanceMonitorServiceClass_A = @"A";
 NUPerformanceMonitorServiceClass_B = @"B";
 NUPerformanceMonitorServiceClass_C = @"C";
@@ -50,6 +52,10 @@ NUPerformanceMonitorServiceClass_H = @"H";
         Name of the application group probe
     */
     CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Payload size
     */
@@ -71,9 +77,17 @@ NUPerformanceMonitorServiceClass_H = @"H";
     */
     CPNumber _interval @accessors(property=interval);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         number of packets
     */
     CPNumber _numberOfPackets @accessors(property=numberOfPackets);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
     NUApplicationperformancemanagementsFetcher _childrenApplicationperformancemanagements @accessors(property=childrenApplicationperformancemanagements);
     
@@ -97,12 +111,15 @@ NUPerformanceMonitorServiceClass_H = @"H";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"payloadSize"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"serviceClass"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"interval"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"numberOfPackets"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenApplicationperformancemanagements = [NUApplicationperformancemanagementsFetcher fetcherWithParentObject:self];
         

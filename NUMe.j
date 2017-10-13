@@ -73,6 +73,7 @@
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdEntryTemplatesFetcher.j"
+@import "Fetchers/NUIngressQOSPoliciesFetcher.j"
 @import "Fetchers/NUEnterprisesFetcher.j"
 @import "Fetchers/NUEnterpriseProfilesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
@@ -219,6 +220,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdEntryTemplatesFetcher _childrenIngressAdvFwdEntryTemplates @accessors(property=childrenIngressAdvFwdEntryTemplates);
+    NUIngressQOSPoliciesFetcher _childrenIngressQOSPolicies @accessors(property=childrenIngressQOSPolicies);
     NUEnterprisesFetcher _childrenEnterprises @accessors(property=childrenEnterprises);
     NUEnterpriseProfilesFetcher _childrenEnterpriseProfiles @accessors(property=childrenEnterpriseProfiles);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
@@ -330,6 +332,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdEntryTemplates = [NUIngressAdvFwdEntryTemplatesFetcher fetcherWithParentObject:self];
+        _childrenIngressQOSPolicies = [NUIngressQOSPoliciesFetcher fetcherWithParentObject:self];
         _childrenEnterprises = [NUEnterprisesFetcher fetcherWithParentObject:self];
         _childrenEnterpriseProfiles = [NUEnterpriseProfilesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];

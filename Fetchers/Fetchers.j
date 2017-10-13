@@ -116,6 +116,7 @@
 @import "NUIngressAdvFwdTemplatesFetcher.j"
 @import "NUIngressExternalServiceTemplateEntriesFetcher.j"
 @import "NUIngressExternalServiceTemplatesFetcher.j"
+@import "NUIngressQOSPoliciesFetcher.j"
 @import "NUJobsFetcher.j"
 @import "NUKeyServerMembersFetcher.j"
 @import "NUKeyServerMonitorEncryptedSeedsFetcher.j"

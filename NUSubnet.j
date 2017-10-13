@@ -420,11 +420,11 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPNumber _policyGroupID @accessors(property=policyGroupID);
     /*!
-        The Route Distinguisher value assigned by VSD for this subnet that is used by the BGP-EVPN protocol in VSC
+        Route distinguisher for this subnet that is used by the BGP-EVPN protocol in VSC. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
     */
     CPString _routeDistinguisher @accessors(property=routeDistinguisher);
     /*!
-        The Route Target value assigned by VSD for this subnet that is used by the BGP-EVPN protocol in VSC
+        Route target for this subnet that is used by the BGP-EVPN protocol in VSC. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
     */
     CPString _routeTarget @accessors(property=routeTarget);
     /*!

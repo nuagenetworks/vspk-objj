@@ -59,6 +59,7 @@
 @import "Fetchers/NUAllAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
+@import "Fetchers/NUIngressQOSPoliciesFetcher.j"
 @import "Fetchers/NUEnterpriseNetworksFetcher.j"
 @import "Fetchers/NUEnterpriseSecuritiesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
@@ -250,6 +251,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUAllAlarmsFetcher _childrenAllAlarms @accessors(property=childrenAllAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
+    NUIngressQOSPoliciesFetcher _childrenIngressQOSPolicies @accessors(property=childrenIngressQOSPolicies);
     NUEnterpriseNetworksFetcher _childrenEnterpriseNetworks @accessors(property=childrenEnterpriseNetworks);
     NUEnterpriseSecuritiesFetcher _childrenEnterpriseSecurities @accessors(property=childrenEnterpriseSecurities);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
@@ -353,6 +355,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenAllAlarms = [NUAllAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
+        _childrenIngressQOSPolicies = [NUIngressQOSPoliciesFetcher fetcherWithParentObject:self];
         _childrenEnterpriseNetworks = [NUEnterpriseNetworksFetcher fetcherWithParentObject:self];
         _childrenEnterpriseSecurities = [NUEnterpriseSecuritiesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
