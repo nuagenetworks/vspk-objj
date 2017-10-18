@@ -39,6 +39,7 @@
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUUplinkConnectionsFetcher.j"
 @import "Fetchers/NUBRConnectionsFetcher.j"
+@import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NULtestatisticsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
@@ -76,7 +77,7 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The Gateway associated with this  VLAN  . This is a read only attribute
+        The Gateway associated with this  VLAN. This is a read only attribute
     */
     CPString _gatewayID @accessors(property=gatewayID);
     /*!
@@ -132,9 +133,17 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
+        ID of the Ingress Overlay QoS Policer associated with this VLAN.
+    */
+    CPString _associatedIngressOverlayQoSPolicerID @accessors(property=associatedIngressOverlayQoSPolicerID);
+    /*!
         ID of the Ingress QOS Policy / Tunnel Shaper associated with this VLAN.
     */
     CPString _associatedIngressQOSPolicyID @accessors(property=associatedIngressQOSPolicyID);
+    /*!
+        ID of the Ingress Underlay QoS Policer associated with this VLAN.
+    */
+    CPString _associatedIngressUnderlayQoSPolicerID @accessors(property=associatedIngressUnderlayQoSPolicerID);
     /*!
         Associated uplink connection ID
     */
@@ -170,6 +179,7 @@ NUVLANType_UPLINK = @"UPLINK";
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUUplinkConnectionsFetcher _childrenUplinkConnections @accessors(property=childrenUplinkConnections);
     NUBRConnectionsFetcher _childrenBRConnections @accessors(property=childrenBRConnections);
+    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NULtestatisticsFetcher _childrenLtestatistics @accessors(property=childrenLtestatistics);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
@@ -208,7 +218,9 @@ NUVLANType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedConnectionType"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedIngressOverlayQoSPolicerID"];
         [self exposeLocalKeyPathToREST:@"associatedIngressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedIngressUnderlayQoSPolicerID"];
         [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"status"];
@@ -226,6 +238,7 @@ NUVLANType_UPLINK = @"UPLINK";
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenUplinkConnections = [NUUplinkConnectionsFetcher fetcherWithParentObject:self];
         _childrenBRConnections = [NUBRConnectionsFetcher fetcherWithParentObject:self];
+        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenLtestatistics = [NULtestatisticsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         

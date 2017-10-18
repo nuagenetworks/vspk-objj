@@ -31,71 +31,47 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
 
-NUStaticRouteEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUStaticRouteEntityScope_GLOBAL = @"GLOBAL";
-NUStaticRouteIPType_DUALSTACK = @"DUALSTACK";
-NUStaticRouteIPType_IPV4 = @"IPV4";
-NUStaticRouteIPType_IPV6 = @"IPV6";
-NUStaticRouteType_EXIT_DOMAIN = @"EXIT_DOMAIN";
-NUStaticRouteType_OVERLAY = @"OVERLAY";
-NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
+NUQosPolicerEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUQosPolicerEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Static routes allow end users to define how traffic is routed through the dVRS in addition to the routes learned by VSC through VM activation. By using static routes, end users can define for example that all traffic with a destination address towards a specific subnet must be forwarded to a specific VM attached in the dVRS and this VM could be a firewall
+    QoS Policer ensures that traffic adheres to the stipulated QoS defined in your network. Contains Rate and Burst configurations and can be associated to VLANs.
 */
-@implementation NUStaticRoute : NURESTObject
+@implementation NUQosPolicer : NURESTObject
 {
     /*!
-        IPv4 or IPv6
+        Name of the QoS Policer
     */
-    CPString _IPType @accessors(property=IPType);
-    /*!
-        IPv6 address of the route
-    */
-    CPString _IPv6Address @accessors(property=IPv6Address);
+    CPString _name @accessors(property=name);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        IP address of the route
+        Rate: Bandwidth that is allowed in Mb/s; only whole values supported.
     */
-    CPString _address @accessors(property=address);
+    CPNumber _rate @accessors(property=rate);
     /*!
-        Netmask associated with the route
+        Description of the QoS Policer
     */
-    CPString _netmask @accessors(property=netmask);
-    /*!
-        IP address of the next hop. This must be a VM attached to the dVRS
-    */
-    CPString _nextHopIp @accessors(property=nextHopIp);
+    CPString _description @accessors(property=description);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Route distinguisher associated with the nexthop. System generates this identifier automatically
+        Burst Size: The maximum burst size associated with the QoS Policer in kilo-bits; only whole values are supported.
     */
-    CPString _routeDistinguisher @accessors(property=routeDistinguisher);
-    /*!
-        UUID of Do Not Advertise Subnet
-    */
-    CPString _associatedSubnetID @accessors(property=associatedSubnetID);
+    CPNumber _burst @accessors(property=burst);
     /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        Type flag for static-route provisioning for exit-domain (break-to-underlay) prefixes.
-    */
-    CPString _type @accessors(property=type);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -105,7 +81,7 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
 
 + (CPString)RESTName
 {
-    return @"staticroute";
+    return @"qospolicer";
 }
 
 
@@ -116,21 +92,16 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"IPType"];
-        [self exposeLocalKeyPathToREST:@"IPv6Address"];
+        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"nextHopIp"];
+        [self exposeLocalKeyPathToREST:@"rate"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
-        [self exposeLocalKeyPathToREST:@"associatedSubnetID"];
+        [self exposeLocalKeyPathToREST:@"burst"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

@@ -191,6 +191,7 @@
 @import "NUProxyARPFilter.j"
 @import "NUPublicNetworkMacro.j"
 @import "NUQOS.j"
+@import "NUQosPolicer.j"
 @import "NURateLimiter.j"
 @import "NURedirectionTarget.j"
 @import "NURedirectionTargetTemplate.j"
@@ -234,6 +235,7 @@
 @import "NUVNFInterface.j"
 @import "NUVNFInterfaceDescriptor.j"
 @import "NUVNFMetadata.j"
+@import "NUVNFThresholdPolicy.j"
 @import "NUVPNConnection.j"
 @import "NUVPort.j"
 @import "NUVPortMirror.j"
@@ -419,6 +421,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUProxyARPFilter];
 [[NURESTModelController defaultController] registerModelClass:NUPublicNetworkMacro];
 [[NURESTModelController defaultController] registerModelClass:NUQOS];
+[[NURESTModelController defaultController] registerModelClass:NUQosPolicer];
 [[NURESTModelController defaultController] registerModelClass:NURateLimiter];
 [[NURESTModelController defaultController] registerModelClass:NURedirectionTarget];
 [[NURESTModelController defaultController] registerModelClass:NURedirectionTargetTemplate];
@@ -462,6 +465,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUVNFInterface];
 [[NURESTModelController defaultController] registerModelClass:NUVNFInterfaceDescriptor];
 [[NURESTModelController defaultController] registerModelClass:NUVNFMetadata];
+[[NURESTModelController defaultController] registerModelClass:NUVNFThresholdPolicy];
 [[NURESTModelController defaultController] registerModelClass:NUVPNConnection];
 [[NURESTModelController defaultController] registerModelClass:NUVPort];
 [[NURESTModelController defaultController] registerModelClass:NUVPortMirror];

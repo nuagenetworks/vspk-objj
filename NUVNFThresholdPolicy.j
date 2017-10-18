@@ -29,49 +29,49 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUBFDSessionsFetcher.j"
 
-NUBRConnectionAdvertisementCriteria_BFD = @"BFD";
-NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
-NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
-NUBRConnectionMode_STATIC = @"Static";
+NUVNFThresholdPolicyAction_NONE = @"NONE";
+NUVNFThresholdPolicyAction_SHUTOFF = @"SHUTOFF";
 
 
 /*!
-    None
+    Represents thresholds for resources consumed by VNF instance running on NS Gateway and action to be taken when resource utilization crosses configured thresholds.
 */
-@implementation NUBRConnection : NURESTObject
+@implementation NUVNFThresholdPolicy : NURESTObject
 {
     /*!
-        DNS Address for the vlan
+        Threshold for CPU usage
     */
-    CPString _DNSAddress @accessors(property=DNSAddress);
+    CPNumber _CPUThreshold @accessors(property=CPUThreshold);
     /*!
-        IP address of the gateway bound to the VLAN.
+        Name of VNF agent policy
     */
-    CPString _gateway @accessors(property=gateway);
+    CPString _name @accessors(property=name);
     /*!
-        Static IP address for the VLAN
+        Action to be taken on threshold crossover
     */
-    CPString _address @accessors(property=address);
+    CPString _action @accessors(property=action);
     /*!
-        Advertisement Criteria for Traffic Flow
+        Threshold for memory usage
     */
-    CPString _advertisementCriteria @accessors(property=advertisementCriteria);
+    CPNumber _memoryThreshold @accessors(property=memoryThreshold);
     /*!
-        network mask
+        Description of VNF agent policy
     */
-    CPString _netmask @accessors(property=netmask);
+    CPString _description @accessors(property=description);
     /*!
-        Connection mode: Static.
+        Minimum number of threshold crossover occurrence during monitoring interval before taking specified action
     */
-    CPString _mode @accessors(property=mode);
+    CPNumber _minOccurrence @accessors(property=minOccurrence);
     /*!
-        Internally generated ID in the range that idenitifies the uplink within the cotext of NSG
+        Monitoring interval (minutes) for threshold crossover occurrences to be considered
     */
-    CPNumber _uplinkID @accessors(property=uplinkID);
+    CPNumber _monitInterval @accessors(property=monitInterval);
+    /*!
+        Threshold for storage usage
+    */
+    CPNumber _storageThreshold @accessors(property=storageThreshold);
     
-    NUBFDSessionsFetcher _childrenBFDSessions @accessors(property=childrenBFDSessions);
     
 }
 
@@ -81,7 +81,7 @@ NUBRConnectionMode_STATIC = @"Static";
 
 + (CPString)RESTName
 {
-    return @"brconnection";
+    return @"vnfthresholdpolicy";
 }
 
 
@@ -92,15 +92,15 @@ NUBRConnectionMode_STATIC = @"Static";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"DNSAddress"];
-        [self exposeLocalKeyPathToREST:@"gateway"];
-        [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
-        [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"mode"];
-        [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"CPUThreshold"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"action"];
+        [self exposeLocalKeyPathToREST:@"memoryThreshold"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"minOccurrence"];
+        [self exposeLocalKeyPathToREST:@"monitInterval"];
+        [self exposeLocalKeyPathToREST:@"storageThreshold"];
         
-        _childrenBFDSessions = [NUBFDSessionsFetcher fetcherWithParentObject:self];
         
         
     }

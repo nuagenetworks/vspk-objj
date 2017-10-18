@@ -50,6 +50,10 @@
     */
     BOOL _readonly @accessors(property=readonly);
     /*!
+        URL address reference received from Procera for every signature.
+    */
+    CPString _reference @accessors(property=reference);
+    /*!
         description for L7 App
     */
     CPString _description @accessors(property=description);
@@ -57,6 +61,26 @@
         Version of the L7 Application Type
     */
     CPNumber _dictionaryVersion @accessors(property=dictionaryVersion);
+    /*!
+        Index number received from Procera for every L7 signature.
+    */
+    CPNumber _signatureIndex @accessors(property=signatureIndex);
+    /*!
+        Risk is determined on a scale of 1 to 5. It is received from Procera for every signature.
+    */
+    CPNumber _risk @accessors(property=risk);
+    /*!
+        Plugin name received from Procera for every signature.
+    */
+    CPString _pluginName @accessors(property=pluginName);
+    /*!
+        Software flags received from Procera for every signature.
+    */
+    CPString _softwareFlags @accessors(property=softwareFlags);
+    /*!
+        Productivity Index is scored relative to a work environment for every L7 signature on a scale of 1-5.
+    */
+    CPNumber _productivity @accessors(property=productivity);
     /*!
         GUID of the Application
     */
@@ -86,8 +110,14 @@
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"category"];
         [self exposeLocalKeyPathToREST:@"readonly"];
+        [self exposeLocalKeyPathToREST:@"reference"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"dictionaryVersion"];
+        [self exposeLocalKeyPathToREST:@"signatureIndex"];
+        [self exposeLocalKeyPathToREST:@"risk"];
+        [self exposeLocalKeyPathToREST:@"pluginName"];
+        [self exposeLocalKeyPathToREST:@"softwareFlags"];
+        [self exposeLocalKeyPathToREST:@"productivity"];
         [self exposeLocalKeyPathToREST:@"guidstring"];
         
         _childrenApplications = [NUApplicationsFetcher fetcherWithParentObject:self];
