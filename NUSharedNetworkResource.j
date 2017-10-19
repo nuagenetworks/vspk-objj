@@ -68,15 +68,15 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     */
     BOOL _DHCPManaged @accessors(property=DHCPManaged);
     /*!
-        Backhaul route distinguisher of the shared resource. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
+        backHaulRouteDistinguisher of the Shared Resource
     */
     CPString _backHaulRouteDistinguisher @accessors(property=backHaulRouteDistinguisher);
     /*!
-        Backhaul route target of the shared resource. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
+        backHaulRouteTarget of the Shared Resource
     */
     CPString _backHaulRouteTarget @accessors(property=backHaulRouteTarget);
     /*!
-        Backhaul virtual network ID of the shared resource
+        backHaulVNID of the Shared Resource
     */
     CPNumber _backHaulVNID @accessors(property=backHaulVNID);
     /*!
@@ -120,7 +120,7 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _sharedResourceParentID @accessors(property=sharedResourceParentID);
     /*!
-        Virtual network ID of the shared resource
+        VNID of the Shared Resource
     */
     CPNumber _vnID @accessors(property=vnID);
     /*!
@@ -132,11 +132,11 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Route distinguisher configured on the shared resource. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
+        Route distinguisher configured on the shared resource
     */
     CPString _domainRouteDistinguisher @accessors(property=domainRouteDistinguisher);
     /*!
-        Route target configured on the shared resource. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
+        Route target configured on the shared resource
     */
     CPString _domainRouteTarget @accessors(property=domainRouteTarget);
     /*!
@@ -163,14 +163,6 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
         The ID of the PatMapper entity to which this pool is associated to.
     */
     CPString _associatedPATMapperID @accessors(property=associatedPATMapperID);
-    /*!
-        Route distinguisher configured on the shared resource subnetwork. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
-    */
-    CPString _subnetRouteDistinguisher @accessors(property=subnetRouteDistinguisher);
-    /*!
-        Route target configured on the shared resource subnetwork. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
-    */
-    CPString _subnetRouteTarget @accessors(property=subnetRouteTarget);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -238,8 +230,6 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"uplinkVPortName"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
-        [self exposeLocalKeyPathToREST:@"subnetRouteDistinguisher"];
-        [self exposeLocalKeyPathToREST:@"subnetRouteTarget"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicPATAllocationEnabled"];
         [self exposeLocalKeyPathToREST:@"type"];

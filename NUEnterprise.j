@@ -63,7 +63,6 @@
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVNFsFetcher.j"
 @import "Fetchers/NUVNFMetadatasFetcher.j"
-@import "Fetchers/NUVNFThresholdPoliciesFetcher.j"
 @import "Fetchers/NUIngressQOSPoliciesFetcher.j"
 @import "Fetchers/NUEnterpriseNetworksFetcher.j"
 @import "Fetchers/NUEnterpriseSecuritiesFetcher.j"
@@ -269,7 +268,6 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVNFsFetcher _childrenVNFs @accessors(property=childrenVNFs);
     NUVNFMetadatasFetcher _childrenVNFMetadatas @accessors(property=childrenVNFMetadatas);
-    NUVNFThresholdPoliciesFetcher _childrenVNFThresholdPolicies @accessors(property=childrenVNFThresholdPolicies);
     NUIngressQOSPoliciesFetcher _childrenIngressQOSPolicies @accessors(property=childrenIngressQOSPolicies);
     NUEnterpriseNetworksFetcher _childrenEnterpriseNetworks @accessors(property=childrenEnterpriseNetworks);
     NUEnterpriseSecuritiesFetcher _childrenEnterpriseSecurities @accessors(property=childrenEnterpriseSecurities);
@@ -381,7 +379,6 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVNFs = [NUVNFsFetcher fetcherWithParentObject:self];
         _childrenVNFMetadatas = [NUVNFMetadatasFetcher fetcherWithParentObject:self];
-        _childrenVNFThresholdPolicies = [NUVNFThresholdPoliciesFetcher fetcherWithParentObject:self];
         _childrenIngressQOSPolicies = [NUIngressQOSPoliciesFetcher fetcherWithParentObject:self];
         _childrenEnterpriseNetworks = [NUEnterpriseNetworksFetcher fetcherWithParentObject:self];
         _childrenEnterpriseSecurities = [NUEnterpriseSecuritiesFetcher fetcherWithParentObject:self];

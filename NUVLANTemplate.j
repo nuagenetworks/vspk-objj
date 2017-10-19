@@ -34,8 +34,6 @@
 @import "Fetchers/NUUplinkConnectionsFetcher.j"
 @import "Fetchers/NUBRConnectionsFetcher.j"
 
-NUVLANTemplateAssociatedConnectionType_BR_CONNECTION = @"BR_CONNECTION";
-NUVLANTemplateAssociatedConnectionType_UPLINK_CONNECTION = @"UPLINK_CONNECTION";
 NUVLANTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVLANTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUVLANTemplateType_ACCESS = @"ACCESS";
@@ -50,7 +48,7 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
 @implementation NUVLANTemplate : NURESTObject
 {
     /*!
-        Value of VLAN
+        value of VLAN
     */
     CPNumber _value @accessors(property=value);
     /*!
@@ -66,25 +64,9 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Indicates that this VLAN Template should be considered as being used for uplink connection.
-    */
-    BOOL _isUplink @accessors(property=isUplink);
-    /*!
-        States the managed object type of the uplink connection associated to this VLAN Template instance.
-    */
-    CPString _associatedConnectionType @accessors(property=associatedConnectionType);
-    /*!
         ID of the Egress QOS Policy associated with this Vlan.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
-    /*!
-        ID of the Ingress QoS Policy associated with this VLAN Template.
-    */
-    CPString _associatedIngressQOSPolicyID @accessors(property=associatedIngressQOSPolicyID);
-    /*!
-        ID of the uplink connection making use of this VLAN Template instance.
-    */
-    CPString _associatedUplinkConnectionID @accessors(property=associatedUplinkConnectionID);
     /*!
         The ID of the infrastructure VSC profile this is associated with this instance of a vlan or vlan template.
     */
@@ -98,7 +80,7 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        This type marks a VLAN for its utility.
+        This type marks a VLAN for it's utility.
     */
     CPString _type @accessors(property=type);
     
@@ -130,11 +112,7 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"isUplink"];
-        [self exposeLocalKeyPathToREST:@"associatedConnectionType"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
-        [self exposeLocalKeyPathToREST:@"associatedIngressQOSPolicyID"];
-        [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"ducVlan"];
         [self exposeLocalKeyPathToREST:@"externalID"];

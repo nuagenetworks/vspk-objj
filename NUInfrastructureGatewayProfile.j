@@ -39,6 +39,8 @@ NUInfrastructureGatewayProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUInfrastructureGatewayProfileEntityScope_GLOBAL = @"GLOBAL";
 NUInfrastructureGatewayProfileRemoteLogMode_DISABLED = @"DISABLED";
 NUInfrastructureGatewayProfileRemoteLogMode_RSYSLOG = @"RSYSLOG";
+NUInfrastructureGatewayProfileRemoteLogMode_SCP = @"SCP";
+NUInfrastructureGatewayProfileRemoteLogMode_SFTP = @"SFTP";
 NUInfrastructureGatewayProfileUpgradeAction_DOWNLOAD_AND_UPGRADE_AT_WINDOW = @"DOWNLOAD_AND_UPGRADE_AT_WINDOW";
 NUInfrastructureGatewayProfileUpgradeAction_DOWNLOAD_AND_UPGRADE_NOW = @"DOWNLOAD_AND_UPGRADE_NOW";
 NUInfrastructureGatewayProfileUpgradeAction_DOWNLOAD_ONLY = @"DOWNLOAD_ONLY";
@@ -116,6 +118,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         Duration for a controller-less local operation (in ISO-duration format).
     */
     CPString _controllerLessDuration @accessors(property=controllerLessDuration);
+    /*!
+        Flag to enable controller-less operations.
+    */
+    BOOL _controllerLessEnabled @accessors(property=controllerLessEnabled);
     /*!
         The forwarding mode to use for controllerLess operations
     */
@@ -195,6 +201,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"controllerLessDuration"];
+        [self exposeLocalKeyPathToREST:@"controllerLessEnabled"];
         [self exposeLocalKeyPathToREST:@"controllerLessForwardingMode"];
         [self exposeLocalKeyPathToREST:@"controllerLessRemoteDuration"];
         [self exposeLocalKeyPathToREST:@"forceImmediateSystemSync"];

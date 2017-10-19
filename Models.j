@@ -191,7 +191,6 @@
 @import "NUProxyARPFilter.j"
 @import "NUPublicNetworkMacro.j"
 @import "NUQOS.j"
-@import "NUQosPolicer.j"
 @import "NURateLimiter.j"
 @import "NURedirectionTarget.j"
 @import "NURedirectionTargetTemplate.j"
@@ -235,7 +234,6 @@
 @import "NUVNFInterface.j"
 @import "NUVNFInterfaceDescriptor.j"
 @import "NUVNFMetadata.j"
-@import "NUVNFThresholdPolicy.j"
 @import "NUVPNConnection.j"
 @import "NUVPort.j"
 @import "NUVPortMirror.j"
@@ -252,6 +250,7 @@
 @import "NUVsgRedundantPort.j"
 @import "NUWANService.j"
 @import "NUWirelessPort.j"
+@import "NUWirelessPortTemplate.j"
 @import "NUZFBAutoAssignment.j"
 @import "NUZFBRequest.j"
 @import "NUZone.j"
@@ -421,7 +420,6 @@
 [[NURESTModelController defaultController] registerModelClass:NUProxyARPFilter];
 [[NURESTModelController defaultController] registerModelClass:NUPublicNetworkMacro];
 [[NURESTModelController defaultController] registerModelClass:NUQOS];
-[[NURESTModelController defaultController] registerModelClass:NUQosPolicer];
 [[NURESTModelController defaultController] registerModelClass:NURateLimiter];
 [[NURESTModelController defaultController] registerModelClass:NURedirectionTarget];
 [[NURESTModelController defaultController] registerModelClass:NURedirectionTargetTemplate];
@@ -465,7 +463,6 @@
 [[NURESTModelController defaultController] registerModelClass:NUVNFInterface];
 [[NURESTModelController defaultController] registerModelClass:NUVNFInterfaceDescriptor];
 [[NURESTModelController defaultController] registerModelClass:NUVNFMetadata];
-[[NURESTModelController defaultController] registerModelClass:NUVNFThresholdPolicy];
 [[NURESTModelController defaultController] registerModelClass:NUVPNConnection];
 [[NURESTModelController defaultController] registerModelClass:NUVPort];
 [[NURESTModelController defaultController] registerModelClass:NUVPortMirror];
@@ -482,6 +479,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUVsgRedundantPort];
 [[NURESTModelController defaultController] registerModelClass:NUWANService];
 [[NURESTModelController defaultController] registerModelClass:NUWirelessPort];
+[[NURESTModelController defaultController] registerModelClass:NUWirelessPortTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUZFBAutoAssignment];
 [[NURESTModelController defaultController] registerModelClass:NUZFBRequest];
 [[NURESTModelController defaultController] registerModelClass:NUZone];

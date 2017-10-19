@@ -66,10 +66,6 @@
     */
     BOOL _visible @accessors(property=visible);
     /*!
-        The Id of referenced VNF threshold policy
-    */
-    CPString _associatedVNFThresholdPolicyID @accessors(property=associatedVNFThresholdPolicyID);
-    /*!
         Disk storage (in GB) to be allocated VNF instance when deployed
     */
     CPNumber _storageGB @accessors(property=storageGB);
@@ -102,7 +98,6 @@
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"metadataID"];
         [self exposeLocalKeyPathToREST:@"visible"];
-        [self exposeLocalKeyPathToREST:@"associatedVNFThresholdPolicyID"];
         [self exposeLocalKeyPathToREST:@"storageGB"];
         
         _childrenVNFInterfaceDescriptors = [NUVNFInterfaceDescriptorsFetcher fetcherWithParentObject:self];

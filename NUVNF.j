@@ -131,10 +131,6 @@ NUVNFTaskState_UNDEPLOYING = @"UNDEPLOYING";
     */
     CPString _associatedVNFMetadataID @accessors(property=associatedVNFMetadataID);
     /*!
-        VNF threshold policy associated to VNF instance
-    */
-    CPString _associatedVNFThresholdPolicyID @accessors(property=associatedVNFThresholdPolicyID);
-    /*!
         State/Status of the VNF
     */
     CPString _status @accessors(property=status);
@@ -183,7 +179,6 @@ NUVNFTaskState_UNDEPLOYING = @"UNDEPLOYING";
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"isAttachedToDescriptor"];
         [self exposeLocalKeyPathToREST:@"associatedVNFMetadataID"];
-        [self exposeLocalKeyPathToREST:@"associatedVNFThresholdPolicyID"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"storageGB"];
         

@@ -33,6 +33,8 @@
 @import "Fetchers/NUUnderlaysFetcher.j"
 @import "Fetchers/NUCustomPropertiesFetcher.j"
 
+NUUplinkConnectionAddress_IPV4 = @"IPv4";
+NUUplinkConnectionAddress_IPV6 = @"IPv6";
 NUUplinkConnectionAdvertisementCriteria_BFD = @"BFD";
 NUUplinkConnectionAdvertisementCriteria_CONTROL_SESSION = @"CONTROL_SESSION";
 NUUplinkConnectionAdvertisementCriteria_OPERATIONAL_LINK = @"OPERATIONAL_LINK";
@@ -114,9 +116,9 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPNumber _downloadRateLimit @accessors(property=downloadRateLimit);
     /*!
-        ID that unqiuely identifies the uplink.
+        ID that unqiuely identifies the uplink. 
     */
-    CPNumber _uplinkID @accessors(property=uplinkID);
+    CPString _uplinkID @accessors(property=uplinkID);
     /*!
         PPPoE username
     */

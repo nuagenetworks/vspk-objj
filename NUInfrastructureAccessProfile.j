@@ -51,7 +51,7 @@ NUInfrastructureAccessProfileSourceIPFilter_ENABLED = @"ENABLED";
     */
     CPString _SSHAuthMode @accessors(property=SSHAuthMode);
     /*!
-        Name of the Infrastructure Acces Profile
+        Name of the Infrastructure Profile
     */
     CPString _name @accessors(property=name);
     /*!

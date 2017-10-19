@@ -40,7 +40,6 @@ NUStaticRouteIPType_IPV4 = @"IPV4";
 NUStaticRouteIPType_IPV6 = @"IPV6";
 NUStaticRouteType_EXIT_DOMAIN = @"EXIT_DOMAIN";
 NUStaticRouteType_OVERLAY = @"OVERLAY";
-NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
 
 
 /*!

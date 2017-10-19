@@ -81,7 +81,7 @@ NUBRConnectionMode_STATIC = @"Static";
 
 + (CPString)RESTName
 {
-    return @"brconnection";
+    return @"brconnections";
 }
 
 
