@@ -39,9 +39,12 @@
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUUplinkConnectionsFetcher.j"
 @import "Fetchers/NUBRConnectionsFetcher.j"
+@import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NULtestatisticsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUVLANAssociatedConnectionType_BR_CONNECTION = @"BR_CONNECTION";
+NUVLANAssociatedConnectionType_UPLINK_CONNECTION = @"UPLINK_CONNECTION";
 NUVLANEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVLANEntityScope_GLOBAL = @"GLOBAL";
 NUVLANPermittedAction_ALL = @"ALL";
@@ -70,7 +73,7 @@ NUVLANStatus_READY = @"READY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The Gateway associated with this  VLAN  . This is a read only attribute
+        The Gateway associated with this  VLAN. This is a read only attribute
     */
     CPString _gatewayID @accessors(property=gatewayID);
     /*!
@@ -98,9 +101,13 @@ NUVLANStatus_READY = @"READY";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The Vport associated with this  VLAN  . This is a read only attribute
+        The Vport associated with this VLAN. This is a read only attribute
     */
     CPString _vportID @accessors(property=vportID);
+    /*!
+        Indicates if the VLAN is used as an uplink.
+    */
+    BOOL _isUplink @accessors(property=isUplink);
     /*!
         determines whether to use user mnemonic of the Port
     */
@@ -114,9 +121,17 @@ NUVLANStatus_READY = @"READY";
     */
     CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
     /*!
+        Specifies the type of Connection (uplink, BR) associated to this VLAN instance.
+    */
+    CPString _associatedConnectionType @accessors(property=associatedConnectionType);
+    /*!
         ID of the Egress QOS Policy associated with this VLAN.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
+    /*!
+        ID of the Ingress QOS Policy / Tunnel Shaper associated with this VLAN.
+    */
+    CPString _associatedIngressQOSPolicyID @accessors(property=associatedIngressQOSPolicyID);
     /*!
         Associated uplink connection ID
     */
@@ -148,6 +163,7 @@ NUVLANStatus_READY = @"READY";
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUUplinkConnectionsFetcher _childrenUplinkConnections @accessors(property=childrenUplinkConnections);
     NUBRConnectionsFetcher _childrenBRConnections @accessors(property=childrenBRConnections);
+    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NULtestatisticsFetcher _childrenLtestatistics @accessors(property=childrenLtestatistics);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
@@ -180,10 +196,13 @@ NUVLANStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"restricted"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"vportID"];
+        [self exposeLocalKeyPathToREST:@"isUplink"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
+        [self exposeLocalKeyPathToREST:@"associatedConnectionType"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedIngressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"status"];
@@ -200,6 +219,7 @@ NUVLANStatus_READY = @"READY";
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenUplinkConnections = [NUUplinkConnectionsFetcher fetcherWithParentObject:self];
         _childrenBRConnections = [NUBRConnectionsFetcher fetcherWithParentObject:self];
+        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenLtestatistics = [NULtestatisticsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
