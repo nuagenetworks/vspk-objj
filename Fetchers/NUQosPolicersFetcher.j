@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUWirelessPortTemplate
+@class NUQosPolicer
 
 
-@implementation NUWirelessPortTemplatesFetcher : NURESTFetcher
+@implementation NUQosPolicersFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUWirelessPortTemplate;
+    return NUQosPolicer;
 }
 
 @end

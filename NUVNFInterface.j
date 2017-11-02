@@ -98,7 +98,7 @@ NUVNFInterfaceAttachedNetworkType_SUBNET = @"SUBNET";
     /*!
         Indicates if this is a management interface
     */
-    CPString _isManagementInterface @accessors(property=isManagementInterface);
+    BOOL _isManagementInterface @accessors(property=isManagementInterface);
     /*!
         ID of the Subnet that the interface is attached to
     */

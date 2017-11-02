@@ -31,34 +31,30 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUUplinkConnectionsFetcher.j"
-@import "Fetchers/NUBRConnectionsFetcher.j"
 
-NUVLANTemplateAssociatedConnectionType_BR_CONNECTION = @"BR_CONNECTION";
-NUVLANTemplateAssociatedConnectionType_UPLINK_CONNECTION = @"UPLINK_CONNECTION";
-NUVLANTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUVLANTemplateEntityScope_GLOBAL = @"GLOBAL";
-NUVLANTemplateType_ACCESS = @"ACCESS";
-NUVLANTemplateType_BR = @"BR";
-NUVLANTemplateType_DUC = @"DUC";
-NUVLANTemplateType_UPLINK = @"UPLINK";
+NUQosPolicerEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUQosPolicerEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Represents VLAN Template under a Port Template object.
+    QoS Policer ensures that traffic adheres to the stipulated QoS defined in your network. Contains Rate and Burst configurations and can be associated to VLANs.
 */
-@implementation NUVLANTemplate : NURESTObject
+@implementation NUQosPolicer : NURESTObject
 {
     /*!
-        Value of VLAN
+        Name of the QoS Policer
     */
-    CPNumber _value @accessors(property=value);
+    CPString _name @accessors(property=name);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        A description of the Port
+        Rate: Bandwidth that is allowed in Mb/s; only whole values supported.
+    */
+    CPNumber _rate @accessors(property=rate);
+    /*!
+        Description of the QoS Policer
     */
     CPString _description @accessors(property=description);
     /*!
@@ -66,46 +62,16 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Indicates that this VLAN Template should be considered as being used for uplink connection.
+        Burst Size: The maximum burst size associated with the QoS Policer in kilo-bits; only whole values are supported.
     */
-    BOOL _isUplink @accessors(property=isUplink);
-    /*!
-        States the managed object type of the uplink connection associated to this VLAN Template instance.
-    */
-    CPString _associatedConnectionType @accessors(property=associatedConnectionType);
-    /*!
-        ID of the Egress QOS Policy associated with this Vlan.
-    */
-    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
-    /*!
-        ID of the Ingress QoS Policy associated with this VLAN Template.
-    */
-    CPString _associatedIngressQOSPolicyID @accessors(property=associatedIngressQOSPolicyID);
-    /*!
-        ID of the uplink connection making use of this VLAN Template instance.
-    */
-    CPString _associatedUplinkConnectionID @accessors(property=associatedUplinkConnectionID);
-    /*!
-        The ID of the infrastructure VSC profile this is associated with this instance of a vlan or vlan template.
-    */
-    CPString _associatedVSCProfileID @accessors(property=associatedVSCProfileID);
-    /*!
-        When set to true, this specifies that this VLAN template instance serves as an underlay connection endpoint on an NSG-UBR gateway.
-    */
-    BOOL _ducVlan @accessors(property=ducVlan);
+    CPNumber _burst @accessors(property=burst);
     /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        This type marks a VLAN for its utility.
-    */
-    CPString _type @accessors(property=type);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUUplinkConnectionsFetcher _childrenUplinkConnections @accessors(property=childrenUplinkConnections);
-    NUBRConnectionsFetcher _childrenBRConnections @accessors(property=childrenBRConnections);
     
 }
 
@@ -115,7 +81,7 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
 
 + (CPString)RESTName
 {
-    return @"vlantemplate";
+    return @"qospolicer";
 }
 
 
@@ -126,24 +92,16 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"value"];
+        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"rate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"isUplink"];
-        [self exposeLocalKeyPathToREST:@"associatedConnectionType"];
-        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
-        [self exposeLocalKeyPathToREST:@"associatedIngressQOSPolicyID"];
-        [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
-        [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
-        [self exposeLocalKeyPathToREST:@"ducVlan"];
+        [self exposeLocalKeyPathToREST:@"burst"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenUplinkConnections = [NUUplinkConnectionsFetcher fetcherWithParentObject:self];
-        _childrenBRConnections = [NUBRConnectionsFetcher fetcherWithParentObject:self];
         
         
     }

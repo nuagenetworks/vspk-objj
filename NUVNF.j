@@ -117,7 +117,7 @@ NUVNFTaskState_UNDEPLOYING = @"UNDEPLOYING";
     /*!
         Action allowed to  performed on VNF based on current status and taskState
     */
-    CPString _allowedActions @accessors(property=allowedActions);
+    CPArrayController _allowedActions @accessors(property=allowedActions);
     /*!
         ID of the enterprise that this VNF belongs to
     */
@@ -130,6 +130,10 @@ NUVNFTaskState_UNDEPLOYING = @"UNDEPLOYING";
         VNF metadata associated to VNF instance. 
     */
     CPString _associatedVNFMetadataID @accessors(property=associatedVNFMetadataID);
+    /*!
+        VNF threshold policy associated to VNF instance
+    */
+    CPString _associatedVNFThresholdPolicyID @accessors(property=associatedVNFThresholdPolicyID);
     /*!
         State/Status of the VNF
     */
@@ -179,6 +183,7 @@ NUVNFTaskState_UNDEPLOYING = @"UNDEPLOYING";
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"isAttachedToDescriptor"];
         [self exposeLocalKeyPathToREST:@"associatedVNFMetadataID"];
+        [self exposeLocalKeyPathToREST:@"associatedVNFThresholdPolicyID"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"storageGB"];
         

@@ -29,8 +29,13 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUVPortsFetcher.j"
 
 NUOverlayMirrorDestinationEndPointType_VIRTUAL_WIRE = @"VIRTUAL_WIRE";
+NUOverlayMirrorDestinationEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUOverlayMirrorDestinationEntityScope_GLOBAL = @"GLOBAL";
 NUOverlayMirrorDestinationTriggerType_GARP = @"GARP";
 NUOverlayMirrorDestinationTriggerType_NONE = @"NONE";
 
@@ -48,6 +53,10 @@ NUOverlayMirrorDestinationTriggerType_NONE = @"NONE";
         Name of this overlay mirror destination
     */
     CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Allow/Disallow redundant appliances and VIP
     */
@@ -69,10 +78,21 @@ NUOverlayMirrorDestinationTriggerType_NONE = @"NONE";
     */
     CPString _endPointType @accessors(property=endPointType);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Trigger type, THIS IS READ ONLY. Possible values are NONE, GARP, .
     */
     CPString _triggerType @accessors(property=triggerType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     
 }
 
@@ -95,13 +115,19 @@ NUOverlayMirrorDestinationTriggerType_NONE = @"NONE";
     {
         [self exposeLocalKeyPathToREST:@"ESI"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"redundancyEnabled"];
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"virtualNetworkID"];
         [self exposeLocalKeyPathToREST:@"endPointType"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"triggerType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         
         
     }

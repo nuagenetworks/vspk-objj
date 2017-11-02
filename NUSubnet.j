@@ -203,11 +203,11 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPNumber _policyGroupID @accessors(property=policyGroupID);
     /*!
-        The Route Distinguisher value assigned by VSD for this subnet that is used by the BGP-EVPN protocol in VSC
+        Route distinguisher for this subnet that is used by the BGP-EVPN protocol in VSC. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
     */
     CPString _routeDistinguisher @accessors(property=routeDistinguisher);
     /*!
-        The Route Target value assigned by VSD for this subnet that is used by the BGP-EVPN protocol in VSC
+        Route target for this subnet that is used by the BGP-EVPN protocol in VSC. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
     */
     CPString _routeTarget @accessors(property=routeTarget);
     /*!
@@ -234,6 +234,10 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         when set to true means public subnet under a public zone
     */
     BOOL _public @accessors(property=public);
+    /*!
+        Boolean flag to indicate whether this is a Multi-homed subnet or not.
+    */
+    BOOL _multiHomeEnabled @accessors(property=multiHomeEnabled);
     /*!
         multicast is enum that indicates multicast policy on Subnet/Subnet Template.
     */
@@ -325,6 +329,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
         [self exposeLocalKeyPathToREST:@"public"];
+        [self exposeLocalKeyPathToREST:@"multiHomeEnabled"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];

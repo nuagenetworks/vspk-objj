@@ -68,15 +68,15 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     */
     BOOL _DHCPManaged @accessors(property=DHCPManaged);
     /*!
-        backHaulRouteDistinguisher of the Shared Resource
+        Backhaul route distinguisher of the shared resource. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
     */
     CPString _backHaulRouteDistinguisher @accessors(property=backHaulRouteDistinguisher);
     /*!
-        backHaulRouteTarget of the Shared Resource
+        Backhaul route target of the shared resource. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
     */
     CPString _backHaulRouteTarget @accessors(property=backHaulRouteTarget);
     /*!
-        backHaulVNID of the Shared Resource
+        Backhaul virtual network ID of the shared resource
     */
     CPNumber _backHaulVNID @accessors(property=backHaulVNID);
     /*!
@@ -120,7 +120,7 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _sharedResourceParentID @accessors(property=sharedResourceParentID);
     /*!
-        VNID of the Shared Resource
+        Virtual network ID of the shared resource
     */
     CPNumber _vnID @accessors(property=vnID);
     /*!
@@ -132,11 +132,11 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Route distinguisher configured on the shared resource
+        Route distinguisher configured on the shared resource. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
     */
     CPString _domainRouteDistinguisher @accessors(property=domainRouteDistinguisher);
     /*!
-        Route target configured on the shared resource
+        Route target configured on the shared resource. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
     */
     CPString _domainRouteTarget @accessors(property=domainRouteTarget);
     /*!

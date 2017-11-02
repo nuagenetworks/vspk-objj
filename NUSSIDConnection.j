@@ -86,6 +86,10 @@ NUSSIDConnectionRedirectOption_ORIGINAL_REQUEST = @"ORIGINAL_REQUEST";
     */
     CPString _interfaceName @accessors(property=interfaceName);
     /*!
+        The Vport associated with this SSID connection.
+    */
+    CPString _vportID @accessors(property=vportID);
+    /*!
         Boolean that defines if the SSID name is to be broadcasted or not.
     */
     BOOL _broadcastSSID @accessors(property=broadcastSSID);
@@ -134,6 +138,7 @@ NUSSIDConnectionRedirectOption_ORIGINAL_REQUEST = @"ORIGINAL_REQUEST";
         [self exposeLocalKeyPathToREST:@"whiteList"];
         [self exposeLocalKeyPathToREST:@"blackList"];
         [self exposeLocalKeyPathToREST:@"interfaceName"];
+        [self exposeLocalKeyPathToREST:@"vportID"];
         [self exposeLocalKeyPathToREST:@"broadcastSSID"];
         [self exposeLocalKeyPathToREST:@"associatedCaptivePortalProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];

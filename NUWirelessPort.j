@@ -139,10 +139,6 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
     */
     CPString _name @accessors(property=name);
     /*!
-        The ID of the template that this Wireless Port was created from.  If the wireless port was not created from a template, then the value will be null.
-    */
-    CPString _templateID @accessors(property=templateID);
-    /*!
         This field is used to contain the "blob" parameters for the WiFi Card (physical module) on the NSG.
     */
     CPString _genericConfig @accessors(property=genericConfig);
@@ -200,7 +196,6 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"genericConfig"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
