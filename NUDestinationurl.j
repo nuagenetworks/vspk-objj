@@ -29,81 +29,51 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
-NUVRSMetricsEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
+NUDestinationurlEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUDestinationurlEntityScope_GLOBAL = @"GLOBAL";
+NUDestinationurlHTTPMethod_GET = @"GET";
+NUDestinationurlHTTPMethod_HEAD = @"HEAD";
 
 
 /*!
-    None
+    destination URL under tier
 */
-@implementation NUVRSMetrics : NURESTObject
+@implementation NUDestinationurl : NURESTObject
 {
     /*!
-        alubr0 status
+        Uniform Resource Locator
     */
-    BOOL _ALUbr0Status @accessors(property=ALUbr0Status);
+    CPString _URL @accessors(property=URL);
     /*!
-        cpu utilization
+        HTTP probe method (GET/HEAD)
     */
-    CPNumber _CPUUtilization @accessors(property=CPUUtilization);
-    /*!
-        vrs vsc process status
-    */
-    BOOL _VRSProcess @accessors(property=VRSProcess);
-    /*!
-        vrs vrs connection status
-    */
-    BOOL _VRSVSCStatus @accessors(property=VRSVSCStatus);
+    CPString _HTTPMethod @accessors(property=HTTPMethod);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        re-Deploy
+        Weight of the URL in %. Applicable only when parent is Tier1
     */
-    BOOL _reDeploy @accessors(property=reDeploy);
-    /*!
-        Is the VRS VM Sending Metrics to the hypervisor on VCIN
-    */
-    BOOL _receivingMetrics @accessors(property=receivingMetrics);
-    /*!
-        Memory Utilization
-    */
-    CPNumber _memoryUtilization @accessors(property=memoryUtilization);
-    /*!
-        jesxmon process status
-    */
-    BOOL _jesxmonProcess @accessors(property=jesxmonProcess);
+    CPNumber _percentageWeight @accessors(property=percentageWeight);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Log Disk Partition Utilization
+        Successive Probe threshold. Applicable only if this URL's parent is Tier1
     */
-    CPNumber _logDiskPartitionUtilization @accessors(property=logDiskPartitionUtilization);
-    /*!
-        Root Disk Partition Utilization
-    */
-    CPNumber _rootDiskPartitionUtilization @accessors(property=rootDiskPartitionUtilization);
-    /*!
-        The currently applied interval with which metrics are being send to VCIN from the VRS. The value can be configured through VCIN
-    */
-    CPNumber _appliedMetricsPushInterval @accessors(property=appliedMetricsPushInterval);
-    /*!
-        None
-    */
-    CPString _associatedVCenterHypervisorID @accessors(property=associatedVCenterHypervisorID);
-    /*!
-        Current version of the VRS VM
-    */
-    CPString _currentVersion @accessors(property=currentVersion);
+    CPNumber _downThresholdCount @accessors(property=downThresholdCount);
     /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -113,7 +83,7 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"vrsmetrics";
+    return @"destinationurl";
 }
 
 
@@ -124,23 +94,16 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"ALUbr0Status"];
-        [self exposeLocalKeyPathToREST:@"CPUUtilization"];
-        [self exposeLocalKeyPathToREST:@"VRSProcess"];
-        [self exposeLocalKeyPathToREST:@"VRSVSCStatus"];
+        [self exposeLocalKeyPathToREST:@"URL"];
+        [self exposeLocalKeyPathToREST:@"HTTPMethod"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"reDeploy"];
-        [self exposeLocalKeyPathToREST:@"receivingMetrics"];
-        [self exposeLocalKeyPathToREST:@"memoryUtilization"];
-        [self exposeLocalKeyPathToREST:@"jesxmonProcess"];
+        [self exposeLocalKeyPathToREST:@"percentageWeight"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"logDiskPartitionUtilization"];
-        [self exposeLocalKeyPathToREST:@"rootDiskPartitionUtilization"];
-        [self exposeLocalKeyPathToREST:@"appliedMetricsPushInterval"];
-        [self exposeLocalKeyPathToREST:@"associatedVCenterHypervisorID"];
-        [self exposeLocalKeyPathToREST:@"currentVersion"];
+        [self exposeLocalKeyPathToREST:@"downThresholdCount"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

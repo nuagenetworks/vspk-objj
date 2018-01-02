@@ -42,6 +42,10 @@ NUBGPNeighborEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUBGPNeighbor : NURESTObject
 {
     /*!
+        Enable or disable Bidirectional Forwarding Detection for this BGP neighbor
+    */
+    BOOL _BFDEnabled @accessors(property=BFDEnabled);
+    /*!
         Name of the peer
     */
     CPString _name @accessors(property=name);
@@ -104,6 +108,7 @@ NUBGPNeighborEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"BFDEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"dampeningEnabled"];
         [self exposeLocalKeyPathToREST:@"peerAS"];

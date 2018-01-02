@@ -62,7 +62,7 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        A description of the Port
+        A description of the NSG Port Template
     */
     CPString _description @accessors(property=description);
     /*!
@@ -70,7 +70,7 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
     */
     CPString _physicalName @accessors(property=physicalName);
     /*!
-        The ID of the infrastructure profile this instance is associated with.
+        The ID of the infrastructure port profile this Template instance is associated with. (Deprecated in 4.0)
     */
     CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
     /*!
@@ -78,7 +78,7 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Type of the Port.
+        Type of the Ports that will be instantiated from this template.
     */
     CPString _portType @accessors(property=portType);
     /*!
@@ -86,7 +86,7 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
     */
     CPString _speed @accessors(property=speed);
     /*!
-        ID of the Egress QOS Policy associated with this Vlan.
+        ID of the Egress QoS Policy associated with this NSG Port Template.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!

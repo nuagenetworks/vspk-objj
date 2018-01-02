@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUKeyServerNotification
+@class NUOSPFInstance
 
 
-@implementation NUKeyServerNotificationsFetcher : NURESTFetcher
+@implementation NUOSPFInstancesFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUKeyServerNotification;
+    return NUOSPFInstance;
 }
 
 @end

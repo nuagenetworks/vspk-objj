@@ -58,6 +58,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
 @implementation NUUplinkConnection : NURESTObject
 {
     /*!
+        Indicates whether PAT is enabled on the underlay for this uplink connection.
+    */
+    BOOL _PATEnabled @accessors(property=PATEnabled);
+    /*!
         DNS server address
     */
     CPString _DNSAddress @accessors(property=DNSAddress);
@@ -89,6 +93,14 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         The tag of the uplink's parent VLAN
     */
     CPString _vlanId @accessors(property=vlanId);
+    /*!
+        Indicated whether route to underlay is enabled on this uplink connection.
+    */
+    BOOL _underlayEnabled @accessors(property=underlayEnabled);
+    /*!
+        Boolean flag to indicate that connection parameters will be configured by the installer onsite. Limited to ConnectionMode: PPPoE
+    */
+    BOOL _installerManaged @accessors(property=installerManaged);
     /*!
         The way the interface is connected via the NSG.  This value depends on if the interface internal or external to the NSG.
     */
@@ -161,6 +173,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"PATEnabled"];
         [self exposeLocalKeyPathToREST:@"DNSAddress"];
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"gateway"];
@@ -169,6 +182,8 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"secondaryAddress"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"vlanId"];
+        [self exposeLocalKeyPathToREST:@"underlayEnabled"];
+        [self exposeLocalKeyPathToREST:@"installerManaged"];
         [self exposeLocalKeyPathToREST:@"interfaceConnectionType"];
         [self exposeLocalKeyPathToREST:@"mode"];
         [self exposeLocalKeyPathToREST:@"role"];

@@ -54,7 +54,7 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
     */
     CPString _SSHService @accessors(property=SSHService);
     /*!
-        Name of the Gateway
+        Name of the Gateway template.
     */
     CPString _name @accessors(property=name);
     /*!
@@ -62,11 +62,11 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Personality of the Gateway - NSG, NSGBR, cannot be changed after creation.
+        Personality of the Gateway template - NSG, NSGBR, cannot be changed after creation.
     */
     CPString _personality @accessors(property=personality);
     /*!
-        A description of the Gateway
+        A description of the Gateway template.
     */
     CPString _description @accessors(property=description);
     /*!
@@ -74,7 +74,7 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
     */
     CPString _infrastructureAccessProfileID @accessors(property=infrastructureAccessProfileID);
     /*!
-        The ID of the infrastructure gateway profile this instance of a Gateway is associated with.
+        The ID of the infrastructure gateway profile this instance of a Gateway template is associated with.
     */
     CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
     /*!
@@ -82,7 +82,7 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
     */
     CPString _instanceSSHOverride @accessors(property=instanceSSHOverride);
     /*!
-        The enterprise associated with this Gateway. This is a read only attribute
+        The enterprise associated with this Gateway template. This is a read only attribute
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
     /*!

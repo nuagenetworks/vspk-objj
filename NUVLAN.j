@@ -93,7 +93,7 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPString _permittedAction @accessors(property=permittedAction);
     /*!
-        A description of the Port
+        A description of the VLAN instance.
     */
     CPString _description @accessors(property=description);
     /*!
@@ -113,11 +113,11 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     BOOL _isUplink @accessors(property=isUplink);
     /*!
-        determines whether to use user mnemonic of the Port
+        Determines whether to use the defined mnemonic for this VLAN instance.
     */
     BOOL _useUserMnemonic @accessors(property=useUserMnemonic);
     /*!
-        user mnemonic of the Port
+        User mnemonic of the VLAN instance.
     */
     CPString _userMnemonic @accessors(property=userMnemonic);
     /*!
@@ -137,7 +137,7 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPString _associatedIngressOverlayQoSPolicerID @accessors(property=associatedIngressOverlayQoSPolicerID);
     /*!
-        ID of the Ingress QOS Policy / Tunnel Shaper associated with this VLAN.
+        ID of the Ingress QoS Policy / Tunnel Shaper associated with this VLAN.
     */
     CPString _associatedIngressQOSPolicyID @accessors(property=associatedIngressQOSPolicyID);
     /*!
@@ -165,7 +165,7 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        This type marks a VLAN for it's utility.
+        This type marks a VLAN for its utility.
     */
     CPString _type @accessors(property=type);
     

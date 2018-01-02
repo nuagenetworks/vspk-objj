@@ -29,81 +29,57 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUDestinationurlsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
-NUVRSMetricsEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
+NUTierEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUTierEntityScope_GLOBAL = @"GLOBAL";
+NUTierTierType_TIER1 = @"TIER1";
+NUTierTierType_TIER2 = @"TIER2";
 
 
 /*!
-    None
+    When the customer creates an HTTP probe, VSD will automatically create Tier1 and Tier2 under it with default properties.
 */
-@implementation NUVRSMetrics : NURESTObject
+@implementation NUTier : NURESTObject
 {
     /*!
-        alubr0 status
+        packet count (part of rate along with probeInterval)
     */
-    BOOL _ALUbr0Status @accessors(property=ALUbr0Status);
-    /*!
-        cpu utilization
-    */
-    CPNumber _CPUUtilization @accessors(property=CPUUtilization);
-    /*!
-        vrs vsc process status
-    */
-    BOOL _VRSProcess @accessors(property=VRSProcess);
-    /*!
-        vrs vrs connection status
-    */
-    BOOL _VRSVSCStatus @accessors(property=VRSVSCStatus);
+    CPNumber _packetCount @accessors(property=packetCount);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        re-Deploy
+        Tier type
     */
-    BOOL _reDeploy @accessors(property=reDeploy);
+    CPString _tierType @accessors(property=tierType);
     /*!
-        Is the VRS VM Sending Metrics to the hypervisor on VCIN
+        number of milliseconds to wait until the probe is timed out
     */
-    BOOL _receivingMetrics @accessors(property=receivingMetrics);
-    /*!
-        Memory Utilization
-    */
-    CPNumber _memoryUtilization @accessors(property=memoryUtilization);
-    /*!
-        jesxmon process status
-    */
-    BOOL _jesxmonProcess @accessors(property=jesxmonProcess);
+    CPNumber _timeout @accessors(property=timeout);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Log Disk Partition Utilization
+        Number of times the probe is allowed to retry on successive timeouts. Applicable only for TIER2
     */
-    CPNumber _logDiskPartitionUtilization @accessors(property=logDiskPartitionUtilization);
+    CPNumber _downThresholdCount @accessors(property=downThresholdCount);
     /*!
-        Root Disk Partition Utilization
+        probe interval (part of rate along with packetCount)
     */
-    CPNumber _rootDiskPartitionUtilization @accessors(property=rootDiskPartitionUtilization);
-    /*!
-        The currently applied interval with which metrics are being send to VCIN from the VRS. The value can be configured through VCIN
-    */
-    CPNumber _appliedMetricsPushInterval @accessors(property=appliedMetricsPushInterval);
-    /*!
-        None
-    */
-    CPString _associatedVCenterHypervisorID @accessors(property=associatedVCenterHypervisorID);
-    /*!
-        Current version of the VRS VM
-    */
-    CPString _currentVersion @accessors(property=currentVersion);
+    CPNumber _probeInterval @accessors(property=probeInterval);
     /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUDestinationurlsFetcher _childrenDestinationurls @accessors(property=childrenDestinationurls);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -113,7 +89,7 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"vrsmetrics";
+    return @"tier";
 }
 
 
@@ -124,23 +100,18 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"ALUbr0Status"];
-        [self exposeLocalKeyPathToREST:@"CPUUtilization"];
-        [self exposeLocalKeyPathToREST:@"VRSProcess"];
-        [self exposeLocalKeyPathToREST:@"VRSVSCStatus"];
+        [self exposeLocalKeyPathToREST:@"packetCount"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"reDeploy"];
-        [self exposeLocalKeyPathToREST:@"receivingMetrics"];
-        [self exposeLocalKeyPathToREST:@"memoryUtilization"];
-        [self exposeLocalKeyPathToREST:@"jesxmonProcess"];
+        [self exposeLocalKeyPathToREST:@"tierType"];
+        [self exposeLocalKeyPathToREST:@"timeout"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"logDiskPartitionUtilization"];
-        [self exposeLocalKeyPathToREST:@"rootDiskPartitionUtilization"];
-        [self exposeLocalKeyPathToREST:@"appliedMetricsPushInterval"];
-        [self exposeLocalKeyPathToREST:@"associatedVCenterHypervisorID"];
-        [self exposeLocalKeyPathToREST:@"currentVersion"];
+        [self exposeLocalKeyPathToREST:@"downThresholdCount"];
+        [self exposeLocalKeyPathToREST:@"probeInterval"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenDestinationurls = [NUDestinationurlsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

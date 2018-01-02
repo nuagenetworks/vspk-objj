@@ -77,11 +77,11 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _gatewayPeer1ID @accessors(property=gatewayPeer1ID);
     /*!
-        The gateway   configuration owner name in this Redundant Group
+        The name of the authoritative gateway owning the configuration for the Redundant Group
     */
     CPString _gatewayPeer1Name @accessors(property=gatewayPeer1Name);
     /*!
-        The Auto Discovered Gateway  peer in this Redundant Group
+        The Auto Discovered Gateway configuration for the secondary gateway in this Redundant Group.
     */
     CPString _gatewayPeer2AutodiscoveredGatewayID @accessors(property=gatewayPeer2AutodiscoveredGatewayID);
     /*!
@@ -89,11 +89,11 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _gatewayPeer2ID @accessors(property=gatewayPeer2ID);
     /*!
-        The gateway peer name in this Redundant Group
+        The secondary gateway peer name in this Redundant Group.
     */
     CPString _gatewayPeer2Name @accessors(property=gatewayPeer2Name);
     /*!
-        Heartbeat interval in milliseconds to declare the neighbor dead.
+        Heartbeat interval in milliseconds to declare the neighbor as dead.
     */
     CPNumber _heartbeatInterval @accessors(property=heartbeatInterval);
     /*!
@@ -101,15 +101,15 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPNumber _heartbeatVLANID @accessors(property=heartbeatVLANID);
     /*!
-        Collections resilient port ids associated with this redundant group.
+        Collections resilient port IDs associated with this redundant group.
     */
     CPArrayController _redundancyPortIDs @accessors(property=redundancyPortIDs);
     /*!
-        The status of  Redundant Group.
+        The status of the Redundant Group.
     */
     CPString _redundantGatewayStatus @accessors(property=redundantGatewayStatus);
     /*!
-        The permitted  action to USE/EXTEND  this Gateway.
+        The permitted action to USE/EXTEND this Gateway.
     */
     CPString _permittedAction @accessors(property=permittedAction);
     /*!
@@ -117,7 +117,7 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _personality @accessors(property=personality);
     /*!
-         Description of the Redundancy Group
+        Description of the Redundancy Group
     */
     CPString _description @accessors(property=description);
     /*!
@@ -129,7 +129,7 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Consecutive failure count.
+        Consecutive failure count.  Supported value is 3.
     */
     CPNumber _consecutiveFailuresCount @accessors(property=consecutiveFailuresCount);
     /*!

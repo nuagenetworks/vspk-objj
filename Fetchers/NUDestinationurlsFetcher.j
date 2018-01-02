@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUVia
+@class NUDestinationurl
 
 
-@implementation NUViasFetcher : NURESTFetcher
+@implementation NUDestinationurlsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUVia;
+    return NUDestinationurl;
 }
 
 @end

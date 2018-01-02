@@ -42,7 +42,7 @@ NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUInfrastructureVscProfile : NURESTObject
 {
     /*!
-        Name of the Infrastructure Profile
+        Name of the Infrastructure VSC Profile
     */
     CPString _name @accessors(property=name);
     /*!
@@ -54,7 +54,7 @@ NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _secondController @accessors(property=secondController);
     /*!
-        A description of the Profile instance created.
+        A description of the VSC Profile instance created.
     */
     CPString _description @accessors(property=description);
     /*!
@@ -70,7 +70,7 @@ NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Openflow echo timer in millisecond
+        Openflow echo timer in milliseconds.
     */
     CPNumber _probeInterval @accessors(property=probeInterval);
     /*!

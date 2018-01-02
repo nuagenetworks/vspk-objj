@@ -26,48 +26,16 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <AppKit/CPArrayController.j>
-@import <Bambou/NURESTObject.j>
+@import <Bambou/NURESTFetcher.j>
+
+@class NUVirtualFirewallRule
 
 
+@implementation NUVirtualFirewallRulesFetcher : NURESTFetcher
 
-/*!
-    None
-*/
-@implementation NUVia : NURESTObject
++ (Class)managedObjectClass
 {
-    /*!
-        A set of NextHop objects. A NextHop can be either an InetAddress (IPv4 or IPV6) address or a VLAN ID (for NSGBR)
-    */
-    CPArrayController _nextHops @accessors(property=nextHops);
-    
-    
-}
-
-
-#pragma mark -
-#pragma mark Class Method
-
-+ (CPString)RESTName
-{
-    return @"via";
-}
-
-
-#pragma mark -
-#pragma mark Initialization
-
-- (id)init
-{
-    if (self = [super init])
-    {
-        [self exposeLocalKeyPathToREST:@"nextHops"];
-        
-        
-        
-    }
-
-    return self;
+    return NUVirtualFirewallRule;
 }
 
 @end

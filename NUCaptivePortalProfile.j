@@ -36,7 +36,7 @@ NUCaptivePortalProfilePortalType_CLICK_THROUGH = @"CLICK_THROUGH";
 
 
 /*!
-    Object representing a Wireless Access Captive Portal Profile which can be associated with SSID entities from which end users may be presented with instructions and condition of use when connecting to an Open wireless access point.
+    Object representing a Wireless Access Captive Portal Profile which can be associated with SSID entities from which end users may be presented with instructions and condition of use when connecting to an open wireless access point.
 */
 @implementation NUCaptivePortalProfile : NURESTObject
 {
@@ -45,7 +45,7 @@ NUCaptivePortalProfilePortalType_CLICK_THROUGH = @"CLICK_THROUGH";
     */
     CPString _name @accessors(property=name);
     /*!
-        Attribute having the contents of captive portal page displayed to end user. User can possibly include very basic HTML tags like <p>, <ul> etc. inorder to fomat the text displayed to the user.
+        Attribute having the contents of captive portal page displayed to end user. User can possibly include very basic HTML tags like <p>, <ul> etc. in order to fomat the text displayed to the user.
     */
     CPString _captivePage @accessors(property=captivePage);
     /*!
@@ -61,7 +61,7 @@ NUCaptivePortalProfilePortalType_CLICK_THROUGH = @"CLICK_THROUGH";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Type of the portal page.
+        Type of the portal page.  Will decide if the NSG rendering the page will have a strict rendering of the welcoming page based on what is given by VSD, or if the information can be made customisable by an operator to include animations, videos, images, and other types of more complex scripts.
     */
     CPString _portalType @accessors(property=portalType);
     /*!

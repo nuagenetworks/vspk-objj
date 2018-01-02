@@ -33,8 +33,15 @@
 NUNSGInfoEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGInfoEntityScope_GLOBAL = @"GLOBAL";
 NUNSGInfoFamily_ANY = @"ANY";
+NUNSGInfoFamily_NSG_AMI = @"NSG_AMI";
+NUNSGInfoFamily_NSG_C = @"NSG_C";
+NUNSGInfoFamily_NSG_DOCKER = @"NSG_DOCKER";
 NUNSGInfoFamily_NSG_E = @"NSG_E";
+NUNSGInfoFamily_NSG_E200 = @"NSG_E200";
+NUNSGInfoFamily_NSG_E300 = @"NSG_E300";
 NUNSGInfoFamily_NSG_V = @"NSG_V";
+NUNSGInfoFamily_NSG_X = @"NSG_X";
+NUNSGInfoFamily_NSG_X200 = @"NSG_X200";
 NUNSGInfoTPMStatus_DISABLED = @"DISABLED";
 NUNSGInfoTPMStatus_ENABLED_NOT_OPERATIONAL = @"ENABLED_NOT_OPERATIONAL";
 NUNSGInfoTPMStatus_ENABLED_OPERATIONAL = @"ENABLED_OPERATIONAL";
@@ -47,11 +54,15 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
 @implementation NUNSGInfo : NURESTObject
 {
     /*!
-        MAC Address of the NSG
+        MAC Address of the NSG.  May represent the MAC address of the first uplink that came operational during bootstrapping.
     */
     CPString _MACAddress @accessors(property=MACAddress);
     /*!
-        NSG BIOS Version
+        Release Date of the NSG BiOS
+    */
+    CPString _BIOSReleaseDate @accessors(property=BIOSReleaseDate);
+    /*!
+        NSG BIOS Version as received from the NSG during bootstrap or a reboot.  If the information exeeds 255 characters, the extra characters will be truncated.
     */
     CPString _BIOSVersion @accessors(property=BIOSVersion);
     /*!
@@ -59,27 +70,27 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _SKU @accessors(property=SKU);
     /*!
-        TPM status
+        TPM status as reported by the NSG during bootstrapping.  This informate indicates if TPM is being used in securing the private key/certificate of an NSG.
     */
     CPString _TPMStatus @accessors(property=TPMStatus);
     /*!
-        The NSG Processor Type
+        The NSG Processor Type based on information extracted during bootstrapping.  This may refer to a type of processor manufactured by Intel, ARM, AMD, Cyrix, VIA, or others.
     */
     CPString _CPUType @accessors(property=CPUType);
     /*!
-        The NSG Version
+        The NSG Version as reported during a bootstrap or a reboot of the NSG. 
     */
     CPString _NSGVersion @accessors(property=NSGVersion);
     /*!
-        The Redhat UUID of the NSG
+        The Redhat/CentOS UUID of the NSG
     */
     CPString _UUID @accessors(property=UUID);
     /*!
-        The NSG Type
+        The NSG Family type as it was returned by the NSG during bootstrapping.
     */
     CPString _family @accessors(property=family);
     /*!
-        The NSG's serial number
+        The NSG's serial number as it is stored in the system's CMOS (Motherboard)
     */
     CPString _serialNumber @accessors(property=serialNumber);
     /*!
@@ -91,11 +102,11 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        NSG Product Name
+        NSG Product Name as reported when the device bootstraps.
     */
     CPString _productName @accessors(property=productName);
     /*!
-        Associated NS Gateway ID
+        The ID of the NSG from which the infomation was collected.
     */
     CPString _associatedNSGatewayID @accessors(property=associatedNSGatewayID);
     /*!
@@ -124,6 +135,7 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"MACAddress"];
+        [self exposeLocalKeyPathToREST:@"BIOSReleaseDate"];
         [self exposeLocalKeyPathToREST:@"BIOSVersion"];
         [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];

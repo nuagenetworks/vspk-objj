@@ -49,7 +49,7 @@
     */
     CPNumber _VSSStatsInterval @accessors(property=VSSStatsInterval);
     /*!
-        Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires "statisticsEnabled".
+        Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires 'statisticsEnabled'.
     */
     BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!

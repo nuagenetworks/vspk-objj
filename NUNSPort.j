@@ -70,7 +70,7 @@ NUNSPortStatus_READY = @"READY";
 @implementation NUNSPort : NURESTObject
 {
     /*!
-        Enum value that states the type of NAT Traversal the NSG instance will use to talk to other NSGs and the Internet.
+        Enum value that states the type of NAT Traversal the NSG instance will use to talk to other NSGs and the Internet.  (This field is deprecated in 5.0)
     */
     CPString _NATTraversal @accessors(property=NATTraversal);
     /*!
@@ -90,7 +90,7 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _templateID @accessors(property=templateID);
     /*!
-        The permitted  action to USE/EXTEND  this Gateway.
+        The permitted action to USE/EXTEND this NSG Port.
     */
     CPString _permittedAction @accessors(property=permittedAction);
     /*!
@@ -130,7 +130,7 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _userMnemonic @accessors(property=userMnemonic);
     /*!
-        ID of the Egress QOS Policy associated with this Vlan.
+        ID of the Egress QoS Policy associated with this NSG Port.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!

@@ -29,7 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPerformanceMonitorsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
 
@@ -308,11 +310,15 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
     */
     CPString _name @accessors(property=name);
     /*!
+        skbMark, used by vrs for the ike monitor feature
+    */
+    CPNumber _mark @accessors(property=mark);
+    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        
+        The sequence of the IKE Gateway Connection
     */
     CPNumber _sequence @accessors(property=sequence);
     /*!
@@ -360,7 +366,9 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUPerformanceMonitorsFetcher _childrenPerformanceMonitors @accessors(property=childrenPerformanceMonitors);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
     
@@ -387,6 +395,7 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
         [self exposeLocalKeyPathToREST:@"NSGIdentifierType"];
         [self exposeLocalKeyPathToREST:@"NSGRole"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"mark"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"sequence"];
         [self exposeLocalKeyPathToREST:@"allowAnySubnet"];
@@ -401,7 +410,9 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
         [self exposeLocalKeyPathToREST:@"associatedVLANID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPerformanceMonitors = [NUPerformanceMonitorsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
         

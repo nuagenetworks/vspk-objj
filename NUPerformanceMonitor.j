@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUTiersFetcher.j"
 @import "Fetchers/NUApplicationperformancemanagementsFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
 
@@ -93,9 +94,9 @@ NUPerformanceMonitorServiceClass_H = @"H";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Number of times the probe is allowed to retry on successive timeouts
+        probation Timer in seconds
     */
-    CPNumber _downThresholdCount @accessors(property=downThresholdCount);
+    CPNumber _holdDownTimer @accessors(property=holdDownTimer);
     /*!
         Type to be assigned to this probe
     */
@@ -109,6 +110,7 @@ NUPerformanceMonitorServiceClass_H = @"H";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUTiersFetcher _childrenTiers @accessors(property=childrenTiers);
     NUApplicationperformancemanagementsFetcher _childrenApplicationperformancemanagements @accessors(property=childrenApplicationperformancemanagements);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     
@@ -141,11 +143,12 @@ NUPerformanceMonitorServiceClass_H = @"H";
         [self exposeLocalKeyPathToREST:@"timeout"];
         [self exposeLocalKeyPathToREST:@"interval"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"downThresholdCount"];
+        [self exposeLocalKeyPathToREST:@"holdDownTimer"];
         [self exposeLocalKeyPathToREST:@"probeType"];
         [self exposeLocalKeyPathToREST:@"numberOfPackets"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenTiers = [NUTiersFetcher fetcherWithParentObject:self];
         _childrenApplicationperformancemanagements = [NUApplicationperformancemanagementsFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         

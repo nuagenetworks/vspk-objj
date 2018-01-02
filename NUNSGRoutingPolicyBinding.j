@@ -32,36 +32,50 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
-NUKeyServerNotificationEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUKeyServerNotificationEntityScope_GLOBAL = @"GLOBAL";
-NUKeyServerNotificationNotificationType_CONFIG_UPDATE = @"CONFIG_UPDATE";
-NUKeyServerNotificationNotificationType_ENCRYPTION_DISABLED = @"ENCRYPTION_DISABLED";
-NUKeyServerNotificationNotificationType_ENCRYPTION_ENABLED = @"ENCRYPTION_ENABLED";
-NUKeyServerNotificationNotificationType_REKEY = @"REKEY";
-NUKeyServerNotificationNotificationType_TEST = @"TEST";
+NUNSGRoutingPolicyBindingEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUNSGRoutingPolicyBindingEntityScope_GLOBAL = @"GLOBAL";
+NUNSGRoutingPolicyBindingExportToOverlay_DISABLED = @"DISABLED";
+NUNSGRoutingPolicyBindingExportToOverlay_ENABLED = @"ENABLED";
+NUNSGRoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
 
 
 /*!
-    KeyServer Notification - Create one of these transient objects to push an event to the KeyServer
+    None
 */
-@implementation NUKeyServerNotification : NURESTObject
+@implementation NUNSGRoutingPolicyBinding : NURESTObject
 {
     /*!
-        The base 64 encoded JSON String of the message object
+        Name of the RoutingPolicyBinding is unique within the Domain
     */
-    CPString _base64JSONString @accessors(property=base64JSONString);
+    CPString _name @accessors(property=name);
     /*!
-        The message to send
+        ID of the user who last updated the object.
     */
-    NURESTObject _message @accessors(property=message);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Description for this Routing Policy Binding Object.
+    */
+    CPString _description @accessors(property=description);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The notification type to trigger
+        ID of the Export Routing Policy which is associated to the current NSGRoutingPolicyBinding object.
     */
-    CPString _notificationType @accessors(property=notificationType);
+    CPString _associatedExportRoutingPolicyID @accessors(property=associatedExportRoutingPolicyID);
+    /*!
+        ID of the Import Routing Policy which is associated to the current NSGRoutingPolicyBinding object.
+    */
+    CPString _associatedImportRoutingPolicyID @accessors(property=associatedImportRoutingPolicyID);
+    /*!
+        ID of the Policy Object Group which is associated to the current NSGRoutingPolicyBinding object.
+    */
+    CPString _associatedPolicyObjectGroupID @accessors(property=associatedPolicyObjectGroupID);
+    /*!
+        Flag to determine whether the BGP and OSPF learnt routes will be exported to VSC or not. This flags also exists at the domain level. If this attribute is set to 'INHERITED' (the default), the behavior is whatever is set at the domain level. Otherwise, this attribute takes precedence over the domain level one.
+    */
+    CPString _exportToOverlay @accessors(property=exportToOverlay);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -78,7 +92,7 @@ NUKeyServerNotificationNotificationType_TEST = @"TEST";
 
 + (CPString)RESTName
 {
-    return @"keyservernotification";
+    return @"nsgroutingpolicybinding";
 }
 
 
@@ -89,10 +103,14 @@ NUKeyServerNotificationNotificationType_TEST = @"TEST";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"base64JSONString"];
-        [self exposeLocalKeyPathToREST:@"message"];
+        [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"notificationType"];
+        [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedImportRoutingPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedPolicyObjectGroupID"];
+        [self exposeLocalKeyPathToREST:@"exportToOverlay"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -139,7 +139,7 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
     */
     CPString _name @accessors(property=name);
     /*!
-        This field is used to contain the "blob" parameters for the WiFi Card (physical module) on the NSG.
+        This field is used to contain the 'blob' parameters for the WiFi Card (physical module) on the NSG.
     */
     CPString _genericConfig @accessors(property=genericConfig);
     /*!

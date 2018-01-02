@@ -78,6 +78,11 @@ NUIngressAdvFwdEntryTemplateNetworkType_ZONE = @"ZONE";
 NUIngressAdvFwdEntryTemplatePolicyState_DRAFT = @"DRAFT";
 NUIngressAdvFwdEntryTemplatePolicyState_LIVE = @"LIVE";
 NUIngressAdvFwdEntryTemplateRedirectRewriteType_VLAN = @"VLAN";
+NUIngressAdvFwdEntryTemplateRemoteUplinkPreference_DEFAULT = @"DEFAULT";
+NUIngressAdvFwdEntryTemplateRemoteUplinkPreference_PRIMARY = @"PRIMARY";
+NUIngressAdvFwdEntryTemplateRemoteUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECONDARY";
+NUIngressAdvFwdEntryTemplateRemoteUplinkPreference_SECONDARY = @"SECONDARY";
+NUIngressAdvFwdEntryTemplateRemoteUplinkPreference_SECONDARY_PRIMARY = @"SECONDARY_PRIMARY";
 NUIngressAdvFwdEntryTemplateUplinkPreference_DEFAULT = @"DEFAULT";
 NUIngressAdvFwdEntryTemplateUplinkPreference_PRIMARY = @"PRIMARY";
 NUIngressAdvFwdEntryTemplateUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECONDARY";
@@ -147,6 +152,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         VPort tag to which traffic will be redirected to, when ACL entry match criteria succeeds
     */
     CPString _redirectVPortTagID @accessors(property=redirectVPortTagID);
+    /*!
+        Indicates the preferencial path selection for network traffic for this ACL.
+    */
+    CPString _remoteUplinkPreference @accessors(property=remoteUplinkPreference);
     /*!
         Description of the ACL entry
     */
@@ -294,6 +303,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"redirectRewriteType"];
         [self exposeLocalKeyPathToREST:@"redirectRewriteValue"];
         [self exposeLocalKeyPathToREST:@"redirectVPortTagID"];
+        [self exposeLocalKeyPathToREST:@"remoteUplinkPreference"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];

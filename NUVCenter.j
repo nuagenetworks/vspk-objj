@@ -37,6 +37,11 @@
 @import "Fetchers/NUVRSRedeploymentpoliciesFetcher.j"
 @import "Fetchers/NUAutodiscovereddatacentersFetcher.j"
 
+NUVCenterAvrsProfile_AVRS_25G = @"AVRS_25G";
+NUVCenterCpuCount_DEFAULT_2 = @"DEFAULT_2";
+NUVCenterCpuCount_LARGE_6 = @"LARGE_6";
+NUVCenterCpuCount_MEDIUM_4 = @"MEDIUM_4";
+NUVCenterCpuCount_XLARGE_8 = @"XLARGE_8";
 NUVCenterDestinationMirrorPort_ENS160 = @"ens160";
 NUVCenterDestinationMirrorPort_ENS161 = @"ens161";
 NUVCenterDestinationMirrorPort_ENS224 = @"ens224";
@@ -44,6 +49,9 @@ NUVCenterDestinationMirrorPort_ENS256 = @"ens256";
 NUVCenterDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterEntityScope_GLOBAL = @"GLOBAL";
+NUVCenterMemorySizeInGB_DEFAULT_4 = @"DEFAULT_4";
+NUVCenterMemorySizeInGB_LARGE_8 = @"LARGE_8";
+NUVCenterMemorySizeInGB_MEDIUM_6 = @"MEDIUM_6";
 NUVCenterRemoteSyslogServerType_NONE = @"NONE";
 NUVCenterRemoteSyslogServerType_TCP = @"TCP";
 NUVCenterRemoteSyslogServerType_UDP = @"UDP";
@@ -95,9 +103,41 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPNumber _datapathSyncTimeout @accessors(property=datapathSyncTimeout);
     /*!
+        Enable DHCP on the secondary data uplink.
+    */
+    BOOL _secondaryDataUplinkDHCPEnabled @accessors(property=secondaryDataUplinkDHCPEnabled);
+    /*!
+        Enable secondary data uplink
+    */
+    BOOL _secondaryDataUplinkEnabled @accessors(property=secondaryDataUplinkEnabled);
+    /*!
+        Interface to use for the secondary data uplink. This interface can be a normal interface or a VLAN on an existing interface. Please read the VMware integration guide for more details.
+    */
+    CPString _secondaryDataUplinkInterface @accessors(property=secondaryDataUplinkInterface);
+    /*!
+        Secondary data uplink MTU
+    */
+    CPNumber _secondaryDataUplinkMTU @accessors(property=secondaryDataUplinkMTU);
+    /*!
+        Secondary data uplink primary controller IP
+    */
+    CPString _secondaryDataUplinkPrimaryController @accessors(property=secondaryDataUplinkPrimaryController);
+    /*!
+        Secondary data uplink secondary controller IP
+    */
+    CPString _secondaryDataUplinkSecondaryController @accessors(property=secondaryDataUplinkSecondaryController);
+    /*!
+        Secondary data uplink underlay ID
+    */
+    CPNumber _secondaryDataUplinkUnderlayID @accessors(property=secondaryDataUplinkUnderlayID);
+    /*!
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
+    /*!
+        Memory in Gigabytes
+    */
+    CPString _memorySizeInGB @accessors(property=memorySizeInGB);
     /*!
         Remote syslog server IP
     */
@@ -163,6 +203,14 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPString _networkUplinkInterfaceNetmask @accessors(property=networkUplinkInterfaceNetmask);
     /*!
+        Enable revertive controller behaviour. If this is enabled, OVS will make its primary VSC as its master VSC once it is back up.
+    */
+    BOOL _revertiveControllerEnabled @accessors(property=revertiveControllerEnabled);
+    /*!
+        A timer in seconds indicating after how long OVS should retry to connect to the primary VSC as its master after a failure.
+    */
+    CPNumber _revertiveTimer @accessors(property=revertiveTimer);
+    /*!
         IP address of NFS server to send the VRS log
     */
     CPString _nfsLogServer @accessors(property=nfsLogServer);
@@ -195,6 +243,14 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPString _mirrorNetworkPortgroup @accessors(property=mirrorNetworkPortgroup);
     /*!
+        Disable GRO on datapath
+    */
+    BOOL _disableGROOnDatapath @accessors(property=disableGROOnDatapath);
+    /*!
+        Disable LRO on datapath
+    */
+    BOOL _disableLROOnDatapath @accessors(property=disableLROOnDatapath);
+    /*!
         disable Network Discovery (true - dont fetch portgroups from vcenter, false - fetch portgroups from vcenter)
     */
     BOOL _disableNetworkDiscovery @accessors(property=disableNetworkDiscovery);
@@ -223,9 +279,17 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPString _vmNetworkPortgroup @accessors(property=vmNetworkPortgroup);
     /*!
+        Enable resource reservation on the VRS. When this is enabled, all memory and 100% of CPU resources allocated to the VRS will be reserved.
+    */
+    BOOL _enableVRSResourceReservation @accessors(property=enableVRSResourceReservation);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Configured VRS metrics push interval on VCIN
+    */
+    CPNumber _configuredMetricsPushInterval @accessors(property=configuredMetricsPushInterval);
     /*!
         VCenter connection status.
     */
@@ -310,6 +374,14 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         Time limit for the patch based upgrade functionality. If the upgrade process of a VRS has not returned a success or failure status within this time limit, the status will be changed to TIMEOUT. Specified in seconds
     */
     CPNumber _upgradeScriptTimeLimit @accessors(property=upgradeScriptTimeLimit);
+    /*!
+        The number of vCPUs that will be assigned to the VRS.
+    */
+    CPString _cpuCount @accessors(property=cpuCount);
+    /*!
+        Primary data uplink underlay ID
+    */
+    CPNumber _primaryDataUplinkUnderlayID @accessors(property=primaryDataUplinkUnderlayID);
     /*!
         IP address of the primary Controller (VSC)
     */
@@ -411,6 +483,14 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPString _ovfURL @accessors(property=ovfURL);
     /*!
+        When enabled, the AVRS functionality will be enabled on the VRS during bootstrapping. This feature requires special AVRS licenses and specific configuration which is described in the product documentation.
+    */
+    BOOL _avrsEnabled @accessors(property=avrsEnabled);
+    /*!
+        The AVRS configuration profile that needs to be set up. This profile will configure the AVRS services so that it can support a certain type of performance.
+    */
+    CPString _avrsProfile @accessors(property=avrsProfile);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -452,7 +532,15 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"dataGateway"];
         [self exposeLocalKeyPathToREST:@"dataNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkDHCPEnabled"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkEnabled"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkInterface"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkMTU"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkPrimaryController"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkSecondaryController"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkUnderlayID"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"memorySizeInGB"];
         [self exposeLocalKeyPathToREST:@"remoteSyslogServerIP"];
         [self exposeLocalKeyPathToREST:@"remoteSyslogServerPort"];
         [self exposeLocalKeyPathToREST:@"remoteSyslogServerType"];
@@ -469,6 +557,8 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceGateway"];
         [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceIp"];
         [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceNetmask"];
+        [self exposeLocalKeyPathToREST:@"revertiveControllerEnabled"];
+        [self exposeLocalKeyPathToREST:@"revertiveTimer"];
         [self exposeLocalKeyPathToREST:@"nfsLogServer"];
         [self exposeLocalKeyPathToREST:@"nfsMountPath"];
         [self exposeLocalKeyPathToREST:@"mgmtDNS1"];
@@ -477,6 +567,8 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"mgmtNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
         [self exposeLocalKeyPathToREST:@"mirrorNetworkPortgroup"];
+        [self exposeLocalKeyPathToREST:@"disableGROOnDatapath"];
+        [self exposeLocalKeyPathToREST:@"disableLROOnDatapath"];
         [self exposeLocalKeyPathToREST:@"disableNetworkDiscovery"];
         [self exposeLocalKeyPathToREST:@"siteId"];
         [self exposeLocalKeyPathToREST:@"oldAgencyName"];
@@ -484,7 +576,9 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
         [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
         [self exposeLocalKeyPathToREST:@"vmNetworkPortgroup"];
+        [self exposeLocalKeyPathToREST:@"enableVRSResourceReservation"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"configuredMetricsPushInterval"];
         [self exposeLocalKeyPathToREST:@"connectionStatus"];
         [self exposeLocalKeyPathToREST:@"portgroupMetadata"];
         [self exposeLocalKeyPathToREST:@"hostLevelManagement"];
@@ -506,6 +600,8 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"upgradePackageURL"];
         [self exposeLocalKeyPathToREST:@"upgradePackageUsername"];
         [self exposeLocalKeyPathToREST:@"upgradeScriptTimeLimit"];
+        [self exposeLocalKeyPathToREST:@"cpuCount"];
+        [self exposeLocalKeyPathToREST:@"primaryDataUplinkUnderlayID"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsConfigID"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
@@ -531,6 +627,8 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
         [self exposeLocalKeyPathToREST:@"autoResolveFrequency"];
         [self exposeLocalKeyPathToREST:@"ovfURL"];
+        [self exposeLocalKeyPathToREST:@"avrsEnabled"];
+        [self exposeLocalKeyPathToREST:@"avrsProfile"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenVCenterDataCenters = [NUVCenterDataCentersFetcher fetcherWithParentObject:self];

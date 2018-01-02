@@ -36,6 +36,11 @@
 @import "Fetchers/NUVRSMetricsFetcher.j"
 @import "Fetchers/NUVRSRedeploymentpoliciesFetcher.j"
 
+NUVCenterHypervisorAvrsProfile_AVRS_25G = @"AVRS_25G";
+NUVCenterHypervisorCpuCount_DEFAULT_2 = @"DEFAULT_2";
+NUVCenterHypervisorCpuCount_LARGE_6 = @"LARGE_6";
+NUVCenterHypervisorCpuCount_MEDIUM_4 = @"MEDIUM_4";
+NUVCenterHypervisorCpuCount_XLARGE_8 = @"XLARGE_8";
 NUVCenterHypervisorDestinationMirrorPort_ENS160 = @"ens160";
 NUVCenterHypervisorDestinationMirrorPort_ENS161 = @"ens161";
 NUVCenterHypervisorDestinationMirrorPort_ENS224 = @"ens224";
@@ -43,6 +48,9 @@ NUVCenterHypervisorDestinationMirrorPort_ENS256 = @"ens256";
 NUVCenterHypervisorDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterHypervisorEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
+NUVCenterHypervisorMemorySizeInGB_DEFAULT_4 = @"DEFAULT_4";
+NUVCenterHypervisorMemorySizeInGB_LARGE_8 = @"LARGE_8";
+NUVCenterHypervisorMemorySizeInGB_MEDIUM_6 = @"MEDIUM_6";
 NUVCenterHypervisorRemoteSyslogServerType_NONE = @"NONE";
 NUVCenterHypervisorRemoteSyslogServerType_TCP = @"TCP";
 NUVCenterHypervisorRemoteSyslogServerType_UDP = @"UDP";
@@ -147,9 +155,49 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     BOOL _scope @accessors(property=scope);
     /*!
+        Enable DHCP on the secondary data uplink.
+    */
+    BOOL _secondaryDataUplinkDHCPEnabled @accessors(property=secondaryDataUplinkDHCPEnabled);
+    /*!
+        Enable secondary data uplink
+    */
+    BOOL _secondaryDataUplinkEnabled @accessors(property=secondaryDataUplinkEnabled);
+    /*!
+        Secondary data uplink IP
+    */
+    CPString _secondaryDataUplinkIP @accessors(property=secondaryDataUplinkIP);
+    /*!
+        Interface to use for the secondary data uplink. This interface can be a normal interface or a VLAN on an existing interface. Please read the VMware integration guide for more details.
+    */
+    CPString _secondaryDataUplinkInterface @accessors(property=secondaryDataUplinkInterface);
+    /*!
+        Secondary data uplink MTU
+    */
+    CPNumber _secondaryDataUplinkMTU @accessors(property=secondaryDataUplinkMTU);
+    /*!
+        Secondary data uplink Netmask
+    */
+    CPString _secondaryDataUplinkNetmask @accessors(property=secondaryDataUplinkNetmask);
+    /*!
+        Secondary data uplink primary controller IP
+    */
+    CPString _secondaryDataUplinkPrimaryController @accessors(property=secondaryDataUplinkPrimaryController);
+    /*!
+        Secondary data uplink secondary controller IP
+    */
+    CPString _secondaryDataUplinkSecondaryController @accessors(property=secondaryDataUplinkSecondaryController);
+    /*!
+        Secondary data uplink underlay ID
+    */
+    CPNumber _secondaryDataUplinkUnderlayID @accessors(property=secondaryDataUplinkUnderlayID);
+    /*!
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
+    /*!
+        Memory in Gigabytes
+    */
+    CPString _memorySizeInGB @accessors(property=memorySizeInGB);
     /*!
         Remote syslog server IP
     */
@@ -223,6 +271,14 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _networkUplinkInterfaceNetmask @accessors(property=networkUplinkInterfaceNetmask);
     /*!
+        Enable revertive controller behaviour. If this is enabled, OVS will make its primary VSC as its master VSC once it is back up.
+    */
+    BOOL _revertiveControllerEnabled @accessors(property=revertiveControllerEnabled);
+    /*!
+         A timer in seconds indicating after how long OVS should retry to connect to the primary VSC as its master after a failure.
+    */
+    CPNumber _revertiveTimer @accessors(property=revertiveTimer);
+    /*!
         IP address of NFS server to send the VRS log
     */
     CPString _nfsLogServer @accessors(property=nfsLogServer);
@@ -263,6 +319,14 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _mirrorNetworkPortgroup @accessors(property=mirrorNetworkPortgroup);
     /*!
+        Disable GRO on datapath
+    */
+    BOOL _disableGROOnDatapath @accessors(property=disableGROOnDatapath);
+    /*!
+        Disable LRO on datapath
+    */
+    BOOL _disableLROOnDatapath @accessors(property=disableLROOnDatapath);
+    /*!
         Site ID field for object profiles to support VSD Geo-redundancy
     */
     CPString _siteId @accessors(property=siteId);
@@ -283,9 +347,17 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _vmNetworkPortgroup @accessors(property=vmNetworkPortgroup);
     /*!
+        Enable resource reservation on the VRS. When this is enabled, all memory and 100% of CPU resources allocated to the VRS will be reserved.
+    */
+    BOOL _enableVRSResourceReservation @accessors(property=enableVRSResourceReservation);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Configured VRS metrics push interval on VCIN
+    */
+    CPNumber _configuredMetricsPushInterval @accessors(property=configuredMetricsPushInterval);
     /*!
         Flag to specify if VRS is deployed using tool box.
     */
@@ -386,6 +458,14 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         Time limit for the patch based upgrade functionality. If the upgrade process of a VRS has not returned a success or failure status within this time limit, the status will be changed to TIMEOUT. Specified in seconds
     */
     BOOL _upgradeTimedout @accessors(property=upgradeTimedout);
+    /*!
+        The number of vCPUs that will be assigned to the VRS.
+    */
+    CPString _cpuCount @accessors(property=cpuCount);
+    /*!
+        Primary data uplink underlay ID
+    */
+    CPNumber _primaryDataUplinkUnderlayID @accessors(property=primaryDataUplinkUnderlayID);
     /*!
         IP address of the primary Controller (VSC)
     */
@@ -491,6 +571,14 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _ovfURL @accessors(property=ovfURL);
     /*!
+        When enabled, the AVRS functionality will be enabled on the VRS during bootstrapping. This feature requires special AVRS licenses and specific configuration which is described in the product documentation.
+    */
+    BOOL _avrsEnabled @accessors(property=avrsEnabled);
+    /*!
+        The AVRS configuration profile that needs to be set up. This profile will configure the AVRS services so that it can support a certain type of performance.
+    */
+    CPString _avrsProfile @accessors(property=avrsProfile);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -555,7 +643,17 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"dataNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"scope"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkDHCPEnabled"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkEnabled"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkIP"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkInterface"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkMTU"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkNetmask"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkPrimaryController"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkSecondaryController"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkUnderlayID"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"memorySizeInGB"];
         [self exposeLocalKeyPathToREST:@"remoteSyslogServerIP"];
         [self exposeLocalKeyPathToREST:@"remoteSyslogServerPort"];
         [self exposeLocalKeyPathToREST:@"remoteSyslogServerType"];
@@ -574,6 +672,8 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceGateway"];
         [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceIp"];
         [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceNetmask"];
+        [self exposeLocalKeyPathToREST:@"revertiveControllerEnabled"];
+        [self exposeLocalKeyPathToREST:@"revertiveTimer"];
         [self exposeLocalKeyPathToREST:@"nfsLogServer"];
         [self exposeLocalKeyPathToREST:@"nfsMountPath"];
         [self exposeLocalKeyPathToREST:@"mgmtDNS1"];
@@ -584,12 +684,16 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"mgmtNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
         [self exposeLocalKeyPathToREST:@"mirrorNetworkPortgroup"];
+        [self exposeLocalKeyPathToREST:@"disableGROOnDatapath"];
+        [self exposeLocalKeyPathToREST:@"disableLROOnDatapath"];
         [self exposeLocalKeyPathToREST:@"siteId"];
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
         [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
         [self exposeLocalKeyPathToREST:@"vmNetworkPortgroup"];
+        [self exposeLocalKeyPathToREST:@"enableVRSResourceReservation"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"configuredMetricsPushInterval"];
         [self exposeLocalKeyPathToREST:@"toolboxDeploymentMode"];
         [self exposeLocalKeyPathToREST:@"toolboxGroup"];
         [self exposeLocalKeyPathToREST:@"toolboxIP"];
@@ -615,6 +719,8 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"upgradeScriptTimeLimit"];
         [self exposeLocalKeyPathToREST:@"upgradeStatus"];
         [self exposeLocalKeyPathToREST:@"upgradeTimedout"];
+        [self exposeLocalKeyPathToREST:@"cpuCount"];
+        [self exposeLocalKeyPathToREST:@"primaryDataUplinkUnderlayID"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsId"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
@@ -641,6 +747,8 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
         [self exposeLocalKeyPathToREST:@"availableNetworks"];
         [self exposeLocalKeyPathToREST:@"ovfURL"];
+        [self exposeLocalKeyPathToREST:@"avrsEnabled"];
+        [self exposeLocalKeyPathToREST:@"avrsProfile"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"hypervisorIP"];
         [self exposeLocalKeyPathToREST:@"hypervisorPassword"];

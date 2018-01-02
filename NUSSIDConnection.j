@@ -86,7 +86,7 @@ NUSSIDConnectionRedirectOption_ORIGINAL_REQUEST = @"ORIGINAL_REQUEST";
     */
     CPString _interfaceName @accessors(property=interfaceName);
     /*!
-        The Vport associated with this SSID connection.
+        The Vport associated with this SSID connection.  The attribute can't be modified directly from the SSID Connection.
     */
     CPString _vportID @accessors(property=vportID);
     /*!

@@ -60,6 +60,7 @@
 @import "Fetchers/NULicensesFetcher.j"
 @import "Fetchers/NULicenseStatusFetcher.j"
 @import "Fetchers/NUMirrorDestinationsFetcher.j"
+@import "Fetchers/NUVirtualFirewallPoliciesFetcher.j"
 @import "Fetchers/NUSiteInfosFetcher.j"
 @import "Fetchers/NUFloatingIpsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
@@ -93,6 +94,7 @@
 @import "Fetchers/NUVCenterVRSConfigsFetcher.j"
 @import "Fetchers/NUDSCPRemarkingPolicyTablesFetcher.j"
 @import "Fetchers/NUUsersFetcher.j"
+@import "Fetchers/NUUserContextsFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
 @import "Fetchers/NUNSGatewayTemplatesFetcher.j"
 @import "Fetchers/NUNSGGroupsFetcher.j"
@@ -152,7 +154,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _elasticSearchAddress @accessors(property=elasticSearchAddress);
     /*!
-        Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires "statisticsEnabled".
+        Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires 'statisticsEnabled'.
     */
     BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
@@ -223,6 +225,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NULicensesFetcher _childrenLicenses @accessors(property=childrenLicenses);
     NULicenseStatusFetcher _childrenLicenseStatus @accessors(property=childrenLicenseStatus);
     NUMirrorDestinationsFetcher _childrenMirrorDestinations @accessors(property=childrenMirrorDestinations);
+    NUVirtualFirewallPoliciesFetcher _childrenVirtualFirewallPolicies @accessors(property=childrenVirtualFirewallPolicies);
     NUSiteInfosFetcher _childrenSiteInfos @accessors(property=childrenSiteInfos);
     NUFloatingIpsFetcher _childrenFloatingIps @accessors(property=childrenFloatingIps);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -256,6 +259,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUVCenterVRSConfigsFetcher _childrenVCenterVRSConfigs @accessors(property=childrenVCenterVRSConfigs);
     NUDSCPRemarkingPolicyTablesFetcher _childrenDSCPRemarkingPolicyTables @accessors(property=childrenDSCPRemarkingPolicyTables);
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
+    NUUserContextsFetcher _childrenUserContexts @accessors(property=childrenUserContexts);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     NUNSGatewayTemplatesFetcher _childrenNSGatewayTemplates @accessors(property=childrenNSGatewayTemplates);
     NUNSGGroupsFetcher _childrenNSGGroups @accessors(property=childrenNSGGroups);
@@ -342,6 +346,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenLicenses = [NULicensesFetcher fetcherWithParentObject:self];
         _childrenLicenseStatus = [NULicenseStatusFetcher fetcherWithParentObject:self];
         _childrenMirrorDestinations = [NUMirrorDestinationsFetcher fetcherWithParentObject:self];
+        _childrenVirtualFirewallPolicies = [NUVirtualFirewallPoliciesFetcher fetcherWithParentObject:self];
         _childrenSiteInfos = [NUSiteInfosFetcher fetcherWithParentObject:self];
         _childrenFloatingIps = [NUFloatingIpsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
@@ -375,6 +380,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenVCenterVRSConfigs = [NUVCenterVRSConfigsFetcher fetcherWithParentObject:self];
         _childrenDSCPRemarkingPolicyTables = [NUDSCPRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
+        _childrenUserContexts = [NUUserContextsFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         _childrenNSGatewayTemplates = [NUNSGatewayTemplatesFetcher fetcherWithParentObject:self];
         _childrenNSGGroups = [NUNSGGroupsFetcher fetcherWithParentObject:self];

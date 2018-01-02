@@ -68,7 +68,7 @@ NURedundantPortStatus_READY = @"READY";
     */
     CPNumber _MTU @accessors(property=MTU);
     /*!
-        Name of the Port
+        Name of the Redundant Port
     */
     CPString _name @accessors(property=name);
     /*!
@@ -76,19 +76,19 @@ NURedundantPortStatus_READY = @"READY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The permitted  action to USE/EXTEND  this Gateway.
+        The permitted action to USE/EXTEND this Redundant Port.
     */
     CPString _permittedAction @accessors(property=permittedAction);
     /*!
-        A description of the Port
+        A description of the Redundant Port instance.
     */
     CPString _description @accessors(property=description);
     /*!
-        Identifier of the Port
+        Identifier of the Redundant Port.  The name should be corresponding to the Physical Name of the ports belonging to this redundant instance.
     */
     CPString _physicalName @accessors(property=physicalName);
     /*!
-        The ID of the infrastructure profile this instance is associated with.
+        The ID of the infrastructure port profile this instance is associated with.
     */
     CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
     /*!
@@ -96,15 +96,15 @@ NURedundantPortStatus_READY = @"READY";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        The master gateway peer port id.
+        Port ID of the port acting as master component of the redundant port instance.
     */
     CPString _portPeer1ID @accessors(property=portPeer1ID);
     /*!
-        The slave gateway peer port id.
+        Port ID of the port acting as slave component of the redundant port instance.
     */
     CPString _portPeer2ID @accessors(property=portPeer2ID);
     /*!
-        Type of the Port.
+        Type of the Redundant Port.
     */
     CPString _portType @accessors(property=portType);
     /*!
@@ -116,19 +116,19 @@ NURedundantPortStatus_READY = @"READY";
     */
     BOOL _useUntaggedHeartbeatVlan @accessors(property=useUntaggedHeartbeatVlan);
     /*!
-        determines whether to use user mnemonic of the Port
+        Determines whether to use user mnemonic of the Port
     */
     BOOL _useUserMnemonic @accessors(property=useUserMnemonic);
     /*!
-        user mnemonic of the Port
+        User mnemonic of the Redundant Port.
     */
     CPString _userMnemonic @accessors(property=userMnemonic);
     /*!
-        ID of the Egress QOS Policy associated with this Vlan.
+        ID of the Egress QoS Policy associated with this Redundant Port.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
-        Status of the port.
+        Status of the redundant port.
     */
     CPString _status @accessors(property=status);
     /*!

@@ -49,6 +49,10 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
 @implementation NUStaticRoute : NURESTObject
 {
     /*!
+        Enable or disable Bidirectional Forwarding Detection for this static route
+    */
+    BOOL _BFDEnabled @accessors(property=BFDEnabled);
+    /*!
         IPv4 or IPv6
     */
     CPString _IPType @accessors(property=IPType);
@@ -116,6 +120,7 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"BFDEnabled"];
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];

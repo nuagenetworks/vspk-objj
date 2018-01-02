@@ -60,7 +60,7 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
     */
     CPString _managementMode @accessors(property=managementMode);
     /*!
-        User password stored as a hash (SHA-1 encrpted)
+        User password in clear text. Password cannot be a single character asterisk (*)
     */
     CPString _password @accessors(property=password);
     /*!

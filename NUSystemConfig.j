@@ -316,6 +316,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _offsetServiceID @accessors(property=offsetServiceID);
     /*!
+        Enable Virtual Firewall Rule creation and management. This will be available only with VSS license
+    */
+    BOOL _virtualFirewallRulesEnabled @accessors(property=virtualFirewallRulesEnabled);
+    /*!
         EJBCA NSG Certificate Profile
     */
     CPString _ejbcaNSGCertificateProfile @accessors(property=ejbcaNSGCertificateProfile);
@@ -352,7 +356,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _globalMACAddress @accessors(property=globalMACAddress);
     /*!
-        Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires "statisticsEnabled".
+        Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires 'statisticsEnabled'.
     */
     BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
@@ -702,6 +706,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"keyServerVSDDataSynchronizationInterval"];
         [self exposeLocalKeyPathToREST:@"offsetCustomerID"];
         [self exposeLocalKeyPathToREST:@"offsetServiceID"];
+        [self exposeLocalKeyPathToREST:@"virtualFirewallRulesEnabled"];
         [self exposeLocalKeyPathToREST:@"ejbcaNSGCertificateProfile"];
         [self exposeLocalKeyPathToREST:@"ejbcaNSGEndEntityProfile"];
         [self exposeLocalKeyPathToREST:@"ejbcaOCSPResponderCN"];

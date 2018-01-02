@@ -72,6 +72,7 @@
 @import "NUDUCGroup.j"
 @import "NUDUCGroupBinding.j"
 @import "NUDemarcationService.j"
+@import "NUDestinationurl.j"
 @import "NUDiskStat.j"
 @import "NUDomain.j"
 @import "NUDomainFIPAclTemplate.j"
@@ -129,7 +130,6 @@
 @import "NUKeyServerMonitorEncryptedSeed.j"
 @import "NUKeyServerMonitorSEK.j"
 @import "NUKeyServerMonitorSeed.j"
-@import "NUKeyServerNotification.j"
 @import "NUL2Domain.j"
 @import "NUL2DomainTemplate.j"
 @import "NUL4Service.j"
@@ -154,6 +154,7 @@
 @import "NUNATMapEntry.j"
 @import "NUNSGGroup.j"
 @import "NUNSGInfo.j"
+@import "NUNSGRoutingPolicyBinding.j"
 @import "NUNSGUpgradeProfile.j"
 @import "NUNSGateway.j"
 @import "NUNSGatewayTemplate.j"
@@ -165,6 +166,9 @@
 @import "NUNetworkPerformanceBinding.j"
 @import "NUNetworkPerformanceMeasurement.j"
 @import "NUNextHop.j"
+@import "NUOSPFArea.j"
+@import "NUOSPFInstance.j"
+@import "NUOSPFInterface.j"
 @import "NUOverlayAddressPool.j"
 @import "NUOverlayMirrorDestination.j"
 @import "NUOverlayMirrorDestinationTemplate.j"
@@ -211,6 +215,7 @@
 @import "NUSubnetTemplate.j"
 @import "NUSystemConfig.j"
 @import "NUTCA.j"
+@import "NUTier.j"
 @import "NUTrunk.j"
 @import "NUUnderlay.j"
 @import "NUUplinkConnection.j"
@@ -247,7 +252,8 @@
 @import "NUVSD.j"
 @import "NUVSDComponent.j"
 @import "NUVSP.j"
-@import "NUVia.j"
+@import "NUVirtualFirewallPolicy.j"
+@import "NUVirtualFirewallRule.j"
 @import "NUVirtualIP.j"
 @import "NUVsgRedundantPort.j"
 @import "NUWANService.j"
@@ -302,6 +308,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUDUCGroup];
 [[NURESTModelController defaultController] registerModelClass:NUDUCGroupBinding];
 [[NURESTModelController defaultController] registerModelClass:NUDemarcationService];
+[[NURESTModelController defaultController] registerModelClass:NUDestinationurl];
 [[NURESTModelController defaultController] registerModelClass:NUDiskStat];
 [[NURESTModelController defaultController] registerModelClass:NUDomain];
 [[NURESTModelController defaultController] registerModelClass:NUDomainFIPAclTemplate];
@@ -359,7 +366,6 @@
 [[NURESTModelController defaultController] registerModelClass:NUKeyServerMonitorEncryptedSeed];
 [[NURESTModelController defaultController] registerModelClass:NUKeyServerMonitorSEK];
 [[NURESTModelController defaultController] registerModelClass:NUKeyServerMonitorSeed];
-[[NURESTModelController defaultController] registerModelClass:NUKeyServerNotification];
 [[NURESTModelController defaultController] registerModelClass:NUL2Domain];
 [[NURESTModelController defaultController] registerModelClass:NUL2DomainTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUL4Service];
@@ -384,6 +390,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUNATMapEntry];
 [[NURESTModelController defaultController] registerModelClass:NUNSGGroup];
 [[NURESTModelController defaultController] registerModelClass:NUNSGInfo];
+[[NURESTModelController defaultController] registerModelClass:NUNSGRoutingPolicyBinding];
 [[NURESTModelController defaultController] registerModelClass:NUNSGUpgradeProfile];
 [[NURESTModelController defaultController] registerModelClass:NUNSGateway];
 [[NURESTModelController defaultController] registerModelClass:NUNSGatewayTemplate];
@@ -395,6 +402,9 @@
 [[NURESTModelController defaultController] registerModelClass:NUNetworkPerformanceBinding];
 [[NURESTModelController defaultController] registerModelClass:NUNetworkPerformanceMeasurement];
 [[NURESTModelController defaultController] registerModelClass:NUNextHop];
+[[NURESTModelController defaultController] registerModelClass:NUOSPFArea];
+[[NURESTModelController defaultController] registerModelClass:NUOSPFInstance];
+[[NURESTModelController defaultController] registerModelClass:NUOSPFInterface];
 [[NURESTModelController defaultController] registerModelClass:NUOverlayAddressPool];
 [[NURESTModelController defaultController] registerModelClass:NUOverlayMirrorDestination];
 [[NURESTModelController defaultController] registerModelClass:NUOverlayMirrorDestinationTemplate];
@@ -441,6 +451,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUSubnetTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUSystemConfig];
 [[NURESTModelController defaultController] registerModelClass:NUTCA];
+[[NURESTModelController defaultController] registerModelClass:NUTier];
 [[NURESTModelController defaultController] registerModelClass:NUTrunk];
 [[NURESTModelController defaultController] registerModelClass:NUUnderlay];
 [[NURESTModelController defaultController] registerModelClass:NUUplinkConnection];
@@ -477,7 +488,8 @@
 [[NURESTModelController defaultController] registerModelClass:NUVSD];
 [[NURESTModelController defaultController] registerModelClass:NUVSDComponent];
 [[NURESTModelController defaultController] registerModelClass:NUVSP];
-[[NURESTModelController defaultController] registerModelClass:NUVia];
+[[NURESTModelController defaultController] registerModelClass:NUVirtualFirewallPolicy];
+[[NURESTModelController defaultController] registerModelClass:NUVirtualFirewallRule];
 [[NURESTModelController defaultController] registerModelClass:NUVirtualIP];
 [[NURESTModelController defaultController] registerModelClass:NUVsgRedundantPort];
 [[NURESTModelController defaultController] registerModelClass:NUWANService];

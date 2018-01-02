@@ -81,10 +81,6 @@ NUNSGatewayFamily_NSG_X = @"NSG_X";
 NUNSGatewayFamily_NSG_X200 = @"NSG_X200";
 NUNSGatewayInheritedSSHServiceState_DISABLED = @"DISABLED";
 NUNSGatewayInheritedSSHServiceState_ENABLED = @"ENABLED";
-NUNSGatewayNetworkAcceleration_NONE = @"NONE";
-NUNSGatewayNetworkAcceleration_NORMAL = @"NORMAL";
-NUNSGatewayNetworkAcceleration_OPTIMAL = @"OPTIMAL";
-NUNSGatewayNetworkAcceleration_PERFORMANCE = @"PERFORMANCE";
 NUNSGatewayPermittedAction_ALL = @"ALL";
 NUNSGatewayPermittedAction_DEPLOY = @"DEPLOY";
 NUNSGatewayPermittedAction_EXTEND = @"EXTEND";
@@ -131,6 +127,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPNumber _TCPMaximumSegmentSize @accessors(property=TCPMaximumSegmentSize);
     /*!
+        Release Date of the NSG BiOS
+    */
+    CPString _BIOSReleaseDate @accessors(property=BIOSReleaseDate);
+    /*!
         NSG BIOS Version
     */
     CPString _BIOSVersion @accessors(property=BIOSVersion);
@@ -143,11 +143,11 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _TPMStatus @accessors(property=TPMStatus);
     /*!
-        The NSG Processor Type
+        The NSG Processor Type as reported during bootstrapping.
     */
     CPString _CPUType @accessors(property=CPUType);
     /*!
-        The NSG Version
+        The NSG Version (software) as reported during bootstrapping or following an upgrade.
     */
     CPString _NSGVersion @accessors(property=NSGVersion);
     /*!
@@ -163,7 +163,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _name @accessors(property=name);
     /*!
-        The NSG Type
+        The NSG Family type.
     */
     CPString _family @accessors(property=family);
     /*!
@@ -211,10 +211,6 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _description @accessors(property=description);
     /*!
-        Network Acceleration type to be used when network acceleration is enabled
-    */
-    CPString _networkAcceleration @accessors(property=networkAcceleration);
-    /*!
         Transient representation of the same property on NSGInfo.
     */
     CPString _libraries @accessors(property=libraries);
@@ -243,7 +239,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _configurationStatus @accessors(property=configurationStatus);
     /*!
-        COS Value for Self Generated Traffic (Control Traffic). Min is 0 and Max is 7
+        CoS Value for Self Generated Traffic (Control Traffic). Min is 0 and Max is 7
     */
     CPNumber _controlTrafficCOSValue @accessors(property=controlTrafficCOSValue);
     /*!
@@ -267,19 +263,19 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _operationStatus @accessors(property=operationStatus);
     /*!
-        NSG Product Name
+        NSG Product Name as reported during bootstrapping.
     */
     CPString _productName @accessors(property=productName);
     /*!
-        Readonly Id of the associated gateway security object
+        Read only ID of the associated gateway security object.
     */
     CPString _associatedGatewaySecurityID @accessors(property=associatedGatewaySecurityID);
     /*!
-        Readonly Id of the associated gateway security profile object
+        Read only ID of the associated gateway security profile object
     */
     CPString _associatedGatewaySecurityProfileID @accessors(property=associatedGatewaySecurityProfileID);
     /*!
-        Readonly Id of the associated nsg info object
+        Read only ID of the associated NSG info object
     */
     CPString _associatedNSGInfoID @accessors(property=associatedNSGInfoID);
     /*!
@@ -343,6 +339,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"NATTraversalEnabled"];
         [self exposeLocalKeyPathToREST:@"TCPMSSEnabled"];
         [self exposeLocalKeyPathToREST:@"TCPMaximumSegmentSize"];
+        [self exposeLocalKeyPathToREST:@"BIOSReleaseDate"];
         [self exposeLocalKeyPathToREST:@"BIOSVersion"];
         [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
@@ -363,7 +360,6 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"networkAcceleration"];
         [self exposeLocalKeyPathToREST:@"libraries"];
         [self exposeLocalKeyPathToREST:@"inheritedSSHServiceState"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];

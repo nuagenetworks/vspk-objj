@@ -219,7 +219,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedKeyServerMonitorID @accessors(property=associatedKeyServerMonitorID);
     /*!
-        CustomerID that is used by VSC to identify this enterprise. This is a read only attribute.
+        CustomerID that is used by VSC to identify this enterprise. This can be configured by root user.
     */
     CPNumber _customerID @accessors(property=customerID);
     /*!

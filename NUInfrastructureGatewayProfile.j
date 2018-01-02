@@ -48,7 +48,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
 
 
 /*!
-    Represents Infrastructure Gateway Profile
+    Represents Infrastructure Gateway Profile instance.  This object contains the common parameters for different types of NSGs to perform bootstrapping and have their network infrastructure and services configured before becoming operational.
 */
 @implementation NUInfrastructureGatewayProfile : NURESTObject
 {
@@ -57,7 +57,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _NTPServerKey @accessors(property=NTPServerKey);
     /*!
-        Correspond to the key ID on the NTP server that matches the ntpServerKey value.  Valid values are from 1 to 255 as specified by SR-OS and 0 to specify unused (VSD/NSG only).
+        Corresponds to the key ID on the NTP server that matches the NTPServerKey value.  Valid values are from 1 to 255 as specified by SR-OS and when value 0 is entered, it means that the NTP Key is not used (VSD/NSG only).
     */
     CPNumber _NTPServerKeyID @accessors(property=NTPServerKeyID);
     /*!
@@ -73,7 +73,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPNumber _datapathSyncTimeout @accessors(property=datapathSyncTimeout);
     /*!
-        ISO 8601 format duration: **P nYnMnD T nHnMnS**. **P** represents the period field and **T** the time field. Period field: **Y** = year, **M** = month, **D** = day. Time field: **H** = hours, **M** = minutes, **S** = seconds. **n** is the value of each field. Because the years and month are units that vary in length, for the time being those are not supported yet.
+        ISO 8601 format duration: **PnYnMnD T nHnMnS**. **P** represents the period field and **T** the time field. Period field: **Y** = year, **M** = month, **D** = day. Time field: **H** = hours, **M** = minutes, **S** = seconds. **n** is the value of each field. Because the years and month are units that vary in length, for the time being those are not supported yet.
     */
     CPString _deadTimer @accessors(property=deadTimer);
     /*!
@@ -129,7 +129,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     BOOL _forceImmediateSystemSync @accessors(property=forceImmediateSystemSync);
     /*!
-        Openflow audit timer in sec. Upon the expiry of this timer a set of cleanup operations will be performed
+        Openflow audit timer in seconds. Upon the expiry of this timer a set of cleanup operations will be performed
     */
     CPNumber _openFlowAuditTimer @accessors(property=openFlowAuditTimer);
     /*!
@@ -145,7 +145,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     BOOL _useTwoFactor @accessors(property=useTwoFactor);
     /*!
-        The port to open by the proxy for stats collector to use
+        The port to open by the proxy for the statistics collector to use.
     */
     CPNumber _statsCollectorPort @accessors(property=statsCollectorPort);
     /*!
@@ -153,7 +153,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        Time in a Cron format when configuration update are being applied on the Gateway (NSG).  This property is linked to systemSyncWindow.  Default value is every midnight (0 0 * * *).  Format:  Minutes Hours DayOfMonth Month DayOfWeek
+        Time, in a Cron format, when configuration updates are being applied on the Gateway (NSG).  This property is linked to systemSyncWindow.  Default value is every midnight (0 0 * * *).  Format:  Minutes Hours DayOfMonth Month DayOfWeek
     */
     CPString _systemSyncScheduler @accessors(property=systemSyncScheduler);
     

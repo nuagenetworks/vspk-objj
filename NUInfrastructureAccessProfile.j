@@ -31,6 +31,8 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUConnectionendpointsFetcher.j"
+@import "Fetchers/NUSSHKeysFetcher.j"
 
 NUInfrastructureAccessProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUInfrastructureAccessProfileEntityScope_GLOBAL = @"GLOBAL";
@@ -47,11 +49,11 @@ NUInfrastructureAccessProfileSourceIPFilter_ENABLED = @"ENABLED";
 @implementation NUInfrastructureAccessProfile : NURESTObject
 {
     /*!
-        Indicates the Authentication method used during a SSH session.
+        Indicates the authentication method used during an SSH session.
     */
     CPString _SSHAuthMode @accessors(property=SSHAuthMode);
     /*!
-        Name of the Infrastructure Acces Profile
+        Name of the Infrastructure Access Profile
     */
     CPString _name @accessors(property=name);
     /*!
@@ -89,6 +91,8 @@ NUInfrastructureAccessProfileSourceIPFilter_ENABLED = @"ENABLED";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUConnectionendpointsFetcher _childrenConnectionendpoints @accessors(property=childrenConnectionendpoints);
+    NUSSHKeysFetcher _childrenSSHKeys @accessors(property=childrenSSHKeys);
     
 }
 
@@ -122,6 +126,8 @@ NUInfrastructureAccessProfileSourceIPFilter_ENABLED = @"ENABLED";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenConnectionendpoints = [NUConnectionendpointsFetcher fetcherWithParentObject:self];
+        _childrenSSHKeys = [NUSSHKeysFetcher fetcherWithParentObject:self];
         
         
     }
