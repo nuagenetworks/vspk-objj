@@ -211,11 +211,11 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _routeTarget @accessors(property=routeTarget);
     /*!
-        Need to add correct description
+        Block subnet routes
     */
     BOOL _splitSubnet @accessors(property=splitSubnet);
     /*!
-         when set VRS will act as  ARP Proxy
+         When set, VRS will act as  ARP Proxy
     */
     BOOL _proxyARP @accessors(property=proxyARP);
     /*!

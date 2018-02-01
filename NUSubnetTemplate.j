@@ -107,11 +107,11 @@ NUSubnetTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Need to add correct description
+        Block subnet routes
     */
     BOOL _splitSubnet @accessors(property=splitSubnet);
     /*!
-         when set VRS will act as  ARP Proxy
+         When set, VRS will act as  ARP Proxy
     */
     BOOL _proxyARP @accessors(property=proxyARP);
     /*!
