@@ -288,6 +288,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     BOOL _accumulateLicensesEnabled @accessors(property=accumulateLicensesEnabled);
     /*!
+        If VCIN Active/Standby is enabled, this needs to be the load-balancer IP which sits in front of the Active and Standby VCIN nodes. The VRS will make its API calls to this load-balancer
+    */
+    CPString _vcinLoadBalancerIP @accessors(property=vcinLoadBalancerIP);
+    /*!
         None
     */
     BOOL _perDomainVlanIdEnabled @accessors(property=perDomainVlanIdEnabled);
@@ -363,6 +367,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Defines the inactive timeout for the client. If the client is inactive for more than timeout, server clears off all the cache/information regarding the client. This value should be greater than event processor max timeout
     */
     CPNumber _inactiveTimeout @accessors(property=inactiveTimeout);
+    /*!
+        Autonomous System Number, Used for Infrastructure BGP PE_CE.
+    */
+    CPNumber _infrastructureBGPASNumber @accessors(property=infrastructureBGPASNumber);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -699,6 +707,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"maxFailedLogins"];
         [self exposeLocalKeyPathToREST:@"maxResponse"];
         [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
+        [self exposeLocalKeyPathToREST:@"vcinLoadBalancerIP"];
         [self exposeLocalKeyPathToREST:@"perDomainVlanIdEnabled"];
         [self exposeLocalKeyPathToREST:@"performancePathSelectionVNID"];
         [self exposeLocalKeyPathToREST:@"serviceIDUpperLimit"];
@@ -718,6 +727,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"globalMACAddress"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"inactiveTimeout"];
+        [self exposeLocalKeyPathToREST:@"infrastructureBGPASNumber"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainTunnelType"];
         [self exposeLocalKeyPathToREST:@"postProcessorThreadsCount"];

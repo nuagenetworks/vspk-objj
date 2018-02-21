@@ -52,6 +52,10 @@ NUDestinationurlHTTPMethod_HEAD = @"HEAD";
     */
     CPString _HTTPMethod @accessors(property=HTTPMethod);
     /*!
+        packet count (part of rate along with probeInterval). Applicable only if this URL's parent is Tier1
+    */
+    CPNumber _packetCount @accessors(property=packetCount);
+    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
@@ -60,6 +64,10 @@ NUDestinationurlHTTPMethod_HEAD = @"HEAD";
     */
     CPNumber _percentageWeight @accessors(property=percentageWeight);
     /*!
+        number of milliseconds to wait until the probe is timed out. Applicable only if this URL's parent is Tier1
+    */
+    CPNumber _timeout @accessors(property=timeout);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -67,6 +75,10 @@ NUDestinationurlHTTPMethod_HEAD = @"HEAD";
         Successive Probe threshold. Applicable only if this URL's parent is Tier1
     */
     CPNumber _downThresholdCount @accessors(property=downThresholdCount);
+    /*!
+        probe interval (part of rate along with packetCount). Applicable only if this URL's parent is Tier1
+    */
+    CPNumber _probeInterval @accessors(property=probeInterval);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -96,10 +108,13 @@ NUDestinationurlHTTPMethod_HEAD = @"HEAD";
     {
         [self exposeLocalKeyPathToREST:@"URL"];
         [self exposeLocalKeyPathToREST:@"HTTPMethod"];
+        [self exposeLocalKeyPathToREST:@"packetCount"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"percentageWeight"];
+        [self exposeLocalKeyPathToREST:@"timeout"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"downThresholdCount"];
+        [self exposeLocalKeyPathToREST:@"probeInterval"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

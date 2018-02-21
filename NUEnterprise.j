@@ -107,6 +107,8 @@ NUEnterpriseEncryptionManagementMode_DISABLED = @"DISABLED";
 NUEnterpriseEncryptionManagementMode_MANAGED = @"MANAGED";
 NUEnterpriseEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
+NUEnterpriseFlowCollectionEnabled_DISABLED = @"DISABLED";
+NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
 
 
 /*!
@@ -186,6 +188,10 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         Number of floating IPs used by the enterprise from the assigned floatingIPsQuota
     */
     CPNumber _floatingIPsUsed @accessors(property=floatingIPsUsed);
+    /*!
+        Determines whether or not flow collection is enabled.
+    */
+    CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
         This flag indicates if the DPI can be enabled for this enterpriseenterprise/organization.
     */
@@ -334,6 +340,7 @@ NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"allowedForwardingClasses"];
         [self exposeLocalKeyPathToREST:@"floatingIPsQuota"];
         [self exposeLocalKeyPathToREST:@"floatingIPsUsed"];
+        [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"enableApplicationPerformanceManagement"];
         [self exposeLocalKeyPathToREST:@"encryptionManagementMode"];
         [self exposeLocalKeyPathToREST:@"enterpriseProfileID"];

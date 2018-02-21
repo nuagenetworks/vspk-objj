@@ -134,7 +134,7 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
     */
     CPNumber _period @accessors(property=period);
     /*!
-        Desription of the TCA
+        Description of the TCA
     */
     CPString _description @accessors(property=description);
     /*!

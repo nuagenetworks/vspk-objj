@@ -143,6 +143,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _TPMStatus @accessors(property=TPMStatus);
     /*!
+        TPM (Trusted Platform Module) version as reported by the NSG.
+    */
+    CPString _TPMVersion @accessors(property=TPMVersion);
+    /*!
         The NSG Processor Type as reported during bootstrapping.
     */
     CPString _CPUType @accessors(property=CPUType);
@@ -178,6 +182,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         Identifier of the Gateway, based on the systemId
     */
     CPString _datapathID @accessors(property=datapathID);
+    /*!
+        Patches that have been installed on the NSG.
+    */
+    CPString _patches @accessors(property=patches);
     /*!
         The Redundancy Gateway Group associated with this Gateway Instance. This is a read only attribute
     */
@@ -343,6 +351,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"BIOSVersion"];
         [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
+        [self exposeLocalKeyPathToREST:@"TPMVersion"];
         [self exposeLocalKeyPathToREST:@"CPUType"];
         [self exposeLocalKeyPathToREST:@"NSGVersion"];
         [self exposeLocalKeyPathToREST:@"SSHService"];
@@ -352,6 +361,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"lastConfigurationReloadTimestamp"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
+        [self exposeLocalKeyPathToREST:@"patches"];
         [self exposeLocalKeyPathToREST:@"redundancyGroupID"];
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"pending"];

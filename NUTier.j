@@ -45,7 +45,7 @@ NUTierTierType_TIER2 = @"TIER2";
 @implementation NUTier : NURESTObject
 {
     /*!
-        packet count (part of rate along with probeInterval)
+        packet count (part of rate along with probeInterval). Applicable to Tier2 type.
     */
     CPNumber _packetCount @accessors(property=packetCount);
     /*!
@@ -57,7 +57,7 @@ NUTierTierType_TIER2 = @"TIER2";
     */
     CPString _tierType @accessors(property=tierType);
     /*!
-        number of milliseconds to wait until the probe is timed out
+        number of milliseconds to wait until the probe is timed out. Applicable to Tier2 type.
     */
     CPNumber _timeout @accessors(property=timeout);
     /*!
@@ -69,7 +69,7 @@ NUTierTierType_TIER2 = @"TIER2";
     */
     CPNumber _downThresholdCount @accessors(property=downThresholdCount);
     /*!
-        probe interval (part of rate along with packetCount)
+        probe interval (part of rate along with packetCount). Applicable to Tier2 type.
     */
     CPNumber _probeInterval @accessors(property=probeInterval);
     /*!

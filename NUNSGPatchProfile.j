@@ -30,24 +30,47 @@
 @import <Bambou/NURESTObject.j>
 
 
-NUVNFInterfaceDescriptorType_LAN = @"LAN";
-NUVNFInterfaceDescriptorType_MANAGEMENT = @"MANAGEMENT";
-NUVNFInterfaceDescriptorType_WAN = @"WAN";
+NUNSGPatchProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUNSGPatchProfileEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Represent VNF interface descriptor
+    This profile represents the patch information to be used by an NSG for applying a patch.
 */
-@implementation NUVNFInterfaceDescriptor : NURESTObject
+@implementation NUNSGPatchProfile : NURESTObject
 {
     /*!
-        Device name associated with this interface
+        A unique name identifying this patch profile.
     */
     CPString _name @accessors(property=name);
     /*!
-        Type of VNF interface
+        ID of the user who last updated the object.
     */
-    CPString _type @accessors(property=type);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        A unique brief name and version of the patch derived from Patch URL.
+    */
+    CPString _patchTag @accessors(property=patchTag);
+    /*!
+        URL to retrieve the patch bundle for this particular patch.
+    */
+    CPString _patchURL @accessors(property=patchURL);
+    /*!
+        A brief description of this patch profile.
+    */
+    CPString _description @accessors(property=description);
+    /*!
+        Enterprise/Organisation that this patch profile belongs to.
+    */
+    CPString _enterpriseID @accessors(property=enterpriseID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
     
 }
@@ -58,7 +81,7 @@ NUVNFInterfaceDescriptorType_WAN = @"WAN";
 
 + (CPString)RESTName
 {
-    return @"vnfinterfacedescriptor";
+    return @"nsgpatchprofile";
 }
 
 
@@ -70,7 +93,13 @@ NUVNFInterfaceDescriptorType_WAN = @"WAN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"type"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"patchTag"];
+        [self exposeLocalKeyPathToREST:@"patchURL"];
+        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"enterpriseID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
         
         

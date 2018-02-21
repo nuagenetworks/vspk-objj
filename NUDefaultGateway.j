@@ -30,24 +30,24 @@
 @import <Bambou/NURESTObject.j>
 
 
-NUVNFInterfaceDescriptorType_LAN = @"LAN";
-NUVNFInterfaceDescriptorType_MANAGEMENT = @"MANAGEMENT";
-NUVNFInterfaceDescriptorType_WAN = @"WAN";
-
 
 /*!
-    Represent VNF interface descriptor
+    This object represent default Gateway associated with Subnet
 */
-@implementation NUVNFInterfaceDescriptor : NURESTObject
+@implementation NUDefaultGateway : NURESTObject
 {
     /*!
-        Device name associated with this interface
+        Name of the subnet gateway
     */
     CPString _name @accessors(property=name);
     /*!
-        Type of VNF interface
+        The IP address of this default gateway for parent subnet
     */
-    CPString _type @accessors(property=type);
+    CPString _gatewayIPAddress @accessors(property=gatewayIPAddress);
+    /*!
+        The MAC address of this default gateway for parent subnet
+    */
+    CPString _gatewayMACAddress @accessors(property=gatewayMACAddress);
     
     
 }
@@ -58,7 +58,7 @@ NUVNFInterfaceDescriptorType_WAN = @"WAN";
 
 + (CPString)RESTName
 {
-    return @"vnfinterfacedescriptor";
+    return @"defaultgateway";
 }
 
 
@@ -70,7 +70,8 @@ NUVNFInterfaceDescriptorType_WAN = @"WAN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"type"];
+        [self exposeLocalKeyPathToREST:@"gatewayIPAddress"];
+        [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
         
         
         

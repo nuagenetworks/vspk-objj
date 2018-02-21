@@ -55,6 +55,8 @@ NUVNFTaskState_NONE = @"NONE";
 NUVNFTaskState_STARTING = @"STARTING";
 NUVNFTaskState_STOPPING = @"STOPPING";
 NUVNFTaskState_UNDEPLOYING = @"UNDEPLOYING";
+NUVNFType_FIREWALL = @"FIREWALL";
+NUVNFType_WAN_OPT = @"WAN_OPT";
 
 
 /*!
@@ -142,6 +144,10 @@ NUVNFTaskState_UNDEPLOYING = @"UNDEPLOYING";
         Disk storage (in GB) to be allocated for deployed VNF instance
     */
     CPNumber _storageGB @accessors(property=storageGB);
+    /*!
+        Type of virtual network function
+    */
+    CPString _type @accessors(property=type);
     
     NUVNFInterfacesFetcher _childrenVNFInterfaces @accessors(property=childrenVNFInterfaces);
     NUVNFMetadatasFetcher _childrenVNFMetadatas @accessors(property=childrenVNFMetadatas);
@@ -186,6 +192,7 @@ NUVNFTaskState_UNDEPLOYING = @"UNDEPLOYING";
         [self exposeLocalKeyPathToREST:@"associatedVNFThresholdPolicyID"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"storageGB"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenVNFInterfaces = [NUVNFInterfacesFetcher fetcherWithParentObject:self];
         _childrenVNFMetadatas = [NUVNFMetadatasFetcher fetcherWithParentObject:self];

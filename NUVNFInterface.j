@@ -32,6 +32,9 @@
 
 NUVNFInterfaceAttachedNetworkType_L2DOMAIN = @"L2DOMAIN";
 NUVNFInterfaceAttachedNetworkType_SUBNET = @"SUBNET";
+NUVNFInterfaceType_LAN = @"LAN";
+NUVNFInterfaceType_MANAGEMENT = @"MANAGEMENT";
+NUVNFInterfaceType_WAN = @"WAN";
 
 
 /*!
@@ -96,10 +99,6 @@ NUVNFInterfaceAttachedNetworkType_SUBNET = @"SUBNET";
     */
     CPString _zoneName @accessors(property=zoneName);
     /*!
-        Indicates if this is a management interface
-    */
-    BOOL _isManagementInterface @accessors(property=isManagementInterface);
-    /*!
         ID of the Subnet that the interface is attached to
     */
     CPString _attachedNetworkID @accessors(property=attachedNetworkID);
@@ -107,6 +106,10 @@ NUVNFInterfaceAttachedNetworkType_SUBNET = @"SUBNET";
         network type that the interface is attached to
     */
     CPString _attachedNetworkType @accessors(property=attachedNetworkType);
+    /*!
+        Type of VNF interface
+    */
+    CPString _type @accessors(property=type);
     
     
 }
@@ -142,9 +145,9 @@ NUVNFInterfaceAttachedNetworkType_SUBNET = @"SUBNET";
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"zoneID"];
         [self exposeLocalKeyPathToREST:@"zoneName"];
-        [self exposeLocalKeyPathToREST:@"isManagementInterface"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkID"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
         
         

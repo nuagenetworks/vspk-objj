@@ -74,6 +74,10 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _TPMStatus @accessors(property=TPMStatus);
     /*!
+        TPM (Trusted Platform Module) version as reported by the NSG.
+    */
+    CPString _TPMVersion @accessors(property=TPMVersion);
+    /*!
         The NSG Processor Type based on information extracted during bootstrapping.  This may refer to a type of processor manufactured by Intel, ARM, AMD, Cyrix, VIA, or others.
     */
     CPString _CPUType @accessors(property=CPUType);
@@ -89,6 +93,10 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
         The NSG Family type as it was returned by the NSG during bootstrapping.
     */
     CPString _family @accessors(property=family);
+    /*!
+        Patches that have been installed on the NSG.
+    */
+    CPString _patches @accessors(property=patches);
     /*!
         The NSG's serial number as it is stored in the system's CMOS (Motherboard)
     */
@@ -139,10 +147,12 @@ NUNSGInfoTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"BIOSVersion"];
         [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
+        [self exposeLocalKeyPathToREST:@"TPMVersion"];
         [self exposeLocalKeyPathToREST:@"CPUType"];
         [self exposeLocalKeyPathToREST:@"NSGVersion"];
         [self exposeLocalKeyPathToREST:@"UUID"];
         [self exposeLocalKeyPathToREST:@"family"];
+        [self exposeLocalKeyPathToREST:@"patches"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"libraries"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

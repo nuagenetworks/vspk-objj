@@ -39,7 +39,7 @@
 @implementation NUBulkStatistics : NURESTObject
 {
     /*!
-        Map&lt;TCAMetric, Long[]&gt; TCAMetric is an Enum. Possible values are packets_in, bytes_in, packets_in_dropped, packets_in_errors, packets_out, bytes_out, packets_out_dropped, packeMaprs, packets_dropped_rate_limit
+        Map<TCAMetric, Long> TCAMetric is an Enum. Possible values are packets_in, bytes_in, packets_in_dropped, packets_in_errors, packets_out, bytes_out, packets_out_dropped, packeMaprs, packets_dropped_rate_limit
     */
     CPArrayController _data @accessors(property=data);
     /*!

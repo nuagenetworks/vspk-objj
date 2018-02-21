@@ -30,11 +30,14 @@
 @import <Bambou/NURESTObject.j>
 
 
+NUCommandCommand_NSG_APPLY_PATCH = @"NSG_APPLY_PATCH";
 NUCommandCommand_NSG_DOWNLOAD_OS_IMAGE = @"NSG_DOWNLOAD_OS_IMAGE";
 NUCommandCommand_NSG_UPGRADE_TO_IMAGE = @"NSG_UPGRADE_TO_IMAGE";
 NUCommandCommand_UNKNOWN = @"UNKNOWN";
 NUCommandEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUCommandEntityScope_GLOBAL = @"GLOBAL";
+NUCommandOverride_ABANDON = @"ABANDON";
+NUCommandOverride_UNSPECIFIED = @"UNSPECIFIED";
 NUCommandStatus_COMPLETE = @"COMPLETE";
 NUCommandStatus_FAILED = @"FAILED";
 NUCommandStatus_STARTED = @"STARTED";
@@ -71,13 +74,29 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _commandInformation @accessors(property=commandInformation);
     /*!
+        Parameters to be supplied for execution of this command. This could either be a string of parameters or ID of an object supplying parameters.
+    */
+    CPString _associatedParam @accessors(property=associatedParam);
+    /*!
+        Type of the object which supplies parameters for this command.
+    */
+    CPString _associatedParamType @accessors(property=associatedParamType);
+    /*!
         The status of the Command from a VSD perspective.
     */
     CPString _status @accessors(property=status);
     /*!
+        Full command including parameters that is to be executed.
+    */
+    CPString _fullCommand @accessors(property=fullCommand);
+    /*!
         A generated summary for the action giving some general context on the command executed.
     */
     CPString _summary @accessors(property=summary);
+    /*!
+        Operator specified action which overrides the normal life cycle of a command.
+    */
+    CPString _override @accessors(property=override);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -109,8 +128,12 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"command"];
         [self exposeLocalKeyPathToREST:@"commandInformation"];
+        [self exposeLocalKeyPathToREST:@"associatedParam"];
+        [self exposeLocalKeyPathToREST:@"associatedParamType"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"fullCommand"];
         [self exposeLocalKeyPathToREST:@"summary"];
+        [self exposeLocalKeyPathToREST:@"override"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

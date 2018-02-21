@@ -98,6 +98,7 @@
 @import "Fetchers/NUNSGatewaysFetcher.j"
 @import "Fetchers/NUNSGatewayTemplatesFetcher.j"
 @import "Fetchers/NUNSGGroupsFetcher.j"
+@import "Fetchers/NUNSGPatchProfilesFetcher.j"
 @import "Fetchers/NUNSRedundantGatewayGroupsFetcher.j"
 @import "Fetchers/NUNSGUpgradeProfilesFetcher.j"
 @import "Fetchers/NUVSPsFetcher.j"
@@ -263,6 +264,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     NUNSGatewayTemplatesFetcher _childrenNSGatewayTemplates @accessors(property=childrenNSGatewayTemplates);
     NUNSGGroupsFetcher _childrenNSGGroups @accessors(property=childrenNSGGroups);
+    NUNSGPatchProfilesFetcher _childrenNSGPatchProfiles @accessors(property=childrenNSGPatchProfiles);
     NUNSRedundantGatewayGroupsFetcher _childrenNSRedundantGatewayGroups @accessors(property=childrenNSRedundantGatewayGroups);
     NUNSGUpgradeProfilesFetcher _childrenNSGUpgradeProfiles @accessors(property=childrenNSGUpgradeProfiles);
     NUVSPsFetcher _childrenVSPs @accessors(property=childrenVSPs);
@@ -384,6 +386,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         _childrenNSGatewayTemplates = [NUNSGatewayTemplatesFetcher fetcherWithParentObject:self];
         _childrenNSGGroups = [NUNSGGroupsFetcher fetcherWithParentObject:self];
+        _childrenNSGPatchProfiles = [NUNSGPatchProfilesFetcher fetcherWithParentObject:self];
         _childrenNSRedundantGatewayGroups = [NUNSRedundantGatewayGroupsFetcher fetcherWithParentObject:self];
         _childrenNSGUpgradeProfiles = [NUNSGUpgradeProfilesFetcher fetcherWithParentObject:self];
         _childrenVSPs = [NUVSPsFetcher fetcherWithParentObject:self];

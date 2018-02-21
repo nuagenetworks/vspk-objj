@@ -58,6 +58,7 @@ NUEgressACLEntryTemplateNetworkType_PGEXPRESSION = @"PGEXPRESSION";
 NUEgressACLEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUEgressACLEntryTemplateNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
 NUEgressACLEntryTemplateNetworkType_SUBNET = @"SUBNET";
+NUEgressACLEntryTemplateNetworkType_UNDERLAY_INTERNET_POLICYGROUP = @"UNDERLAY_INTERNET_POLICYGROUP";
 NUEgressACLEntryTemplateNetworkType_ZONE = @"ZONE";
 NUEgressACLEntryTemplatePolicyState_DRAFT = @"DRAFT";
 NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";

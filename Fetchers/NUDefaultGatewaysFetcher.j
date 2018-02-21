@@ -26,57 +26,16 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <AppKit/CPArrayController.j>
-@import <Bambou/NURESTObject.j>
+@import <Bambou/NURESTFetcher.j>
+
+@class NUDefaultGateway
 
 
-NUVNFInterfaceDescriptorType_LAN = @"LAN";
-NUVNFInterfaceDescriptorType_MANAGEMENT = @"MANAGEMENT";
-NUVNFInterfaceDescriptorType_WAN = @"WAN";
+@implementation NUDefaultGatewaysFetcher : NURESTFetcher
 
-
-/*!
-    Represent VNF interface descriptor
-*/
-@implementation NUVNFInterfaceDescriptor : NURESTObject
++ (Class)managedObjectClass
 {
-    /*!
-        Device name associated with this interface
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        Type of VNF interface
-    */
-    CPString _type @accessors(property=type);
-    
-    
-}
-
-
-#pragma mark -
-#pragma mark Class Method
-
-+ (CPString)RESTName
-{
-    return @"vnfinterfacedescriptor";
-}
-
-
-#pragma mark -
-#pragma mark Initialization
-
-- (id)init
-{
-    if (self = [super init])
-    {
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"type"];
-        
-        
-        
-    }
-
-    return self;
+    return NUDefaultGateway;
 }
 
 @end

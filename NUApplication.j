@@ -29,9 +29,13 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMonitorscopesFetcher.j"
 @import "Fetchers/NUApplicationBindingsFetcher.j"
 
+NUApplicationEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUApplicationEntityScope_GLOBAL = @"GLOBAL";
 NUApplicationOptimizePathSelection_JITTER = @"JITTER";
 NUApplicationOptimizePathSelection_LATENCY = @"LATENCY";
 NUApplicationOptimizePathSelection_PACKETLOSS = @"PACKETLOSS";
@@ -66,6 +70,10 @@ NUApplicationProtocol_UDP = @"UDP";
         Minimum Failover Bandwidth of the application.
     */
     CPNumber _bandwidth @accessors(property=bandwidth);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         determines whether this entity is read only.  Read only objects cannot be modified or deleted.
     */
@@ -103,6 +111,10 @@ NUApplicationProtocol_UDP = @"UDP";
     */
     CPNumber _oneWayLoss @accessors(property=oneWayLoss);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         default set to any , possible values primary/secondary/any
     */
     CPString _postClassificationPath @accessors(property=postClassificationPath);
@@ -139,10 +151,16 @@ NUApplicationProtocol_UDP = @"UDP";
     */
     CPString _etherType @accessors(property=etherType);
     /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
         Maintain path symmetry during SLA violation
     */
     BOOL _symmetry @accessors(property=symmetry);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMonitorscopesFetcher _childrenMonitorscopes @accessors(property=childrenMonitorscopes);
     NUApplicationBindingsFetcher _childrenApplicationBindings @accessors(property=childrenApplicationBindings);
     
@@ -168,6 +186,7 @@ NUApplicationProtocol_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"bandwidth"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"performanceMonitorType"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -177,6 +196,7 @@ NUApplicationProtocol_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"oneWayDelay"];
         [self exposeLocalKeyPathToREST:@"oneWayJitter"];
         [self exposeLocalKeyPathToREST:@"oneWayLoss"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"postClassificationPath"];
         [self exposeLocalKeyPathToREST:@"sourceIP"];
         [self exposeLocalKeyPathToREST:@"sourcePort"];
@@ -186,8 +206,11 @@ NUApplicationProtocol_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"associatedL7ApplicationSignatureID"];
         [self exposeLocalKeyPathToREST:@"etherType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"symmetry"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMonitorscopes = [NUMonitorscopesFetcher fetcherWithParentObject:self];
         _childrenApplicationBindings = [NUApplicationBindingsFetcher fetcherWithParentObject:self];
         

@@ -65,7 +65,7 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        
+        None
     */
     CPString _policyState @accessors(property=policyState);
     /*!
@@ -73,7 +73,7 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
     */
     CPNumber _priority @accessors(property=priority);
     /*!
-        
+        None
     */
     CPString _priorityType @accessors(property=priorityType);
     /*!

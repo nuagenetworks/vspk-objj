@@ -71,6 +71,7 @@
 @import "NUDSCPRemarkingPolicyTable.j"
 @import "NUDUCGroup.j"
 @import "NUDUCGroupBinding.j"
+@import "NUDefaultGateway.j"
 @import "NUDemarcationService.j"
 @import "NUDestinationurl.j"
 @import "NUDiskStat.j"
@@ -154,6 +155,7 @@
 @import "NUNATMapEntry.j"
 @import "NUNSGGroup.j"
 @import "NUNSGInfo.j"
+@import "NUNSGPatchProfile.j"
 @import "NUNSGRoutingPolicyBinding.j"
 @import "NUNSGUpgradeProfile.j"
 @import "NUNSGateway.j"
@@ -307,6 +309,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUDSCPRemarkingPolicyTable];
 [[NURESTModelController defaultController] registerModelClass:NUDUCGroup];
 [[NURESTModelController defaultController] registerModelClass:NUDUCGroupBinding];
+[[NURESTModelController defaultController] registerModelClass:NUDefaultGateway];
 [[NURESTModelController defaultController] registerModelClass:NUDemarcationService];
 [[NURESTModelController defaultController] registerModelClass:NUDestinationurl];
 [[NURESTModelController defaultController] registerModelClass:NUDiskStat];
@@ -390,6 +393,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUNATMapEntry];
 [[NURESTModelController defaultController] registerModelClass:NUNSGGroup];
 [[NURESTModelController defaultController] registerModelClass:NUNSGInfo];
+[[NURESTModelController defaultController] registerModelClass:NUNSGPatchProfile];
 [[NURESTModelController defaultController] registerModelClass:NUNSGRoutingPolicyBinding];
 [[NURESTModelController defaultController] registerModelClass:NUNSGUpgradeProfile];
 [[NURESTModelController defaultController] registerModelClass:NUNSGateway];

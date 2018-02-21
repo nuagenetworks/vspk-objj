@@ -64,7 +64,7 @@ NUMonitoringPortState_UP = @"UP";
     */
     CPString _description @accessors(property=description);
     /*!
-        
+        None
     */
     CPString _resiliencyState @accessors(property=resiliencyState);
     /*!

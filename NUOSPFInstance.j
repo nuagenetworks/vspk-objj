@@ -71,6 +71,10 @@ NUOSPFInstanceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedImportRoutingPolicyID @accessors(property=associatedImportRoutingPolicyID);
     /*!
+        Flag to determine whether SuperBackbone is enabled or not.
+    */
+    BOOL _superBackboneEnabled @accessors(property=superBackboneEnabled);
+    /*!
         This command configures the maximum number of routes (prefixes) that can be exported into OSPF from the route table.
     */
     CPNumber _exportLimit @accessors(property=exportLimit);
@@ -117,6 +121,7 @@ NUOSPFInstanceEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"preference"];
         [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedImportRoutingPolicyID"];
+        [self exposeLocalKeyPathToREST:@"superBackboneEnabled"];
         [self exposeLocalKeyPathToREST:@"exportLimit"];
         [self exposeLocalKeyPathToREST:@"exportToOverlay"];
         [self exposeLocalKeyPathToREST:@"externalID"];

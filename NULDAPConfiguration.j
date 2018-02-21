@@ -94,6 +94,10 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _userDNTemplate @accessors(property=userDNTemplate);
     /*!
+        This is an optional field. This is a LDAP property. If specified, it will be used as the VSD username per organization.
+    */
+    CPString _userNameAttribute @accessors(property=userNameAttribute);
+    /*!
         To enable LDAP authorization for an enterprise, both authorizationEnabled and enabled attributes must be set to true. If enabled attribute is not set, this attribute is ignored. The relationship between enabled and authorizationEnabled attributes is as follows, enabled = true, authorizationEnabled = false, LDAP is used only for Authentication. enabled = true, authorizationEnabled = true, LDAP is used for both authentication and authorization. enabled = false, authorizationEnabled = true, LDAP is not used. enabled = false, authorizationEnabled = false, LDAP is not used.
     */
     BOOL _authorizationEnabled @accessors(property=authorizationEnabled);
@@ -141,6 +145,7 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"groupNamePrefix"];
         [self exposeLocalKeyPathToREST:@"groupNameSuffix"];
         [self exposeLocalKeyPathToREST:@"userDNTemplate"];
+        [self exposeLocalKeyPathToREST:@"userNameAttribute"];
         [self exposeLocalKeyPathToREST:@"authorizationEnabled"];
         [self exposeLocalKeyPathToREST:@"authorizingUserDN"];
         [self exposeLocalKeyPathToREST:@"externalID"];

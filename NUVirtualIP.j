@@ -35,6 +35,8 @@
 
 NUVirtualIPEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVirtualIPEntityScope_GLOBAL = @"GLOBAL";
+NUVirtualIPIPType_IPV4 = @"IPV4";
+NUVirtualIPIPType_IPV6 = @"IPV6";
 
 
 /*!
@@ -46,6 +48,10 @@ NUVirtualIPEntityScope_GLOBAL = @"GLOBAL";
         The MAC address of the virtual port
     */
     CPString _MAC @accessors(property=MAC);
+    /*!
+        Specify if the virtualIP attribute value is in IPv4 or IPv6 format
+    */
+    CPString _IPType @accessors(property=IPType);
     /*!
         ID of the user who last updated the object.
     */
@@ -95,6 +101,7 @@ NUVirtualIPEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"MAC"];
+        [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"virtualIP"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

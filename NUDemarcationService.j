@@ -35,7 +35,7 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 
 
 /*!
-    None
+    test
 */
 @implementation NUDemarcationService : NURESTObject
 {

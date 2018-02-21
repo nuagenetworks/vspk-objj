@@ -54,6 +54,9 @@ NUZoneEncryption_ENABLED = @"ENABLED";
 NUZoneEncryption_INHERITED = @"INHERITED";
 NUZoneEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUZoneEntityScope_GLOBAL = @"GLOBAL";
+NUZoneFlowCollectionEnabled_DISABLED = @"DISABLED";
+NUZoneFlowCollectionEnabled_ENABLED = @"ENABLED";
+NUZoneFlowCollectionEnabled_INHERITED = @"INHERITED";
 NUZoneIPType_IPV4 = @"IPV4";
 NUZoneIPType_IPV6 = @"IPV6";
 NUZoneMaintenanceMode_DISABLED = @"DISABLED";
@@ -109,6 +112,10 @@ NUZoneMulticast_INHERITED = @"INHERITED";
         Netmask of the subnet defined
     */
     CPString _netmask @accessors(property=netmask);
+    /*!
+        Determines whether or not flow collection is enabled.
+    */
+    CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
         Determines whether or not IPSEC is enabled.
     */
@@ -192,6 +199,7 @@ NUZoneMulticast_INHERITED = @"INHERITED";
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyGroupID"];

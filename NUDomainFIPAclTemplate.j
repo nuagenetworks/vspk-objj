@@ -88,7 +88,7 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
     */
     CPNumber _priority @accessors(property=priority);
     /*!
-        
+        None
     */
     CPString _priorityType @accessors(property=priorityType);
     /*!

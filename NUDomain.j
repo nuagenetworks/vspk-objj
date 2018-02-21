@@ -89,6 +89,9 @@ NUDomainEncryption_DISABLED = @"DISABLED";
 NUDomainEncryption_ENABLED = @"ENABLED";
 NUDomainEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUDomainEntityScope_GLOBAL = @"GLOBAL";
+NUDomainFlowCollectionEnabled_DISABLED = @"DISABLED";
+NUDomainFlowCollectionEnabled_ENABLED = @"ENABLED";
+NUDomainFlowCollectionEnabled_INHERITED = @"INHERITED";
 NUDomainMaintenanceMode_DISABLED = @"DISABLED";
 NUDomainMaintenanceMode_ENABLED = @"ENABLED";
 NUDomainMaintenanceMode_ENABLED_INHERITED = @"ENABLED_INHERITED";
@@ -229,6 +232,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Indicates if this domain is a globally routable domain or not - boolean true/false
     */
     BOOL _globalRoutingEnabled @accessors(property=globalRoutingEnabled);
+    /*!
+        Determines whether or not flow collection is enabled.
+    */
+    CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
         Route distinguisher associated with the dVRS. It is an optional parameter that can be provided by the user or auto-managed by VSD. System generates this identifier automatically, if not provided
     */
@@ -412,6 +419,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"dhcpServerAddresses"];
         [self exposeLocalKeyPathToREST:@"globalRoutingEnabled"];
+        [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"importRouteTarget"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];

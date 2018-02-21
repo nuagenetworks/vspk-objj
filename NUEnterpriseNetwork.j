@@ -36,7 +36,6 @@
 
 NUEnterpriseNetworkEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEnterpriseNetworkEntityScope_GLOBAL = @"GLOBAL";
-NUEnterpriseNetworkIPType_DUALSTACK = @"DUALSTACK";
 NUEnterpriseNetworkIPType_IPV4 = @"IPV4";
 NUEnterpriseNetworkIPType_IPV6 = @"IPV6";
 

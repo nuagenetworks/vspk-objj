@@ -68,6 +68,9 @@ NUVPortDPI_ENABLED = @"ENABLED";
 NUVPortDPI_INHERITED = @"INHERITED";
 NUVPortEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVPortEntityScope_GLOBAL = @"GLOBAL";
+NUVPortFlowCollectionEnabled_DISABLED = @"DISABLED";
+NUVPortFlowCollectionEnabled_ENABLED = @"ENABLED";
+NUVPortFlowCollectionEnabled_INHERITED = @"INHERITED";
 NUVPortGatewayMACMoveRole_SECONDARY = @"SECONDARY";
 NUVPortGatewayMACMoveRole_TERTIARY = @"TERTIARY";
 NUVPortMulticast_DISABLED = @"DISABLED";
@@ -142,6 +145,10 @@ NUVPortType_VM = @"VM";
         Description for this vport
     */
     CPString _description @accessors(property=description);
+    /*!
+        Determines whether or not flow collection is enabled.
+    */
+    CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -268,6 +275,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"segmentationID"];
         [self exposeLocalKeyPathToREST:@"segmentationType"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainID"];
         [self exposeLocalKeyPathToREST:@"zoneID"];

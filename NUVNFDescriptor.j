@@ -31,6 +31,9 @@
 
 @import "Fetchers/NUVNFInterfaceDescriptorsFetcher.j"
 
+NUVNFDescriptorType_FIREWALL = @"FIREWALL";
+NUVNFDescriptorType_WAN_OPT = @"WAN_OPT";
+
 
 /*!
     Represent Virtual Network Function Descriptor Object
@@ -73,6 +76,10 @@
         Disk storage (in GB) to be allocated VNF instance when deployed
     */
     CPNumber _storageGB @accessors(property=storageGB);
+    /*!
+        Type of virtual network function
+    */
+    CPString _type @accessors(property=type);
     
     NUVNFInterfaceDescriptorsFetcher _childrenVNFInterfaceDescriptors @accessors(property=childrenVNFInterfaceDescriptors);
     
@@ -104,6 +111,7 @@
         [self exposeLocalKeyPathToREST:@"visible"];
         [self exposeLocalKeyPathToREST:@"associatedVNFThresholdPolicyID"];
         [self exposeLocalKeyPathToREST:@"storageGB"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenVNFInterfaceDescriptors = [NUVNFInterfaceDescriptorsFetcher fetcherWithParentObject:self];
         

@@ -72,6 +72,9 @@ NUL2DomainEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUL2DomainEntityScope_GLOBAL = @"GLOBAL";
 NUL2DomainEntityState_MARKED_FOR_DELETION = @"MARKED_FOR_DELETION";
 NUL2DomainEntityState_UNDER_CONSTRUCTION = @"UNDER_CONSTRUCTION";
+NUL2DomainFlowCollectionEnabled_DISABLED = @"DISABLED";
+NUL2DomainFlowCollectionEnabled_ENABLED = @"ENABLED";
+NUL2DomainFlowCollectionEnabled_INHERITED = @"INHERITED";
 NUL2DomainIPType_DUALSTACK = @"DUALSTACK";
 NUL2DomainIPType_IPV4 = @"IPV4";
 NUL2DomainMaintenanceMode_DISABLED = @"DISABLED";
@@ -157,6 +160,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         Netmask of the L2Domain / L2Domain template defined
     */
     CPString _netmask @accessors(property=netmask);
+    /*!
+        Determines whether or not flow collection is enabled.
+    */
+    CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
         Current network's globally unique VXLAN network identifier
     */
@@ -291,6 +298,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"serviceID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"vnId"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
