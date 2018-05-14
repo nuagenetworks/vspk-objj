@@ -51,7 +51,7 @@ NUVNFInterfaceType_WAN = @"WAN";
     */
     CPString _VNFUUID @accessors(property=VNFUUID);
     /*!
-        IP address of the  interface
+        IP address of the interface
     */
     CPString _IPAddress @accessors(property=IPAddress);
     /*!
@@ -62,6 +62,14 @@ NUVNFInterfaceType_WAN = @"WAN";
         Name of the vport that the interface is attached to
     */
     CPString _VPortName @accessors(property=VPortName);
+    /*!
+        IPv6 address of the  interface
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
+    /*!
+        IPV6 Gateway of the subnet that the VNF is connected to.
+    */
+    CPString _IPv6Gateway @accessors(property=IPv6Gateway);
     /*!
         Device name associated with this interface
     */
@@ -136,6 +144,8 @@ NUVNFInterfaceType_WAN = @"WAN";
         [self exposeLocalKeyPathToREST:@"IPAddress"];
         [self exposeLocalKeyPathToREST:@"VPortID"];
         [self exposeLocalKeyPathToREST:@"VPortName"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
+        [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"netmask"];

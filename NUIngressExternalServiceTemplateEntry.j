@@ -31,7 +31,6 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 
 NUIngressExternalServiceTemplateEntryAction_DROP = @"DROP";
@@ -41,16 +40,13 @@ NUIngressExternalServiceTemplateEntryEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIngressExternalServiceTemplateEntryEntityScope_GLOBAL = @"GLOBAL";
 NUIngressExternalServiceTemplateEntryLocationType_ANY = @"ANY";
 NUIngressExternalServiceTemplateEntryLocationType_POLICYGROUP = @"POLICYGROUP";
-NUIngressExternalServiceTemplateEntryLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUIngressExternalServiceTemplateEntryLocationType_SUBNET = @"SUBNET";
-NUIngressExternalServiceTemplateEntryLocationType_VPORTTAG = @"VPORTTAG";
 NUIngressExternalServiceTemplateEntryLocationType_ZONE = @"ZONE";
 NUIngressExternalServiceTemplateEntryNetworkType_ANY = @"ANY";
 NUIngressExternalServiceTemplateEntryNetworkType_ENDPOINT_DOMAIN = @"ENDPOINT_DOMAIN";
 NUIngressExternalServiceTemplateEntryNetworkType_ENDPOINT_SUBNET = @"ENDPOINT_SUBNET";
 NUIngressExternalServiceTemplateEntryNetworkType_ENDPOINT_ZONE = @"ENDPOINT_ZONE";
 NUIngressExternalServiceTemplateEntryNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
-NUIngressExternalServiceTemplateEntryNetworkType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
 NUIngressExternalServiceTemplateEntryNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
 NUIngressExternalServiceTemplateEntryNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUIngressExternalServiceTemplateEntryNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
@@ -188,7 +184,6 @@ NUIngressExternalServiceTemplateEntryPolicyState_LIVE = @"LIVE";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     
 }
@@ -243,7 +238,6 @@ NUIngressExternalServiceTemplateEntryPolicyState_LIVE = @"LIVE";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         
         

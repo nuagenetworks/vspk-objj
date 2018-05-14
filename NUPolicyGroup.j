@@ -31,7 +31,6 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
@@ -89,7 +88,6 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
@@ -125,7 +123,6 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         

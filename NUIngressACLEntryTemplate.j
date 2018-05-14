@@ -31,12 +31,10 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 
 NUIngressACLEntryTemplateAction_DROP = @"DROP";
 NUIngressACLEntryTemplateAction_FORWARD = @"FORWARD";
-NUIngressACLEntryTemplateAction_REDIRECT = @"REDIRECT";
 NUIngressACLEntryTemplateAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
 NUIngressACLEntryTemplateAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
 NUIngressACLEntryTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -44,16 +42,13 @@ NUIngressACLEntryTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUIngressACLEntryTemplateLocationType_ANY = @"ANY";
 NUIngressACLEntryTemplateLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressACLEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
-NUIngressACLEntryTemplateLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUIngressACLEntryTemplateLocationType_SUBNET = @"SUBNET";
-NUIngressACLEntryTemplateLocationType_VPORTTAG = @"VPORTTAG";
 NUIngressACLEntryTemplateLocationType_ZONE = @"ZONE";
 NUIngressACLEntryTemplateNetworkType_ANY = @"ANY";
 NUIngressACLEntryTemplateNetworkType_ENDPOINT_DOMAIN = @"ENDPOINT_DOMAIN";
 NUIngressACLEntryTemplateNetworkType_ENDPOINT_SUBNET = @"ENDPOINT_SUBNET";
 NUIngressACLEntryTemplateNetworkType_ENDPOINT_ZONE = @"ENDPOINT_ZONE";
 NUIngressACLEntryTemplateNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
-NUIngressACLEntryTemplateNetworkType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
 NUIngressACLEntryTemplateNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
 NUIngressACLEntryTemplateNetworkType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressACLEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
@@ -205,7 +200,6 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     
 }
@@ -263,7 +257,6 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         
         _protocol = 6;

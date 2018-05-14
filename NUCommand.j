@@ -54,6 +54,10 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Details about the command execution as reported directly from the NSG independent of status codes.
+    */
+    CPString _detail @accessors(property=detail);
+    /*!
         A string representing the detailed status of the operation that was triggered by the execution of the Command instance.
     */
     CPString _detailedStatus @accessors(property=detailedStatus);
@@ -123,6 +127,7 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"detail"];
         [self exposeLocalKeyPathToREST:@"detailedStatus"];
         [self exposeLocalKeyPathToREST:@"detailedStatusCode"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

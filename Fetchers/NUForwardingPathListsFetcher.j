@@ -26,61 +26,16 @@
 */
 
 @import <Foundation/Foundation.j>
-@import <AppKit/CPArrayController.j>
-@import <Bambou/NURESTObject.j>
+@import <Bambou/NURESTFetcher.j>
 
-@import "Fetchers/NUCTranslationMapsFetcher.j"
+@class NUForwardingPathList
 
 
-/*!
-    Customer Alias IP range to be used in provider domain. This pool is used to map customer private IPs from customer domain to customer public IPs in provider domain.
-*/
-@implementation NUCSNATPool : NURESTObject
+@implementation NUForwardingPathListsFetcher : NURESTFetcher
+
++ (Class)managedObjectClass
 {
-    /*!
-        The Customer to Provider NAT Pool
-    */
-    CPString _name @accessors(property=name);
-    /*!
-        The last IP address in the range.
-    */
-    CPString _endAddress @accessors(property=endAddress);
-    /*!
-        The first IP in the range.
-    */
-    CPString _startAddress @accessors(property=startAddress);
-    
-    NUCTranslationMapsFetcher _childrenCTranslationMaps @accessors(property=childrenCTranslationMaps);
-    
-}
-
-
-#pragma mark -
-#pragma mark Class Method
-
-+ (CPString)RESTName
-{
-    return @"csnatpool";
-}
-
-
-#pragma mark -
-#pragma mark Initialization
-
-- (id)init
-{
-    if (self = [super init])
-    {
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"endAddress"];
-        [self exposeLocalKeyPathToREST:@"startAddress"];
-        
-        _childrenCTranslationMaps = [NUCTranslationMapsFetcher fetcherWithParentObject:self];
-        
-        
-    }
-
-    return self;
+    return NUForwardingPathList;
 }
 
 @end

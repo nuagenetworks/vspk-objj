@@ -46,7 +46,7 @@ NUVSDStatus_UP = @"UP";
 
 
 /*!
-    System Monitoring details for VSD.
+    System Monitoring details for VSD. This is deprecated and no longer provided through the Nuage API. This information can now be gathered through the Monit API.
 */
 @implementation NUVSD : NURESTObject
 {

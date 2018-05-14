@@ -41,6 +41,7 @@ NUUplinkConnectionInterfaceConnectionType_EMBEDDED = @"EMBEDDED";
 NUUplinkConnectionInterfaceConnectionType_PCI_EXPRESS = @"PCI_EXPRESS";
 NUUplinkConnectionInterfaceConnectionType_USB_ETHERNET = @"USB_ETHERNET";
 NUUplinkConnectionInterfaceConnectionType_USB_MODEM = @"USB_MODEM";
+NUUplinkConnectionMode_ANY = @"Any";
 NUUplinkConnectionMode_DYNAMIC = @"Dynamic";
 NUUplinkConnectionMode_LTE = @"LTE";
 NUUplinkConnectionMode_PPPOE = @"PPPoE";
@@ -97,6 +98,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         Indicated whether route to underlay is enabled on this uplink connection.
     */
     BOOL _underlayEnabled @accessors(property=underlayEnabled);
+    /*!
+        This flag will determine if the abstract connection is inherited from the instance template
+    */
+    BOOL _inherited @accessors(property=inherited);
     /*!
         Boolean flag to indicate that connection parameters will be configured by the installer onsite. Limited to ConnectionMode: PPPoE
     */
@@ -183,6 +188,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"vlanId"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];
+        [self exposeLocalKeyPathToREST:@"inherited"];
         [self exposeLocalKeyPathToREST:@"installerManaged"];
         [self exposeLocalKeyPathToREST:@"interfaceConnectionType"];
         [self exposeLocalKeyPathToREST:@"mode"];

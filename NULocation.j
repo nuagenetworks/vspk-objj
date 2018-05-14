@@ -78,6 +78,18 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _country @accessors(property=country);
     /*!
+        Associated entity UUID.
+    */
+    CPString _associatedEntityID @accessors(property=associatedEntityID);
+    /*!
+        Name of the associated entity.
+    */
+    CPString _associatedEntityName @accessors(property=associatedEntityName);
+    /*!
+        Object type of the associated entity.
+    */
+    CPString _associatedEntityType @accessors(property=associatedEntityType);
+    /*!
         State/Province/Region
     */
     CPString _state @accessors(property=state);
@@ -117,6 +129,9 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"locality"];
         [self exposeLocalKeyPathToREST:@"longitude"];
         [self exposeLocalKeyPathToREST:@"country"];
+        [self exposeLocalKeyPathToREST:@"associatedEntityID"];
+        [self exposeLocalKeyPathToREST:@"associatedEntityName"];
+        [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"state"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

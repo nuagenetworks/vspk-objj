@@ -45,6 +45,10 @@ NUMetadataEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Description of the Metadata.
     */
     CPString _description @accessors(property=description);
@@ -68,6 +72,14 @@ NUMetadataEntityScope_GLOBAL = @"GLOBAL";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        ID of the entity to which the Metadata is associated to.
+    */
+    CPString _assocEntityID @accessors(property=assocEntityID);
+    /*!
+        Type of the entity to which the Metadata is associated to.
+    */
+    CPString _assocEntityType @accessors(property=assocEntityType);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -95,12 +107,15 @@ NUMetadataEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"metadataTagIDs"];
         [self exposeLocalKeyPathToREST:@"networkNotificationDisabled"];
         [self exposeLocalKeyPathToREST:@"blob"];
         [self exposeLocalKeyPathToREST:@"globalMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"assocEntityID"];
+        [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];

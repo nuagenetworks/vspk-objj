@@ -39,6 +39,10 @@
 @implementation NUPSNATPool : NURESTObject
 {
     /*!
+        The Provider to Customer NAT Pool
+    */
+    CPString _name @accessors(property=name);
+    /*!
         The last IP address in the range.
     */
     CPString _endAddress @accessors(property=endAddress);
@@ -69,6 +73,7 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"endAddress"];
         [self exposeLocalKeyPathToREST:@"startAddress"];
         

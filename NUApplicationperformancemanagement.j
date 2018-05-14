@@ -29,7 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUApplicationBindingsFetcher.j"
+
+NUApplicationperformancemanagementEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUApplicationperformancemanagementEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -42,6 +47,10 @@
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Determines whether this entity is read only.  Read only objects cannot be modified or deleted.
     */
     BOOL _readOnly @accessors(property=readOnly);
@@ -50,10 +59,20 @@
     */
     CPString _description @accessors(property=description);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         associated Probe ID
     */
     CPString _associatedPerformanceMonitorID @accessors(property=associatedPerformanceMonitorID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUApplicationBindingsFetcher _childrenApplicationBindings @accessors(property=childrenApplicationBindings);
     
 }
@@ -76,10 +95,15 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedPerformanceMonitorID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenApplicationBindings = [NUApplicationBindingsFetcher fetcherWithParentObject:self];
         
         

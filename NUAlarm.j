@@ -59,7 +59,7 @@ NUAlarmSeverity_WARNING = @"WARNING";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Flag to indicate that alarm is already acknowledged or not
+        Flag to indicate if the alarm has been acknowledged already.
     */
     BOOL _acknowledged @accessors(property=acknowledged);
     /*!
@@ -75,7 +75,7 @@ NUAlarmSeverity_WARNING = @"WARNING";
     */
     CPString _severity @accessors(property=severity);
     /*!
-        Indicates the time that the alarm was triggered
+        Indicates the time at which the alarm was triggered
     */
     CPNumber _timestamp @accessors(property=timestamp);
     /*!

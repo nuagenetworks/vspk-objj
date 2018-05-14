@@ -138,11 +138,11 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     /*!
         Lower limit for the policy group id.
     */
-    NURESTObject _PGIDLowerLimit @accessors(property=PGIDLowerLimit);
+    CPNumber _PGIDLowerLimit @accessors(property=PGIDLowerLimit);
     /*!
         Upper limit for the policy group id.
     */
-    NURESTObject _PGIDUpperLimit @accessors(property=PGIDUpperLimit);
+    CPNumber _PGIDUpperLimit @accessors(property=PGIDUpperLimit);
     /*!
         Defines total DHCP options that can be set on a domain.
     */
@@ -227,6 +227,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         This flag is used to indicate that whether VSD upgrade is complete,it is expected that csproot will set to true,after VSD upgrade is complete and also making sure that all VSC's audits and Gateway audits with VSD are done
     */
     BOOL _VSDUpgradeIsComplete @accessors(property=VSDUpgradeIsComplete);
+    /*!
+        In case of a dual-uplink NSG, the hold down time in seconds, after which an uplink connection that recovered from failure is re-used.
+    */
+    CPNumber _NSGUplinkHoldDownTimer @accessors(property=NSGUplinkHoldDownTimer);
     /*!
          Autonomous System Number,Used for RT/RD auto-generation
     */
@@ -692,6 +696,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"VSCOnSameVersionAsVSD"];
         [self exposeLocalKeyPathToREST:@"VSDReadOnlyMode"];
         [self exposeLocalKeyPathToREST:@"VSDUpgradeIsComplete"];
+        [self exposeLocalKeyPathToREST:@"NSGUplinkHoldDownTimer"];
         [self exposeLocalKeyPathToREST:@"ASNumber"];
         [self exposeLocalKeyPathToREST:@"VSSStatsInterval"];
         [self exposeLocalKeyPathToREST:@"RTLowerLimit"];

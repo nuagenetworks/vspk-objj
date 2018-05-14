@@ -31,7 +31,6 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 
 NUEgressAdvFwdEntryTemplateAction_DROP = @"DROP";
@@ -53,9 +52,7 @@ NUEgressAdvFwdEntryTemplateFailsafeDatapath_FAIL_TO_WIRE = @"FAIL_TO_WIRE";
 NUEgressAdvFwdEntryTemplateLocationType_ANY = @"ANY";
 NUEgressAdvFwdEntryTemplateLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUEgressAdvFwdEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
-NUEgressAdvFwdEntryTemplateLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUEgressAdvFwdEntryTemplateLocationType_SUBNET = @"SUBNET";
-NUEgressAdvFwdEntryTemplateLocationType_VPORTTAG = @"VPORTTAG";
 NUEgressAdvFwdEntryTemplateLocationType_ZONE = @"ZONE";
 NUEgressAdvFwdEntryTemplateNetworkType_ANY = @"ANY";
 NUEgressAdvFwdEntryTemplateNetworkType_ENDPOINT_DOMAIN = @"ENDPOINT_DOMAIN";
@@ -220,7 +217,6 @@ NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     
 }
@@ -278,7 +274,6 @@ NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         
         

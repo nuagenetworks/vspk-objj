@@ -73,6 +73,14 @@ NUVMInterfaceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _VPortName @accessors(property=VPortName);
     /*!
+        IPv6 address of the  interface
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
+    /*!
+        IPV6 Gateway of the subnet that the VM is connected to
+    */
+    CPString _IPv6Gateway @accessors(property=IPv6Gateway);
+    /*!
         Device name associated with this interface
     */
     CPString _name @accessors(property=name);
@@ -177,6 +185,8 @@ NUVMInterfaceEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"IPAddress"];
         [self exposeLocalKeyPathToREST:@"VPortID"];
         [self exposeLocalKeyPathToREST:@"VPortName"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
+        [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];

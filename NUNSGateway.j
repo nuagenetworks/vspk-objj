@@ -81,6 +81,8 @@ NUNSGatewayFamily_NSG_X = @"NSG_X";
 NUNSGatewayFamily_NSG_X200 = @"NSG_X200";
 NUNSGatewayInheritedSSHServiceState_DISABLED = @"DISABLED";
 NUNSGatewayInheritedSSHServiceState_ENABLED = @"ENABLED";
+NUNSGatewayNetworkAcceleration_NONE = @"NONE";
+NUNSGatewayNetworkAcceleration_PERFORMANCE = @"PERFORMANCE";
 NUNSGatewayPermittedAction_ALL = @"ALL";
 NUNSGatewayPermittedAction_DEPLOY = @"DEPLOY";
 NUNSGatewayPermittedAction_EXTEND = @"EXTEND";
@@ -218,6 +220,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         A description of the Gateway
     */
     CPString _description @accessors(property=description);
+    /*!
+        Attribute that enables or disables Network Acceleration (DPDK) on the NSGateway instance.  Changing the value of this field will cause the device to restart at the next configuration reload.
+    */
+    CPString _networkAcceleration @accessors(property=networkAcceleration);
     /*!
         Transient representation of the same property on NSGInfo.
     */
@@ -370,6 +376,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"networkAcceleration"];
         [self exposeLocalKeyPathToREST:@"libraries"];
         [self exposeLocalKeyPathToREST:@"inheritedSSHServiceState"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];

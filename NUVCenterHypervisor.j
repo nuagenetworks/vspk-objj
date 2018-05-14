@@ -111,6 +111,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _name @accessors(property=name);
     /*!
+        When this is set to true, the vCenter Integration Node will be responsible for marking a VRS Agent as available in the EAM framework. Until a VRS Agent has been marked as available, vCenter will not migrate VMs to the host running the VRS Agent and will not allow VMs to be powered on that host.
+    */
+    BOOL _manageVRSAvailability @accessors(property=manageVRSAvailability);
+    /*!
         managed Object ID of hypervisor
     */
     CPString _managedObjectID @accessors(property=managedObjectID);
@@ -475,6 +479,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _vrsId @accessors(property=vrsId);
     /*!
+        Indicates whether the VRS Agent has been marked as available by VCIN
+    */
+    BOOL _vrsMarkedAsAvailable @accessors(property=vrsMarkedAsAvailable);
+    /*!
         VRS password to be used by toolbox to communicate with VRS
     */
     CPString _vrsPassword @accessors(property=vrsPassword);
@@ -632,6 +640,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"VRSState"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"manageVRSAvailability"];
         [self exposeLocalKeyPathToREST:@"managedObjectID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"lastVRSDeployedDate"];
@@ -723,6 +732,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"primaryDataUplinkUnderlayID"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsId"];
+        [self exposeLocalKeyPathToREST:@"vrsMarkedAsAvailable"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
         [self exposeLocalKeyPathToREST:@"vrsUserName"];
         [self exposeLocalKeyPathToREST:@"staticRoute"];

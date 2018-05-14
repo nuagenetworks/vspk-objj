@@ -93,6 +93,8 @@
 @import "NUFloatingIPACLTemplateEntriesFetcher.j"
 @import "NUFloatingIPACLTemplatesFetcher.j"
 @import "NUFloatingIpsFetcher.j"
+@import "NUForwardingPathListEntriesFetcher.j"
+@import "NUForwardingPathListsFetcher.j"
 @import "NUGatewaySecuredDatasFetcher.j"
 @import "NUGatewaySecuritiesFetcher.j"
 @import "NUGatewayTemplatesFetcher.j"

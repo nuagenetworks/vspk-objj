@@ -31,7 +31,6 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 
 NUEgressACLEntryTemplateAction_DROP = @"DROP";
@@ -43,9 +42,7 @@ NUEgressACLEntryTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUEgressACLEntryTemplateLocationType_ANY = @"ANY";
 NUEgressACLEntryTemplateLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUEgressACLEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
-NUEgressACLEntryTemplateLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUEgressACLEntryTemplateLocationType_SUBNET = @"SUBNET";
-NUEgressACLEntryTemplateLocationType_VPORTTAG = @"VPORTTAG";
 NUEgressACLEntryTemplateLocationType_ZONE = @"ZONE";
 NUEgressACLEntryTemplateNetworkType_ANY = @"ANY";
 NUEgressACLEntryTemplateNetworkType_ENDPOINT_DOMAIN = @"ENDPOINT_DOMAIN";
@@ -200,7 +197,6 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     
 }
@@ -257,7 +253,6 @@ NUEgressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         
         _protocol = 6;

@@ -94,7 +94,7 @@ NUPerformanceMonitorServiceClass_H = @"H";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        probation Timer in seconds
+        Probe Timeout in milliseconds
     */
     CPNumber _holdDownTimer @accessors(property=holdDownTimer);
     /*!

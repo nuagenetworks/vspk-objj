@@ -37,6 +37,7 @@ NUZFBAutoAssignmentZFBMatchAttribute_IP_ADDRESS = @"IP_ADDRESS";
 NUZFBAutoAssignmentZFBMatchAttribute_MAC_ADDRESS = @"MAC_ADDRESS";
 NUZFBAutoAssignmentZFBMatchAttribute_NSGATEWAY_ID = @"NSGATEWAY_ID";
 NUZFBAutoAssignmentZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
+NUZFBAutoAssignmentZFBMatchAttribute_UUID = @"UUID";
 
 
 /*!

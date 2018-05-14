@@ -119,6 +119,10 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        UUID of the gateway instance
+    */
+    CPString _gatewayUUID @accessors(property=gatewayUUID);
+    /*!
         Flag to indicate if the ovs database is synced between the NSG pair part of a redundant group
     */
     BOOL _dbSynced @accessors(property=dbSynced);
@@ -320,6 +324,7 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         [self exposeLocalKeyPathToREST:@"lastEventTimestamp"];
         [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gatewayUUID"];
         [self exposeLocalKeyPathToREST:@"dbSynced"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"peakCPUUsage"];

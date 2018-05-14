@@ -96,6 +96,8 @@
 @import "NUFloatingIPACLTemplate.j"
 @import "NUFloatingIPACLTemplateEntry.j"
 @import "NUFloatingIp.j"
+@import "NUForwardingPathList.j"
+@import "NUForwardingPathListEntry.j"
 @import "NUGateway.j"
 @import "NUGatewaySecuredData.j"
 @import "NUGatewaySecurity.j"
@@ -334,6 +336,8 @@
 [[NURESTModelController defaultController] registerModelClass:NUFloatingIPACLTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUFloatingIPACLTemplateEntry];
 [[NURESTModelController defaultController] registerModelClass:NUFloatingIp];
+[[NURESTModelController defaultController] registerModelClass:NUForwardingPathList];
+[[NURESTModelController defaultController] registerModelClass:NUForwardingPathListEntry];
 [[NURESTModelController defaultController] registerModelClass:NUGateway];
 [[NURESTModelController defaultController] registerModelClass:NUGatewaySecuredData];
 [[NURESTModelController defaultController] registerModelClass:NUGatewaySecurity];

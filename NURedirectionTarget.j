@@ -32,12 +32,10 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVirtualIPsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NURedirectionTargetEndPointType_L3 = @"L3";
-NURedirectionTargetEndPointType_NONE = @"NONE";
 NURedirectionTargetEndPointType_NSG_VNF = @"NSG_VNF";
 NURedirectionTargetEndPointType_VIRTUAL_WIRE = @"VIRTUAL_WIRE";
 NURedirectionTargetEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -99,7 +97,6 @@ NURedirectionTargetTriggerType_NONE = @"NONE";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVirtualIPsFetcher _childrenVirtualIPs @accessors(property=childrenVirtualIPs);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
@@ -137,7 +134,6 @@ NURedirectionTargetTriggerType_NONE = @"NONE";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVirtualIPs = [NUVirtualIPsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         

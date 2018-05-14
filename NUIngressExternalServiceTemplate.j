@@ -32,7 +32,6 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUIngressExternalServiceTemplateEntriesFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
 
 NUIngressExternalServiceTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIngressExternalServiceTemplateEntityScope_GLOBAL = @"GLOBAL";
@@ -88,7 +87,6 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUIngressExternalServiceTemplateEntriesFetcher _childrenIngressExternalServiceTemplateEntries @accessors(property=childrenIngressExternalServiceTemplateEntries);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     
 }
 
@@ -122,7 +120,6 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenIngressExternalServiceTemplateEntries = [NUIngressExternalServiceTemplateEntriesFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         
         
     }

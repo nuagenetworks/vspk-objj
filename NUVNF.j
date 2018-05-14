@@ -65,7 +65,7 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
 @implementation NUVNF : NURESTObject
 {
     /*!
-        The ID of VNF Descriptor from which VNF to be created.
+        The ID of VNF Descriptor from which VNF to be created. This is required on creation and can be removed on moidification of VNF instance.
     */
     CPString _VNFDescriptorID @accessors(property=VNFDescriptorID);
     /*!

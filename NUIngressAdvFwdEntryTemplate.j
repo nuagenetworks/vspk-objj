@@ -31,9 +31,9 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 
+NUIngressAdvFwdEntryTemplateAction_ACTION_LIST = @"ACTION_LIST";
 NUIngressAdvFwdEntryTemplateAction_DROP = @"DROP";
 NUIngressAdvFwdEntryTemplateAction_FORWARD = @"FORWARD";
 NUIngressAdvFwdEntryTemplateAction_REDIRECT = @"REDIRECT";
@@ -58,16 +58,13 @@ NUIngressAdvFwdEntryTemplateFailsafeDatapath_FAIL_TO_WIRE = @"FAIL_TO_WIRE";
 NUIngressAdvFwdEntryTemplateLocationType_ANY = @"ANY";
 NUIngressAdvFwdEntryTemplateLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressAdvFwdEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
-NUIngressAdvFwdEntryTemplateLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUIngressAdvFwdEntryTemplateLocationType_SUBNET = @"SUBNET";
-NUIngressAdvFwdEntryTemplateLocationType_VPORTTAG = @"VPORTTAG";
 NUIngressAdvFwdEntryTemplateLocationType_ZONE = @"ZONE";
 NUIngressAdvFwdEntryTemplateNetworkType_ANY = @"ANY";
 NUIngressAdvFwdEntryTemplateNetworkType_ENDPOINT_DOMAIN = @"ENDPOINT_DOMAIN";
 NUIngressAdvFwdEntryTemplateNetworkType_ENDPOINT_SUBNET = @"ENDPOINT_SUBNET";
 NUIngressAdvFwdEntryTemplateNetworkType_ENDPOINT_ZONE = @"ENDPOINT_ZONE";
 NUIngressAdvFwdEntryTemplateNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
-NUIngressAdvFwdEntryTemplateNetworkType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
 NUIngressAdvFwdEntryTemplateNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
 NUIngressAdvFwdEntryTemplateNetworkType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressAdvFwdEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
@@ -133,7 +130,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The action of the ACL entry DROP or FORWARD or REDIRECT. Action REDIRECT is allowed only for IngressAdvancedForwardingEntry Possible values are DROP, FORWARD, REDIRECT, .
+        The action of the ACL entry DROP or FORWARD or REDIRECT or ACTION_LIST. Actions REDIRECT and ACTION_LIST are allowed only for IngressAdvancedForwardingEntry. Possible values are DROP, FORWARD, REDIRECT, ACTION_LIST. If ACTION_LIST is selected in IngressAdvancedForwardingEntry, user will have to attach a ForwardingPathList (list of forwarding action-uplink preference entries) to the ACL.  
     */
     CPString _action @accessors(property=action);
     /*!
@@ -237,6 +234,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _associatedApplicationID @accessors(property=associatedApplicationID);
     /*!
+        Associated forwarding path list UUID.
+    */
+    CPString _associatedForwardingPathListID @accessors(property=associatedForwardingPathListID);
+    /*!
         In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
@@ -267,7 +268,6 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     
 }
@@ -324,6 +324,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"isSLAAware"];
         [self exposeLocalKeyPathToREST:@"associatedApplicationID"];
+        [self exposeLocalKeyPathToREST:@"associatedForwardingPathListID"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
         [self exposeLocalKeyPathToREST:@"associatedTrafficType"];
         [self exposeLocalKeyPathToREST:@"associatedTrafficTypeID"];
@@ -334,7 +335,6 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         
         _protocol = 6;

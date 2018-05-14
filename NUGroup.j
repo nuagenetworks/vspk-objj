@@ -38,6 +38,7 @@ NUGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUGroupEntityScope_GLOBAL = @"GLOBAL";
 NUGroupManagementMode_CMS = @"CMS";
 NUGroupManagementMode_DEFAULT = @"DEFAULT";
+NUGroupManagementMode_RESERVED = @"RESERVED";
 NUGroupRole_ADMINOPERATOR = @"ADMINOPERATOR";
 NUGroupRole_CMS = @"CMS";
 NUGroupRole_CSPOPERATOR = @"CSPOPERATOR";

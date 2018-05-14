@@ -165,6 +165,10 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     CPNumber _dictionaryVersion @accessors(property=dictionaryVersion);
     /*!
+        Read-only flag that indicates if virtual firewall rules are allowed.
+    */
+    BOOL _virtualFirewallRulesEnabled @accessors(property=virtualFirewallRulesEnabled);
+    /*!
         Controls whether this enterprise has access to advanced QoS settings
     */
     BOOL _allowAdvancedQOSConfiguration @accessors(property=allowAdvancedQOSConfiguration);
@@ -334,6 +338,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"sharedEnterprise"];
         [self exposeLocalKeyPathToREST:@"dictionaryVersion"];
+        [self exposeLocalKeyPathToREST:@"virtualFirewallRulesEnabled"];
         [self exposeLocalKeyPathToREST:@"allowAdvancedQOSConfiguration"];
         [self exposeLocalKeyPathToREST:@"allowGatewayManagement"];
         [self exposeLocalKeyPathToREST:@"allowTrustedForwardingClass"];

@@ -115,7 +115,7 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
     */
     CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
     /*!
-        name of the associated Enterprise
+        Name of the associated enterprise
     */
     CPString _associatedEnterpriseName @accessors(property=associatedEnterpriseName);
     /*!
@@ -123,7 +123,7 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
     */
     CPString _associatedNSGatewayID @accessors(property=associatedNSGatewayID);
     /*!
-        name of the associated NSG
+        Name of the associated NSG
     */
     CPString _associatedNSGatewayName @accessors(property=associatedNSGatewayName);
     /*!

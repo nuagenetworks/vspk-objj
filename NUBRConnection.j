@@ -34,6 +34,7 @@
 NUBRConnectionAdvertisementCriteria_BFD = @"BFD";
 NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
 NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
+NUBRConnectionAdvertisementCriteria_OPERATIONAL_LINK = @"OPERATIONAL_LINK";
 NUBRConnectionMode_STATIC = @"Static";
 
 
@@ -62,6 +63,10 @@ NUBRConnectionMode_STATIC = @"Static";
         network mask
     */
     CPString _netmask @accessors(property=netmask);
+    /*!
+        This flag will determine if the abstract connection is inherited from the instance template
+    */
+    BOOL _inherited @accessors(property=inherited);
     /*!
         Connection mode: Static.
     */
@@ -97,6 +102,7 @@ NUBRConnectionMode_STATIC = @"Static";
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"inherited"];
         [self exposeLocalKeyPathToREST:@"mode"];
         [self exposeLocalKeyPathToREST:@"uplinkID"];
         
