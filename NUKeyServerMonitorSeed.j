@@ -44,6 +44,8 @@ NUKeyServerMonitorSeedSeedTrafficEncryptionAlgorithm_AES_128_CBC = @"AES_128_CBC
 NUKeyServerMonitorSeedSeedTrafficEncryptionAlgorithm_AES_192_CBC = @"AES_192_CBC";
 NUKeyServerMonitorSeedSeedTrafficEncryptionAlgorithm_AES_256_CBC = @"AES_256_CBC";
 NUKeyServerMonitorSeedSeedTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_DES_CBC";
+NUKeyServerMonitorSeedSeedType_DR = @"DR";
+NUKeyServerMonitorSeedSeedType_STANDARD = @"STANDARD";
 
 
 /*!
@@ -67,6 +69,10 @@ NUKeyServerMonitorSeedSeedTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_D
         Seed Traffic Encryption Key Lifetime in Seconds
     */
     CPNumber _seedTrafficEncryptionKeyLifetime @accessors(property=seedTrafficEncryptionKeyLifetime);
+    /*!
+        Indicates if this is a Standard (or) a Disaster Recovery seed.
+    */
+    CPString _seedType @accessors(property=seedType);
     /*!
         The lifetime of this entry (seconds)
     */
@@ -115,6 +121,7 @@ NUKeyServerMonitorSeedSeedTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_D
         [self exposeLocalKeyPathToREST:@"seedTrafficAuthenticationAlgorithm"];
         [self exposeLocalKeyPathToREST:@"seedTrafficEncryptionAlgorithm"];
         [self exposeLocalKeyPathToREST:@"seedTrafficEncryptionKeyLifetime"];
+        [self exposeLocalKeyPathToREST:@"seedType"];
         [self exposeLocalKeyPathToREST:@"lifetime"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"creationTime"];

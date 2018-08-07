@@ -30,6 +30,7 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUShuntLinksFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
@@ -78,6 +79,10 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _gatewayPeer1AutodiscoveredGatewayID @accessors(property=gatewayPeer1AutodiscoveredGatewayID);
     /*!
+        Indicates status of the authoritative gateway of this Redundancy Group.
+    */
+    BOOL _gatewayPeer1Connected @accessors(property=gatewayPeer1Connected);
+    /*!
         The gateway configuration owner in this Redundant Group. when Redundant Group is deleted this gateway will recieve vport associations 
     */
     CPString _gatewayPeer1ID @accessors(property=gatewayPeer1ID);
@@ -89,6 +94,10 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         The Auto Discovered Gateway configuration for the secondary gateway in this Redundant Group.
     */
     CPString _gatewayPeer2AutodiscoveredGatewayID @accessors(property=gatewayPeer2AutodiscoveredGatewayID);
+    /*!
+        Indicates status of the secondary gateway of this Redundancy Group.
+    */
+    BOOL _gatewayPeer2Connected @accessors(property=gatewayPeer2Connected);
     /*!
         The gateway peer in this Redundant Group. when Redundant Group is deleted this gateway will not recieve vport associations
     */
@@ -143,6 +152,7 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     CPString _externalID @accessors(property=externalID);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUShuntLinksFetcher _childrenShuntLinks @accessors(property=childrenShuntLinks);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
@@ -171,9 +181,11 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1AutodiscoveredGatewayID"];
+        [self exposeLocalKeyPathToREST:@"gatewayPeer1Connected"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1ID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1Name"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2AutodiscoveredGatewayID"];
+        [self exposeLocalKeyPathToREST:@"gatewayPeer2Connected"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2ID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2Name"];
         [self exposeLocalKeyPathToREST:@"heartbeatInterval"];
@@ -189,6 +201,7 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenShuntLinks = [NUShuntLinksFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];

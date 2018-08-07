@@ -45,13 +45,25 @@
     */
     CPNumber _AARProbeStatsInterval @accessors(property=AARProbeStatsInterval);
     /*!
+        Flag to indicate if VSS feature is enabled.
+    */
+    BOOL _VSSFeatureEnabled @accessors(property=VSSFeatureEnabled);
+    /*!
         Interval for VSS stats
     */
     CPNumber _VSSStatsInterval @accessors(property=VSSStatsInterval);
     /*!
+        Result size for queries
+    */
+    CPString _pageSize @accessors(property=pageSize);
+    /*!
         Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires 'statisticsEnabled'.
     */
     BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
+    /*!
+        Google Maps API Key used to display maps on Nuage UI applications
+    */
+    CPString _googleMapsAPIKey @accessors(property=googleMapsAPIKey);
     /*!
         This flag is used to indicate if statistics is enabled in the system. CSProot is expected to activate this through the enable statistics script.
     */
@@ -83,8 +95,11 @@
     {
         [self exposeLocalKeyPathToREST:@"AARFlowStatsInterval"];
         [self exposeLocalKeyPathToREST:@"AARProbeStatsInterval"];
+        [self exposeLocalKeyPathToREST:@"VSSFeatureEnabled"];
         [self exposeLocalKeyPathToREST:@"VSSStatsInterval"];
+        [self exposeLocalKeyPathToREST:@"pageSize"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
+        [self exposeLocalKeyPathToREST:@"googleMapsAPIKey"];
         [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
         [self exposeLocalKeyPathToREST:@"statsTSDBServerAddress"];
         

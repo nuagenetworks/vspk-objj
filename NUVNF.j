@@ -60,7 +60,7 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
 
 
 /*!
-    Represent a VNF instance
+    Instantiation of a VNF on a specified Network Services Gateway that has the resources to manage a VNF.
 */
 @implementation NUVNF : NURESTObject
 {

@@ -36,6 +36,7 @@
 NUPortTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPortTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUPortTemplatePortType_ACCESS = @"ACCESS";
+NUPortTemplatePortType_MANAGEMENT = @"MANAGEMENT";
 NUPortTemplatePortType_NETWORK = @"NETWORK";
 
 
@@ -69,7 +70,7 @@ NUPortTemplatePortType_NETWORK = @"NETWORK";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Type of the Port - NETWORK, ACCESS Possible values are ACCESS, NETWORK, .
+        Type of the Port. Possible values are ACCESS, NETWORK, MANAGEMENT.
     */
     CPString _portType @accessors(property=portType);
     /*!

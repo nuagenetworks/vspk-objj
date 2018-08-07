@@ -42,7 +42,6 @@ NUDSCPForwardingClassMappingForwardingClass_E = @"E";
 NUDSCPForwardingClassMappingForwardingClass_F = @"F";
 NUDSCPForwardingClassMappingForwardingClass_G = @"G";
 NUDSCPForwardingClassMappingForwardingClass_H = @"H";
-NUDSCPForwardingClassMappingForwardingClass_NONE = @"NONE";
 
 
 /*!

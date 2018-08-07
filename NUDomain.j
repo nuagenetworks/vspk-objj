@@ -71,6 +71,7 @@
 @import "Fetchers/NUApplicationperformancemanagementbindingsFetcher.j"
 @import "Fetchers/NUBridgeInterfacesFetcher.j"
 @import "Fetchers/NUGroupsFetcher.j"
+@import "Fetchers/NUNSGatewaySummariesFetcher.j"
 @import "Fetchers/NUNSGRoutingPolicyBindingsFetcher.j"
 @import "Fetchers/NUOSPFInstancesFetcher.j"
 @import "Fetchers/NUStaticRoutesFetcher.j"
@@ -90,6 +91,8 @@ NUDomainEncryption_DISABLED = @"DISABLED";
 NUDomainEncryption_ENABLED = @"ENABLED";
 NUDomainEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUDomainEntityScope_GLOBAL = @"GLOBAL";
+NUDomainFIPIgnoreDefaultRoute_DISABLED = @"DISABLED";
+NUDomainFIPIgnoreDefaultRoute_ENABLED = @"ENABLED";
 NUDomainFlowCollectionEnabled_DISABLED = @"DISABLED";
 NUDomainFlowCollectionEnabled_ENABLED = @"ENABLED";
 NUDomainFlowCollectionEnabled_INHERITED = @"INHERITED";
@@ -113,6 +116,7 @@ NUDomainPolicyChangeStatus_DISCARDED = @"DISCARDED";
 NUDomainPolicyChangeStatus_STARTED = @"STARTED";
 NUDomainTunnelType_DC_DEFAULT = @"DC_DEFAULT";
 NUDomainTunnelType_GRE = @"GRE";
+NUDomainTunnelType_VLAN = @"VLAN";
 NUDomainTunnelType_VXLAN = @"VXLAN";
 NUDomainUnderlayEnabled_DISABLED = @"DISABLED";
 NUDomainUnderlayEnabled_ENABLED = @"ENABLED";
@@ -149,6 +153,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         when DHCPBehaviorType is RELAY, then DHCP Server IP Address needs to be set
     */
     CPString _DHCPServerAddress @accessors(property=DHCPServerAddress);
+    /*!
+        Determines whether the default Overlay route will be ignored or not when a VM has FIP so that it takes Underlay route.
+    */
+    CPString _FIPIgnoreDefaultRoute @accessors(property=FIPIgnoreDefaultRoute);
     /*!
         Boolean flag to indicate whether this is a Floating IP to underlay domain or not
     */
@@ -368,6 +376,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUApplicationperformancemanagementbindingsFetcher _childrenApplicationperformancemanagementbindings @accessors(property=childrenApplicationperformancemanagementbindings);
     NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
     NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
+    NUNSGatewaySummariesFetcher _childrenNSGatewaySummaries @accessors(property=childrenNSGatewaySummaries);
     NUNSGRoutingPolicyBindingsFetcher _childrenNSGRoutingPolicyBindings @accessors(property=childrenNSGRoutingPolicyBindings);
     NUOSPFInstancesFetcher _childrenOSPFInstances @accessors(property=childrenOSPFInstances);
     NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
@@ -400,6 +409,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"BGPEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPBehavior"];
         [self exposeLocalKeyPathToREST:@"DHCPServerAddress"];
+        [self exposeLocalKeyPathToREST:@"FIPIgnoreDefaultRoute"];
         [self exposeLocalKeyPathToREST:@"FIPUnderlay"];
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"labelID"];
@@ -487,6 +497,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenApplicationperformancemanagementbindings = [NUApplicationperformancemanagementbindingsFetcher fetcherWithParentObject:self];
         _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
         _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
+        _childrenNSGatewaySummaries = [NUNSGatewaySummariesFetcher fetcherWithParentObject:self];
         _childrenNSGRoutingPolicyBindings = [NUNSGRoutingPolicyBindingsFetcher fetcherWithParentObject:self];
         _childrenOSPFInstances = [NUOSPFInstancesFetcher fetcherWithParentObject:self];
         _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];

@@ -34,6 +34,8 @@
 @import "Fetchers/NUL4ServicesFetcher.j"
 @import "Fetchers/NUL4ServiceGroupsFetcher.j"
 @import "Fetchers/NUL7applicationsignaturesFetcher.j"
+@import "Fetchers/NUSaaSApplicationGroupsFetcher.j"
+@import "Fetchers/NUSaaSApplicationTypesFetcher.j"
 @import "Fetchers/NUCaptivePortalProfilesFetcher.j"
 @import "Fetchers/NURateLimitersFetcher.j"
 @import "Fetchers/NUGatewaysFetcher.j"
@@ -43,6 +45,7 @@
 @import "Fetchers/NURedundancyGroupsFetcher.j"
 @import "Fetchers/NUPerformanceMonitorsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUNetconfProfilesFetcher.j"
 @import "Fetchers/NUNetworkMacroGroupsFetcher.j"
 @import "Fetchers/NUNetworkPerformanceMeasurementsFetcher.j"
 @import "Fetchers/NUKeyServerMonitorsFetcher.j"
@@ -68,6 +71,7 @@
 @import "Fetchers/NUEnterpriseNetworksFetcher.j"
 @import "Fetchers/NUEnterpriseSecuritiesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
+@import "Fetchers/NUPolicyGroupCategoriesFetcher.j"
 @import "Fetchers/NUPolicyObjectGroupsFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
 @import "Fetchers/NUDomainTemplatesFetcher.j"
@@ -83,6 +87,7 @@
 @import "Fetchers/NUDSCPRemarkingPolicyTablesFetcher.j"
 @import "Fetchers/NUUsersFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
+@import "Fetchers/NUNSGatewaySummariesFetcher.j"
 @import "Fetchers/NUNSGatewayTemplatesFetcher.j"
 @import "Fetchers/NUNSGGroupsFetcher.j"
 @import "Fetchers/NUNSRedundantGatewayGroupsFetcher.j"
@@ -125,7 +130,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     BOOL _LDAPEnabled @accessors(property=LDAPEnabled);
     /*!
-        Read only flag to display if BGP is enabled for this enterprise
+        Read-only flag to display if BGP is enabled for this enterprise
     */
     BOOL _BGPEnabled @accessors(property=BGPEnabled);
     /*!
@@ -133,7 +138,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     CPNumber _DHCPLeaseInterval @accessors(property=DHCPLeaseInterval);
     /*!
-        Read only flag to display if VNF management is enabled for this enterprise
+        Read-only flag to display if VNF management is enabled for this enterprise
     */
     BOOL _VNFManagementEnabled @accessors(property=VNFManagementEnabled);
     /*!
@@ -145,11 +150,11 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Readonly Id of the auto generated receive multicast list associated with this enterprise profile
+        Read-only Id of the auto generated receive multicast list associated with this enterprise profile
     */
     CPString _receiveMultiCastListID @accessors(property=receiveMultiCastListID);
     /*!
-        Readonly Id of the auto generated send multicast list associated with this enterprise profile
+        Read-only Id of the auto generated send multicast list associated with this enterprise profile
     */
     CPString _sendMultiCastListID @accessors(property=sendMultiCastListID);
     /*!
@@ -201,7 +206,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     BOOL _enableApplicationPerformanceManagement @accessors(property=enableApplicationPerformanceManagement);
     /*!
-        Readonly encryption management mode of the associated profile
+        Read-only encryption management mode of the associated profile
     */
     CPString _encryptionManagementMode @accessors(property=encryptionManagementMode);
     /*!
@@ -217,15 +222,15 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     CPNumber _localAS @accessors(property=localAS);
     /*!
-        Readonly Id of the associated group key encryption profile
+        Read-only Id of the associated group key encryption profile
     */
     CPString _associatedEnterpriseSecurityID @accessors(property=associatedEnterpriseSecurityID);
     /*!
-        Readonly Id of the associated group key encryption profile
+        Read-only Id of the associated group key encryption profile
     */
     CPString _associatedGroupKeyEncryptionProfileID @accessors(property=associatedGroupKeyEncryptionProfileID);
     /*!
-        Readonly Id of the associated keyserver monitor
+        Read-only Id of the associated keyserver monitor
     */
     CPString _associatedKeyServerMonitorID @accessors(property=associatedKeyServerMonitorID);
     /*!
@@ -250,6 +255,8 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUL4ServicesFetcher _childrenL4Services @accessors(property=childrenL4Services);
     NUL4ServiceGroupsFetcher _childrenL4ServiceGroups @accessors(property=childrenL4ServiceGroups);
     NUL7applicationsignaturesFetcher _childrenL7applicationsignatures @accessors(property=childrenL7applicationsignatures);
+    NUSaaSApplicationGroupsFetcher _childrenSaaSApplicationGroups @accessors(property=childrenSaaSApplicationGroups);
+    NUSaaSApplicationTypesFetcher _childrenSaaSApplicationTypes @accessors(property=childrenSaaSApplicationTypes);
     NUCaptivePortalProfilesFetcher _childrenCaptivePortalProfiles @accessors(property=childrenCaptivePortalProfiles);
     NURateLimitersFetcher _childrenRateLimiters @accessors(property=childrenRateLimiters);
     NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
@@ -259,6 +266,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NURedundancyGroupsFetcher _childrenRedundancyGroups @accessors(property=childrenRedundancyGroups);
     NUPerformanceMonitorsFetcher _childrenPerformanceMonitors @accessors(property=childrenPerformanceMonitors);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUNetconfProfilesFetcher _childrenNetconfProfiles @accessors(property=childrenNetconfProfiles);
     NUNetworkMacroGroupsFetcher _childrenNetworkMacroGroups @accessors(property=childrenNetworkMacroGroups);
     NUNetworkPerformanceMeasurementsFetcher _childrenNetworkPerformanceMeasurements @accessors(property=childrenNetworkPerformanceMeasurements);
     NUKeyServerMonitorsFetcher _childrenKeyServerMonitors @accessors(property=childrenKeyServerMonitors);
@@ -284,6 +292,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUEnterpriseNetworksFetcher _childrenEnterpriseNetworks @accessors(property=childrenEnterpriseNetworks);
     NUEnterpriseSecuritiesFetcher _childrenEnterpriseSecurities @accessors(property=childrenEnterpriseSecurities);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
+    NUPolicyGroupCategoriesFetcher _childrenPolicyGroupCategories @accessors(property=childrenPolicyGroupCategories);
     NUPolicyObjectGroupsFetcher _childrenPolicyObjectGroups @accessors(property=childrenPolicyObjectGroups);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
     NUDomainTemplatesFetcher _childrenDomainTemplates @accessors(property=childrenDomainTemplates);
@@ -299,6 +308,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUDSCPRemarkingPolicyTablesFetcher _childrenDSCPRemarkingPolicyTables @accessors(property=childrenDSCPRemarkingPolicyTables);
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
+    NUNSGatewaySummariesFetcher _childrenNSGatewaySummaries @accessors(property=childrenNSGatewaySummaries);
     NUNSGatewayTemplatesFetcher _childrenNSGatewayTemplates @accessors(property=childrenNSGatewayTemplates);
     NUNSGGroupsFetcher _childrenNSGGroups @accessors(property=childrenNSGGroups);
     NUNSRedundantGatewayGroupsFetcher _childrenNSRedundantGatewayGroups @accessors(property=childrenNSRedundantGatewayGroups);
@@ -364,6 +374,8 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenL4Services = [NUL4ServicesFetcher fetcherWithParentObject:self];
         _childrenL4ServiceGroups = [NUL4ServiceGroupsFetcher fetcherWithParentObject:self];
         _childrenL7applicationsignatures = [NUL7applicationsignaturesFetcher fetcherWithParentObject:self];
+        _childrenSaaSApplicationGroups = [NUSaaSApplicationGroupsFetcher fetcherWithParentObject:self];
+        _childrenSaaSApplicationTypes = [NUSaaSApplicationTypesFetcher fetcherWithParentObject:self];
         _childrenCaptivePortalProfiles = [NUCaptivePortalProfilesFetcher fetcherWithParentObject:self];
         _childrenRateLimiters = [NURateLimitersFetcher fetcherWithParentObject:self];
         _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
@@ -373,6 +385,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenRedundancyGroups = [NURedundancyGroupsFetcher fetcherWithParentObject:self];
         _childrenPerformanceMonitors = [NUPerformanceMonitorsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenNetconfProfiles = [NUNetconfProfilesFetcher fetcherWithParentObject:self];
         _childrenNetworkMacroGroups = [NUNetworkMacroGroupsFetcher fetcherWithParentObject:self];
         _childrenNetworkPerformanceMeasurements = [NUNetworkPerformanceMeasurementsFetcher fetcherWithParentObject:self];
         _childrenKeyServerMonitors = [NUKeyServerMonitorsFetcher fetcherWithParentObject:self];
@@ -398,6 +411,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenEnterpriseNetworks = [NUEnterpriseNetworksFetcher fetcherWithParentObject:self];
         _childrenEnterpriseSecurities = [NUEnterpriseSecuritiesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
+        _childrenPolicyGroupCategories = [NUPolicyGroupCategoriesFetcher fetcherWithParentObject:self];
         _childrenPolicyObjectGroups = [NUPolicyObjectGroupsFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
         _childrenDomainTemplates = [NUDomainTemplatesFetcher fetcherWithParentObject:self];
@@ -413,6 +427,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenDSCPRemarkingPolicyTables = [NUDSCPRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
+        _childrenNSGatewaySummaries = [NUNSGatewaySummariesFetcher fetcherWithParentObject:self];
         _childrenNSGatewayTemplates = [NUNSGatewayTemplatesFetcher fetcherWithParentObject:self];
         _childrenNSGGroups = [NUNSGGroupsFetcher fetcherWithParentObject:self];
         _childrenNSRedundantGatewayGroups = [NUNSRedundantGatewayGroupsFetcher fetcherWithParentObject:self];

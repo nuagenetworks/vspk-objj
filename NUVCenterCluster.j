@@ -52,6 +52,8 @@ NUVCenterClusterEntityScope_GLOBAL = @"GLOBAL";
 NUVCenterClusterMemorySizeInGB_DEFAULT_4 = @"DEFAULT_4";
 NUVCenterClusterMemorySizeInGB_LARGE_8 = @"LARGE_8";
 NUVCenterClusterMemorySizeInGB_MEDIUM_6 = @"MEDIUM_6";
+NUVCenterClusterPersonality_VDF = @"VDF";
+NUVCenterClusterPersonality_VRS = @"VRS";
 NUVCenterClusterRemoteSyslogServerType_NONE = @"NONE";
 NUVCenterClusterRemoteSyslogServerType_TCP = @"TCP";
 NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
@@ -139,6 +141,10 @@ NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPNumber _secondaryDataUplinkUnderlayID @accessors(property=secondaryDataUplinkUnderlayID);
     /*!
+        The VLAN for the control communication with VSC on the secondary datapath interface, when VDF is enabled. This VLAN can not be used as a subnet VLAN in the VSD configuration.
+    */
+    CPNumber _secondaryDataUplinkVDFControlVLAN @accessors(property=secondaryDataUplinkVDFControlVLAN);
+    /*!
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
@@ -171,7 +177,7 @@ NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
     */
     BOOL _separateDataNetwork @accessors(property=separateDataNetwork);
     /*!
-        VRS/VRS-G
+        The personality of the VRS Agent, supported values when deploying through the vCenter Integration Node: VRS, VDF.
     */
     CPString _personality @accessors(property=personality);
     /*!
@@ -375,6 +381,10 @@ NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPNumber _primaryDataUplinkUnderlayID @accessors(property=primaryDataUplinkUnderlayID);
     /*!
+        The VLAN for the control communication with VSC on the primary datapath interface, when VDF is enabled. This VLAN can not be used as a subnet VLAN in the VSD configuration.
+    */
+    CPNumber _primaryDataUplinkVDFControlVLAN @accessors(property=primaryDataUplinkVDFControlVLAN);
+    /*!
         IP address of the primary Controller (VSC)
     */
     CPString _primaryNuageController @accessors(property=primaryNuageController);
@@ -521,6 +531,7 @@ NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"secondaryDataUplinkPrimaryController"];
         [self exposeLocalKeyPathToREST:@"secondaryDataUplinkSecondaryController"];
         [self exposeLocalKeyPathToREST:@"secondaryDataUplinkUnderlayID"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkVDFControlVLAN"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
         [self exposeLocalKeyPathToREST:@"deletedFromVCenterDataCenter"];
         [self exposeLocalKeyPathToREST:@"memorySizeInGB"];
@@ -580,6 +591,7 @@ NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"upgradeScriptTimeLimit"];
         [self exposeLocalKeyPathToREST:@"cpuCount"];
         [self exposeLocalKeyPathToREST:@"primaryDataUplinkUnderlayID"];
+        [self exposeLocalKeyPathToREST:@"primaryDataUplinkVDFControlVLAN"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
         [self exposeLocalKeyPathToREST:@"vrsUserName"];

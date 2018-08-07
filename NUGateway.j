@@ -29,19 +29,46 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMACFilterProfilesFetcher.j"
+@import "Fetchers/NUSAPEgressQoSProfilesFetcher.j"
+@import "Fetchers/NUSAPIngressQoSProfilesFetcher.j"
 @import "Fetchers/NUPATNATPoolsFetcher.j"
+@import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUWANServicesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUEgressProfilesFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUIngressProfilesFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
+@import "Fetchers/NULocationsFetcher.j"
+@import "Fetchers/NUBootstrapsFetcher.j"
 @import "Fetchers/NUPortsFetcher.j"
+@import "Fetchers/NUIPFilterProfilesFetcher.j"
+@import "Fetchers/NUIPv6FilterProfilesFetcher.j"
+@import "Fetchers/NUNSGInfosFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUGatewayBootstrapStatus_ACTIVE = @"ACTIVE";
+NUGatewayBootstrapStatus_CERTIFICATE_SIGNED = @"CERTIFICATE_SIGNED";
+NUGatewayBootstrapStatus_INACTIVE = @"INACTIVE";
+NUGatewayBootstrapStatus_NOTIFICATION_APP_REQ_ACK = @"NOTIFICATION_APP_REQ_ACK";
+NUGatewayBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
 NUGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUGatewayEntityScope_GLOBAL = @"GLOBAL";
+NUGatewayFamily_ANY = @"ANY";
+NUGatewayFamily_NSG_AMI = @"NSG_AMI";
+NUGatewayFamily_NSG_AZ = @"NSG_AZ";
+NUGatewayFamily_NSG_C = @"NSG_C";
+NUGatewayFamily_NSG_E = @"NSG_E";
+NUGatewayFamily_NSG_E200 = @"NSG_E200";
+NUGatewayFamily_NSG_E300 = @"NSG_E300";
+NUGatewayFamily_NSG_V = @"NSG_V";
+NUGatewayFamily_NSG_X = @"NSG_X";
+NUGatewayFamily_NSG_X200 = @"NSG_X200";
+NUGatewayFamily_VRS = @"VRS";
 NUGatewayPermittedAction_ALL = @"ALL";
 NUGatewayPermittedAction_DEPLOY = @"DEPLOY";
 NUGatewayPermittedAction_EXTEND = @"EXTEND";
@@ -49,15 +76,25 @@ NUGatewayPermittedAction_INSTANTIATE = @"INSTANTIATE";
 NUGatewayPermittedAction_READ = @"READ";
 NUGatewayPermittedAction_USE = @"USE";
 NUGatewayPersonality_DC7X50 = @"DC7X50";
+NUGatewayPersonality_EVDF = @"EVDF";
+NUGatewayPersonality_EVDFB = @"EVDFB";
 NUGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
+NUGatewayPersonality_NETCONF_7X50 = @"NETCONF_7X50";
 NUGatewayPersonality_NSG = @"NSG";
 NUGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NUGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NUGatewayPersonality_OTHER = @"OTHER";
+NUGatewayPersonality_VDFG = @"VDFG";
 NUGatewayPersonality_VRSB = @"VRSB";
 NUGatewayPersonality_VRSG = @"VRSG";
 NUGatewayPersonality_VSA = @"VSA";
 NUGatewayPersonality_VSG = @"VSG";
+NUGatewayZFBMatchAttribute_HOSTNAME = @"HOSTNAME";
+NUGatewayZFBMatchAttribute_IP_ADDRESS = @"IP_ADDRESS";
+NUGatewayZFBMatchAttribute_MAC_ADDRESS = @"MAC_ADDRESS";
+NUGatewayZFBMatchAttribute_NONE = @"NONE";
+NUGatewayZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
+NUGatewayZFBMatchAttribute_UUID = @"UUID";
 
 
 /*!
@@ -66,13 +103,61 @@ NUGatewayPersonality_VSG = @"VSG";
 @implementation NUGateway : NURESTObject
 {
     /*!
+        MAC Address of the first interface
+    */
+    CPString _MACAddress @accessors(property=MACAddress);
+    /*!
+        The Zero Factor Bootstrapping (ZFB) Attribute that should be used to match the gateway on when it tries to bootstrap.
+    */
+    CPString _ZFBMatchAttribute @accessors(property=ZFBMatchAttribute);
+    /*!
+        The Zero Factor Bootstrapping (ZFB) value that needs to match with the gateway during the bootstrap attempt. This value needs to match with the ZFB Match Attribute.
+    */
+    CPString _ZFBMatchValue @accessors(property=ZFBMatchValue);
+    /*!
+        Release Date of the BIOS.  The format can vary based on the manufacturer but normally includes year/month/day or year/week details (eg. 01/01/2011 or 2018/06/15 or 2018/22)
+    */
+    CPString _BIOSReleaseDate @accessors(property=BIOSReleaseDate);
+    /*!
+        BIOS Version (eg. 0.5.1)
+    */
+    CPString _BIOSVersion @accessors(property=BIOSVersion);
+    /*!
+        The Processor Type as reported during bootstrapping.
+    */
+    CPString _CPUType @accessors(property=CPUType);
+    /*!
+        UUID of the device
+    */
+    CPString _UUID @accessors(property=UUID);
+    /*!
         Name of the Gateway
     */
     CPString _name @accessors(property=name);
     /*!
+        The family type of the gateway based on common characteristics with other members of a particular variation of an NSG hardware or of a virtual deployment.
+    */
+    CPString _family @accessors(property=family);
+    /*!
+        The identifier of this gateway's management interface.
+    */
+    CPString _managementID @accessors(property=managementID);
+    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Identifier of the Gateway, based on the systemID which is generated when the instance is created in VSD.
+    */
+    CPString _datapathID @accessors(property=datapathID);
+    /*!
+        A boolean flag indicating the status of the gateway.
+    */
+    BOOL _gatewayConnected @accessors(property=gatewayConnected);
+    /*!
+        The Gateway Software Version as reported during bootstrapping.
+    */
+    CPString _gatewayVersion @accessors(property=gatewayVersion);
     /*!
         The Redundancy Gateway Group associated with this Gateway Instance. This is a read only attribute
     */
@@ -90,6 +175,10 @@ NUGatewayPersonality_VSG = @"VSG";
     */
     BOOL _pending @accessors(property=pending);
     /*!
+        The device's serial number
+    */
+    CPString _serialNumber @accessors(property=serialNumber);
+    /*!
         The permitted  action to USE/EXTEND  this Gateway.
     */
     CPString _permittedAction @accessors(property=permittedAction);
@@ -102,6 +191,10 @@ NUGatewayPersonality_VSG = @"VSG";
     */
     CPString _description @accessors(property=description);
     /*!
+        Versions of monitored libraries currently installed on the Gateway.
+    */
+    CPString _libraries @accessors(property=libraries);
+    /*!
         The enterprise associated with this Gateway. This is a read only attribute
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
@@ -110,9 +203,37 @@ NUGatewayPersonality_VSG = @"VSG";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Association to an object which contains location information about this gateway instance.
+    */
+    CPString _locationID @accessors(property=locationID);
+    /*!
+        The bootstrap details associated with this Gateway. NOTE: This is a read only property, it can only be set during creation of a gateway.
+    */
+    CPString _bootstrapID @accessors(property=bootstrapID);
+    /*!
+        The bootstrap status of this Gateway. NOTE: This is a read only property.
+    */
+    CPString _bootstrapStatus @accessors(property=bootstrapStatus);
+    /*!
+        Product Name as reported during bootstrapping.
+    */
+    CPString _productName @accessors(property=productName);
+    /*!
         When set, VLAN-VNID mapping must be unique for all the vports of the gateway
     */
     BOOL _useGatewayVLANVNID @accessors(property=useGatewayVLANVNID);
+    /*!
+        Read only ID of the associated gateway security object.
+    */
+    CPString _associatedGatewaySecurityID @accessors(property=associatedGatewaySecurityID);
+    /*!
+        Read only ID of the associated gateway information object
+    */
+    CPString _associatedNSGInfoID @accessors(property=associatedNSGInfoID);
+    /*!
+        UUID of the Netconf Profile associated to this gateway.
+    */
+    CPString _associatedNetconfProfileID @accessors(property=associatedNetconfProfileID);
     /*!
         Represent the system ID or the Virtual IP of a service used by a Gateway (VSG for now) to establish a tunnel with a remote VSG or hypervisor.  The format of this field is consistent with an IP address.
     */
@@ -130,15 +251,26 @@ NUGatewayPersonality_VSG = @"VSG";
     */
     CPString _systemID @accessors(property=systemID);
     
+    NUMACFilterProfilesFetcher _childrenMACFilterProfiles @accessors(property=childrenMACFilterProfiles);
+    NUSAPEgressQoSProfilesFetcher _childrenSAPEgressQoSProfiles @accessors(property=childrenSAPEgressQoSProfiles);
+    NUSAPIngressQoSProfilesFetcher _childrenSAPIngressQoSProfiles @accessors(property=childrenSAPIngressQoSProfiles);
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
+    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUWANServicesFetcher _childrenWANServices @accessors(property=childrenWANServices);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUEgressProfilesFetcher _childrenEgressProfiles @accessors(property=childrenEgressProfiles);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUIngressProfilesFetcher _childrenIngressProfiles @accessors(property=childrenIngressProfiles);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
+    NULocationsFetcher _childrenLocations @accessors(property=childrenLocations);
+    NUBootstrapsFetcher _childrenBootstraps @accessors(property=childrenBootstraps);
     NUPortsFetcher _childrenPorts @accessors(property=childrenPorts);
+    NUIPFilterProfilesFetcher _childrenIPFilterProfiles @accessors(property=childrenIPFilterProfiles);
+    NUIPv6FilterProfilesFetcher _childrenIPv6FilterProfiles @accessors(property=childrenIPv6FilterProfiles);
+    NUNSGInfosFetcher _childrenNSGInfos @accessors(property=childrenNSGInfos);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -160,32 +292,64 @@ NUGatewayPersonality_VSG = @"VSG";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"MACAddress"];
+        [self exposeLocalKeyPathToREST:@"ZFBMatchAttribute"];
+        [self exposeLocalKeyPathToREST:@"ZFBMatchValue"];
+        [self exposeLocalKeyPathToREST:@"BIOSReleaseDate"];
+        [self exposeLocalKeyPathToREST:@"BIOSVersion"];
+        [self exposeLocalKeyPathToREST:@"CPUType"];
+        [self exposeLocalKeyPathToREST:@"UUID"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"family"];
+        [self exposeLocalKeyPathToREST:@"managementID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"datapathID"];
+        [self exposeLocalKeyPathToREST:@"gatewayConnected"];
+        [self exposeLocalKeyPathToREST:@"gatewayVersion"];
         [self exposeLocalKeyPathToREST:@"redundancyGroupID"];
         [self exposeLocalKeyPathToREST:@"peer"];
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"pending"];
+        [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"libraries"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"locationID"];
+        [self exposeLocalKeyPathToREST:@"bootstrapID"];
+        [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
+        [self exposeLocalKeyPathToREST:@"productName"];
         [self exposeLocalKeyPathToREST:@"useGatewayVLANVNID"];
+        [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityID"];
+        [self exposeLocalKeyPathToREST:@"associatedNSGInfoID"];
+        [self exposeLocalKeyPathToREST:@"associatedNetconfProfileID"];
         [self exposeLocalKeyPathToREST:@"vtep"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         
+        _childrenMACFilterProfiles = [NUMACFilterProfilesFetcher fetcherWithParentObject:self];
+        _childrenSAPEgressQoSProfiles = [NUSAPEgressQoSProfilesFetcher fetcherWithParentObject:self];
+        _childrenSAPIngressQoSProfiles = [NUSAPIngressQoSProfilesFetcher fetcherWithParentObject:self];
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
+        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenWANServices = [NUWANServicesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEgressProfiles = [NUEgressProfilesFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenIngressProfiles = [NUIngressProfilesFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
+        _childrenLocations = [NULocationsFetcher fetcherWithParentObject:self];
+        _childrenBootstraps = [NUBootstrapsFetcher fetcherWithParentObject:self];
         _childrenPorts = [NUPortsFetcher fetcherWithParentObject:self];
+        _childrenIPFilterProfiles = [NUIPFilterProfilesFetcher fetcherWithParentObject:self];
+        _childrenIPv6FilterProfiles = [NUIPv6FilterProfilesFetcher fetcherWithParentObject:self];
+        _childrenNSGInfos = [NUNSGInfosFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _personality = @"VRSG";

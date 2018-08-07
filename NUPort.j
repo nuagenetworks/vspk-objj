@@ -46,6 +46,7 @@ NUPortPermittedAction_INSTANTIATE = @"INSTANTIATE";
 NUPortPermittedAction_READ = @"READ";
 NUPortPermittedAction_USE = @"USE";
 NUPortPortType_ACCESS = @"ACCESS";
+NUPortPortType_MANAGEMENT = @"MANAGEMENT";
 NUPortPortType_NETWORK = @"NETWORK";
 NUPortStatus_INITIALIZED = @"INITIALIZED";
 NUPortStatus_MISMATCH = @"MISMATCH";
@@ -91,7 +92,7 @@ NUPortStatus_READY = @"READY";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Type of the Port.
+        Type of the Port. Possible values are ACCESS, NETWORK, MANAGEMENT.
     */
     CPString _portType @accessors(property=portType);
     /*!

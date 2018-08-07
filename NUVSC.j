@@ -36,6 +36,7 @@
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUMonitoringPortsFetcher.j"
 @import "Fetchers/NUVRSsFetcher.j"
+@import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUVSCEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -146,6 +147,7 @@ NUVSCStatus_UP = @"UP";
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUMonitoringPortsFetcher _childrenMonitoringPorts @accessors(property=childrenMonitoringPorts);
     NUVRSsFetcher _childrenVRSs @accessors(property=childrenVRSs);
+    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -197,6 +199,7 @@ NUVSCStatus_UP = @"UP";
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenMonitoringPorts = [NUMonitoringPortsFetcher fetcherWithParentObject:self];
         _childrenVRSs = [NUVRSsFetcher fetcherWithParentObject:self];
+        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         

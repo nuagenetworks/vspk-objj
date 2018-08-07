@@ -45,6 +45,7 @@
 @import "Fetchers/NUBootstrapsFetcher.j"
 @import "Fetchers/NUBootstrapActivationsFetcher.j"
 @import "Fetchers/NUUplinkConnectionsFetcher.j"
+@import "Fetchers/NUNSGatewaySummariesFetcher.j"
 @import "Fetchers/NUNSGInfosFetcher.j"
 @import "Fetchers/NUNSPortsFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
@@ -72,6 +73,7 @@ NUNSGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGatewayEntityScope_GLOBAL = @"GLOBAL";
 NUNSGatewayFamily_ANY = @"ANY";
 NUNSGatewayFamily_NSG_AMI = @"NSG_AMI";
+NUNSGatewayFamily_NSG_AZ = @"NSG_AZ";
 NUNSGatewayFamily_NSG_C = @"NSG_C";
 NUNSGatewayFamily_NSG_E = @"NSG_E";
 NUNSGatewayFamily_NSG_E200 = @"NSG_E200";
@@ -105,10 +107,17 @@ NUNSGatewayTPMStatus_DISABLED = @"DISABLED";
 NUNSGatewayTPMStatus_ENABLED_NOT_OPERATIONAL = @"ENABLED_NOT_OPERATIONAL";
 NUNSGatewayTPMStatus_ENABLED_OPERATIONAL = @"ENABLED_OPERATIONAL";
 NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
+NUNSGatewayZFBMatchAttribute_HOSTNAME = @"HOSTNAME";
+NUNSGatewayZFBMatchAttribute_IP_ADDRESS = @"IP_ADDRESS";
+NUNSGatewayZFBMatchAttribute_MAC_ADDRESS = @"MAC_ADDRESS";
+NUNSGatewayZFBMatchAttribute_NONE = @"NONE";
+NUNSGatewayZFBMatchAttribute_NSGATEWAY_ID = @"NSGATEWAY_ID";
+NUNSGatewayZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
+NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
 
 
 /*!
-    Represents a Network Service Gateway.
+    Network Services Gateways are a policy enforcement end-points responsible for the delivery of networking services. NSG access ports/VLANs may be attached to existing host or bridge VPorts.
 */
 @implementation NUNSGateway : NURESTObject
 {
@@ -128,6 +137,14 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         Maximum Segment Size for TCP(min = 576, max = 7812).
     */
     CPNumber _TCPMaximumSegmentSize @accessors(property=TCPMaximumSegmentSize);
+    /*!
+        The Zero Factor Bootstrapping (ZFB) Attribute that should be used to match the gateway on when it tries to bootstrap.
+    */
+    CPString _ZFBMatchAttribute @accessors(property=ZFBMatchAttribute);
+    /*!
+        The Zero Factor Bootstrapping (ZFB) value that needs to match with the gateway during the bootstrap attempt. This value needs to match with the ZFB Match Attribute.
+    */
+    CPString _ZFBMatchValue @accessors(property=ZFBMatchValue);
     /*!
         Release Date of the NSG BiOS
     */
@@ -188,6 +205,10 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         Patches that have been installed on the NSG.
     */
     CPString _patches @accessors(property=patches);
+    /*!
+        Indicates status of this gateway
+    */
+    BOOL _gatewayConnected @accessors(property=gatewayConnected);
     /*!
         The Redundancy Gateway Group associated with this Gateway Instance. This is a read only attribute
     */
@@ -261,11 +282,11 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     */
     CPNumber _controlTrafficDSCPValue @accessors(property=controlTrafficDSCPValue);
     /*!
-        The bootstrap details associated with this NSGateway. NOTE: this is a read only property, it can only be set during creation of an NSG
+        The bootstrap details associated with this NSGateway. NOTE: This is a read only property, it can only be set during creation of an NSG.
     */
     CPString _bootstrapID @accessors(property=bootstrapID);
     /*!
-        The bootstrap status of this NSGateway. NOTE: this is a read only property
+        The bootstrap status of this NSGateway. NOTE: This is a read only property.
     */
     CPString _bootstrapStatus @accessors(property=bootstrapStatus);
     /*!
@@ -325,6 +346,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
     NUBootstrapsFetcher _childrenBootstraps @accessors(property=childrenBootstraps);
     NUBootstrapActivationsFetcher _childrenBootstrapActivations @accessors(property=childrenBootstrapActivations);
     NUUplinkConnectionsFetcher _childrenUplinkConnections @accessors(property=childrenUplinkConnections);
+    NUNSGatewaySummariesFetcher _childrenNSGatewaySummaries @accessors(property=childrenNSGatewaySummaries);
     NUNSGInfosFetcher _childrenNSGInfos @accessors(property=childrenNSGInfos);
     NUNSPortsFetcher _childrenNSPorts @accessors(property=childrenNSPorts);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
@@ -353,6 +375,8 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"NATTraversalEnabled"];
         [self exposeLocalKeyPathToREST:@"TCPMSSEnabled"];
         [self exposeLocalKeyPathToREST:@"TCPMaximumSegmentSize"];
+        [self exposeLocalKeyPathToREST:@"ZFBMatchAttribute"];
+        [self exposeLocalKeyPathToREST:@"ZFBMatchValue"];
         [self exposeLocalKeyPathToREST:@"BIOSReleaseDate"];
         [self exposeLocalKeyPathToREST:@"BIOSVersion"];
         [self exposeLocalKeyPathToREST:@"SKU"];
@@ -368,6 +392,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
         [self exposeLocalKeyPathToREST:@"patches"];
+        [self exposeLocalKeyPathToREST:@"gatewayConnected"];
         [self exposeLocalKeyPathToREST:@"redundancyGroupID"];
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"pending"];
@@ -415,6 +440,7 @@ NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
         _childrenBootstraps = [NUBootstrapsFetcher fetcherWithParentObject:self];
         _childrenBootstrapActivations = [NUBootstrapActivationsFetcher fetcherWithParentObject:self];
         _childrenUplinkConnections = [NUUplinkConnectionsFetcher fetcherWithParentObject:self];
+        _childrenNSGatewaySummaries = [NUNSGatewaySummariesFetcher fetcherWithParentObject:self];
         _childrenNSGInfos = [NUNSGInfosFetcher fetcherWithParentObject:self];
         _childrenNSPorts = [NUNSPortsFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];

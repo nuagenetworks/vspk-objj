@@ -34,6 +34,8 @@
 
 NUBGPNeighborEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUBGPNeighborEntityScope_GLOBAL = @"GLOBAL";
+NUBGPNeighborIPType_IPV4 = @"IPV4";
+NUBGPNeighborIPType_IPV6 = @"IPV6";
 
 
 /*!
@@ -45,6 +47,14 @@ NUBGPNeighborEntityScope_GLOBAL = @"GLOBAL";
         Enable or disable Bidirectional Forwarding Detection for this BGP neighbor
     */
     BOOL _BFDEnabled @accessors(property=BFDEnabled);
+    /*!
+        It can be either IPv4 or IPv6
+    */
+    CPString _IPType @accessors(property=IPType);
+    /*!
+        Peer IPv6 address
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
     /*!
         Name of the peer
     */
@@ -109,6 +119,8 @@ NUBGPNeighborEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"BFDEnabled"];
+        [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"dampeningEnabled"];
         [self exposeLocalKeyPathToREST:@"peerAS"];

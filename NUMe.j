@@ -45,6 +45,7 @@
 @import "Fetchers/NUPerformanceMonitorsFetcher.j"
 @import "Fetchers/NUCertificatesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUNetconfProfilesFetcher.j"
 @import "Fetchers/NUNetworkLayoutsFetcher.j"
 @import "Fetchers/NUKeyServerMembersFetcher.j"
 @import "Fetchers/NUZFBAutoAssignmentsFetcher.j"
@@ -71,6 +72,7 @@
 @import "Fetchers/NUVNFCatalogsFetcher.j"
 @import "Fetchers/NUVNFMetadatasFetcher.j"
 @import "Fetchers/NUInfrastructureAccessProfilesFetcher.j"
+@import "Fetchers/NUInfrastructureEVDFProfilesFetcher.j"
 @import "Fetchers/NUInfrastructureGatewayProfilesFetcher.j"
 @import "Fetchers/NUInfrastructureVscProfilesFetcher.j"
 @import "Fetchers/NUVNFThresholdPoliciesFetcher.j"
@@ -211,6 +213,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUPerformanceMonitorsFetcher _childrenPerformanceMonitors @accessors(property=childrenPerformanceMonitors);
     NUCertificatesFetcher _childrenCertificates @accessors(property=childrenCertificates);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUNetconfProfilesFetcher _childrenNetconfProfiles @accessors(property=childrenNetconfProfiles);
     NUNetworkLayoutsFetcher _childrenNetworkLayouts @accessors(property=childrenNetworkLayouts);
     NUKeyServerMembersFetcher _childrenKeyServerMembers @accessors(property=childrenKeyServerMembers);
     NUZFBAutoAssignmentsFetcher _childrenZFBAutoAssignments @accessors(property=childrenZFBAutoAssignments);
@@ -237,6 +240,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUVNFCatalogsFetcher _childrenVNFCatalogs @accessors(property=childrenVNFCatalogs);
     NUVNFMetadatasFetcher _childrenVNFMetadatas @accessors(property=childrenVNFMetadatas);
     NUInfrastructureAccessProfilesFetcher _childrenInfrastructureAccessProfiles @accessors(property=childrenInfrastructureAccessProfiles);
+    NUInfrastructureEVDFProfilesFetcher _childrenInfrastructureEVDFProfiles @accessors(property=childrenInfrastructureEVDFProfiles);
     NUInfrastructureGatewayProfilesFetcher _childrenInfrastructureGatewayProfiles @accessors(property=childrenInfrastructureGatewayProfiles);
     NUInfrastructureVscProfilesFetcher _childrenInfrastructureVscProfiles @accessors(property=childrenInfrastructureVscProfiles);
     NUVNFThresholdPoliciesFetcher _childrenVNFThresholdPolicies @accessors(property=childrenVNFThresholdPolicies);
@@ -333,6 +337,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenPerformanceMonitors = [NUPerformanceMonitorsFetcher fetcherWithParentObject:self];
         _childrenCertificates = [NUCertificatesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenNetconfProfiles = [NUNetconfProfilesFetcher fetcherWithParentObject:self];
         _childrenNetworkLayouts = [NUNetworkLayoutsFetcher fetcherWithParentObject:self];
         _childrenKeyServerMembers = [NUKeyServerMembersFetcher fetcherWithParentObject:self];
         _childrenZFBAutoAssignments = [NUZFBAutoAssignmentsFetcher fetcherWithParentObject:self];
@@ -359,6 +364,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenVNFCatalogs = [NUVNFCatalogsFetcher fetcherWithParentObject:self];
         _childrenVNFMetadatas = [NUVNFMetadatasFetcher fetcherWithParentObject:self];
         _childrenInfrastructureAccessProfiles = [NUInfrastructureAccessProfilesFetcher fetcherWithParentObject:self];
+        _childrenInfrastructureEVDFProfiles = [NUInfrastructureEVDFProfilesFetcher fetcherWithParentObject:self];
         _childrenInfrastructureGatewayProfiles = [NUInfrastructureGatewayProfilesFetcher fetcherWithParentObject:self];
         _childrenInfrastructureVscProfiles = [NUInfrastructureVscProfilesFetcher fetcherWithParentObject:self];
         _childrenVNFThresholdPolicies = [NUVNFThresholdPoliciesFetcher fetcherWithParentObject:self];

@@ -101,6 +101,10 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     BOOL _restricted @accessors(property=restricted);
     /*!
+        A flag to mark this instance of a VLAN as a candidate to be a termination point of a Shunt Link.  Only VLANs residing on a Network Port can have this attribute set to true.
+    */
+    BOOL _shuntVLAN @accessors(property=shuntVLAN);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -210,6 +214,7 @@ NUVLANType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"restricted"];
+        [self exposeLocalKeyPathToREST:@"shuntVLAN"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"vportID"];
         [self exposeLocalKeyPathToREST:@"isUplink"];

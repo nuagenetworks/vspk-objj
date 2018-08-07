@@ -35,10 +35,18 @@ NUL4ServiceEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    L4 Service is a port range and protocol combination that can be used in ACLs
+    Service is a port range and protocol combination that can be used in ACLs
 */
 @implementation NUL4Service : NURESTObject
 {
+    /*!
+        The ICMP Code when protocol selected is ICMP.
+    */
+    CPString _ICMPCode @accessors(property=ICMPCode);
+    /*!
+        The ICMP Type when protocol selected is ICMP.
+    */
+    CPString _ICMPType @accessors(property=ICMPType);
     /*!
         Name of the service
     */
@@ -92,6 +100,8 @@ NUL4ServiceEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"ICMPCode"];
+        [self exposeLocalKeyPathToREST:@"ICMPType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"defaultService"];

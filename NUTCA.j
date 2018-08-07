@@ -34,8 +34,8 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
-NUTCAAction_ALERT = @"ALERT";
-NUTCAAction_ALERT_POLICYGROUPCHANGE = @"ALERT_POLICYGROUPCHANGE";
+NUTCAAction_ALERT = @"Alert";
+NUTCAAction_ALERT_POLICYGROUPCHANGE = @"Alert_PolicyGroupChange";
 NUTCAEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUTCAEntityScope_GLOBAL = @"GLOBAL";
 NUTCAMetric_ACL_DENY_EVENT_COUNT = @"ACL_DENY_EVENT_COUNT";

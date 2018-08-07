@@ -155,6 +155,10 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        IPsec Replay Window Size in Packets.
+    */
+    CPNumber _ipsecSAReplayWindowSizeValue @accessors(property=ipsecSAReplayWindowSizeValue);
+    /*!
         The ID of the associated Enterprise
     */
     CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
@@ -205,6 +209,7 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
         [self exposeLocalKeyPathToREST:@"sequence"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"ipsecSAReplayWindowSizeValue"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

@@ -243,6 +243,10 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     BOOL _public @accessors(property=public);
     /*!
+        Determines the VLANID for this associated Subnet.
+    */
+    CPNumber _subnetVLANID @accessors(property=subnetVLANID);
+    /*!
         Boolean flag to indicate whether this is a Multi-homed subnet or not.
     */
     BOOL _multiHomeEnabled @accessors(property=multiHomeEnabled);
@@ -339,6 +343,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
         [self exposeLocalKeyPathToREST:@"public"];
+        [self exposeLocalKeyPathToREST:@"subnetVLANID"];
         [self exposeLocalKeyPathToREST:@"multiHomeEnabled"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];

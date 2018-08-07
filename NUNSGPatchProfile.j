@@ -35,7 +35,7 @@ NUNSGPatchProfileEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    This profile represents the patch information to be used by an NSG for applying a patch.
+    An NSG Patch Profile contains upgrade information that can be given to an NSG Instance.  The profile contains details on where the NSG can retrieve the image to upgrade to, and some criteria related to when the upgrade is to happen once the NSG device has received the information for upgrading.
 */
 @implementation NUNSGPatchProfile : NURESTObject
 {

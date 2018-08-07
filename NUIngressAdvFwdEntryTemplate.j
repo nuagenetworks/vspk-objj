@@ -33,9 +33,9 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 
-NUIngressAdvFwdEntryTemplateAction_ACTION_LIST = @"ACTION_LIST";
 NUIngressAdvFwdEntryTemplateAction_DROP = @"DROP";
 NUIngressAdvFwdEntryTemplateAction_FORWARD = @"FORWARD";
+NUIngressAdvFwdEntryTemplateAction_FORWARDING_PATH_LIST = @"FORWARDING_PATH_LIST";
 NUIngressAdvFwdEntryTemplateAction_REDIRECT = @"REDIRECT";
 NUIngressAdvFwdEntryTemplateAppType_ALL = @"ALL";
 NUIngressAdvFwdEntryTemplateAppType_APPLICATION = @"APPLICATION";
@@ -69,6 +69,7 @@ NUIngressAdvFwdEntryTemplateNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GR
 NUIngressAdvFwdEntryTemplateNetworkType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressAdvFwdEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUIngressAdvFwdEntryTemplateNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
+NUIngressAdvFwdEntryTemplateNetworkType_SAAS_APPLICATION_GROUP = @"SAAS_APPLICATION_GROUP";
 NUIngressAdvFwdEntryTemplateNetworkType_SUBNET = @"SUBNET";
 NUIngressAdvFwdEntryTemplateNetworkType_UNDERLAY_INTERNET_POLICYGROUP = @"UNDERLAY_INTERNET_POLICYGROUP";
 NUIngressAdvFwdEntryTemplateNetworkType_ZONE = @"ZONE";
@@ -118,6 +119,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
+        Remarking value for the DSCP field in IP header of customer packet.DSCP value range from enumeration of 65 values: NONE, 0, 1, ..., 63
+    */
+    CPString _DSCPRemarking @accessors(property=DSCPRemarking);
+    /*!
         Backup datapath option if VNF/VM is down
     */
     CPString _failsafeDatapath @accessors(property=failsafeDatapath);
@@ -130,7 +135,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The action of the ACL entry DROP or FORWARD or REDIRECT or ACTION_LIST. Actions REDIRECT and ACTION_LIST are allowed only for IngressAdvancedForwardingEntry. Possible values are DROP, FORWARD, REDIRECT, ACTION_LIST. If ACTION_LIST is selected in IngressAdvancedForwardingEntry, user will have to attach a ForwardingPathList (list of forwarding action-uplink preference entries) to the ACL.  
+        The action of the ACL entry DROP or FORWARD or REDIRECT or FORWARDING_PATH_LIST. Actions REDIRECT and FORWARDING_PATH_LIST are allowed only for IngressAdvancedForwardingEntry. Possible values are DROP, FORWARD, REDIRECT, FORWARDING_PATH_LIST. If FORWARDING_PATH_LIST is selected in IngressAdvancedForwardingEntry, user will have to attach a ForwardingPathList (list of forwarding action-uplink preference entries) to the ACL.  
     */
     CPString _action @accessors(property=action);
     /*!
@@ -242,11 +247,11 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
-        This property reflects the type of traffic in case an ACL entry is created using an L4 Service or L4 Service Group. In case a protocol and port are specified for the ACL entry, this property has to be empty (null). Supported values are L4_SERVICE, L4_SERVICE_GROUP and empty.
+        This property reflects the type of traffic in case an ACL entry is created using an Service or Service Group. In case a protocol and port are specified for the ACL entry, this property has to be empty (null). Supported values are L4_SERVICE, L4_SERVICE_GROUP and empty.
     */
     CPString _associatedTrafficType @accessors(property=associatedTrafficType);
     /*!
-        If a traffic type is specified as L4 Service or Service Group, then the associated Id of  Service / Service Group should be specifed here
+        If a traffic type is specified as Service or Service Group, then the associated Id of  Service / Service Group should be specifed here
     */
     CPString _associatedTrafficTypeID @accessors(property=associatedTrafficTypeID);
     /*!
@@ -295,6 +300,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"FCOverride"];
         [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"DSCPRemarking"];
         [self exposeLocalKeyPathToREST:@"failsafeDatapath"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];

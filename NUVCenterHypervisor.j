@@ -51,6 +51,8 @@ NUVCenterHypervisorEntityScope_GLOBAL = @"GLOBAL";
 NUVCenterHypervisorMemorySizeInGB_DEFAULT_4 = @"DEFAULT_4";
 NUVCenterHypervisorMemorySizeInGB_LARGE_8 = @"LARGE_8";
 NUVCenterHypervisorMemorySizeInGB_MEDIUM_6 = @"MEDIUM_6";
+NUVCenterHypervisorPersonality_VDF = @"VDF";
+NUVCenterHypervisorPersonality_VRS = @"VRS";
 NUVCenterHypervisorRemoteSyslogServerType_NONE = @"NONE";
 NUVCenterHypervisorRemoteSyslogServerType_TCP = @"TCP";
 NUVCenterHypervisorRemoteSyslogServerType_UDP = @"UDP";
@@ -195,6 +197,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPNumber _secondaryDataUplinkUnderlayID @accessors(property=secondaryDataUplinkUnderlayID);
     /*!
+        The VLAN for the control communication with VSC on the secondary datapath interface, when VDF is enabled. This VLAN can not be used as a subnet VLAN in the VSD configuration.
+    */
+    CPNumber _secondaryDataUplinkVDFControlVLAN @accessors(property=secondaryDataUplinkVDFControlVLAN);
+    /*!
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
@@ -231,7 +237,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPNumber _deploymentCount @accessors(property=deploymentCount);
     /*!
-        VRS/VRS-G
+        The personality of the VRS Agent, supported values when deploying through the vCenter Integration Node: VRS, VDF.
     */
     CPString _personality @accessors(property=personality);
     /*!
@@ -471,6 +477,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPNumber _primaryDataUplinkUnderlayID @accessors(property=primaryDataUplinkUnderlayID);
     /*!
+        The VLAN for the control communication with VSC on the primary datapath interface, when VDF is enabled. This VLAN can not be used as a subnet VLAN in the VSD configuration.
+    */
+    CPNumber _primaryDataUplinkVDFControlVLAN @accessors(property=primaryDataUplinkVDFControlVLAN);
+    /*!
         IP address of the primary Controller (VSC)
     */
     CPString _primaryNuageController @accessors(property=primaryNuageController);
@@ -661,6 +671,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"secondaryDataUplinkPrimaryController"];
         [self exposeLocalKeyPathToREST:@"secondaryDataUplinkSecondaryController"];
         [self exposeLocalKeyPathToREST:@"secondaryDataUplinkUnderlayID"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkVDFControlVLAN"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
         [self exposeLocalKeyPathToREST:@"memorySizeInGB"];
         [self exposeLocalKeyPathToREST:@"remoteSyslogServerIP"];
@@ -730,6 +741,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"upgradeTimedout"];
         [self exposeLocalKeyPathToREST:@"cpuCount"];
         [self exposeLocalKeyPathToREST:@"primaryDataUplinkUnderlayID"];
+        [self exposeLocalKeyPathToREST:@"primaryDataUplinkVDFControlVLAN"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsId"];
         [self exposeLocalKeyPathToREST:@"vrsMarkedAsAvailable"];

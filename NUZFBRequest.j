@@ -33,6 +33,8 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 
+NUZFBRequestAssociatedEntityType_GATEWAY = @"GATEWAY";
+NUZFBRequestAssociatedEntityType_NSGATEWAY = @"NSGATEWAY";
 NUZFBRequestEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUZFBRequestEntityScope_GLOBAL = @"GLOBAL";
 NUZFBRequestZFBApprovalStatus_APPROVED = @"APPROVED";
@@ -119,6 +121,18 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
     */
     CPString _associatedEnterpriseName @accessors(property=associatedEnterpriseName);
     /*!
+        Associated Entity Type: NSGATEWAY or GATEWAY
+    */
+    CPString _associatedEntityType @accessors(property=associatedEntityType);
+    /*!
+        ID of the assigned Gateway
+    */
+    CPString _associatedGatewayID @accessors(property=associatedGatewayID);
+    /*!
+        Name of the associated Gateway
+    */
+    CPString _associatedGatewayName @accessors(property=associatedGatewayName);
+    /*!
         ID of the assigned NSG
     */
     CPString _associatedNSGatewayID @accessors(property=associatedNSGatewayID);
@@ -176,6 +190,9 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
         [self exposeLocalKeyPathToREST:@"hostname"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseName"];
+        [self exposeLocalKeyPathToREST:@"associatedEntityType"];
+        [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
+        [self exposeLocalKeyPathToREST:@"associatedGatewayName"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayName"];
         [self exposeLocalKeyPathToREST:@"statusString"];

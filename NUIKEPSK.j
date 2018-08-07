@@ -37,7 +37,7 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Represents an IKE Pre Shared Key
+    Shared secret used during the authentication phase of IKE protocol.
 */
 @implementation NUIKEPSK : NURESTObject
 {

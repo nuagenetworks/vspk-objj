@@ -38,7 +38,7 @@ NUNetworkMacroGroupEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Administrators of an enterprise can define macros that are set of IP addresses that identify enterprise networks. These macros can be used in the ACL definitions by network designers and other users to identify access restrictions towards specific enterprise networks.
+    Network Macro Groups are a collection of existing Network Macros. These groups can be used in Security Policies in order to create rules that matches multiple Network Macros.
 */
 @implementation NUNetworkMacroGroup : NURESTObject
 {
@@ -62,6 +62,10 @@ NUNetworkMacroGroupEntityScope_GLOBAL = @"GLOBAL";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Determines whether this entity is specific to SaaS Breakout Feature.
+    */
+    BOOL _isSaaSType @accessors(property=isSaaSType);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -95,6 +99,7 @@ NUNetworkMacroGroupEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"networkMacros"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"isSaaSType"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

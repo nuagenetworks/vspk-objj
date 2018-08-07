@@ -32,7 +32,7 @@
 
 
 /*!
-    None
+    The VNF deployment properties that includes the location of the image, bootstrap config and rest of the libvirt domain XML template defined as text file.
 */
 @implementation NUVNFMetadata : NURESTObject
 {

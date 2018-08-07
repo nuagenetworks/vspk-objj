@@ -38,7 +38,7 @@ NUMultiCastRangeEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    This is the definition of a MultiCast Range associated with a MultiCast Channel Map.
+    A multicast channel map requires at least one range defined to be of use. Ranges within the same channel map must be non-overlapping between each other. Groups not covered by a range won't be joinable from the VMs.
 */
 @implementation NUMultiCastRange : NURESTObject
 {

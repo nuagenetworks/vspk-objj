@@ -32,12 +32,15 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUInfrastructureVscProfileAddressFamily_DUALSTACK = @"DUALSTACK";
+NUInfrastructureVscProfileAddressFamily_IPV4 = @"IPV4";
+NUInfrastructureVscProfileAddressFamily_IPV6 = @"IPV6";
 NUInfrastructureVscProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Represents an Infrastructure VSC Profile.
+    Infrastructure VSC Profiles identify a set of controllers which will be used to connect bootstrapped NSGs.
 */
 @implementation NUInfrastructureVscProfile : NURESTObject
 {
@@ -50,9 +53,17 @@ NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        The type of IP address used in the identification of the active and standby controllers.
+    */
+    CPString _addressFamily @accessors(property=addressFamily);
+    /*!
         Second VSC Controller :  IP Address of the secondary VSC system NSG instances associated to this profile will be reaching for.
     */
     CPString _secondController @accessors(property=secondController);
+    /*!
+        Second VSC Controller:  IPv6 address of the secondary VSC system NSG instances associated to this profile will be reaching for.
+    */
+    CPString _secondControllerV6 @accessors(property=secondControllerV6);
     /*!
         A description of the VSC Profile instance created.
     */
@@ -61,6 +72,10 @@ NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
         First VSC Controller :  IP Address of the first VSC system NSG instances associated to this profile will be reaching for.
     */
     CPString _firstController @accessors(property=firstController);
+    /*!
+        First VSC Controller: IPv6 address of the first VSC system NSG instances associated to this profile will be reaching for.
+    */
+    CPString _firstControllerV6 @accessors(property=firstControllerV6);
     /*!
         Enterprise/Organisation associated with this Profile instance.
     */
@@ -102,9 +117,12 @@ NUInfrastructureVscProfileEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"addressFamily"];
         [self exposeLocalKeyPathToREST:@"secondController"];
+        [self exposeLocalKeyPathToREST:@"secondControllerV6"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"firstController"];
+        [self exposeLocalKeyPathToREST:@"firstControllerV6"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"probeInterval"];

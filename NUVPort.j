@@ -63,14 +63,27 @@
 NUVPortAddressSpoofing_DISABLED = @"DISABLED";
 NUVPortAddressSpoofing_ENABLED = @"ENABLED";
 NUVPortAddressSpoofing_INHERITED = @"INHERITED";
+NUVPortAssociatedGatewayPersonality_DC7X50 = @"DC7X50";
+NUVPortAssociatedGatewayPersonality_EVDF = @"EVDF";
+NUVPortAssociatedGatewayPersonality_EVDFB = @"EVDFB";
+NUVPortAssociatedGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
+NUVPortAssociatedGatewayPersonality_NETCONF_7X50 = @"NETCONF_7X50";
+NUVPortAssociatedGatewayPersonality_NSG = @"NSG";
+NUVPortAssociatedGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
+NUVPortAssociatedGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
+NUVPortAssociatedGatewayPersonality_OTHER = @"OTHER";
+NUVPortAssociatedGatewayPersonality_VRSB = @"VRSB";
+NUVPortAssociatedGatewayPersonality_VRSG = @"VRSG";
+NUVPortAssociatedGatewayPersonality_VSA = @"VSA";
+NUVPortAssociatedGatewayPersonality_VSG = @"VSG";
 NUVPortDPI_DISABLED = @"DISABLED";
 NUVPortDPI_ENABLED = @"ENABLED";
 NUVPortDPI_INHERITED = @"INHERITED";
 NUVPortEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVPortEntityScope_GLOBAL = @"GLOBAL";
-NUVPortFlowCollectionEnabled_DISABLED = @"DISABLED";
-NUVPortFlowCollectionEnabled_ENABLED = @"ENABLED";
-NUVPortFlowCollectionEnabled_INHERITED = @"INHERITED";
+NUVPortFIPIgnoreDefaultRoute_DISABLED = @"DISABLED";
+NUVPortFIPIgnoreDefaultRoute_ENABLED = @"ENABLED";
+NUVPortFIPIgnoreDefaultRoute_INHERITED = @"INHERITED";
 NUVPortGatewayMACMoveRole_SECONDARY = @"SECONDARY";
 NUVPortGatewayMACMoveRole_TERTIARY = @"TERTIARY";
 NUVPortMulticast_DISABLED = @"DISABLED";
@@ -79,6 +92,9 @@ NUVPortMulticast_INHERITED = @"INHERITED";
 NUVPortOperationalState_DOWN = @"DOWN";
 NUVPortOperationalState_INIT = @"INIT";
 NUVPortOperationalState_UP = @"UP";
+NUVPortPeerOperationalState_DOWN = @"DOWN";
+NUVPortPeerOperationalState_INIT = @"INIT";
+NUVPortPeerOperationalState_UP = @"UP";
 NUVPortSegmentationType_VLAN = @"VLAN";
 NUVPortSubType_NONE = @"NONE";
 NUVPortSubType_VNF = @"VNF";
@@ -102,11 +118,19 @@ NUVPortType_VM = @"VM";
 @implementation NUVPort : NURESTObject
 {
     /*!
-        associated Vlan of this vport - applicable for type host/bridge
+        Determines whether the default Overlay route will be ignored or not when a VM has FIP so that it takes Underlay route.
+    */
+    CPString _FIPIgnoreDefaultRoute @accessors(property=FIPIgnoreDefaultRoute);
+    /*!
+        VLAN number of the associated VLAN of this vport - applicable for type host or bridge
+    */
+    CPNumber _VLAN @accessors(property=VLAN);
+    /*!
+        UUID of the associated VLAN of this vport - applicable for type host or bridge
     */
     CPString _VLANID @accessors(property=VLANID);
     /*!
-        determines whether or not Deep packet inspection is enabled
+        determines whether or not deep packet inspection is enabled
     */
     CPString _DPI @accessors(property=DPI);
     /*!
@@ -122,9 +146,13 @@ NUVPortType_VM = @"VM";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Role of the gateway vport when handling mac move errors
+        Role of the gateway vport when handling MAC move errors
     */
     CPString _gatewayMACMoveRole @accessors(property=gatewayMACMoveRole);
+    /*!
+        Gateway portname eg: eth1 - applicable for type host/bridge
+    */
+    CPString _gatewayPortName @accessors(property=gatewayPortName);
     /*!
         Indicates if this vport is up or down
     */
@@ -134,6 +162,10 @@ NUVPortType_VM = @"VM";
     */
     CPString _addressSpoofing @accessors(property=addressSpoofing);
     /*!
+        Operational state of the peer vport in multichassis lag scenario
+    */
+    CPString _peerOperationalState @accessors(property=peerOperationalState);
+    /*!
         The VLAN Number (1-4095), valid only if the trunkRole is SUB_PORT
     */
     CPNumber _segmentationID @accessors(property=segmentationID);
@@ -142,13 +174,13 @@ NUVPortType_VM = @"VM";
     */
     CPString _segmentationType @accessors(property=segmentationType);
     /*!
+        The service ID used by the VSCs to identify the subnet associated with this vport
+    */
+    CPString _serviceID @accessors(property=serviceID);
+    /*!
         Description for this vport
     */
     CPString _description @accessors(property=description);
-    /*!
-        Determines whether or not flow collection is enabled.
-    */
-    CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -170,9 +202,33 @@ NUVPortType_VM = @"VM";
     */
     CPString _trunkRole @accessors(property=trunkRole);
     /*!
+        UUID of the entity to which the vport is associated to. This could be UUID of a SUBNET or a L2DOMAIN
+    */
+    CPString _assocEntityID @accessors(property=assocEntityID);
+    /*!
+        UUID of the Egress Profile associated with this Vport entity.
+    */
+    CPString _associatedEgressProfileID @accessors(property=associatedEgressProfileID);
+    /*!
         Id of Floating IP address associated to this vport
     */
     CPString _associatedFloatingIPID @accessors(property=associatedFloatingIPID);
+    /*!
+        Associated gateway ID of VPort
+    */
+    CPString _associatedGatewayID @accessors(property=associatedGatewayID);
+    /*!
+        Personality of the associated Gateway
+    */
+    CPString _associatedGatewayPersonality @accessors(property=associatedGatewayPersonality);
+    /*!
+        Associated gateway type of VPort.
+    */
+    CPString _associatedGatewayType @accessors(property=associatedGatewayType);
+    /*!
+        UUID of the Ingress Profile associated with this Vport entity.
+    */
+    CPString _associatedIngressProfileID @accessors(property=associatedIngressProfileID);
     /*!
         The ID of the receive Multicast Channel Map this Vport is associated with. This has to be set when enableMultiCast is set to ENABLED
     */
@@ -201,6 +257,10 @@ NUVPortType_VM = @"VM";
         Indicates multicast policy on Vport.
     */
     CPString _multicast @accessors(property=multicast);
+    /*!
+        Indicates that this vport is eligible to be given in gateway vport config request. It becomes eligible when it has properly attached host or bridge interfaces.
+    */
+    BOOL _gwEligible @accessors(property=gwEligible);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -264,24 +324,34 @@ NUVPortType_VM = @"VM";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"FIPIgnoreDefaultRoute"];
+        [self exposeLocalKeyPathToREST:@"VLAN"];
         [self exposeLocalKeyPathToREST:@"VLANID"];
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"hasAttachedInterfaces"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gatewayMACMoveRole"];
+        [self exposeLocalKeyPathToREST:@"gatewayPortName"];
         [self exposeLocalKeyPathToREST:@"active"];
         [self exposeLocalKeyPathToREST:@"addressSpoofing"];
+        [self exposeLocalKeyPathToREST:@"peerOperationalState"];
         [self exposeLocalKeyPathToREST:@"segmentationID"];
         [self exposeLocalKeyPathToREST:@"segmentationType"];
+        [self exposeLocalKeyPathToREST:@"serviceID"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainID"];
         [self exposeLocalKeyPathToREST:@"zoneID"];
         [self exposeLocalKeyPathToREST:@"operationalState"];
         [self exposeLocalKeyPathToREST:@"trunkRole"];
+        [self exposeLocalKeyPathToREST:@"assocEntityID"];
+        [self exposeLocalKeyPathToREST:@"associatedEgressProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedFloatingIPID"];
+        [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
+        [self exposeLocalKeyPathToREST:@"associatedGatewayPersonality"];
+        [self exposeLocalKeyPathToREST:@"associatedGatewayType"];
+        [self exposeLocalKeyPathToREST:@"associatedIngressProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedSSID"];
         [self exposeLocalKeyPathToREST:@"associatedSendMulticastChannelMapID"];
@@ -289,6 +359,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"subType"];
         [self exposeLocalKeyPathToREST:@"multiNICVPortID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
+        [self exposeLocalKeyPathToREST:@"gwEligible"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         [self exposeLocalKeyPathToREST:@"systemType"];

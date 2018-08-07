@@ -39,6 +39,7 @@
 @import "Fetchers/NUVPortsFetcher.j"
 @import "Fetchers/NUHSCsFetcher.j"
 @import "Fetchers/NUVSCsFetcher.j"
+@import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUMultiNICVPortsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
@@ -293,6 +294,7 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     NUHSCsFetcher _childrenHSCs @accessors(property=childrenHSCs);
     NUVSCsFetcher _childrenVSCs @accessors(property=childrenVSCs);
+    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUMultiNICVPortsFetcher _childrenMultiNICVPorts @accessors(property=childrenMultiNICVPorts);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
@@ -376,6 +378,7 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         _childrenHSCs = [NUHSCsFetcher fetcherWithParentObject:self];
         _childrenVSCs = [NUVSCsFetcher fetcherWithParentObject:self];
+        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenMultiNICVPorts = [NUMultiNICVPortsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         

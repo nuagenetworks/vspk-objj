@@ -36,12 +36,12 @@ NUL4ServiceGroupEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    L4 Service Group is a set of L4 Services that can be used in ACLs.
+    Service Group is a set of Services that can be used in ACLs.
 */
 @implementation NUL4ServiceGroup : NURESTObject
 {
     /*!
-        Name of the L4 Services group
+        Name of the Service group
     */
     CPString _name @accessors(property=name);
     /*!
@@ -49,7 +49,7 @@ NUL4ServiceGroupEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Describes the L4 Service Group
+        Describes the Service Group
     */
     CPString _description @accessors(property=description);
     /*!

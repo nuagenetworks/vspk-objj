@@ -293,7 +293,7 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
 
 
 /*!
-    Represents an IKE Gateway
+    Define attributes of the remote IKE gateway.
 */
 @implementation NUIKEGatewayProfile : NURESTObject
 {

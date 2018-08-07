@@ -62,7 +62,7 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The Gateway associated with this  Auto Discovered Gateway  . This is a read only attribute
+        The Gateway associated with this Auto Discovered Gateway. This is a read only attribute
     */
     CPString _gatewayID @accessors(property=gatewayID);
     /*!

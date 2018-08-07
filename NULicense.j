@@ -83,6 +83,10 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPString _licenseType @accessors(property=licenseType);
     /*!
+        Indicates the feature supported by the license. Possible value is "vss".
+    */
+    CPString _licensedFeature @accessors(property=licensedFeature);
+    /*!
         Minor software release for which this license has been issued
     */
     CPNumber _minorRelease @accessors(property=minorRelease);
@@ -110,6 +114,14 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         Maximum number of NICs allowed. A value of -1 indicates unlimited number of NICs
     */
     CPNumber _allowedNICsCount @accessors(property=allowedNICsCount);
+    /*!
+        Maximum number of VDFGs enabled with this license. A value of -1 indicates an unlimited number of VDFGs.
+    */
+    CPNumber _allowedVDFGsCount @accessors(property=allowedVDFGsCount);
+    /*!
+        Maximum number of VDFs enabled with this license. A value of -1 indicates an unlimited number of VDFs
+    */
+    CPNumber _allowedVDFsCount @accessors(property=allowedVDFsCount);
     /*!
         Maximum number of VMs enabled with this license. A value of -1 indicates an unlimited number of VMs
     */
@@ -219,6 +231,7 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         [self exposeLocalKeyPathToREST:@"licenseEntities"];
         [self exposeLocalKeyPathToREST:@"licenseID"];
         [self exposeLocalKeyPathToREST:@"licenseType"];
+        [self exposeLocalKeyPathToREST:@"licensedFeature"];
         [self exposeLocalKeyPathToREST:@"minorRelease"];
         [self exposeLocalKeyPathToREST:@"zip"];
         [self exposeLocalKeyPathToREST:@"city"];
@@ -226,6 +239,8 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         [self exposeLocalKeyPathToREST:@"allowedAVRSsCount"];
         [self exposeLocalKeyPathToREST:@"allowedCPEsCount"];
         [self exposeLocalKeyPathToREST:@"allowedNICsCount"];
+        [self exposeLocalKeyPathToREST:@"allowedVDFGsCount"];
+        [self exposeLocalKeyPathToREST:@"allowedVDFsCount"];
         [self exposeLocalKeyPathToREST:@"allowedVMsCount"];
         [self exposeLocalKeyPathToREST:@"allowedVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"allowedVRSsCount"];

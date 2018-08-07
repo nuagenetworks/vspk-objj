@@ -74,6 +74,14 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
     */
     CPNumber _policyGroupID @accessors(property=policyGroupID);
     /*!
+        UUID of the associated Policy Group Category for contextual filtering of policy groups.
+    */
+    CPString _assocPolicyGroupCategoryID @accessors(property=assocPolicyGroupCategoryID);
+    /*!
+        Name of the Policy Group Category used for contextual filtering of policy groups.
+    */
+    CPString _assocPolicyGroupCategoryName @accessors(property=assocPolicyGroupCategoryName);
+    /*!
         Indicates whether this PG is internal to VSP or not.
     */
     BOOL _external @accessors(property=external);
@@ -117,6 +125,8 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyGroupID"];
+        [self exposeLocalKeyPathToREST:@"assocPolicyGroupCategoryID"];
+        [self exposeLocalKeyPathToREST:@"assocPolicyGroupCategoryName"];
         [self exposeLocalKeyPathToREST:@"external"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];

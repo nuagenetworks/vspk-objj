@@ -49,7 +49,7 @@ NUQOSServiceClass_NONE = @"NONE";
 
 
 /*!
-    The object manipulates the QoS parameters attached to a domain, zone, or subnet.
+    QoS policies enable you to classify and limit network traffic.
 */
 @implementation NUQOS : NURESTObject
 {

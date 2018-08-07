@@ -73,7 +73,7 @@ NUIngressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
 
 
 /*!
-    The object manipulates Ingress QoS parameters attached to a Access Port / VLAN or Network port.
+    A Tunnel Shaper QoS Policy is a policy that groups rate-limiting profiles, traffic directionality and classifiers to govern the rate of traffic being sent or received by an end-host or application.
 */
 @implementation NUIngressQOSPolicy : NURESTObject
 {

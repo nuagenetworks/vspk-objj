@@ -53,6 +53,7 @@ NUIngressACLEntryTemplateNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP
 NUIngressACLEntryTemplateNetworkType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressACLEntryTemplateNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUIngressACLEntryTemplateNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
+NUIngressACLEntryTemplateNetworkType_SAAS_APPLICATION_GROUP = @"SAAS_APPLICATION_GROUP";
 NUIngressACLEntryTemplateNetworkType_SUBNET = @"SUBNET";
 NUIngressACLEntryTemplateNetworkType_UNDERLAY_INTERNET_POLICYGROUP = @"UNDERLAY_INTERNET_POLICYGROUP";
 NUIngressACLEntryTemplateNetworkType_ZONE = @"ZONE";
@@ -166,11 +167,11 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
-        This property reflects the type of traffic in case an ACL entry is created using an L4 Service or L4 Service Group. In case a protocol and port are specified for the ACL entry, this property has to be empty (null). Supported values are L4_SERVICE, L4_SERVICE_GROUP and empty.
+        This property reflects the type of traffic in case an ACL entry is created using an Service or Service Group. In case a protocol and port are specified for the ACL entry, this property has to be empty (null). Supported values are L4_SERVICE, L4_SERVICE_GROUP and empty.
     */
     CPString _associatedTrafficType @accessors(property=associatedTrafficType);
     /*!
-        If a traffic type is specified as L4 Service or Service Group, then the associated Id of  Service / Service Group should be specifed here
+        If a traffic type is specified as Service or Service Group, then the associated Id of  Service / Service Group should be specifed here
     */
     CPString _associatedTrafficTypeID @accessors(property=associatedTrafficTypeID);
     /*!

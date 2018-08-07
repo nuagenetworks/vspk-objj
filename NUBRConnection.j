@@ -31,6 +31,8 @@
 
 @import "Fetchers/NUBFDSessionsFetcher.j"
 
+NUBRConnectionAddressFamily_IPV4 = @"IPV4";
+NUBRConnectionAddressFamily_IPV6 = @"IPV6";
 NUBRConnectionAdvertisementCriteria_BFD = @"BFD";
 NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
 NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
@@ -48,13 +50,29 @@ NUBRConnectionMode_STATIC = @"Static";
     */
     CPString _DNSAddress @accessors(property=DNSAddress);
     /*!
+        DNS IPv6 Address
+    */
+    CPString _DNSAddressV6 @accessors(property=DNSAddressV6);
+    /*!
         IP address of the gateway bound to the VLAN.
     */
     CPString _gateway @accessors(property=gateway);
     /*!
+        IPv6 address of the gateway bound to the port.
+    */
+    CPString _gatewayV6 @accessors(property=gatewayV6);
+    /*!
         Static IP address for the VLAN
     */
     CPString _address @accessors(property=address);
+    /*!
+        IP address family of this BRConnection
+    */
+    CPString _addressFamily @accessors(property=addressFamily);
+    /*!
+        IPv6 address for static configuration.
+    */
+    CPString _addressV6 @accessors(property=addressV6);
     /*!
         Advertisement Criteria for Traffic Flow
     */
@@ -98,8 +116,12 @@ NUBRConnectionMode_STATIC = @"Static";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"DNSAddress"];
+        [self exposeLocalKeyPathToREST:@"DNSAddressV6"];
         [self exposeLocalKeyPathToREST:@"gateway"];
+        [self exposeLocalKeyPathToREST:@"gatewayV6"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"addressFamily"];
+        [self exposeLocalKeyPathToREST:@"addressV6"];
         [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"inherited"];

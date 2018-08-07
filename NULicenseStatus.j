@@ -77,6 +77,14 @@
     */
     CPNumber _totalLicensedUsedNSGsCount @accessors(property=totalLicensedUsedNSGsCount);
     /*!
+        Indicates total used VDFG count for all the licenses in the system.
+    */
+    CPNumber _totalLicensedUsedVDFGsCount @accessors(property=totalLicensedUsedVDFGsCount);
+    /*!
+        Indicates total used VDF count for all the licenses in the system.
+    */
+    CPNumber _totalLicensedUsedVDFsCount @accessors(property=totalLicensedUsedVDFsCount);
+    /*!
         Indicates total used VM count for all the licenses in the system
     */
     CPNumber _totalLicensedUsedVMsCount @accessors(property=totalLicensedUsedVMsCount);
@@ -88,6 +96,14 @@
         Indicates total used VRS count for all the licenses in the system
     */
     CPNumber _totalLicensedUsedVRSsCount @accessors(property=totalLicensedUsedVRSsCount);
+    /*!
+        Indicates total VDFG count for all the licenses in the system
+    */
+    CPNumber _totalLicensedVDFGsCount @accessors(property=totalLicensedVDFGsCount);
+    /*!
+        Indicates total VDF count for all the licenses in the system
+    */
+    CPNumber _totalLicensedVDFsCount @accessors(property=totalLicensedVDFsCount);
     /*!
         Indicates total VM count for all the licenses in the system
     */
@@ -101,7 +117,7 @@
     */
     CPNumber _totalLicensedVRSsCount @accessors(property=totalLicensedVRSsCount);
     /*!
-        Indicates total VRS+VRSG+VRSB licenses used in the system
+        Indicates total VRS+VRSG+VRSB+VDFG licenses used in the system
     */
     CPNumber _totalUsedGatewaysCount @accessors(property=totalUsedGatewaysCount);
     
@@ -135,9 +151,13 @@
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedAVRSsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedNICsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedNSGsCount"];
+        [self exposeLocalKeyPathToREST:@"totalLicensedUsedVDFGsCount"];
+        [self exposeLocalKeyPathToREST:@"totalLicensedUsedVDFsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedVMsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedUsedVRSsCount"];
+        [self exposeLocalKeyPathToREST:@"totalLicensedVDFGsCount"];
+        [self exposeLocalKeyPathToREST:@"totalLicensedVDFsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVMsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSsCount"];

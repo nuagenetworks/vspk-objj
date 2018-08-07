@@ -36,11 +36,15 @@
 NUGatewayTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUGatewayTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUGatewayTemplatePersonality_DC7X50 = @"DC7X50";
+NUGatewayTemplatePersonality_EVDF = @"EVDF";
+NUGatewayTemplatePersonality_EVDFB = @"EVDFB";
 NUGatewayTemplatePersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
+NUGatewayTemplatePersonality_NETCONF_7X50 = @"NETCONF_7X50";
 NUGatewayTemplatePersonality_NSG = @"NSG";
 NUGatewayTemplatePersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NUGatewayTemplatePersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NUGatewayTemplatePersonality_OTHER = @"OTHER";
+NUGatewayTemplatePersonality_VDFG = @"VDFG";
 NUGatewayTemplatePersonality_VRSB = @"VRSB";
 NUGatewayTemplatePersonality_VRSG = @"VRSG";
 NUGatewayTemplatePersonality_VSA = @"VSA";
@@ -48,7 +52,7 @@ NUGatewayTemplatePersonality_VSG = @"VSG";
 
 
 /*!
-    Represents Gateway Template object.
+    A gateway is your point of exit to an external network. It can be a physical or a virtual device. Gateways are templatable. You can attach gateway's VLANs to any existing host or bridge VPorts.
 */
 @implementation NUGatewayTemplate : NURESTObject
 {
@@ -68,6 +72,10 @@ NUGatewayTemplatePersonality_VSG = @"VSG";
         A description of the Gateway
     */
     CPString _description @accessors(property=description);
+    /*!
+        The ID of the associated Infrastructure Gateway Profile tied to this instance of a Gateway Template.
+    */
+    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
     /*!
         The enterprise associated with this Gateway. This is a read only attribute
     */
@@ -108,6 +116,7 @@ NUGatewayTemplatePersonality_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];

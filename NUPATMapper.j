@@ -37,7 +37,7 @@ NUPATMapperEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    missing documentation.
+    PAT Mapper is a construct which will be associated with 1-N FIP Domains
 */
 @implementation NUPATMapper : NURESTObject
 {

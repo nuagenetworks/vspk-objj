@@ -35,7 +35,7 @@ NUPolicyObjectGroupType_NSGATEWAY = @"NSGateway";
 
 
 /*!
-    None
+    Policy Object Groups are a collection of existing Network Services Gateways. These groups can be used in routing policies for domain links.
 */
 @implementation NUPolicyObjectGroup : NURESTObject
 {

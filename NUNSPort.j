@@ -98,6 +98,10 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _description @accessors(property=description);
     /*!
+        Identifies a Port instance on which a VLAN is shunted.  Ports of type Network are the only one that supports being in Shunt mode. Shunted ports are only relevant when NSGs are in redundant mode.
+    */
+    BOOL _shuntPort @accessors(property=shuntPort);
+    /*!
         Identifier of the Port
     */
     CPString _physicalName @accessors(property=physicalName);
@@ -187,6 +191,7 @@ NUNSPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"shuntPort"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
         [self exposeLocalKeyPathToREST:@"enableNATProbes"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

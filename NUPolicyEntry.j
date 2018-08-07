@@ -45,6 +45,14 @@
     */
     NURESTObject _matchCriteria @accessors(property=matchCriteria);
     /*!
+        ID of Overlay Address Pool for this Policy Entry.
+    */
+    CPString _matchOverlayAddressPoolID @accessors(property=matchOverlayAddressPoolID);
+    /*!
+        ID of Policy Object Group where this Policy Entry belongs.
+    */
+    CPString _matchPolicyObjectGroupID @accessors(property=matchPolicyObjectGroupID);
+    /*!
         Action of Policy Entry
     */
     NURESTObject _actions @accessors(property=actions);
@@ -75,6 +83,8 @@
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"matchCriteria"];
+        [self exposeLocalKeyPathToREST:@"matchOverlayAddressPoolID"];
+        [self exposeLocalKeyPathToREST:@"matchPolicyObjectGroupID"];
         [self exposeLocalKeyPathToREST:@"actions"];
         [self exposeLocalKeyPathToREST:@"description"];
         

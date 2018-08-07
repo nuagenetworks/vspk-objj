@@ -36,6 +36,7 @@ NUSystemConfigCsprootAuthenticationMethod_LDAP = @"LDAP";
 NUSystemConfigCsprootAuthenticationMethod_LOCAL = @"LOCAL";
 NUSystemConfigDomainTunnelType_DC_DEFAULT = @"DC_DEFAULT";
 NUSystemConfigDomainTunnelType_GRE = @"GRE";
+NUSystemConfigDomainTunnelType_VLAN = @"VLAN";
 NUSystemConfigDomainTunnelType_VXLAN = @"VXLAN";
 NUSystemConfigEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUSystemConfigEntityScope_GLOBAL = @"GLOBAL";
@@ -268,6 +269,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _EVPNBGPCommunityTagUpperLimit @accessors(property=EVPNBGPCommunityTagUpperLimit);
     /*!
+        Determines the time that saas applications were imported in VSD.
+    */
+    CPString _SaaSApplicationsPublishDate @accessors(property=SaaSApplicationsPublishDate);
+    /*!
         Defines upper bound for the page size. Configured or input page size should be less than this max page size.
     */
     CPNumber _pageMaxSize @accessors(property=pageMaxSize);
@@ -368,6 +373,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
+        Version of the current imported SaaS Application Type Master List.
+    */
+    CPString _importedSaaSApplicationsVersion @accessors(property=importedSaaSApplicationsVersion);
+    /*!
         Defines the inactive timeout for the client. If the client is inactive for more than timeout, server clears off all the cache/information regarding the client. This value should be greater than event processor max timeout
     */
     CPNumber _inactiveTimeout @accessors(property=inactiveTimeout);
@@ -383,6 +392,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Default Domain Tunnel Type .Possible values are VXLAN,GRE Possible values are DC_DEFAULT, GRE, VXLAN, .
     */
     CPString _domainTunnelType @accessors(property=domainTunnelType);
+    /*!
+        Google Maps API Key used to display maps on Nuage UI applications
+    */
+    CPString _googleMapsAPIKey @accessors(property=googleMapsAPIKey);
     /*!
         Post processor thread count.
     */
@@ -706,6 +719,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"EVPNBGPCommunityTagASNumber"];
         [self exposeLocalKeyPathToREST:@"EVPNBGPCommunityTagLowerLimit"];
         [self exposeLocalKeyPathToREST:@"EVPNBGPCommunityTagUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"SaaSApplicationsPublishDate"];
         [self exposeLocalKeyPathToREST:@"pageMaxSize"];
         [self exposeLocalKeyPathToREST:@"pageSize"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
@@ -731,10 +745,12 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"allowEnterpriseAvatarOnNSG"];
         [self exposeLocalKeyPathToREST:@"globalMACAddress"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
+        [self exposeLocalKeyPathToREST:@"importedSaaSApplicationsVersion"];
         [self exposeLocalKeyPathToREST:@"inactiveTimeout"];
         [self exposeLocalKeyPathToREST:@"infrastructureBGPASNumber"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainTunnelType"];
+        [self exposeLocalKeyPathToREST:@"googleMapsAPIKey"];
         [self exposeLocalKeyPathToREST:@"postProcessorThreadsCount"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKGenerationInterval"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKLifetime"];

@@ -73,6 +73,7 @@
 @import "NUDUCGroupBinding.j"
 @import "NUDefaultGateway.j"
 @import "NUDemarcationService.j"
+@import "NUDeploymentFailure.j"
 @import "NUDestinationurl.j"
 @import "NUDiskStat.j"
 @import "NUDomain.j"
@@ -83,6 +84,7 @@
 @import "NUEgressACLTemplate.j"
 @import "NUEgressAdvFwdEntryTemplate.j"
 @import "NUEgressAdvFwdTemplate.j"
+@import "NUEgressProfile.j"
 @import "NUEgressQOSPolicy.j"
 @import "NUEnterprise.j"
 @import "NUEnterpriseNetwork.j"
@@ -99,6 +101,7 @@
 @import "NUForwardingPathList.j"
 @import "NUForwardingPathListEntry.j"
 @import "NUGateway.j"
+@import "NUGatewayRedundantPort.j"
 @import "NUGatewaySecuredData.j"
 @import "NUGatewaySecurity.j"
 @import "NUGatewayTemplate.j"
@@ -115,9 +118,12 @@
 @import "NUIKEGatewayProfile.j"
 @import "NUIKEPSK.j"
 @import "NUIKESubnet.j"
+@import "NUIPFilterProfile.j"
 @import "NUIPReservation.j"
+@import "NUIPv6FilterProfile.j"
 @import "NUInfrastructureAccessProfile.j"
 @import "NUInfrastructureConfig.j"
+@import "NUInfrastructureEVDFProfile.j"
 @import "NUInfrastructureGatewayProfile.j"
 @import "NUInfrastructureVscProfile.j"
 @import "NUIngressACLEntryTemplate.j"
@@ -126,6 +132,7 @@
 @import "NUIngressAdvFwdTemplate.j"
 @import "NUIngressExternalServiceTemplate.j"
 @import "NUIngressExternalServiceTemplateEntry.j"
+@import "NUIngressProfile.j"
 @import "NUIngressQOSPolicy.j"
 @import "NUJob.j"
 @import "NUKeyServerMember.j"
@@ -145,6 +152,7 @@
 @import "NULink.j"
 @import "NULocation.j"
 @import "NULtestatistics.j"
+@import "NUMACFilterProfile.j"
 @import "NUMe.j"
 @import "NUMetadata.j"
 @import "NUMirrorDestination.j"
@@ -161,10 +169,14 @@
 @import "NUNSGRoutingPolicyBinding.j"
 @import "NUNSGUpgradeProfile.j"
 @import "NUNSGateway.j"
+@import "NUNSGatewaySummary.j"
 @import "NUNSGatewayTemplate.j"
 @import "NUNSPort.j"
 @import "NUNSPortTemplate.j"
 @import "NUNSRedundantGatewayGroup.j"
+@import "NUNetconfManager.j"
+@import "NUNetconfProfile.j"
+@import "NUNetconfSession.j"
 @import "NUNetworkLayout.j"
 @import "NUNetworkMacroGroup.j"
 @import "NUNetworkPerformanceBinding.j"
@@ -190,6 +202,7 @@
 @import "NUPolicyDecision.j"
 @import "NUPolicyEntry.j"
 @import "NUPolicyGroup.j"
+@import "NUPolicyGroupCategory.j"
 @import "NUPolicyGroupTemplate.j"
 @import "NUPolicyObjectGroup.j"
 @import "NUPolicyStatement.j"
@@ -206,10 +219,15 @@
 @import "NURedundancyGroup.j"
 @import "NURedundantPort.j"
 @import "NURoutingPolicy.j"
+@import "NUSAPEgressQoSProfile.j"
+@import "NUSAPIngressQoSProfile.j"
 @import "NUSPATSourcesPool.j"
 @import "NUSSHKey.j"
 @import "NUSSIDConnection.j"
+@import "NUSaaSApplicationGroup.j"
+@import "NUSaaSApplicationType.j"
 @import "NUSharedNetworkResource.j"
+@import "NUShuntLink.j"
 @import "NUSiteInfo.j"
 @import "NUStaticRoute.j"
 @import "NUStatistics.j"
@@ -313,6 +331,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUDUCGroupBinding];
 [[NURESTModelController defaultController] registerModelClass:NUDefaultGateway];
 [[NURESTModelController defaultController] registerModelClass:NUDemarcationService];
+[[NURESTModelController defaultController] registerModelClass:NUDeploymentFailure];
 [[NURESTModelController defaultController] registerModelClass:NUDestinationurl];
 [[NURESTModelController defaultController] registerModelClass:NUDiskStat];
 [[NURESTModelController defaultController] registerModelClass:NUDomain];
@@ -323,6 +342,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUEgressACLTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUEgressAdvFwdEntryTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUEgressAdvFwdTemplate];
+[[NURESTModelController defaultController] registerModelClass:NUEgressProfile];
 [[NURESTModelController defaultController] registerModelClass:NUEgressQOSPolicy];
 [[NURESTModelController defaultController] registerModelClass:NUEnterprise];
 [[NURESTModelController defaultController] registerModelClass:NUEnterpriseNetwork];
@@ -339,6 +359,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUForwardingPathList];
 [[NURESTModelController defaultController] registerModelClass:NUForwardingPathListEntry];
 [[NURESTModelController defaultController] registerModelClass:NUGateway];
+[[NURESTModelController defaultController] registerModelClass:NUGatewayRedundantPort];
 [[NURESTModelController defaultController] registerModelClass:NUGatewaySecuredData];
 [[NURESTModelController defaultController] registerModelClass:NUGatewaySecurity];
 [[NURESTModelController defaultController] registerModelClass:NUGatewayTemplate];
@@ -355,9 +376,12 @@
 [[NURESTModelController defaultController] registerModelClass:NUIKEGatewayProfile];
 [[NURESTModelController defaultController] registerModelClass:NUIKEPSK];
 [[NURESTModelController defaultController] registerModelClass:NUIKESubnet];
+[[NURESTModelController defaultController] registerModelClass:NUIPFilterProfile];
 [[NURESTModelController defaultController] registerModelClass:NUIPReservation];
+[[NURESTModelController defaultController] registerModelClass:NUIPv6FilterProfile];
 [[NURESTModelController defaultController] registerModelClass:NUInfrastructureAccessProfile];
 [[NURESTModelController defaultController] registerModelClass:NUInfrastructureConfig];
+[[NURESTModelController defaultController] registerModelClass:NUInfrastructureEVDFProfile];
 [[NURESTModelController defaultController] registerModelClass:NUInfrastructureGatewayProfile];
 [[NURESTModelController defaultController] registerModelClass:NUInfrastructureVscProfile];
 [[NURESTModelController defaultController] registerModelClass:NUIngressACLEntryTemplate];
@@ -366,6 +390,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUIngressAdvFwdTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUIngressExternalServiceTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUIngressExternalServiceTemplateEntry];
+[[NURESTModelController defaultController] registerModelClass:NUIngressProfile];
 [[NURESTModelController defaultController] registerModelClass:NUIngressQOSPolicy];
 [[NURESTModelController defaultController] registerModelClass:NUJob];
 [[NURESTModelController defaultController] registerModelClass:NUKeyServerMember];
@@ -385,6 +410,7 @@
 [[NURESTModelController defaultController] registerModelClass:NULink];
 [[NURESTModelController defaultController] registerModelClass:NULocation];
 [[NURESTModelController defaultController] registerModelClass:NULtestatistics];
+[[NURESTModelController defaultController] registerModelClass:NUMACFilterProfile];
 [[NURESTModelController defaultController] registerModelClass:NUMe];
 [[NURESTModelController defaultController] registerModelClass:NUMetadata];
 [[NURESTModelController defaultController] registerModelClass:NUMirrorDestination];
@@ -401,10 +427,14 @@
 [[NURESTModelController defaultController] registerModelClass:NUNSGRoutingPolicyBinding];
 [[NURESTModelController defaultController] registerModelClass:NUNSGUpgradeProfile];
 [[NURESTModelController defaultController] registerModelClass:NUNSGateway];
+[[NURESTModelController defaultController] registerModelClass:NUNSGatewaySummary];
 [[NURESTModelController defaultController] registerModelClass:NUNSGatewayTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUNSPort];
 [[NURESTModelController defaultController] registerModelClass:NUNSPortTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUNSRedundantGatewayGroup];
+[[NURESTModelController defaultController] registerModelClass:NUNetconfManager];
+[[NURESTModelController defaultController] registerModelClass:NUNetconfProfile];
+[[NURESTModelController defaultController] registerModelClass:NUNetconfSession];
 [[NURESTModelController defaultController] registerModelClass:NUNetworkLayout];
 [[NURESTModelController defaultController] registerModelClass:NUNetworkMacroGroup];
 [[NURESTModelController defaultController] registerModelClass:NUNetworkPerformanceBinding];
@@ -430,6 +460,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUPolicyDecision];
 [[NURESTModelController defaultController] registerModelClass:NUPolicyEntry];
 [[NURESTModelController defaultController] registerModelClass:NUPolicyGroup];
+[[NURESTModelController defaultController] registerModelClass:NUPolicyGroupCategory];
 [[NURESTModelController defaultController] registerModelClass:NUPolicyGroupTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUPolicyObjectGroup];
 [[NURESTModelController defaultController] registerModelClass:NUPolicyStatement];
@@ -446,10 +477,15 @@
 [[NURESTModelController defaultController] registerModelClass:NURedundancyGroup];
 [[NURESTModelController defaultController] registerModelClass:NURedundantPort];
 [[NURESTModelController defaultController] registerModelClass:NURoutingPolicy];
+[[NURESTModelController defaultController] registerModelClass:NUSAPEgressQoSProfile];
+[[NURESTModelController defaultController] registerModelClass:NUSAPIngressQoSProfile];
 [[NURESTModelController defaultController] registerModelClass:NUSPATSourcesPool];
 [[NURESTModelController defaultController] registerModelClass:NUSSHKey];
 [[NURESTModelController defaultController] registerModelClass:NUSSIDConnection];
+[[NURESTModelController defaultController] registerModelClass:NUSaaSApplicationGroup];
+[[NURESTModelController defaultController] registerModelClass:NUSaaSApplicationType];
 [[NURESTModelController defaultController] registerModelClass:NUSharedNetworkResource];
+[[NURESTModelController defaultController] registerModelClass:NUShuntLink];
 [[NURESTModelController defaultController] registerModelClass:NUSiteInfo];
 [[NURESTModelController defaultController] registerModelClass:NUStaticRoute];
 [[NURESTModelController defaultController] registerModelClass:NUStatistics];

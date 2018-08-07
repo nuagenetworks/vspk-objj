@@ -78,7 +78,7 @@ NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 
 
 /*!
-    Defines the template of Egress Advanced Forwarding entries
+    Egress forwarding policy rules define what action to take for a particular type of traffic, based on its origin, destination, protocol, EtherType, ports, DSCP value and other information. Supported actions are to redirect traffic, change the forwarding class of the traffic or to allow traffic to pass untouched.
 */
 @implementation NUEgressAdvFwdEntryTemplate : NURESTObject
 {

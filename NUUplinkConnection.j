@@ -33,6 +33,8 @@
 @import "Fetchers/NUUnderlaysFetcher.j"
 @import "Fetchers/NUCustomPropertiesFetcher.j"
 
+NUUplinkConnectionAddressFamily_IPV4 = @"IPV4";
+NUUplinkConnectionAddressFamily_IPV6 = @"IPV6";
 NUUplinkConnectionAdvertisementCriteria_BFD = @"BFD";
 NUUplinkConnectionAdvertisementCriteria_CONTROL_SESSION = @"CONTROL_SESSION";
 NUUplinkConnectionAdvertisementCriteria_OPERATIONAL_LINK = @"OPERATIONAL_LINK";
@@ -67,6 +69,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _DNSAddress @accessors(property=DNSAddress);
     /*!
+        IPv6 DNS server address
+    */
+    CPString _DNSAddressV6 @accessors(property=DNSAddressV6);
+    /*!
         PPPoE password.
     */
     CPString _password @accessors(property=password);
@@ -75,9 +81,21 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _gateway @accessors(property=gateway);
     /*!
+        IPv6 address of the gateway bound to the port.
+    */
+    CPString _gatewayV6 @accessors(property=gatewayV6);
+    /*!
         IP address for static configuration
     */
     CPString _address @accessors(property=address);
+    /*!
+        IP address family of this UplinkConnection
+    */
+    CPString _addressFamily @accessors(property=addressFamily);
+    /*!
+        IPv6 address for static configuration
+    */
+    CPString _addressV6 @accessors(property=addressV6);
     /*!
         Advertisement Criteria for Traffic Flow
     */
@@ -180,9 +198,13 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     {
         [self exposeLocalKeyPathToREST:@"PATEnabled"];
         [self exposeLocalKeyPathToREST:@"DNSAddress"];
+        [self exposeLocalKeyPathToREST:@"DNSAddressV6"];
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"gateway"];
+        [self exposeLocalKeyPathToREST:@"gatewayV6"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"addressFamily"];
+        [self exposeLocalKeyPathToREST:@"addressV6"];
         [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
         [self exposeLocalKeyPathToREST:@"secondaryAddress"];
         [self exposeLocalKeyPathToREST:@"netmask"];
