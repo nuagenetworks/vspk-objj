@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUIngressExternalServiceTemplate
+@class NUAllRedundancyGroup
 
 
-@implementation NUIngressExternalServiceTemplatesFetcher : NURESTFetcher
+@implementation NUAllRedundancyGroupsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUIngressExternalServiceTemplate;
+    return NUAllRedundancyGroup;
 }
 
 @end

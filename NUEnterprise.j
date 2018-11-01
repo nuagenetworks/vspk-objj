@@ -39,6 +39,7 @@
 @import "Fetchers/NUCaptivePortalProfilesFetcher.j"
 @import "Fetchers/NURateLimitersFetcher.j"
 @import "Fetchers/NUGatewaysFetcher.j"
+@import "Fetchers/NUGatewaysLocationsFetcher.j"
 @import "Fetchers/NUGatewayTemplatesFetcher.j"
 @import "Fetchers/NUPATNATPoolsFetcher.j"
 @import "Fetchers/NULDAPConfigurationsFetcher.j"
@@ -87,6 +88,7 @@
 @import "Fetchers/NUDSCPRemarkingPolicyTablesFetcher.j"
 @import "Fetchers/NUUsersFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
+@import "Fetchers/NUNSGatewaysCountsFetcher.j"
 @import "Fetchers/NUNSGatewaySummariesFetcher.j"
 @import "Fetchers/NUNSGatewayTemplatesFetcher.j"
 @import "Fetchers/NUNSGGroupsFetcher.j"
@@ -105,6 +107,9 @@ NUEnterpriseAllowedForwardingClasses_F = @"F";
 NUEnterpriseAllowedForwardingClasses_G = @"G";
 NUEnterpriseAllowedForwardingClasses_H = @"H";
 NUEnterpriseAllowedForwardingClasses_NONE = @"NONE";
+NUEnterpriseAllowedForwardingMode_DISABLED = @"DISABLED";
+NUEnterpriseAllowedForwardingMode_LOCAL_AND_REMOTE = @"LOCAL_AND_REMOTE";
+NUEnterpriseAllowedForwardingMode_LOCAL_ONLY = @"LOCAL_ONLY";
 NUEnterpriseAvatarType_BASE64 = @"BASE64";
 NUEnterpriseAvatarType_COMPUTEDURL = @"COMPUTEDURL";
 NUEnterpriseAvatarType_URL = @"URL";
@@ -142,7 +147,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     BOOL _VNFManagementEnabled @accessors(property=VNFManagementEnabled);
     /*!
-        The unique name of the enterprise. Valid characters are alphabets, numbers, space and hyphen( - ).
+        The unique name of the enterprise.
     */
     CPString _name @accessors(property=name);
     /*!
@@ -189,6 +194,10 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         Allowed Forwarding Classes for this enterprise. Possible values are NONE, A, B, C, D, E, F, G, H, .
     */
     CPArrayController _allowedForwardingClasses @accessors(property=allowedForwardingClasses);
+    /*!
+        Enum to set allowed controller-less mode
+    */
+    CPString _allowedForwardingMode @accessors(property=allowedForwardingMode);
     /*!
         Quota set for the number of floating IPs to be used by an enterprise.
     */
@@ -260,6 +269,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUCaptivePortalProfilesFetcher _childrenCaptivePortalProfiles @accessors(property=childrenCaptivePortalProfiles);
     NURateLimitersFetcher _childrenRateLimiters @accessors(property=childrenRateLimiters);
     NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
+    NUGatewaysLocationsFetcher _childrenGatewaysLocations @accessors(property=childrenGatewaysLocations);
     NUGatewayTemplatesFetcher _childrenGatewayTemplates @accessors(property=childrenGatewayTemplates);
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NULDAPConfigurationsFetcher _childrenLDAPConfigurations @accessors(property=childrenLDAPConfigurations);
@@ -308,6 +318,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUDSCPRemarkingPolicyTablesFetcher _childrenDSCPRemarkingPolicyTables @accessors(property=childrenDSCPRemarkingPolicyTables);
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
+    NUNSGatewaysCountsFetcher _childrenNSGatewaysCounts @accessors(property=childrenNSGatewaysCounts);
     NUNSGatewaySummariesFetcher _childrenNSGatewaySummaries @accessors(property=childrenNSGatewaySummaries);
     NUNSGatewayTemplatesFetcher _childrenNSGatewayTemplates @accessors(property=childrenNSGatewayTemplates);
     NUNSGGroupsFetcher _childrenNSGGroups @accessors(property=childrenNSGGroups);
@@ -353,6 +364,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"allowGatewayManagement"];
         [self exposeLocalKeyPathToREST:@"allowTrustedForwardingClass"];
         [self exposeLocalKeyPathToREST:@"allowedForwardingClasses"];
+        [self exposeLocalKeyPathToREST:@"allowedForwardingMode"];
         [self exposeLocalKeyPathToREST:@"floatingIPsQuota"];
         [self exposeLocalKeyPathToREST:@"floatingIPsUsed"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
@@ -379,6 +391,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenCaptivePortalProfiles = [NUCaptivePortalProfilesFetcher fetcherWithParentObject:self];
         _childrenRateLimiters = [NURateLimitersFetcher fetcherWithParentObject:self];
         _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
+        _childrenGatewaysLocations = [NUGatewaysLocationsFetcher fetcherWithParentObject:self];
         _childrenGatewayTemplates = [NUGatewayTemplatesFetcher fetcherWithParentObject:self];
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenLDAPConfigurations = [NULDAPConfigurationsFetcher fetcherWithParentObject:self];
@@ -427,6 +440,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenDSCPRemarkingPolicyTables = [NUDSCPRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
+        _childrenNSGatewaysCounts = [NUNSGatewaysCountsFetcher fetcherWithParentObject:self];
         _childrenNSGatewaySummaries = [NUNSGatewaySummariesFetcher fetcherWithParentObject:self];
         _childrenNSGatewayTemplates = [NUNSGatewayTemplatesFetcher fetcherWithParentObject:self];
         _childrenNSGGroups = [NUNSGGroupsFetcher fetcherWithParentObject:self];

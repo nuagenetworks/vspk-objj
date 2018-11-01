@@ -29,44 +29,41 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUShuntLinksFetcher.j"
-@import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUEnterprisePermissionsFetcher.j"
-@import "Fetchers/NUNSGatewaysFetcher.j"
-@import "Fetchers/NURedundantPortsFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
 
-NUNSRedundantGatewayGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUNSRedundantGatewayGroupEntityScope_GLOBAL = @"GLOBAL";
-NUNSRedundantGatewayGroupPermittedAction_ALL = @"ALL";
-NUNSRedundantGatewayGroupPermittedAction_DEPLOY = @"DEPLOY";
-NUNSRedundantGatewayGroupPermittedAction_EXTEND = @"EXTEND";
-NUNSRedundantGatewayGroupPermittedAction_INSTANTIATE = @"INSTANTIATE";
-NUNSRedundantGatewayGroupPermittedAction_READ = @"READ";
-NUNSRedundantGatewayGroupPermittedAction_USE = @"USE";
-NUNSRedundantGatewayGroupPersonality_DC7X50 = @"DC7X50";
-NUNSRedundantGatewayGroupPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
-NUNSRedundantGatewayGroupPersonality_NSG = @"NSG";
-NUNSRedundantGatewayGroupPersonality_NSGBR = @"NSGBR";
-NUNSRedundantGatewayGroupPersonality_NSGDUC = @"NSGDUC";
-NUNSRedundantGatewayGroupPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
-NUNSRedundantGatewayGroupPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
-NUNSRedundantGatewayGroupPersonality_OTHER = @"OTHER";
-NUNSRedundantGatewayGroupPersonality_VRSB = @"VRSB";
-NUNSRedundantGatewayGroupPersonality_VRSG = @"VRSG";
-NUNSRedundantGatewayGroupPersonality_VSA = @"VSA";
-NUNSRedundantGatewayGroupPersonality_VSG = @"VSG";
-NUNSRedundantGatewayGroupRedundantGatewayStatus_FAILED = @"FAILED";
-NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
+NUAllRedundancyGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUAllRedundancyGroupEntityScope_GLOBAL = @"GLOBAL";
+NUAllRedundancyGroupPermittedAction_ALL = @"ALL";
+NUAllRedundancyGroupPermittedAction_DEPLOY = @"DEPLOY";
+NUAllRedundancyGroupPermittedAction_EXTEND = @"EXTEND";
+NUAllRedundancyGroupPermittedAction_INSTANTIATE = @"INSTANTIATE";
+NUAllRedundancyGroupPermittedAction_READ = @"READ";
+NUAllRedundancyGroupPermittedAction_USE = @"USE";
+NUAllRedundancyGroupPersonality_DC7X50 = @"DC7X50";
+NUAllRedundancyGroupPersonality_EVDF = @"EVDF";
+NUAllRedundancyGroupPersonality_EVDFB = @"EVDFB";
+NUAllRedundancyGroupPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
+NUAllRedundancyGroupPersonality_NETCONF_7X50 = @"NETCONF_7X50";
+NUAllRedundancyGroupPersonality_NSG = @"NSG";
+NUAllRedundancyGroupPersonality_NSGBR = @"NSGBR";
+NUAllRedundancyGroupPersonality_NSGDUC = @"NSGDUC";
+NUAllRedundancyGroupPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
+NUAllRedundancyGroupPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
+NUAllRedundancyGroupPersonality_OTHER = @"OTHER";
+NUAllRedundancyGroupPersonality_VDFG = @"VDFG";
+NUAllRedundancyGroupPersonality_VRSB = @"VRSB";
+NUAllRedundancyGroupPersonality_VRSG = @"VRSG";
+NUAllRedundancyGroupPersonality_VSA = @"VSA";
+NUAllRedundancyGroupPersonality_VSG = @"VSG";
+NUAllRedundancyGroupRedundantGatewayStatus_FAILED = @"FAILED";
+NUAllRedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
 
 
 /*!
-    Represents Redundant Group formed by two VNS Gateways.
+    A read only API to get all redundancy gateway objects in the VSD environment. Use the ID field to then actually manage the redundancy gateway using the redundancy gateway API entity.
 */
-@implementation NUNSRedundantGatewayGroup : NURESTObject
+@implementation NUAllRedundancyGroup : NURESTObject
 {
     /*!
         Name of the Redundancy Group 
@@ -81,7 +78,7 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _gatewayPeer1AutodiscoveredGatewayID @accessors(property=gatewayPeer1AutodiscoveredGatewayID);
     /*!
-        Indicates status of the authoritative gateway of this Redundancy Group.
+        Indicates status of the authoritative  gateway of this Redundancy Group.
     */
     BOOL _gatewayPeer1Connected @accessors(property=gatewayPeer1Connected);
     /*!
@@ -89,11 +86,11 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _gatewayPeer1ID @accessors(property=gatewayPeer1ID);
     /*!
-        The name of the authoritative gateway owning the configuration for the Redundant Group
+        The gateway   configuration owner name in this Redundant Group
     */
     CPString _gatewayPeer1Name @accessors(property=gatewayPeer1Name);
     /*!
-        The Auto Discovered Gateway configuration for the secondary gateway in this Redundant Group.
+        The Auto Discovered Gateway  peer in this Redundant Group
     */
     CPString _gatewayPeer2AutodiscoveredGatewayID @accessors(property=gatewayPeer2AutodiscoveredGatewayID);
     /*!
@@ -101,39 +98,23 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     BOOL _gatewayPeer2Connected @accessors(property=gatewayPeer2Connected);
     /*!
-        The gateway peer in this Redundant Group. when Redundant Group is deleted this gateway will not recieve vport associations
-    */
-    CPString _gatewayPeer2ID @accessors(property=gatewayPeer2ID);
-    /*!
-        The secondary gateway peer name in this Redundant Group.
+        The gateway peer name in this Redundant Group
     */
     CPString _gatewayPeer2Name @accessors(property=gatewayPeer2Name);
     /*!
-        Heartbeat interval in milliseconds to declare the neighbor as dead.
-    */
-    CPNumber _heartbeatInterval @accessors(property=heartbeatInterval);
-    /*!
-        Heartbeat VLAN used for BFD.
-    */
-    CPNumber _heartbeatVLANID @accessors(property=heartbeatVLANID);
-    /*!
-        Collections resilient port IDs associated with this redundant group.
-    */
-    CPArrayController _redundancyPortIDs @accessors(property=redundancyPortIDs);
-    /*!
-        The status of the Redundant Group.
+        The status of  Redundant Group, possible values are FAILED, SUCCESS Possible values are FAILED, SUCCESS, .
     */
     CPString _redundantGatewayStatus @accessors(property=redundantGatewayStatus);
     /*!
-        The permitted action to USE/EXTEND this Gateway.
+        The permitted  action to USE/EXTEND  this Gateway Possible values are USE, READ, ALL, INSTANTIATE, EXTEND, DEPLOY, .
     */
     CPString _permittedAction @accessors(property=permittedAction);
     /*!
-        Derived personality of the Redundancy Group.
+        derived personality of the Redundancy Group - VSG,VRSG,NSG,OTHER Possible values are VSG, VSA, VRSG, VDFG, DC7X50, NSG, HARDWARE_VTEP, OTHER, .
     */
     CPString _personality @accessors(property=personality);
     /*!
-        Description of the Redundancy Group
+         Description of the Redundancy Group
     */
     CPString _description @accessors(property=description);
     /*!
@@ -145,23 +126,16 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Consecutive failure count.  Supported value is 3.
+        Represent the system ID or the Virtual IP of a service used by a Gateway (VSG for now) to establish a tunnel with a remote VSG or hypervisor.  The format of this field is consistent with an IP address.
     */
-    CPNumber _consecutiveFailuresCount @accessors(property=consecutiveFailuresCount);
+    CPString _vtep @accessors(property=vtep);
     /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
     
-    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUShuntLinksFetcher _childrenShuntLinks @accessors(property=childrenShuntLinks);
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
-    NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
-    NURedundantPortsFetcher _childrenRedundantPorts @accessors(property=childrenRedundantPorts);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -171,7 +145,7 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
 
 + (CPString)RESTName
 {
-    return @"nsgredundancygroup";
+    return @"allredundancygroup";
 }
 
 
@@ -190,29 +164,18 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         [self exposeLocalKeyPathToREST:@"gatewayPeer1Name"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2AutodiscoveredGatewayID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2Connected"];
-        [self exposeLocalKeyPathToREST:@"gatewayPeer2ID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2Name"];
-        [self exposeLocalKeyPathToREST:@"heartbeatInterval"];
-        [self exposeLocalKeyPathToREST:@"heartbeatVLANID"];
-        [self exposeLocalKeyPathToREST:@"redundancyPortIDs"];
         [self exposeLocalKeyPathToREST:@"redundantGatewayStatus"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"consecutiveFailuresCount"];
+        [self exposeLocalKeyPathToREST:@"vtep"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenShuntLinks = [NUShuntLinksFetcher fetcherWithParentObject:self];
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
-        _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
-        _childrenRedundantPorts = [NURedundantPortsFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

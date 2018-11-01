@@ -58,6 +58,10 @@ NUNATMapEntryType_UNKNOWN = @"UNKNOWN";
     */
     CPString _privateIP @accessors(property=privateIP);
     /*!
+        Private port identification
+    */
+    CPNumber _privatePort @accessors(property=privatePort);
+    /*!
         Indicates which PATNATPool this entry belongs to
     */
     CPString _associatedPATNATPoolID @accessors(property=associatedPATNATPoolID);
@@ -65,6 +69,10 @@ NUNATMapEntryType_UNKNOWN = @"UNKNOWN";
         Public IP address of the interface
     */
     CPString _publicIP @accessors(property=publicIP);
+    /*!
+        Public port identification
+    */
+    CPNumber _publicPort @accessors(property=publicPort);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -99,8 +107,10 @@ NUNATMapEntryType_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"privateIP"];
+        [self exposeLocalKeyPathToREST:@"privatePort"];
         [self exposeLocalKeyPathToREST:@"associatedPATNATPoolID"];
         [self exposeLocalKeyPathToREST:@"publicIP"];
+        [self exposeLocalKeyPathToREST:@"publicPort"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

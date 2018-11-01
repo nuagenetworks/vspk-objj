@@ -29,7 +29,6 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUEventLogsFetcher.j"
 
 NUProxyARPFilterEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUProxyARPFilterEntityScope_GLOBAL = @"GLOBAL";
@@ -67,7 +66,6 @@ NUProxyARPFilterIPType_IPV6 = @"IPV6";
     */
     CPString _externalID @accessors(property=externalID);
     
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -95,7 +93,6 @@ NUProxyARPFilterIPType_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         
     }

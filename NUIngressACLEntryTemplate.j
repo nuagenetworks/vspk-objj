@@ -167,6 +167,10 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
+        In the draft mode, the ACL entity refers to this live entity parent. In non-drafted mode, this is null
+    */
+    CPString _associatedLiveTemplateID @accessors(property=associatedLiveTemplateID);
+    /*!
         This property reflects the type of traffic in case an ACL entry is created using an Service or Service Group. In case a protocol and port are specified for the ACL entry, this property has to be empty (null). Supported values are L4_SERVICE, L4_SERVICE_GROUP and empty.
     */
     CPString _associatedTrafficType @accessors(property=associatedTrafficType);
@@ -174,6 +178,10 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         If a traffic type is specified as Service or Service Group, then the associated Id of  Service / Service Group should be specifed here
     */
     CPString _associatedTrafficTypeID @accessors(property=associatedTrafficTypeID);
+    /*!
+        The ID of the Virtual Firewall Rule, if this was derived as part of the Virtual Firewall Rule creation
+    */
+    CPString _associatedVirtualFirewallRuleID @accessors(property=associatedVirtualFirewallRuleID);
     /*!
         True means that this ACL entry is stateful, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
     */
@@ -247,8 +255,10 @@ NUIngressACLEntryTemplatePolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"associatedL7ApplicationSignatureID"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"associatedLiveTemplateID"];
         [self exposeLocalKeyPathToREST:@"associatedTrafficType"];
         [self exposeLocalKeyPathToREST:@"associatedTrafficTypeID"];
+        [self exposeLocalKeyPathToREST:@"associatedVirtualFirewallRuleID"];
         [self exposeLocalKeyPathToREST:@"stateful"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];

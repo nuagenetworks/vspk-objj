@@ -83,6 +83,10 @@ NUApplicationProtocol_UDP = @"UDP";
     */
     CPString _performanceMonitorType @accessors(property=performanceMonitorType);
     /*!
+        Describes the certificate common name
+    */
+    CPString _certificateCommonName @accessors(property=certificateCommonName);
+    /*!
         description of Application
     */
     CPString _description @accessors(property=description);
@@ -94,6 +98,10 @@ NUApplicationProtocol_UDP = @"UDP";
         value should be either * or single port number 
     */
     CPString _destinationPort @accessors(property=destinationPort);
+    /*!
+        Network symmetry flag
+    */
+    BOOL _networkSymmetry @accessors(property=networkSymmetry);
     /*!
         Enable the performance probe for this application
     */
@@ -189,9 +197,11 @@ NUApplicationProtocol_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"performanceMonitorType"];
+        [self exposeLocalKeyPathToREST:@"certificateCommonName"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationIP"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
+        [self exposeLocalKeyPathToREST:@"networkSymmetry"];
         [self exposeLocalKeyPathToREST:@"enablePPS"];
         [self exposeLocalKeyPathToREST:@"oneWayDelay"];
         [self exposeLocalKeyPathToREST:@"oneWayJitter"];

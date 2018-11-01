@@ -90,7 +90,7 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
     */
     CPString _name @accessors(property=name);
     /*!
-        ID of the parent rate limiter associated with this Egress QOS policy.
+        ID of the parent rate limiter associated with this Egress QoS policy.
     */
     CPString _parentQueueAssociatedRateLimiterID @accessors(property=parentQueueAssociatedRateLimiterID);
     /*!
@@ -118,39 +118,39 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
     */
     CPString _associatedCOSRemarkingPolicyTableID @accessors(property=associatedCOSRemarkingPolicyTableID);
     /*!
-        ID of the DSCP Remarking Policy Table associated with this Egress QOS policy.
+        ID of the DSCP Remarking Policy Table associated with this Egress QoS policy.
     */
     CPString _associatedDSCPRemarkingPolicyTableID @accessors(property=associatedDSCPRemarkingPolicyTableID);
     /*!
-        ID of the queue1 rate limiter associated with this Egress QOS policy.
+        ID of the queue1 rate limiter associated with this Egress QoS policy.
     */
     CPString _queue1AssociatedRateLimiterID @accessors(property=queue1AssociatedRateLimiterID);
     /*!
-        Queue1 Forwarding Classes for this Egress QOS Policy Possible values are NONE, A, B, C, D, E, F, G, H, .
+        Queue1 Forwarding Classes for this Egress QoS Policy Possible values are NONE, A, B, C, D, E, F, G, H.
     */
     CPArrayController _queue1ForwardingClasses @accessors(property=queue1ForwardingClasses);
     /*!
-        ID of the queue2 rate limiter associated with this Egress QOS policy.
+        ID of the queue2 rate limiter associated with this Egress QoS policy.
     */
     CPString _queue2AssociatedRateLimiterID @accessors(property=queue2AssociatedRateLimiterID);
     /*!
-        Queue2 Forwarding Classes for this Egress QOS Policy Possible values are NONE, A, B, C, D, E, F, G, H, .
+        Queue2 Forwarding Classes for this Egress QoS Policy Possible values are NONE, A, B, C, D, E, F, G, H.
     */
     CPArrayController _queue2ForwardingClasses @accessors(property=queue2ForwardingClasses);
     /*!
-        ID of the queue3 rate limiter associated with this Egress QOS policy.
+        ID of the queue3 rate limiter associated with this Egress QoS policy.
     */
     CPString _queue3AssociatedRateLimiterID @accessors(property=queue3AssociatedRateLimiterID);
     /*!
-        Queue3 Forwarding Classes for this Egress QOS Policy Possible values are NONE, A, B, C, D, E, F, G, H, .
+        Queue3 Forwarding Classes for this Egress QoS Policy Possible values are NONE, A, B, C, D, E, F, G, H.
     */
     CPArrayController _queue3ForwardingClasses @accessors(property=queue3ForwardingClasses);
     /*!
-        ID of the queue4 rate limiter associated with this Egress QOS policy.
+        ID of the queue4 rate limiter associated with this Egress QoS policy.
     */
     CPString _queue4AssociatedRateLimiterID @accessors(property=queue4AssociatedRateLimiterID);
     /*!
-        Queue4 Forwarding Classes for this Egress QOS Policy Possible values are NONE, A, B, C, D, E, F, G, H, .
+        Queue4 Forwarding Classes for this Egress QoS Policy Possible values are NONE, A, B, C, D, E, F, G, H.
     */
     CPArrayController _queue4ForwardingClasses @accessors(property=queue4ForwardingClasses);
     /*!

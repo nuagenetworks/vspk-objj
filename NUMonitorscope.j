@@ -29,6 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+
+NUMonitorscopeEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUMonitorscopeEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -40,6 +45,10 @@
         Name for the given scope
     */
     CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Determines whether this entity is read only. Read only objects cannot be modified or deleted.
     */
@@ -57,10 +66,20 @@
     */
     BOOL _allowAllSourceNSGs @accessors(property=allowAllSourceNSGs);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         List of source NSGs from which the probe needs to be started.
     */
     CPArrayController _sourceNSGs @accessors(property=sourceNSGs);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -82,12 +101,17 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"destinationNSGs"];
         [self exposeLocalKeyPathToREST:@"allowAllDestinationNSGs"];
         [self exposeLocalKeyPathToREST:@"allowAllSourceNSGs"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"sourceNSGs"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

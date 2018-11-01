@@ -39,7 +39,7 @@ NUBGPNeighborIPType_IPV6 = @"IPV6";
 
 
 /*!
-    None
+    Virtual Cloud Services (VCS) in the data center BGP PE-CE is configured at vport level . Network Service Gateways (NSG) BGP is configured at subnet level.
 */
 @implementation NUBGPNeighbor : NURESTObject
 {
@@ -64,9 +64,13 @@ NUBGPNeighborIPType_IPV6 = @"IPV6";
     */
     BOOL _dampeningEnabled @accessors(property=dampeningEnabled);
     /*!
-        Local autonomous system to be used when establishing a session with the remote peer if it is different from the global BGP router autonomous system number.
+        Autonomous System (AS) value to be used when establishing a session with the remote peer if it is different from the global BGP router autonomous system number.
     */
     CPNumber _peerAS @accessors(property=peerAS);
+    /*!
+        BGP Peer session configuration and default policies.
+    */
+    CPString _peerConfiguration @accessors(property=peerConfiguration);
     /*!
         IP Address of the neighbor. If the neighbor is attached to a host vPort this is optional or must be the same as the host's IP. For uplink or bridge vPort neighbors the IP address must be specified 
     */
@@ -124,6 +128,7 @@ NUBGPNeighborIPType_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"dampeningEnabled"];
         [self exposeLocalKeyPathToREST:@"peerAS"];
+        [self exposeLocalKeyPathToREST:@"peerConfiguration"];
         [self exposeLocalKeyPathToREST:@"peerIP"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"session"];

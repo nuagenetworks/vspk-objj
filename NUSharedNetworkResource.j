@@ -128,6 +128,10 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     */
     BOOL _underlay @accessors(property=underlay);
     /*!
+        Enterprise that this subnet belongs to
+    */
+    CPString _enterpriseID @accessors(property=enterpriseID);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -163,6 +167,14 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
         The ID of the PatMapper entity to which this pool is associated to.
     */
     CPString _associatedPATMapperID @accessors(property=associatedPATMapperID);
+    /*!
+        Route distinguisher configured on the shared resource subnetwork
+    */
+    CPString _subnetRouteDistinguisher @accessors(property=subnetRouteDistinguisher);
+    /*!
+        Route target configured on the shared resource subnetwork
+    */
+    CPString _subnetRouteTarget @accessors(property=subnetRouteTarget);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -221,6 +233,7 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"sharedResourceParentID"];
         [self exposeLocalKeyPathToREST:@"vnID"];
         [self exposeLocalKeyPathToREST:@"underlay"];
+        [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainRouteDistinguisher"];
         [self exposeLocalKeyPathToREST:@"domainRouteTarget"];
@@ -230,6 +243,8 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"uplinkVPortName"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
+        [self exposeLocalKeyPathToREST:@"subnetRouteDistinguisher"];
+        [self exposeLocalKeyPathToREST:@"subnetRouteTarget"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicPATAllocationEnabled"];
         [self exposeLocalKeyPathToREST:@"type"];

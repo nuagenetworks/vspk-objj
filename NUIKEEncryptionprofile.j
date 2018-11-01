@@ -45,7 +45,6 @@ NUIKEEncryptionprofileIPsecEncryptionAlgorithm_AES192 = @"AES192";
 NUIKEEncryptionprofileIPsecEncryptionAlgorithm_AES256 = @"AES256";
 NUIKEEncryptionprofileIPsecEncryptionAlgorithm_NULL = @"NULL";
 NUIKEEncryptionprofileIPsecEncryptionAlgorithm_TRIPLE_DES = @"TRIPLE_DES";
-NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_0 = @"WINDOW_SIZE_0";
 NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_1024 = @"WINDOW_SIZE_1024";
 NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_128 = @"WINDOW_SIZE_128";
 NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_256 = @"WINDOW_SIZE_256";
@@ -115,6 +114,10 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
     */
     CPString _IPsecSAReplayWindowSize @accessors(property=IPsecSAReplayWindowSize);
     /*!
+        IPsec Replay Window Size in Packets.
+    */
+    CPNumber _IPsecSAReplayWindowSizeValue @accessors(property=IPsecSAReplayWindowSizeValue);
+    /*!
         ISAKMP Authentication Algorithm.
     */
     CPString _ISAKMPAuthenticationMode @accessors(property=ISAKMPAuthenticationMode);
@@ -154,10 +157,6 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
-    /*!
-        IPsec Replay Window Size in Packets.
-    */
-    CPNumber _ipsecSAReplayWindowSizeValue @accessors(property=ipsecSAReplayWindowSizeValue);
     /*!
         The ID of the associated Enterprise
     */
@@ -199,6 +198,7 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
         [self exposeLocalKeyPathToREST:@"IPsecPreFragment"];
         [self exposeLocalKeyPathToREST:@"IPsecSALifetime"];
         [self exposeLocalKeyPathToREST:@"IPsecSAReplayWindowSize"];
+        [self exposeLocalKeyPathToREST:@"IPsecSAReplayWindowSizeValue"];
         [self exposeLocalKeyPathToREST:@"ISAKMPAuthenticationMode"];
         [self exposeLocalKeyPathToREST:@"ISAKMPDiffieHelmanGroupIdentifier"];
         [self exposeLocalKeyPathToREST:@"ISAKMPEncryptionAlgorithm"];
@@ -209,7 +209,6 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
         [self exposeLocalKeyPathToREST:@"sequence"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"ipsecSAReplayWindowSizeValue"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

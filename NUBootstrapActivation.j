@@ -107,6 +107,10 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _csr @accessors(property=csr);
     /*!
+        Object type of the associated entity.
+    */
+    CPString _associatedEntityType @accessors(property=associatedEntityType);
+    /*!
         The agent status for the request
     */
     CPString _status @accessors(property=status);
@@ -154,6 +158,7 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"srkPassword"];
         [self exposeLocalKeyPathToREST:@"vsdTime"];
         [self exposeLocalKeyPathToREST:@"csr"];
+        [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"autoBootstrap"];
         [self exposeLocalKeyPathToREST:@"externalID"];

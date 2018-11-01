@@ -34,6 +34,9 @@
 
 NUVRSAddressRangeEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVRSAddressRangeEntityScope_GLOBAL = @"GLOBAL";
+NUVRSAddressRangeIPType_DUALSTACK = @"DUALSTACK";
+NUVRSAddressRangeIPType_IPV4 = @"IPV4";
+NUVRSAddressRangeIPType_IPV6 = @"IPV6";
 
 
 /*!
@@ -41,6 +44,10 @@ NUVRSAddressRangeEntityScope_GLOBAL = @"GLOBAL";
 */
 @implementation NUVRSAddressRange : NURESTObject
 {
+    /*!
+        The ip type of the address range, possible values are IPV4, IPV6 and DUALSTACK.
+    */
+    CPString _IPType @accessors(property=IPType);
     /*!
         ID of the user who last updated the object.
     */
@@ -84,6 +91,7 @@ NUVRSAddressRangeEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"maxAddress"];
         [self exposeLocalKeyPathToREST:@"minAddress"];

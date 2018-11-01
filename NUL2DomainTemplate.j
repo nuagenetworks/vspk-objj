@@ -41,7 +41,6 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdTemplatesFetcher.j"
-@import "Fetchers/NUIngressExternalServiceTemplatesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUPolicyGroupTemplatesFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
@@ -168,7 +167,6 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdTemplatesFetcher _childrenIngressAdvFwdTemplates @accessors(property=childrenIngressAdvFwdTemplates);
-    NUIngressExternalServiceTemplatesFetcher _childrenIngressExternalServiceTemplates @accessors(property=childrenIngressExternalServiceTemplates);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUPolicyGroupTemplatesFetcher _childrenPolicyGroupTemplates @accessors(property=childrenPolicyGroupTemplates);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
@@ -228,7 +226,6 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdTemplates = [NUIngressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
-        _childrenIngressExternalServiceTemplates = [NUIngressExternalServiceTemplatesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroupTemplates = [NUPolicyGroupTemplatesFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];

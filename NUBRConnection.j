@@ -29,14 +29,15 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUBFDSessionsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUBRConnectionAddressFamily_IPV4 = @"IPV4";
 NUBRConnectionAddressFamily_IPV6 = @"IPV6";
-NUBRConnectionAdvertisementCriteria_BFD = @"BFD";
-NUBRConnectionAdvertisementCriteria_LINK_BASED = @"LINK_BASED";
-NUBRConnectionAdvertisementCriteria_OPENFLOW = @"OPENFLOW";
 NUBRConnectionAdvertisementCriteria_OPERATIONAL_LINK = @"OPERATIONAL_LINK";
+NUBRConnectionEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUBRConnectionEntityScope_GLOBAL = @"GLOBAL";
 NUBRConnectionMode_STATIC = @"Static";
 
 
@@ -54,6 +55,10 @@ NUBRConnectionMode_STATIC = @"Static";
     */
     CPString _DNSAddressV6 @accessors(property=DNSAddressV6);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         IP address of the gateway bound to the VLAN.
     */
     CPString _gateway @accessors(property=gateway);
@@ -62,7 +67,7 @@ NUBRConnectionMode_STATIC = @"Static";
     */
     CPString _gatewayV6 @accessors(property=gatewayV6);
     /*!
-        Static IP address for the VLAN
+        Static IP address for the VLAN on which the BR Connection is created.
     */
     CPString _address @accessors(property=address);
     /*!
@@ -70,11 +75,11 @@ NUBRConnectionMode_STATIC = @"Static";
     */
     CPString _addressFamily @accessors(property=addressFamily);
     /*!
-        IPv6 address for static configuration.
+        IPv6 address for static configuration on the BR Connection instance.
     */
     CPString _addressV6 @accessors(property=addressV6);
     /*!
-        Advertisement Criteria for Traffic Flow
+        Advertisement Criteria for Traffic Flow on a BR Connection.
     */
     CPString _advertisementCriteria @accessors(property=advertisementCriteria);
     /*!
@@ -86,15 +91,25 @@ NUBRConnectionMode_STATIC = @"Static";
     */
     BOOL _inherited @accessors(property=inherited);
     /*!
-        Connection mode: Static.
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Connection mode: Only static is allowed on a Bridge Router Connection.
     */
     CPString _mode @accessors(property=mode);
     /*!
-        Internally generated ID in the range that idenitifies the uplink within the cotext of NSG
+        Internally generated ID in the range that idenitifies the uplink within the context of NSG.
     */
     CPNumber _uplinkID @accessors(property=uplinkID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUBFDSessionsFetcher _childrenBFDSessions @accessors(property=childrenBFDSessions);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -117,6 +132,7 @@ NUBRConnectionMode_STATIC = @"Static";
     {
         [self exposeLocalKeyPathToREST:@"DNSAddress"];
         [self exposeLocalKeyPathToREST:@"DNSAddressV6"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayV6"];
         [self exposeLocalKeyPathToREST:@"address"];
@@ -125,10 +141,14 @@ NUBRConnectionMode_STATIC = @"Static";
         [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"inherited"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"mode"];
         [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenBFDSessions = [NUBFDSessionsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,7 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
+
+NUDUCGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUDUCGroupEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -42,14 +47,28 @@
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Description of the UBR Group.
     */
     CPString _description @accessors(property=description);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Identification of the Performance Monitoring Probe that is associated with this instance of a UBR Group.
     */
     CPString _associatedPerformanceMonitorID @accessors(property=associatedPerformanceMonitorID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     
 }
@@ -72,9 +91,14 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedPerformanceMonitorID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         
         

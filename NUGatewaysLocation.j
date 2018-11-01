@@ -31,54 +31,64 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUIngressExternalServiceTemplateEntriesFetcher.j"
 
-NUIngressExternalServiceTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUIngressExternalServiceTemplateEntityScope_GLOBAL = @"GLOBAL";
-NUIngressExternalServiceTemplatePolicyState_DRAFT = @"DRAFT";
-NUIngressExternalServiceTemplatePolicyState_LIVE = @"LIVE";
-NUIngressExternalServiceTemplatePriorityType_BOTTOM = @"BOTTOM";
-NUIngressExternalServiceTemplatePriorityType_NONE = @"NONE";
-NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
+NUGatewaysLocationEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUGatewaysLocationEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Defines the template for an Ingress External Service Acls.
+    Gateway location details
 */
-@implementation NUIngressExternalServiceTemplate : NURESTObject
+@implementation NUGatewaysLocation : NURESTObject
 {
     /*!
-        The name of the entity
+        ID of the user who last updated the object.
     */
-    CPString _name @accessors(property=name);
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        If enabled, it means that this ACL or QOS entry is active
+        Latitude in decimal format.
     */
-    BOOL _active @accessors(property=active);
+    CPNumber _latitude @accessors(property=latitude);
     /*!
-        A description of the entity
+        Formatted address including property number, street name, suite or office number, ...
     */
-    CPString _description @accessors(property=description);
+    CPString _address @accessors(property=address);
+    /*!
+        Request BSS to perform a geocode on the address - If no value passed, 'ignoreGeocode' will be set to true.
+    */
+    BOOL _ignoreGeocode @accessors(property=ignoreGeocode);
+    /*!
+        Time zone in which the Gateway is located.    This can be in the form of a UTC/GMT offset, continent/city location, or country/region.    The available time zones can be found in /usr/share/zoneinfo on a Linux machine or retrieved with TimeZone.getAvailableIDs() in Java.    Refer to the IANA (Internet Assigned Numbers Authority) for a list of time zones.    URL :    http://www.iana.org/time-zones    Default value is UTC (translating to Etc/Zulu)
+    */
+    CPString _timeZoneID @accessors(property=timeZoneID);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        None
+        Locality, City, or County information about where the gateway is installed.
     */
-    CPString _policyState @accessors(property=policyState);
+    CPString _locality @accessors(property=locality);
     /*!
-        The priority of the ACL entry that determines the order of entries
+        Longitude in decimal format.
     */
-    CPNumber _priority @accessors(property=priority);
+    CPNumber _longitude @accessors(property=longitude);
     /*!
-        None
+        Country in which the gateway is instantiated (VM) or installed (Physical).
     */
-    CPString _priorityType @accessors(property=priorityType);
+    CPString _country @accessors(property=country);
     /*!
-        In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
+        The name of the Entity to which a Location instance is tied to.
     */
-    CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
+    CPString _associatedEntityName @accessors(property=associatedEntityName);
+    /*!
+        Type of the gateway entity to which the Location instance is attached.
+    */
+    CPString _associatedEntityType @accessors(property=associatedEntityType);
+    /*!
+        State, Province, or Region to which the locality in which the gateway is installed belongs.
+    */
+    CPString _state @accessors(property=state);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -86,7 +96,6 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUIngressExternalServiceTemplateEntriesFetcher _childrenIngressExternalServiceTemplateEntries @accessors(property=childrenIngressExternalServiceTemplateEntries);
     
 }
 
@@ -96,7 +105,7 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
 
 + (CPString)RESTName
 {
-    return @"ingressexternalservicetemplate";
+    return @"gatewayslocation";
 }
 
 
@@ -107,19 +116,22 @@ NUIngressExternalServiceTemplatePriorityType_TOP = @"TOP";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"active"];
-        [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"latitude"];
+        [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"ignoreGeocode"];
+        [self exposeLocalKeyPathToREST:@"timeZoneID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"policyState"];
-        [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"priorityType"];
-        [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"locality"];
+        [self exposeLocalKeyPathToREST:@"longitude"];
+        [self exposeLocalKeyPathToREST:@"country"];
+        [self exposeLocalKeyPathToREST:@"associatedEntityName"];
+        [self exposeLocalKeyPathToREST:@"associatedEntityType"];
+        [self exposeLocalKeyPathToREST:@"state"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenIngressExternalServiceTemplateEntries = [NUIngressExternalServiceTemplateEntriesFetcher fetcherWithParentObject:self];
         
         
     }

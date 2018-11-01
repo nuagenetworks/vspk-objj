@@ -29,7 +29,15 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUCTranslationMapsFetcher.j"
+
+NUCSNATPoolEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUCSNATPoolEntityScope_GLOBAL = @"GLOBAL";
+NUCSNATPoolIPType_DUALSTACK = @"DUALSTACK";
+NUCSNATPoolIPType_IPV4 = @"IPV4";
+NUCSNATPoolIPType_IPV6 = @"IPV6";
 
 
 /*!
@@ -38,18 +46,40 @@
 @implementation NUCSNATPool : NURESTObject
 {
     /*!
+        The IP type of this CSNAT Pool, possible values are IPV4, IPV6 or DUALSTACK.
+    */
+    CPString _IPType @accessors(property=IPType);
+    /*!
         The Customer to Provider NAT Pool
     */
     CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        A description of the PATNATPool instance
+    */
+    CPString _description @accessors(property=description);
     /*!
         The last IP address in the range.
     */
     CPString _endAddress @accessors(property=endAddress);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         The first IP in the range.
     */
     CPString _startAddress @accessors(property=startAddress);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUCTranslationMapsFetcher _childrenCTranslationMaps @accessors(property=childrenCTranslationMaps);
     
 }
@@ -71,10 +101,17 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"endAddress"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"startAddress"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenCTranslationMaps = [NUCTranslationMapsFetcher fetcherWithParentObject:self];
         
         

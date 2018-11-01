@@ -65,15 +65,15 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
     */
     CPString _ZFBInfo @accessors(property=ZFBInfo);
     /*!
-        ZFB Request retry timer on NSG. Set from System Config
+        ZFB Request retry timer on the gateway. Set on VSD's System Config panel.
     */
     CPNumber _ZFBRequestRetryTimer @accessors(property=ZFBRequestRetryTimer);
     /*!
-        The part number of the NSG
+        The part number of the gateway being bootstrapped through ZFB.
     */
     CPString _SKU @accessors(property=SKU);
     /*!
-        IP Address of the NSG
+        IP Address of the gateway being bootstrapped using ZFB.
     */
     CPString _IPAddress @accessors(property=IPAddress);
     /*!
@@ -89,11 +89,11 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
     */
     CPString _UUID @accessors(property=UUID);
     /*!
-        NSG Type
+        Gateway Type
     */
     CPString _family @accessors(property=family);
     /*!
-        the time in which the last GET was made from the NSG
+        The time in which the last GET was made from the gateway.
     */
     CPNumber _lastConnectedTime @accessors(property=lastConnectedTime);
     /*!
@@ -101,7 +101,11 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The NSG's Serial Number
+        Registration URL to be used for a gateway to be bootstrapped using ZFB.
+    */
+    CPString _registrationURL @accessors(property=registrationURL);
+    /*!
+        The gateway's Serial Number.
     */
     CPString _serialNumber @accessors(property=serialNumber);
     /*!
@@ -109,7 +113,7 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        hostname of the NSG
+        Hostname of the gateway bootstrapped using ZFB.
     */
     CPString _hostname @accessors(property=hostname);
     /*!
@@ -185,6 +189,7 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
         [self exposeLocalKeyPathToREST:@"family"];
         [self exposeLocalKeyPathToREST:@"lastConnectedTime"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"registrationURL"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"hostname"];

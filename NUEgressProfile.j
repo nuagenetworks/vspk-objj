@@ -29,7 +29,13 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUDeploymentFailuresFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
+
+NUEgressProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUEgressProfileEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -42,9 +48,21 @@
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         A customer friendly description of the Egress Profile entity.
     */
     CPString _description @accessors(property=description);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Type of parent entity
+    */
+    CPString _assocEntityType @accessors(property=assocEntityType);
     /*!
         UUID of the associated IP Filter Profile entity.
     */
@@ -77,7 +95,14 @@
         Name of the associated SAP Egress QoS Profile entity.
     */
     CPString _associatedSAPEgressQoSProfileName @accessors(property=associatedSAPEgressQoSProfileName);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     
 }
@@ -100,7 +125,10 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedIPFilterProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedIPFilterProfileName"];
         [self exposeLocalKeyPathToREST:@"associatedIPv6FilterProfileID"];
@@ -109,7 +137,11 @@
         [self exposeLocalKeyPathToREST:@"associatedMACFilterProfileName"];
         [self exposeLocalKeyPathToREST:@"associatedSAPEgressQoSProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedSAPEgressQoSProfileName"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         
         

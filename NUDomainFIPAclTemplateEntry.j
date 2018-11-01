@@ -35,9 +35,8 @@
 NUDomainFIPAclTemplateEntryAction_DROP = @"DROP";
 NUDomainFIPAclTemplateEntryAction_FORWARD = @"FORWARD";
 NUDomainFIPAclTemplateEntryAction_REDIRECT = @"REDIRECT";
-NUDomainFIPAclTemplateEntryDestinationType_NETWORK = @"NETWORK";
-NUDomainFIPAclTemplateEntryDestinationType_NETWORKPOLICYGROUP = @"NETWORKPOLICYGROUP";
-NUDomainFIPAclTemplateEntryDestinationType_POLICYGROUP = @"POLICYGROUP";
+NUDomainFIPAclTemplateEntryAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
+NUDomainFIPAclTemplateEntryAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
 NUDomainFIPAclTemplateEntryEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUDomainFIPAclTemplateEntryEntityScope_GLOBAL = @"GLOBAL";
 NUDomainFIPAclTemplateEntryLocationType_ANY = @"ANY";
@@ -59,9 +58,6 @@ NUDomainFIPAclTemplateEntryNetworkType_SUBNET = @"SUBNET";
 NUDomainFIPAclTemplateEntryNetworkType_ZONE = @"ZONE";
 NUDomainFIPAclTemplateEntryPolicyState_DRAFT = @"DRAFT";
 NUDomainFIPAclTemplateEntryPolicyState_LIVE = @"LIVE";
-NUDomainFIPAclTemplateEntrySourceType_NETWORK = @"NETWORK";
-NUDomainFIPAclTemplateEntrySourceType_NETWORKPOLICYGROUP = @"NETWORKPOLICYGROUP";
-NUDomainFIPAclTemplateEntrySourceType_POLICYGROUP = @"POLICYGROUP";
 
 
 /*!
@@ -98,10 +94,6 @@ NUDomainFIPAclTemplateEntrySourceType_POLICYGROUP = @"POLICYGROUP";
     */
     CPString _action @accessors(property=action);
     /*!
-        Type of action to be performed when a ACL match criteria succeeds
-    */
-    NURESTObject _actionDetails @accessors(property=actionDetails);
-    /*!
         Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
@@ -110,25 +102,9 @@ NUDomainFIPAclTemplateEntrySourceType_POLICYGROUP = @"POLICYGROUP";
     */
     CPString _description @accessors(property=description);
     /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _destPgId @accessors(property=destPgId);
-    /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _destPgType @accessors(property=destPgType);
-    /*!
         The destination port to be matched if protocol is UDP or TCP. Value should be either * or single port number or a port range
     */
     CPString _destinationPort @accessors(property=destinationPort);
-    /*!
-        Network Type - either PolicyGroup or Network
-    */
-    CPString _destinationType @accessors(property=destinationType);
-    /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _destinationValue @accessors(property=destinationValue);
     /*!
         The destination network entity that is referenced(subnet/zone/macro)
     */
@@ -170,25 +146,9 @@ NUDomainFIPAclTemplateEntrySourceType_POLICYGROUP = @"POLICYGROUP";
     */
     CPString _domainName @accessors(property=domainName);
     /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _sourcePgId @accessors(property=sourcePgId);
-    /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _sourcePgType @accessors(property=sourcePgType);
-    /*!
         Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range
     */
     CPString _sourcePort @accessors(property=sourcePort);
-    /*!
-        Location Type - either PolicyGroup or Network
-    */
-    CPString _sourceType @accessors(property=sourceType);
-    /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _sourceValue @accessors(property=sourceValue);
     /*!
         The priority of the ACL entry that determines the order of entries
     */
@@ -201,6 +161,18 @@ NUDomainFIPAclTemplateEntrySourceType_POLICYGROUP = @"POLICYGROUP";
         ID of the associated live entity
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
+    /*!
+        In the draft mode, the ACL entity refers to this live entity parent. In non-drafted mode, this is null
+    */
+    CPString _associatedLiveTemplateID @accessors(property=associatedLiveTemplateID);
+    /*!
+        The associated Traffic type. L4 Service / L4 Service Group
+    */
+    CPString _associatedTrafficType @accessors(property=associatedTrafficType);
+    /*!
+        The associated Traffic Type ID
+    */
+    CPString _associatedTrafficTypeID @accessors(property=associatedTrafficTypeID);
     /*!
         True means that this ACL entry is stateful, so there will be a corresponding rule that will be created by OVS in the network. False means that there is no corresponding rule created by OVS in the network.
     */
@@ -251,14 +223,9 @@ NUDomainFIPAclTemplateEntrySourceType_POLICYGROUP = @"POLICYGROUP";
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
-        [self exposeLocalKeyPathToREST:@"actionDetails"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"destPgId"];
-        [self exposeLocalKeyPathToREST:@"destPgType"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
-        [self exposeLocalKeyPathToREST:@"destinationType"];
-        [self exposeLocalKeyPathToREST:@"destinationValue"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
@@ -269,14 +236,13 @@ NUDomainFIPAclTemplateEntrySourceType_POLICYGROUP = @"POLICYGROUP";
         [self exposeLocalKeyPathToREST:@"locationType"];
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"domainName"];
-        [self exposeLocalKeyPathToREST:@"sourcePgId"];
-        [self exposeLocalKeyPathToREST:@"sourcePgType"];
         [self exposeLocalKeyPathToREST:@"sourcePort"];
-        [self exposeLocalKeyPathToREST:@"sourceType"];
-        [self exposeLocalKeyPathToREST:@"sourceValue"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"associatedLiveTemplateID"];
+        [self exposeLocalKeyPathToREST:@"associatedTrafficType"];
+        [self exposeLocalKeyPathToREST:@"associatedTrafficTypeID"];
         [self exposeLocalKeyPathToREST:@"stateful"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];

@@ -36,12 +36,10 @@
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
 @import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
 @import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
-@import "Fetchers/NUFloatingIPACLTemplatesFetcher.j"
 @import "Fetchers/NUVirtualFirewallPoliciesFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdTemplatesFetcher.j"
-@import "Fetchers/NUIngressExternalServiceTemplatesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUPolicyGroupTemplatesFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
@@ -126,12 +124,10 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
     NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
     NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
-    NUFloatingIPACLTemplatesFetcher _childrenFloatingIPACLTemplates @accessors(property=childrenFloatingIPACLTemplates);
     NUVirtualFirewallPoliciesFetcher _childrenVirtualFirewallPolicies @accessors(property=childrenVirtualFirewallPolicies);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdTemplatesFetcher _childrenIngressAdvFwdTemplates @accessors(property=childrenIngressAdvFwdTemplates);
-    NUIngressExternalServiceTemplatesFetcher _childrenIngressExternalServiceTemplates @accessors(property=childrenIngressExternalServiceTemplates);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUPolicyGroupTemplatesFetcher _childrenPolicyGroupTemplates @accessors(property=childrenPolicyGroupTemplates);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
@@ -180,12 +176,10 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
         _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
-        _childrenFloatingIPACLTemplates = [NUFloatingIPACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenVirtualFirewallPolicies = [NUVirtualFirewallPoliciesFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdTemplates = [NUIngressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
-        _childrenIngressExternalServiceTemplates = [NUIngressExternalServiceTemplatesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroupTemplates = [NUPolicyGroupTemplatesFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];

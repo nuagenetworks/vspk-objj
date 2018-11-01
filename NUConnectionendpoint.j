@@ -29,9 +29,14 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUConnectionendpointEndPointType_SOURCE = @"SOURCE";
+NUConnectionendpointEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUConnectionendpointEntityScope_GLOBAL = @"GLOBAL";
 NUConnectionendpointIPType_IPV4 = @"IPV4";
+NUConnectionendpointIPType_IPV6 = @"IPV6";
 
 
 /*!
@@ -44,13 +49,21 @@ NUConnectionendpointIPType_IPV4 = @"IPV4";
     */
     CPString _IPAddress @accessors(property=IPAddress);
     /*!
-        IPv4 or IPv6 (only IPv4 supported for now).
+        IPv4 or IPv6.
     */
     CPString _IPType @accessors(property=IPType);
+    /*!
+        IPv6 address of the end point.
+    */
+    CPString _IPv6Address @accessors(property=IPv6Address);
     /*!
         Name of the connection endpoint.
     */
     CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         A description of the connection endpoint.
     */
@@ -59,7 +72,17 @@ NUConnectionendpointIPType_IPV4 = @"IPV4";
         Indicates if this endpoint is the source/destination of a network connection.
     */
     CPString _endPointType @accessors(property=endPointType);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -82,10 +105,16 @@ NUConnectionendpointIPType_IPV4 = @"IPV4";
     {
         [self exposeLocalKeyPathToREST:@"IPAddress"];
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"endPointType"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

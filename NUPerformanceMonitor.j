@@ -31,7 +31,6 @@
 
 @import "Fetchers/NUTiersFetcher.j"
 @import "Fetchers/NUApplicationperformancemanagementsFetcher.j"
-@import "Fetchers/NUNSGatewaysFetcher.j"
 
 NUPerformanceMonitorEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPerformanceMonitorEntityScope_GLOBAL = @"GLOBAL";
@@ -78,14 +77,6 @@ NUPerformanceMonitorServiceClass_H = @"H";
     */
     CPString _description @accessors(property=description);
     /*!
-        List of targets for IKE performance monitor probes
-    */
-    CPArrayController _destinationTargetList @accessors(property=destinationTargetList);
-    /*!
-        number of milliseconds to wait until the probe is timed out
-    */
-    CPNumber _timeout @accessors(property=timeout);
-    /*!
         interval in seconds
     */
     CPNumber _interval @accessors(property=interval);
@@ -112,7 +103,6 @@ NUPerformanceMonitorServiceClass_H = @"H";
     
     NUTiersFetcher _childrenTiers @accessors(property=childrenTiers);
     NUApplicationperformancemanagementsFetcher _childrenApplicationperformancemanagements @accessors(property=childrenApplicationperformancemanagements);
-    NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
     
 }
 
@@ -139,8 +129,6 @@ NUPerformanceMonitorServiceClass_H = @"H";
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"serviceClass"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"destinationTargetList"];
-        [self exposeLocalKeyPathToREST:@"timeout"];
         [self exposeLocalKeyPathToREST:@"interval"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"holdDownTimer"];
@@ -150,7 +138,6 @@ NUPerformanceMonitorServiceClass_H = @"H";
         
         _childrenTiers = [NUTiersFetcher fetcherWithParentObject:self];
         _childrenApplicationperformancemanagements = [NUApplicationperformancemanagementsFetcher fetcherWithParentObject:self];
-        _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
         
         
     }

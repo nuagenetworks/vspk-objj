@@ -68,6 +68,10 @@ NUAggregateMetadataEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Type of the entity to which the Metadata is associated to.
+    */
+    CPString _assocEntityType @accessors(property=assocEntityType);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -99,6 +103,7 @@ NUAggregateMetadataEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"blob"];
         [self exposeLocalKeyPathToREST:@"globalMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

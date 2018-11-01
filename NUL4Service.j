@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUL4ServiceGroupsFetcher.j"
 
 NUL4ServiceEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUL4ServiceEntityScope_GLOBAL = @"GLOBAL";
@@ -80,6 +81,7 @@ NUL4ServiceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUL4ServiceGroupsFetcher _childrenL4ServiceGroups @accessors(property=childrenL4ServiceGroups);
     
 }
 
@@ -111,6 +113,7 @@ NUL4ServiceEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenL4ServiceGroups = [NUL4ServiceGroupsFetcher fetcherWithParentObject:self];
         
         
     }

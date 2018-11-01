@@ -29,8 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUBFDSessionsFetcher.j"
-@import "Fetchers/NUUnderlaysFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUCustomPropertiesFetcher.j"
 
 NUUplinkConnectionAddressFamily_IPV4 = @"IPV4";
@@ -38,6 +39,8 @@ NUUplinkConnectionAddressFamily_IPV6 = @"IPV6";
 NUUplinkConnectionAdvertisementCriteria_BFD = @"BFD";
 NUUplinkConnectionAdvertisementCriteria_CONTROL_SESSION = @"CONTROL_SESSION";
 NUUplinkConnectionAdvertisementCriteria_OPERATIONAL_LINK = @"OPERATIONAL_LINK";
+NUUplinkConnectionEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUUplinkConnectionEntityScope_GLOBAL = @"GLOBAL";
 NUUplinkConnectionInterfaceConnectionType_AUTOMATIC = @"AUTOMATIC";
 NUUplinkConnectionInterfaceConnectionType_EMBEDDED = @"EMBEDDED";
 NUUplinkConnectionInterfaceConnectionType_PCI_EXPRESS = @"PCI_EXPRESS";
@@ -56,7 +59,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
 
 
 /*!
-    None
+    Configuration of VNS Gateway uplinks
 */
 @implementation NUUplinkConnection : NURESTObject
 {
@@ -65,17 +68,21 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     BOOL _PATEnabled @accessors(property=PATEnabled);
     /*!
-        DNS server address
+        DNS server address.
     */
     CPString _DNSAddress @accessors(property=DNSAddress);
     /*!
-        IPv6 DNS server address
+        IPv6 DNS server address.
     */
     CPString _DNSAddressV6 @accessors(property=DNSAddressV6);
     /*!
         PPPoE password.
     */
     CPString _password @accessors(property=password);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         IP address of the gateway bound to the port
     */
@@ -105,17 +112,21 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _secondaryAddress @accessors(property=secondaryAddress);
     /*!
-        Subnet mask
+        Subnet mask of the uplink connection if mode is set to Static.
     */
     CPString _netmask @accessors(property=netmask);
     /*!
-        The tag of the uplink's parent VLAN
+        VLAN Id of this uplink
     */
-    CPString _vlanId @accessors(property=vlanId);
+    CPNumber _vlan @accessors(property=vlan);
     /*!
         Indicated whether route to underlay is enabled on this uplink connection.
     */
     BOOL _underlayEnabled @accessors(property=underlayEnabled);
+    /*!
+        Underlay Identifier of underlay associated with this uplink.
+    */
+    CPNumber _underlayID @accessors(property=underlayID);
     /*!
         This flag will determine if the abstract connection is inherited from the instance template
     */
@@ -129,6 +140,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _interfaceConnectionType @accessors(property=interfaceConnectionType);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Specify how to connect to the network. Possible values: Dynamic (DHCP), Static (static configuration is required), PPPoE (pppoe configuration required), LTE (LTE configuration required). Default: Dynamic
     */
     CPString _mode @accessors(property=mode);
@@ -139,13 +154,13 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     /*!
         Role order: Primary 1, Primary 2, Secondary 3. Note: Order will be calculated when all uplink connections fetched for gateway
     */
-    CPString _roleOrder @accessors(property=roleOrder);
+    CPNumber _roleOrder @accessors(property=roleOrder);
     /*!
-        Physical port name this uplink belongs to
+        Physical port name this uplink belongs to.
     */
     CPString _portName @accessors(property=portName);
     /*!
-        Download rate limit for this uplink in Mbits/sec.
+        Download rate limit for this uplink in Mb/s.
     */
     CPNumber _downloadRateLimit @accessors(property=downloadRateLimit);
     /*!
@@ -153,7 +168,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPNumber _uplinkID @accessors(property=uplinkID);
     /*!
-        PPPoE username
+        PPPoE username if uplink mode is set to PPPoE.
     */
     CPString _username @accessors(property=username);
     /*!
@@ -172,9 +187,14 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         Make this uplink an auxiliary one that will only come up when all other uplinks are disconnected or can't perform their role.
     */
     BOOL _auxiliaryLink @accessors(property=auxiliaryLink);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUBFDSessionsFetcher _childrenBFDSessions @accessors(property=childrenBFDSessions);
-    NUUnderlaysFetcher _childrenUnderlays @accessors(property=childrenUnderlays);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUCustomPropertiesFetcher _childrenCustomProperties @accessors(property=childrenCustomProperties);
     
 }
@@ -200,6 +220,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"DNSAddress"];
         [self exposeLocalKeyPathToREST:@"DNSAddressV6"];
         [self exposeLocalKeyPathToREST:@"password"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayV6"];
         [self exposeLocalKeyPathToREST:@"address"];
@@ -208,11 +229,13 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
         [self exposeLocalKeyPathToREST:@"secondaryAddress"];
         [self exposeLocalKeyPathToREST:@"netmask"];
-        [self exposeLocalKeyPathToREST:@"vlanId"];
+        [self exposeLocalKeyPathToREST:@"vlan"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];
+        [self exposeLocalKeyPathToREST:@"underlayID"];
         [self exposeLocalKeyPathToREST:@"inherited"];
         [self exposeLocalKeyPathToREST:@"installerManaged"];
         [self exposeLocalKeyPathToREST:@"interfaceConnectionType"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"mode"];
         [self exposeLocalKeyPathToREST:@"role"];
         [self exposeLocalKeyPathToREST:@"roleOrder"];
@@ -224,9 +247,11 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"associatedBGPNeighborID"];
         [self exposeLocalKeyPathToREST:@"associatedUnderlayName"];
         [self exposeLocalKeyPathToREST:@"auxiliaryLink"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenBFDSessions = [NUBFDSessionsFetcher fetcherWithParentObject:self];
-        _childrenUnderlays = [NUUnderlaysFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenCustomProperties = [NUCustomPropertiesFetcher fetcherWithParentObject:self];
         
         

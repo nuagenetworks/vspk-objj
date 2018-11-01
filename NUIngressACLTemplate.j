@@ -99,10 +99,6 @@ NUIngressACLTemplatePriorityType_TOP_FIREWALL = @"TOP_FIREWALL";
     */
     CPString _priorityType @accessors(property=priorityType);
     /*!
-        ID of the ACL template associated with this ACL template
-    */
-    CPString _assocAclTemplateId @accessors(property=assocAclTemplateId);
-    /*!
         In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
@@ -157,7 +153,6 @@ NUIngressACLTemplatePriorityType_TOP_FIREWALL = @"TOP_FIREWALL";
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"priorityType"];
-        [self exposeLocalKeyPathToREST:@"assocAclTemplateId"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
         [self exposeLocalKeyPathToREST:@"associatedVirtualFirewallPolicyID"];
         [self exposeLocalKeyPathToREST:@"autoGeneratePriority"];

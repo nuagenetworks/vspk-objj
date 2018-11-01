@@ -29,7 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUCTranslationMapEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUCTranslationMapEntityScope_GLOBAL = @"GLOBAL";
 NUCTranslationMapMappingType_NAT = @"NAT";
 NUCTranslationMapMappingType_PAT = @"PAT";
 
@@ -44,6 +48,18 @@ NUCTranslationMapMappingType_PAT = @"PAT";
     */
     CPString _mappingType @accessors(property=mappingType);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Domain associated to this address mapping.
+    */
+    CPString _associatedDomainID @accessors(property=associatedDomainID);
+    /*!
         Customer public IP in the provider domain.
     */
     CPString _customerAliasIP @accessors(property=customerAliasIP);
@@ -51,7 +67,13 @@ NUCTranslationMapMappingType_PAT = @"PAT";
         Customer private IP in the customer domain.
     */
     CPString _customerIP @accessors(property=customerIP);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -73,9 +95,15 @@ NUCTranslationMapMappingType_PAT = @"PAT";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"mappingType"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedDomainID"];
         [self exposeLocalKeyPathToREST:@"customerAliasIP"];
         [self exposeLocalKeyPathToREST:@"customerIP"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

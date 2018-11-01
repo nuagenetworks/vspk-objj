@@ -40,6 +40,10 @@ NUAutoDiscoverHypervisorFromClusterEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUAutoDiscoverHypervisorFromCluster : NURESTObject
 {
     /*!
+        VCenter Managed Object ID of the Datacenter
+    */
+    CPString _managedObjectID @accessors(property=managedObjectID);
+    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
@@ -84,6 +88,7 @@ NUAutoDiscoverHypervisorFromClusterEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"managedObjectID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"networkList"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

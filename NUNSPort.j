@@ -70,11 +70,11 @@ NUNSPortStatus_READY = @"READY";
 @implementation NUNSPort : NURESTObject
 {
     /*!
-        Enum value that states the type of NAT Traversal the NSG instance will use to talk to other NSGs and the Internet.  (This field is deprecated in 5.0)
+        Enum value that states the type of NAT Traversal the NSG instance will use to talk to other NSGs and the Internet. (This field is deprecated in 5.0)
     */
     CPString _NATTraversal @accessors(property=NATTraversal);
     /*!
-        VLAN Range of the Port.  Format must conform to a-b,c,d-f where a,b,c,d,f are integers between 0 and 4095.
+        VLAN Range of the Port. Format must conform to a-b,c,d-f where a,b,c,d,f are integers between 0 and 4094.
     */
     CPString _VLANRange @accessors(property=VLANRange);
     /*!
@@ -126,7 +126,7 @@ NUNSPortStatus_READY = @"READY";
     */
     BOOL _TrafficThroughUBROnly @accessors(property=TrafficThroughUBROnly);
     /*!
-        determines whether to use user mnemonic of the Port
+        Determines whether to use user mnemonic of the NSG Port
     */
     BOOL _useUserMnemonic @accessors(property=useUserMnemonic);
     /*!

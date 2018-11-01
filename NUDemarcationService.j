@@ -29,7 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUDemarcationServiceEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUDemarcationServiceEntityScope_GLOBAL = @"GLOBAL";
 NUDemarcationServiceType_BR_PORT = @"BR_PORT";
 NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 
@@ -39,6 +43,14 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 */
 @implementation NUDemarcationService : NURESTObject
 {
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The route distinguisher associated with the next hop. This is a read only property automatically created by VSD.
     */
@@ -56,10 +68,16 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
     */
     CPString _associatedVLANID @accessors(property=associatedVLANID);
     /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
         The type of next hop determines linking direction for a demarcation service, possible values: BR_PORT, GATEWAY 
     */
     CPString _type @accessors(property=type);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -80,12 +98,17 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
         [self exposeLocalKeyPathToREST:@"associatedVLANID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

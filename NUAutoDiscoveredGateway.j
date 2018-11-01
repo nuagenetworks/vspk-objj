@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUWANServicesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUWirelessPortsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUPortsFetcher.j"
 @import "Fetchers/NUNSPortsFetcher.j"
@@ -86,10 +87,6 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
     */
     CPArrayController _controllers @accessors(property=controllers);
     /*!
-        When set, VLAN-VNID mapping must be unique for all the vports of the gateway
-    */
-    BOOL _useGatewayVLANVNID @accessors(property=useGatewayVLANVNID);
-    /*!
         Represent the system ID or the Virtual IP of a service used by a Gateway (VSG for now) to establish a tunnel with a remote VSG or hypervisor.  The format of this field is consistent with an IP address.
     */
     CPString _vtep @accessors(property=vtep);
@@ -104,6 +101,7 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
     
     NUWANServicesFetcher _childrenWANServices @accessors(property=childrenWANServices);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUWirelessPortsFetcher _childrenWirelessPorts @accessors(property=childrenWirelessPorts);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUPortsFetcher _childrenPorts @accessors(property=childrenPorts);
     NUNSPortsFetcher _childrenNSPorts @accessors(property=childrenNSPorts);
@@ -136,13 +134,13 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"controllers"];
-        [self exposeLocalKeyPathToREST:@"useGatewayVLANVNID"];
         [self exposeLocalKeyPathToREST:@"vtep"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         
         _childrenWANServices = [NUWANServicesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenWirelessPorts = [NUWirelessPortsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenPorts = [NUPortsFetcher fetcherWithParentObject:self];
         _childrenNSPorts = [NUNSPortsFetcher fetcherWithParentObject:self];

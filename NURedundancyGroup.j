@@ -115,7 +115,7 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     BOOL _gatewayPeer2Connected @accessors(property=gatewayPeer2Connected);
     /*!
-        The gateway peer in this Redundant Group. when Redundant Group is deleted this gateway will not recieve vport associations
+        The gateway peer in this Redundant Group. When Redundant Group is deleted this gateway will not recieve vport associations.
     */
     CPString _gatewayPeer2ID @accessors(property=gatewayPeer2ID);
     /*!

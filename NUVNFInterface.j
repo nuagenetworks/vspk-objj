@@ -29,9 +29,13 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUVNFInterfaceAttachedNetworkType_L2DOMAIN = @"L2DOMAIN";
 NUVNFInterfaceAttachedNetworkType_SUBNET = @"SUBNET";
+NUVNFInterfaceEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUVNFInterfaceEntityScope_GLOBAL = @"GLOBAL";
 NUVNFInterfaceType_LAN = @"LAN";
 NUVNFInterfaceType_MANAGEMENT = @"MANAGEMENT";
 NUVNFInterfaceType_WAN = @"WAN";
@@ -75,6 +79,10 @@ NUVNFInterfaceType_WAN = @"WAN";
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Gateway of the subnet that the interface is connected to
     */
     CPString _gateway @accessors(property=gateway);
@@ -86,6 +94,10 @@ NUVNFInterfaceType_WAN = @"WAN";
         Name of the network that the interface is attached to
     */
     CPString _networkName @accessors(property=networkName);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The policy decision ID for this particular interface
     */
@@ -115,10 +127,16 @@ NUVNFInterfaceType_WAN = @"WAN";
     */
     CPString _attachedNetworkType @accessors(property=attachedNetworkType);
     /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
         Type of VNF interface
     */
     CPString _type @accessors(property=type);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -147,9 +165,11 @@ NUVNFInterfaceType_WAN = @"WAN";
         [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"networkName"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyDecisionID"];
         [self exposeLocalKeyPathToREST:@"domainID"];
         [self exposeLocalKeyPathToREST:@"domainName"];
@@ -157,8 +177,11 @@ NUVNFInterfaceType_WAN = @"WAN";
         [self exposeLocalKeyPathToREST:@"zoneName"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkID"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

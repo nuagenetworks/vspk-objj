@@ -34,6 +34,12 @@
 
 NUNextHopEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNextHopEntityScope_GLOBAL = @"GLOBAL";
+NUNextHopIPType_DUALSTACK = @"DUALSTACK";
+NUNextHopIPType_IPV4 = @"IPV4";
+NUNextHopIPType_IPV6 = @"IPV6";
+NUNextHopType_BR_PORT = @"BR_PORT";
+NUNextHopType_GATEWAY = @"GATEWAY";
+NUNextHopType_IP = @"IP";
 
 
 /*!
@@ -41,6 +47,10 @@ NUNextHopEntityScope_GLOBAL = @"GLOBAL";
 */
 @implementation NUNextHop : NURESTObject
 {
+    /*!
+        The IP Type of this Nexthop, possible values are IPV4, IPV6 or DUALSTACK.
+    */
+    CPString _IPType @accessors(property=IPType);
     /*!
         ID of the user who last updated the object.
     */
@@ -61,6 +71,10 @@ NUNextHopEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        Next hop type: IP only supported for service chaining
+    */
+    CPString _type @accessors(property=type);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -84,11 +98,13 @@ NUNextHopEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"ip"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

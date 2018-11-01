@@ -29,7 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUApplicationsFetcher.j"
+
+NUL7applicationsignatureEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUL7applicationsignatureEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -41,6 +46,10 @@
          name of the L7 App
     */
     CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Category of this application
     */
@@ -82,6 +91,10 @@
     */
     CPString _pluginName @accessors(property=pluginName);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Software flags received from Procera for every signature.
     */
     CPString _softwareFlags @accessors(property=softwareFlags);
@@ -93,7 +106,13 @@
         GUID of the Application
     */
     CPString _guidstring @accessors(property=guidstring);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUApplicationsFetcher _childrenApplications @accessors(property=childrenApplications);
     
 }
@@ -116,6 +135,7 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"category"];
         [self exposeLocalKeyPathToREST:@"readonly"];
         [self exposeLocalKeyPathToREST:@"reference"];
@@ -126,10 +146,14 @@
         [self exposeLocalKeyPathToREST:@"signatureIndex"];
         [self exposeLocalKeyPathToREST:@"risk"];
         [self exposeLocalKeyPathToREST:@"pluginName"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"softwareFlags"];
         [self exposeLocalKeyPathToREST:@"productivity"];
         [self exposeLocalKeyPathToREST:@"guidstring"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenApplications = [NUApplicationsFetcher fetcherWithParentObject:self];
         
         

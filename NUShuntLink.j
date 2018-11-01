@@ -35,6 +35,12 @@
 
 NUShuntLinkEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUShuntLinkEntityScope_GLOBAL = @"GLOBAL";
+NUShuntLinkPermittedAction_ALL = @"ALL";
+NUShuntLinkPermittedAction_DEPLOY = @"DEPLOY";
+NUShuntLinkPermittedAction_EXTEND = @"EXTEND";
+NUShuntLinkPermittedAction_INSTANTIATE = @"INSTANTIATE";
+NUShuntLinkPermittedAction_READ = @"READ";
+NUShuntLinkPermittedAction_USE = @"USE";
 
 
 /*!
@@ -67,21 +73,9 @@ NUShuntLinkEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _gatewayPeer2ID @accessors(property=gatewayPeer2ID);
     /*!
-        The IP address of the first peer of the Shunt Link.
+        The permitted action to USE/EXTEND this Shunt Link
     */
-    CPString _peer1IPAddress @accessors(property=peer1IPAddress);
-    /*!
-        The subnet given to the first peer of the Shunt Link.
-    */
-    CPString _peer1Subnet @accessors(property=peer1Subnet);
-    /*!
-        The IP address of the second peer of the Shunt Link.
-    */
-    CPString _peer2IPAddress @accessors(property=peer2IPAddress);
-    /*!
-        The subnet on the second peer of the Shunt Link.
-    */
-    CPString _peer2Subnet @accessors(property=peer2Subnet);
+    CPString _permittedAction @accessors(property=permittedAction);
     /*!
         Extra information entered by the operator to define the Shunt Link.
     */
@@ -124,10 +118,7 @@ NUShuntLinkEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1ID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2ID"];
-        [self exposeLocalKeyPathToREST:@"peer1IPAddress"];
-        [self exposeLocalKeyPathToREST:@"peer1Subnet"];
-        [self exposeLocalKeyPathToREST:@"peer2IPAddress"];
-        [self exposeLocalKeyPathToREST:@"peer2Subnet"];
+        [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];

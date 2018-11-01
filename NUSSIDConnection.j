@@ -29,8 +29,9 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUCaptivePortalProfilesFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUSSIDConnectionAuthenticationMode_CAPTIVE_PORTAL = @"CAPTIVE_PORTAL";
@@ -40,23 +41,47 @@ NUSSIDConnectionAuthenticationMode_WPA = @"WPA";
 NUSSIDConnectionAuthenticationMode_WPA2 = @"WPA2";
 NUSSIDConnectionAuthenticationMode_WPA_OTP = @"WPA_OTP";
 NUSSIDConnectionAuthenticationMode_WPA_WPA2 = @"WPA_WPA2";
+NUSSIDConnectionEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUSSIDConnectionEntityScope_GLOBAL = @"GLOBAL";
+NUSSIDConnectionPermittedAction_ALL = @"ALL";
+NUSSIDConnectionPermittedAction_DEPLOY = @"DEPLOY";
+NUSSIDConnectionPermittedAction_EXTEND = @"EXTEND";
+NUSSIDConnectionPermittedAction_INSTANTIATE = @"INSTANTIATE";
+NUSSIDConnectionPermittedAction_READ = @"READ";
+NUSSIDConnectionPermittedAction_USE = @"USE";
 NUSSIDConnectionRedirectOption_CONFIGURED_URL = @"CONFIGURED_URL";
 NUSSIDConnectionRedirectOption_ORIGINAL_REQUEST = @"ORIGINAL_REQUEST";
+NUSSIDConnectionStatus_INITIALIZED = @"INITIALIZED";
+NUSSIDConnectionStatus_MISMATCH = @"MISMATCH";
+NUSSIDConnectionStatus_ORPHAN = @"ORPHAN";
+NUSSIDConnectionStatus_READY = @"READY";
 
 
 /*!
-    An SSID Connection instance represents an SSID defined on a WiFi interface.  One SSID Connection is required per SSID created on a WiFi Card/Port.
+    An SSID Connection instance represents an SSID defined on a WiFi interface. One SSID Connection is required per SSID created on a WiFi Card/Port.
 */
 @implementation NUSSIDConnection : NURESTObject
 {
     /*!
-        The name associated to the SSID instance.  Has to be unique within an NSG.
+        The name associated to the SSID instance. Has to be unique within an NSG.
     */
     CPString _name @accessors(property=name);
     /*!
-        Password or passphrase associated to an SSID instance.  Based on the authenticationMode selected.
+        Password or passphrase associated to an SSID instance. Based on the authenticationMode selected.
     */
     CPString _passphrase @accessors(property=passphrase);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        The Gateway (NSG) associated with this SSID. This is a read only attribute
+    */
+    CPString _gatewayID @accessors(property=gatewayID);
+    /*!
+        Determines whether this entity is read only. Read only objects cannot be modified or deleted.
+    */
+    BOOL _readonly @accessors(property=readonly);
     /*!
         Redirection action to exercise once the connecting user has accepted the use policy presented on the Wireless Captive Portal.
     */
@@ -70,9 +95,17 @@ NUSSIDConnectionRedirectOption_ORIGINAL_REQUEST = @"ORIGINAL_REQUEST";
     */
     CPString _genericConfig @accessors(property=genericConfig);
     /*!
+        The permitted action to USE/EXTEND this SSID Connection
+    */
+    CPString _permittedAction @accessors(property=permittedAction);
+    /*!
         Brief description of the SSID.
     */
     CPString _description @accessors(property=description);
+    /*!
+        Determines whether this entity can be used in associations with other properties.
+    */
+    BOOL _restricted @accessors(property=restricted);
     /*!
         List of all white listed MAC Addresses for a particular SSID.
     */
@@ -82,11 +115,19 @@ NUSSIDConnectionRedirectOption_ORIGINAL_REQUEST = @"ORIGINAL_REQUEST";
     */
     CPArrayController _blackList @accessors(property=blackList);
     /*!
+        A VLAN representation of the SSID ordering on a Wireless Card/Port.
+    */
+    CPNumber _vlanID @accessors(property=vlanID);
+    /*!
         A read-only attribute that represents the generated interface name for the SSID connection to be provisioned on the NSG.
     */
     CPString _interfaceName @accessors(property=interfaceName);
     /*!
-        The Vport associated with this SSID connection.  The attribute can't be modified directly from the SSID Connection.
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The Vport associated with this SSID connection. The attribute can't be modified directly from the SSID Connection.
     */
     CPString _vportID @accessors(property=vportID);
     /*!
@@ -102,12 +143,21 @@ NUSSIDConnectionRedirectOption_ORIGINAL_REQUEST = @"ORIGINAL_REQUEST";
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
+        Status of the SSID/VLAN. Possible values are - INITIALIZED, ORPHAN, READY, MISMATCH
+    */
+    CPString _status @accessors(property=status);
+    /*!
         Which mode of authentication is defined for a particular SSID Connection instance.
     */
     CPString _authenticationMode @accessors(property=authenticationMode);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
-    NUCaptivePortalProfilesFetcher _childrenCaptivePortalProfiles @accessors(property=childrenCaptivePortalProfiles);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -131,21 +181,31 @@ NUSSIDConnectionRedirectOption_ORIGINAL_REQUEST = @"ORIGINAL_REQUEST";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"passphrase"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gatewayID"];
+        [self exposeLocalKeyPathToREST:@"readonly"];
         [self exposeLocalKeyPathToREST:@"redirectOption"];
         [self exposeLocalKeyPathToREST:@"redirectURL"];
         [self exposeLocalKeyPathToREST:@"genericConfig"];
+        [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"restricted"];
         [self exposeLocalKeyPathToREST:@"whiteList"];
         [self exposeLocalKeyPathToREST:@"blackList"];
+        [self exposeLocalKeyPathToREST:@"vlanID"];
         [self exposeLocalKeyPathToREST:@"interfaceName"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"vportID"];
         [self exposeLocalKeyPathToREST:@"broadcastSSID"];
         [self exposeLocalKeyPathToREST:@"associatedCaptivePortalProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"authenticationMode"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
-        _childrenCaptivePortalProfiles = [NUCaptivePortalProfilesFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         

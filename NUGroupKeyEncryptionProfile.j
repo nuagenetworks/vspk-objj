@@ -92,6 +92,10 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
     */
     CPString _SEKPayloadSigningAlgorithm @accessors(property=SEKPayloadSigningAlgorithm);
     /*!
+        DR Seed Lifetime in seconds
+    */
+    CPNumber _DRSeedLifetime @accessors(property=DRSeedLifetime);
+    /*!
         Name of the Encryption Profile
     */
     CPString _name @accessors(property=name);
@@ -192,6 +196,7 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
         [self exposeLocalKeyPathToREST:@"SEKPayloadEncryptionBCAlgorithm"];
         [self exposeLocalKeyPathToREST:@"SEKPayloadEncryptionKeyLength"];
         [self exposeLocalKeyPathToREST:@"SEKPayloadSigningAlgorithm"];
+        [self exposeLocalKeyPathToREST:@"DRSeedLifetime"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"seedGenerationInterval"];

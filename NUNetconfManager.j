@@ -29,8 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetconfSessionsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUNetconfManagerEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUNetconfManagerEntityScope_GLOBAL = @"GLOBAL";
 NUNetconfManagerStatus_CONNECTED = @"CONNECTED";
 NUNetconfManagerStatus_DISCONNECTED = @"DISCONNECTED";
 NUNetconfManagerStatus_INIT = @"INIT";
@@ -47,15 +51,33 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Netconf Manager RPM release version
     */
     CPString _release @accessors(property=release);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Type of parent entity
+    */
+    CPString _assocEntityType @accessors(property=assocEntityType);
+    /*!
         VSD connection status with this Netconf Manager
     */
     CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetconfSessionsFetcher _childrenNetconfSessions @accessors(property=childrenNetconfSessions);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -77,10 +99,16 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"release"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetconfSessions = [NUNetconfSessionsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

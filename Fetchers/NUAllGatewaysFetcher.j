@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUIngressExternalServiceTemplateEntry
+@class NUAllGateway
 
 
-@implementation NUIngressExternalServiceTemplateEntriesFetcher : NURESTFetcher
+@implementation NUAllGatewaysFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUIngressExternalServiceTemplateEntry;
+    return NUAllGateway;
 }
 
 @end

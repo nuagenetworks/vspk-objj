@@ -96,6 +96,10 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
+        If enabled, entries priority will be randomly generated between allowed range.
+    */
+    BOOL _autoGeneratePriority @accessors(property=autoGeneratePriority);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -135,6 +139,7 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"priorityType"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"autoGeneratePriority"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NURedirectionTargetsFetcher.j"
+@import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
@@ -59,10 +60,6 @@ NUBridgeInterfaceEntityScope_GLOBAL = @"GLOBAL";
         Name of the vport that the VM is attached to
     */
     CPString _VPortName @accessors(property=VPortName);
-    /*!
-        IPv6 address of the  interface
-    */
-    CPString _IPv6Address @accessors(property=IPv6Address);
     /*!
         IPV6 Gateway of the subnet that the Bridge is connected to
     */
@@ -134,6 +131,7 @@ NUBridgeInterfaceEntityScope_GLOBAL = @"GLOBAL";
     
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
+    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -164,7 +162,6 @@ NUBridgeInterfaceEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"VPortID"];
         [self exposeLocalKeyPathToREST:@"VPortName"];
-        [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
@@ -185,6 +182,7 @@ NUBridgeInterfaceEntityScope_GLOBAL = @"GLOBAL";
         
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
+        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

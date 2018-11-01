@@ -158,6 +158,10 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPArrayController _domainIDs @accessors(property=domainIDs);
     /*!
+        computeProvisioned
+    */
+    BOOL _computeProvisioned @accessors(property=computeProvisioned);
+    /*!
         Array of IDs of the zone that this VM is attached to
     */
     CPArrayController _zoneIDs @accessors(property=zoneIDs);
@@ -232,6 +236,7 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainIDs"];
+        [self exposeLocalKeyPathToREST:@"computeProvisioned"];
         [self exposeLocalKeyPathToREST:@"zoneIDs"];
         [self exposeLocalKeyPathToREST:@"orchestrationID"];
         [self exposeLocalKeyPathToREST:@"userID"];

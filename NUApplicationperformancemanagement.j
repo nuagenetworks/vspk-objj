@@ -32,6 +32,7 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUApplicationBindingsFetcher.j"
+@import "Fetchers/NUApplicationperformancemanagementbindingsFetcher.j"
 
 NUApplicationperformancemanagementEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUApplicationperformancemanagementEntityScope_GLOBAL = @"GLOBAL";
@@ -63,6 +64,10 @@ NUApplicationperformancemanagementEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        2 byte Id to uniquely identify Application Group between OVS, nuage_dpi and perfd processes for proper functioning of AAR.
+    */
+    CPNumber _appGroupUniqueId @accessors(property=appGroupUniqueId);
+    /*!
         associated Probe ID
     */
     CPString _associatedPerformanceMonitorID @accessors(property=associatedPerformanceMonitorID);
@@ -74,6 +79,7 @@ NUApplicationperformancemanagementEntityScope_GLOBAL = @"GLOBAL";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUApplicationBindingsFetcher _childrenApplicationBindings @accessors(property=childrenApplicationBindings);
+    NUApplicationperformancemanagementbindingsFetcher _childrenApplicationperformancemanagementbindings @accessors(property=childrenApplicationperformancemanagementbindings);
     
 }
 
@@ -99,12 +105,14 @@ NUApplicationperformancemanagementEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"appGroupUniqueId"];
         [self exposeLocalKeyPathToREST:@"associatedPerformanceMonitorID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenApplicationBindings = [NUApplicationBindingsFetcher fetcherWithParentObject:self];
+        _childrenApplicationperformancemanagementbindings = [NUApplicationperformancemanagementbindingsFetcher fetcherWithParentObject:self];
         
         
     }

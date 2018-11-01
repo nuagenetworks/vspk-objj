@@ -29,6 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+
+NUPolicyEntryEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUPolicyEntryEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -41,17 +46,13 @@
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Match criteria BLOB
     */
     NURESTObject _matchCriteria @accessors(property=matchCriteria);
-    /*!
-        ID of Overlay Address Pool for this Policy Entry.
-    */
-    CPString _matchOverlayAddressPoolID @accessors(property=matchOverlayAddressPoolID);
-    /*!
-        ID of Policy Object Group where this Policy Entry belongs.
-    */
-    CPString _matchPolicyObjectGroupID @accessors(property=matchPolicyObjectGroupID);
     /*!
         Action of Policy Entry
     */
@@ -60,7 +61,17 @@
         Description of the Policy Entry
     */
     CPString _description @accessors(property=description);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -82,12 +93,15 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"matchCriteria"];
-        [self exposeLocalKeyPathToREST:@"matchOverlayAddressPoolID"];
-        [self exposeLocalKeyPathToREST:@"matchPolicyObjectGroupID"];
         [self exposeLocalKeyPathToREST:@"actions"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

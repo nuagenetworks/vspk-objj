@@ -137,10 +137,6 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _containerUUID @accessors(property=containerUUID);
     /*!
-        Floating Ip Address of this network interface eg: 10.1.2.1
-    */
-    CPString _associatedFloatingIPAddress @accessors(property=associatedFloatingIPAddress);
-    /*!
         ID of the l2 domain or Subnet that the container is attached to
     */
     CPString _attachedNetworkID @accessors(property=attachedNetworkID);
@@ -209,7 +205,6 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"zoneID"];
         [self exposeLocalKeyPathToREST:@"zoneName"];
         [self exposeLocalKeyPathToREST:@"containerUUID"];
-        [self exposeLocalKeyPathToREST:@"associatedFloatingIPAddress"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkID"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
         [self exposeLocalKeyPathToREST:@"multiNICVPortName"];

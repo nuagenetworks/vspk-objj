@@ -44,6 +44,9 @@ NUPATNATPoolAssociatedGatewayType_IKE_GATEWAY = @"IKE_GATEWAY";
 NUPATNATPoolAssociatedGatewayType_NSGATEWAY = @"NSGATEWAY";
 NUPATNATPoolEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPATNATPoolEntityScope_GLOBAL = @"GLOBAL";
+NUPATNATPoolIPType_DUALSTACK = @"DUALSTACK";
+NUPATNATPoolIPType_IPV4 = @"IPV4";
+NUPATNATPoolIPType_IPV6 = @"IPV6";
 NUPATNATPoolPermittedAction_ALL = @"ALL";
 NUPATNATPoolPermittedAction_DEPLOY = @"DEPLOY";
 NUPATNATPoolPermittedAction_EXTEND = @"EXTEND";
@@ -57,6 +60,10 @@ NUPATNATPoolPermittedAction_USE = @"USE";
 */
 @implementation NUPATNATPool : NURESTObject
 {
+    /*!
+        IPv4 or IPv6
+    */
+    CPString _IPType @accessors(property=IPType);
     /*!
         Name of the PATNATPool
     */
@@ -154,6 +161,7 @@ NUPATNATPoolPermittedAction_USE = @"USE";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"addressRange"];

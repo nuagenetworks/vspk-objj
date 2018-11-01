@@ -29,6 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+
+NULicenseStatusEntityScope_ENTERPRISE = @"ENTERPRISE";
+NULicenseStatusEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -40,6 +45,10 @@
         Whether the various VRS license flavours be merged in one pool
     */
     BOOL _accumulateLicensesEnabled @accessors(property=accumulateLicensesEnabled);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Indicates total AVRSG count for all the licenses in the system
     */
@@ -117,10 +126,16 @@
     */
     CPNumber _totalLicensedVRSsCount @accessors(property=totalLicensedVRSsCount);
     /*!
-        Indicates total VRS+VRSG+VRSB+VDFG licenses used in the system
+        Indicates total VRS+VRSG+VRSB+VDF+VDFG licenses used in the system
     */
     CPNumber _totalUsedGatewaysCount @accessors(property=totalUsedGatewaysCount);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -142,6 +157,7 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"totalLicensedAVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedAVRSsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedGatewaysCount"];
@@ -162,7 +178,10 @@
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"totalLicensedVRSsCount"];
         [self exposeLocalKeyPathToREST:@"totalUsedGatewaysCount"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

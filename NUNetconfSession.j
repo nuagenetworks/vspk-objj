@@ -29,7 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUNetconfSessionEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUNetconfSessionEntityScope_GLOBAL = @"GLOBAL";
 NUNetconfSessionStatus_CONNECTED = @"CONNECTED";
 NUNetconfSessionStatus_DISCONNECTED = @"DISCONNECTED";
 
@@ -39,6 +43,14 @@ NUNetconfSessionStatus_DISCONNECTED = @"DISCONNECTED";
 */
 @implementation NUNetconfSession : NURESTObject
 {
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         UUID of the gateway associated to this Netconf session.
     */
@@ -51,7 +63,13 @@ NUNetconfSessionStatus_DISCONNECTED = @"DISCONNECTED";
         The status of the NetConf session to a gateway.
     */
     CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -72,10 +90,15 @@ NUNetconfSessionStatus_DISCONNECTED = @"DISCONNECTED";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayName"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

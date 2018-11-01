@@ -29,13 +29,26 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+
+NUCustomPropertyEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUCustomPropertyEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Developed in the context of the Uplink Connection on the NSG, this API could be used for other types of objects.  It is used as a collection of name-value (or key-value) pairs for custom attributes that could be used to enrich existing class instances.
+    Developed in the context of the Uplink Connection on the NSG, this API could be used for other types of objects. It is used as a collection of name-value (or key-value) pairs for custom attributes that could be used to enrich existing class instances.
 */
 @implementation NUCustomProperty : NURESTObject
 {
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The name of the custom attribute (key) used to enrich the object the customProperty instance is attached to.
     */
@@ -44,7 +57,13 @@
         The value assigned to the custom attribute (key) of that customProperty instance.
     */
     CPString _attributeValue @accessors(property=attributeValue);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -65,9 +84,14 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"attributeName"];
         [self exposeLocalKeyPathToREST:@"attributeValue"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

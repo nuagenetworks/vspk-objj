@@ -29,6 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+
+NUOverlayPATNATEntryEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUOverlayPATNATEntryEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -39,7 +44,15 @@
     /*!
         This flag will determine whether the entry is NAT or PAT.
     */
-    CPString _NATEnabled @accessors(property=NATEnabled);
+    BOOL _NATEnabled @accessors(property=NATEnabled);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Private IP address for the interface
     */
@@ -56,7 +69,13 @@
         Public IP address of the interface
     */
     CPString _publicIP @accessors(property=publicIP);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -78,11 +97,16 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"NATEnabled"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"privateIP"];
         [self exposeLocalKeyPathToREST:@"associatedDomainID"];
         [self exposeLocalKeyPathToREST:@"associatedLinkID"];
         [self exposeLocalKeyPathToREST:@"publicIP"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

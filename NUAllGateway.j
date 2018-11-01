@@ -29,81 +29,63 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
-@import "Fetchers/NUL2DomainsFetcher.j"
-@import "Fetchers/NUMACFilterProfilesFetcher.j"
-@import "Fetchers/NUSAPEgressQoSProfilesFetcher.j"
-@import "Fetchers/NUSAPIngressQoSProfilesFetcher.j"
-@import "Fetchers/NUGatewaySecuritiesFetcher.j"
-@import "Fetchers/NUPATNATPoolsFetcher.j"
-@import "Fetchers/NUDeploymentFailuresFetcher.j"
-@import "Fetchers/NUPermissionsFetcher.j"
-@import "Fetchers/NUWANServicesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
-@import "Fetchers/NUEgressProfilesFetcher.j"
-@import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUInfrastructureConfigsFetcher.j"
-@import "Fetchers/NUIngressProfilesFetcher.j"
-@import "Fetchers/NUEnterprisePermissionsFetcher.j"
-@import "Fetchers/NUJobsFetcher.j"
-@import "Fetchers/NULocationsFetcher.j"
-@import "Fetchers/NUBootstrapsFetcher.j"
-@import "Fetchers/NUBootstrapActivationsFetcher.j"
-@import "Fetchers/NUPortsFetcher.j"
-@import "Fetchers/NUIPFilterProfilesFetcher.j"
-@import "Fetchers/NUIPv6FilterProfilesFetcher.j"
-@import "Fetchers/NUEventLogsFetcher.j"
 
-NUGatewayBootstrapStatus_ACTIVE = @"ACTIVE";
-NUGatewayBootstrapStatus_CERTIFICATE_SIGNED = @"CERTIFICATE_SIGNED";
-NUGatewayBootstrapStatus_INACTIVE = @"INACTIVE";
-NUGatewayBootstrapStatus_NOTIFICATION_APP_REQ_ACK = @"NOTIFICATION_APP_REQ_ACK";
-NUGatewayBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
-NUGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUGatewayEntityScope_GLOBAL = @"GLOBAL";
-NUGatewayFamily_ANY = @"ANY";
-NUGatewayFamily_NSG_AMI = @"NSG_AMI";
-NUGatewayFamily_NSG_AZ = @"NSG_AZ";
-NUGatewayFamily_NSG_C = @"NSG_C";
-NUGatewayFamily_NSG_E = @"NSG_E";
-NUGatewayFamily_NSG_E200 = @"NSG_E200";
-NUGatewayFamily_NSG_E300 = @"NSG_E300";
-NUGatewayFamily_NSG_V = @"NSG_V";
-NUGatewayFamily_NSG_X = @"NSG_X";
-NUGatewayFamily_NSG_X200 = @"NSG_X200";
-NUGatewayFamily_VRS = @"VRS";
-NUGatewayPermittedAction_ALL = @"ALL";
-NUGatewayPermittedAction_DEPLOY = @"DEPLOY";
-NUGatewayPermittedAction_EXTEND = @"EXTEND";
-NUGatewayPermittedAction_INSTANTIATE = @"INSTANTIATE";
-NUGatewayPermittedAction_READ = @"READ";
-NUGatewayPermittedAction_USE = @"USE";
-NUGatewayPersonality_DC7X50 = @"DC7X50";
-NUGatewayPersonality_EVDF = @"EVDF";
-NUGatewayPersonality_EVDFB = @"EVDFB";
-NUGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
-NUGatewayPersonality_NETCONF_7X50 = @"NETCONF_7X50";
-NUGatewayPersonality_NSG = @"NSG";
-NUGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
-NUGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
-NUGatewayPersonality_OTHER = @"OTHER";
-NUGatewayPersonality_VDFG = @"VDFG";
-NUGatewayPersonality_VRSB = @"VRSB";
-NUGatewayPersonality_VRSG = @"VRSG";
-NUGatewayPersonality_VSA = @"VSA";
-NUGatewayPersonality_VSG = @"VSG";
-NUGatewayZFBMatchAttribute_HOSTNAME = @"HOSTNAME";
-NUGatewayZFBMatchAttribute_IP_ADDRESS = @"IP_ADDRESS";
-NUGatewayZFBMatchAttribute_MAC_ADDRESS = @"MAC_ADDRESS";
-NUGatewayZFBMatchAttribute_NONE = @"NONE";
-NUGatewayZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
-NUGatewayZFBMatchAttribute_UUID = @"UUID";
+NUAllGatewayBootstrapStatus_ACTIVE = @"ACTIVE";
+NUAllGatewayBootstrapStatus_CERTIFICATE_SIGNED = @"CERTIFICATE_SIGNED";
+NUAllGatewayBootstrapStatus_INACTIVE = @"INACTIVE";
+NUAllGatewayBootstrapStatus_NOTIFICATION_APP_REQ_ACK = @"NOTIFICATION_APP_REQ_ACK";
+NUAllGatewayBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
+NUAllGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUAllGatewayEntityScope_GLOBAL = @"GLOBAL";
+NUAllGatewayFamily_ANY = @"ANY";
+NUAllGatewayFamily_NSG_AMI = @"NSG_AMI";
+NUAllGatewayFamily_NSG_AZ = @"NSG_AZ";
+NUAllGatewayFamily_NSG_C = @"NSG_C";
+NUAllGatewayFamily_NSG_DOCKER = @"NSG_DOCKER";
+NUAllGatewayFamily_NSG_E = @"NSG_E";
+NUAllGatewayFamily_NSG_E200 = @"NSG_E200";
+NUAllGatewayFamily_NSG_E300 = @"NSG_E300";
+NUAllGatewayFamily_NSG_V = @"NSG_V";
+NUAllGatewayFamily_NSG_X = @"NSG_X";
+NUAllGatewayFamily_NSG_X200 = @"NSG_X200";
+NUAllGatewayFamily_VRS = @"VRS";
+NUAllGatewayPermittedAction_ALL = @"ALL";
+NUAllGatewayPermittedAction_DEPLOY = @"DEPLOY";
+NUAllGatewayPermittedAction_EXTEND = @"EXTEND";
+NUAllGatewayPermittedAction_INSTANTIATE = @"INSTANTIATE";
+NUAllGatewayPermittedAction_READ = @"READ";
+NUAllGatewayPermittedAction_USE = @"USE";
+NUAllGatewayPersonality_DC7X50 = @"DC7X50";
+NUAllGatewayPersonality_EVDF = @"EVDF";
+NUAllGatewayPersonality_EVDFB = @"EVDFB";
+NUAllGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
+NUAllGatewayPersonality_NETCONF_7X50 = @"NETCONF_7X50";
+NUAllGatewayPersonality_NSG = @"NSG";
+NUAllGatewayPersonality_NSGBR = @"NSGBR";
+NUAllGatewayPersonality_NSGDUC = @"NSGDUC";
+NUAllGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
+NUAllGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
+NUAllGatewayPersonality_OTHER = @"OTHER";
+NUAllGatewayPersonality_VDFG = @"VDFG";
+NUAllGatewayPersonality_VRSB = @"VRSB";
+NUAllGatewayPersonality_VRSG = @"VRSG";
+NUAllGatewayPersonality_VSA = @"VSA";
+NUAllGatewayPersonality_VSG = @"VSG";
+NUAllGatewayZFBMatchAttribute_HOSTNAME = @"HOSTNAME";
+NUAllGatewayZFBMatchAttribute_IP_ADDRESS = @"IP_ADDRESS";
+NUAllGatewayZFBMatchAttribute_MAC_ADDRESS = @"MAC_ADDRESS";
+NUAllGatewayZFBMatchAttribute_NONE = @"NONE";
+NUAllGatewayZFBMatchAttribute_NSGATEWAY_ID = @"NSGATEWAY_ID";
+NUAllGatewayZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
+NUAllGatewayZFBMatchAttribute_UUID = @"UUID";
 
 
 /*!
-    Represents Gateway object.
+    A read only API to get all gateway objects in the VSD environment. Use the ID field to then actually manage the gateway using the gateway API entity.
 */
-@implementation NUGateway : NURESTObject
+@implementation NUAllGateway : NURESTObject
 {
     /*!
         MAC Address of the first interface
@@ -262,30 +244,8 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _systemID @accessors(property=systemID);
     
-    NUL2DomainsFetcher _childrenL2Domains @accessors(property=childrenL2Domains);
-    NUMACFilterProfilesFetcher _childrenMACFilterProfiles @accessors(property=childrenMACFilterProfiles);
-    NUSAPEgressQoSProfilesFetcher _childrenSAPEgressQoSProfiles @accessors(property=childrenSAPEgressQoSProfiles);
-    NUSAPIngressQoSProfilesFetcher _childrenSAPIngressQoSProfiles @accessors(property=childrenSAPIngressQoSProfiles);
-    NUGatewaySecuritiesFetcher _childrenGatewaySecurities @accessors(property=childrenGatewaySecurities);
-    NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
-    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
-    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
-    NUWANServicesFetcher _childrenWANServices @accessors(property=childrenWANServices);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
-    NUEgressProfilesFetcher _childrenEgressProfiles @accessors(property=childrenEgressProfiles);
-    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUInfrastructureConfigsFetcher _childrenInfrastructureConfigs @accessors(property=childrenInfrastructureConfigs);
-    NUIngressProfilesFetcher _childrenIngressProfiles @accessors(property=childrenIngressProfiles);
-    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
-    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
-    NULocationsFetcher _childrenLocations @accessors(property=childrenLocations);
-    NUBootstrapsFetcher _childrenBootstraps @accessors(property=childrenBootstraps);
-    NUBootstrapActivationsFetcher _childrenBootstrapActivations @accessors(property=childrenBootstrapActivations);
-    NUPortsFetcher _childrenPorts @accessors(property=childrenPorts);
-    NUIPFilterProfilesFetcher _childrenIPFilterProfiles @accessors(property=childrenIPFilterProfiles);
-    NUIPv6FilterProfilesFetcher _childrenIPv6FilterProfiles @accessors(property=childrenIPv6FilterProfiles);
-    NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
 
@@ -295,7 +255,7 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
 
 + (CPString)RESTName
 {
-    return @"gateway";
+    return @"allgateway";
 }
 
 
@@ -346,32 +306,9 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         
-        _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];
-        _childrenMACFilterProfiles = [NUMACFilterProfilesFetcher fetcherWithParentObject:self];
-        _childrenSAPEgressQoSProfiles = [NUSAPEgressQoSProfilesFetcher fetcherWithParentObject:self];
-        _childrenSAPIngressQoSProfiles = [NUSAPIngressQoSProfilesFetcher fetcherWithParentObject:self];
-        _childrenGatewaySecurities = [NUGatewaySecuritiesFetcher fetcherWithParentObject:self];
-        _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
-        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
-        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
-        _childrenWANServices = [NUWANServicesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
-        _childrenEgressProfiles = [NUEgressProfilesFetcher fetcherWithParentObject:self];
-        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenInfrastructureConfigs = [NUInfrastructureConfigsFetcher fetcherWithParentObject:self];
-        _childrenIngressProfiles = [NUIngressProfilesFetcher fetcherWithParentObject:self];
-        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
-        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
-        _childrenLocations = [NULocationsFetcher fetcherWithParentObject:self];
-        _childrenBootstraps = [NUBootstrapsFetcher fetcherWithParentObject:self];
-        _childrenBootstrapActivations = [NUBootstrapActivationsFetcher fetcherWithParentObject:self];
-        _childrenPorts = [NUPortsFetcher fetcherWithParentObject:self];
-        _childrenIPFilterProfiles = [NUIPFilterProfilesFetcher fetcherWithParentObject:self];
-        _childrenIPv6FilterProfiles = [NUIPv6FilterProfilesFetcher fetcherWithParentObject:self];
-        _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
-        _personality = @"VRSG";
         
     }
 

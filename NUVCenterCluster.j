@@ -65,6 +65,10 @@ NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
 @implementation NUVCenterCluster : NURESTObject
 {
     /*!
+        Whether ARP Reply is enabled/disabled
+    */
+    BOOL _ARPReply @accessors(property=ARPReply);
+    /*!
         The maximum wait time limit in minutes to get VRS configured at cluster level
     */
     CPNumber _VRSConfigurationTimeLimit @accessors(property=VRSConfigurationTimeLimit);
@@ -109,7 +113,7 @@ NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPNumber _datapathSyncTimeout @accessors(property=datapathSyncTimeout);
     /*!
-        Cluster in scope or not in scope.
+        Specifies if this cluster is in scope or not in scope.
     */
     BOOL _scope @accessors(property=scope);
     /*!
@@ -236,6 +240,10 @@ NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
         Location to mount the NFS server
     */
     CPString _nfsMountPath @accessors(property=nfsMountPath);
+    /*!
+        cluster in scope or not in scope
+    */
+    CPString _agencyMoid @accessors(property=agencyMoid);
     /*!
         DNS server 1
     */
@@ -512,6 +520,7 @@ NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"ARPReply"];
         [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];
@@ -555,6 +564,7 @@ NUVCenterClusterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"revertiveTimer"];
         [self exposeLocalKeyPathToREST:@"nfsLogServer"];
         [self exposeLocalKeyPathToREST:@"nfsMountPath"];
+        [self exposeLocalKeyPathToREST:@"agencyMoid"];
         [self exposeLocalKeyPathToREST:@"mgmtDNS1"];
         [self exposeLocalKeyPathToREST:@"mgmtDNS2"];
         [self exposeLocalKeyPathToREST:@"mgmtGateway"];

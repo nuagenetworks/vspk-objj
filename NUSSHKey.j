@@ -29,7 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUSSHKeyEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUSSHKeyEntityScope_GLOBAL = @"GLOBAL";
 NUSSHKeyKeyType_RSA = @"RSA";
 
 
@@ -43,6 +47,10 @@ NUSSHKeyKeyType_RSA = @"RSA";
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         A description of the SSH Key.
     */
     CPString _description @accessors(property=description);
@@ -51,10 +59,20 @@ NUSSHKeyKeyType_RSA = @"RSA";
     */
     CPString _keyType @accessors(property=keyType);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Public Key of a SSH Key Pair.
     */
     CPString _publicKey @accessors(property=publicKey);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -76,10 +94,15 @@ NUSSHKeyKeyType_RSA = @"RSA";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"keyType"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"publicKey"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

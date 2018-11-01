@@ -50,7 +50,7 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
 @implementation NUVLANTemplate : NURESTObject
 {
     /*!
-        Value of VLAN
+        Value or ID of VLAN instances to be created from this template.
     */
     CPNumber _value @accessors(property=value);
     /*!
@@ -78,9 +78,17 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
+        ID of the Ingress Overlay QoS Policer associated with a VLAN.
+    */
+    CPString _associatedIngressOverlayQoSPolicerID @accessors(property=associatedIngressOverlayQoSPolicerID);
+    /*!
         ID of the Ingress QoS Policy associated with this VLAN Template.
     */
     CPString _associatedIngressQOSPolicyID @accessors(property=associatedIngressQOSPolicyID);
+    /*!
+        ID of the Ingress Underlay QoS Policer associated with a VLAN.
+    */
+    CPString _associatedIngressUnderlayQoSPolicerID @accessors(property=associatedIngressUnderlayQoSPolicerID);
     /*!
         ID of the uplink connection making use of this VLAN Template instance.
     */
@@ -133,7 +141,9 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"isUplink"];
         [self exposeLocalKeyPathToREST:@"associatedConnectionType"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedIngressOverlayQoSPolicerID"];
         [self exposeLocalKeyPathToREST:@"associatedIngressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedIngressUnderlayQoSPolicerID"];
         [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"ducVlan"];

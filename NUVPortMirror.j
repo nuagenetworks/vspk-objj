@@ -45,10 +45,6 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
 @implementation NUVPortMirror : NURESTObject
 {
     /*!
-        Name of the vport to which the mirror destination is associated with.
-    */
-    CPString _VPortName @accessors(property=VPortName);
-    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
@@ -85,6 +81,10 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
     */
     CPString _vportId @accessors(property=vportId);
     /*!
+        Name of the vport to which the mirror destination is associated with.
+    */
+    CPString _vportName @accessors(property=vportName);
+    /*!
         Type of the network attached - L2/L3
     */
     CPString _attachedNetworkType @accessors(property=attachedNetworkType);
@@ -115,7 +115,6 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"VPortName"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"networkName"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
@@ -125,6 +124,7 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"vportId"];
+        [self exposeLocalKeyPathToREST:@"vportName"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

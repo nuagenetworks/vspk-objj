@@ -34,7 +34,6 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUHSCsFetcher.j"
 @import "Fetchers/NUVSCsFetcher.j"
-@import "Fetchers/NUVSDsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUVSPEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -80,7 +79,6 @@ NUVSPEntityScope_GLOBAL = @"GLOBAL";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUHSCsFetcher _childrenHSCs @accessors(property=childrenHSCs);
     NUVSCsFetcher _childrenVSCs @accessors(property=childrenVSCs);
-    NUVSDsFetcher _childrenVSDs @accessors(property=childrenVSDs);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -115,7 +113,6 @@ NUVSPEntityScope_GLOBAL = @"GLOBAL";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenHSCs = [NUHSCsFetcher fetcherWithParentObject:self];
         _childrenVSCs = [NUVSCsFetcher fetcherWithParentObject:self];
-        _childrenVSDs = [NUVSDsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         

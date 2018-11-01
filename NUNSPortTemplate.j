@@ -70,10 +70,6 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
     */
     CPString _physicalName @accessors(property=physicalName);
     /*!
-        The ID of the infrastructure port profile this Template instance is associated with. (Deprecated in 4.0)
-    */
-    CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
-    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -126,7 +122,6 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
-        [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];
         [self exposeLocalKeyPathToREST:@"speed"];

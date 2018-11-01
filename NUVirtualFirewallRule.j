@@ -31,7 +31,6 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUStatisticsFetcher.j"
 
 NUVirtualFirewallRuleAction_DROP = @"DROP";
 NUVirtualFirewallRuleAction_FORWARD = @"FORWARD";
@@ -41,11 +40,11 @@ NUVirtualFirewallRuleEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVirtualFirewallRuleEntityScope_GLOBAL = @"GLOBAL";
 NUVirtualFirewallRuleLocationType_ANY = @"ANY";
 NUVirtualFirewallRuleLocationType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
-NUVirtualFirewallRuleLocationType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
 NUVirtualFirewallRuleLocationType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
 NUVirtualFirewallRuleLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUVirtualFirewallRuleLocationType_POLICYGROUP = @"POLICYGROUP";
 NUVirtualFirewallRuleLocationType_SUBNET = @"SUBNET";
+NUVirtualFirewallRuleLocationType_UNDERLAY_INTERNET_POLICYGROUP = @"UNDERLAY_INTERNET_POLICYGROUP";
 NUVirtualFirewallRuleLocationType_ZONE = @"ZONE";
 NUVirtualFirewallRuleNetworkType_ANY = @"ANY";
 NUVirtualFirewallRuleNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
@@ -77,6 +76,10 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
+        Overrides the source IPV6 for Ingress and destination IPV6 for Egress, macentries will use this adress as the match criteria.
+    */
+    CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
+    /*!
         DSCP match condition to be set in the rule. It is either * or from 0-63
     */
     CPString _DSCP @accessors(property=DSCP);
@@ -88,6 +91,10 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
         The action of the rule, DROP or FORWARD. Possible values are DROP, FORWARD.
     */
     CPString _action @accessors(property=action);
+    /*!
+        Overrides the source IP for Ingress and destination IP for Egress, macentries will use this adress as the match criteria.
+    */
+    CPString _addressOverride @accessors(property=addressOverride);
     /*!
         Description of the rule entry
     */
@@ -149,6 +156,14 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
     */
     CPString _protocol @accessors(property=protocol);
     /*!
+        In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
+    */
+    CPString _associatedEgressEntryID @accessors(property=associatedEgressEntryID);
+    /*!
+        In the draft mode, the ACL entry refers to this LiveEntity. In non-drafted mode, this is null.
+    */
+    CPString _associatedIngressEntryID @accessors(property=associatedIngressEntryID);
+    /*!
         The UUID of the associated L7 Application Signature
     */
     CPString _associatedL7ApplicationSignatureID @accessors(property=associatedL7ApplicationSignatureID);
@@ -156,6 +171,10 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
         In the draft mode, the rule entry refers to this LiveEntity. In live mode, this is null.
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
+    /*!
+        In the draft mode, the ACL entity refers to this live entity parent. In non-drafted mode, this is null
+    */
+    CPString _associatedLiveTemplateID @accessors(property=associatedLiveTemplateID);
     /*!
         This property reflects the type of traffic in case a rule entry is created using an Service or Service Group. In case a protocol and port are specified for the ACL entry, this property has to be empty (null). Supported values are L4_SERVICE, L4_SERVICE_GROUP and empty.
     */
@@ -177,6 +196,10 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
     */
     BOOL _statsLoggingEnabled @accessors(property=statsLoggingEnabled);
     /*!
+        Ether type of the packet to be matched. etherType can be * or a valid hexadecimal value
+    */
+    CPString _etherType @accessors(property=etherType);
+    /*!
         ID of the overlay mirror destination
     */
     CPString _overlayMirrorDestinationID @accessors(property=overlayMirrorDestinationID);
@@ -187,7 +210,6 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     
 }
 
@@ -211,9 +233,11 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"ACLTemplateName"];
         [self exposeLocalKeyPathToREST:@"ICMPCode"];
         [self exposeLocalKeyPathToREST:@"ICMPType"];
+        [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
+        [self exposeLocalKeyPathToREST:@"addressOverride"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];
@@ -229,19 +253,22 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"sourcePort"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"protocol"];
+        [self exposeLocalKeyPathToREST:@"associatedEgressEntryID"];
+        [self exposeLocalKeyPathToREST:@"associatedIngressEntryID"];
         [self exposeLocalKeyPathToREST:@"associatedL7ApplicationSignatureID"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"associatedLiveTemplateID"];
         [self exposeLocalKeyPathToREST:@"associatedTrafficType"];
         [self exposeLocalKeyPathToREST:@"associatedTrafficTypeID"];
         [self exposeLocalKeyPathToREST:@"stateful"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];
+        [self exposeLocalKeyPathToREST:@"etherType"];
         [self exposeLocalKeyPathToREST:@"overlayMirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         
         
     }

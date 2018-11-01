@@ -34,7 +34,7 @@
 
 
 /*!
-    Retrieves statistics for LTE uplink
+    Retrieves statistical information for LTE uplinks.
 */
 @implementation NULtestatistics : NURESTObject
 {
@@ -51,7 +51,7 @@
     */
     CPNumber _startTime @accessors(property=startTime);
     /*!
-        Map&lt;TCAMetric, Long[]&gt; TCAMetric is an Enum. Possible values are modem_status, signal_strength
+        A list of statistical data returned for a selected LTE interface.  Information returned will contain the cellular signal strength and the current technology used (LTE, HSPA+, 3G, ...).
     */
     CPArrayController _statsData @accessors(property=statsData);
     

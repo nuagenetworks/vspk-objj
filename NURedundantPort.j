@@ -29,9 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVLANsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUNSPortsFetcher.j"
 
 NURedundantPortEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -44,7 +46,7 @@ NURedundantPortPermittedAction_READ = @"READ";
 NURedundantPortPermittedAction_USE = @"USE";
 NURedundantPortPortType_ACCESS = @"ACCESS";
 NURedundantPortSpeed_AUTONEGOTIATE = @"AUTONEGOTIATE";
-NURedundantPortSpeed_BASE10 = @"BASE10";
+NURedundantPortSpeed_BASET10 = @"BASET10";
 NURedundantPortSpeed_BASET1000 = @"BASET1000";
 NURedundantPortSpeed_BASETX100 = @"BASETX100";
 NURedundantPortSpeed_BASEX10G = @"BASEX10G";
@@ -136,9 +138,11 @@ NURedundantPortStatus_READY = @"READY";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVLANsFetcher _childrenVLANs @accessors(property=childrenVLANs);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUNSPortsFetcher _childrenNSPorts @accessors(property=childrenNSPorts);
     
 }
@@ -180,9 +184,11 @@ NURedundantPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVLANs = [NUVLANsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenNSPorts = [NUNSPortsFetcher fetcherWithParentObject:self];
         
         

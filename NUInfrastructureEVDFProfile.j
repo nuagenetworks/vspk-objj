@@ -73,6 +73,10 @@ NUInfrastructureEVDFProfileNuagePlatform_KVM_LXC = @"KVM_LXC";
     */
     CPString _description @accessors(property=description);
     /*!
+        Enterprise/Organisation associated with this Profile instance.
+    */
+    CPString _enterpriseID @accessors(property=enterpriseID);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -126,6 +130,7 @@ NUInfrastructureEVDFProfileNuagePlatform_KVM_LXC = @"KVM_LXC";
         [self exposeLocalKeyPathToREST:@"activeController"];
         [self exposeLocalKeyPathToREST:@"serviceIPv4Subnet"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"proxyDNSName"];
         [self exposeLocalKeyPathToREST:@"useTwoFactor"];

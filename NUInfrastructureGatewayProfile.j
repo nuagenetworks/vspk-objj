@@ -117,6 +117,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _controllerLessDuration @accessors(property=controllerLessDuration);
     /*!
+        Flag to enable controller-less operations
+    */
+    BOOL _controllerLessEnabled @accessors(property=controllerLessEnabled);
+    /*!
         The forwarding mode to use for controllerLess operations
     */
     CPString _controllerLessForwardingMode @accessors(property=controllerLessForwardingMode);
@@ -195,6 +199,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"controllerLessDuration"];
+        [self exposeLocalKeyPathToREST:@"controllerLessEnabled"];
         [self exposeLocalKeyPathToREST:@"controllerLessForwardingMode"];
         [self exposeLocalKeyPathToREST:@"controllerLessRemoteDuration"];
         [self exposeLocalKeyPathToREST:@"forceImmediateSystemSync"];

@@ -61,6 +61,10 @@ NUInfrastructureConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _configStatus @accessors(property=configStatus);
     /*!
+        Object type of the associated entity.
+    */
+    CPString _associatedEntityType @accessors(property=associatedEntityType);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -91,6 +95,7 @@ NUInfrastructureConfigEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"config"];
         [self exposeLocalKeyPathToREST:@"configStatus"];
+        [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

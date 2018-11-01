@@ -34,6 +34,8 @@
 
 NUKeyServerMonitorEncryptedSeedEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUKeyServerMonitorEncryptedSeedEntityScope_GLOBAL = @"GLOBAL";
+NUKeyServerMonitorEncryptedSeedSeedType_DR = @"DR";
+NUKeyServerMonitorEncryptedSeedSeedType_STANDARD = @"STANDARD";
 
 
 /*!
@@ -49,6 +51,10 @@ NUKeyServerMonitorEncryptedSeedEntityScope_GLOBAL = @"GLOBAL";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Seed Type
+    */
+    CPString _seedType @accessors(property=seedType);
     /*!
         KeyServer Certificate Serial Number
     */
@@ -106,6 +112,7 @@ NUKeyServerMonitorEncryptedSeedEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"SEKCreationTime"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"seedType"];
         [self exposeLocalKeyPathToREST:@"keyServerCertificateSerialNumber"];
         [self exposeLocalKeyPathToREST:@"enterpriseSecuredDataID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

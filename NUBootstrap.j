@@ -45,6 +45,7 @@ NUBootstrapZFBMatchAttribute_MAC_ADDRESS = @"MAC_ADDRESS";
 NUBootstrapZFBMatchAttribute_NONE = @"NONE";
 NUBootstrapZFBMatchAttribute_NSGATEWAY_ID = @"NSGATEWAY_ID";
 NUBootstrapZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
+NUBootstrapZFBMatchAttribute_UUID = @"UUID";
 
 
 /*!
@@ -76,6 +77,10 @@ NUBootstrapZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Object type of the associated entity.
+    */
+    CPString _associatedEntityType @accessors(property=associatedEntityType);
     /*!
         Bootstrap status.
     */
@@ -113,6 +118,7 @@ NUBootstrapZFBMatchAttribute_SERIAL_NUMBER = @"SERIAL_NUMBER";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"installerID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

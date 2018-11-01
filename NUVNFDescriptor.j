@@ -29,8 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVNFInterfaceDescriptorsFetcher.j"
 
+NUVNFDescriptorEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUVNFDescriptorEntityScope_GLOBAL = @"GLOBAL";
 NUVNFDescriptorType_FIREWALL = @"FIREWALL";
 NUVNFDescriptorType_WAN_OPT = @"WAN_OPT";
 
@@ -69,6 +73,10 @@ NUVNFDescriptorType_WAN_OPT = @"WAN_OPT";
     */
     BOOL _visible @accessors(property=visible);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         The Id of referenced VNF threshold policy
     */
     CPString _associatedVNFThresholdPolicyID @accessors(property=associatedVNFThresholdPolicyID);
@@ -77,10 +85,16 @@ NUVNFDescriptorType_WAN_OPT = @"WAN_OPT";
     */
     CPNumber _storageGB @accessors(property=storageGB);
     /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
         Type of virtual network function
     */
     CPString _type @accessors(property=type);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVNFInterfaceDescriptorsFetcher _childrenVNFInterfaceDescriptors @accessors(property=childrenVNFInterfaceDescriptors);
     
 }
@@ -109,10 +123,14 @@ NUVNFDescriptorType_WAN_OPT = @"WAN_OPT";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"metadataID"];
         [self exposeLocalKeyPathToREST:@"visible"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedVNFThresholdPolicyID"];
         [self exposeLocalKeyPathToREST:@"storageGB"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVNFInterfaceDescriptors = [NUVNFInterfaceDescriptorsFetcher fetcherWithParentObject:self];
         
         

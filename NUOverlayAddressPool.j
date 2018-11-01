@@ -29,7 +29,15 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUOverlayPATNATEntriesFetcher.j"
+
+NUOverlayAddressPoolEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUOverlayAddressPoolEntityScope_GLOBAL = @"GLOBAL";
+NUOverlayAddressPoolIPType_DUALSTACK = @"DUALSTACK";
+NUOverlayAddressPoolIPType_IPV4 = @"IPV4";
+NUOverlayAddressPoolIPType_IPV6 = @"IPV6";
 
 
 /*!
@@ -38,9 +46,17 @@
 @implementation NUOverlayAddressPool : NURESTObject
 {
     /*!
+        The IP Type of this Overlay Address Pool, possible values are IPV4, IPV6 or DUALSTACK.
+    */
+    CPString _IPType @accessors(property=IPType);
+    /*!
         Name for the PAT NAT pool
     */
     CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         addresspool description
     */
@@ -50,6 +66,10 @@
     */
     CPString _endAddressRange @accessors(property=endAddressRange);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         The ID of the associated l3-domain.
     */
     CPString _associatedDomainID @accessors(property=associatedDomainID);
@@ -57,7 +77,13 @@
         Start address for the pool range
     */
     CPString _startAddressRange @accessors(property=startAddressRange);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUOverlayPATNATEntriesFetcher _childrenOverlayPATNATEntries @accessors(property=childrenOverlayPATNATEntries);
     
 }
@@ -79,12 +105,18 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"endAddressRange"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedDomainID"];
         [self exposeLocalKeyPathToREST:@"startAddressRange"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenOverlayPATNATEntries = [NUOverlayPATNATEntriesFetcher fetcherWithParentObject:self];
         
         

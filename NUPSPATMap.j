@@ -29,6 +29,14 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+
+NUPSPATMapEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUPSPATMapEntityScope_GLOBAL = @"GLOBAL";
+NUPSPATMapFamily_DUALSTACK = @"DUALSTACK";
+NUPSPATMapFamily_IPV4 = @"IPV4";
+NUPSPATMapFamily_IPV6 = @"IPV6";
 
 
 /*!
@@ -41,14 +49,32 @@
     */
     CPString _name @accessors(property=name);
     /*!
+        The IP type of this SPAT sources Pool, possible values are IPV4, IPV6 or DUALSTACK.
+    */
+    CPString _family @accessors(property=family);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Reserved provider SPAT IPs to be used to SPAT a collection of provider private IPs in customer domain.
     */
     CPArrayController _reservedSPATIPs @accessors(property=reservedSPATIPs);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         The ID of the associated SPAT sources defined in the provider domain.
     */
     CPString _associatedSPATSourcesPoolID @accessors(property=associatedSPATSourcesPoolID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -70,9 +96,15 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"family"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"reservedSPATIPs"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedSPATSourcesPoolID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,8 +29,16 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUPSPATMapsFetcher.j"
 @import "Fetchers/NUPTranslationMapsFetcher.j"
+
+NUPSNATPoolEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUPSNATPoolEntityScope_GLOBAL = @"GLOBAL";
+NUPSNATPoolIPType_DUALSTACK = @"DUALSTACK";
+NUPSNATPoolIPType_IPV4 = @"IPV4";
+NUPSNATPoolIPType_IPV6 = @"IPV6";
 
 
 /*!
@@ -39,18 +47,40 @@
 @implementation NUPSNATPool : NURESTObject
 {
     /*!
+        The IP Type of this provider alias IP, possible values are IPV4, IPV6 or DUALSTACK.
+    */
+    CPString _IPType @accessors(property=IPType);
+    /*!
         The Provider to Customer NAT Pool
     */
     CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        A description of the PATNATPool instance
+    */
+    CPString _description @accessors(property=description);
     /*!
         The last IP address in the range.
     */
     CPString _endAddress @accessors(property=endAddress);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         The first IP address in the range.
     */
     CPString _startAddress @accessors(property=startAddress);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUPSPATMapsFetcher _childrenPSPATMaps @accessors(property=childrenPSPATMaps);
     NUPTranslationMapsFetcher _childrenPTranslationMaps @accessors(property=childrenPTranslationMaps);
     
@@ -73,10 +103,17 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"endAddress"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"startAddress"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenPSPATMaps = [NUPSPATMapsFetcher fetcherWithParentObject:self];
         _childrenPTranslationMaps = [NUPTranslationMapsFetcher fetcherWithParentObject:self];
         

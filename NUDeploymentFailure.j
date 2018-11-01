@@ -29,7 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUDeploymentFailureEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUDeploymentFailureEntityScope_GLOBAL = @"GLOBAL";
 NUDeploymentFailureEventType_CREATE = @"CREATE";
 NUDeploymentFailureEventType_DELETE = @"DELETE";
 NUDeploymentFailureEventType_UPDATE = @"UPDATE";
@@ -49,6 +53,10 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
     */
     CPString _lastKnownError @accessors(property=lastKnownError);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         UUID of the entity on which deployment failed.
     */
     CPString _affectedEntityID @accessors(property=affectedEntityID);
@@ -57,9 +65,21 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
     */
     CPString _affectedEntityType @accessors(property=affectedEntityType);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         A numerical code mapping to the deployment error condition.
     */
     CPNumber _errorCondition @accessors(property=errorCondition);
+    /*!
+        ID of the parent entity
+    */
+    CPString _assocEntityId @accessors(property=assocEntityId);
+    /*!
+        Type of parent entity.
+    */
+    CPString _assocEntityType @accessors(property=assocEntityType);
     /*!
         A count of failed deployment attempts.
     */
@@ -68,7 +88,13 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
         Event type corresponding to the deployment failure
     */
     CPString _eventType @accessors(property=eventType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -91,12 +117,19 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
     {
         [self exposeLocalKeyPathToREST:@"lastFailureReason"];
         [self exposeLocalKeyPathToREST:@"lastKnownError"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"affectedEntityID"];
         [self exposeLocalKeyPathToREST:@"affectedEntityType"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"errorCondition"];
+        [self exposeLocalKeyPathToREST:@"assocEntityId"];
+        [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"numberOfOccurences"];
         [self exposeLocalKeyPathToREST:@"eventType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

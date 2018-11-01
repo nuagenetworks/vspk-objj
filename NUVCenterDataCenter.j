@@ -66,6 +66,10 @@ NUVCenterDataCenterRemoteSyslogServerType_UDP = @"UDP";
 @implementation NUVCenterDataCenter : NURESTObject
 {
     /*!
+        Whether ARP Reply is enabled/disabled
+    */
+    BOOL _ARPReply @accessors(property=ARPReply);
+    /*!
         The maximum wait time limit in minutes to get VRS configured at cluster level
     */
     CPNumber _VRSConfigurationTimeLimit @accessors(property=VRSConfigurationTimeLimit);
@@ -506,6 +510,7 @@ NUVCenterDataCenterRemoteSyslogServerType_UDP = @"UDP";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"ARPReply"];
         [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
         [self exposeLocalKeyPathToREST:@"name"];

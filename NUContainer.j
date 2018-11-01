@@ -166,6 +166,10 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPArrayController _domainIDs @accessors(property=domainIDs);
     /*!
+        Compute Provisioned
+    */
+    BOOL _computeProvisioned @accessors(property=computeProvisioned);
+    /*!
         Array of IDs of the zone that this container is attached to
     */
     CPArrayController _zoneIDs @accessors(property=zoneIDs);
@@ -242,6 +246,7 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainIDs"];
+        [self exposeLocalKeyPathToREST:@"computeProvisioned"];
         [self exposeLocalKeyPathToREST:@"zoneIDs"];
         [self exposeLocalKeyPathToREST:@"orchestrationID"];
         [self exposeLocalKeyPathToREST:@"userID"];

@@ -29,6 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+
+NUNetconfProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUNetconfProfileEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -45,9 +50,17 @@
     */
     CPString _password @accessors(property=password);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         A detailed description of the Netconf Profile entity.
     */
     CPString _description @accessors(property=description);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Netconf session port
     */
@@ -56,7 +69,17 @@
         The user name used to establish Netconf sessions with the gateway instances using this Netconf Profile.
     */
     CPString _userName @accessors(property=userName);
+    /*!
+        Type of the entity to which the Profile belongs to.
+    */
+    CPString _assocEntityType @accessors(property=assocEntityType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -79,10 +102,16 @@
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"password"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"port"];
         [self exposeLocalKeyPathToREST:@"userName"];
+        [self exposeLocalKeyPathToREST:@"assocEntityType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

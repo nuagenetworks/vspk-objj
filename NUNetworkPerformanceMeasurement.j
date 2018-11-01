@@ -29,9 +29,13 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetworkPerformanceBindingsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUMonitorscopesFetcher.j"
 
+NUNetworkPerformanceMeasurementEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUNetworkPerformanceMeasurementEntityScope_GLOBAL = @"GLOBAL";
 NUNetworkPerformanceMeasurementNPMType_IPSEC = @"IPSEC";
 NUNetworkPerformanceMeasurementNPMType_NONE = @"NONE";
 NUNetworkPerformanceMeasurementNPMType_VXLAN = @"VXLAN";
@@ -51,6 +55,10 @@ NUNetworkPerformanceMeasurementNPMType_VXLAN = @"VXLAN";
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         Determines whether this entity is read only.  Read only objects cannot be modified or deleted.
     */
     BOOL _readOnly @accessors(property=readOnly);
@@ -59,11 +67,21 @@ NUNetworkPerformanceMeasurementNPMType_VXLAN = @"VXLAN";
     */
     CPString _description @accessors(property=description);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         associated Performance Monitor ID 
     */
     CPString _associatedPerformanceMonitorID @accessors(property=associatedPerformanceMonitorID);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetworkPerformanceBindingsFetcher _childrenNetworkPerformanceBindings @accessors(property=childrenNetworkPerformanceBindings);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUMonitorscopesFetcher _childrenMonitorscopes @accessors(property=childrenMonitorscopes);
     
 }
@@ -87,11 +105,16 @@ NUNetworkPerformanceMeasurementNPMType_VXLAN = @"VXLAN";
     {
         [self exposeLocalKeyPathToREST:@"NPMType"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedPerformanceMonitorID"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetworkPerformanceBindings = [NUNetworkPerformanceBindingsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenMonitorscopes = [NUMonitorscopesFetcher fetcherWithParentObject:self];
         
         

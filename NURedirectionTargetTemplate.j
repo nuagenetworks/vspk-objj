@@ -33,6 +33,8 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NURedirectionTargetTemplateDestinationType_OVERLAY_MIRROR_DESTINATION = @"OVERLAY_MIRROR_DESTINATION";
+NURedirectionTargetTemplateDestinationType_REDIRECTION_TARGET = @"REDIRECTION_TARGET";
 NURedirectionTargetTemplateEndPointType_L3 = @"L3";
 NURedirectionTargetTemplateEndPointType_NONE = @"NONE";
 NURedirectionTargetTemplateEndPointType_NSG_VNF = @"NSG_VNF";
@@ -64,6 +66,10 @@ NURedirectionTargetTemplateTriggerType_NONE = @"NONE";
         Description of this redirection target template
     */
     CPString _description @accessors(property=description);
+    /*!
+        Determines the type of destination : redirection target or overlay mirror destination
+    */
+    CPString _destinationType @accessors(property=destinationType);
     /*!
         VPortTagEndPointType is an enum. It defines the type of header rewrite and forwarding performed by VRS when the endpoint is used as a PBR destination. Possible values are NONE, L3, VIRTUAL_WIRE and NSG_VNF.
     */
@@ -108,6 +114,7 @@ NURedirectionTargetTemplateTriggerType_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"redundancyEnabled"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"destinationType"];
         [self exposeLocalKeyPathToREST:@"endPointType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"triggerType"];

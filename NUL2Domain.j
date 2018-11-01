@@ -29,9 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUGatewaysFetcher.j"
 @import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NUAddressRangesFetcher.j"
 @import "Fetchers/NURedirectionTargetsFetcher.j"
+@import "Fetchers/NURedundancyGroupsFetcher.j"
+@import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetworkPerformanceBindingsFetcher.j"
@@ -41,13 +44,14 @@
 @import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUVirtualFirewallPoliciesFetcher.j"
+@import "Fetchers/NUVirtualFirewallRulesFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdTemplatesFetcher.j"
-@import "Fetchers/NUIngressExternalServiceTemplatesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
@@ -57,10 +61,13 @@
 @import "Fetchers/NUUplinkRDsFetcher.j"
 @import "Fetchers/NUVPNConnectionsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUApplicationsFetcher.j"
 @import "Fetchers/NUApplicationperformancemanagementbindingsFetcher.j"
 @import "Fetchers/NUBridgeInterfacesFetcher.j"
 @import "Fetchers/NUGroupsFetcher.j"
+@import "Fetchers/NUProxyARPFiltersFetcher.j"
 @import "Fetchers/NUNSGatewaySummariesFetcher.j"
+@import "Fetchers/NUStaticRoutesFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUStatisticsPoliciesFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
@@ -93,7 +100,7 @@ NUL2DomainUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECONDARY";
 NUL2DomainUplinkPreference_SECONDARY = @"SECONDARY";
 NUL2DomainUplinkPreference_SECONDARY_PRIMARY = @"SECONDARY_PRIMARY";
 NUL2DomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
-NUL2DomainUseGlobalMAC_DISABLED  = @"DISABLED ";
+NUL2DomainUseGlobalMAC_DISABLED = @"DISABLED";
 NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
 
 
@@ -235,9 +242,12 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     BOOL _dynamicIpv6Address @accessors(property=dynamicIpv6Address);
     
+    NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
+    NURedundancyGroupsFetcher _childrenRedundancyGroups @accessors(property=childrenRedundancyGroups);
+    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetworkPerformanceBindingsFetcher _childrenNetworkPerformanceBindings @accessors(property=childrenNetworkPerformanceBindings);
@@ -247,13 +257,14 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUVirtualFirewallPoliciesFetcher _childrenVirtualFirewallPolicies @accessors(property=childrenVirtualFirewallPolicies);
+    NUVirtualFirewallRulesFetcher _childrenVirtualFirewallRules @accessors(property=childrenVirtualFirewallRules);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdTemplatesFetcher _childrenIngressAdvFwdTemplates @accessors(property=childrenIngressAdvFwdTemplates);
-    NUIngressExternalServiceTemplatesFetcher _childrenIngressExternalServiceTemplates @accessors(property=childrenIngressExternalServiceTemplates);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
@@ -263,10 +274,13 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     NUUplinkRDsFetcher _childrenUplinkRDs @accessors(property=childrenUplinkRDs);
     NUVPNConnectionsFetcher _childrenVPNConnections @accessors(property=childrenVPNConnections);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUApplicationsFetcher _childrenApplications @accessors(property=childrenApplications);
     NUApplicationperformancemanagementbindingsFetcher _childrenApplicationperformancemanagementbindings @accessors(property=childrenApplicationperformancemanagementbindings);
     NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
     NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
+    NUProxyARPFiltersFetcher _childrenProxyARPFilters @accessors(property=childrenProxyARPFilters);
     NUNSGatewaySummariesFetcher _childrenNSGatewaySummaries @accessors(property=childrenNSGatewaySummaries);
+    NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUStatisticsPoliciesFetcher _childrenStatisticsPolicies @accessors(property=childrenStatisticsPolicies);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
@@ -325,9 +339,12 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
+        _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
+        _childrenRedundancyGroups = [NURedundancyGroupsFetcher fetcherWithParentObject:self];
+        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetworkPerformanceBindings = [NUNetworkPerformanceBindingsFetcher fetcherWithParentObject:self];
@@ -337,13 +354,14 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenVirtualFirewallPolicies = [NUVirtualFirewallPoliciesFetcher fetcherWithParentObject:self];
+        _childrenVirtualFirewallRules = [NUVirtualFirewallRulesFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdTemplates = [NUIngressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
-        _childrenIngressExternalServiceTemplates = [NUIngressExternalServiceTemplatesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
@@ -353,10 +371,13 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenUplinkRDs = [NUUplinkRDsFetcher fetcherWithParentObject:self];
         _childrenVPNConnections = [NUVPNConnectionsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenApplications = [NUApplicationsFetcher fetcherWithParentObject:self];
         _childrenApplicationperformancemanagementbindings = [NUApplicationperformancemanagementbindingsFetcher fetcherWithParentObject:self];
         _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
         _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
+        _childrenProxyARPFilters = [NUProxyARPFiltersFetcher fetcherWithParentObject:self];
         _childrenNSGatewaySummaries = [NUNSGatewaySummariesFetcher fetcherWithParentObject:self];
+        _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenStatisticsPolicies = [NUStatisticsPoliciesFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];

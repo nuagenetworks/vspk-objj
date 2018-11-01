@@ -29,7 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUVNFInterfaceDescriptorEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUVNFInterfaceDescriptorEntityScope_GLOBAL = @"GLOBAL";
 NUVNFInterfaceDescriptorType_LAN = @"LAN";
 NUVNFInterfaceDescriptorType_MANAGEMENT = @"MANAGEMENT";
 NUVNFInterfaceDescriptorType_WAN = @"WAN";
@@ -45,10 +49,20 @@ NUVNFInterfaceDescriptorType_WAN = @"WAN";
     */
     CPString _name @accessors(property=name);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
         Type of VNF interface
     */
     CPString _type @accessors(property=type);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -70,8 +84,12 @@ NUVNFInterfaceDescriptorType_WAN = @"WAN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

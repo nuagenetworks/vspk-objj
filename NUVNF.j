@@ -29,8 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVNFInterfacesFetcher.j"
 @import "Fetchers/NUVNFMetadatasFetcher.j"
+@import "Fetchers/NUVNFThresholdPoliciesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 
 NUVNFAllowedActions_DEPLOY = @"DEPLOY";
@@ -39,6 +42,14 @@ NUVNFAllowedActions_RESTART = @"RESTART";
 NUVNFAllowedActions_START = @"START";
 NUVNFAllowedActions_STOP = @"STOP";
 NUVNFAllowedActions_UNDEPLOY = @"UNDEPLOY";
+NUVNFEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUVNFEntityScope_GLOBAL = @"GLOBAL";
+NUVNFLastUserAction_DEPLOY = @"DEPLOY";
+NUVNFLastUserAction_REDEPLOY = @"REDEPLOY";
+NUVNFLastUserAction_RESTART = @"RESTART";
+NUVNFLastUserAction_START = @"START";
+NUVNFLastUserAction_STOP = @"STOP";
+NUVNFLastUserAction_UNDEPLOY = @"UNDEPLOY";
 NUVNFStatus_BLOCKED = @"BLOCKED";
 NUVNFStatus_CRASHED = @"CRASHED";
 NUVNFStatus_DYING = @"DYING";
@@ -101,6 +112,14 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
     */
     CPString _lastKnownError @accessors(property=lastKnownError);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Last action perform by user
+    */
+    CPString _lastUserAction @accessors(property=lastUserAction);
+    /*!
         Memory (in MB) to be allocated for this VNF instance.
     */
     CPNumber _memoryMB @accessors(property=memoryMB);
@@ -113,10 +132,6 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
     */
     CPString _description @accessors(property=description);
     /*!
-        Id of referenced metadata object
-    */
-    CPString _metadataID @accessors(property=metadataID);
-    /*!
         Action allowed to  performed on VNF based on current status and taskState
     */
     CPArrayController _allowedActions @accessors(property=allowedActions);
@@ -124,6 +139,10 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
         ID of the enterprise that this VNF belongs to
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         This specifies if VNF instance is using VNF descriptor or it is decoupled from it
     */
@@ -145,12 +164,19 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
     */
     CPNumber _storageGB @accessors(property=storageGB);
     /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
+    /*!
         Type of virtual network function
     */
     CPString _type @accessors(property=type);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVNFInterfacesFetcher _childrenVNFInterfaces @accessors(property=childrenVNFInterfaces);
     NUVNFMetadatasFetcher _childrenVNFMetadatas @accessors(property=childrenVNFMetadatas);
+    NUVNFThresholdPoliciesFetcher _childrenVNFThresholdPolicies @accessors(property=childrenVNFThresholdPolicies);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     
 }
@@ -181,21 +207,27 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"taskState"];
         [self exposeLocalKeyPathToREST:@"lastKnownError"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUserAction"];
         [self exposeLocalKeyPathToREST:@"memoryMB"];
         [self exposeLocalKeyPathToREST:@"vendor"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"metadataID"];
         [self exposeLocalKeyPathToREST:@"allowedActions"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"isAttachedToDescriptor"];
         [self exposeLocalKeyPathToREST:@"associatedVNFMetadataID"];
         [self exposeLocalKeyPathToREST:@"associatedVNFThresholdPolicyID"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"storageGB"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVNFInterfaces = [NUVNFInterfacesFetcher fetcherWithParentObject:self];
         _childrenVNFMetadatas = [NUVNFMetadatasFetcher fetcherWithParentObject:self];
+        _childrenVNFThresholdPolicies = [NUVNFThresholdPoliciesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         
         

@@ -33,6 +33,8 @@
 @import "NUAggregateMetadata.j"
 @import "NUAlarm.j"
 @import "NUAllAlarm.j"
+@import "NUAllGateway.j"
+@import "NUAllRedundancyGroup.j"
 @import "NUApplication.j"
 @import "NUApplicationBinding.j"
 @import "NUApplicationperformancemanagement.j"
@@ -95,8 +97,6 @@
 @import "NUEventLog.j"
 @import "NUFirewallAcl.j"
 @import "NUFirewallRule.j"
-@import "NUFloatingIPACLTemplate.j"
-@import "NUFloatingIPACLTemplateEntry.j"
 @import "NUFloatingIp.j"
 @import "NUForwardingPathList.j"
 @import "NUForwardingPathListEntry.j"
@@ -105,6 +105,7 @@
 @import "NUGatewaySecuredData.j"
 @import "NUGatewaySecurity.j"
 @import "NUGatewayTemplate.j"
+@import "NUGatewaysLocation.j"
 @import "NUGlobalMetadata.j"
 @import "NUGroup.j"
 @import "NUGroupKeyEncryptionProfile.j"
@@ -130,8 +131,6 @@
 @import "NUIngressACLTemplate.j"
 @import "NUIngressAdvFwdEntryTemplate.j"
 @import "NUIngressAdvFwdTemplate.j"
-@import "NUIngressExternalServiceTemplate.j"
-@import "NUIngressExternalServiceTemplateEntry.j"
 @import "NUIngressProfile.j"
 @import "NUIngressQOSPolicy.j"
 @import "NUJob.j"
@@ -171,6 +170,7 @@
 @import "NUNSGateway.j"
 @import "NUNSGatewaySummary.j"
 @import "NUNSGatewayTemplate.j"
+@import "NUNSGatewaysCount.j"
 @import "NUNSPort.j"
 @import "NUNSPortTemplate.j"
 @import "NUNSRedundantGatewayGroup.j"
@@ -197,6 +197,7 @@
 @import "NUPSNATPool.j"
 @import "NUPSPATMap.j"
 @import "NUPTranslationMap.j"
+@import "NUPatch.j"
 @import "NUPerformanceMonitor.j"
 @import "NUPermission.j"
 @import "NUPolicyDecision.j"
@@ -291,6 +292,8 @@
 [[NURESTModelController defaultController] registerModelClass:NUAggregateMetadata];
 [[NURESTModelController defaultController] registerModelClass:NUAlarm];
 [[NURESTModelController defaultController] registerModelClass:NUAllAlarm];
+[[NURESTModelController defaultController] registerModelClass:NUAllGateway];
+[[NURESTModelController defaultController] registerModelClass:NUAllRedundancyGroup];
 [[NURESTModelController defaultController] registerModelClass:NUApplication];
 [[NURESTModelController defaultController] registerModelClass:NUApplicationBinding];
 [[NURESTModelController defaultController] registerModelClass:NUApplicationperformancemanagement];
@@ -353,8 +356,6 @@
 [[NURESTModelController defaultController] registerModelClass:NUEventLog];
 [[NURESTModelController defaultController] registerModelClass:NUFirewallAcl];
 [[NURESTModelController defaultController] registerModelClass:NUFirewallRule];
-[[NURESTModelController defaultController] registerModelClass:NUFloatingIPACLTemplate];
-[[NURESTModelController defaultController] registerModelClass:NUFloatingIPACLTemplateEntry];
 [[NURESTModelController defaultController] registerModelClass:NUFloatingIp];
 [[NURESTModelController defaultController] registerModelClass:NUForwardingPathList];
 [[NURESTModelController defaultController] registerModelClass:NUForwardingPathListEntry];
@@ -363,6 +364,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUGatewaySecuredData];
 [[NURESTModelController defaultController] registerModelClass:NUGatewaySecurity];
 [[NURESTModelController defaultController] registerModelClass:NUGatewayTemplate];
+[[NURESTModelController defaultController] registerModelClass:NUGatewaysLocation];
 [[NURESTModelController defaultController] registerModelClass:NUGlobalMetadata];
 [[NURESTModelController defaultController] registerModelClass:NUGroup];
 [[NURESTModelController defaultController] registerModelClass:NUGroupKeyEncryptionProfile];
@@ -388,8 +390,6 @@
 [[NURESTModelController defaultController] registerModelClass:NUIngressACLTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUIngressAdvFwdEntryTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUIngressAdvFwdTemplate];
-[[NURESTModelController defaultController] registerModelClass:NUIngressExternalServiceTemplate];
-[[NURESTModelController defaultController] registerModelClass:NUIngressExternalServiceTemplateEntry];
 [[NURESTModelController defaultController] registerModelClass:NUIngressProfile];
 [[NURESTModelController defaultController] registerModelClass:NUIngressQOSPolicy];
 [[NURESTModelController defaultController] registerModelClass:NUJob];
@@ -429,6 +429,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUNSGateway];
 [[NURESTModelController defaultController] registerModelClass:NUNSGatewaySummary];
 [[NURESTModelController defaultController] registerModelClass:NUNSGatewayTemplate];
+[[NURESTModelController defaultController] registerModelClass:NUNSGatewaysCount];
 [[NURESTModelController defaultController] registerModelClass:NUNSPort];
 [[NURESTModelController defaultController] registerModelClass:NUNSPortTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUNSRedundantGatewayGroup];
@@ -455,6 +456,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUPSNATPool];
 [[NURESTModelController defaultController] registerModelClass:NUPSPATMap];
 [[NURESTModelController defaultController] registerModelClass:NUPTranslationMap];
+[[NURESTModelController defaultController] registerModelClass:NUPatch];
 [[NURESTModelController defaultController] registerModelClass:NUPerformanceMonitor];
 [[NURESTModelController defaultController] registerModelClass:NUPermission];
 [[NURESTModelController defaultController] registerModelClass:NUPolicyDecision];

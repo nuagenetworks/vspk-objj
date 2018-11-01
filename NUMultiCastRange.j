@@ -35,13 +35,20 @@
 
 NUMultiCastRangeEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUMultiCastRangeEntityScope_GLOBAL = @"GLOBAL";
+NUMultiCastRangeIPType_DUALSTACK = @"DUALSTACK";
+NUMultiCastRangeIPType_IPV4 = @"IPV4";
+NUMultiCastRangeIPType_IPV6 = @"IPV6";
 
 
 /*!
-    A multicast channel map requires at least one range defined to be of use. Ranges within the same channel map must be non-overlapping between each other. Groups not covered by a range won't be joinable from the VMs.
+    A multicast channel range defines a set of multicast groups that will be allowed to be joined. They act as a set of "white-list" addresses that a VM will be allowed to join. A multicast channel map requires at least one range defined to be of use. Ranges within the same channel map must be non-overlapping between each other. Groups not covered by a range won't be joinable from the VMs.
 */
 @implementation NUMultiCastRange : NURESTObject
 {
+    /*!
+        The ip type.
+    */
+    CPString _IPType @accessors(property=IPType);
     /*!
         ID of the user who last updated the object.
     */
@@ -86,6 +93,7 @@ NUMultiCastRangeEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"maxAddress"];
         [self exposeLocalKeyPathToREST:@"minAddress"];

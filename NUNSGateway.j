@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPatchsFetcher.j"
 @import "Fetchers/NUGatewaySecuritiesFetcher.j"
 @import "Fetchers/NUPATNATPoolsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
@@ -36,12 +37,12 @@
 @import "Fetchers/NUWirelessPortsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUVNFsFetcher.j"
 @import "Fetchers/NUInfrastructureConfigsFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NULocationsFetcher.j"
 @import "Fetchers/NUCommandsFetcher.j"
-@import "Fetchers/NUMonitorscopesFetcher.j"
 @import "Fetchers/NUBootstrapsFetcher.j"
 @import "Fetchers/NUBootstrapActivationsFetcher.j"
 @import "Fetchers/NUUplinkConnectionsFetcher.j"
@@ -126,6 +127,14 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _MACAddress @accessors(property=MACAddress);
     /*!
+        Release Date of the AAR Application
+    */
+    CPString _AARApplicationReleaseDate @accessors(property=AARApplicationReleaseDate);
+    /*!
+        The AAR Application Version
+    */
+    CPString _AARApplicationVersion @accessors(property=AARApplicationVersion);
+    /*!
         This attribute is deprecated in version 4.0.
     */
     BOOL _NATTraversalEnabled @accessors(property=NATTraversalEnabled);
@@ -201,10 +210,6 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         Identifier of the Gateway, based on the systemId
     */
     CPString _datapathID @accessors(property=datapathID);
-    /*!
-        Patches that have been installed on the NSG.
-    */
-    CPString _patches @accessors(property=patches);
     /*!
         Indicates status of this gateway
     */
@@ -330,6 +335,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _systemID @accessors(property=systemID);
     
+    NUPatchsFetcher _childrenPatchs @accessors(property=childrenPatchs);
     NUGatewaySecuritiesFetcher _childrenGatewaySecurities @accessors(property=childrenGatewaySecurities);
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
@@ -337,12 +343,12 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     NUWirelessPortsFetcher _childrenWirelessPorts @accessors(property=childrenWirelessPorts);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUVNFsFetcher _childrenVNFs @accessors(property=childrenVNFs);
     NUInfrastructureConfigsFetcher _childrenInfrastructureConfigs @accessors(property=childrenInfrastructureConfigs);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NULocationsFetcher _childrenLocations @accessors(property=childrenLocations);
     NUCommandsFetcher _childrenCommands @accessors(property=childrenCommands);
-    NUMonitorscopesFetcher _childrenMonitorscopes @accessors(property=childrenMonitorscopes);
     NUBootstrapsFetcher _childrenBootstraps @accessors(property=childrenBootstraps);
     NUBootstrapActivationsFetcher _childrenBootstrapActivations @accessors(property=childrenBootstrapActivations);
     NUUplinkConnectionsFetcher _childrenUplinkConnections @accessors(property=childrenUplinkConnections);
@@ -372,6 +378,8 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"MACAddress"];
+        [self exposeLocalKeyPathToREST:@"AARApplicationReleaseDate"];
+        [self exposeLocalKeyPathToREST:@"AARApplicationVersion"];
         [self exposeLocalKeyPathToREST:@"NATTraversalEnabled"];
         [self exposeLocalKeyPathToREST:@"TCPMSSEnabled"];
         [self exposeLocalKeyPathToREST:@"TCPMaximumSegmentSize"];
@@ -391,7 +399,6 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"lastConfigurationReloadTimestamp"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
-        [self exposeLocalKeyPathToREST:@"patches"];
         [self exposeLocalKeyPathToREST:@"gatewayConnected"];
         [self exposeLocalKeyPathToREST:@"redundancyGroupID"];
         [self exposeLocalKeyPathToREST:@"templateID"];
@@ -424,6 +431,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         
+        _childrenPatchs = [NUPatchsFetcher fetcherWithParentObject:self];
         _childrenGatewaySecurities = [NUGatewaySecuritiesFetcher fetcherWithParentObject:self];
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
@@ -431,12 +439,12 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         _childrenWirelessPorts = [NUWirelessPortsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenVNFs = [NUVNFsFetcher fetcherWithParentObject:self];
         _childrenInfrastructureConfigs = [NUInfrastructureConfigsFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenLocations = [NULocationsFetcher fetcherWithParentObject:self];
         _childrenCommands = [NUCommandsFetcher fetcherWithParentObject:self];
-        _childrenMonitorscopes = [NUMonitorscopesFetcher fetcherWithParentObject:self];
         _childrenBootstraps = [NUBootstrapsFetcher fetcherWithParentObject:self];
         _childrenBootstrapActivations = [NUBootstrapActivationsFetcher fetcherWithParentObject:self];
         _childrenUplinkConnections = [NUUplinkConnectionsFetcher fetcherWithParentObject:self];

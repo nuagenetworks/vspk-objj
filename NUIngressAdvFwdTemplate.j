@@ -61,6 +61,14 @@ NUIngressAdvFwdTemplatePriorityType_TOP = @"TOP";
     */
     BOOL _active @accessors(property=active);
     /*!
+        If enabled a default ACL of Allow All is added as the last entry in the list of ACL entries
+    */
+    BOOL _defaultAllowIP @accessors(property=defaultAllowIP);
+    /*!
+        If enabled, non ip traffic will be dropped
+    */
+    BOOL _defaultAllowNonIP @accessors(property=defaultAllowNonIP);
+    /*!
         A description of the entity
     */
     CPString _description @accessors(property=description);
@@ -120,6 +128,8 @@ NUIngressAdvFwdTemplatePriorityType_TOP = @"TOP";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"active"];
+        [self exposeLocalKeyPathToREST:@"defaultAllowIP"];
+        [self exposeLocalKeyPathToREST:@"defaultAllowNonIP"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyState"];

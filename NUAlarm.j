@@ -79,6 +79,10 @@ NUAlarmSeverity_WARNING = @"WARNING";
     */
     CPNumber _timestamp @accessors(property=timestamp);
     /*!
+        Alarmed Object ID
+    */
+    CPString _alarmedObjectID @accessors(property=alarmedObjectID);
+    /*!
         Enterprise that this alarm belongs to
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
@@ -129,6 +133,7 @@ NUAlarmSeverity_WARNING = @"WARNING";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"severity"];
         [self exposeLocalKeyPathToREST:@"timestamp"];
+        [self exposeLocalKeyPathToREST:@"alarmedObjectID"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"errorCondition"];

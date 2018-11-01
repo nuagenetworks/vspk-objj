@@ -32,6 +32,8 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUOverlayMirrorDestinationTemplateDestinationType_OVERLAY_MIRROR_DESTINATION = @"OVERLAY_MIRROR_DESTINATION";
+NUOverlayMirrorDestinationTemplateDestinationType_REDIRECTION_TARGET = @"REDIRECTION_TARGET";
 NUOverlayMirrorDestinationTemplateEndPointType_NONE = @"NONE";
 NUOverlayMirrorDestinationTemplateEndPointType_VIRTUAL_WIRE = @"VIRTUAL_WIRE";
 NUOverlayMirrorDestinationTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -61,6 +63,10 @@ NUOverlayMirrorDestinationTemplateTriggerType_NONE = @"NONE";
         Description of this overlay mirror destination template
     */
     CPString _description @accessors(property=description);
+    /*!
+        Determines the type of destination : redirection target or overlay mirror destination
+    */
+    CPString _destinationType @accessors(property=destinationType);
     /*!
         VPortTagEndPointType is an enum. It defines the type of header rewrite and forwarding performed by VRS when the endpoint is used as a overlay mirror destination. Possible value is VIRTUAL_WIRE.
     */
@@ -104,6 +110,7 @@ NUOverlayMirrorDestinationTemplateTriggerType_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"redundancyEnabled"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"destinationType"];
         [self exposeLocalKeyPathToREST:@"endPointType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"triggerType"];

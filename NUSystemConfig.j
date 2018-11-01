@@ -34,7 +34,6 @@
 
 NUSystemConfigCsprootAuthenticationMethod_LDAP = @"LDAP";
 NUSystemConfigCsprootAuthenticationMethod_LOCAL = @"LOCAL";
-NUSystemConfigDomainTunnelType_DC_DEFAULT = @"DC_DEFAULT";
 NUSystemConfigDomainTunnelType_GRE = @"GRE";
 NUSystemConfigDomainTunnelType_VLAN = @"VLAN";
 NUSystemConfigDomainTunnelType_VXLAN = @"VXLAN";
@@ -72,7 +71,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
 
 
 /*!
-    The system configuration which can be dynamically managed using rest api.
+    The System Configuration which can be dynamically managed using REST Api.
 */
 @implementation NUSystemConfig : NURESTObject
 {
@@ -149,11 +148,11 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _DHCPOptionSize @accessors(property=DHCPOptionSize);
     /*!
-        None
+        Offset for the Per domain vlan id for gateways of type HWVTEP
     */
     CPNumber _VLANIDLowerLimit @accessors(property=VLANIDLowerLimit);
     /*!
-        None
+        Upper limit for the Per domain vlan id for gateways of type HWVTEP
     */
     CPNumber _VLANIDUpperLimit @accessors(property=VLANIDUpperLimit);
     /*!
@@ -301,13 +300,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _vcinLoadBalancerIP @accessors(property=vcinLoadBalancerIP);
     /*!
-        None
+        Determines whether per domain vlan id generation is required
     */
     BOOL _perDomainVlanIdEnabled @accessors(property=perDomainVlanIdEnabled);
-    /*!
-        performance Path Selection Virtual Network ID
-    */
-    CPNumber _performancePathSelectionVNID @accessors(property=performancePathSelectionVNID);
     /*!
         Service id upper limit system wide value
     */
@@ -389,7 +384,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Default Domain Tunnel Type .Possible values are VXLAN,GRE Possible values are DC_DEFAULT, GRE, VXLAN, .
+        Default Domain Tunnel Type.
     */
     CPString _domainTunnelType @accessors(property=domainTunnelType);
     /*!
@@ -645,7 +640,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _systemAvatarData @accessors(property=systemAvatarData);
     /*!
-        None
+        Avatar type - URL or BASE64
     */
     CPString _systemAvatarType @accessors(property=systemAvatarType);
     
@@ -728,7 +723,6 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
         [self exposeLocalKeyPathToREST:@"vcinLoadBalancerIP"];
         [self exposeLocalKeyPathToREST:@"perDomainVlanIdEnabled"];
-        [self exposeLocalKeyPathToREST:@"performancePathSelectionVNID"];
         [self exposeLocalKeyPathToREST:@"serviceIDUpperLimit"];
         [self exposeLocalKeyPathToREST:@"keyServerMonitorEnabled"];
         [self exposeLocalKeyPathToREST:@"keyServerVSDDataSynchronizationInterval"];

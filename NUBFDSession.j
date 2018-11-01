@@ -50,7 +50,7 @@ NUBFDSessionEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _BFDMultiplier @accessors(property=BFDMultiplier);
     /*!
-        Timer for Bidirectional Forwarding Detection. (min = 200, max = 100,000) Unit is milliseconds.
+        Timer for Bidirectional Forwarding Detection in milliseconds.
     */
     CPNumber _BFDTimer @accessors(property=BFDTimer);
     /*!

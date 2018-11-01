@@ -31,11 +31,14 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUPolicyGroupCategoriesFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUPolicyGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPolicyGroupEntityScope_GLOBAL = @"GLOBAL";
+NUPolicyGroupEntityState_MARKED_FOR_DELETION = @"MARKED_FOR_DELETION";
+NUPolicyGroupEntityState_UNDER_CONSTRUCTION = @"UNDER_CONSTRUCTION";
 NUPolicyGroupType_HARDWARE = @"HARDWARE";
 NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
 
@@ -70,6 +73,10 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Intermediate State of L2 Domain.
+    */
+    CPString _entityState @accessors(property=entityState);
+    /*!
         PG ID for the subnet. This is unique per domain and will be in the range 1-4095
     */
     CPNumber _policyGroupID @accessors(property=policyGroupID);
@@ -96,6 +103,7 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUPolicyGroupCategoriesFetcher _childrenPolicyGroupCategories @accessors(property=childrenPolicyGroupCategories);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
@@ -124,6 +132,7 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyGroupID"];
         [self exposeLocalKeyPathToREST:@"assocPolicyGroupCategoryID"];
         [self exposeLocalKeyPathToREST:@"assocPolicyGroupCategoryName"];
@@ -133,6 +142,7 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenPolicyGroupCategories = [NUPolicyGroupCategoriesFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         

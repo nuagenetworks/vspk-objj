@@ -126,10 +126,6 @@ NUHostInterfaceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _zoneName @accessors(property=zoneName);
     /*!
-        Floating Ip Address of this network interface eg: 10.1.2.1
-    */
-    CPString _associatedFloatingIPAddress @accessors(property=associatedFloatingIPAddress);
-    /*!
         ID of the l2 domain or Subnet that the VM is attached to
     */
     CPString _attachedNetworkID @accessors(property=attachedNetworkID);
@@ -192,7 +188,6 @@ NUHostInterfaceEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"zoneID"];
         [self exposeLocalKeyPathToREST:@"zoneName"];
-        [self exposeLocalKeyPathToREST:@"associatedFloatingIPAddress"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkID"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
         [self exposeLocalKeyPathToREST:@"externalID"];

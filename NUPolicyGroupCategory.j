@@ -53,7 +53,7 @@ NUPolicyGroupCategoryEntityScope_GLOBAL = @"GLOBAL";
     /*!
         Boolean which identifies if this is a default policy group category.
     */
-    BOOL _defaultTag @accessors(property=defaultTag);
+    BOOL _defaultCategory @accessors(property=defaultCategory);
     /*!
         Describes the Policy Group Category.
     */
@@ -92,7 +92,7 @@ NUPolicyGroupCategoryEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"defaultTag"];
+        [self exposeLocalKeyPathToREST:@"defaultCategory"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];

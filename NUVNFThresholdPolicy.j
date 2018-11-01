@@ -29,9 +29,13 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUVNFThresholdPolicyAction_NONE = @"NONE";
 NUVNFThresholdPolicyAction_SHUTOFF = @"SHUTOFF";
+NUVNFThresholdPolicyEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUVNFThresholdPolicyEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -47,6 +51,10 @@ NUVNFThresholdPolicyAction_SHUTOFF = @"SHUTOFF";
         Name of VNF agent policy
     */
     CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Action to be taken on threshold crossover
     */
@@ -64,14 +72,28 @@ NUVNFThresholdPolicyAction_SHUTOFF = @"SHUTOFF";
     */
     CPNumber _minOccurrence @accessors(property=minOccurrence);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Monitoring interval (minutes) for threshold crossover occurrences to be considered
     */
     CPNumber _monitInterval @accessors(property=monitInterval);
     /*!
+        Type of the entity to which the Metadata is associated to.
+    */
+    CPString _assocEntityType @accessors(property=assocEntityType);
+    /*!
         Threshold for storage usage
     */
     CPNumber _storageThreshold @accessors(property=storageThreshold);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -94,13 +116,19 @@ NUVNFThresholdPolicyAction_SHUTOFF = @"SHUTOFF";
     {
         [self exposeLocalKeyPathToREST:@"CPUThreshold"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"memoryThreshold"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"minOccurrence"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"monitInterval"];
+        [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"storageThreshold"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -81,6 +81,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _vCenterUser @accessors(property=vCenterUser);
     /*!
+        Whether ARP Reply is enabled/disabled
+    */
+    BOOL _ARPReply @accessors(property=ARPReply);
+    /*!
         VRS agent MOID to uniquely identify VRS VM on the Vcenter
     */
     CPString _VRSAgentMOID @accessors(property=VRSAgentMOID);
@@ -157,7 +161,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPNumber _datapathSyncTimeout @accessors(property=datapathSyncTimeout);
     /*!
-        Cluster in scope or not in scope.
+        Specifies if the hypervisor is part of an in scope or out of scope cliuster
     */
     BOOL _scope @accessors(property=scope);
     /*!
@@ -296,6 +300,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         Location to mount the NFS server
     */
     CPString _nfsMountPath @accessors(property=nfsMountPath);
+    /*!
+        cluster in scope or not in scope
+    */
+    CPString _agencyMoid @accessors(property=agencyMoid);
     /*!
         DNS server 1
     */
@@ -642,6 +650,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"vCenterIP"];
         [self exposeLocalKeyPathToREST:@"vCenterPassword"];
         [self exposeLocalKeyPathToREST:@"vCenterUser"];
+        [self exposeLocalKeyPathToREST:@"ARPReply"];
         [self exposeLocalKeyPathToREST:@"VRSAgentMOID"];
         [self exposeLocalKeyPathToREST:@"VRSAgentName"];
         [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
@@ -696,6 +705,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"revertiveTimer"];
         [self exposeLocalKeyPathToREST:@"nfsLogServer"];
         [self exposeLocalKeyPathToREST:@"nfsMountPath"];
+        [self exposeLocalKeyPathToREST:@"agencyMoid"];
         [self exposeLocalKeyPathToREST:@"mgmtDNS1"];
         [self exposeLocalKeyPathToREST:@"mgmtDNS2"];
         [self exposeLocalKeyPathToREST:@"mgmtGateway"];

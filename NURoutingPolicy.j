@@ -36,6 +36,11 @@ NURoutingPolicyDefaultAction_ACCEPT = @"ACCEPT";
 NURoutingPolicyDefaultAction_REJECT = @"REJECT";
 NURoutingPolicyEntityScope_ENTERPRISE = @"ENTERPRISE";
 NURoutingPolicyEntityScope_GLOBAL = @"GLOBAL";
+NURoutingPolicyRoutingProtocol_BGP = @"BGP";
+NURoutingPolicyRoutingProtocol_ISIS = @"ISIS";
+NURoutingPolicyRoutingProtocol_OSPFV2 = @"OSPFv2";
+NURoutingPolicyRoutingProtocol_OSPFV3 = @"OSPFv3";
+NURoutingPolicyRoutingProtocol_ROUTING = @"ROUTING";
 
 
 /*!
@@ -63,6 +68,10 @@ NURoutingPolicyEntityScope_GLOBAL = @"GLOBAL";
         String blob
     */
     CPString _policyDefinition @accessors(property=policyDefinition);
+    /*!
+        Routing protocol this policy definition is used for
+    */
+    CPString _routingProtocol @accessors(property=routingProtocol);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -95,6 +104,7 @@ NURoutingPolicyEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyDefinition"];
+        [self exposeLocalKeyPathToREST:@"routingProtocol"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -29,7 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUVNFDomainMappingEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUVNFDomainMappingEntityScope_GLOBAL = @"GLOBAL";
 NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
 
 
@@ -39,6 +43,10 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
 @implementation NUVNFDomainMapping : NURESTObject
 {
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         The segmentation ID (1-4095).
     */
     CPNumber _segmentationID @accessors(property=segmentationID);
@@ -47,6 +55,10 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
     */
     CPString _segmentationType @accessors(property=segmentationType);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Associated NS Gateway
     */
     CPString _associatedNSGatewayID @accessors(property=associatedNSGatewayID);
@@ -54,7 +66,13 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
         Name of associated NSGateway
     */
     CPString _associatedNSGatewayName @accessors(property=associatedNSGatewayName);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -75,11 +93,16 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"segmentationID"];
         [self exposeLocalKeyPathToREST:@"segmentationType"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayName"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

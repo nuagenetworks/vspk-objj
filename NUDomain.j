@@ -39,11 +39,12 @@
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
 @import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
 @import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
-@import "Fetchers/NUFloatingIPACLTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NULinksFetcher.j"
 @import "Fetchers/NUFirewallAclsFetcher.j"
 @import "Fetchers/NUVirtualFirewallPoliciesFetcher.j"
+@import "Fetchers/NUVirtualFirewallRulesFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUFloatingIpsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
@@ -52,7 +53,6 @@
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdTemplatesFetcher.j"
-@import "Fetchers/NUIngressExternalServiceTemplatesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
@@ -68,6 +68,7 @@
 @import "Fetchers/NUUplinkRDsFetcher.j"
 @import "Fetchers/NUVPNConnectionsFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
+@import "Fetchers/NUApplicationsFetcher.j"
 @import "Fetchers/NUApplicationperformancemanagementbindingsFetcher.j"
 @import "Fetchers/NUBridgeInterfacesFetcher.j"
 @import "Fetchers/NUGroupsFetcher.j"
@@ -98,7 +99,6 @@ NUDomainFlowCollectionEnabled_ENABLED = @"ENABLED";
 NUDomainFlowCollectionEnabled_INHERITED = @"INHERITED";
 NUDomainMaintenanceMode_DISABLED = @"DISABLED";
 NUDomainMaintenanceMode_ENABLED = @"ENABLED";
-NUDomainMaintenanceMode_ENABLED_INHERITED = @"ENABLED_INHERITED";
 NUDomainMulticast_DISABLED = @"DISABLED";
 NUDomainMulticast_ENABLED = @"ENABLED";
 NUDomainMulticast_INHERITED = @"INHERITED";
@@ -182,19 +182,11 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPNumber _backHaulServiceID @accessors(property=backHaulServiceID);
     /*!
-        IP Address of the backhaul subnet 
-    */
-    CPString _backHaulSubnetIPAddress @accessors(property=backHaulSubnetIPAddress);
-    /*!
-        Network mask of the backhaul subnet
-    */
-    CPString _backHaulSubnetMask @accessors(property=backHaulSubnetMask);
-    /*!
         Current backhaul network's globally unique VXLAN network identifier
     */
     CPNumber _backHaulVNID @accessors(property=backHaulVNID);
     /*!
-        maintenanceMode is an enum that indicates if the Domain is accepting VM activation requests. Possible values are DISABLED, ENABLED and ENABLED_INHERITED Possible values are .
+        Enum that indicates if the Domain is accepting VM activation requests. Possible values are DISABLED, ENABLED.
     */
     CPString _maintenanceMode @accessors(property=maintenanceMode);
     /*!
@@ -257,6 +249,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Indicates whether UNDERLAY is enabled for the subnets in this domain
     */
     CPString _underlayEnabled @accessors(property=underlayEnabled);
+    /*!
+        Enterprise ID
+    */
+    CPString _enterpriseID @accessors(property=enterpriseID);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -344,11 +340,12 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
     NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
     NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
-    NUFloatingIPACLTemplatesFetcher _childrenFloatingIPACLTemplates @accessors(property=childrenFloatingIPACLTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NULinksFetcher _childrenLinks @accessors(property=childrenLinks);
     NUFirewallAclsFetcher _childrenFirewallAcls @accessors(property=childrenFirewallAcls);
     NUVirtualFirewallPoliciesFetcher _childrenVirtualFirewallPolicies @accessors(property=childrenVirtualFirewallPolicies);
+    NUVirtualFirewallRulesFetcher _childrenVirtualFirewallRules @accessors(property=childrenVirtualFirewallRules);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUFloatingIpsFetcher _childrenFloatingIps @accessors(property=childrenFloatingIps);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
@@ -357,7 +354,6 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdTemplatesFetcher _childrenIngressAdvFwdTemplates @accessors(property=childrenIngressAdvFwdTemplates);
-    NUIngressExternalServiceTemplatesFetcher _childrenIngressExternalServiceTemplates @accessors(property=childrenIngressExternalServiceTemplates);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
@@ -373,6 +369,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUUplinkRDsFetcher _childrenUplinkRDs @accessors(property=childrenUplinkRDs);
     NUVPNConnectionsFetcher _childrenVPNConnections @accessors(property=childrenVPNConnections);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
+    NUApplicationsFetcher _childrenApplications @accessors(property=childrenApplications);
     NUApplicationperformancemanagementbindingsFetcher _childrenApplicationperformancemanagementbindings @accessors(property=childrenApplicationperformancemanagementbindings);
     NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
     NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
@@ -416,8 +413,6 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"backHaulRouteDistinguisher"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteTarget"];
         [self exposeLocalKeyPathToREST:@"backHaulServiceID"];
-        [self exposeLocalKeyPathToREST:@"backHaulSubnetIPAddress"];
-        [self exposeLocalKeyPathToREST:@"backHaulSubnetMask"];
         [self exposeLocalKeyPathToREST:@"backHaulVNID"];
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
@@ -435,6 +430,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"importRouteTarget"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];
+        [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"localAS"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
@@ -465,11 +461,12 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
         _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
-        _childrenFloatingIPACLTemplates = [NUFloatingIPACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenLinks = [NULinksFetcher fetcherWithParentObject:self];
         _childrenFirewallAcls = [NUFirewallAclsFetcher fetcherWithParentObject:self];
         _childrenVirtualFirewallPolicies = [NUVirtualFirewallPoliciesFetcher fetcherWithParentObject:self];
+        _childrenVirtualFirewallRules = [NUVirtualFirewallRulesFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenFloatingIps = [NUFloatingIpsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
@@ -478,7 +475,6 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdTemplates = [NUIngressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
-        _childrenIngressExternalServiceTemplates = [NUIngressExternalServiceTemplatesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
@@ -494,6 +490,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenUplinkRDs = [NUUplinkRDsFetcher fetcherWithParentObject:self];
         _childrenVPNConnections = [NUVPNConnectionsFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
+        _childrenApplications = [NUApplicationsFetcher fetcherWithParentObject:self];
         _childrenApplicationperformancemanagementbindings = [NUApplicationperformancemanagementbindingsFetcher fetcherWithParentObject:self];
         _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
         _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];

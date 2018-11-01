@@ -29,9 +29,10 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUSSIDConnectionsFetcher.j"
-@import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUWirelessPortCountryCode_AD = @"AD";
@@ -273,6 +274,8 @@ NUWirelessPortCountryCode_YT = @"YT";
 NUWirelessPortCountryCode_ZA = @"ZA";
 NUWirelessPortCountryCode_ZM = @"ZM";
 NUWirelessPortCountryCode_ZW = @"ZW";
+NUWirelessPortEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUWirelessPortEntityScope_GLOBAL = @"GLOBAL";
 NUWirelessPortFrequencyChannel_CH_0 = @"CH_0";
 NUWirelessPortFrequencyChannel_CH_1 = @"CH_1";
 NUWirelessPortFrequencyChannel_CH_10 = @"CH_10";
@@ -313,7 +316,17 @@ NUWirelessPortFrequencyChannel_CH_64 = @"CH_64";
 NUWirelessPortFrequencyChannel_CH_7 = @"CH_7";
 NUWirelessPortFrequencyChannel_CH_8 = @"CH_8";
 NUWirelessPortFrequencyChannel_CH_9 = @"CH_9";
+NUWirelessPortPermittedAction_ALL = @"ALL";
+NUWirelessPortPermittedAction_DEPLOY = @"DEPLOY";
+NUWirelessPortPermittedAction_EXTEND = @"EXTEND";
+NUWirelessPortPermittedAction_INSTANTIATE = @"INSTANTIATE";
+NUWirelessPortPermittedAction_READ = @"READ";
+NUWirelessPortPermittedAction_USE = @"USE";
 NUWirelessPortPortType_ACCESS = @"ACCESS";
+NUWirelessPortStatus_INITIALIZED = @"INITIALIZED";
+NUWirelessPortStatus_MISMATCH = @"MISMATCH";
+NUWirelessPortStatus_ORPHAN = @"ORPHAN";
+NUWirelessPortStatus_READY = @"READY";
 NUWirelessPortWifiFrequencyBand_FREQ_2_4_GHZ = @"FREQ_2_4_GHZ";
 NUWirelessPortWifiFrequencyBand_FREQ_5_0_GHZ = @"FREQ_5_0_GHZ";
 NUWirelessPortWifiMode_WIFI_A = @"WIFI_A";
@@ -325,50 +338,87 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
 
 
 /*!
-    Represents a wireless (WiFi) interface configured on a Network Service Gateway (NSG) instance.  The WirelessPort instance may map to a physical WiFi card or a WiFi port.
+    Represents a Wireless (WiFi) interface configured on a Network Service Gateway (NSG) instance. The WirelessPort instance may map to a physical WiFi card or a WiFi port.
 */
 @implementation NUWirelessPort : NURESTObject
 {
+    /*!
+        VLAN Range of the Port. Format must conform to a-b,c,d-f where a,b,c,d,f are integers between 0 and 4095.
+    */
+    CPString _VLANRange @accessors(property=VLANRange);
     /*!
         A customer friendly name for the Wireless Port instance.
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         This field is used to contain the 'blob' parameters for the WiFi Card (physical module) on the NSG.
     */
     CPString _genericConfig @accessors(property=genericConfig);
+    /*!
+        The permitted action to USE/EXTEND this Wireless Port
+    */
+    CPString _permittedAction @accessors(property=permittedAction);
     /*!
         A customer friendly description to be given to the Wireless Port instance.
     */
     CPString _description @accessors(property=description);
     /*!
-        The identifier of the wireless port as identified by the OS running on the NSG.  This name can't be modified once the port is created.
+        The identifier of the wireless port as identified by the OS running on the NSG. This name can't be modified once the port is created.
     */
     CPString _physicalName @accessors(property=physicalName);
     /*!
-        Wireless frequency band set on the WiFi card installed.  The standard currently supports two frequency bands, 5 GHz and 2.4 GHz.  A future variant under name 802.11ad will support 60 GHz.
+        Wireless frequency band set on the WiFi card installed. The standard currently supports two frequency bands, 5 GHz and 2.4 GHz. A future variant under name 802.11ad will support 60 GHz.
     */
     CPString _wifiFrequencyBand @accessors(property=wifiFrequencyBand);
     /*!
-        WirelessFidelity 802.11 norm used.  The values supported represents a combination of modes that are to be enabled at once on the WiFi Card.
+        WirelessFidelity 802.11 norm used. The values supported represents a combination of modes that are to be enabled at once on the WiFi Card.
     */
     CPString _wifiMode @accessors(property=wifiMode);
     /*!
-        Port type for the wireless port.  This can be a port of type Access or Network.
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Port type for the wireless port. This can be a port of type Access or Network.
     */
     CPString _portType @accessors(property=portType);
     /*!
-        Country code where the NSG with a Wireless Port installed is defined.  The country code allows some WiFi features to be enabled or disabled on the Wireless card.
+        Country code where the NSG with a Wireless Port installed is defined. The country code allows some WiFi features to be enabled or disabled on the Wireless card.
     */
     CPString _countryCode @accessors(property=countryCode);
     /*!
-        The selected wireless frequency and channel used by the wireless interface.  Channels range is from 0 to 165 where 0 stands for Auto Channel Selection.
+        The selected wireless frequency and channel used by the wireless interface. Channels range is from 0 to 165 where 0 stands for Auto Channel Selection.
     */
     CPString _frequencyChannel @accessors(property=frequencyChannel);
+    /*!
+        Determines whether to use user mnemonic of the Wireless Port
+    */
+    BOOL _useUserMnemonic @accessors(property=useUserMnemonic);
+    /*!
+        User Mnemonic of the Port
+    */
+    CPString _userMnemonic @accessors(property=userMnemonic);
+    /*!
+        ID of the Egress QoS Policy associated with this Wireless Port.
+    */
+    CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
+    /*!
+        Status of the Wireless Port. Possible values are - INITIALIZED, ORPHAN, READY, MISMATCH
+    */
+    CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUSSIDConnectionsFetcher _childrenSSIDConnections @accessors(property=childrenSSIDConnections);
-    NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -390,19 +440,29 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"VLANRange"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"genericConfig"];
+        [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
         [self exposeLocalKeyPathToREST:@"wifiFrequencyBand"];
         [self exposeLocalKeyPathToREST:@"wifiMode"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];
         [self exposeLocalKeyPathToREST:@"countryCode"];
         [self exposeLocalKeyPathToREST:@"frequencyChannel"];
+        [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
+        [self exposeLocalKeyPathToREST:@"userMnemonic"];
+        [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenSSIDConnections = [NUSSIDConnectionsFetcher fetcherWithParentObject:self];
-        _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         

@@ -31,6 +31,7 @@
 
 
 NUCommandCommand_NSG_APPLY_PATCH = @"NSG_APPLY_PATCH";
+NUCommandCommand_NSG_DELETE_PATCH = @"NSG_DELETE_PATCH";
 NUCommandCommand_NSG_DOWNLOAD_OS_IMAGE = @"NSG_DOWNLOAD_OS_IMAGE";
 NUCommandCommand_NSG_UPGRADE_TO_IMAGE = @"NSG_UPGRADE_TO_IMAGE";
 NUCommandCommand_UNKNOWN = @"UNKNOWN";
@@ -38,8 +39,10 @@ NUCommandEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUCommandEntityScope_GLOBAL = @"GLOBAL";
 NUCommandOverride_ABANDON = @"ABANDON";
 NUCommandOverride_UNSPECIFIED = @"UNSPECIFIED";
-NUCommandStatus_COMPLETE = @"COMPLETE";
+NUCommandStatus_ABANDONED = @"ABANDONED";
+NUCommandStatus_COMPLETED = @"COMPLETED";
 NUCommandStatus_FAILED = @"FAILED";
+NUCommandStatus_RUNNING = @"RUNNING";
 NUCommandStatus_STARTED = @"STARTED";
 NUCommandStatus_UNKNOWN = @"UNKNOWN";
 
@@ -78,11 +81,15 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _commandInformation @accessors(property=commandInformation);
     /*!
-        Parameters to be supplied for execution of this command. This could either be a string of parameters or ID of an object supplying parameters.
+        Managed Object Type of the entity on which this Command is associated.
+    */
+    CPString _assocEntityType @accessors(property=assocEntityType);
+    /*!
+        Parameters to be supplied for execution of this command. This should be the ID of the object supplying parameters.
     */
     CPString _associatedParam @accessors(property=associatedParam);
     /*!
-        Type of the object which supplies parameters for this command.
+        Type of the object which supplies parameters for this command. For NSG_APPLY_PATCH command this should be NSG_PATCH_PROFILE. For NSG_DELETE_PATCH it should be PATCH
     */
     CPString _associatedParamType @accessors(property=associatedParamType);
     /*!
@@ -133,6 +140,7 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"command"];
         [self exposeLocalKeyPathToREST:@"commandInformation"];
+        [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedParam"];
         [self exposeLocalKeyPathToREST:@"associatedParamType"];
         [self exposeLocalKeyPathToREST:@"status"];

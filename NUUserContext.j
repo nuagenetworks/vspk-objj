@@ -29,6 +29,11 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
+
+NUUserContextEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUUserContextEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -55,11 +60,19 @@
     /*!
         Result size for queries
     */
-    CPString _pageSize @accessors(property=pageSize);
+    CPNumber _pageSize @accessors(property=pageSize);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires 'statisticsEnabled'.
     */
     BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Google Maps API Key used to display maps on Nuage UI applications
     */
@@ -72,7 +85,13 @@
         ip address(es) of the elastic machine
     */
     CPString _statsTSDBServerAddress @accessors(property=statsTSDBServerAddress);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -98,11 +117,16 @@
         [self exposeLocalKeyPathToREST:@"VSSFeatureEnabled"];
         [self exposeLocalKeyPathToREST:@"VSSStatsInterval"];
         [self exposeLocalKeyPathToREST:@"pageSize"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"googleMapsAPIKey"];
         [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
         [self exposeLocalKeyPathToREST:@"statsTSDBServerAddress"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

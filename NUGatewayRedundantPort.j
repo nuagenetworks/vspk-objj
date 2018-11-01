@@ -29,8 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVLANsFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUGatewayRedundantPortEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUGatewayRedundantPortEntityScope_GLOBAL = @"GLOBAL";
 NUGatewayRedundantPortPermittedAction_ALL = @"ALL";
 NUGatewayRedundantPortPermittedAction_DEPLOY = @"DEPLOY";
 NUGatewayRedundantPortPermittedAction_EXTEND = @"EXTEND";
@@ -59,6 +63,10 @@ NUGatewayRedundantPortStatus_READY = @"READY";
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         The permitted  action to USE/EXTEND  this port.
     */
     CPString _permittedAction @accessors(property=permittedAction);
@@ -70,6 +78,10 @@ NUGatewayRedundantPortStatus_READY = @"READY";
         Identifier of the Redundant Port. The name should be corresponding to the Physical Name of the ports belonging to this redundant instance.
     */
     CPString _physicalName @accessors(property=physicalName);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         The master gateway peer port id.
     */
@@ -98,8 +110,14 @@ NUGatewayRedundantPortStatus_READY = @"READY";
         Status of the port.
     */
     CPString _status @accessors(property=status);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVLANsFetcher _childrenVLANs @accessors(property=childrenVLANs);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -122,9 +140,11 @@ NUGatewayRedundantPortStatus_READY = @"READY";
     {
         [self exposeLocalKeyPathToREST:@"VLANRange"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portPeer1ID"];
         [self exposeLocalKeyPathToREST:@"portPeer2ID"];
         [self exposeLocalKeyPathToREST:@"portType"];
@@ -132,8 +152,11 @@ NUGatewayRedundantPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVLANs = [NUVLANsFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

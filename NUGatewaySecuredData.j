@@ -46,7 +46,7 @@ NUGatewaySecuredDataEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        encrypted data
+        Encrypted data
     */
     CPString _data @accessors(property=data);
     /*!
@@ -58,13 +58,17 @@ NUGatewaySecuredDataEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _keyserverCertSerialNumber @accessors(property=keyserverCertSerialNumber);
     /*!
-        private key signed data
+        Private key signed data.
     */
     CPString _signedData @accessors(property=signedData);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Identification of the Enterprise instance to which the Gateway Secure Data is related.
+    */
+    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -98,6 +102,7 @@ NUGatewaySecuredDataEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"keyserverCertSerialNumber"];
         [self exposeLocalKeyPathToREST:@"signedData"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

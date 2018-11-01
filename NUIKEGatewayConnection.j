@@ -49,7 +49,7 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
 
 
 /*!
-    Represents an IKE Gateway Connection object
+    Set the attributes like NSG role, authentication method etc for establishing IKE security association with remote gateway.
 */
 @implementation NUIKEGatewayConnection : NURESTObject
 {

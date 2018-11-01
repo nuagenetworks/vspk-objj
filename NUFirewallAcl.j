@@ -29,8 +29,13 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUFirewallRulesFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
+
+NUFirewallAclEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUFirewallAclEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -42,6 +47,10 @@
         The name of the entity
     */
     CPString _name @accessors(property=name);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         If enabled, it means that this ACL or QOS entry is active
     */
@@ -59,11 +68,25 @@
     */
     CPString _description @accessors(property=description);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         Firewall rules associated with this firewall acl.
     */
     CPArrayController _ruleIds @accessors(property=ruleIds);
+    /*!
+        If enabled, entries priority will be randomly generated between allowed range.
+    */
+    BOOL _autoGeneratePriority @accessors(property=autoGeneratePriority);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUFirewallRulesFetcher _childrenFirewallRules @accessors(property=childrenFirewallRules);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
     
 }
@@ -86,13 +109,19 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"active"];
         [self exposeLocalKeyPathToREST:@"defaultAllowIP"];
         [self exposeLocalKeyPathToREST:@"defaultAllowNonIP"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"ruleIds"];
+        [self exposeLocalKeyPathToREST:@"autoGeneratePriority"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenFirewallRules = [NUFirewallRulesFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
         
         

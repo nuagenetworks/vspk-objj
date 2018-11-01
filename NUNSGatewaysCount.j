@@ -31,33 +31,32 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
-@import "Fetchers/NUVPortsFetcher.j"
 
-NUTrunkEntityScope_ENTERPRISE = @"ENTERPRISE";
-NUTrunkEntityScope_GLOBAL = @"GLOBAL";
+NUNSGatewaysCountEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUNSGatewaysCountEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    A trunk is used to attach multiple vPorts to a single NIC on a VM. These sub-vPorts are separated by a segmentation identifier (currently the VLAN ID) so the attached VM can distinguish between traffic on the sub-vPorts.
+    NSGateway count is a summary object per enterprise which contains the counts of inactive and NSGs by alarm severity. This object is used in Application Aware Routing (AAR) visualization
 */
-@implementation NUTrunk : NURESTObject
+@implementation NUNSGatewaysCount : NURESTObject
 {
     /*!
-        The name of the trunk
+        Number of Network Service Gateways in an enterprise whose bootstrap status is ACTIVE
     */
-    CPString _name @accessors(property=name);
+    CPNumber _activeNSGCount @accessors(property=activeNSGCount);
     /*!
-        ID of the user who last updated the object.
+        An embedded object containing three attributes: critical, major, healthy - number of NSGs with CRITICAL alarm severity, manumber of NSGs with MAJOR alarm severity, number of NSGs that have no CRITICAL or MAJOR alarms
     */
-    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    NURESTObject _alarmedNSGCount @accessors(property=alarmedNSGCount);
+    /*!
+        Number of Network Service Gateways in an enterprise whose bootstrap status is not ACTIVE
+    */
+    CPNumber _inactiveNSGCount @accessors(property=inactiveNSGCount);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
-    /*!
-        the uuid of the parent vport (the trunkRole of the parent vport must be PARENT_PORT)
-    */
-    CPString _associatedVPortID @accessors(property=associatedVPortID);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -65,7 +64,6 @@ NUTrunkEntityScope_GLOBAL = @"GLOBAL";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
-    NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     
 }
 
@@ -75,7 +73,7 @@ NUTrunkEntityScope_GLOBAL = @"GLOBAL";
 
 + (CPString)RESTName
 {
-    return @"trunk";
+    return @"nsgatewayscount";
 }
 
 
@@ -86,15 +84,14 @@ NUTrunkEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"name"];
-        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"activeNSGCount"];
+        [self exposeLocalKeyPathToREST:@"alarmedNSGCount"];
+        [self exposeLocalKeyPathToREST:@"inactiveNSGCount"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
-        [self exposeLocalKeyPathToREST:@"associatedVPortID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
-        _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         
         
     }

@@ -34,8 +34,26 @@
 @import "Fetchers/NUVRSAddressRangesFetcher.j"
 @import "Fetchers/NUVRSRedeploymentpoliciesFetcher.j"
 
+NUVCenterVRSConfigAvrsProfile_AVRS_25G = @"AVRS_25G";
+NUVCenterVRSConfigCpuCount_DEFAULT_2 = @"DEFAULT_2";
+NUVCenterVRSConfigCpuCount_LARGE_6 = @"LARGE_6";
+NUVCenterVRSConfigCpuCount_MEDIUM_4 = @"MEDIUM_4";
+NUVCenterVRSConfigCpuCount_XLARGE_8 = @"XLARGE_8";
+NUVCenterVRSConfigDestinationMirrorPort_ENS160 = @"ens160";
+NUVCenterVRSConfigDestinationMirrorPort_ENS161 = @"ens161";
+NUVCenterVRSConfigDestinationMirrorPort_ENS224 = @"ens224";
+NUVCenterVRSConfigDestinationMirrorPort_ENS256 = @"ens256";
+NUVCenterVRSConfigDestinationMirrorPort_NO_MIRROR = @"no_mirror";
 NUVCenterVRSConfigEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
+NUVCenterVRSConfigMemorySizeInGB_DEFAULT_4 = @"DEFAULT_4";
+NUVCenterVRSConfigMemorySizeInGB_LARGE_8 = @"LARGE_8";
+NUVCenterVRSConfigMemorySizeInGB_MEDIUM_6 = @"MEDIUM_6";
+NUVCenterVRSConfigPersonality_VDF = @"VDF";
+NUVCenterVRSConfigPersonality_VRS = @"VRS";
+NUVCenterVRSConfigRemoteSyslogServerType_NONE = @"NONE";
+NUVCenterVRSConfigRemoteSyslogServerType_TCP = @"TCP";
+NUVCenterVRSConfigRemoteSyslogServerType_UDP = @"UDP";
 
 
 /*!
@@ -44,9 +62,21 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
 @implementation NUVCenterVRSConfig : NURESTObject
 {
     /*!
+        Whether ARP Reply is enabled/disabled
+    */
+    BOOL _ARPReply @accessors(property=ARPReply);
+    /*!
+        The maximum wait time limit in minutes to get VRS configured at cluster level
+    */
+    CPNumber _VRSConfigurationTimeLimit @accessors(property=VRSConfigurationTimeLimit);
+    /*!
         Whether split-activation or not (Openstack/CloudStack)
     */
     BOOL _vRequireNuageMetadata @accessors(property=vRequireNuageMetadata);
+    /*!
+        When this is set to true, the vCenter Integration Node will be responsible for marking a VRS Agent as available in the EAM framework. If VCIN fails to mark a VRS Agent as unavailable, vCenter will not migrate VMs to the host running the VRS Agent and will not allow VMs to be powered on that host.
+    */
+    BOOL _manageVRSAvailability @accessors(property=manageVRSAvailability);
     /*!
         ID of the user who last updated the object.
     */
@@ -72,9 +102,57 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _datapathSyncTimeout @accessors(property=datapathSyncTimeout);
     /*!
+        Enable DHCP on the secondary data uplink.
+    */
+    BOOL _secondaryDataUplinkDHCPEnabled @accessors(property=secondaryDataUplinkDHCPEnabled);
+    /*!
+        Enable secondary data uplink
+    */
+    BOOL _secondaryDataUplinkEnabled @accessors(property=secondaryDataUplinkEnabled);
+    /*!
+        Interface to use for the secondary data uplink. This interface can be a normal interface or a VLAN on an existing interface. Please read the VMware integration guide for more details.
+    */
+    CPString _secondaryDataUplinkInterface @accessors(property=secondaryDataUplinkInterface);
+    /*!
+        Secondary data uplink MTU
+    */
+    CPNumber _secondaryDataUplinkMTU @accessors(property=secondaryDataUplinkMTU);
+    /*!
+        Secondary data uplink primary controller IP
+    */
+    CPString _secondaryDataUplinkPrimaryController @accessors(property=secondaryDataUplinkPrimaryController);
+    /*!
+        Secondary data uplink secondary controller IP
+    */
+    CPString _secondaryDataUplinkSecondaryController @accessors(property=secondaryDataUplinkSecondaryController);
+    /*!
+        Secondary data uplink underlay ID
+    */
+    CPNumber _secondaryDataUplinkUnderlayID @accessors(property=secondaryDataUplinkUnderlayID);
+    /*!
+        The VLAN for the control communication with VSC on the secondary datapath interface, when VDF is enabled. This VLAN can not be used as a subnet VLAN in the VSD configuration.
+    */
+    CPNumber _secondaryDataUplinkVDFControlVLAN @accessors(property=secondaryDataUplinkVDFControlVLAN);
+    /*!
         IP address of the secondary Controller (VSC)
     */
     CPString _secondaryNuageController @accessors(property=secondaryNuageController);
+    /*!
+        VRS memory size in GB
+    */
+    CPString _memorySizeInGB @accessors(property=memorySizeInGB);
+    /*!
+        Remote syslog server IP
+    */
+    CPString _remoteSyslogServerIP @accessors(property=remoteSyslogServerIP);
+    /*!
+        Remote syslog server port
+    */
+    CPNumber _remoteSyslogServerPort @accessors(property=remoteSyslogServerPort);
+    /*!
+        Remote syslog server type (UDP/TCP)
+    */
+    CPString _remoteSyslogServerType @accessors(property=remoteSyslogServerType);
     /*!
         Whether split-activation is needed from VRO
     */
@@ -84,9 +162,13 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     BOOL _separateDataNetwork @accessors(property=separateDataNetwork);
     /*!
-        VRS/VRS-G
+        VCenter VRS Personality
     */
     CPString _personality @accessors(property=personality);
+    /*!
+        Extra Vnic to mirror access port
+    */
+    CPString _destinationMirrorPort @accessors(property=destinationMirrorPort);
     /*!
         Metadata Server IP
     */
@@ -120,6 +202,14 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _networkUplinkInterfaceNetmask @accessors(property=networkUplinkInterfaceNetmask);
     /*!
+        Enable revertive controller behaviour. If this is enabled, OVS will make its primary VSC as its master VSC once it is back up.
+    */
+    BOOL _revertiveControllerEnabled @accessors(property=revertiveControllerEnabled);
+    /*!
+        A timer in seconds indicating after how long OVS should retry to connect to the primary VSC as its master after a failure.
+    */
+    CPNumber _revertiveTimer @accessors(property=revertiveTimer);
+    /*!
         IP address of NFS server to send the VRS log
     */
     CPString _nfsLogServer @accessors(property=nfsLogServer);
@@ -148,6 +238,18 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _dhcpRelayServer @accessors(property=dhcpRelayServer);
     /*!
+        Mirror Network Port Group Name
+    */
+    CPString _mirrorNetworkPortgroup @accessors(property=mirrorNetworkPortgroup);
+    /*!
+        Disable GRO on datapath
+    */
+    BOOL _disableGROOnDatapath @accessors(property=disableGROOnDatapath);
+    /*!
+        Disable LRO on datapath
+    */
+    BOOL _disableLROOnDatapath @accessors(property=disableLROOnDatapath);
+    /*!
         Site ID field for object profiles to support VSD Geo-redundancy
     */
     CPString _siteId @accessors(property=siteId);
@@ -168,9 +270,17 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _vmNetworkPortgroup @accessors(property=vmNetworkPortgroup);
     /*!
+        Enable resource reservation on the VRS. When this is enabled, all memory and 100% of CPU resources allocated to the VRS will be reserved.
+    */
+    BOOL _enableVRSResourceReservation @accessors(property=enableVRSResourceReservation);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Configured VRS metrics push interval on VCIN
+    */
+    CPNumber _configuredMetricsPushInterval @accessors(property=configuredMetricsPushInterval);
     /*!
         Port Group Meta data
     */
@@ -179,6 +289,10 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
         Nova client Version 
     */
     CPNumber _novaClientVersion @accessors(property=novaClientVersion);
+    /*!
+        Keystone identity version to use for the Nova metadata configuration on the VRS
+    */
+    CPString _novaIdentityURLVersion @accessors(property=novaIdentityURLVersion);
     /*!
         Nova metadata service auth url
     */
@@ -204,9 +318,53 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _novaMetadataSharedSecret @accessors(property=novaMetadataSharedSecret);
     /*!
+        Keystone username used by nova
+    */
+    CPString _novaOSKeystoneUsername @accessors(property=novaOSKeystoneUsername);
+    /*!
+        Name of the project that the Nova service uses, can be determined from the nova.conf on the OpenStack controller
+    */
+    CPString _novaProjectDomainName @accessors(property=novaProjectDomainName);
+    /*!
+        Name of the default Nova project (example: services)
+    */
+    CPString _novaProjectName @accessors(property=novaProjectName);
+    /*!
         Nova region name
     */
     CPString _novaRegionName @accessors(property=novaRegionName);
+    /*!
+        Name of the user domain used by the Nova service, can be determined from the nova.conf on the OpenStack controller
+    */
+    CPString _novaUserDomainName @accessors(property=novaUserDomainName);
+    /*!
+        Upgrade Package Password
+    */
+    CPString _upgradePackagePassword @accessors(property=upgradePackagePassword);
+    /*!
+        Upgrade Package URL
+    */
+    CPString _upgradePackageURL @accessors(property=upgradePackageURL);
+    /*!
+        Upgrade Package User Name
+    */
+    CPString _upgradePackageUsername @accessors(property=upgradePackageUsername);
+    /*!
+        The maximum time limit in seconds before the vrs script based upgrade is marked as TIMED_OUT
+    */
+    CPNumber _upgradeScriptTimeLimit @accessors(property=upgradeScriptTimeLimit);
+    /*!
+        Number of VRS vCPU's
+    */
+    CPString _cpuCount @accessors(property=cpuCount);
+    /*!
+        Primary data uplink underlay ID
+    */
+    CPNumber _primaryDataUplinkUnderlayID @accessors(property=primaryDataUplinkUnderlayID);
+    /*!
+        The VLAN for the control communication with VSC on the primary datapath interface, when VDF is enabled. This VLAN can not be used as a subnet VLAN in the VSD configuration.
+    */
+    CPNumber _primaryDataUplinkVDFControlVLAN @accessors(property=primaryDataUplinkVDFControlVLAN);
     /*!
         IP address of the primary Controller (VSC)
     */
@@ -284,6 +442,18 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _customizedScriptURL @accessors(property=customizedScriptURL);
     /*!
+        The url for the ovf
+    */
+    CPString _ovfURL @accessors(property=ovfURL);
+    /*!
+        AVRS enabled
+    */
+    BOOL _avrsEnabled @accessors(property=avrsEnabled);
+    /*!
+        AVRS profile
+    */
+    CPString _avrsProfile @accessors(property=avrsProfile);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -312,17 +482,33 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"ARPReply"];
+        [self exposeLocalKeyPathToREST:@"VRSConfigurationTimeLimit"];
         [self exposeLocalKeyPathToREST:@"vRequireNuageMetadata"];
+        [self exposeLocalKeyPathToREST:@"manageVRSAvailability"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"dataDNS1"];
         [self exposeLocalKeyPathToREST:@"dataDNS2"];
         [self exposeLocalKeyPathToREST:@"dataGateway"];
         [self exposeLocalKeyPathToREST:@"dataNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkDHCPEnabled"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkEnabled"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkInterface"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkMTU"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkPrimaryController"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkSecondaryController"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkUnderlayID"];
+        [self exposeLocalKeyPathToREST:@"secondaryDataUplinkVDFControlVLAN"];
         [self exposeLocalKeyPathToREST:@"secondaryNuageController"];
+        [self exposeLocalKeyPathToREST:@"memorySizeInGB"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerIP"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerPort"];
+        [self exposeLocalKeyPathToREST:@"remoteSyslogServerType"];
         [self exposeLocalKeyPathToREST:@"genericSplitActivation"];
         [self exposeLocalKeyPathToREST:@"separateDataNetwork"];
         [self exposeLocalKeyPathToREST:@"personality"];
+        [self exposeLocalKeyPathToREST:@"destinationMirrorPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerIP"];
         [self exposeLocalKeyPathToREST:@"metadataServerListenPort"];
         [self exposeLocalKeyPathToREST:@"metadataServerPort"];
@@ -331,6 +517,8 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceGateway"];
         [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceIp"];
         [self exposeLocalKeyPathToREST:@"networkUplinkInterfaceNetmask"];
+        [self exposeLocalKeyPathToREST:@"revertiveControllerEnabled"];
+        [self exposeLocalKeyPathToREST:@"revertiveTimer"];
         [self exposeLocalKeyPathToREST:@"nfsLogServer"];
         [self exposeLocalKeyPathToREST:@"nfsMountPath"];
         [self exposeLocalKeyPathToREST:@"mgmtDNS1"];
@@ -338,21 +526,38 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"mgmtGateway"];
         [self exposeLocalKeyPathToREST:@"mgmtNetworkPortgroup"];
         [self exposeLocalKeyPathToREST:@"dhcpRelayServer"];
+        [self exposeLocalKeyPathToREST:@"mirrorNetworkPortgroup"];
+        [self exposeLocalKeyPathToREST:@"disableGROOnDatapath"];
+        [self exposeLocalKeyPathToREST:@"disableLROOnDatapath"];
         [self exposeLocalKeyPathToREST:@"siteId"];
         [self exposeLocalKeyPathToREST:@"allowDataDHCP"];
         [self exposeLocalKeyPathToREST:@"allowMgmtDHCP"];
         [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
         [self exposeLocalKeyPathToREST:@"vmNetworkPortgroup"];
+        [self exposeLocalKeyPathToREST:@"enableVRSResourceReservation"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"configuredMetricsPushInterval"];
         [self exposeLocalKeyPathToREST:@"portgroupMetadata"];
         [self exposeLocalKeyPathToREST:@"novaClientVersion"];
+        [self exposeLocalKeyPathToREST:@"novaIdentityURLVersion"];
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceAuthUrl"];
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceEndpoint"];
         [self exposeLocalKeyPathToREST:@"novaMetadataServicePassword"];
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceTenant"];
         [self exposeLocalKeyPathToREST:@"novaMetadataServiceUsername"];
         [self exposeLocalKeyPathToREST:@"novaMetadataSharedSecret"];
+        [self exposeLocalKeyPathToREST:@"novaOSKeystoneUsername"];
+        [self exposeLocalKeyPathToREST:@"novaProjectDomainName"];
+        [self exposeLocalKeyPathToREST:@"novaProjectName"];
         [self exposeLocalKeyPathToREST:@"novaRegionName"];
+        [self exposeLocalKeyPathToREST:@"novaUserDomainName"];
+        [self exposeLocalKeyPathToREST:@"upgradePackagePassword"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageURL"];
+        [self exposeLocalKeyPathToREST:@"upgradePackageUsername"];
+        [self exposeLocalKeyPathToREST:@"upgradeScriptTimeLimit"];
+        [self exposeLocalKeyPathToREST:@"cpuCount"];
+        [self exposeLocalKeyPathToREST:@"primaryDataUplinkUnderlayID"];
+        [self exposeLocalKeyPathToREST:@"primaryDataUplinkVDFControlVLAN"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
         [self exposeLocalKeyPathToREST:@"vrsPassword"];
         [self exposeLocalKeyPathToREST:@"vrsUserName"];
@@ -372,6 +577,9 @@ NUVCenterVRSConfigEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"multicastSendInterfaceNetmask"];
         [self exposeLocalKeyPathToREST:@"multicastSourcePortgroup"];
         [self exposeLocalKeyPathToREST:@"customizedScriptURL"];
+        [self exposeLocalKeyPathToREST:@"ovfURL"];
+        [self exposeLocalKeyPathToREST:@"avrsEnabled"];
+        [self exposeLocalKeyPathToREST:@"avrsProfile"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

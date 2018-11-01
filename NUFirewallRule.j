@@ -29,14 +29,17 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
-NUFirewallRuleAction_DROP  = @"DROP ";
-NUFirewallRuleAction_FORWARD  = @"FORWARD ";
+NUFirewallRuleAction_DROP = @"DROP";
+NUFirewallRuleAction_FORWARD = @"FORWARD";
+NUFirewallRuleAction_FORWARDING_PATH_LIST = @"FORWARDING_PATH_LIST";
 NUFirewallRuleAction_REDIRECT = @"REDIRECT";
-NUFirewallRuleDestinationType_MACROGROUP = @"MACROGROUP";
-NUFirewallRuleDestinationType_NETWORK = @"NETWORK";
-NUFirewallRuleDestinationType_NETWORKPOLICYGROUP = @"NETWORKPOLICYGROUP";
-NUFirewallRuleDestinationType_POLICYGROUP = @"POLICYGROUP";
+NUFirewallRuleAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
+NUFirewallRuleAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
+NUFirewallRuleEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUFirewallRuleEntityScope_GLOBAL = @"GLOBAL";
 NUFirewallRuleLocationType_ANY = @"ANY";
 NUFirewallRuleLocationType_POLICYGROUP = @"POLICYGROUP";
 NUFirewallRuleLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
@@ -55,10 +58,6 @@ NUFirewallRuleNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUFirewallRuleNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
 NUFirewallRuleNetworkType_SUBNET = @"SUBNET";
 NUFirewallRuleNetworkType_ZONE = @"ZONE";
-NUFirewallRuleSourceType_MACROGROUP = @"MACROGROUP";
-NUFirewallRuleSourceType_NETWORK = @"NETWORK";
-NUFirewallRuleSourceType_NETWORKPOLICYGROUP = @"NETWORKPOLICYGROUP";
-NUFirewallRuleSourceType_POLICYGROUP = @"POLICYGROUP";
 
 
 /*!
@@ -87,6 +86,10 @@ NUFirewallRuleSourceType_POLICYGROUP = @"POLICYGROUP";
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
         The action of the ACL entry DROP or FORWARD or REDIRECT.
     */
     CPString _action @accessors(property=action);
@@ -99,33 +102,9 @@ NUFirewallRuleSourceType_POLICYGROUP = @"POLICYGROUP";
     */
     CPString _description @accessors(property=description);
     /*!
-        Destination network - available in version 1.0 api
-    */
-    CPString _destNetwork @accessors(property=destNetwork);
-    /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _destPgId @accessors(property=destPgId);
-    /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _destPgType @accessors(property=destPgType);
-    /*!
-        destination IPV6 address
-    */
-    CPString _destinationIpv6Value @accessors(property=destinationIpv6Value);
-    /*!
         The destination port to be matched if protocol is UDP or TCP. Value should be either * or single port number or a port range
     */
     CPString _destinationPort @accessors(property=destinationPort);
-    /*!
-        Network Type - either PolicyGroup or Network
-    */
-    CPString _destinationType @accessors(property=destinationType);
-    /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _destinationValue @accessors(property=destinationValue);
     /*!
         The destination network entity that is referenced(subnet/zone/macro)
     */
@@ -147,6 +126,10 @@ NUFirewallRuleSourceType_POLICYGROUP = @"POLICYGROUP";
     */
     CPString _enterpriseName @accessors(property=enterpriseName);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         The ID of the location entity (Subnet/Zone/VportTag)
     */
     CPString _locationID @accessors(property=locationID);
@@ -159,45 +142,29 @@ NUFirewallRuleSourceType_POLICYGROUP = @"POLICYGROUP";
     */
     CPString _domainName @accessors(property=domainName);
     /*!
-        source IPV6 address
-    */
-    CPString _sourceIpv6Value @accessors(property=sourceIpv6Value);
-    /*!
-        Source network - available in version 1.0 api
-    */
-    CPString _sourceNetwork @accessors(property=sourceNetwork);
-    /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _sourcePgId @accessors(property=sourcePgId);
-    /*!
-        in case of PG this will be its EVPNBGPCommunity String, incase of network itdomainfip will be network cidr
-    */
-    CPString _sourcePgType @accessors(property=sourcePgType);
-    /*!
         Source port to be matched if protocol is UDP or TCP. Value can be either * or single port number or a port range
     */
     CPString _sourcePort @accessors(property=sourcePort);
     /*!
-        Location Type - either PolicyGroup or Network
-    */
-    CPString _sourceType @accessors(property=sourceType);
-    /*!
-        In case of PG this will be its EVPNBGPCommunity String, incase of network it will be network cidr
-    */
-    CPString _sourceValue @accessors(property=sourceValue);
-    /*!
         The priority of the ACL entry that determines the order of entries
     */
-    CPString _priority @accessors(property=priority);
+    CPNumber _priority @accessors(property=priority);
     /*!
-        The associated application ID
+        Protocol number that must be matched
     */
-    CPString _associatedApplicationID @accessors(property=associatedApplicationID);
+    CPString _protocol @accessors(property=protocol);
     /*!
-        The associated application object ID
+        In the draft mode, the ACL entity refers to this live entity parent. In non-drafted mode, this is null
     */
-    CPString _associatedApplicationObjectID @accessors(property=associatedApplicationObjectID);
+    CPString _associatedLiveTemplateID @accessors(property=associatedLiveTemplateID);
+    /*!
+        The associated Traffic type. L4 Service / L4 Service Group
+    */
+    CPString _associatedTrafficType @accessors(property=associatedTrafficType);
+    /*!
+        The associated Traffic Type ID
+    */
+    CPString _associatedTrafficTypeID @accessors(property=associatedTrafficTypeID);
     /*!
         Associated Firewall Acl ID
     */
@@ -218,7 +185,13 @@ NUFirewallRuleSourceType_POLICYGROUP = @"POLICYGROUP";
         Ether type of the packet to be matched. etherType can be * or a valid hexadecimal value
     */
     CPString _etherType @accessors(property=etherType);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -244,40 +217,35 @@ NUFirewallRuleSourceType_POLICYGROUP = @"POLICYGROUP";
         [self exposeLocalKeyPathToREST:@"ICMPType"];
         [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
         [self exposeLocalKeyPathToREST:@"description"];
-        [self exposeLocalKeyPathToREST:@"destNetwork"];
-        [self exposeLocalKeyPathToREST:@"destPgId"];
-        [self exposeLocalKeyPathToREST:@"destPgType"];
-        [self exposeLocalKeyPathToREST:@"destinationIpv6Value"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
-        [self exposeLocalKeyPathToREST:@"destinationType"];
-        [self exposeLocalKeyPathToREST:@"destinationValue"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"locationType"];
         [self exposeLocalKeyPathToREST:@"domainName"];
-        [self exposeLocalKeyPathToREST:@"sourceIpv6Value"];
-        [self exposeLocalKeyPathToREST:@"sourceNetwork"];
-        [self exposeLocalKeyPathToREST:@"sourcePgId"];
-        [self exposeLocalKeyPathToREST:@"sourcePgType"];
         [self exposeLocalKeyPathToREST:@"sourcePort"];
-        [self exposeLocalKeyPathToREST:@"sourceType"];
-        [self exposeLocalKeyPathToREST:@"sourceValue"];
         [self exposeLocalKeyPathToREST:@"priority"];
-        [self exposeLocalKeyPathToREST:@"associatedApplicationID"];
-        [self exposeLocalKeyPathToREST:@"associatedApplicationObjectID"];
+        [self exposeLocalKeyPathToREST:@"protocol"];
+        [self exposeLocalKeyPathToREST:@"associatedLiveTemplateID"];
+        [self exposeLocalKeyPathToREST:@"associatedTrafficType"];
+        [self exposeLocalKeyPathToREST:@"associatedTrafficTypeID"];
         [self exposeLocalKeyPathToREST:@"associatedfirewallACLID"];
         [self exposeLocalKeyPathToREST:@"stateful"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"etherType"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

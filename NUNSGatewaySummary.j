@@ -29,12 +29,16 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUNSGatewaySummaryBootstrapStatus_ACTIVE = @"ACTIVE";
-NUNSGatewaySummaryBootstrapStatus_CERTIFICATE_REQUIRED = @"CERTIFICATE_REQUIRED";
+NUNSGatewaySummaryBootstrapStatus_CERTIFICATE_SIGNED = @"CERTIFICATE_SIGNED";
 NUNSGatewaySummaryBootstrapStatus_INACTIVE = @"INACTIVE";
 NUNSGatewaySummaryBootstrapStatus_NOTIFICATION_APP_REQ_ACK = @"NOTIFICATION_APP_REQ_ACK";
 NUNSGatewaySummaryBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
+NUNSGatewaySummaryEntityScope_ENTERPRISE = @"ENTERPRISE";
+NUNSGatewaySummaryEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -43,9 +47,17 @@ NUNSGatewaySummaryBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP
 @implementation NUNSGatewaySummary : NURESTObject
 {
     /*!
+        The NSG Version (software) as reported during bootstrapping or following an upgrade.
+    */
+    CPString _NSGVersion @accessors(property=NSGVersion);
+    /*!
         Total number of alarms with MAJOR severity
     */
     CPNumber _majorAlarmsCount @accessors(property=majorAlarmsCount);
+    /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
         The ID of the NSG from which the infomation was collected.
     */
@@ -54,6 +66,10 @@ NUNSGatewaySummaryBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP
         The name of the gateway
     */
     CPString _gatewayName @accessors(property=gatewayName);
+    /*!
+        Details on the type of gateway for which the summary is given.  For NSGs, the value would be NSGateway.
+    */
+    CPString _gatewayType @accessors(property=gatewayType);
     /*!
         The latitude of the location of the NSG
     */
@@ -65,7 +81,7 @@ NUNSGatewaySummaryBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP
     /*!
         Time zone in which the Gateway is located.  This can be in the form of a UTC/GMT offset, continent/city location, or country/region.  The available time zones can be found in /usr/share/zoneinfo on a Linux machine or retrieved with TimeZone.getAvailableIDs() in Java.  Refer to the IANA (Internet Assigned Numbers Authority) for a list of time zones.  URL :  http://www.iana.org/time-zones  Default value is UTC (translating to Etc/Zulu)
     */
-    CPString _timeZoneID @accessors(property=timeZoneID);
+    CPString _timezoneID @accessors(property=timezoneID);
     /*!
         Total number of alarms with MINOR severity
     */
@@ -73,11 +89,15 @@ NUNSGatewaySummaryBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP
     /*!
         Total number of alarms with INFO severity
     */
-    CPString _infoAlarmsCount @accessors(property=infoAlarmsCount);
+    CPNumber _infoAlarmsCount @accessors(property=infoAlarmsCount);
     /*!
         The enterprise associated with this NSG
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
     /*!
         Locality/City/County of the NSG
     */
@@ -99,18 +119,20 @@ NUNSGatewaySummaryBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP
     */
     CPNumber _criticalAlarmsCount @accessors(property=criticalAlarmsCount);
     /*!
-        The NSG Version (software) as reported during bootstrapping or following an upgrade.
-    */
-    CPString _nsgVersion @accessors(property=nsgVersion);
-    /*!
         State/Province/Region
     */
     CPString _state @accessors(property=state);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     /*!
         Identifier of the gateway
     */
     CPString _systemID @accessors(property=systemID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -131,24 +153,30 @@ NUNSGatewaySummaryBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"NSGVersion"];
         [self exposeLocalKeyPathToREST:@"majorAlarmsCount"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gatewayID"];
         [self exposeLocalKeyPathToREST:@"gatewayName"];
+        [self exposeLocalKeyPathToREST:@"gatewayType"];
         [self exposeLocalKeyPathToREST:@"latitude"];
         [self exposeLocalKeyPathToREST:@"address"];
-        [self exposeLocalKeyPathToREST:@"timeZoneID"];
+        [self exposeLocalKeyPathToREST:@"timezoneID"];
         [self exposeLocalKeyPathToREST:@"minorAlarmsCount"];
         [self exposeLocalKeyPathToREST:@"infoAlarmsCount"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locality"];
         [self exposeLocalKeyPathToREST:@"longitude"];
         [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
         [self exposeLocalKeyPathToREST:@"country"];
         [self exposeLocalKeyPathToREST:@"criticalAlarmsCount"];
-        [self exposeLocalKeyPathToREST:@"nsgVersion"];
         [self exposeLocalKeyPathToREST:@"state"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

@@ -29,6 +29,8 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUDiskStatEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUDiskStatEntityScope_GLOBAL = @"GLOBAL";
@@ -77,6 +79,8 @@ NUDiskStatUnit_ZB = @"ZB";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -105,6 +109,8 @@ NUDiskStatUnit_ZB = @"ZB";
         [self exposeLocalKeyPathToREST:@"available"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

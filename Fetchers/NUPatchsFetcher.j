@@ -28,14 +28,14 @@
 @import <Foundation/Foundation.j>
 @import <Bambou/NURESTFetcher.j>
 
-@class NUFloatingIPACLTemplate
+@class NUPatch
 
 
-@implementation NUFloatingIPACLTemplatesFetcher : NURESTFetcher
+@implementation NUPatchsFetcher : NURESTFetcher
 
 + (Class)managedObjectClass
 {
-    return NUFloatingIPACLTemplate;
+    return NUPatch;
 }
 
 @end

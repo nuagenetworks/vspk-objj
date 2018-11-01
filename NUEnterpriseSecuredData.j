@@ -34,6 +34,8 @@
 
 NUEnterpriseSecuredDataEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEnterpriseSecuredDataEntityScope_GLOBAL = @"GLOBAL";
+NUEnterpriseSecuredDataSeedType_DR = @"DR";
+NUEnterpriseSecuredDataSeedType_STANDARD = @"STANDARD";
 
 
 /*!
@@ -53,6 +55,10 @@ NUEnterpriseSecuredDataEntityScope_GLOBAL = @"GLOBAL";
         encrypted data
     */
     CPString _data @accessors(property=data);
+    /*!
+        seed type
+    */
+    CPString _seedType @accessors(property=seedType);
     /*!
         Seed Encryption Key id that encrypted this data
     */
@@ -99,6 +105,7 @@ NUEnterpriseSecuredDataEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"hash"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"data"];
+        [self exposeLocalKeyPathToREST:@"seedType"];
         [self exposeLocalKeyPathToREST:@"sekId"];
         [self exposeLocalKeyPathToREST:@"keyserverCertSerialNumber"];
         [self exposeLocalKeyPathToREST:@"signedHash"];

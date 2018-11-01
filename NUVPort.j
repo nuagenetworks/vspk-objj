@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NURedirectionTargetsFetcher.j"
+@import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAggregateMetadatasFetcher.j"
 @import "Fetchers/NUBGPNeighborsFetcher.j"
@@ -52,7 +53,6 @@
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUHostInterfacesFetcher.j"
 @import "Fetchers/NUVPortMirrorsFetcher.j"
-@import "Fetchers/NUApplicationperformancemanagementsFetcher.j"
 @import "Fetchers/NUBridgeInterfacesFetcher.j"
 @import "Fetchers/NUVRSsFetcher.j"
 @import "Fetchers/NUTrunksFetcher.j"
@@ -69,9 +69,12 @@ NUVPortAssociatedGatewayPersonality_EVDFB = @"EVDFB";
 NUVPortAssociatedGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUVPortAssociatedGatewayPersonality_NETCONF_7X50 = @"NETCONF_7X50";
 NUVPortAssociatedGatewayPersonality_NSG = @"NSG";
+NUVPortAssociatedGatewayPersonality_NSGBR = @"NSGBR";
+NUVPortAssociatedGatewayPersonality_NSGDUC = @"NSGDUC";
 NUVPortAssociatedGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NUVPortAssociatedGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NUVPortAssociatedGatewayPersonality_OTHER = @"OTHER";
+NUVPortAssociatedGatewayPersonality_VDF = @"VDF";
 NUVPortAssociatedGatewayPersonality_VRSB = @"VRSB";
 NUVPortAssociatedGatewayPersonality_VRSG = @"VRSG";
 NUVPortAssociatedGatewayPersonality_VSA = @"VSA";
@@ -154,6 +157,10 @@ NUVPortType_VM = @"VM";
     */
     CPString _gatewayPortName @accessors(property=gatewayPortName);
     /*!
+        Enable Access Restriction
+    */
+    BOOL _accessRestrictionEnabled @accessors(property=accessRestrictionEnabled);
+    /*!
         Indicates if this vport is up or down
     */
     BOOL _active @accessors(property=active);
@@ -176,7 +183,7 @@ NUVPortType_VM = @"VM";
     /*!
         The service ID used by the VSCs to identify the subnet associated with this vport
     */
-    CPString _serviceID @accessors(property=serviceID);
+    CPNumber _serviceID @accessors(property=serviceID);
     /*!
         Description for this vport
     */
@@ -276,6 +283,7 @@ NUVPortType_VM = @"VM";
     
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
+    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAggregateMetadatasFetcher _childrenAggregateMetadatas @accessors(property=childrenAggregateMetadatas);
     NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
@@ -297,7 +305,6 @@ NUVPortType_VM = @"VM";
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
     NUVPortMirrorsFetcher _childrenVPortMirrors @accessors(property=childrenVPortMirrors);
-    NUApplicationperformancemanagementsFetcher _childrenApplicationperformancemanagements @accessors(property=childrenApplicationperformancemanagements);
     NUBridgeInterfacesFetcher _childrenBridgeInterfaces @accessors(property=childrenBridgeInterfaces);
     NUVRSsFetcher _childrenVRSs @accessors(property=childrenVRSs);
     NUTrunksFetcher _childrenTrunks @accessors(property=childrenTrunks);
@@ -333,6 +340,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"gatewayMACMoveRole"];
         [self exposeLocalKeyPathToREST:@"gatewayPortName"];
+        [self exposeLocalKeyPathToREST:@"accessRestrictionEnabled"];
         [self exposeLocalKeyPathToREST:@"active"];
         [self exposeLocalKeyPathToREST:@"addressSpoofing"];
         [self exposeLocalKeyPathToREST:@"peerOperationalState"];
@@ -366,6 +374,7 @@ NUVPortType_VM = @"VM";
         
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
+        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAggregateMetadatas = [NUAggregateMetadatasFetcher fetcherWithParentObject:self];
         _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
@@ -387,7 +396,6 @@ NUVPortType_VM = @"VM";
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
         _childrenVPortMirrors = [NUVPortMirrorsFetcher fetcherWithParentObject:self];
-        _childrenApplicationperformancemanagements = [NUApplicationperformancemanagementsFetcher fetcherWithParentObject:self];
         _childrenBridgeInterfaces = [NUBridgeInterfacesFetcher fetcherWithParentObject:self];
         _childrenVRSs = [NUVRSsFetcher fetcherWithParentObject:self];
         _childrenTrunks = [NUTrunksFetcher fetcherWithParentObject:self];

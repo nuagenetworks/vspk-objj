@@ -67,10 +67,6 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
     */
     CPArrayController _ingressAdvFwd @accessors(property=ingressAdvFwd);
     /*!
-        List of actual Ingress External Service ACLs that will be applied on the interface of this VM
-    */
-    CPArrayController _ingressExternalServiceACLs @accessors(property=ingressExternalServiceACLs);
-    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -116,7 +112,6 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"fipACLs"];
         [self exposeLocalKeyPathToREST:@"ingressACLs"];
         [self exposeLocalKeyPathToREST:@"ingressAdvFwd"];
-        [self exposeLocalKeyPathToREST:@"ingressExternalServiceACLs"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"qos"];
         [self exposeLocalKeyPathToREST:@"stats"];

@@ -76,6 +76,10 @@ NUMonitoringPortState_UP = @"UP";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Flag to indicate if an ACCESS port is DPDK Enabled or not.
+    */
+    BOOL _dpdkEnabled @accessors(property=dpdkEnabled);
+    /*!
         Flag to indicate that is an uplink or downlink port.
     */
     BOOL _uplink @accessors(property=uplink);
@@ -117,6 +121,7 @@ NUMonitoringPortState_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"resiliencyState"];
         [self exposeLocalKeyPathToREST:@"resilient"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"dpdkEnabled"];
         [self exposeLocalKeyPathToREST:@"uplink"];
         [self exposeLocalKeyPathToREST:@"state"];
         [self exposeLocalKeyPathToREST:@"externalID"];

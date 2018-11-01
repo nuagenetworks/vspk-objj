@@ -53,6 +53,10 @@ NUTierTierType_TIER2 = @"TIER2";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Descrtiption of the Tier
+    */
+    CPString _description @accessors(property=description);
+    /*!
         Tier type
     */
     CPString _tierType @accessors(property=tierType);
@@ -102,6 +106,7 @@ NUTierTierType_TIER2 = @"TIER2";
     {
         [self exposeLocalKeyPathToREST:@"packetCount"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"tierType"];
         [self exposeLocalKeyPathToREST:@"timeout"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

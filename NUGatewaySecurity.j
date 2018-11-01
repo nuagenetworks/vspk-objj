@@ -59,6 +59,10 @@ NUGatewaySecurityEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Object type of the associated entity.
+    */
+    CPString _associatedEntityType @accessors(property=associatedEntityType);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -90,6 +94,7 @@ NUGatewaySecurityEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"gatewayID"];
         [self exposeLocalKeyPathToREST:@"revision"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenGatewaySecuredDatas = [NUGatewaySecuredDatasFetcher fetcherWithParentObject:self];

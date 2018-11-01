@@ -35,7 +35,6 @@
 
 NUStaticRouteEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUStaticRouteEntityScope_GLOBAL = @"GLOBAL";
-NUStaticRouteIPType_DUALSTACK = @"DUALSTACK";
 NUStaticRouteIPType_IPV4 = @"IPV4";
 NUStaticRouteIPType_IPV6 = @"IPV6";
 NUStaticRouteType_EXIT_DOMAIN = @"EXIT_DOMAIN";

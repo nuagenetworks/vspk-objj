@@ -127,10 +127,6 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _failsafeDatapath @accessors(property=failsafeDatapath);
     /*!
-        Name of the entity.
-    */
-    CPString _name @accessors(property=name);
-    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
@@ -247,6 +243,10 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _associatedLiveEntityID @accessors(property=associatedLiveEntityID);
     /*!
+        In the draft mode, the ACL entity refers to this live entity parent. In non-drafted mode, this is null
+    */
+    CPString _associatedLiveTemplateID @accessors(property=associatedLiveTemplateID);
+    /*!
         This property reflects the type of traffic in case an ACL entry is created using an Service or Service Group. In case a protocol and port are specified for the ACL entry, this property has to be empty (null). Supported values are L4_SERVICE, L4_SERVICE_GROUP and empty.
     */
     CPString _associatedTrafficType @accessors(property=associatedTrafficType);
@@ -302,7 +302,6 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"DSCPRemarking"];
         [self exposeLocalKeyPathToREST:@"failsafeDatapath"];
-        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
@@ -332,6 +331,7 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"associatedApplicationID"];
         [self exposeLocalKeyPathToREST:@"associatedForwardingPathListID"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
+        [self exposeLocalKeyPathToREST:@"associatedLiveTemplateID"];
         [self exposeLocalKeyPathToREST:@"associatedTrafficType"];
         [self exposeLocalKeyPathToREST:@"associatedTrafficTypeID"];
         [self exposeLocalKeyPathToREST:@"statsID"];
