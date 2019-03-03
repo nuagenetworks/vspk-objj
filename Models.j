@@ -82,6 +82,7 @@
 @import "NUDomainFIPAclTemplate.j"
 @import "NUDomainFIPAclTemplateEntry.j"
 @import "NUDomainTemplate.j"
+@import "NUDownloadProgress.j"
 @import "NUEgressACLEntryTemplate.j"
 @import "NUEgressACLTemplate.j"
 @import "NUEgressAdvFwdEntryTemplate.j"
@@ -168,10 +169,12 @@
 @import "NUNSGRoutingPolicyBinding.j"
 @import "NUNSGUpgradeProfile.j"
 @import "NUNSGateway.j"
+@import "NUNSGatewayMonitor.j"
 @import "NUNSGatewaySummary.j"
 @import "NUNSGatewayTemplate.j"
 @import "NUNSGatewaysCount.j"
 @import "NUNSPort.j"
+@import "NUNSPortInfo.j"
 @import "NUNSPortTemplate.j"
 @import "NUNSRedundantGatewayGroup.j"
 @import "NUNetconfManager.j"
@@ -186,6 +189,8 @@
 @import "NUOSPFInstance.j"
 @import "NUOSPFInterface.j"
 @import "NUOverlayAddressPool.j"
+@import "NUOverlayManagementProfile.j"
+@import "NUOverlayManagementSubnetProfile.j"
 @import "NUOverlayMirrorDestination.j"
 @import "NUOverlayMirrorDestinationTemplate.j"
 @import "NUOverlayPATNATEntry.j"
@@ -236,6 +241,7 @@
 @import "NUStatsCollectorInfo.j"
 @import "NUSubnet.j"
 @import "NUSubnetTemplate.j"
+@import "NUSyslogDestination.j"
 @import "NUSystemConfig.j"
 @import "NUTCA.j"
 @import "NUTier.j"
@@ -280,6 +286,8 @@
 @import "NUVirtualIP.j"
 @import "NUVsgRedundantPort.j"
 @import "NUWANService.j"
+@import "NUWebCategory.j"
+@import "NUWebDomainName.j"
 @import "NUWirelessPort.j"
 @import "NUZFBAutoAssignment.j"
 @import "NUZFBRequest.j"
@@ -341,6 +349,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUDomainFIPAclTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUDomainFIPAclTemplateEntry];
 [[NURESTModelController defaultController] registerModelClass:NUDomainTemplate];
+[[NURESTModelController defaultController] registerModelClass:NUDownloadProgress];
 [[NURESTModelController defaultController] registerModelClass:NUEgressACLEntryTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUEgressACLTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUEgressAdvFwdEntryTemplate];
@@ -427,10 +436,12 @@
 [[NURESTModelController defaultController] registerModelClass:NUNSGRoutingPolicyBinding];
 [[NURESTModelController defaultController] registerModelClass:NUNSGUpgradeProfile];
 [[NURESTModelController defaultController] registerModelClass:NUNSGateway];
+[[NURESTModelController defaultController] registerModelClass:NUNSGatewayMonitor];
 [[NURESTModelController defaultController] registerModelClass:NUNSGatewaySummary];
 [[NURESTModelController defaultController] registerModelClass:NUNSGatewayTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUNSGatewaysCount];
 [[NURESTModelController defaultController] registerModelClass:NUNSPort];
+[[NURESTModelController defaultController] registerModelClass:NUNSPortInfo];
 [[NURESTModelController defaultController] registerModelClass:NUNSPortTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUNSRedundantGatewayGroup];
 [[NURESTModelController defaultController] registerModelClass:NUNetconfManager];
@@ -445,6 +456,8 @@
 [[NURESTModelController defaultController] registerModelClass:NUOSPFInstance];
 [[NURESTModelController defaultController] registerModelClass:NUOSPFInterface];
 [[NURESTModelController defaultController] registerModelClass:NUOverlayAddressPool];
+[[NURESTModelController defaultController] registerModelClass:NUOverlayManagementProfile];
+[[NURESTModelController defaultController] registerModelClass:NUOverlayManagementSubnetProfile];
 [[NURESTModelController defaultController] registerModelClass:NUOverlayMirrorDestination];
 [[NURESTModelController defaultController] registerModelClass:NUOverlayMirrorDestinationTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUOverlayPATNATEntry];
@@ -495,6 +508,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUStatsCollectorInfo];
 [[NURESTModelController defaultController] registerModelClass:NUSubnet];
 [[NURESTModelController defaultController] registerModelClass:NUSubnetTemplate];
+[[NURESTModelController defaultController] registerModelClass:NUSyslogDestination];
 [[NURESTModelController defaultController] registerModelClass:NUSystemConfig];
 [[NURESTModelController defaultController] registerModelClass:NUTCA];
 [[NURESTModelController defaultController] registerModelClass:NUTier];
@@ -539,6 +553,8 @@
 [[NURESTModelController defaultController] registerModelClass:NUVirtualIP];
 [[NURESTModelController defaultController] registerModelClass:NUVsgRedundantPort];
 [[NURESTModelController defaultController] registerModelClass:NUWANService];
+[[NURESTModelController defaultController] registerModelClass:NUWebCategory];
+[[NURESTModelController defaultController] registerModelClass:NUWebDomainName];
 [[NURESTModelController defaultController] registerModelClass:NUWirelessPort];
 [[NURESTModelController defaultController] registerModelClass:NUZFBAutoAssignment];
 [[NURESTModelController defaultController] registerModelClass:NUZFBRequest];

@@ -51,6 +51,7 @@ NUSubnetTemplateMulticast_ENABLED = @"ENABLED";
 NUSubnetTemplateMulticast_INHERITED = @"INHERITED";
 NUSubnetTemplateUseGlobalMAC_DISABLED = @"DISABLED";
 NUSubnetTemplateUseGlobalMAC_ENABLED = @"ENABLED";
+NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
 
 
 /*!

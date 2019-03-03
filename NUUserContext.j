@@ -82,7 +82,11 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
     */
     BOOL _statisticsEnabled @accessors(property=statisticsEnabled);
     /*!
-        ip address(es) of the elastic machine
+        The location of a public proxy to statistics database server in <FQDN>:<PORT> format.
+    */
+    CPString _statsDatabaseProxy @accessors(property=statsDatabaseProxy);
+    /*!
+        IP address(es) of the elastic machine
     */
     CPString _statsTSDBServerAddress @accessors(property=statsTSDBServerAddress);
     /*!
@@ -122,6 +126,7 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"googleMapsAPIKey"];
         [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
+        [self exposeLocalKeyPathToREST:@"statsDatabaseProxy"];
         [self exposeLocalKeyPathToREST:@"statsTSDBServerAddress"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

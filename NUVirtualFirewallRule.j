@@ -56,10 +56,12 @@ NUVirtualFirewallRuleNetworkType_SUBNET = @"SUBNET";
 NUVirtualFirewallRuleNetworkType_ZONE = @"ZONE";
 NUVirtualFirewallRulePolicyState_DRAFT = @"DRAFT";
 NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
+NUVirtualFirewallRuleWebFilterType_WEB_CATEGORY = @"WEB_CATEGORY";
+NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
 
 
 /*!
-    Defines the Virtual Firewall rules
+    Virtual firewall rules define intent based security policy entries to control traffic between source/destinations in the network. Virtual firewall rules are inherently stateful and are enforced as Ingress/Egress stateful ACLs in Nuage policy enforcement points
 */
 @implementation NUVirtualFirewallRule : NURESTObject
 {
@@ -76,7 +78,7 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
     */
     CPString _ICMPType @accessors(property=ICMPType);
     /*!
-        Overrides the source IPV6 for Ingress and destination IPV6 for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IPV6 for Ingress and destination IPV6 for Egress, macentries will use this address as the match criteria.
     */
     CPString _IPv6AddressOverride @accessors(property=IPv6AddressOverride);
     /*!
@@ -92,9 +94,17 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
     */
     CPString _action @accessors(property=action);
     /*!
-        Overrides the source IP for Ingress and destination IP for Egress, macentries will use this adress as the match criteria.
+        Overrides the source IP for Ingress and destination IP for Egress, macentries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
+    /*!
+        ID of web filter
+    */
+    CPString _webFilterID @accessors(property=webFilterID);
+    /*!
+        Indicates type of web filter being set
+    */
+    CPString _webFilterType @accessors(property=webFilterType);
     /*!
         Description of the rule entry
     */
@@ -238,6 +248,8 @@ NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
+        [self exposeLocalKeyPathToREST:@"webFilterID"];
+        [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];

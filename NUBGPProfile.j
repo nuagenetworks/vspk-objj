@@ -37,7 +37,7 @@ NUBGPProfileEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    missing documentation.
+    Definitions for default import/export routing policies and dampening profiles
 */
 @implementation NUBGPProfile : NURESTObject
 {

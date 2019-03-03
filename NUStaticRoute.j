@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
@@ -38,6 +39,7 @@ NUStaticRouteEntityScope_GLOBAL = @"GLOBAL";
 NUStaticRouteIPType_IPV4 = @"IPV4";
 NUStaticRouteIPType_IPV6 = @"IPV6";
 NUStaticRouteType_EXIT_DOMAIN = @"EXIT_DOMAIN";
+NUStaticRouteType_NETCONF = @"NETCONF";
 NUStaticRouteType_OVERLAY = @"OVERLAY";
 NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
 
@@ -76,6 +78,10 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
     */
     CPString _nextHopIp @accessors(property=nextHopIp);
     /*!
+        Indicates if this is a black hole static route. Applicable only when the static route type is 'NETCONF'.
+    */
+    BOOL _blackHoleEnabled @accessors(property=blackHoleEnabled);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -83,6 +89,10 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
         Route distinguisher associated with the nexthop. System generates this identifier automatically
     */
     CPString _routeDistinguisher @accessors(property=routeDistinguisher);
+    /*!
+        List of associated gateway IDs for static route, returned as a JSON list of strings
+    */
+    CPArrayController _associatedGatewayIDs @accessors(property=associatedGatewayIDs);
     /*!
         UUID of Do Not Advertise Subnet
     */
@@ -96,6 +106,7 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
     */
     CPString _type @accessors(property=type);
     
+    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
@@ -126,12 +137,15 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"nextHopIp"];
+        [self exposeLocalKeyPathToREST:@"blackHoleEnabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
+        [self exposeLocalKeyPathToREST:@"associatedGatewayIDs"];
         [self exposeLocalKeyPathToREST:@"associatedSubnetID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];

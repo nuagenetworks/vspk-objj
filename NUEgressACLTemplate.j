@@ -50,7 +50,7 @@ NUEgressACLTemplatePriorityType_TOP_FIREWALL = @"TOP_FIREWALL";
 
 
 /*!
-    Defines the template for an Egress ACL.
+    An egress security policy is a set of rules defining how network traffic is treated within a domain. Egress Security Policies control traffic flowing out of the network.
 */
 @implementation NUEgressACLTemplate : NURESTObject
 {

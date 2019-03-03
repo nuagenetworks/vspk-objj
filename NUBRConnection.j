@@ -42,7 +42,7 @@ NUBRConnectionMode_STATIC = @"Static";
 
 
 /*!
-    None
+    Configuration of VNS Gateway Border Router connection
 */
 @implementation NUBRConnection : NURESTObject
 {

@@ -83,6 +83,10 @@ NUL7applicationsignatureEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _signatureIndex @accessors(property=signatureIndex);
     /*!
+        The AAR application version where this signature was last updated.
+    */
+    CPString _signatureVersion @accessors(property=signatureVersion);
+    /*!
         Risk is determined on a scale of 1 to 5. It is received from Procera for every signature.
     */
     CPNumber _risk @accessors(property=risk);
@@ -144,6 +148,7 @@ NUL7applicationsignatureEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"dictionaryVersion"];
         [self exposeLocalKeyPathToREST:@"signatureIndex"];
+        [self exposeLocalKeyPathToREST:@"signatureVersion"];
         [self exposeLocalKeyPathToREST:@"risk"];
         [self exposeLocalKeyPathToREST:@"pluginName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

@@ -64,7 +64,7 @@ NUVLANType_UPLINK = @"UPLINK";
 
 
 /*!
-    Represents VLAN object under a given Port object.
+    VLANs are Virtual Local Area Networks. They allow to differentiate several traffic flows inside a single Port. A VLAN with a value set to 0 can be used to tell the system to not use any tagging.
 */
 @implementation NUVLAN : NURESTObject
 {

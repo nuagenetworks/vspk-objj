@@ -36,7 +36,7 @@ NUMetadataEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    Metadata associated to a entity.
+    Metadata contains user-defined data that can be attached to any VSD object. The value of a metadata can be interpreted by various external systems for any needs. Local Metadata are directly created under an object.
 */
 @implementation NUMetadata : NURESTObject
 {

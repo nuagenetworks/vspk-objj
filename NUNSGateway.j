@@ -45,7 +45,9 @@
 @import "Fetchers/NUCommandsFetcher.j"
 @import "Fetchers/NUBootstrapsFetcher.j"
 @import "Fetchers/NUBootstrapActivationsFetcher.j"
+@import "Fetchers/NUNSPortInfosFetcher.j"
 @import "Fetchers/NUUplinkConnectionsFetcher.j"
+@import "Fetchers/NUNSGatewayMonitorsFetcher.j"
 @import "Fetchers/NUNSGatewaySummariesFetcher.j"
 @import "Fetchers/NUNSGInfosFetcher.j"
 @import "Fetchers/NUNSPortsFetcher.j"
@@ -82,6 +84,8 @@ NUNSGatewayFamily_NSG_E300 = @"NSG_E300";
 NUNSGatewayFamily_NSG_V = @"NSG_V";
 NUNSGatewayFamily_NSG_X = @"NSG_X";
 NUNSGatewayFamily_NSG_X200 = @"NSG_X200";
+NUNSGatewayFunctions_GATEWAY = @"GATEWAY";
+NUNSGatewayFunctions_UBR = @"UBR";
 NUNSGatewayInheritedSSHServiceState_DISABLED = @"DISABLED";
 NUNSGatewayInheritedSSHServiceState_ENABLED = @"ENABLED";
 NUNSGatewayNetworkAcceleration_NONE = @"NONE";
@@ -92,15 +96,9 @@ NUNSGatewayPermittedAction_EXTEND = @"EXTEND";
 NUNSGatewayPermittedAction_INSTANTIATE = @"INSTANTIATE";
 NUNSGatewayPermittedAction_READ = @"READ";
 NUNSGatewayPermittedAction_USE = @"USE";
-NUNSGatewayPersonality_DC7X50 = @"DC7X50";
-NUNSGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUNSGatewayPersonality_NSG = @"NSG";
 NUNSGatewayPersonality_NSGBR = @"NSGBR";
 NUNSGatewayPersonality_NSGDUC = @"NSGDUC";
-NUNSGatewayPersonality_OTHER = @"OTHER";
-NUNSGatewayPersonality_VRSG = @"VRSG";
-NUNSGatewayPersonality_VSA = @"VSA";
-NUNSGatewayPersonality_VSG = @"VSG";
 NUNSGatewaySSHService_DISABLED = @"DISABLED";
 NUNSGatewaySSHService_ENABLED = @"ENABLED";
 NUNSGatewaySSHService_INHERITED = @"INHERITED";
@@ -178,6 +176,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         The NSG Processor Type as reported during bootstrapping.
     */
     CPString _CPUType @accessors(property=CPUType);
+    /*!
+        Version of the latest imported Application Signatures.
+    */
+    CPString _VSDAARApplicationVersion @accessors(property=VSDAARApplicationVersion);
     /*!
         The NSG Version (software) as reported during bootstrapping or following an upgrade.
     */
@@ -323,6 +325,14 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _associatedNSGUpgradeProfileID @accessors(property=associatedNSGUpgradeProfileID);
     /*!
+        The ID of the associated Overlay Management Profile
+    */
+    CPString _associatedOverlayManagementProfileID @accessors(property=associatedOverlayManagementProfileID);
+    /*!
+        List of supported functions
+    */
+    CPArrayController _functions @accessors(property=functions);
+    /*!
         The Auto Discovered Gateway associated with this Gateway Instance
     */
     CPString _autoDiscGatewayID @accessors(property=autoDiscGatewayID);
@@ -351,7 +361,9 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     NUCommandsFetcher _childrenCommands @accessors(property=childrenCommands);
     NUBootstrapsFetcher _childrenBootstraps @accessors(property=childrenBootstraps);
     NUBootstrapActivationsFetcher _childrenBootstrapActivations @accessors(property=childrenBootstrapActivations);
+    NUNSPortInfosFetcher _childrenNSPortInfos @accessors(property=childrenNSPortInfos);
     NUUplinkConnectionsFetcher _childrenUplinkConnections @accessors(property=childrenUplinkConnections);
+    NUNSGatewayMonitorsFetcher _childrenNSGatewayMonitors @accessors(property=childrenNSGatewayMonitors);
     NUNSGatewaySummariesFetcher _childrenNSGatewaySummaries @accessors(property=childrenNSGatewaySummaries);
     NUNSGInfosFetcher _childrenNSGInfos @accessors(property=childrenNSGInfos);
     NUNSPortsFetcher _childrenNSPorts @accessors(property=childrenNSPorts);
@@ -391,6 +403,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
         [self exposeLocalKeyPathToREST:@"TPMVersion"];
         [self exposeLocalKeyPathToREST:@"CPUType"];
+        [self exposeLocalKeyPathToREST:@"VSDAARApplicationVersion"];
         [self exposeLocalKeyPathToREST:@"NSGVersion"];
         [self exposeLocalKeyPathToREST:@"SSHService"];
         [self exposeLocalKeyPathToREST:@"UUID"];
@@ -427,6 +440,8 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGInfoID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGUpgradeProfileID"];
+        [self exposeLocalKeyPathToREST:@"associatedOverlayManagementProfileID"];
+        [self exposeLocalKeyPathToREST:@"functions"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
@@ -447,7 +462,9 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         _childrenCommands = [NUCommandsFetcher fetcherWithParentObject:self];
         _childrenBootstraps = [NUBootstrapsFetcher fetcherWithParentObject:self];
         _childrenBootstrapActivations = [NUBootstrapActivationsFetcher fetcherWithParentObject:self];
+        _childrenNSPortInfos = [NUNSPortInfosFetcher fetcherWithParentObject:self];
         _childrenUplinkConnections = [NUUplinkConnectionsFetcher fetcherWithParentObject:self];
+        _childrenNSGatewayMonitors = [NUNSGatewayMonitorsFetcher fetcherWithParentObject:self];
         _childrenNSGatewaySummaries = [NUNSGatewaySummariesFetcher fetcherWithParentObject:self];
         _childrenNSGInfos = [NUNSGInfosFetcher fetcherWithParentObject:self];
         _childrenNSPorts = [NUNSPortsFetcher fetcherWithParentObject:self];

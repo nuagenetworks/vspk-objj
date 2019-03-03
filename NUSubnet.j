@@ -33,6 +33,7 @@
 @import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NUAddressRangesFetcher.j"
 @import "Fetchers/NUDefaultGatewaysFetcher.j"
+@import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUVMResyncsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUBGPNeighborsFetcher.j"
@@ -86,6 +87,7 @@ NUSubnetUnderlayEnabled_ENABLED = @"ENABLED";
 NUSubnetUnderlayEnabled_INHERITED = @"INHERITED";
 NUSubnetUseGlobalMAC_DISABLED = @"DISABLED";
 NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
+NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
 
 
 /*!
@@ -117,6 +119,10 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         The IPv6 address of the gateway of this subnet
     */
     CPString _IPv6Gateway @accessors(property=IPv6Gateway);
+    /*!
+        Indicates if EVPN capabilities are enabled for this subnet.
+    */
+    BOOL _EVPNEnabled @accessors(property=EVPNEnabled);
     /*!
         maintenanceMode is an enum that indicates if the SubNetwork is accepting VM activation requests.
     */
@@ -186,6 +192,10 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _underlayEnabled @accessors(property=underlayEnabled);
     /*!
+        Enables ingress replication for the VNI.
+    */
+    BOOL _ingressReplicationEnabled @accessors(property=ingressReplicationEnabled);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -197,6 +207,10 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         PG ID for the subnet. This is unique per domain and will be in the range 1-4095
     */
     CPNumber _policyGroupID @accessors(property=policyGroupID);
+    /*!
+        Service ID or external label given to Domain
+    */
+    CPString _domainServiceLabel @accessors(property=domainServiceLabel);
     /*!
         Route distinguisher for this subnet that is used by the BGP-EVPN protocol in VSC. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
     */
@@ -242,6 +256,10 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _multicast @accessors(property=multicast);
     /*!
+        CustomerID that is used by NETCONF MANAGER to identify this enterprise. This can be configured by root user.
+    */
+    CPNumber _customerID @accessors(property=customerID);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -254,6 +272,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
     NUDefaultGatewaysFetcher _childrenDefaultGateways @accessors(property=childrenDefaultGateways);
+    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUVMResyncsFetcher _childrenVMResyncs @accessors(property=childrenVMResyncs);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
@@ -300,6 +319,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
+        [self exposeLocalKeyPathToREST:@"EVPNEnabled"];
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
@@ -317,9 +337,11 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"underlay"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];
+        [self exposeLocalKeyPathToREST:@"ingressReplicationEnabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyGroupID"];
+        [self exposeLocalKeyPathToREST:@"domainServiceLabel"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"splitSubnet"];
@@ -331,6 +353,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"subnetVLANID"];
         [self exposeLocalKeyPathToREST:@"multiHomeEnabled"];
         [self exposeLocalKeyPathToREST:@"multicast"];
+        [self exposeLocalKeyPathToREST:@"customerID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
@@ -338,6 +361,7 @@ NUSubnetUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
         _childrenDefaultGateways = [NUDefaultGatewaysFetcher fetcherWithParentObject:self];
+        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenVMResyncs = [NUVMResyncsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];

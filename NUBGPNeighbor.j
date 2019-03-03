@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
@@ -88,6 +89,10 @@ NUBGPNeighborIPType_IPV6 = @"IPV6";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Service ID or external label given to Domain
+    */
+    CPString _domainServiceLabel @accessors(property=domainServiceLabel);
+    /*!
         export policy ID
     */
     CPString _associatedExportRoutingPolicyID @accessors(property=associatedExportRoutingPolicyID);
@@ -100,6 +105,7 @@ NUBGPNeighborIPType_IPV6 = @"IPV6";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
@@ -133,10 +139,12 @@ NUBGPNeighborIPType_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"session"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"domainServiceLabel"];
         [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedImportRoutingPolicyID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         

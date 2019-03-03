@@ -58,6 +58,8 @@ NUFirewallRuleNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUFirewallRuleNetworkType_PUBLIC_NETWORK = @"PUBLIC_NETWORK";
 NUFirewallRuleNetworkType_SUBNET = @"SUBNET";
 NUFirewallRuleNetworkType_ZONE = @"ZONE";
+NUFirewallRuleWebFilterType_WEB_CATEGORY = @"WEB_CATEGORY";
+NUFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
 
 
 /*!
@@ -97,6 +99,14 @@ NUFirewallRuleNetworkType_ZONE = @"ZONE";
         Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
+    /*!
+        ID of web filter
+    */
+    CPString _webFilterID @accessors(property=webFilterID);
+    /*!
+        Indicates type of web filter being set
+    */
+    CPString _webFilterType @accessors(property=webFilterType);
     /*!
         Description of the ACL entry
     */
@@ -220,6 +230,8 @@ NUFirewallRuleNetworkType_ZONE = @"ZONE";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
+        [self exposeLocalKeyPathToREST:@"webFilterID"];
+        [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];

@@ -45,6 +45,7 @@ NUAllRedundancyGroupPersonality_EVDF = @"EVDF";
 NUAllRedundancyGroupPersonality_EVDFB = @"EVDFB";
 NUAllRedundancyGroupPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUAllRedundancyGroupPersonality_NETCONF_7X50 = @"NETCONF_7X50";
+NUAllRedundancyGroupPersonality_NETCONF_THIRDPARTY_HW_VTEP = @"NETCONF_THIRDPARTY_HW_VTEP";
 NUAllRedundancyGroupPersonality_NSG = @"NSG";
 NUAllRedundancyGroupPersonality_NSGBR = @"NSGBR";
 NUAllRedundancyGroupPersonality_NSGDUC = @"NSGDUC";

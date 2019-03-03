@@ -35,10 +35,12 @@
 
 NUDUCGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUDUCGroupEntityScope_GLOBAL = @"GLOBAL";
+NUDUCGroupFunction_GATEWAY = @"GATEWAY";
+NUDUCGroupFunction_UBR = @"UBR";
 
 
 /*!
-    None
+    A logical group of 1 or more NSGs of personality NSG-UBR, that are used to provide connectivity between NSGs in disjoint underlays.
 */
 @implementation NUDUCGroup : NURESTObject
 {
@@ -62,6 +64,10 @@ NUDUCGroupEntityScope_GLOBAL = @"GLOBAL";
         Identification of the Performance Monitoring Probe that is associated with this instance of a UBR Group.
     */
     CPString _associatedPerformanceMonitorID @accessors(property=associatedPerformanceMonitorID);
+    /*!
+        The function of the group
+    */
+    CPString _function @accessors(property=function);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -95,6 +101,7 @@ NUDUCGroupEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedPerformanceMonitorID"];
+        [self exposeLocalKeyPathToREST:@"function"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

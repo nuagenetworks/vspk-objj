@@ -48,7 +48,7 @@ NUPerformanceMonitorServiceClass_H = @"H";
 
 
 /*!
-    None
+    To enable the network performance monitoring between NSGs in an NSG Group and NSG-UBRs in an NSG-UBR Group. 
 */
 @implementation NUPerformanceMonitor : NURESTObject
 {

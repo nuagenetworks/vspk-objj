@@ -68,6 +68,7 @@ NUVPortAssociatedGatewayPersonality_EVDF = @"EVDF";
 NUVPortAssociatedGatewayPersonality_EVDFB = @"EVDFB";
 NUVPortAssociatedGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUVPortAssociatedGatewayPersonality_NETCONF_7X50 = @"NETCONF_7X50";
+NUVPortAssociatedGatewayPersonality_NETCONF_THIRDPARTY_HW_VTEP = @"NETCONF_THIRDPARTY_HW_VTEP";
 NUVPortAssociatedGatewayPersonality_NSG = @"NSG";
 NUVPortAssociatedGatewayPersonality_NSGBR = @"NSGBR";
 NUVPortAssociatedGatewayPersonality_NSGDUC = @"NSGDUC";
@@ -75,6 +76,7 @@ NUVPortAssociatedGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NUVPortAssociatedGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NUVPortAssociatedGatewayPersonality_OTHER = @"OTHER";
 NUVPortAssociatedGatewayPersonality_VDF = @"VDF";
+NUVPortAssociatedGatewayPersonality_VDFG = @"VDFG";
 NUVPortAssociatedGatewayPersonality_VRSB = @"VRSB";
 NUVPortAssociatedGatewayPersonality_VRSG = @"VRSG";
 NUVPortAssociatedGatewayPersonality_VSA = @"VSA";
@@ -137,6 +139,10 @@ NUVPortType_VM = @"VM";
     */
     CPString _DPI @accessors(property=DPI);
     /*!
+        Backhaul subnet VNID of the L3Domain associated with the VPort. This is exposed for Netconf manager
+    */
+    CPNumber _backhaulSubnetVNID @accessors(property=backhaulSubnetVNID);
+    /*!
         Name of the vport. Valid characters are alphabets, numbers, space and hyphen( - ).
     */
     CPString _name @accessors(property=name);
@@ -197,6 +203,18 @@ NUVPortType_VM = @"VM";
     */
     CPString _domainID @accessors(property=domainID);
     /*!
+        Name of the Domain associated with the VPort. This is exposed for Netconf manager 
+    */
+    CPString _domainName @accessors(property=domainName);
+    /*!
+        Service ID of Domain.
+    */
+    CPString _domainServiceLabel @accessors(property=domainServiceLabel);
+    /*!
+        Backhaul vlan id the L3Domain associated with the VPort. This is exposed for Netconf manager
+    */
+    CPNumber _domainVLANID @accessors(property=domainVLANID);
+    /*!
         ID the Zone associated with the VPort
     */
     CPString _zoneID @accessors(property=zoneID);
@@ -256,6 +274,10 @@ NUVPortType_VM = @"VM";
         Sub type of vport - possible values are NONE/VNF
     */
     CPString _subType @accessors(property=subType);
+    /*!
+        VNID of the associated subnet or L2domain with the VPort. This is exposed for Netconf manager
+    */
+    CPNumber _subnetVNID @accessors(property=subnetVNID);
     /*!
         ID of the Multi NIC VPort associated with the VPort
     */
@@ -335,6 +357,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"VLAN"];
         [self exposeLocalKeyPathToREST:@"VLANID"];
         [self exposeLocalKeyPathToREST:@"DPI"];
+        [self exposeLocalKeyPathToREST:@"backhaulSubnetVNID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"hasAttachedInterfaces"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
@@ -350,6 +373,9 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainID"];
+        [self exposeLocalKeyPathToREST:@"domainName"];
+        [self exposeLocalKeyPathToREST:@"domainServiceLabel"];
+        [self exposeLocalKeyPathToREST:@"domainVLANID"];
         [self exposeLocalKeyPathToREST:@"zoneID"];
         [self exposeLocalKeyPathToREST:@"operationalState"];
         [self exposeLocalKeyPathToREST:@"trunkRole"];
@@ -365,6 +391,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"associatedSendMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedTrunkID"];
         [self exposeLocalKeyPathToREST:@"subType"];
+        [self exposeLocalKeyPathToREST:@"subnetVNID"];
         [self exposeLocalKeyPathToREST:@"multiNICVPortID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"gwEligible"];

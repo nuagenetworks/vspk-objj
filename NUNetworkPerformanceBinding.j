@@ -37,7 +37,7 @@ NUNetworkPerformanceBindingEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    None
+    Association of Network Performance Measurement policies enable the measurement of path SLA metrics between NSGs in the domain.
 */
 @implementation NUNetworkPerformanceBinding : NURESTObject
 {

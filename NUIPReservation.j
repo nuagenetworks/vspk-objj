@@ -38,7 +38,7 @@ NUIPReservationEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    This is the definition of a IP Bindings associated with in a Network.
+    You can reserve and allocate IP addresess according to the host MAC address
 */
 @implementation NUIPReservation : NURESTObject
 {

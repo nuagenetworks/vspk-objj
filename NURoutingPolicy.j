@@ -32,6 +32,8 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NURoutingPolicyContentType_DEFAULT = @"DEFAULT";
+NURoutingPolicyContentType_NETCONF_7X50 = @"NETCONF_7X50";
 NURoutingPolicyDefaultAction_ACCEPT = @"ACCEPT";
 NURoutingPolicyDefaultAction_REJECT = @"REJECT";
 NURoutingPolicyEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -44,7 +46,7 @@ NURoutingPolicyRoutingProtocol_ROUTING = @"ROUTING";
 
 
 /*!
-    None
+    Pre-defined sets of attributes used in policy match conditions: prefix lists, entries, damping profiles, etc.
 */
 @implementation NURoutingPolicy : NURESTObject
 {
@@ -68,6 +70,10 @@ NURoutingPolicyRoutingProtocol_ROUTING = @"ROUTING";
         String blob
     */
     CPString _policyDefinition @accessors(property=policyDefinition);
+    /*!
+        Content type for routing policy provisioning for different mediation devices
+    */
+    CPString _contentType @accessors(property=contentType);
     /*!
         Routing protocol this policy definition is used for
     */
@@ -104,6 +110,7 @@ NURoutingPolicyRoutingProtocol_ROUTING = @"ROUTING";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyDefinition"];
+        [self exposeLocalKeyPathToREST:@"contentType"];
         [self exposeLocalKeyPathToREST:@"routingProtocol"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

@@ -47,11 +47,13 @@
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NULocationsFetcher.j"
+@import "Fetchers/NUDomainsFetcher.j"
 @import "Fetchers/NUBootstrapsFetcher.j"
 @import "Fetchers/NUBootstrapActivationsFetcher.j"
 @import "Fetchers/NUPortsFetcher.j"
 @import "Fetchers/NUIPFilterProfilesFetcher.j"
 @import "Fetchers/NUIPv6FilterProfilesFetcher.j"
+@import "Fetchers/NUSubnetsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUGatewayBootstrapStatus_ACTIVE = @"ACTIVE";
@@ -83,7 +85,7 @@ NUGatewayPersonality_EVDF = @"EVDF";
 NUGatewayPersonality_EVDFB = @"EVDFB";
 NUGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUGatewayPersonality_NETCONF_7X50 = @"NETCONF_7X50";
-NUGatewayPersonality_NSG = @"NSG";
+NUGatewayPersonality_NETCONF_THIRDPARTY_HW_VTEP = @"NETCONF_THIRDPARTY_HW_VTEP";
 NUGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NUGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NUGatewayPersonality_OTHER = @"OTHER";
@@ -92,6 +94,7 @@ NUGatewayPersonality_VRSB = @"VRSB";
 NUGatewayPersonality_VRSG = @"VRSG";
 NUGatewayPersonality_VSA = @"VSA";
 NUGatewayPersonality_VSG = @"VSG";
+NUGatewayVendor_CISCO = @"CISCO";
 NUGatewayZFBMatchAttribute_HOSTNAME = @"HOSTNAME";
 NUGatewayZFBMatchAttribute_IP_ADDRESS = @"IP_ADDRESS";
 NUGatewayZFBMatchAttribute_MAC_ADDRESS = @"MAC_ADDRESS";
@@ -162,6 +165,10 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     BOOL _gatewayConnected @accessors(property=gatewayConnected);
     /*!
+        The model string of the gateway. Applicable to netconf managed gateways
+    */
+    CPString _gatewayModel @accessors(property=gatewayModel);
+    /*!
         The Gateway Software Version as reported during bootstrapping.
     */
     CPString _gatewayVersion @accessors(property=gatewayVersion);
@@ -181,6 +188,10 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
         Indicates that this gateway is pending state or state. When in pending state it cannot be modified from REST.
     */
     BOOL _pending @accessors(property=pending);
+    /*!
+        The vendor of the gateway. Applicable to netconf managed gateways
+    */
+    CPString _vendor @accessors(property=vendor);
     /*!
         The device's serial number
     */
@@ -280,11 +291,13 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NULocationsFetcher _childrenLocations @accessors(property=childrenLocations);
+    NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
     NUBootstrapsFetcher _childrenBootstraps @accessors(property=childrenBootstraps);
     NUBootstrapActivationsFetcher _childrenBootstrapActivations @accessors(property=childrenBootstrapActivations);
     NUPortsFetcher _childrenPorts @accessors(property=childrenPorts);
     NUIPFilterProfilesFetcher _childrenIPFilterProfiles @accessors(property=childrenIPFilterProfiles);
     NUIPv6FilterProfilesFetcher _childrenIPv6FilterProfiles @accessors(property=childrenIPv6FilterProfiles);
+    NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -320,11 +333,13 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"datapathID"];
         [self exposeLocalKeyPathToREST:@"patches"];
         [self exposeLocalKeyPathToREST:@"gatewayConnected"];
+        [self exposeLocalKeyPathToREST:@"gatewayModel"];
         [self exposeLocalKeyPathToREST:@"gatewayVersion"];
         [self exposeLocalKeyPathToREST:@"redundancyGroupID"];
         [self exposeLocalKeyPathToREST:@"peer"];
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"pending"];
+        [self exposeLocalKeyPathToREST:@"vendor"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
@@ -364,11 +379,13 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenLocations = [NULocationsFetcher fetcherWithParentObject:self];
+        _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
         _childrenBootstraps = [NUBootstrapsFetcher fetcherWithParentObject:self];
         _childrenBootstrapActivations = [NUBootstrapActivationsFetcher fetcherWithParentObject:self];
         _childrenPorts = [NUPortsFetcher fetcherWithParentObject:self];
         _childrenIPFilterProfiles = [NUIPFilterProfilesFetcher fetcherWithParentObject:self];
         _childrenIPv6FilterProfiles = [NUIPv6FilterProfilesFetcher fetcherWithParentObject:self];
+        _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         _personality = @"VRSG";

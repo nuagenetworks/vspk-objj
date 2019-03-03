@@ -61,7 +61,7 @@ NUPATNATPoolPermittedAction_USE = @"USE";
 @implementation NUPATNATPool : NURESTObject
 {
     /*!
-        IPv4 or IPv6
+        The IP type of this Address Translation Pool. This can be DUALSTACK, IPV4 or IPV6
     */
     CPString _IPType @accessors(property=IPType);
     /*!

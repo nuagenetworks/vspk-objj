@@ -75,6 +75,10 @@ NUHSCType_VSG = @"VSG";
     */
     CPString _address @accessors(property=address);
     /*!
+        The Control IPv4 or IPv6 addresses of the HSC. Example: [10.10.18.10, 2001:10:10:18::10].
+    */
+    CPArrayController _addresses @accessors(property=addresses);
+    /*!
         Peek CPU usage percentage.
     */
     CPNumber _peakCPUUsage @accessors(property=peakCPUUsage);
@@ -184,6 +188,7 @@ NUHSCType_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"addresses"];
         [self exposeLocalKeyPathToREST:@"peakCPUUsage"];
         [self exposeLocalKeyPathToREST:@"peakMemoryUsage"];
         [self exposeLocalKeyPathToREST:@"description"];

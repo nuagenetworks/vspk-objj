@@ -58,6 +58,8 @@ NUDomainFIPAclTemplateEntryNetworkType_SUBNET = @"SUBNET";
 NUDomainFIPAclTemplateEntryNetworkType_ZONE = @"ZONE";
 NUDomainFIPAclTemplateEntryPolicyState_DRAFT = @"DRAFT";
 NUDomainFIPAclTemplateEntryPolicyState_LIVE = @"LIVE";
+NUDomainFIPAclTemplateEntryWebFilterType_WEB_CATEGORY = @"WEB_CATEGORY";
+NUDomainFIPAclTemplateEntryWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
 
 
 /*!
@@ -97,6 +99,14 @@ NUDomainFIPAclTemplateEntryPolicyState_LIVE = @"LIVE";
         Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
+    /*!
+        ID of web filter category or web domain name entity used
+    */
+    CPString _webFilterID @accessors(property=webFilterID);
+    /*!
+        Indicates type of web filter being set
+    */
+    CPString _webFilterType @accessors(property=webFilterType);
     /*!
         Description of the ACL entry
     */
@@ -224,6 +234,8 @@ NUDomainFIPAclTemplateEntryPolicyState_LIVE = @"LIVE";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
+        [self exposeLocalKeyPathToREST:@"webFilterID"];
+        [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];

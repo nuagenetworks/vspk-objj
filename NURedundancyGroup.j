@@ -62,9 +62,7 @@ NURedundancyGroupPermittedAction_USE = @"USE";
 NURedundancyGroupPersonality_DC7X50 = @"DC7X50";
 NURedundancyGroupPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NURedundancyGroupPersonality_NETCONF_7X50 = @"NETCONF_7X50";
-NURedundancyGroupPersonality_NSG = @"NSG";
-NURedundancyGroupPersonality_NSGBR = @"NSGBR";
-NURedundancyGroupPersonality_NSGDUC = @"NSGDUC";
+NURedundancyGroupPersonality_NETCONF_THIRDPARTY_HW_VTEP = @"NETCONF_THIRDPARTY_HW_VTEP";
 NURedundancyGroupPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NURedundancyGroupPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NURedundancyGroupPersonality_OTHER = @"OTHER";
@@ -99,11 +97,11 @@ NURedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     BOOL _gatewayPeer1Connected @accessors(property=gatewayPeer1Connected);
     /*!
-        The gateway configuration owner in this Redundant Group. when Redundant Group is deleted this gateway will recieve vport associations 
+        The gateway configuration owner in this Redundant Group.  When Redundant Group is deleted this gateway will receive vPort associated to the group.
     */
     CPString _gatewayPeer1ID @accessors(property=gatewayPeer1ID);
     /*!
-        The gateway   configuration owner name in this Redundant Group
+        The name of the authoritative gateway of the redundant group.
     */
     CPString _gatewayPeer1Name @accessors(property=gatewayPeer1Name);
     /*!

@@ -65,6 +65,10 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
     */
     CPString _affectedEntityType @accessors(property=affectedEntityType);
     /*!
+        Object difference in json format.
+    */
+    CPString _diffMap @accessors(property=diffMap);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -80,6 +84,14 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
         Type of parent entity.
     */
     CPString _assocEntityType @accessors(property=assocEntityType);
+    /*!
+        ID of associated Network entity.
+    */
+    CPString _associatedNetworkEntityID @accessors(property=associatedNetworkEntityID);
+    /*!
+        Type of associated Network Entity. i.e Domain, Subnet, L2domain
+    */
+    CPString _associatedNetworkEntityType @accessors(property=associatedNetworkEntityType);
     /*!
         A count of failed deployment attempts.
     */
@@ -120,10 +132,13 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"affectedEntityID"];
         [self exposeLocalKeyPathToREST:@"affectedEntityType"];
+        [self exposeLocalKeyPathToREST:@"diffMap"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"errorCondition"];
         [self exposeLocalKeyPathToREST:@"assocEntityId"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
+        [self exposeLocalKeyPathToREST:@"associatedNetworkEntityID"];
+        [self exposeLocalKeyPathToREST:@"associatedNetworkEntityType"];
         [self exposeLocalKeyPathToREST:@"numberOfOccurences"];
         [self exposeLocalKeyPathToREST:@"eventType"];
         [self exposeLocalKeyPathToREST:@"externalID"];

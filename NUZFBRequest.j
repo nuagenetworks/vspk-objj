@@ -44,7 +44,7 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
 
 
 /*!
-    A ZFB Request from an NSG
+    Pending requests reflect Network Services Gateways that have initiated request for bootstrapping. Requests can be assigned or matched to continue the bootstrapping process
 */
 @implementation NUZFBRequest : NURESTObject
 {

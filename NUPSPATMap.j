@@ -40,7 +40,7 @@ NUPSPATMapFamily_IPV6 = @"IPV6";
 
 
 /*!
-    None
+    Reserved provider SPAT IPs to be used to SPAT a collection of provider private IPs in customer domain.
 */
 @implementation NUPSPATMap : NURESTObject
 {

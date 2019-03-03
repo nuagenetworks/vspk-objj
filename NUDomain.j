@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NURedirectionTargetsFetcher.j"
+@import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetworkPerformanceBindingsFetcher.j"
@@ -120,7 +121,6 @@ NUDomainTunnelType_VLAN = @"VLAN";
 NUDomainTunnelType_VXLAN = @"VXLAN";
 NUDomainUnderlayEnabled_DISABLED = @"DISABLED";
 NUDomainUnderlayEnabled_ENABLED = @"ENABLED";
-NUDomainUnderlayEnabled_INHERITED = @"INHERITED";
 NUDomainUplinkPreference_PRIMARY = @"PRIMARY";
 NUDomainUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECONDARY";
 NUDomainUplinkPreference_SECONDARY = @"SECONDARY";
@@ -134,7 +134,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
 @implementation NUDomain : NURESTObject
 {
     /*!
-        Indicates whether PAT is enabled for the subnets in this domain - ENABLED/DISABLED Possible values are INHERITED, ENABLED, DISABLED, .
+        Indicates whether PAT is enabled for the subnets in this domain - ENABLED/DISABLED Possible values are ENABLED, DISABLED.
     */
     CPString _PATEnabled @accessors(property=PATEnabled);
     /*!
@@ -165,6 +165,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         determines whether or not Deep packet inspection is enabled
     */
     CPString _DPI @accessors(property=DPI);
+    /*!
+        Determines whether VXLAN-ECMP are enabled on this domain.
+    */
+    BOOL _VXLANECMPEnabled @accessors(property=VXLANECMPEnabled);
     /*!
         The label associated with the dVRS. This is a read only attribute
     */
@@ -226,6 +230,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _description @accessors(property=description);
     /*!
+        Flag to enable aggregate flows on this domain.
+    */
+    BOOL _aggregateFlowsEnabled @accessors(property=aggregateFlowsEnabled);
+    /*!
         when DHCPBehaviorType is RELAY, then DHCP Server IP Address needs to be set
     */
     CPArrayController _dhcpServerAddresses @accessors(property=dhcpServerAddresses);
@@ -242,7 +250,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _importRouteTarget @accessors(property=importRouteTarget);
     /*!
-        Determines whether IPSEC is enabled Possible values are ENABLED, DISABLED, .
+        Determines whether IPSEC is enabled Possible values are ENABLED, DISABLED.
     */
     CPString _encryption @accessors(property=encryption);
     /*!
@@ -329,9 +337,14 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        External label given to Domain
+    */
+    CPString _externalLabel @accessors(property=externalLabel);
     
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
+    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetworkPerformanceBindingsFetcher _childrenNetworkPerformanceBindings @accessors(property=childrenNetworkPerformanceBindings);
@@ -409,6 +422,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"FIPIgnoreDefaultRoute"];
         [self exposeLocalKeyPathToREST:@"FIPUnderlay"];
         [self exposeLocalKeyPathToREST:@"DPI"];
+        [self exposeLocalKeyPathToREST:@"VXLANECMPEnabled"];
         [self exposeLocalKeyPathToREST:@"labelID"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteDistinguisher"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteTarget"];
@@ -424,6 +438,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"serviceID"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"aggregateFlowsEnabled"];
         [self exposeLocalKeyPathToREST:@"dhcpServerAddresses"];
         [self exposeLocalKeyPathToREST:@"globalRoutingEnabled"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
@@ -450,9 +465,11 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"customerID"];
         [self exposeLocalKeyPathToREST:@"exportRouteTarget"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"externalLabel"];
         
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
+        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetworkPerformanceBindings = [NUNetworkPerformanceBindingsFetcher fetcherWithParentObject:self];
@@ -503,7 +520,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
-        _PATEnabled = @"INHERITED";
+        _PATEnabled = @"DISABLED";
         _DHCPBehavior = @"CONSUME";
         _tunnelType = @"DC_DEFAULT";
         _applicationDeploymentPolicy = @"ZONE";

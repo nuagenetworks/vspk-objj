@@ -34,6 +34,7 @@
 
 NUNetconfSessionEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNetconfSessionEntityScope_GLOBAL = @"GLOBAL";
+NUNetconfSessionGatewayVendor_CISCO = @"CISCO";
 NUNetconfSessionStatus_CONNECTED = @"CONNECTED";
 NUNetconfSessionStatus_DISCONNECTED = @"DISCONNECTED";
 
@@ -47,6 +48,18 @@ NUNetconfSessionStatus_DISCONNECTED = @"DISCONNECTED";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        The model string of the gateway to which this session connected from Netconf Manager
+    */
+    CPString _gatewayModel @accessors(property=gatewayModel);
+    /*!
+        Vendor of the gateway to which this session connected from Netconf Manager
+    */
+    CPString _gatewayVendor @accessors(property=gatewayVendor);
+    /*!
+        Boot image version of gateway to which this session connected from Netconf Manager
+    */
+    CPString _gatewayVersion @accessors(property=gatewayVersion);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -91,6 +104,9 @@ NUNetconfSessionStatus_DISCONNECTED = @"DISCONNECTED";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gatewayModel"];
+        [self exposeLocalKeyPathToREST:@"gatewayVendor"];
+        [self exposeLocalKeyPathToREST:@"gatewayVersion"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayName"];

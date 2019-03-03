@@ -30,6 +30,15 @@
 @import <Bambou/NURESTObject.j>
 
 
+NUNSGInfoCmdStatus_ABANDONED = @"ABANDONED";
+NUNSGInfoCmdStatus_COMPLETED = @"COMPLETED";
+NUNSGInfoCmdStatus_FAILED = @"FAILED";
+NUNSGInfoCmdStatus_RUNNING = @"RUNNING";
+NUNSGInfoCmdStatus_SKIPPED = @"SKIPPED";
+NUNSGInfoCmdStatus_STARTED = @"STARTED";
+NUNSGInfoCmdStatus_UNKNOWN = @"UNKNOWN";
+NUNSGInfoCmdType_NSG_DOWNLOAD_OS_IMAGE = @"NSG_DOWNLOAD_OS_IMAGE";
+NUNSGInfoCmdType_NSG_UPGRADE_TO_IMAGE = @"NSG_UPGRADE_TO_IMAGE";
 NUNSGInfoEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGInfoEntityScope_GLOBAL = @"GLOBAL";
 NUNSGInfoFamily_ANY = @"ANY";
@@ -43,6 +52,9 @@ NUNSGInfoFamily_NSG_E300 = @"NSG_E300";
 NUNSGInfoFamily_NSG_V = @"NSG_V";
 NUNSGInfoFamily_NSG_X = @"NSG_X";
 NUNSGInfoFamily_NSG_X200 = @"NSG_X200";
+NUNSGInfoPersonality_NSG = @"NSG";
+NUNSGInfoPersonality_NSGBR = @"NSGBR";
+NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
 
 
 /*!
@@ -51,7 +63,7 @@ NUNSGInfoFamily_NSG_X200 = @"NSG_X200";
 @implementation NUNSGInfo : NURESTObject
 {
     /*!
-        MAC Address of the NSG.  May represent the MAC address of the first uplink that came operational during bootstrapping.
+        A comma separated list of MAC Addresses associated to the NSG's interfaces (eg, port1, port2, port3).
     */
     CPString _MACAddress @accessors(property=MACAddress);
     /*!
@@ -95,6 +107,10 @@ NUNSGInfoFamily_NSG_X200 = @"NSG_X200";
     */
     CPString _UUID @accessors(property=UUID);
     /*!
+        Name of the Gateway.
+    */
+    CPString _name @accessors(property=name);
+    /*!
         The NSG Family type as it was returned by the NSG during bootstrapping.
     */
     CPString _family @accessors(property=family);
@@ -107,13 +123,57 @@ NUNSGInfoFamily_NSG_X200 = @"NSG_X200";
     */
     CPString _serialNumber @accessors(property=serialNumber);
     /*!
+        Personality of the Gateway.
+    */
+    CPString _personality @accessors(property=personality);
+    /*!
         Tracks RPM package installed for some libraries installed on the NSG.
     */
     CPString _libraries @accessors(property=libraries);
     /*!
+        Detailed status of the current running or last run command.
+    */
+    CPString _cmdDetailedStatus @accessors(property=cmdDetailedStatus);
+    /*!
+        Numerical value representing the code mapping to detailed status of the current or last command operation.
+    */
+    CPNumber _cmdDetailedStatusCode @accessors(property=cmdDetailedStatusCode);
+    /*!
+        DownloadProgress object representing the progress of Gateway image download.
+    */
+    NURESTObject _cmdDownloadProgress @accessors(property=cmdDownloadProgress);
+    /*!
+        Identifier of the running or last Command.
+    */
+    CPString _cmdID @accessors(property=cmdID);
+    /*!
+        Time stamp when the command was last updated.
+    */
+    CPString _cmdLastUpdatedDate @accessors(property=cmdLastUpdatedDate);
+    /*!
+        Status of the current or last command.
+    */
+    CPString _cmdStatus @accessors(property=cmdStatus);
+    /*!
+        Specifies the type of command that is stated for execution on the system. A request for download or a request for upgrade.
+    */
+    CPString _cmdType @accessors(property=cmdType);
+    /*!
+        The enterprise associated with this Gateway.
+    */
+    CPString _enterpriseID @accessors(property=enterpriseID);
+    /*!
+        Name of the Enterprise associated with this Gateway.
+    */
+    CPString _enterpriseName @accessors(property=enterpriseName);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The bootstrap status of the NSG from which the infomation was collected.
+    */
+    CPString _bootstrapStatus @accessors(property=bootstrapStatus);
     /*!
         NSG Product Name as reported when the device bootstraps.
     */
@@ -130,6 +190,10 @@ NUNSGInfoFamily_NSG_X200 = @"NSG_X200";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        System identifier of the Gateway.
+    */
+    CPString _systemID @accessors(property=systemID);
     
     
 }
@@ -162,15 +226,28 @@ NUNSGInfoFamily_NSG_X200 = @"NSG_X200";
         [self exposeLocalKeyPathToREST:@"CPUType"];
         [self exposeLocalKeyPathToREST:@"NSGVersion"];
         [self exposeLocalKeyPathToREST:@"UUID"];
+        [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"family"];
         [self exposeLocalKeyPathToREST:@"patchesDetail"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
+        [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"libraries"];
+        [self exposeLocalKeyPathToREST:@"cmdDetailedStatus"];
+        [self exposeLocalKeyPathToREST:@"cmdDetailedStatusCode"];
+        [self exposeLocalKeyPathToREST:@"cmdDownloadProgress"];
+        [self exposeLocalKeyPathToREST:@"cmdID"];
+        [self exposeLocalKeyPathToREST:@"cmdLastUpdatedDate"];
+        [self exposeLocalKeyPathToREST:@"cmdStatus"];
+        [self exposeLocalKeyPathToREST:@"cmdType"];
+        [self exposeLocalKeyPathToREST:@"enterpriseID"];
+        [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
         [self exposeLocalKeyPathToREST:@"productName"];
         [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"systemID"];
         
         
         

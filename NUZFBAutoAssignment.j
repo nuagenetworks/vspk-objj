@@ -41,7 +41,7 @@ NUZFBAutoAssignmentZFBMatchAttribute_UUID = @"UUID";
 
 
 /*!
-    ZFB Enterprise Auto Assignment 
+    Pre-created matching criteria that allows CSPRoot to auto-assign incoming auto-bootstrapping requests to an Enterprise should a match occur.
 */
 @implementation NUZFBAutoAssignment : NURESTObject
 {

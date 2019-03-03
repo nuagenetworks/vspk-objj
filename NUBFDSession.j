@@ -32,6 +32,8 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUBFDSessionBFDDestinationIPType_IPV4 = @"IPV4";
+NUBFDSessionBFDDestinationIPType_IPV6 = @"IPV6";
 NUBFDSessionEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUBFDSessionEntityScope_GLOBAL = @"GLOBAL";
 
@@ -45,6 +47,14 @@ NUBFDSessionEntityScope_GLOBAL = @"GLOBAL";
         Destination IP Address used for Bidirectional Forwarding Detection.
     */
     CPString _BFDDestinationIP @accessors(property=BFDDestinationIP);
+    /*!
+        Destination IP Type of Bidirectional Forwarding Detection
+    */
+    CPString _BFDDestinationIPType @accessors(property=BFDDestinationIPType);
+    /*!
+        Destination IPv6 Address used for Bidirectional Forwarding Detection. Required if BFD Destination IP Type is IPV6
+    */
+    CPString _BFDDestinationIPv6 @accessors(property=BFDDestinationIPv6);
     /*!
         Multiplier used for Bidirectional Forwarding Detection Timer.
     */
@@ -93,6 +103,8 @@ NUBFDSessionEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"BFDDestinationIP"];
+        [self exposeLocalKeyPathToREST:@"BFDDestinationIPType"];
+        [self exposeLocalKeyPathToREST:@"BFDDestinationIPv6"];
         [self exposeLocalKeyPathToREST:@"BFDMultiplier"];
         [self exposeLocalKeyPathToREST:@"BFDTimer"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];

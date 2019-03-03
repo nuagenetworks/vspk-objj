@@ -64,6 +64,10 @@ NUNSGUpgradeProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Download rate limit used for download of Gateway image in kilobyte per second (KB/s).
+    */
+    CPNumber _downloadRateLimit @accessors(property=downloadRateLimit);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -94,6 +98,7 @@ NUNSGUpgradeProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"metadataUpgradePath"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"downloadRateLimit"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

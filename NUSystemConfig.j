@@ -212,7 +212,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _VPortInitStatefulTimer @accessors(property=VPortInitStatefulTimer);
     /*!
-        LRU Map size per subnet (to hold the deleted vm's ip addresses).
+        LRU Map size per subnet (to hold the deleted vm's IP addresses).
     */
     CPNumber _LRUCacheSizePerSubnet @accessors(property=LRUCacheSizePerSubnet);
     /*!
@@ -220,7 +220,15 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     BOOL _VSCOnSameVersionAsVSD @accessors(property=VSCOnSameVersionAsVSD);
     /*!
-        True means VSD readonly mode enabled. False means VSD readonly mode disabled
+        Version of the current imported Application Signatures.
+    */
+    CPString _VSDAARApplicationVersion @accessors(property=VSDAARApplicationVersion);
+    /*!
+        Determines the time that Application Signatures were published and added in the VSD.
+    */
+    CPString _VSDAARApplicationVersionPublishDate @accessors(property=VSDAARApplicationVersionPublishDate);
+    /*!
+        True means VSD readonly mode enabled. False means VSD readonly mode disabled.
     */
     BOOL _VSDReadOnlyMode @accessors(property=VSDReadOnlyMode);
     /*!
@@ -283,6 +291,18 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Gateway probe interval in seconds.
+    */
+    CPNumber _gatewayProbeInterval @accessors(property=gatewayProbeInterval);
+    /*!
+        Gateway probe window in seconds.
+    */
+    CPNumber _gatewayProbeWindow @accessors(property=gatewayProbeWindow);
+    /*!
+        Gateway rebalancing interval in seconds.
+    */
+    CPNumber _gatewayRebalancingInterval @accessors(property=gatewayRebalancingInterval);
     /*!
         Maximum failed login attempts before the account is locked (min = 5, max = 10). 0 = not enforced (unlimited attempts). This is not enforced if LDAP is used for authorization
     */
@@ -512,7 +532,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     BOOL _statisticsEnabled @accessors(property=statisticsEnabled);
     /*!
-        Specify the ip address(es) of the stats collector.
+        Specify the IP address(es) of the stats collector.
     */
     CPString _statsCollectorAddress @accessors(property=statsCollectorAddress);
     /*!
@@ -523,6 +543,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Specify the protobuf port number(s) of the stats collector.
     */
     CPString _statsCollectorProtoBufPort @accessors(property=statsCollectorProtoBufPort);
+    /*!
+        The location of a public proxy to statistics database server in <FQDN>:<PORT> format.
+    */
+    CPString _statsDatabaseProxy @accessors(property=statsDatabaseProxy);
     /*!
         Specifies the maximum number of data points to support.
     */
@@ -536,7 +560,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _statsNumberOfDataPoints @accessors(property=statsNumberOfDataPoints);
     /*!
-        Specifies the TSDB server location.
+        Specifies the Elastic Search server location.
     */
     CPString _statsTSDBServerAddress @accessors(property=statsTSDBServerAddress);
     /*!
@@ -702,6 +726,8 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"VPortInitStatefulTimer"];
         [self exposeLocalKeyPathToREST:@"LRUCacheSizePerSubnet"];
         [self exposeLocalKeyPathToREST:@"VSCOnSameVersionAsVSD"];
+        [self exposeLocalKeyPathToREST:@"VSDAARApplicationVersion"];
+        [self exposeLocalKeyPathToREST:@"VSDAARApplicationVersionPublishDate"];
         [self exposeLocalKeyPathToREST:@"VSDReadOnlyMode"];
         [self exposeLocalKeyPathToREST:@"VSDUpgradeIsComplete"];
         [self exposeLocalKeyPathToREST:@"NSGUplinkHoldDownTimer"];
@@ -718,6 +744,9 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"pageMaxSize"];
         [self exposeLocalKeyPathToREST:@"pageSize"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"gatewayProbeInterval"];
+        [self exposeLocalKeyPathToREST:@"gatewayProbeWindow"];
+        [self exposeLocalKeyPathToREST:@"gatewayRebalancingInterval"];
         [self exposeLocalKeyPathToREST:@"maxFailedLogins"];
         [self exposeLocalKeyPathToREST:@"maxResponse"];
         [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
@@ -778,6 +807,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"statsCollectorAddress"];
         [self exposeLocalKeyPathToREST:@"statsCollectorPort"];
         [self exposeLocalKeyPathToREST:@"statsCollectorProtoBufPort"];
+        [self exposeLocalKeyPathToREST:@"statsDatabaseProxy"];
         [self exposeLocalKeyPathToREST:@"statsMaxDataPoints"];
         [self exposeLocalKeyPathToREST:@"statsMinDuration"];
         [self exposeLocalKeyPathToREST:@"statsNumberOfDataPoints"];

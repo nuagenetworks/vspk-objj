@@ -72,6 +72,10 @@ NUVSCStatus_UP = @"UP";
     */
     CPString _address @accessors(property=address);
     /*!
+        The Control IPv4 or IPv6 addresses of the VSC. Example: [10.10.18.10, 2001:10:10:18::10].
+    */
+    CPArrayController _addresses @accessors(property=addresses);
+    /*!
         Peek CPU usage percentage.
     */
     CPNumber _peakCPUUsage @accessors(property=peakCPUUsage);
@@ -174,6 +178,7 @@ NUVSCStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"addresses"];
         [self exposeLocalKeyPathToREST:@"peakCPUUsage"];
         [self exposeLocalKeyPathToREST:@"peakMemoryUsage"];
         [self exposeLocalKeyPathToREST:@"description"];

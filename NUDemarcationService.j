@@ -39,7 +39,7 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
 
 
 /*!
-    test
+    Demarcation services provide the interconnection between the datacenter networks and the Wide Area Network.
 */
 @implementation NUDemarcationService : NURESTObject
 {

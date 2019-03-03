@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetconfSessionsFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
 NUNetconfManagerEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -77,6 +78,7 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetconfSessionsFetcher _childrenNetconfSessions @accessors(property=childrenNetconfSessions);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
@@ -108,6 +110,7 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetconfSessions = [NUNetconfSessionsFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         

@@ -70,6 +70,10 @@ NUVsgRedundantPortStatus_READY = @"READY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Indicates whether port is configured as peer link. Peer link used to synchronize states between the VPC peer devices.
+    */
+    BOOL _peerLink @accessors(property=peerLink);
+    /*!
         The permitted  action to USE/EXTEND  this Gateway.
     */
     CPString _permittedAction @accessors(property=permittedAction);
@@ -147,6 +151,7 @@ NUVsgRedundantPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"VLANRange"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"peerLink"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];

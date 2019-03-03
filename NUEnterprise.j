@@ -43,6 +43,8 @@
 @import "Fetchers/NUGatewayTemplatesFetcher.j"
 @import "Fetchers/NUPATNATPoolsFetcher.j"
 @import "Fetchers/NULDAPConfigurationsFetcher.j"
+@import "Fetchers/NUWebCategoriesFetcher.j"
+@import "Fetchers/NUWebDomainNamesFetcher.j"
 @import "Fetchers/NURedundancyGroupsFetcher.j"
 @import "Fetchers/NUPerformanceMonitorsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
@@ -97,6 +99,8 @@
 @import "Fetchers/NUMultiCastListsFetcher.j"
 @import "Fetchers/NUAvatarsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
+@import "Fetchers/NUOverlayManagementProfilesFetcher.j"
+@import "Fetchers/NUSyslogDestinationsFetcher.j"
 
 NUEnterpriseAllowedForwardingClasses_A = @"A";
 NUEnterpriseAllowedForwardingClasses_B = @"B";
@@ -154,6 +158,10 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Read only flag to display if Web Filtering is enabled for this enterprise
+    */
+    BOOL _webFilterEnabled @accessors(property=webFilterEnabled);
     /*!
         Read-only Id of the auto generated receive multicast list associated with this enterprise profile
     */
@@ -231,6 +239,10 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     CPNumber _localAS @accessors(property=localAS);
     /*!
+        Determines whether Global Gateway MAC is enabled or not Enterprise level.
+    */
+    BOOL _useGlobalMAC @accessors(property=useGlobalMAC);
+    /*!
         Read-only Id of the associated group key encryption profile
     */
     CPString _associatedEnterpriseSecurityID @accessors(property=associatedEnterpriseSecurityID);
@@ -273,6 +285,8 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUGatewayTemplatesFetcher _childrenGatewayTemplates @accessors(property=childrenGatewayTemplates);
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NULDAPConfigurationsFetcher _childrenLDAPConfigurations @accessors(property=childrenLDAPConfigurations);
+    NUWebCategoriesFetcher _childrenWebCategories @accessors(property=childrenWebCategories);
+    NUWebDomainNamesFetcher _childrenWebDomainNames @accessors(property=childrenWebDomainNames);
     NURedundancyGroupsFetcher _childrenRedundancyGroups @accessors(property=childrenRedundancyGroups);
     NUPerformanceMonitorsFetcher _childrenPerformanceMonitors @accessors(property=childrenPerformanceMonitors);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
@@ -327,6 +341,8 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUMultiCastListsFetcher _childrenMultiCastLists @accessors(property=childrenMultiCastLists);
     NUAvatarsFetcher _childrenAvatars @accessors(property=childrenAvatars);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
+    NUOverlayManagementProfilesFetcher _childrenOverlayManagementProfiles @accessors(property=childrenOverlayManagementProfiles);
+    NUSyslogDestinationsFetcher _childrenSyslogDestinations @accessors(property=childrenSyslogDestinations);
     
 }
 
@@ -354,6 +370,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"VNFManagementEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"webFilterEnabled"];
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"sendMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -373,6 +390,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"enterpriseProfileID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"localAS"];
+        [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseSecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGroupKeyEncryptionProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorID"];
@@ -395,6 +413,8 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenGatewayTemplates = [NUGatewayTemplatesFetcher fetcherWithParentObject:self];
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenLDAPConfigurations = [NULDAPConfigurationsFetcher fetcherWithParentObject:self];
+        _childrenWebCategories = [NUWebCategoriesFetcher fetcherWithParentObject:self];
+        _childrenWebDomainNames = [NUWebDomainNamesFetcher fetcherWithParentObject:self];
         _childrenRedundancyGroups = [NURedundancyGroupsFetcher fetcherWithParentObject:self];
         _childrenPerformanceMonitors = [NUPerformanceMonitorsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
@@ -449,6 +469,8 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenMultiCastLists = [NUMultiCastListsFetcher fetcherWithParentObject:self];
         _childrenAvatars = [NUAvatarsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
+        _childrenOverlayManagementProfiles = [NUOverlayManagementProfilesFetcher fetcherWithParentObject:self];
+        _childrenSyslogDestinations = [NUSyslogDestinationsFetcher fetcherWithParentObject:self];
         
         
     }

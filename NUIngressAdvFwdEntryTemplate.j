@@ -37,6 +37,9 @@ NUIngressAdvFwdEntryTemplateAction_DROP = @"DROP";
 NUIngressAdvFwdEntryTemplateAction_FORWARD = @"FORWARD";
 NUIngressAdvFwdEntryTemplateAction_FORWARDING_PATH_LIST = @"FORWARDING_PATH_LIST";
 NUIngressAdvFwdEntryTemplateAction_REDIRECT = @"REDIRECT";
+NUIngressAdvFwdEntryTemplateAddressOverrideType_IPV4 = @"IPV4";
+NUIngressAdvFwdEntryTemplateAddressOverrideType_IPV6 = @"IPV6";
+NUIngressAdvFwdEntryTemplateAddressOverrideType_MACRO_GROUP = @"MACRO_GROUP";
 NUIngressAdvFwdEntryTemplateAppType_ALL = @"ALL";
 NUIngressAdvFwdEntryTemplateAppType_APPLICATION = @"APPLICATION";
 NUIngressAdvFwdEntryTemplateAppType_NONE = @"NONE";
@@ -87,10 +90,12 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECON
 NUIngressAdvFwdEntryTemplateUplinkPreference_SECONDARY = @"SECONDARY";
 NUIngressAdvFwdEntryTemplateUplinkPreference_SECONDARY_PRIMARY = @"SECONDARY_PRIMARY";
 NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
+NUIngressAdvFwdEntryTemplateWebFilterType_WEB_CATEGORY = @"WEB_CATEGORY";
+NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
 
 
 /*!
-    Defines the template of Ingress Advanced Forwarding entries
+    Security Policy Entries defines what action to take for a particular type of traffic, based on its origin and its destination, its protocol, EtherType, eventual ports, DSCP value and other information.
 */
 @implementation NUIngressAdvFwdEntryTemplate : NURESTObject
 {
@@ -138,6 +143,18 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Overrides the source IP for Ingress and destination IP for Egress, MAC entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
+    /*!
+        Address Override Type can be IPV4, IPV6 or MACRO_GROUP.
+    */
+    CPString _addressOverrideType @accessors(property=addressOverrideType);
+    /*!
+        ID of web filter category or web domain name entity used
+    */
+    CPString _webFilterID @accessors(property=webFilterID);
+    /*!
+        Indicates type of web filter being set
+    */
+    CPString _webFilterType @accessors(property=webFilterType);
     /*!
         The type of redirection rewrite. Currently only VLAN is supported
     */
@@ -305,6 +322,9 @@ NUIngressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
+        [self exposeLocalKeyPathToREST:@"addressOverrideType"];
+        [self exposeLocalKeyPathToREST:@"webFilterID"];
+        [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"redirectRewriteType"];
         [self exposeLocalKeyPathToREST:@"redirectRewriteValue"];
         [self exposeLocalKeyPathToREST:@"redirectVPortTagID"];

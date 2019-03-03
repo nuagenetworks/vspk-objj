@@ -32,6 +32,8 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUDUCGroupBindingAssociatedUBRGroupFunction_GATEWAY = @"GATEWAY";
+NUDUCGroupBindingAssociatedUBRGroupFunction_UBR = @"UBR";
 NUDUCGroupBindingEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUDUCGroupBindingEntityScope_GLOBAL = @"GLOBAL";
 
@@ -61,6 +63,14 @@ NUDUCGroupBindingEntityScope_GLOBAL = @"GLOBAL";
         Identification of the UBR Group associated to this group binding instance.
     */
     CPString _associatedDUCGroupID @accessors(property=associatedDUCGroupID);
+    /*!
+        NSG Function supported by the associated UBR group.
+    */
+    CPString _associatedUBRGroupFunction @accessors(property=associatedUBRGroupFunction);
+    /*!
+        Name of the associated UBR Group.
+    */
+    CPString _associatedUBRGroupName @accessors(property=associatedUBRGroupName);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -93,6 +103,8 @@ NUDUCGroupBindingEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"associatedDUCGroupID"];
+        [self exposeLocalKeyPathToREST:@"associatedUBRGroupFunction"];
+        [self exposeLocalKeyPathToREST:@"associatedUBRGroupName"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

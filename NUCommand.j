@@ -43,6 +43,7 @@ NUCommandStatus_ABANDONED = @"ABANDONED";
 NUCommandStatus_COMPLETED = @"COMPLETED";
 NUCommandStatus_FAILED = @"FAILED";
 NUCommandStatus_RUNNING = @"RUNNING";
+NUCommandStatus_SKIPPED = @"SKIPPED";
 NUCommandStatus_STARTED = @"STARTED";
 NUCommandStatus_UNKNOWN = @"UNKNOWN";
 
@@ -80,6 +81,10 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
         Informative details on what command is to be executed.  It complements the commandType attribute.  An example of a value could be a URL, a version number, a UUID of another object, ...
     */
     CPString _commandInformation @accessors(property=commandInformation);
+    /*!
+        JSON string detailing the progress of the command execution on Gateway.
+    */
+    CPString _progress @accessors(property=progress);
     /*!
         Managed Object Type of the entity on which this Command is associated.
     */
@@ -140,6 +145,7 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"command"];
         [self exposeLocalKeyPathToREST:@"commandInformation"];
+        [self exposeLocalKeyPathToREST:@"progress"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedParam"];
         [self exposeLocalKeyPathToREST:@"associatedParamType"];

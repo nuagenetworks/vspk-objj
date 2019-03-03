@@ -29,9 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUVLANsFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUEnterprisePermissionsFetcher.j"
 
 NUGatewayRedundantPortEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUGatewayRedundantPortEntityScope_GLOBAL = @"GLOBAL";
@@ -115,9 +118,12 @@ NUGatewayRedundantPortStatus_READY = @"READY";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUVLANsFetcher _childrenVLANs @accessors(property=childrenVLANs);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     
 }
 
@@ -154,9 +160,12 @@ NUGatewayRedundantPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenVLANs = [NUVLANsFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         
         
     }

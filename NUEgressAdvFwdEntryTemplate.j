@@ -76,6 +76,8 @@ NUEgressAdvFwdEntryTemplateUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECOND
 NUEgressAdvFwdEntryTemplateUplinkPreference_SECONDARY = @"SECONDARY";
 NUEgressAdvFwdEntryTemplateUplinkPreference_SECONDARY_PRIMARY = @"SECONDARY_PRIMARY";
 NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
+NUEgressAdvFwdEntryTemplateWebFilterType_WEB_CATEGORY = @"WEB_CATEGORY";
+NUEgressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
 
 
 /*!
@@ -123,6 +125,14 @@ NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Overrides the source IP for Egress and destination IP for Ingress, mac entries will use this address as the match criteria.
     */
     CPString _addressOverride @accessors(property=addressOverride);
+    /*!
+        ID of web filter category or web domain name entity used
+    */
+    CPString _webFilterID @accessors(property=webFilterID);
+    /*!
+        Indicates type of web filter being set
+    */
+    CPString _webFilterType @accessors(property=webFilterType);
     /*!
         VPort tag to which traffic will be redirected to, when ACL entry match criteria succeeds
     */
@@ -256,6 +266,8 @@ NUEgressAdvFwdEntryTemplateUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
+        [self exposeLocalKeyPathToREST:@"webFilterID"];
+        [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"redirectVPortTagID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];

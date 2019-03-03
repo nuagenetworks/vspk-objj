@@ -47,7 +47,7 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
 
 
 /*!
-    Object that identifies the user functions.
+    Users represent people of your organization. A user can be placed into a group and this group can have some permissions to add VMs into a domain for instance.
 */
 @implementation NUUser : NURESTObject
 {

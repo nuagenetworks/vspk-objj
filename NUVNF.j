@@ -45,6 +45,7 @@ NUVNFAllowedActions_UNDEPLOY = @"UNDEPLOY";
 NUVNFEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVNFEntityScope_GLOBAL = @"GLOBAL";
 NUVNFLastUserAction_DEPLOY = @"DEPLOY";
+NUVNFLastUserAction_NONE = @"NONE";
 NUVNFLastUserAction_REDEPLOY = @"REDEPLOY";
 NUVNFLastUserAction_RESTART = @"RESTART";
 NUVNFLastUserAction_START = @"START";

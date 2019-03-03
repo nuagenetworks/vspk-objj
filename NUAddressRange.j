@@ -35,24 +35,24 @@
 
 NUAddressRangeDHCPPoolType_BRIDGE = @"BRIDGE";
 NUAddressRangeDHCPPoolType_HOST = @"HOST";
+NUAddressRangeDHCPPoolType_VRRP = @"VRRP";
 NUAddressRangeEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUAddressRangeEntityScope_GLOBAL = @"GLOBAL";
-NUAddressRangeIPType_DUALSTACK = @"DUALSTACK";
 NUAddressRangeIPType_IPV4 = @"IPV4";
 NUAddressRangeIPType_IPV6 = @"IPV6";
 
 
 /*!
-    This is the definition of a Address Range associated with a Network.
+    Address ranges are used for dynamic IP address allocation within the subnet. Multiple address ranges may be used to support non-contiuous IP address ranges. VMs and hosts without static IP addresses assigned will receive an address within the available ranges. 
 */
 @implementation NUAddressRange : NURESTObject
 {
     /*!
-        DHCPPoolType is an enum that indicates if the DHCP Pool is for HOST/BRIDGE.
+        DHCPPoolType is an enum that indicates if the DHCP Pool is for HOST/BRIDGE/VRRP.
     */
     CPString _DHCPPoolType @accessors(property=DHCPPoolType);
     /*!
-        IPv4 or IPv6(only IPv4 is supported in R1.0) Possible values are IPV4, IPV6, DUALSTACK.
+        Possible values are IPV4, IPV6.
     */
     CPString _IPType @accessors(property=IPType);
     /*!

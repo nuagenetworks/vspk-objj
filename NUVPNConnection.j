@@ -37,7 +37,7 @@ NUVPNConnectionEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    This is the definition of a VPN Connect which holds the PE service assocaition with a DOMAIN.
+    Attaching this object to a WAN Service allows to extend its connectivity to and from external resources defined on your Data Center Edge Gateway.
 */
 @implementation NUVPNConnection : NURESTObject
 {

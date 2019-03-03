@@ -40,7 +40,7 @@ NUVNFInterfaceDescriptorType_WAN = @"WAN";
 
 
 /*!
-    Represent VNF interface descriptor
+    The interfaces attached to the VNF descriptor. The interfaces are used for management and datapath traffic. Atleast one interface should be designated as a management interface
 */
 @implementation NUVNFInterfaceDescriptor : NURESTObject
 {

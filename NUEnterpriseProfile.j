@@ -76,6 +76,10 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Enable Web Filtering for this enterprise profile
+    */
+    BOOL _webFilterEnabled @accessors(property=webFilterEnabled);
+    /*!
         Readonly ID of the auto generated receive multicast list associated with this enterprise profile
     */
     CPString _receiveMultiCastListID @accessors(property=receiveMultiCastListID);
@@ -154,6 +158,7 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"VNFManagementEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"webFilterEnabled"];
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"sendMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"description"];

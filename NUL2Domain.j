@@ -130,6 +130,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _IPv6Gateway @accessors(property=IPv6Gateway);
     /*!
+        Determines whether VXLAN-ECMP are enabled on this domain.
+    */
+    BOOL _VXLANECMPEnabled @accessors(property=VXLANECMPEnabled);
+    /*!
         maintenanceMode is an enum that indicates if the L2Domain is accepting VM activation requests. Possible values are DISABLED, ENABLED and ENABLED_INHERITED Possible values are .
     */
     CPString _maintenanceMode @accessors(property=maintenanceMode);
@@ -182,6 +186,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _encryption @accessors(property=encryption);
     /*!
+        Enables ingress replication for the VNI.
+    */
+    BOOL _ingressReplicationEnabled @accessors(property=ingressReplicationEnabled);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -233,6 +241,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         Indicates multicast policy on L2Domain.
     */
     CPString _multicast @accessors(property=multicast);
+    /*!
+        CustomerID that is used by NETCONF MANAGER to identify this enterprise. This can be configured by root user.
+    */
+    CPNumber _customerID @accessors(property=customerID);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -310,6 +322,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
+        [self exposeLocalKeyPathToREST:@"VXLANECMPEnabled"];
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
@@ -323,6 +336,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"vnId"];
         [self exposeLocalKeyPathToREST:@"encryption"];
+        [self exposeLocalKeyPathToREST:@"ingressReplicationEnabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
@@ -336,6 +350,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"associatedUnderlayID"];
         [self exposeLocalKeyPathToREST:@"stretched"];
         [self exposeLocalKeyPathToREST:@"multicast"];
+        [self exposeLocalKeyPathToREST:@"customerID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         

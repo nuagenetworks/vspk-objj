@@ -62,6 +62,7 @@ NUAllGatewayPersonality_EVDF = @"EVDF";
 NUAllGatewayPersonality_EVDFB = @"EVDFB";
 NUAllGatewayPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
 NUAllGatewayPersonality_NETCONF_7X50 = @"NETCONF_7X50";
+NUAllGatewayPersonality_NETCONF_THIRDPARTY_HW_VTEP = @"NETCONF_THIRDPARTY_HW_VTEP";
 NUAllGatewayPersonality_NSG = @"NSG";
 NUAllGatewayPersonality_NSGBR = @"NSGBR";
 NUAllGatewayPersonality_NSGDUC = @"NSGDUC";
@@ -83,7 +84,7 @@ NUAllGatewayZFBMatchAttribute_UUID = @"UUID";
 
 
 /*!
-    A read only API to get all gateway objects in the VSD environment. Use the ID field to then actually manage the gateway using the gateway API entity.
+    A read-only API to get all gateway objects in the VSD environment. Use the ID field to then actually manage the gateway using the gateway API entity.
 */
 @implementation NUAllGateway : NURESTObject
 {
