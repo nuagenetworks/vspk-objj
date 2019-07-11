@@ -73,6 +73,10 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _keyserverMonitorSeedCount @accessors(property=keyserverMonitorSeedCount);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Total number of Enterprise Secured Data records
     */
     CPNumber _enterpriseSecuredDataRecordCount @accessors(property=enterpriseSecuredDataRecordCount);
@@ -117,6 +121,7 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"keyserverMonitorEncryptedSeedCount"];
         [self exposeLocalKeyPathToREST:@"keyserverMonitorSEKCount"];
         [self exposeLocalKeyPathToREST:@"keyserverMonitorSeedCount"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseSecuredDataRecordCount"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];

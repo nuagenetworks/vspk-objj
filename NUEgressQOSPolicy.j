@@ -106,6 +106,18 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
     */
     CPString _description @accessors(property=description);
     /*!
+        Rate limiter ID associated to the Network Control Queue for this Egress QoS Policy. 
+    */
+    CPString _networkCtrlQueueAssociatedRateLimiterID @accessors(property=networkCtrlQueueAssociatedRateLimiterID);
+    /*!
+        Rate Limiter ID associated to the Management Queue for this Egress QoS Policy. 
+    */
+    CPString _mgmtQueueAssociatedRateLimiterID @accessors(property=mgmtQueueAssociatedRateLimiterID);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -185,6 +197,9 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"defaultServiceClass"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"networkCtrlQueueAssociatedRateLimiterID"];
+        [self exposeLocalKeyPathToREST:@"mgmtQueueAssociatedRateLimiterID"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"assocEgressQosId"];
         [self exposeLocalKeyPathToREST:@"associatedCOSRemarkingPolicyTableID"];

@@ -46,7 +46,9 @@
 @import "Fetchers/NUWebCategoriesFetcher.j"
 @import "Fetchers/NUWebDomainNamesFetcher.j"
 @import "Fetchers/NURedundancyGroupsFetcher.j"
+@import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUPerformanceMonitorsFetcher.j"
+@import "Fetchers/NUTestSuitesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetconfProfilesFetcher.j"
 @import "Fetchers/NUNetworkMacroGroupsFetcher.j"
@@ -77,6 +79,7 @@
 @import "Fetchers/NUPolicyGroupCategoriesFetcher.j"
 @import "Fetchers/NUPolicyObjectGroupsFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
+@import "Fetchers/NUDomainKindSummariesFetcher.j"
 @import "Fetchers/NUDomainTemplatesFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUCOSRemarkingPolicyTablesFetcher.j"
@@ -101,6 +104,7 @@
 @import "Fetchers/NUEventLogsFetcher.j"
 @import "Fetchers/NUOverlayManagementProfilesFetcher.j"
 @import "Fetchers/NUSyslogDestinationsFetcher.j"
+@import "Fetchers/NUAzureCloudsFetcher.j"
 
 NUEnterpriseAllowedForwardingClasses_A = @"A";
 NUEnterpriseAllowedForwardingClasses_B = @"B";
@@ -219,6 +223,10 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         This flag indicates if the DPI can be enabled for this enterpriseenterprise/organization.
     */
     BOOL _enableApplicationPerformanceManagement @accessors(property=enableApplicationPerformanceManagement);
@@ -238,6 +246,10 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         Local autonomous system for the enterprise
     */
     CPNumber _localAS @accessors(property=localAS);
+    /*!
+        Represents the List of forwarding classes and their load balancing capability.
+    */
+    CPArrayController _forwardingClass @accessors(property=forwardingClass);
     /*!
         Determines whether Global Gateway MAC is enabled or not Enterprise level.
     */
@@ -288,7 +300,9 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUWebCategoriesFetcher _childrenWebCategories @accessors(property=childrenWebCategories);
     NUWebDomainNamesFetcher _childrenWebDomainNames @accessors(property=childrenWebDomainNames);
     NURedundancyGroupsFetcher _childrenRedundancyGroups @accessors(property=childrenRedundancyGroups);
+    NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUPerformanceMonitorsFetcher _childrenPerformanceMonitors @accessors(property=childrenPerformanceMonitors);
+    NUTestSuitesFetcher _childrenTestSuites @accessors(property=childrenTestSuites);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetconfProfilesFetcher _childrenNetconfProfiles @accessors(property=childrenNetconfProfiles);
     NUNetworkMacroGroupsFetcher _childrenNetworkMacroGroups @accessors(property=childrenNetworkMacroGroups);
@@ -319,6 +333,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUPolicyGroupCategoriesFetcher _childrenPolicyGroupCategories @accessors(property=childrenPolicyGroupCategories);
     NUPolicyObjectGroupsFetcher _childrenPolicyObjectGroups @accessors(property=childrenPolicyObjectGroups);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
+    NUDomainKindSummariesFetcher _childrenDomainKindSummaries @accessors(property=childrenDomainKindSummaries);
     NUDomainTemplatesFetcher _childrenDomainTemplates @accessors(property=childrenDomainTemplates);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUCOSRemarkingPolicyTablesFetcher _childrenCOSRemarkingPolicyTables @accessors(property=childrenCOSRemarkingPolicyTables);
@@ -343,6 +358,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     NUOverlayManagementProfilesFetcher _childrenOverlayManagementProfiles @accessors(property=childrenOverlayManagementProfiles);
     NUSyslogDestinationsFetcher _childrenSyslogDestinations @accessors(property=childrenSyslogDestinations);
+    NUAzureCloudsFetcher _childrenAzureClouds @accessors(property=childrenAzureClouds);
     
 }
 
@@ -385,11 +401,13 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"floatingIPsQuota"];
         [self exposeLocalKeyPathToREST:@"floatingIPsUsed"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enableApplicationPerformanceManagement"];
         [self exposeLocalKeyPathToREST:@"encryptionManagementMode"];
         [self exposeLocalKeyPathToREST:@"enterpriseProfileID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"localAS"];
+        [self exposeLocalKeyPathToREST:@"forwardingClass"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseSecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGroupKeyEncryptionProfileID"];
@@ -416,7 +434,9 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenWebCategories = [NUWebCategoriesFetcher fetcherWithParentObject:self];
         _childrenWebDomainNames = [NUWebDomainNamesFetcher fetcherWithParentObject:self];
         _childrenRedundancyGroups = [NURedundancyGroupsFetcher fetcherWithParentObject:self];
+        _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenPerformanceMonitors = [NUPerformanceMonitorsFetcher fetcherWithParentObject:self];
+        _childrenTestSuites = [NUTestSuitesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetconfProfiles = [NUNetconfProfilesFetcher fetcherWithParentObject:self];
         _childrenNetworkMacroGroups = [NUNetworkMacroGroupsFetcher fetcherWithParentObject:self];
@@ -447,6 +467,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenPolicyGroupCategories = [NUPolicyGroupCategoriesFetcher fetcherWithParentObject:self];
         _childrenPolicyObjectGroups = [NUPolicyObjectGroupsFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
+        _childrenDomainKindSummaries = [NUDomainKindSummariesFetcher fetcherWithParentObject:self];
         _childrenDomainTemplates = [NUDomainTemplatesFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenCOSRemarkingPolicyTables = [NUCOSRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
@@ -471,6 +492,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         _childrenOverlayManagementProfiles = [NUOverlayManagementProfilesFetcher fetcherWithParentObject:self];
         _childrenSyslogDestinations = [NUSyslogDestinationsFetcher fetcherWithParentObject:self];
+        _childrenAzureClouds = [NUAzureCloudsFetcher fetcherWithParentObject:self];
         
         
     }

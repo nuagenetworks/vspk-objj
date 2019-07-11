@@ -52,6 +52,10 @@ NUWebCategoryType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        The unique identifier of a web category to be used by NSG
+    */
+    CPNumber _webCategoryIdentifier @accessors(property=webCategoryIdentifier);
+    /*!
         Indicates if this is a system-defined web category
     */
     BOOL _defaultCategory @accessors(property=defaultCategory);
@@ -59,6 +63,10 @@ NUWebCategoryType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         A customer friendly description for this web category
     */
     CPString _description @accessors(property=description);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -97,8 +105,10 @@ NUWebCategoryType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"webCategoryIdentifier"];
         [self exposeLocalKeyPathToREST:@"defaultCategory"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];

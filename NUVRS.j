@@ -36,6 +36,7 @@
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUMonitoringPortsFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
+@import "Fetchers/NUControllerVRSLinksFetcher.j"
 @import "Fetchers/NUVPortsFetcher.j"
 @import "Fetchers/NUHSCsFetcher.j"
 @import "Fetchers/NUVSCsFetcher.j"
@@ -43,17 +44,11 @@
 @import "Fetchers/NUMultiNICVPortsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
-NUVRSClusterNodeRole_NONE = @"NONE";
-NUVRSClusterNodeRole_PRIMARY = @"PRIMARY";
-NUVRSClusterNodeRole_SECONDARY = @"SECONDARY";
 NUVRSEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVRSEntityScope_GLOBAL = @"GLOBAL";
 NUVRSHypervisorConnectionState_ADMIN_DOWN = @"ADMIN_DOWN";
 NUVRSHypervisorConnectionState_DOWN = @"DOWN";
 NUVRSHypervisorConnectionState_UP = @"UP";
-NUVRSJSONRPCConnectionState_ADMIN_DOWN = @"ADMIN_DOWN";
-NUVRSJSONRPCConnectionState_DOWN = @"DOWN";
-NUVRSJSONRPCConnectionState_UP = @"UP";
 NUVRSLicensedState_LICENSED = @"LICENSED";
 NUVRSLicensedState_UNLICENSED = @"UNLICENSED";
 NUVRSPersonality_HARDWARE_VTEP = @"HARDWARE_VTEP";
@@ -72,10 +67,6 @@ NUVRSRole_SLAVE = @"SLAVE";
 NUVRSStatus_ADMIN_DOWN = @"ADMIN_DOWN";
 NUVRSStatus_DOWN = @"DOWN";
 NUVRSStatus_UP = @"UP";
-NUVRSVscConfigState_PRIMARY = @"PRIMARY";
-NUVRSVscConfigState_SECONDARY = @"SECONDARY";
-NUVRSVscCurrentState_PRIMARY = @"PRIMARY";
-NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
 
 
 /*!
@@ -83,10 +74,6 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
 */
 @implementation NUVRS : NURESTObject
 {
-    /*!
-        The current JSON RPC connection status.
-    */
-    CPString _JSONRPCConnectionState @accessors(property=JSONRPCConnectionState);
     /*!
         Identifies the entity with a name.
     */
@@ -140,10 +127,6 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
     */
     CPNumber _peakMemoryUsage @accessors(property=peakMemoryUsage);
     /*!
-        The redundant peer id for the current VRS.
-    */
-    CPString _peer @accessors(property=peer);
-    /*!
         VRS personality.
     */
     CPString _personality @accessors(property=personality);
@@ -180,9 +163,9 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
     */
     CPArrayController _disks @accessors(property=disks);
     /*!
-        Indicate that the controller associated is primary, secondary or unknown.
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
-    CPString _clusterNodeRole @accessors(property=clusterNodeRole);
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -211,14 +194,6 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         Flag to indicate that the VRS is part of a redundant group.
     */
     BOOL _isResilient @accessors(property=isResilient);
-    /*!
-        Indicates the configured state of the VSC.
-    */
-    CPString _vscConfigState @accessors(property=vscConfigState);
-    /*!
-        Indicates the current state of the VSC, which may or maybe not be same as the configured state.
-    */
-    CPString _vscCurrentState @accessors(property=vscCurrentState);
     /*!
         Computed status of the entity.
     */
@@ -264,10 +239,6 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        Flag to indicate it is dynamically configured or not.
-    */
-    BOOL _dynamic @accessors(property=dynamic);
-    /*!
         The VRS connection state with the hypervisor.
     */
     CPString _hypervisorConnectionState @accessors(property=hypervisorConnectionState);
@@ -291,6 +262,7 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUMonitoringPortsFetcher _childrenMonitoringPorts @accessors(property=childrenMonitoringPorts);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
+    NUControllerVRSLinksFetcher _childrenControllerVRSLinks @accessors(property=childrenControllerVRSLinks);
     NUVPortsFetcher _childrenVPorts @accessors(property=childrenVPorts);
     NUHSCsFetcher _childrenHSCs @accessors(property=childrenHSCs);
     NUVSCsFetcher _childrenVSCs @accessors(property=childrenVSCs);
@@ -317,7 +289,6 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"JSONRPCConnectionState"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"managementIP"];
         [self exposeLocalKeyPathToREST:@"parentIDs"];
@@ -331,7 +302,6 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"peakCPUUsage"];
         [self exposeLocalKeyPathToREST:@"peakMemoryUsage"];
-        [self exposeLocalKeyPathToREST:@"peer"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"messages"];
@@ -341,7 +311,7 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         [self exposeLocalKeyPathToREST:@"revertFailedCount"];
         [self exposeLocalKeyPathToREST:@"licensedState"];
         [self exposeLocalKeyPathToREST:@"disks"];
-        [self exposeLocalKeyPathToREST:@"clusterNodeRole"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"location"];
         [self exposeLocalKeyPathToREST:@"role"];
@@ -349,8 +319,6 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         [self exposeLocalKeyPathToREST:@"primaryVSCConnectionLost"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"isResilient"];
-        [self exposeLocalKeyPathToREST:@"vscConfigState"];
-        [self exposeLocalKeyPathToREST:@"vscCurrentState"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"multiNICVPortEnabled"];
         [self exposeLocalKeyPathToREST:@"numberOfBridgeInterfaces"];
@@ -362,7 +330,6 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         [self exposeLocalKeyPathToREST:@"averageCPUUsage"];
         [self exposeLocalKeyPathToREST:@"averageMemoryUsage"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"dynamic"];
         [self exposeLocalKeyPathToREST:@"hypervisorConnectionState"];
         [self exposeLocalKeyPathToREST:@"hypervisorIdentifier"];
         [self exposeLocalKeyPathToREST:@"hypervisorName"];
@@ -375,6 +342,7 @@ NUVRSVscCurrentState_SECONDARY = @"SECONDARY";
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenMonitoringPorts = [NUMonitoringPortsFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
+        _childrenControllerVRSLinks = [NUControllerVRSLinksFetcher fetcherWithParentObject:self];
         _childrenVPorts = [NUVPortsFetcher fetcherWithParentObject:self];
         _childrenHSCs = [NUHSCsFetcher fetcherWithParentObject:self];
         _childrenVSCs = [NUVSCsFetcher fetcherWithParentObject:self];

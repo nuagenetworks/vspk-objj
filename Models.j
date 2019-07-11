@@ -31,6 +31,7 @@
 @import "NUAddressMap.j"
 @import "NUAddressRange.j"
 @import "NUAggregateMetadata.j"
+@import "NUAggregatedDomain.j"
 @import "NUAlarm.j"
 @import "NUAllAlarm.j"
 @import "NUAllGateway.j"
@@ -44,6 +45,7 @@
 @import "NUAutoDiscoveredGateway.j"
 @import "NUAutodiscovereddatacenter.j"
 @import "NUAvatar.j"
+@import "NUAzureCloud.j"
 @import "NUBFDSession.j"
 @import "NUBGPNeighbor.j"
 @import "NUBGPPeer.j"
@@ -65,8 +67,10 @@
 @import "NUContainer.j"
 @import "NUContainerInterface.j"
 @import "NUContainerResync.j"
+@import "NUControllerVRSLink.j"
 @import "NUCustomProperty.j"
 @import "NUDHCPOption.j"
+@import "NUDHCPv6Option.j"
 @import "NUDSCPForwardingClassMapping.j"
 @import "NUDSCPForwardingClassTable.j"
 @import "NUDSCPRemarkingPolicy.j"
@@ -81,6 +85,7 @@
 @import "NUDomain.j"
 @import "NUDomainFIPAclTemplate.j"
 @import "NUDomainFIPAclTemplateEntry.j"
+@import "NUDomainKindSummary.j"
 @import "NUDomainTemplate.j"
 @import "NUDownloadProgress.j"
 @import "NUEgressACLEntryTemplate.j"
@@ -99,6 +104,7 @@
 @import "NUFirewallAcl.j"
 @import "NUFirewallRule.j"
 @import "NUFloatingIp.j"
+@import "NUForwardingClass.j"
 @import "NUForwardingPathList.j"
 @import "NUForwardingPathListEntry.j"
 @import "NUGateway.j"
@@ -156,6 +162,7 @@
 @import "NUMe.j"
 @import "NUMetadata.j"
 @import "NUMirrorDestination.j"
+@import "NUMirrorDestinationGroup.j"
 @import "NUMonitoringPort.j"
 @import "NUMonitorscope.j"
 @import "NUMultiCastChannelMap.j"
@@ -177,6 +184,7 @@
 @import "NUNSPortInfo.j"
 @import "NUNSPortTemplate.j"
 @import "NUNSRedundantGatewayGroup.j"
+@import "NUNetconfGateway.j"
 @import "NUNetconfManager.j"
 @import "NUNetconfProfile.j"
 @import "NUNetconfSession.j"
@@ -224,6 +232,7 @@
 @import "NURedirectionTargetTemplate.j"
 @import "NURedundancyGroup.j"
 @import "NURedundantPort.j"
+@import "NURemoteVrsInfo.j"
 @import "NURoutingPolicy.j"
 @import "NUSAPEgressQoSProfile.j"
 @import "NUSAPIngressQoSProfile.j"
@@ -242,8 +251,14 @@
 @import "NUSubnet.j"
 @import "NUSubnetTemplate.j"
 @import "NUSyslogDestination.j"
+@import "NUSysmonUplinkConnection.j"
 @import "NUSystemConfig.j"
 @import "NUTCA.j"
+@import "NUTest.j"
+@import "NUTestDefinition.j"
+@import "NUTestRun.j"
+@import "NUTestSuite.j"
+@import "NUTestSuiteRun.j"
 @import "NUTier.j"
 @import "NUTrunk.j"
 @import "NUUnderlay.j"
@@ -293,11 +308,13 @@
 @import "NUZFBRequest.j"
 @import "NUZone.j"
 @import "NUZoneTemplate.j"
+@import "NUvrsInfo.j"
 
 
 [[NURESTModelController defaultController] registerModelClass:NUAddressMap];
 [[NURESTModelController defaultController] registerModelClass:NUAddressRange];
 [[NURESTModelController defaultController] registerModelClass:NUAggregateMetadata];
+[[NURESTModelController defaultController] registerModelClass:NUAggregatedDomain];
 [[NURESTModelController defaultController] registerModelClass:NUAlarm];
 [[NURESTModelController defaultController] registerModelClass:NUAllAlarm];
 [[NURESTModelController defaultController] registerModelClass:NUAllGateway];
@@ -311,6 +328,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUAutoDiscoveredGateway];
 [[NURESTModelController defaultController] registerModelClass:NUAutodiscovereddatacenter];
 [[NURESTModelController defaultController] registerModelClass:NUAvatar];
+[[NURESTModelController defaultController] registerModelClass:NUAzureCloud];
 [[NURESTModelController defaultController] registerModelClass:NUBFDSession];
 [[NURESTModelController defaultController] registerModelClass:NUBGPNeighbor];
 [[NURESTModelController defaultController] registerModelClass:NUBGPPeer];
@@ -332,8 +350,10 @@
 [[NURESTModelController defaultController] registerModelClass:NUContainer];
 [[NURESTModelController defaultController] registerModelClass:NUContainerInterface];
 [[NURESTModelController defaultController] registerModelClass:NUContainerResync];
+[[NURESTModelController defaultController] registerModelClass:NUControllerVRSLink];
 [[NURESTModelController defaultController] registerModelClass:NUCustomProperty];
 [[NURESTModelController defaultController] registerModelClass:NUDHCPOption];
+[[NURESTModelController defaultController] registerModelClass:NUDHCPv6Option];
 [[NURESTModelController defaultController] registerModelClass:NUDSCPForwardingClassMapping];
 [[NURESTModelController defaultController] registerModelClass:NUDSCPForwardingClassTable];
 [[NURESTModelController defaultController] registerModelClass:NUDSCPRemarkingPolicy];
@@ -348,6 +368,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUDomain];
 [[NURESTModelController defaultController] registerModelClass:NUDomainFIPAclTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUDomainFIPAclTemplateEntry];
+[[NURESTModelController defaultController] registerModelClass:NUDomainKindSummary];
 [[NURESTModelController defaultController] registerModelClass:NUDomainTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUDownloadProgress];
 [[NURESTModelController defaultController] registerModelClass:NUEgressACLEntryTemplate];
@@ -366,6 +387,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUFirewallAcl];
 [[NURESTModelController defaultController] registerModelClass:NUFirewallRule];
 [[NURESTModelController defaultController] registerModelClass:NUFloatingIp];
+[[NURESTModelController defaultController] registerModelClass:NUForwardingClass];
 [[NURESTModelController defaultController] registerModelClass:NUForwardingPathList];
 [[NURESTModelController defaultController] registerModelClass:NUForwardingPathListEntry];
 [[NURESTModelController defaultController] registerModelClass:NUGateway];
@@ -423,6 +445,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUMe];
 [[NURESTModelController defaultController] registerModelClass:NUMetadata];
 [[NURESTModelController defaultController] registerModelClass:NUMirrorDestination];
+[[NURESTModelController defaultController] registerModelClass:NUMirrorDestinationGroup];
 [[NURESTModelController defaultController] registerModelClass:NUMonitoringPort];
 [[NURESTModelController defaultController] registerModelClass:NUMonitorscope];
 [[NURESTModelController defaultController] registerModelClass:NUMultiCastChannelMap];
@@ -444,6 +467,7 @@
 [[NURESTModelController defaultController] registerModelClass:NUNSPortInfo];
 [[NURESTModelController defaultController] registerModelClass:NUNSPortTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUNSRedundantGatewayGroup];
+[[NURESTModelController defaultController] registerModelClass:NUNetconfGateway];
 [[NURESTModelController defaultController] registerModelClass:NUNetconfManager];
 [[NURESTModelController defaultController] registerModelClass:NUNetconfProfile];
 [[NURESTModelController defaultController] registerModelClass:NUNetconfSession];
@@ -491,6 +515,7 @@
 [[NURESTModelController defaultController] registerModelClass:NURedirectionTargetTemplate];
 [[NURESTModelController defaultController] registerModelClass:NURedundancyGroup];
 [[NURESTModelController defaultController] registerModelClass:NURedundantPort];
+[[NURESTModelController defaultController] registerModelClass:NURemoteVrsInfo];
 [[NURESTModelController defaultController] registerModelClass:NURoutingPolicy];
 [[NURESTModelController defaultController] registerModelClass:NUSAPEgressQoSProfile];
 [[NURESTModelController defaultController] registerModelClass:NUSAPIngressQoSProfile];
@@ -509,8 +534,14 @@
 [[NURESTModelController defaultController] registerModelClass:NUSubnet];
 [[NURESTModelController defaultController] registerModelClass:NUSubnetTemplate];
 [[NURESTModelController defaultController] registerModelClass:NUSyslogDestination];
+[[NURESTModelController defaultController] registerModelClass:NUSysmonUplinkConnection];
 [[NURESTModelController defaultController] registerModelClass:NUSystemConfig];
 [[NURESTModelController defaultController] registerModelClass:NUTCA];
+[[NURESTModelController defaultController] registerModelClass:NUTest];
+[[NURESTModelController defaultController] registerModelClass:NUTestDefinition];
+[[NURESTModelController defaultController] registerModelClass:NUTestRun];
+[[NURESTModelController defaultController] registerModelClass:NUTestSuite];
+[[NURESTModelController defaultController] registerModelClass:NUTestSuiteRun];
 [[NURESTModelController defaultController] registerModelClass:NUTier];
 [[NURESTModelController defaultController] registerModelClass:NUTrunk];
 [[NURESTModelController defaultController] registerModelClass:NUUnderlay];
@@ -560,3 +591,4 @@
 [[NURESTModelController defaultController] registerModelClass:NUZFBRequest];
 [[NURESTModelController defaultController] registerModelClass:NUZone];
 [[NURESTModelController defaultController] registerModelClass:NUZoneTemplate];
+[[NURESTModelController defaultController] registerModelClass:NUvrsInfo];

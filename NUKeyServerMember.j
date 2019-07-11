@@ -54,6 +54,10 @@ NUKeyServerMemberEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _certificateSerialNumber @accessors(property=certificateSerialNumber);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -103,6 +107,7 @@ NUKeyServerMemberEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"pemEncoded"];
         [self exposeLocalKeyPathToREST:@"certificateSerialNumber"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"fqdn"];
         [self exposeLocalKeyPathToREST:@"issuerDN"];

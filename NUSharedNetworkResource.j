@@ -120,6 +120,10 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _sharedResourceParentID @accessors(property=sharedResourceParentID);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Virtual network ID of the shared resource
     */
     CPNumber _vnID @accessors(property=vnID);
@@ -231,6 +235,7 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"sharedResourceParentID"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"vnID"];
         [self exposeLocalKeyPathToREST:@"underlay"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];

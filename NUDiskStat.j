@@ -59,6 +59,10 @@ NUDiskStatUnit_ZB = @"ZB";
     */
     CPNumber _size @accessors(property=size);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Storage unit type (example: bytes, KB, MB, etc.,).
     */
     CPString _unit @accessors(property=unit);
@@ -103,6 +107,7 @@ NUDiskStatUnit_ZB = @"ZB";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"size"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"unit"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"used"];

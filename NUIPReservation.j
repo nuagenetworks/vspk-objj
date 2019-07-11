@@ -38,7 +38,7 @@ NUIPReservationEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    You can reserve and allocate IP addresess according to the host MAC address
+    You can reserve and allocate IP addresses according to the host MAC address
 */
 @implementation NUIPReservation : NURESTObject
 {
@@ -54,6 +54,10 @@ NUIPReservationEntityScope_GLOBAL = @"GLOBAL";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -93,6 +97,7 @@ NUIPReservationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"MAC"];
         [self exposeLocalKeyPathToREST:@"IPAddress"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicAllocationEnabled"];

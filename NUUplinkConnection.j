@@ -39,6 +39,9 @@ NUUplinkConnectionAddressFamily_IPV6 = @"IPV6";
 NUUplinkConnectionAdvertisementCriteria_BFD = @"BFD";
 NUUplinkConnectionAdvertisementCriteria_CONTROL_SESSION = @"CONTROL_SESSION";
 NUUplinkConnectionAdvertisementCriteria_OPERATIONAL_LINK = @"OPERATIONAL_LINK";
+NUUplinkConnectionAuxMode_COLD = @"COLD";
+NUUplinkConnectionAuxMode_HOT = @"HOT";
+NUUplinkConnectionAuxMode_NONE = @"NONE";
 NUUplinkConnectionEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUUplinkConnectionEntityScope_GLOBAL = @"GLOBAL";
 NUUplinkConnectionInterfaceConnectionType_AUTOMATIC = @"AUTOMATIC";
@@ -120,6 +123,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPNumber _vlan @accessors(property=vlan);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Indicated whether route to underlay is enabled on this uplink connection.
     */
     BOOL _underlayEnabled @accessors(property=underlayEnabled);
@@ -152,7 +159,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _role @accessors(property=role);
     /*!
-        Role order: Primary 1, Primary 2, Secondary 3. Note: Order will be calculated when all uplink connections fetched for gateway
+        Determines the order in which uplinks are configured on NSG. It also determines the priority for an Uplink for management traffic. This value will be auto-generated when not provided by user.
     */
     CPNumber _roleOrder @accessors(property=roleOrder);
     /*!
@@ -183,6 +190,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         The display name of the Underlay instance associated with this uplink connection.
     */
     CPString _associatedUnderlayName @accessors(property=associatedUnderlayName);
+    /*!
+        The type of redundancy this Uplink offers when marked as auxiliary link.
+    */
+    CPString _auxMode @accessors(property=auxMode);
     /*!
         Make this uplink an auxiliary one that will only come up when all other uplinks are disconnected or can't perform their role.
     */
@@ -230,6 +241,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"secondaryAddress"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"vlan"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];
         [self exposeLocalKeyPathToREST:@"underlayID"];
         [self exposeLocalKeyPathToREST:@"inherited"];
@@ -246,6 +258,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"assocUnderlayID"];
         [self exposeLocalKeyPathToREST:@"associatedBGPNeighborID"];
         [self exposeLocalKeyPathToREST:@"associatedUnderlayName"];
+        [self exposeLocalKeyPathToREST:@"auxMode"];
         [self exposeLocalKeyPathToREST:@"auxiliaryLink"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

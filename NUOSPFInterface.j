@@ -85,6 +85,10 @@ NUOSPFInterfaceInterfaceType_POINT_TO_POINT = @"POINT_TO_POINT";
     */
     CPNumber _metric @accessors(property=metric);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Can be BROADCAST or POINT_TO_POINT
     */
     CPString _interfaceType @accessors(property=interfaceType);
@@ -148,6 +152,7 @@ NUOSPFInterfaceInterfaceType_POINT_TO_POINT = @"POINT_TO_POINT";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"messageDigestKeys"];
         [self exposeLocalKeyPathToREST:@"metric"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"interfaceType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"priority"];

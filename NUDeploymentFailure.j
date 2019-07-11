@@ -69,6 +69,10 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
     */
     CPString _diffMap @accessors(property=diffMap);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -84,6 +88,14 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
         Type of parent entity.
     */
     CPString _assocEntityType @accessors(property=assocEntityType);
+    /*!
+        ID of the associated Domain.
+    */
+    CPString _associatedDomainID @accessors(property=associatedDomainID);
+    /*!
+        Type of the associated Domain
+    */
+    CPString _associatedDomainType @accessors(property=associatedDomainType);
     /*!
         ID of associated Network entity.
     */
@@ -133,10 +145,13 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
         [self exposeLocalKeyPathToREST:@"affectedEntityID"];
         [self exposeLocalKeyPathToREST:@"affectedEntityType"];
         [self exposeLocalKeyPathToREST:@"diffMap"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"errorCondition"];
         [self exposeLocalKeyPathToREST:@"assocEntityId"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
+        [self exposeLocalKeyPathToREST:@"associatedDomainID"];
+        [self exposeLocalKeyPathToREST:@"associatedDomainType"];
         [self exposeLocalKeyPathToREST:@"associatedNetworkEntityID"];
         [self exposeLocalKeyPathToREST:@"associatedNetworkEntityType"];
         [self exposeLocalKeyPathToREST:@"numberOfOccurences"];

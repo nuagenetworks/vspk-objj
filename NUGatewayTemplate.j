@@ -73,6 +73,10 @@ NUGatewayTemplatePersonality_VSG = @"VSG";
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         The ID of the associated Infrastructure Gateway Profile tied to this instance of a Gateway Template.
     */
     CPString _infrastructureProfileID @accessors(property=infrastructureProfileID);
@@ -116,6 +120,7 @@ NUGatewayTemplatePersonality_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

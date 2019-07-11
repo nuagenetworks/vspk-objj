@@ -29,20 +29,26 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUGatewaysFetcher.j"
 @import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUNetconfGatewaysFetcher.j"
+@import "Fetchers/NUNetworkMacroGroupsFetcher.j"
 @import "Fetchers/NUNetworkPerformanceBindingsFetcher.j"
 @import "Fetchers/NUPGExpressionsFetcher.j"
+@import "Fetchers/NUAggregatedDomainsFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
 @import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
 @import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
+@import "Fetchers/NUDHCPv6OptionsFetcher.j"
 @import "Fetchers/NULinksFetcher.j"
 @import "Fetchers/NUFirewallAclsFetcher.j"
+@import "Fetchers/NUMirrorDestinationGroupsFetcher.j"
 @import "Fetchers/NUVirtualFirewallPoliciesFetcher.j"
 @import "Fetchers/NUVirtualFirewallRulesFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
@@ -83,12 +89,16 @@
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUDomainAdvertiseCriteria_HUB_ROUTES = @"HUB_ROUTES";
+NUDomainAggregationFlowType_PBR_BASED = @"PBR_BASED";
+NUDomainAggregationFlowType_ROUTE_BASED = @"ROUTE_BASED";
 NUDomainDHCPBehavior_CONSUME = @"CONSUME";
 NUDomainDHCPBehavior_FLOOD = @"FLOOD";
 NUDomainDHCPBehavior_OVERLAY_RELAY = @"OVERLAY_RELAY";
 NUDomainDHCPBehavior_UNDERLAY_RELAY = @"UNDERLAY_RELAY";
 NUDomainDPI_DISABLED = @"DISABLED";
 NUDomainDPI_ENABLED = @"ENABLED";
+NUDomainEVPNRT5Type_IP = @"IP";
+NUDomainEVPNRT5Type_MAC = @"MAC";
 NUDomainEncryption_DISABLED = @"DISABLED";
 NUDomainEncryption_ENABLED = @"ENABLED";
 NUDomainEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -117,6 +127,7 @@ NUDomainPolicyChangeStatus_DISCARDED = @"DISCARDED";
 NUDomainPolicyChangeStatus_STARTED = @"STARTED";
 NUDomainTunnelType_DC_DEFAULT = @"DC_DEFAULT";
 NUDomainTunnelType_GRE = @"GRE";
+NUDomainTunnelType_MPLSOUDP = @"MPLSoUDP";
 NUDomainTunnelType_VLAN = @"VLAN";
 NUDomainTunnelType_VXLAN = @"VXLAN";
 NUDomainUnderlayEnabled_DISABLED = @"DISABLED";
@@ -166,6 +177,14 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _DPI @accessors(property=DPI);
     /*!
+        Determines if GRT is enabled on this domain.
+    */
+    BOOL _GRTEnabled @accessors(property=GRTEnabled);
+    /*!
+        Determines whether EVPN-RT5 are enabled on this domain.
+    */
+    CPString _EVPNRT5Type @accessors(property=EVPNRT5Type);
+    /*!
         Determines whether VXLAN-ECMP are enabled on this domain.
     */
     BOOL _VXLANECMPEnabled @accessors(property=VXLANECMPEnabled);
@@ -214,6 +233,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _secondaryDHCPServerAddress @accessors(property=secondaryDHCPServerAddress);
     /*!
+        Secondary route target associated with the dVRS. It is a parameter that is auto-managed by VSD. System generates this identifier automatically.
+    */
+    CPString _secondaryRouteTarget @accessors(property=secondaryRouteTarget);
+    /*!
         The ID of the template that this domain was created from. This should be set when instantiating a domain
     */
     CPString _templateID @accessors(property=templateID);
@@ -234,6 +257,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     BOOL _aggregateFlowsEnabled @accessors(property=aggregateFlowsEnabled);
     /*!
+        Indicates type of Aggregation Flow.
+    */
+    CPString _aggregationFlowType @accessors(property=aggregationFlowType);
+    /*!
         when DHCPBehaviorType is RELAY, then DHCP Server IP Address needs to be set
     */
     CPArrayController _dhcpServerAddresses @accessors(property=dhcpServerAddresses);
@@ -245,6 +272,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Determines whether or not flow collection is enabled.
     */
     CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Route distinguisher associated with the dVRS. It is an optional parameter that can be provided by the user or auto-managed by VSD. System generates this identifier automatically, if not provided
     */
@@ -274,6 +305,14 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
     /*!
+        The color encoded with a traffic engineering constraint such as minimum latency, hops, maximum bandwidth, etc. This is used for NFIX(Network Function Interconnect). Color is applicable only when the selected Tunnel Type is MPLSoUDP. Valid range is 1 - 4294967295. 0 for other Tunnel Types.
+    */
+    CPNumber _color @accessors(property=color);
+    /*!
+        Indicates if this Domain Aggregation is enabled on this Domain.
+    */
+    BOOL _domainAggregationEnabled @accessors(property=domainAggregationEnabled);
+    /*!
         A unique 20-bitID editable however could be auto-generated by VSD.
     */
     CPNumber _domainID @accessors(property=domainID);
@@ -293,6 +332,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Indicates the preferencial path selection for network traffic in this domain - Default is Primary 1 and Secondary 2. Possible values are PRIMARY_SECONDARY, SECONDARY_PRIMARY, PRIMARY, SECONDARY, SYMMETRIC, .
     */
     CPString _uplinkPreference @accessors(property=uplinkPreference);
+    /*!
+        Determines if BackHaul Subnet should be created or not.
+    */
+    BOOL _createBackHaulSubnet @accessors(property=createBackHaulSubnet);
     /*!
         None
     */
@@ -342,20 +385,26 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _externalLabel @accessors(property=externalLabel);
     
+    NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUNetconfGatewaysFetcher _childrenNetconfGateways @accessors(property=childrenNetconfGateways);
+    NUNetworkMacroGroupsFetcher _childrenNetworkMacroGroups @accessors(property=childrenNetworkMacroGroups);
     NUNetworkPerformanceBindingsFetcher _childrenNetworkPerformanceBindings @accessors(property=childrenNetworkPerformanceBindings);
     NUPGExpressionsFetcher _childrenPGExpressions @accessors(property=childrenPGExpressions);
+    NUAggregatedDomainsFetcher _childrenAggregatedDomains @accessors(property=childrenAggregatedDomains);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
     NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
     NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
+    NUDHCPv6OptionsFetcher _childrenDHCPv6Options @accessors(property=childrenDHCPv6Options);
     NULinksFetcher _childrenLinks @accessors(property=childrenLinks);
     NUFirewallAclsFetcher _childrenFirewallAcls @accessors(property=childrenFirewallAcls);
+    NUMirrorDestinationGroupsFetcher _childrenMirrorDestinationGroups @accessors(property=childrenMirrorDestinationGroups);
     NUVirtualFirewallPoliciesFetcher _childrenVirtualFirewallPolicies @accessors(property=childrenVirtualFirewallPolicies);
     NUVirtualFirewallRulesFetcher _childrenVirtualFirewallRules @accessors(property=childrenVirtualFirewallRules);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
@@ -422,6 +471,8 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"FIPIgnoreDefaultRoute"];
         [self exposeLocalKeyPathToREST:@"FIPUnderlay"];
         [self exposeLocalKeyPathToREST:@"DPI"];
+        [self exposeLocalKeyPathToREST:@"GRTEnabled"];
+        [self exposeLocalKeyPathToREST:@"EVPNRT5Type"];
         [self exposeLocalKeyPathToREST:@"VXLANECMPEnabled"];
         [self exposeLocalKeyPathToREST:@"labelID"];
         [self exposeLocalKeyPathToREST:@"backHaulRouteDistinguisher"];
@@ -434,14 +485,17 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"advertiseCriteria"];
         [self exposeLocalKeyPathToREST:@"leakingEnabled"];
         [self exposeLocalKeyPathToREST:@"secondaryDHCPServerAddress"];
+        [self exposeLocalKeyPathToREST:@"secondaryRouteTarget"];
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"serviceID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"aggregateFlowsEnabled"];
+        [self exposeLocalKeyPathToREST:@"aggregationFlowType"];
         [self exposeLocalKeyPathToREST:@"dhcpServerAddresses"];
         [self exposeLocalKeyPathToREST:@"globalRoutingEnabled"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"importRouteTarget"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];
@@ -449,11 +503,14 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"localAS"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
+        [self exposeLocalKeyPathToREST:@"color"];
+        [self exposeLocalKeyPathToREST:@"domainAggregationEnabled"];
         [self exposeLocalKeyPathToREST:@"domainID"];
         [self exposeLocalKeyPathToREST:@"domainVLANID"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
+        [self exposeLocalKeyPathToREST:@"createBackHaulSubnet"];
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
@@ -467,20 +524,26 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"externalLabel"];
         
+        _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenNetconfGateways = [NUNetconfGatewaysFetcher fetcherWithParentObject:self];
+        _childrenNetworkMacroGroups = [NUNetworkMacroGroupsFetcher fetcherWithParentObject:self];
         _childrenNetworkPerformanceBindings = [NUNetworkPerformanceBindingsFetcher fetcherWithParentObject:self];
         _childrenPGExpressions = [NUPGExpressionsFetcher fetcherWithParentObject:self];
+        _childrenAggregatedDomains = [NUAggregatedDomainsFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
         _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
+        _childrenDHCPv6Options = [NUDHCPv6OptionsFetcher fetcherWithParentObject:self];
         _childrenLinks = [NULinksFetcher fetcherWithParentObject:self];
         _childrenFirewallAcls = [NUFirewallAclsFetcher fetcherWithParentObject:self];
+        _childrenMirrorDestinationGroups = [NUMirrorDestinationGroupsFetcher fetcherWithParentObject:self];
         _childrenVirtualFirewallPolicies = [NUVirtualFirewallPoliciesFetcher fetcherWithParentObject:self];
         _childrenVirtualFirewallRules = [NUVirtualFirewallRulesFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];

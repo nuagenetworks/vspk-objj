@@ -50,13 +50,17 @@ NUDSCPRemarkingPolicyForwardingClass_H = @"H";
 @implementation NUDSCPRemarkingPolicy : NURESTObject
 {
     /*!
-        DSCP value range from enumeration of 65 values: *, 0, 1, ..., 63
+        DSCP value range from enumeration of 65 values: 0, 1, ..., 63
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -94,6 +98,7 @@ NUDSCPRemarkingPolicyForwardingClass_H = @"H";
     {
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"forwardingClass"];
         [self exposeLocalKeyPathToREST:@"externalID"];

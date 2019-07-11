@@ -70,6 +70,14 @@ NUBootstrapZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        The activation URL used for bootstrapping this instance of the NSG. If the current configuration of the NSG is incomplete, no link will be returned.
+    */
+    CPString _activationURL @accessors(property=activationURL);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         The Installer ID
     */
     CPString _installerID @accessors(property=installerID);
@@ -116,6 +124,8 @@ NUBootstrapZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"ZFBMatchAttribute"];
         [self exposeLocalKeyPathToREST:@"ZFBMatchValue"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"activationURL"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"installerID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedEntityType"];

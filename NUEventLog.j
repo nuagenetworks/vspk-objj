@@ -50,6 +50,10 @@ NUEventLogEntityScope_GLOBAL = @"GLOBAL";
     */
     NURESTObject _diff @accessors(property=diff);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         The enterprise name of the user who triggered this event.
     */
     CPString _enterprise @accessors(property=enterprise);
@@ -118,6 +122,7 @@ NUEventLogEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"requestID"];
         [self exposeLocalKeyPathToREST:@"diff"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterprise"];
         [self exposeLocalKeyPathToREST:@"entities"];
         [self exposeLocalKeyPathToREST:@"entityID"];

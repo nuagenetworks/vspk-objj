@@ -35,6 +35,7 @@
 
 NUIngressACLEntryTemplateAction_DROP = @"DROP";
 NUIngressACLEntryTemplateAction_FORWARD = @"FORWARD";
+NUIngressACLEntryTemplateAction_TRANSPARENT = @"TRANSPARENT";
 NUIngressACLEntryTemplateAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
 NUIngressACLEntryTemplateAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
 NUIngressACLEntryTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -105,6 +106,10 @@ NUIngressACLEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _webFilterID @accessors(property=webFilterID);
     /*!
+        Indicates if web filter statistics logging is enabled for this particular template
+    */
+    BOOL _webFilterStatsLoggingEnabled @accessors(property=webFilterStatsLoggingEnabled);
+    /*!
         Indicates type of web filter being set
     */
     CPString _webFilterType @accessors(property=webFilterType);
@@ -125,6 +130,10 @@ NUIngressACLEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _networkType @accessors(property=networkType);
     /*!
+        ID of the associated Mirror Destination Group.
+    */
+    CPString _mirrorDestinationGroupID @accessors(property=mirrorDestinationGroupID);
+    /*!
         Destination ID of the mirror destination object.
     */
     CPString _mirrorDestinationID @accessors(property=mirrorDestinationID);
@@ -132,6 +141,10 @@ NUIngressACLEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Is flow logging enabled for this particular template
     */
     BOOL _flowLoggingEnabled @accessors(property=flowLoggingEnabled);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         The name of the enterprise for the domains parent
     */
@@ -201,7 +214,7 @@ NUIngressACLEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _statsID @accessors(property=statsID);
     /*!
-        Is stats logging enabled for this particular template
+        Indicates if stats logging is enabled for this particular template
     */
     BOOL _statsLoggingEnabled @accessors(property=statsLoggingEnabled);
     /*!
@@ -249,13 +262,16 @@ NUIngressACLEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
         [self exposeLocalKeyPathToREST:@"webFilterID"];
+        [self exposeLocalKeyPathToREST:@"webFilterStatsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
+        [self exposeLocalKeyPathToREST:@"mirrorDestinationGroupID"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];

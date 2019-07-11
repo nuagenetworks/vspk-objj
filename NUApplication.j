@@ -103,6 +103,10 @@ NUApplicationProtocol_UDP = @"UDP";
     */
     BOOL _networkSymmetry @accessors(property=networkSymmetry);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Enable the performance probe for this application
     */
     BOOL _enablePPS @accessors(property=enablePPS);
@@ -202,6 +206,7 @@ NUApplicationProtocol_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"destinationIP"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkSymmetry"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enablePPS"];
         [self exposeLocalKeyPathToREST:@"oneWayDelay"];
         [self exposeLocalKeyPathToREST:@"oneWayJitter"];

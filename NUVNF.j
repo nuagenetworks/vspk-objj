@@ -137,6 +137,10 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
     */
     CPArrayController _allowedActions @accessors(property=allowedActions);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         ID of the enterprise that this VNF belongs to
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
@@ -214,6 +218,7 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
         [self exposeLocalKeyPathToREST:@"vendor"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"allowedActions"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"isAttachedToDescriptor"];

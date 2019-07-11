@@ -44,8 +44,10 @@
 @import "Fetchers/NUVCenterHypervisorsFetcher.j"
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NURedundancyGroupsFetcher.j"
+@import "Fetchers/NURemoteVrsInfosFetcher.j"
 @import "Fetchers/NUPerformanceMonitorsFetcher.j"
 @import "Fetchers/NUCertificatesFetcher.j"
+@import "Fetchers/NUTestDefinitionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetconfProfilesFetcher.j"
 @import "Fetchers/NUNetworkLayoutsFetcher.j"
@@ -105,6 +107,7 @@
 @import "Fetchers/NUApplicationperformancemanagementsFetcher.j"
 @import "Fetchers/NUVRSsFetcher.j"
 @import "Fetchers/NUVCenterVRSConfigsFetcher.j"
+@import "Fetchers/NUvrsInfosFetcher.j"
 @import "Fetchers/NUDSCPRemarkingPolicyTablesFetcher.j"
 @import "Fetchers/NUUsersFetcher.j"
 @import "Fetchers/NUUserContextsFetcher.j"
@@ -178,6 +181,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _email @accessors(property=email);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Identifier of the enterprise.
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
@@ -225,8 +232,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUVCenterHypervisorsFetcher _childrenVCenterHypervisors @accessors(property=childrenVCenterHypervisors);
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NURedundancyGroupsFetcher _childrenRedundancyGroups @accessors(property=childrenRedundancyGroups);
+    NURemoteVrsInfosFetcher _childrenRemoteVrsInfos @accessors(property=childrenRemoteVrsInfos);
     NUPerformanceMonitorsFetcher _childrenPerformanceMonitors @accessors(property=childrenPerformanceMonitors);
     NUCertificatesFetcher _childrenCertificates @accessors(property=childrenCertificates);
+    NUTestDefinitionsFetcher _childrenTestDefinitions @accessors(property=childrenTestDefinitions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetconfProfilesFetcher _childrenNetconfProfiles @accessors(property=childrenNetconfProfiles);
     NUNetworkLayoutsFetcher _childrenNetworkLayouts @accessors(property=childrenNetworkLayouts);
@@ -286,6 +295,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUApplicationperformancemanagementsFetcher _childrenApplicationperformancemanagements @accessors(property=childrenApplicationperformancemanagements);
     NUVRSsFetcher _childrenVRSs @accessors(property=childrenVRSs);
     NUVCenterVRSConfigsFetcher _childrenVCenterVRSConfigs @accessors(property=childrenVCenterVRSConfigs);
+    NUvrsInfosFetcher _childrenvrsInfos @accessors(property=childrenvrsInfos);
     NUDSCPRemarkingPolicyTablesFetcher _childrenDSCPRemarkingPolicyTables @accessors(property=childrenDSCPRemarkingPolicyTables);
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
     NUUserContextsFetcher _childrenUserContexts @accessors(property=childrenUserContexts);
@@ -336,6 +346,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"elasticSearchAddress"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"email"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
@@ -362,8 +373,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenVCenterHypervisors = [NUVCenterHypervisorsFetcher fetcherWithParentObject:self];
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenRedundancyGroups = [NURedundancyGroupsFetcher fetcherWithParentObject:self];
+        _childrenRemoteVrsInfos = [NURemoteVrsInfosFetcher fetcherWithParentObject:self];
         _childrenPerformanceMonitors = [NUPerformanceMonitorsFetcher fetcherWithParentObject:self];
         _childrenCertificates = [NUCertificatesFetcher fetcherWithParentObject:self];
+        _childrenTestDefinitions = [NUTestDefinitionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetconfProfiles = [NUNetconfProfilesFetcher fetcherWithParentObject:self];
         _childrenNetworkLayouts = [NUNetworkLayoutsFetcher fetcherWithParentObject:self];
@@ -423,6 +436,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenApplicationperformancemanagements = [NUApplicationperformancemanagementsFetcher fetcherWithParentObject:self];
         _childrenVRSs = [NUVRSsFetcher fetcherWithParentObject:self];
         _childrenVCenterVRSConfigs = [NUVCenterVRSConfigsFetcher fetcherWithParentObject:self];
+        _childrenvrsInfos = [NUvrsInfosFetcher fetcherWithParentObject:self];
         _childrenDSCPRemarkingPolicyTables = [NUDSCPRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
         _childrenUserContexts = [NUUserContextsFetcher fetcherWithParentObject:self];

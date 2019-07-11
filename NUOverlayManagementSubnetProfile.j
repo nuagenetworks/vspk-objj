@@ -45,7 +45,7 @@
     */
     CPString _description @accessors(property=description);
     /*!
-        The DNA Subnet ID associated with this profile. Where DNS means Do Not Advertise (Advertise=False)
+        The DNA Subnet ID associated with this profile. Where DNA means Do Not Advertise (Advertise=False)
     */
     CPString _associatedDNASubnetID @accessors(property=associatedDNASubnetID);
     /*!

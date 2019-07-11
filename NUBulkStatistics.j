@@ -47,6 +47,10 @@
     */
     CPNumber _version @accessors(property=version);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         End time for the statistics to be retrieved
     */
     CPNumber _endTime @accessors(property=endTime);
@@ -83,6 +87,7 @@
     {
         [self exposeLocalKeyPathToREST:@"data"];
         [self exposeLocalKeyPathToREST:@"version"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"endTime"];
         [self exposeLocalKeyPathToREST:@"startTime"];
         [self exposeLocalKeyPathToREST:@"numberOfDataPoints"];

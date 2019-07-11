@@ -73,6 +73,10 @@ NUInfrastructureEVDFProfileNuagePlatform_KVM_LXC = @"KVM_LXC";
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Enterprise/Organisation associated with this Profile instance.
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
@@ -130,6 +134,7 @@ NUInfrastructureEVDFProfileNuagePlatform_KVM_LXC = @"KVM_LXC";
         [self exposeLocalKeyPathToREST:@"activeController"];
         [self exposeLocalKeyPathToREST:@"serviceIPv4Subnet"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"proxyDNSName"];

@@ -93,7 +93,7 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
 
 
 /*!
-    API that can retrieve the containers associated with a domain, zone or subnet for mediation created containers for REST created  containers you need to set the additional proxy user header in http request : X-Nuage-ProxyUservalue of the header has to be either :1) enterpriseName@UserName (example : Alcatel Lucent@bob), or 2) external ID of user in VSD, typically is UUID generally decided by the CMS tool in questionUser needs to have CMS privileges to use proxy user header.
+    API that can retrieve the containers associated with a domain, zone or subnet for mediation created containers for REST created  containers you need to set the additional proxy user header in http request : X-Nuage-ProxyUservalue of the header has to be either :1) enterpriseName@UserName (example : Nokia@bob), or 2) external ID of user in VSD, typically is UUID generally decided by the CMS tool in questionUser needs to have CMS privileges to use proxy user header.
 */
 @implementation NUContainer : NURESTObject
 {
@@ -146,6 +146,10 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPString _imageName @accessors(property=imageName);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         List of container interfaces associated with the container
     */
     CPArrayController _interfaces @accessors(property=interfaces);
@@ -177,6 +181,14 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
         Orchestration ID
     */
     CPString _orchestrationID @accessors(property=orchestrationID);
+    /*!
+        Release version of VRS, which is used to determine the feature capabilties of VRS.
+    */
+    CPString _vrsRawVersion @accessors(property=vrsRawVersion);
+    /*!
+        Interpreted version of VRS, which is used to determine the feature capabilities of VRS.
+    */
+    CPString _vrsVersion @accessors(property=vrsVersion);
     /*!
         ID of the user that created this container
     */
@@ -241,6 +253,7 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
         [self exposeLocalKeyPathToREST:@"siteIdentifier"];
         [self exposeLocalKeyPathToREST:@"imageID"];
         [self exposeLocalKeyPathToREST:@"imageName"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"interfaces"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
@@ -249,6 +262,8 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
         [self exposeLocalKeyPathToREST:@"computeProvisioned"];
         [self exposeLocalKeyPathToREST:@"zoneIDs"];
         [self exposeLocalKeyPathToREST:@"orchestrationID"];
+        [self exposeLocalKeyPathToREST:@"vrsRawVersion"];
+        [self exposeLocalKeyPathToREST:@"vrsVersion"];
         [self exposeLocalKeyPathToREST:@"userID"];
         [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"status"];

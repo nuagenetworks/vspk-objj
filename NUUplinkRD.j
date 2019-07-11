@@ -36,8 +36,10 @@ NUUplinkRDEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUUplinkRDEntityScope_GLOBAL = @"GLOBAL";
 NUUplinkRDUplinkType_RD_PRIMARY1 = @"RD_PRIMARY1";
 NUUplinkRDUplinkType_RD_PRIMARY2 = @"RD_PRIMARY2";
+NUUplinkRDUplinkType_RD_PRIMARY3 = @"RD_PRIMARY3";
 NUUplinkRDUplinkType_RD_SECONDARY1 = @"RD_SECONDARY1";
 NUUplinkRDUplinkType_RD_SECONDARY2 = @"RD_SECONDARY2";
+NUUplinkRDUplinkType_RD_SECONDARY3 = @"RD_SECONDARY3";
 
 
 /*!
@@ -49,6 +51,10 @@ NUUplinkRDUplinkType_RD_SECONDARY2 = @"RD_SECONDARY2";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -89,6 +95,7 @@ NUUplinkRDUplinkType_RD_SECONDARY2 = @"RD_SECONDARY2";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"uplinkType"];

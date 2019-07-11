@@ -66,6 +66,10 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _server @accessors(property=server);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         To enable LDAP authentication for an enterprise, set this attribute to true. If enabled is set to false, authorizationEnabled attribute is ignored and LDAP is not used for authentication as well as authorization. The relationship between enabled and authorizationEnabled attributes is as follows, enabled = true, authorizationEnabled = false, LDAP is used only for Authentication enabled = true, authorizationEnabled = true, LDAP is used for both authentication and authorization. enabled = false, authorizationEnabled = true, LDAP is not used. enabled = false, authorizationEnabled = false, LDAP is not used.
     */
     BOOL _enabled @accessors(property=enabled);
@@ -138,6 +142,7 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"acceptAllCertificates"];
         [self exposeLocalKeyPathToREST:@"certificate"];
         [self exposeLocalKeyPathToREST:@"server"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"port"];

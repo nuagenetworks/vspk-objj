@@ -62,6 +62,10 @@ NUSiteInfoEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _siteIdentifier @accessors(property=siteIdentifier);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         unique xmpp domain name of the remote site
     */
     CPString _xmppDomain @accessors(property=xmppDomain);
@@ -101,6 +105,7 @@ NUSiteInfoEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"siteIdentifier"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"xmppDomain"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];

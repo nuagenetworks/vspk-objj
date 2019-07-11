@@ -71,6 +71,10 @@ NURedirectionTargetTemplateTriggerType_NONE = @"NONE";
     */
     CPString _destinationType @accessors(property=destinationType);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         VPortTagEndPointType is an enum. It defines the type of header rewrite and forwarding performed by VRS when the endpoint is used as a PBR destination. Possible values are NONE, L3, VIRTUAL_WIRE and NSG_VNF.
     */
     CPString _endPointType @accessors(property=endPointType);
@@ -115,6 +119,7 @@ NURedirectionTargetTemplateTriggerType_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"redundancyEnabled"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationType"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"endPointType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"triggerType"];

@@ -69,6 +69,10 @@ NUConnectionendpointIPType_IPV6 = @"IPV6";
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Indicates if this endpoint is the source/destination of a network connection.
     */
     CPString _endPointType @accessors(property=endPointType);
@@ -109,6 +113,7 @@ NUConnectionendpointIPType_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"endPointType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];

@@ -69,7 +69,7 @@ NUL4ServiceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Value should be either single port number or a port range like 1,2.. or 1 - 10
+        The port ranges for the l4 service. Must be matched if protocol is UDP or TCP. Value can be either * or single port number (1, 2 etc.) or a port range (1-10)
     */
     CPString _ports @accessors(property=ports);
     /*!

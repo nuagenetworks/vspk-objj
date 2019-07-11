@@ -33,10 +33,24 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
 
+NUIKEGatewayConnectionAssociatedCloudType_AZURECLOUD = @"AZURECLOUD";
 NUIKEGatewayConnectionAssociatedIKEAuthenticationType_IKE_CERTIFICATE = @"IKE_CERTIFICATE";
 NUIKEGatewayConnectionAssociatedIKEAuthenticationType_IKE_PSK = @"IKE_PSK";
+NUIKEGatewayConnectionConfigurationStatus_CANCELING = @"CANCELING";
+NUIKEGatewayConnectionConfigurationStatus_CANCELLED = @"CANCELLED";
+NUIKEGatewayConnectionConfigurationStatus_CLOUD_CONFIGURATION_REMOVED = @"CLOUD_CONFIGURATION_REMOVED";
+NUIKEGatewayConnectionConfigurationStatus_FAILED = @"FAILED";
+NUIKEGatewayConnectionConfigurationStatus_IN_PROGRESS = @"IN_PROGRESS";
+NUIKEGatewayConnectionConfigurationStatus_NOT_APPLICABLE = @"NOT_APPLICABLE";
+NUIKEGatewayConnectionConfigurationStatus_PAUSING = @"PAUSING";
+NUIKEGatewayConnectionConfigurationStatus_SUCCESS = @"SUCCESS";
+NUIKEGatewayConnectionConfigurationStatus_SYNCED_FROM_CLOUD = @"SYNCED_FROM_CLOUD";
+NUIKEGatewayConnectionConfigurationStatus_UNKNOWN = @"UNKNOWN";
+NUIKEGatewayConnectionConfigurationStatus_WAITING = @"WAITING";
+NUIKEGatewayConnectionConfigurationStatus_WAITING_FOR_RESOURCES = @"WAITING_FOR_RESOURCES";
 NUIKEGatewayConnectionEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIKEGatewayConnectionEntityScope_GLOBAL = @"GLOBAL";
 NUIKEGatewayConnectionNSGIdentifierType_ID_DER_ASN1_DN = @"ID_DER_ASN1_DN";
@@ -86,6 +100,10 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
     */
     BOOL _allowAnySubnet @accessors(property=allowAnySubnet);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Unencrypted PSK
     */
     CPString _unencryptedPSK @accessors(property=unencryptedPSK);
@@ -94,6 +112,10 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Status of configuration on third-party cloud instance
+    */
+    CPString _configurationStatus @accessors(property=configurationStatus);
+    /*!
         The Name of the Port and Vlan the IKEv2 Connection is on
     */
     CPString _portVLANName @accessors(property=portVLANName);
@@ -101,6 +123,14 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
         Priority of the IKEv2 Gateway Connection
     */
     CPNumber _priority @accessors(property=priority);
+    /*!
+        ID of the associated third-party cloud instance
+    */
+    CPString _associatedCloudID @accessors(property=associatedCloudID);
+    /*!
+        Type of associated third-party cloud instance, ex. AZURECLOUD
+    */
+    CPString _associatedCloudType @accessors(property=associatedCloudType);
     /*!
         Associated Authentication ID
     */
@@ -130,6 +160,7 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
     
 }
@@ -159,10 +190,14 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"sequence"];
         [self exposeLocalKeyPathToREST:@"allowAnySubnet"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"unencryptedPSK"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"configurationStatus"];
         [self exposeLocalKeyPathToREST:@"portVLANName"];
         [self exposeLocalKeyPathToREST:@"priority"];
+        [self exposeLocalKeyPathToREST:@"associatedCloudID"];
+        [self exposeLocalKeyPathToREST:@"associatedCloudType"];
         [self exposeLocalKeyPathToREST:@"associatedIKEAuthenticationID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEAuthenticationType"];
         [self exposeLocalKeyPathToREST:@"associatedIKEEncryptionProfileID"];
@@ -174,6 +209,7 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
         
         

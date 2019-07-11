@@ -37,7 +37,7 @@ NUOverlayPATNATEntryEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    None
+    Create a static NAT 1:1 IP mapping between a Pool IP and a host IP in the branch domain, to provide access to the branch resource.
 */
 @implementation NUOverlayPATNATEntry : NURESTObject
 {
@@ -49,6 +49,10 @@ NUOverlayPATNATEntryEntityScope_GLOBAL = @"GLOBAL";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -98,6 +102,7 @@ NUOverlayPATNATEntryEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"NATEnabled"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"privateIP"];
         [self exposeLocalKeyPathToREST:@"associatedDomainID"];

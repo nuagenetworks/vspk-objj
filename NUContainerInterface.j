@@ -33,6 +33,7 @@
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
+@import "Fetchers/NUDHCPv6OptionsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUPolicyDecisionsFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
@@ -48,7 +49,7 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
-    API that can retrieve the container interface associated with a domain, zone or subnet for mediation created container's for REST created  container interfaces you need to set the additional proxy header in http request : X-Nuage-ProxyUservalue of the header has to be either :1) enterpriseName@UserName (example :bob@Alcatel Lucent), or 2) external ID of user in VSD, typically is UUID generally decided by the CMS tool in questionUser needs to have CMS privileges to use proxy user header.
+    API that can retrieve the container interface associated with a domain, zone or subnet for mediation created container's for REST created  container interfaces you need to set the additional proxy header in http request : X-Nuage-ProxyUservalue of the header has to be either :1) enterpriseName@UserName (example :bob@Nokia), or 2) external ID of user in VSD, typically is UUID generally decided by the CMS tool in questionUser needs to have CMS privileges to use proxy user header.
 */
 @implementation NUContainerInterface : NURESTObject
 {
@@ -105,6 +106,10 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _tierID @accessors(property=tierID);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         End point ID of the container
     */
     CPString _endpointID @accessors(property=endpointID);
@@ -157,6 +162,7 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
+    NUDHCPv6OptionsFetcher _childrenDHCPv6Options @accessors(property=childrenDHCPv6Options);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUPolicyDecisionsFetcher _childrenPolicyDecisions @accessors(property=childrenPolicyDecisions);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
@@ -197,6 +203,7 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkName"];
         [self exposeLocalKeyPathToREST:@"tierID"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"endpointID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyDecisionID"];
@@ -214,6 +221,7 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
+        _childrenDHCPv6Options = [NUDHCPv6OptionsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenPolicyDecisions = [NUPolicyDecisionsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];

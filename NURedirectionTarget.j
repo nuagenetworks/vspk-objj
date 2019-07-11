@@ -84,6 +84,10 @@ NURedirectionTargetTriggerType_NONE = @"NONE";
     */
     CPString _virtualNetworkID @accessors(property=virtualNetworkID);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         EndpointType defines the type of header rewrite and forwarding performed by VRS when the endpoint is used as a PBR destination. NONE type is deprecated. Possible values are NONE, L3, VIRTUAL_WIRE and NSG_VNF.
     */
     CPString _endPointType @accessors(property=endPointType);
@@ -133,6 +137,7 @@ NURedirectionTargetTriggerType_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationType"];
         [self exposeLocalKeyPathToREST:@"virtualNetworkID"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"endPointType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"triggerType"];

@@ -85,6 +85,10 @@ NUBGPNeighborIPType_IPV6 = @"IPV6";
     */
     CPString _session @accessors(property=session);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -138,6 +142,7 @@ NUBGPNeighborIPType_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"peerIP"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"session"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainServiceLabel"];
         [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];

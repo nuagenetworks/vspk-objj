@@ -32,8 +32,21 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUIKEGatewayProfileAssociatedCloudType_AZURECLOUD = @"AZURECLOUD";
 NUIKEGatewayProfileAssociatedIKEAuthenticationType_IKE_CERTIFICATE = @"IKE_CERTIFICATE";
 NUIKEGatewayProfileAssociatedIKEAuthenticationType_IKE_PSK = @"IKE_PSK";
+NUIKEGatewayProfileConfigurationStatus_CANCELING = @"CANCELING";
+NUIKEGatewayProfileConfigurationStatus_CANCELLED = @"CANCELLED";
+NUIKEGatewayProfileConfigurationStatus_CLOUD_CONFIGURATION_REMOVED = @"CLOUD_CONFIGURATION_REMOVED";
+NUIKEGatewayProfileConfigurationStatus_FAILED = @"FAILED";
+NUIKEGatewayProfileConfigurationStatus_IN_PROGRESS = @"IN_PROGRESS";
+NUIKEGatewayProfileConfigurationStatus_NOT_APPLICABLE = @"NOT_APPLICABLE";
+NUIKEGatewayProfileConfigurationStatus_PAUSING = @"PAUSING";
+NUIKEGatewayProfileConfigurationStatus_SUCCESS = @"SUCCESS";
+NUIKEGatewayProfileConfigurationStatus_SYNCED_FROM_CLOUD = @"SYNCED_FROM_CLOUD";
+NUIKEGatewayProfileConfigurationStatus_UNKNOWN = @"UNKNOWN";
+NUIKEGatewayProfileConfigurationStatus_WAITING = @"WAITING";
+NUIKEGatewayProfileConfigurationStatus_WAITING_FOR_RESOURCES = @"WAITING_FOR_RESOURCES";
 NUIKEGatewayProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIKEGatewayProfileEntityScope_GLOBAL = @"GLOBAL";
 NUIKEGatewayProfileIKEGatewayIdentifierType_ID_DER_ASN1_DN = @"ID_DER_ASN1_DN";
@@ -82,6 +95,10 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Allow any local subnets to be used
     */
     BOOL _antiReplayCheck @accessors(property=antiReplayCheck);
@@ -89,6 +106,18 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Status of configuration on third-party cloud instance
+    */
+    CPString _configurationStatus @accessors(property=configurationStatus);
+    /*!
+        ID of the associated third-party cloud instance
+    */
+    CPString _associatedCloudID @accessors(property=associatedCloudID);
+    /*!
+        Type of associated third-party cloud instance, ex. AZURECLOUD
+    */
+    CPString _associatedCloudType @accessors(property=associatedCloudType);
     /*!
         The ID of the associated Enterprise
     */
@@ -106,7 +135,7 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
     */
     CPString _associatedIKEEncryptionProfileID @accessors(property=associatedIKEEncryptionProfileID);
     /*!
-        The IKE Gateway associated with this Profile. This is a read only attribute
+        The IKE Gateway associated with this Profile
     */
     CPString _associatedIKEGatewayID @accessors(property=associatedIKEGatewayID);
     /*!
@@ -142,8 +171,12 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"serviceClass"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"antiReplayCheck"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"configurationStatus"];
+        [self exposeLocalKeyPathToREST:@"associatedCloudID"];
+        [self exposeLocalKeyPathToREST:@"associatedCloudType"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEAuthenticationID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEAuthenticationType"];

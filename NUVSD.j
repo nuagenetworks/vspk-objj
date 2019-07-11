@@ -103,6 +103,10 @@ NUVSDStatus_UP = @"UP";
     */
     BOOL _alreadyMarkedForUnavailable @accessors(property=alreadyMarkedForUnavailable);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         The duration the controller is unavailable (in millis).
     */
     CPNumber _unavailableTimestamp @accessors(property=unavailableTimestamp);
@@ -186,6 +190,7 @@ NUVSDStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"messages"];
         [self exposeLocalKeyPathToREST:@"disks"];
         [self exposeLocalKeyPathToREST:@"alreadyMarkedForUnavailable"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"unavailableTimestamp"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"location"];

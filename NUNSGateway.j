@@ -67,6 +67,8 @@ NUNSGatewayConfigurationReloadState_UNKNOWN = @"UNKNOWN";
 NUNSGatewayConfigurationStatus_FAILURE = @"FAILURE";
 NUNSGatewayConfigurationStatus_SUCCESS = @"SUCCESS";
 NUNSGatewayConfigurationStatus_UNKNOWN = @"UNKNOWN";
+NUNSGatewayConfigureLoadBalancing_DISABLED = @"DISABLED";
+NUNSGatewayConfigureLoadBalancing_INHERITED = @"INHERITED";
 NUNSGatewayDerivedSSHServiceState_INHERITED_DISABLED = @"INHERITED_DISABLED";
 NUNSGatewayDerivedSSHServiceState_INHERITED_ENABLED = @"INHERITED_ENABLED";
 NUNSGatewayDerivedSSHServiceState_INSTANCE_DISABLED = @"INSTANCE_DISABLED";
@@ -85,11 +87,14 @@ NUNSGatewayFamily_NSG_V = @"NSG_V";
 NUNSGatewayFamily_NSG_X = @"NSG_X";
 NUNSGatewayFamily_NSG_X200 = @"NSG_X200";
 NUNSGatewayFunctions_GATEWAY = @"GATEWAY";
+NUNSGatewayFunctions_HUB = @"HUB";
 NUNSGatewayFunctions_UBR = @"UBR";
 NUNSGatewayInheritedSSHServiceState_DISABLED = @"DISABLED";
 NUNSGatewayInheritedSSHServiceState_ENABLED = @"ENABLED";
 NUNSGatewayNetworkAcceleration_NONE = @"NONE";
 NUNSGatewayNetworkAcceleration_PERFORMANCE = @"PERFORMANCE";
+NUNSGatewayNetworkAcceleration_SESSION_OPTIMIZED = @"SESSION_OPTIMIZED";
+NUNSGatewayNetworkAcceleration_VNF_AWARE = @"VNF_AWARE";
 NUNSGatewayPermittedAction_ALL = @"ALL";
 NUNSGatewayPermittedAction_DEPLOY = @"DEPLOY";
 NUNSGatewayPermittedAction_EXTEND = @"EXTEND";
@@ -102,10 +107,19 @@ NUNSGatewayPersonality_NSGDUC = @"NSGDUC";
 NUNSGatewaySSHService_DISABLED = @"DISABLED";
 NUNSGatewaySSHService_ENABLED = @"ENABLED";
 NUNSGatewaySSHService_INHERITED = @"INHERITED";
+NUNSGatewaySyslogLevel_ALERT = @"ALERT";
+NUNSGatewaySyslogLevel_CRITICAL = @"CRITICAL";
+NUNSGatewaySyslogLevel_EMERGENCY = @"EMERGENCY";
+NUNSGatewaySyslogLevel_ERROR = @"ERROR";
+NUNSGatewaySyslogLevel_INFO = @"INFO";
+NUNSGatewaySyslogLevel_NOTICE = @"NOTICE";
+NUNSGatewaySyslogLevel_WARNING = @"WARNING";
 NUNSGatewayTPMStatus_DISABLED = @"DISABLED";
 NUNSGatewayTPMStatus_ENABLED_NOT_OPERATIONAL = @"ENABLED_NOT_OPERATIONAL";
 NUNSGatewayTPMStatus_ENABLED_OPERATIONAL = @"ENABLED_OPERATIONAL";
 NUNSGatewayTPMStatus_UNKNOWN = @"UNKNOWN";
+NUNSGatewayTunnelShaping_DISABLED = @"DISABLED";
+NUNSGatewayTunnelShaping_ENABLED = @"ENABLED";
 NUNSGatewayZFBMatchAttribute_HOSTNAME = @"HOSTNAME";
 NUNSGatewayZFBMatchAttribute_IP_ADDRESS = @"IP_ADDRESS";
 NUNSGatewayZFBMatchAttribute_MAC_ADDRESS = @"MAC_ADDRESS";
@@ -213,6 +227,14 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _datapathID @accessors(property=datapathID);
     /*!
+        Release version of NSG, which is used to determine the feature capabilties of NSG.
+    */
+    CPString _gatewayConfigRawVersion @accessors(property=gatewayConfigRawVersion);
+    /*!
+        Interpreted version of NSG, which is used to determine the feature capabilities of NSG.
+    */
+    CPString _gatewayConfigVersion @accessors(property=gatewayConfigVersion);
+    /*!
         Indicates status of this gateway
     */
     BOOL _gatewayConnected @accessors(property=gatewayConnected);
@@ -257,6 +279,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _libraries @accessors(property=libraries);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Indicates the SSH Service state which is configured on the associated template instance.
     */
     CPString _inheritedSSHServiceState @accessors(property=inheritedSSHServiceState);
@@ -280,6 +306,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         NSG Configuration status represents the NSG update state following a query by the NSG to get the latest version of the infraconfig.json file.  This status will be updated following a Bootstrap request or a Configuration Reload.  Success means that the NSG was able to apply the changes included in the latest infraconfig.json file.  A Failure response will be returned if the NSG was unable to apply the changes; this is normally accompanied with a rollback of the NSG to the previous configuration.
     */
     CPString _configurationStatus @accessors(property=configurationStatus);
+    /*!
+        Describes whether the load balancing behavior used for Fc's in inherited from enterprise or disabled. 
+    */
+    CPString _configureLoadBalancing @accessors(property=configureLoadBalancing);
     /*!
         CoS Value for Self Generated Traffic (Control Traffic). Min is 0 and Max is 7
     */
@@ -329,9 +359,13 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _associatedOverlayManagementProfileID @accessors(property=associatedOverlayManagementProfileID);
     /*!
-        List of supported functions
+        List of supported functions. This is only relevant for NSG-UBR and will be set to UBR by default in case an NSG-UBR is created. For a regular NSG, this will be set to null.
     */
     CPArrayController _functions @accessors(property=functions);
+    /*!
+        Indicates if the UBR will perform tunnel shaping to the NSG when a tunnel shaper is associated to the NSG.
+    */
+    CPString _tunnelShaping @accessors(property=tunnelShaping);
     /*!
         The Auto Discovered Gateway associated with this Gateway Instance
     */
@@ -340,6 +374,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        The minimal logging level of the messages the NSG will be reporting to the external syslog server that has been configured on the Infrastructure Gateway Profile.
+    */
+    CPString _syslogLevel @accessors(property=syslogLevel);
     /*!
         Identifier of the Gateway, cannot be modified after creation
     */
@@ -412,6 +450,8 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"lastConfigurationReloadTimestamp"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
+        [self exposeLocalKeyPathToREST:@"gatewayConfigRawVersion"];
+        [self exposeLocalKeyPathToREST:@"gatewayConfigVersion"];
         [self exposeLocalKeyPathToREST:@"gatewayConnected"];
         [self exposeLocalKeyPathToREST:@"redundancyGroupID"];
         [self exposeLocalKeyPathToREST:@"templateID"];
@@ -423,12 +463,14 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"networkAcceleration"];
         [self exposeLocalKeyPathToREST:@"libraries"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"inheritedSSHServiceState"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"configurationReloadState"];
         [self exposeLocalKeyPathToREST:@"configurationStatus"];
+        [self exposeLocalKeyPathToREST:@"configureLoadBalancing"];
         [self exposeLocalKeyPathToREST:@"controlTrafficCOSValue"];
         [self exposeLocalKeyPathToREST:@"controlTrafficDSCPValue"];
         [self exposeLocalKeyPathToREST:@"bootstrapID"];
@@ -442,8 +484,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"associatedNSGUpgradeProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedOverlayManagementProfileID"];
         [self exposeLocalKeyPathToREST:@"functions"];
+        [self exposeLocalKeyPathToREST:@"tunnelShaping"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"syslogLevel"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         
         _childrenPatchs = [NUPatchsFetcher fetcherWithParentObject:self];

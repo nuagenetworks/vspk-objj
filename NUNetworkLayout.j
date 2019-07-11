@@ -53,6 +53,10 @@ NUNetworkLayoutServiceType_SUBNET_ONLY = @"SUBNET_ONLY";
     */
     CPString _serviceType @accessors(property=serviceType);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -93,6 +97,7 @@ NUNetworkLayoutServiceType_SUBNET_ONLY = @"SUBNET_ONLY";
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"serviceType"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeReflectorIP"];
         [self exposeLocalKeyPathToREST:@"autonomousSystemNum"];

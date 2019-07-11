@@ -39,22 +39,13 @@ NUTCAAction_ALERT_POLICYGROUPCHANGE = @"Alert_PolicyGroupChange";
 NUTCAEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUTCAEntityScope_GLOBAL = @"GLOBAL";
 NUTCAMetric_ACL_DENY_EVENT_COUNT = @"ACL_DENY_EVENT_COUNT";
-NUTCAMetric_ADDRESS_MAP_EGRESS_BYTE_CNT = @"ADDRESS_MAP_EGRESS_BYTE_CNT";
-NUTCAMetric_ADDRESS_MAP_EGRESS_PKT_CNT = @"ADDRESS_MAP_EGRESS_PKT_CNT";
-NUTCAMetric_ADDRESS_MAP_INGRESS_BYTE_CNT = @"ADDRESS_MAP_INGRESS_BYTE_CNT";
-NUTCAMetric_ADDRESS_MAP_INGRESS_PKT_CNT = @"ADDRESS_MAP_INGRESS_PKT_CNT";
 NUTCAMetric_ANTI_SPOOF_EVENT_COUNT = @"ANTI_SPOOF_EVENT_COUNT";
 NUTCAMetric_BYTES_IN = @"BYTES_IN";
 NUTCAMetric_BYTES_OUT = @"BYTES_OUT";
-NUTCAMetric_CONNECTION_TYPE = @"CONNECTION_TYPE";
-NUTCAMetric_EGRESS_BYTE_COUNT = @"EGRESS_BYTE_COUNT";
-NUTCAMetric_EGRESS_PACKET_COUNT = @"EGRESS_PACKET_COUNT";
 NUTCAMetric_FIP_PRE_RATE_LIMIT_BYTES = @"FIP_PRE_RATE_LIMIT_BYTES";
 NUTCAMetric_FIP_PRE_RATE_LIMIT_PACKETS = @"FIP_PRE_RATE_LIMIT_PACKETS";
 NUTCAMetric_FIP_RATE_LIMIT_DROPPED_BYTES = @"FIP_RATE_LIMIT_DROPPED_BYTES";
 NUTCAMetric_FIP_RATE_LIMIT_DROPPED_PACKETS = @"FIP_RATE_LIMIT_DROPPED_PACKETS";
-NUTCAMetric_INGRESS_BYTE_COUNT = @"INGRESS_BYTE_COUNT";
-NUTCAMetric_INGRESS_PACKET_COUNT = @"INGRESS_PACKET_COUNT";
 NUTCAMetric_L7_BYTES_IN = @"L7_BYTES_IN";
 NUTCAMetric_L7_BYTES_OUT = @"L7_BYTES_OUT";
 NUTCAMetric_L7_PACKETS_IN = @"L7_PACKETS_IN";
@@ -66,28 +57,6 @@ NUTCAMetric_PACKETS_IN_ERROR = @"PACKETS_IN_ERROR";
 NUTCAMetric_PACKETS_OUT = @"PACKETS_OUT";
 NUTCAMetric_PACKETS_OUT_DROPPED = @"PACKETS_OUT_DROPPED";
 NUTCAMetric_PACKETS_OUT_ERROR = @"PACKETS_OUT_ERROR";
-NUTCAMetric_Q0_BYTES = @"Q0_BYTES";
-NUTCAMetric_Q0_DROPPED = @"Q0_DROPPED";
-NUTCAMetric_Q0_PKT_COUNT = @"Q0_PKT_COUNT";
-NUTCAMetric_Q10_BYTES = @"Q10_BYTES";
-NUTCAMetric_Q10_DROPPED = @"Q10_DROPPED";
-NUTCAMetric_Q10_PKT_COUNT = @"Q10_PKT_COUNT";
-NUTCAMetric_Q1_BYTES = @"Q1_BYTES";
-NUTCAMetric_Q1_DROPPED = @"Q1_DROPPED";
-NUTCAMetric_Q1_PKT_COUNT = @"Q1_PKT_COUNT";
-NUTCAMetric_Q2_BYTES = @"Q2_BYTES";
-NUTCAMetric_Q2_DROPPED = @"Q2_DROPPED";
-NUTCAMetric_Q2_PKT_COUNT = @"Q2_PKT_COUNT";
-NUTCAMetric_Q3_BYTES = @"Q3_BYTES";
-NUTCAMetric_Q3_DROPPED = @"Q3_DROPPED";
-NUTCAMetric_Q3_PKT_COUNT = @"Q3_PKT_COUNT";
-NUTCAMetric_Q4_BYTES = @"Q4_BYTES";
-NUTCAMetric_Q4_DROPPED = @"Q4_DROPPED";
-NUTCAMetric_Q4_PKT_COUNT = @"Q4_PKT_COUNT";
-NUTCAMetric_RX_BYTES = @"RX_BYTES";
-NUTCAMetric_RX_DROPPED = @"RX_DROPPED";
-NUTCAMetric_RX_ERRORS = @"RX_ERRORS";
-NUTCAMetric_RX_PKT_COUNT = @"RX_PKT_COUNT";
 NUTCAMetric_TCP_FLAG_ACK_IN = @"TCP_FLAG_ACK_IN";
 NUTCAMetric_TCP_FLAG_ACK_OUT = @"TCP_FLAG_ACK_OUT";
 NUTCAMetric_TCP_FLAG_NULL_IN = @"TCP_FLAG_NULL_IN";
@@ -96,11 +65,6 @@ NUTCAMetric_TCP_FLAG_RST_IN = @"TCP_FLAG_RST_IN";
 NUTCAMetric_TCP_FLAG_RST_OUT = @"TCP_FLAG_RST_OUT";
 NUTCAMetric_TCP_FLAG_SYN_IN = @"TCP_FLAG_SYN_IN";
 NUTCAMetric_TCP_FLAG_SYN_OUT = @"TCP_FLAG_SYN_OUT";
-NUTCAMetric_TCP_SYN_EVENT_COUNT = @"TCP_SYN_EVENT_COUNT";
-NUTCAMetric_TX_BYTES = @"TX_BYTES";
-NUTCAMetric_TX_DROPPED = @"TX_DROPPED";
-NUTCAMetric_TX_ERRORS = @"TX_ERRORS";
-NUTCAMetric_TX_PKT_COUNT = @"TX_PKT_COUNT";
 NUTCAType_BREACH = @"BREACH";
 NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
 
@@ -139,7 +103,7 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
     */
     CPString _description @accessors(property=description);
     /*!
-        The metric associated with the TCA. The following enum values have been deprecated and will be removed in the next major release 6.0: ADDRESS_MAP_EGRESS_BYTE_CNT, ADDRESS_MAP_EGRESS_PKT_CNT, ADDRESS_MAP_INGRESS_BYTE_CNT, ADDRESS_MAP_INGRESS_PKT_CNT, CONNECTION_TYPE, EGRESS_BYTE_COUNT, EGRESS_PACKET_COUNT, INGRESS_BYTE_COUNT, INGRESS_PACKET_COUNT, Q0_BYTES, Q0_DROPPED, Q0_PKT_COUNT, Q10_BYTES, Q10_DROPPED, Q10_PKT_COUNT, Q1_BYTES, Q1_DROPPED, Q1_PKT_COUNT, Q2_BYTES, Q2_DROPPED, Q2_PKT_COUNT, Q3_BYTES, Q3_DROPPED, Q3_PKT_COUNT, Q4_BYTES, Q4_DROPPED, Q4_PKT_COUNT, RX_BYTES, RX_DROPPED, RX_ERRORS, RX_PKT_COUNT, TCP_SYN_EVENT_COUNT, TX_BYTES, TX_DROPPED, TX_ERRORS, TX_PKT_COUNT
+        The metric associated with the TCA.
     */
     CPString _metric @accessors(property=metric);
     /*!
@@ -158,6 +122,10 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
         Explanation of the TCA status
     */
     CPString _displayStatus @accessors(property=displayStatus);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -215,6 +183,7 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
         [self exposeLocalKeyPathToREST:@"throttleTime"];
         [self exposeLocalKeyPathToREST:@"disable"];
         [self exposeLocalKeyPathToREST:@"displayStatus"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"count"];
         [self exposeLocalKeyPathToREST:@"status"];

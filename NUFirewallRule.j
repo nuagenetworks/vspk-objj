@@ -104,6 +104,10 @@ NUFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _webFilterID @accessors(property=webFilterID);
     /*!
+        Indicates if web filter statistics logging is enabled for this particular template
+    */
+    BOOL _webFilterStatsLoggingEnabled @accessors(property=webFilterStatsLoggingEnabled);
+    /*!
         Indicates type of web filter being set
     */
     CPString _webFilterType @accessors(property=webFilterType);
@@ -131,6 +135,10 @@ NUFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Is flow logging enabled for this particular template
     */
     BOOL _flowLoggingEnabled @accessors(property=flowLoggingEnabled);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         The name of the enterprise for the domains parent
     */
@@ -188,7 +196,7 @@ NUFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _statsID @accessors(property=statsID);
     /*!
-        Is stats logging enabled for this particular template
+        Indicates if stats logging is enabled for this particular template
     */
     BOOL _statsLoggingEnabled @accessors(property=statsLoggingEnabled);
     /*!
@@ -231,6 +239,7 @@ NUFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
         [self exposeLocalKeyPathToREST:@"webFilterID"];
+        [self exposeLocalKeyPathToREST:@"webFilterStatsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
@@ -238,6 +247,7 @@ NUFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"networkType"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];

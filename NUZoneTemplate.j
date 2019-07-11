@@ -88,6 +88,10 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
     */
     CPString _netmask @accessors(property=netmask);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Determines whether or not IPSEC is enabled.
     */
     CPString _encryption @accessors(property=encryption);
@@ -153,6 +157,7 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];

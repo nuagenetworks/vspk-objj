@@ -161,6 +161,14 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _patches @accessors(property=patches);
     /*!
+        Release version of gateway, which is used to determine the feature capabilties of gateway.
+    */
+    CPString _gatewayConfigRawVersion @accessors(property=gatewayConfigRawVersion);
+    /*!
+        Interpreted version of gateway, which is used to determine the feature capabilities of gateway.
+    */
+    CPString _gatewayConfigVersion @accessors(property=gatewayConfigVersion);
+    /*!
         A boolean flag indicating the status of the gateway.
     */
     BOOL _gatewayConnected @accessors(property=gatewayConnected);
@@ -212,6 +220,10 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
         Versions of monitored libraries currently installed on the Gateway.
     */
     CPString _libraries @accessors(property=libraries);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         The enterprise associated with this Gateway. This is a read only attribute
     */
@@ -332,6 +344,8 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
         [self exposeLocalKeyPathToREST:@"patches"];
+        [self exposeLocalKeyPathToREST:@"gatewayConfigRawVersion"];
+        [self exposeLocalKeyPathToREST:@"gatewayConfigVersion"];
         [self exposeLocalKeyPathToREST:@"gatewayConnected"];
         [self exposeLocalKeyPathToREST:@"gatewayModel"];
         [self exposeLocalKeyPathToREST:@"gatewayVersion"];
@@ -345,6 +359,7 @@ NUGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"libraries"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];

@@ -143,6 +143,10 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPString _email @accessors(property=email);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Indicates if the system is associated with a license that allows encryption or not
     */
     BOOL _encryptionMode @accessors(property=encryptionMode);
@@ -254,6 +258,7 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         [self exposeLocalKeyPathToREST:@"allowedVRSGsCount"];
         [self exposeLocalKeyPathToREST:@"allowedVRSsCount"];
         [self exposeLocalKeyPathToREST:@"email"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"encryptionMode"];
         [self exposeLocalKeyPathToREST:@"uniqueLicenseIdentifier"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

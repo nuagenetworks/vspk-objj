@@ -34,6 +34,7 @@
 @import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
+@import "Fetchers/NUDHCPv6OptionsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUPolicyDecisionsFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
@@ -89,6 +90,10 @@ NUBridgeInterfaceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _tierID @accessors(property=tierID);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -134,6 +139,7 @@ NUBridgeInterfaceEntityScope_GLOBAL = @"GLOBAL";
     NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
+    NUDHCPv6OptionsFetcher _childrenDHCPv6Options @accessors(property=childrenDHCPv6Options);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUPolicyDecisionsFetcher _childrenPolicyDecisions @accessors(property=childrenPolicyDecisions);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
@@ -169,6 +175,7 @@ NUBridgeInterfaceEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"networkName"];
         [self exposeLocalKeyPathToREST:@"tierID"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyDecisionID"];
         [self exposeLocalKeyPathToREST:@"domainID"];
@@ -185,6 +192,7 @@ NUBridgeInterfaceEntityScope_GLOBAL = @"GLOBAL";
         _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
+        _childrenDHCPv6Options = [NUDHCPv6OptionsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenPolicyDecisions = [NUPolicyDecisionsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];

@@ -89,6 +89,10 @@ NUPATNATPoolPermittedAction_USE = @"USE";
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Ending IP Address for the pool of available addresses for use
     */
     CPString _endAddressRange @accessors(property=endAddressRange);
@@ -168,6 +172,7 @@ NUPATNATPoolPermittedAction_USE = @"USE";
         [self exposeLocalKeyPathToREST:@"defaultPATIP"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"endAddressRange"];
         [self exposeLocalKeyPathToREST:@"endSourceAddress"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

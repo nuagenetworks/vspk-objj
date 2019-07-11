@@ -59,6 +59,10 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
     */
     CPArrayController _fipACLs @accessors(property=fipACLs);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         List of actual Ingress ACLs that will be applied on the interface of this VM
     */
     CPArrayController _ingressACLs @accessors(property=ingressACLs);
@@ -110,6 +114,7 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"egressACLs"];
         [self exposeLocalKeyPathToREST:@"egressQos"];
         [self exposeLocalKeyPathToREST:@"fipACLs"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"ingressACLs"];
         [self exposeLocalKeyPathToREST:@"ingressAdvFwd"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

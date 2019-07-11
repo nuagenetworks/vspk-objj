@@ -35,7 +35,7 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUMonitoringPortsFetcher.j"
-@import "Fetchers/NUVRSsFetcher.j"
+@import "Fetchers/NUControllerVRSLinksFetcher.j"
 @import "Fetchers/NUStatisticsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
@@ -100,6 +100,10 @@ NUVSCStatus_UP = @"UP";
     */
     BOOL _alreadyMarkedForUnavailable @accessors(property=alreadyMarkedForUnavailable);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         The duration the controller is unavailable (in millis).
     */
     CPNumber _unavailableTimestamp @accessors(property=unavailableTimestamp);
@@ -150,7 +154,7 @@ NUVSCStatus_UP = @"UP";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUMonitoringPortsFetcher _childrenMonitoringPorts @accessors(property=childrenMonitoringPorts);
-    NUVRSsFetcher _childrenVRSs @accessors(property=childrenVRSs);
+    NUControllerVRSLinksFetcher _childrenControllerVRSLinks @accessors(property=childrenControllerVRSLinks);
     NUStatisticsFetcher _childrenStatistics @accessors(property=childrenStatistics);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
@@ -185,6 +189,7 @@ NUVSCStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"messages"];
         [self exposeLocalKeyPathToREST:@"disks"];
         [self exposeLocalKeyPathToREST:@"alreadyMarkedForUnavailable"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"unavailableTimestamp"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"location"];
@@ -203,7 +208,7 @@ NUVSCStatus_UP = @"UP";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenMonitoringPorts = [NUMonitoringPortsFetcher fetcherWithParentObject:self];
-        _childrenVRSs = [NUVRSsFetcher fetcherWithParentObject:self];
+        _childrenControllerVRSLinks = [NUControllerVRSLinksFetcher fetcherWithParentObject:self];
         _childrenStatistics = [NUStatisticsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         

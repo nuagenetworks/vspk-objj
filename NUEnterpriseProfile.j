@@ -112,6 +112,10 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _floatingIPsQuota @accessors(property=floatingIPsQuota);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Enable DPI for this enterprise
     */
     BOOL _enableApplicationPerformanceManagement @accessors(property=enableApplicationPerformanceManagement);
@@ -123,6 +127,10 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Represents the List of forwarding classes and their load balancing capability.
+    */
+    CPArrayController _forwardingClass @accessors(property=forwardingClass);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -167,9 +175,11 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"allowTrustedForwardingClass"];
         [self exposeLocalKeyPathToREST:@"allowedForwardingClasses"];
         [self exposeLocalKeyPathToREST:@"floatingIPsQuota"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enableApplicationPerformanceManagement"];
         [self exposeLocalKeyPathToREST:@"encryptionManagementMode"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"forwardingClass"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

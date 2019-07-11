@@ -37,6 +37,7 @@ NUIngressAdvFwdEntryTemplateAction_DROP = @"DROP";
 NUIngressAdvFwdEntryTemplateAction_FORWARD = @"FORWARD";
 NUIngressAdvFwdEntryTemplateAction_FORWARDING_PATH_LIST = @"FORWARDING_PATH_LIST";
 NUIngressAdvFwdEntryTemplateAction_REDIRECT = @"REDIRECT";
+NUIngressAdvFwdEntryTemplateAction_TRANSPARENT = @"TRANSPARENT";
 NUIngressAdvFwdEntryTemplateAddressOverrideType_IPV4 = @"IPV4";
 NUIngressAdvFwdEntryTemplateAddressOverrideType_IPV6 = @"IPV6";
 NUIngressAdvFwdEntryTemplateAddressOverrideType_MACRO_GROUP = @"MACRO_GROUP";
@@ -152,6 +153,10 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _webFilterID @accessors(property=webFilterID);
     /*!
+        Indicates if web filter statistics logging is enabled for this particular template
+    */
+    BOOL _webFilterStatsLoggingEnabled @accessors(property=webFilterStatsLoggingEnabled);
+    /*!
         Indicates type of web filter being set
     */
     CPString _webFilterType @accessors(property=webFilterType);
@@ -188,6 +193,10 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _networkType @accessors(property=networkType);
     /*!
+        ID of the associated Mirror Destination Group.
+    */
+    CPString _mirrorDestinationGroupID @accessors(property=mirrorDestinationGroupID);
+    /*!
         Destination ID of the mirror destination object.
     */
     CPString _mirrorDestinationID @accessors(property=mirrorDestinationID);
@@ -199,6 +208,10 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Is flow logging enabled for this particular template
     */
     BOOL _flowLoggingEnabled @accessors(property=flowLoggingEnabled);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         The name of the enterprise for the domains parent
     */
@@ -276,7 +289,7 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _statsID @accessors(property=statsID);
     /*!
-        Is stats logging enabled for this particular template
+        Indicates if stats logging is enabled for this particular template
     */
     BOOL _statsLoggingEnabled @accessors(property=statsLoggingEnabled);
     /*!
@@ -324,6 +337,7 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"addressOverride"];
         [self exposeLocalKeyPathToREST:@"addressOverrideType"];
         [self exposeLocalKeyPathToREST:@"webFilterID"];
+        [self exposeLocalKeyPathToREST:@"webFilterStatsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"redirectRewriteType"];
         [self exposeLocalKeyPathToREST:@"redirectRewriteValue"];
@@ -333,9 +347,11 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
+        [self exposeLocalKeyPathToREST:@"mirrorDestinationGroupID"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"vlanRange"];
         [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];

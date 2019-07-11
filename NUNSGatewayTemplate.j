@@ -70,6 +70,10 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         The ID of the infrastructure access profile associated to this Gateway Template.
     */
     CPString _infrastructureAccessProfileID @accessors(property=infrastructureAccessProfileID);
@@ -122,6 +126,7 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"infrastructureAccessProfileID"];
         [self exposeLocalKeyPathToREST:@"infrastructureProfileID"];
         [self exposeLocalKeyPathToREST:@"instanceSSHOverride"];

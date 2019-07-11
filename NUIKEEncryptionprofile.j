@@ -54,9 +54,6 @@ NUIKEEncryptionprofileIPsecSAReplayWindowSize_WINDOW_SIZE_64 = @"WINDOW_SIZE_64"
 NUIKEEncryptionprofileISAKMPAuthenticationMode_PRE_SHARED_KEY = @"PRE_SHARED_KEY";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_14_2048_BIT_DH = @"GROUP_14_2048_BIT_DH";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_15_3072_BIT_DH = @"GROUP_15_3072_BIT_DH";
-NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_16_4096_BIT_DH = @"GROUP_16_4096_BIT_DH";
-NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_17_6144_BIT_DH = @"GROUP_17_6144_BIT_DH";
-NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_18_8192_BIT_DH = @"GROUP_18_8192_BIT_DH";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_1_768_BIT_DH = @"GROUP_1_768_BIT_DH";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_2_1024_BIT_DH = @"GROUP_2_1024_BIT_DH";
 NUIKEEncryptionprofileISAKMPDiffieHelmanGroupIdentifier_GROUP_5_1536_BIT_DH = @"GROUP_5_1536_BIT_DH";
@@ -154,6 +151,10 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -208,6 +209,7 @@ NUIKEEncryptionprofileISAKMPHashAlgorithm_SHA256 = @"SHA256";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"sequence"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"externalID"];

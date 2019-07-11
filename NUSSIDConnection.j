@@ -119,6 +119,10 @@ NUSSIDConnectionStatus_READY = @"READY";
     */
     CPNumber _vlanID @accessors(property=vlanID);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         A read-only attribute that represents the generated interface name for the SSID connection to be provisioned on the NSG.
     */
     CPString _interfaceName @accessors(property=interfaceName);
@@ -193,6 +197,7 @@ NUSSIDConnectionStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"whiteList"];
         [self exposeLocalKeyPathToREST:@"blackList"];
         [self exposeLocalKeyPathToREST:@"vlanID"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"interfaceName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"vportID"];

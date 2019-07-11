@@ -35,6 +35,7 @@
 
 NUBRConnectionAddressFamily_IPV4 = @"IPV4";
 NUBRConnectionAddressFamily_IPV6 = @"IPV6";
+NUBRConnectionAdvertisementCriteria_BFD = @"BFD";
 NUBRConnectionAdvertisementCriteria_OPERATIONAL_LINK = @"OPERATIONAL_LINK";
 NUBRConnectionEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUBRConnectionEntityScope_GLOBAL = @"GLOBAL";
@@ -86,6 +87,10 @@ NUBRConnectionMode_STATIC = @"Static";
         network mask
     */
     CPString _netmask @accessors(property=netmask);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         This flag will determine if the abstract connection is inherited from the instance template
     */
@@ -140,6 +145,7 @@ NUBRConnectionMode_STATIC = @"Static";
         [self exposeLocalKeyPathToREST:@"addressV6"];
         [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"inherited"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"mode"];

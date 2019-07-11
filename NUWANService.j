@@ -91,6 +91,10 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         VNID of the BackHaul Subnet of L3Domain /L2Domain to which this WANService is associated
     */
     CPNumber _vnId @accessors(property=vnId);
@@ -177,6 +181,7 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
         [self exposeLocalKeyPathToREST:@"servicePolicy"];
         [self exposeLocalKeyPathToREST:@"serviceType"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"vnId"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

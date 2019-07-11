@@ -35,6 +35,10 @@
 @import "Fetchers/NUSSIDConnectionsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
+NUWirelessPortChannelWidth_WIDTH_20_MHZ = @"WIDTH_20_MHZ";
+NUWirelessPortChannelWidth_WIDTH_80_MHZ = @"WIDTH_80_MHZ";
+NUWirelessPortChannelWidth_WIDTH_LESS_40_MHZ = @"WIDTH_LESS_40_MHZ";
+NUWirelessPortChannelWidth_WIDTH_PLUS_40_MHZ = @"WIDTH_PLUS_40_MHZ";
 NUWirelessPortCountryCode_AD = @"AD";
 NUWirelessPortCountryCode_AE = @"AE";
 NUWirelessPortCountryCode_AF = @"AF";
@@ -367,6 +371,10 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
     */
     CPString _description @accessors(property=description);
     /*!
+        The frequency width of the selected channel for an instance of a Wireless Port.  Generally, the default width is 20 MHz, but based on the WiFi mode and the frequency band, this could be changed to 40 or 80 MHz.
+    */
+    CPString _channelWidth @accessors(property=channelWidth);
+    /*!
         The identifier of the wireless port as identified by the OS running on the NSG. This name can't be modified once the port is created.
     */
     CPString _physicalName @accessors(property=physicalName);
@@ -378,6 +386,10 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
         WirelessFidelity 802.11 norm used. The values supported represents a combination of modes that are to be enabled at once on the WiFi Card.
     */
     CPString _wifiMode @accessors(property=wifiMode);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -446,9 +458,11 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
         [self exposeLocalKeyPathToREST:@"genericConfig"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"channelWidth"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
         [self exposeLocalKeyPathToREST:@"wifiFrequencyBand"];
         [self exposeLocalKeyPathToREST:@"wifiMode"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];
         [self exposeLocalKeyPathToREST:@"countryCode"];

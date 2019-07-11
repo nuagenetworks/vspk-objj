@@ -35,6 +35,7 @@
 
 NUEgressACLEntryTemplateAction_DROP = @"DROP";
 NUEgressACLEntryTemplateAction_FORWARD = @"FORWARD";
+NUEgressACLEntryTemplateAction_TRANSPARENT = @"TRANSPARENT";
 NUEgressACLEntryTemplateAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
 NUEgressACLEntryTemplateAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
 NUEgressACLEntryTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -106,6 +107,10 @@ NUEgressACLEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _webFilterID @accessors(property=webFilterID);
     /*!
+        Indicates if web filter statistics logging is enabled for this particular template
+    */
+    BOOL _webFilterStatsLoggingEnabled @accessors(property=webFilterStatsLoggingEnabled);
+    /*!
         Indicates type of web filter being set
     */
     CPString _webFilterType @accessors(property=webFilterType);
@@ -126,6 +131,10 @@ NUEgressACLEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _networkType @accessors(property=networkType);
     /*!
+        ID of the associated Mirror Destination Group.
+    */
+    CPString _mirrorDestinationGroupID @accessors(property=mirrorDestinationGroupID);
+    /*!
         Destination ID of the mirror destination object.
     */
     CPString _mirrorDestinationID @accessors(property=mirrorDestinationID);
@@ -133,6 +142,10 @@ NUEgressACLEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Is flow logging enabled for this particular template
     */
     BOOL _flowLoggingEnabled @accessors(property=flowLoggingEnabled);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         The name of the enterprise for the domains parent
     */
@@ -202,7 +215,7 @@ NUEgressACLEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _statsID @accessors(property=statsID);
     /*!
-        Is stats logging enabled for this particular template
+        Indicates if stats logging is enabled for this particular template
     */
     BOOL _statsLoggingEnabled @accessors(property=statsLoggingEnabled);
     /*!
@@ -246,13 +259,16 @@ NUEgressACLEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
         [self exposeLocalKeyPathToREST:@"webFilterID"];
+        [self exposeLocalKeyPathToREST:@"webFilterStatsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
+        [self exposeLocalKeyPathToREST:@"mirrorDestinationGroupID"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"locationID"];

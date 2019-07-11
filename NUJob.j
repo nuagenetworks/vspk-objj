@@ -40,6 +40,8 @@ NUJobCommand_CERTIFICATE_NSG_RENEW = @"CERTIFICATE_NSG_RENEW";
 NUJobCommand_CERTIFICATE_NSG_REVOKE = @"CERTIFICATE_NSG_REVOKE";
 NUJobCommand_CLEAR_IPSEC_DATA = @"CLEAR_IPSEC_DATA";
 NUJobCommand_CLEAR_MAC_MOVE_ALARMS = @"CLEAR_MAC_MOVE_ALARMS";
+NUJobCommand_CLOUD_FORCE_CONFIG = @"CLOUD_FORCE_CONFIG";
+NUJobCommand_CLOUD_SYNC = @"CLOUD_SYNC";
 NUJobCommand_DEPLOY = @"DEPLOY";
 NUJobCommand_DISCARD_POLICY_CHANGES = @"DISCARD_POLICY_CHANGES";
 NUJobCommand_EXPORT = @"EXPORT";
@@ -104,6 +106,10 @@ NUJobStatus_SUCCESS = @"SUCCESS";
     */
     NURESTObject _result @accessors(property=result);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -153,6 +159,7 @@ NUJobStatus_SUCCESS = @"SUCCESS";
         [self exposeLocalKeyPathToREST:@"parameters"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"result"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"command"];
         [self exposeLocalKeyPathToREST:@"progress"];

@@ -43,7 +43,7 @@ NUNextHopType_IP = @"IP";
 
 
 /*!
-    This represents a /32 IPv4 address as the next-hop. In the future can be a /128 IPv6 address.
+    Next-hop address used to leak the routes from source domain onto the destination domain.
 */
 @implementation NUNextHop : NURESTObject
 {
@@ -55,6 +55,10 @@ NUNextHopType_IP = @"IP";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -100,6 +104,7 @@ NUNextHopType_IP = @"IP";
     {
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"ip"];

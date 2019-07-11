@@ -46,6 +46,7 @@ NUSubnetTemplateEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUSubnetTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUSubnetTemplateIPType_DUALSTACK = @"DUALSTACK";
 NUSubnetTemplateIPType_IPV4 = @"IPV4";
+NUSubnetTemplateIPType_IPV6 = @"IPV6";
 NUSubnetTemplateMulticast_DISABLED = @"DISABLED";
 NUSubnetTemplateMulticast_ENABLED = @"ENABLED";
 NUSubnetTemplateMulticast_INHERITED = @"INHERITED";
@@ -64,7 +65,7 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     */
     CPString _DPI @accessors(property=DPI);
     /*!
-        IPv4 or DUALSTACK
+        IPv4, DUALSTACK or IPv6
     */
     CPString _IPType @accessors(property=IPType);
     /*!
@@ -100,6 +101,18 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     */
     CPString _netmask @accessors(property=netmask);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
+        This value indicates whether IPv4 DHCP is enabled or not. This is applicable in case the subnet is DUALSTACK or IPv4
+    */
+    BOOL _enableDHCPv4 @accessors(property=enableDHCPv4);
+    /*!
+        This value indicates whether IPv6 DHCP is enabled or not. This is applicable in case the subnet is DUALSTACK or IPv6
+    */
+    BOOL _enableDHCPv6 @accessors(property=enableDHCPv6);
+    /*!
         Determines whether or not IPSEC is enabled. Possible values are INHERITED, ENABLED, DISABLED, .
     */
     CPString _encryption @accessors(property=encryption);
@@ -124,6 +137,10 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     */
     CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
     /*!
+        This value indicates whether dynamic address allocation is enabled or not. This will be applicable when subnet template is in dual stack mode
+    */
+    BOOL _dualStackDynamicIPAllocation @accessors(property=dualStackDynamicIPAllocation);
+    /*!
         Indicates multicast policy on Subnet/Subnet Template.
     */
     CPString _multicast @accessors(property=multicast);
@@ -131,10 +148,6 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        Turn on or off dynamic allocation of IPV6 address
-    */
-    BOOL _dynamicIpv6Address @accessors(property=dynamicIpv6Address);
     
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
@@ -172,15 +185,18 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
+        [self exposeLocalKeyPathToREST:@"enableDHCPv4"];
+        [self exposeLocalKeyPathToREST:@"enableDHCPv6"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"splitSubnet"];
         [self exposeLocalKeyPathToREST:@"proxyARP"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
+        [self exposeLocalKeyPathToREST:@"dualStackDynamicIPAllocation"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

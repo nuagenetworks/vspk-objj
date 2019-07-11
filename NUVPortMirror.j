@@ -65,6 +65,10 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
     */
     CPString _mirrorDirection @accessors(property=mirrorDirection);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Enterprise to which the vport associated with the mirror destination belongs to.
     */
     CPString _enterpiseName @accessors(property=enterpiseName);
@@ -120,6 +124,7 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationName"];
         [self exposeLocalKeyPathToREST:@"mirrorDirection"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpiseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainName"];

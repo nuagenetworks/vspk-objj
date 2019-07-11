@@ -71,7 +71,7 @@ NUIngressACLTemplatePriorityType_TOP_FIREWALL = @"TOP_FIREWALL";
     */
     BOOL _defaultAllowIP @accessors(property=defaultAllowIP);
     /*!
-        If enabled, non ip traffic will be dropped
+        If enabled, non IP Traffic will be allowed
     */
     BOOL _defaultAllowNonIP @accessors(property=defaultAllowNonIP);
     /*!
@@ -82,6 +82,10 @@ NUIngressACLTemplatePriorityType_TOP_FIREWALL = @"TOP_FIREWALL";
         If enabled, it will disable the default anti-spoof ACL for this domain that essentially prevents any VM to send packets that do not originate from that particular VM
     */
     BOOL _allowAddressSpoof @accessors(property=allowAddressSpoof);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -149,6 +153,7 @@ NUIngressACLTemplatePriorityType_TOP_FIREWALL = @"TOP_FIREWALL";
         [self exposeLocalKeyPathToREST:@"defaultAllowNonIP"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"allowAddressSpoof"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"priority"];

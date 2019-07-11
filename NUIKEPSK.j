@@ -62,6 +62,10 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _signingCertificateSerialNumber @accessors(property=signingCertificateSerialNumber);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Base64 Encoded Encrypted PSK
     */
     CPString _encryptedPSK @accessors(property=encryptedPSK);
@@ -117,6 +121,7 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"signature"];
         [self exposeLocalKeyPathToREST:@"signingCertificateSerialNumber"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"encryptedPSK"];
         [self exposeLocalKeyPathToREST:@"encryptingCertificateSerialNumber"];
         [self exposeLocalKeyPathToREST:@"unencryptedPSK"];

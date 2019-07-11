@@ -43,6 +43,8 @@
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
 @import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
+@import "Fetchers/NUDHCPv6OptionsFetcher.j"
+@import "Fetchers/NUMirrorDestinationGroupsFetcher.j"
 @import "Fetchers/NUVirtualFirewallPoliciesFetcher.j"
 @import "Fetchers/NUVirtualFirewallRulesFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
@@ -86,6 +88,9 @@ NUL2DomainFlowCollectionEnabled_ENABLED = @"ENABLED";
 NUL2DomainFlowCollectionEnabled_INHERITED = @"INHERITED";
 NUL2DomainIPType_DUALSTACK = @"DUALSTACK";
 NUL2DomainIPType_IPV4 = @"IPV4";
+NUL2DomainIPType_IPV6 = @"IPV6";
+NUL2DomainL2EncapType_MPLSOUDP = @"MPLSoUDP";
+NUL2DomainL2EncapType_VXLAN = @"VXLAN";
 NUL2DomainMaintenanceMode_DISABLED = @"DISABLED";
 NUL2DomainMaintenanceMode_ENABLED = @"ENABLED";
 NUL2DomainMaintenanceMode_ENABLED_INHERITED = @"ENABLED_INHERITED";
@@ -110,6 +115,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
 @implementation NUL2Domain : NURESTObject
 {
     /*!
+        Default Domain Tunnel Type
+    */
+    CPString _l2EncapType @accessors(property=l2EncapType);
+    /*!
         decides whether L2Domain / L2Domain template DHCP is managed by VSD
     */
     BOOL _DHCPManaged @accessors(property=DHCPManaged);
@@ -118,7 +127,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _DPI @accessors(property=DPI);
     /*!
-        IPv4 or DUALSTACK
+        IPv4, DUALSTACK or IPv6
     */
     CPString _IPType @accessors(property=IPType);
     /*!
@@ -178,9 +187,21 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Current network's globally unique VXLAN network identifier
     */
     CPNumber _vnId @accessors(property=vnId);
+    /*!
+        This read-only value indicates whether IPv4 DHCP is enabled or not. This is applicable in case the L2 Domain is DUALSTACK or IPv4
+    */
+    BOOL _enableDHCPv4 @accessors(property=enableDHCPv4);
+    /*!
+        This read-only value indicates whether IPv6 DHCP is enabled or not. This is applicable in case the L2 Domain is DUALSTACK or IPv6
+    */
+    BOOL _enableDHCPv6 @accessors(property=enableDHCPv6);
     /*!
         Determines whether IPSEC is enabled Possible values are ENABLED, DISABLED, .
     */
@@ -201,6 +222,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         None
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
+    /*!
+        The color encoded with a traffic engineering constraint such as minimum latency, hops, maximum bandwidth, etc. This is used for NFIX(Network Function Interconnect). Color is applicable only when the selected l2EncapType is MPLSoUDP. Valid range is 1 - 4294967295. 0 for other Tunnel Types.
+    */
+    CPNumber _color @accessors(property=color);
     /*!
         Route distinguisher that is used by the BGP-EVPN protocol in VSC. Supported formats are: [2-byte ASN]:[4-byte value] or [4-byte ASN]:[2-byte value]
     */
@@ -238,6 +263,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     BOOL _stretched @accessors(property=stretched);
     /*!
+        This read-only value indicates whether dynamic address allocation is enabled or not at template. This will be applicable when L2 Domain is managed and in dual stack mode
+    */
+    BOOL _dualStackDynamicIPAllocation @accessors(property=dualStackDynamicIPAllocation);
+    /*!
         Indicates multicast policy on L2Domain.
     */
     CPString _multicast @accessors(property=multicast);
@@ -249,10 +278,6 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        Turn on or off dynamic allocation of IPV6 address
-    */
-    BOOL _dynamicIpv6Address @accessors(property=dynamicIpv6Address);
     
     NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
@@ -268,6 +293,8 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
     NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
+    NUDHCPv6OptionsFetcher _childrenDHCPv6Options @accessors(property=childrenDHCPv6Options);
+    NUMirrorDestinationGroupsFetcher _childrenMirrorDestinationGroups @accessors(property=childrenMirrorDestinationGroups);
     NUVirtualFirewallPoliciesFetcher _childrenVirtualFirewallPolicies @accessors(property=childrenVirtualFirewallPolicies);
     NUVirtualFirewallRulesFetcher _childrenVirtualFirewallRules @accessors(property=childrenVirtualFirewallRules);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
@@ -317,6 +344,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"l2EncapType"];
         [self exposeLocalKeyPathToREST:@"DHCPManaged"];
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"IPType"];
@@ -334,12 +362,16 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"vnId"];
+        [self exposeLocalKeyPathToREST:@"enableDHCPv4"];
+        [self exposeLocalKeyPathToREST:@"enableDHCPv6"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"ingressReplicationEnabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
+        [self exposeLocalKeyPathToREST:@"color"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"routedVPLSEnabled"];
@@ -349,10 +381,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
         [self exposeLocalKeyPathToREST:@"associatedUnderlayID"];
         [self exposeLocalKeyPathToREST:@"stretched"];
+        [self exposeLocalKeyPathToREST:@"dualStackDynamicIPAllocation"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"customerID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
         _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
@@ -368,6 +400,8 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
+        _childrenDHCPv6Options = [NUDHCPv6OptionsFetcher fetcherWithParentObject:self];
+        _childrenMirrorDestinationGroups = [NUMirrorDestinationGroupsFetcher fetcherWithParentObject:self];
         _childrenVirtualFirewallPolicies = [NUVirtualFirewallPoliciesFetcher fetcherWithParentObject:self];
         _childrenVirtualFirewallRules = [NUVirtualFirewallRulesFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];

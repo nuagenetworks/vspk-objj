@@ -72,7 +72,7 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
     */
     CPNumber _SEKGenerationInterval @accessors(property=SEKGenerationInterval);
     /*!
-        Group Key SEK Lifetime in Seconds. Min=1, Max=86400
+        Group Key SEK Lifetime in Seconds. Min=1, Max=604800
     */
     CPNumber _SEKLifetime @accessors(property=SEKLifetime);
     /*!
@@ -108,7 +108,7 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
     */
     CPNumber _seedGenerationInterval @accessors(property=seedGenerationInterval);
     /*!
-        Group Key SEED Lifetime in Seconds. Min=1, Max=86400
+        Group Key SEED Lifetime in Seconds. Min=1, Max=604800
     */
     CPNumber _seedLifetime @accessors(property=seedLifetime);
     /*!
@@ -143,6 +143,10 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
         A description of the Profile instance created.
     */
     CPString _description @accessors(property=description);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -209,6 +213,7 @@ NUGroupKeyEncryptionProfileTrafficEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_
         [self exposeLocalKeyPathToREST:@"seedPayloadEncryptionKeyLength"];
         [self exposeLocalKeyPathToREST:@"seedPayloadSigningAlgorithm"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"trafficAuthenticationAlgorithm"];
         [self exposeLocalKeyPathToREST:@"trafficEncryptionAlgorithm"];

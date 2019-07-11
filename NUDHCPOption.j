@@ -63,6 +63,10 @@ NUDHCPOptionEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _length @accessors(property=length);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -103,6 +107,7 @@ NUDHCPOptionEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"actualType"];
         [self exposeLocalKeyPathToREST:@"actualValues"];
         [self exposeLocalKeyPathToREST:@"length"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];

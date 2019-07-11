@@ -60,13 +60,17 @@ NUAddressRangeIPType_IPV6 = @"IPV6";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        Higest address in the address range
+        Highest address in the address range
     */
     CPString _maxAddress @accessors(property=maxAddress);
     /*!
         Lowest address in the address range
     */
     CPString _minAddress @accessors(property=minAddress);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -104,6 +108,7 @@ NUAddressRangeIPType_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"maxAddress"];
         [self exposeLocalKeyPathToREST:@"minAddress"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

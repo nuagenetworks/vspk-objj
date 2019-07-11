@@ -34,6 +34,19 @@
 @import "Fetchers/NUIKESubnetsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NUIKEGatewayAssociatedCloudType_AZURECLOUD = @"AZURECLOUD";
+NUIKEGatewayConfigurationStatus_CANCELING = @"CANCELING";
+NUIKEGatewayConfigurationStatus_CANCELLED = @"CANCELLED";
+NUIKEGatewayConfigurationStatus_CLOUD_CONFIGURATION_REMOVED = @"CLOUD_CONFIGURATION_REMOVED";
+NUIKEGatewayConfigurationStatus_FAILED = @"FAILED";
+NUIKEGatewayConfigurationStatus_IN_PROGRESS = @"IN_PROGRESS";
+NUIKEGatewayConfigurationStatus_NOT_APPLICABLE = @"NOT_APPLICABLE";
+NUIKEGatewayConfigurationStatus_PAUSING = @"PAUSING";
+NUIKEGatewayConfigurationStatus_SUCCESS = @"SUCCESS";
+NUIKEGatewayConfigurationStatus_SYNCED_FROM_CLOUD = @"SYNCED_FROM_CLOUD";
+NUIKEGatewayConfigurationStatus_UNKNOWN = @"UNKNOWN";
+NUIKEGatewayConfigurationStatus_WAITING = @"WAITING";
+NUIKEGatewayConfigurationStatus_WAITING_FOR_RESOURCES = @"WAITING_FOR_RESOURCES";
 NUIKEGatewayEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUIKEGatewayEntityScope_GLOBAL = @"GLOBAL";
 NUIKEGatewayIKEVersion_V1 = @"V1";
@@ -73,9 +86,25 @@ NUIKEGatewayIKEv1Mode_NONE = @"NONE";
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Status of configuration on third-party cloud instance
+    */
+    CPString _configurationStatus @accessors(property=configurationStatus);
+    /*!
+        ID of the associated third-party cloud instance
+    */
+    CPString _associatedCloudID @accessors(property=associatedCloudID);
+    /*!
+        Type of associated third-party cloud instance, ex. AZURECLOUD
+    */
+    CPString _associatedCloudType @accessors(property=associatedCloudType);
     /*!
         The ID of the associated Enterprise
     */
@@ -115,7 +144,11 @@ NUIKEGatewayIKEv1Mode_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"configurationStatus"];
+        [self exposeLocalKeyPathToREST:@"associatedCloudID"];
+        [self exposeLocalKeyPathToREST:@"associatedCloudType"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

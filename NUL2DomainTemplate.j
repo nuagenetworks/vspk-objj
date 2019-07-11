@@ -59,6 +59,7 @@ NUL2DomainTemplateEntityState_MARKED_FOR_DELETION = @"MARKED_FOR_DELETION";
 NUL2DomainTemplateEntityState_UNDER_CONSTRUCTION = @"UNDER_CONSTRUCTION";
 NUL2DomainTemplateIPType_DUALSTACK = @"DUALSTACK";
 NUL2DomainTemplateIPType_IPV4 = @"IPV4";
+NUL2DomainTemplateIPType_IPV6 = @"IPV6";
 NUL2DomainTemplateMulticast_DISABLED = @"DISABLED";
 NUL2DomainTemplateMulticast_ENABLED = @"ENABLED";
 NUL2DomainTemplateMulticast_INHERITED = @"INHERITED";
@@ -83,7 +84,7 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _DPI @accessors(property=DPI);
     /*!
-        IPv4 or DUALSTACK
+        IPv4, DUALSTACK or IPv6
     */
     CPString _IPType @accessors(property=IPType);
     /*!
@@ -119,6 +120,18 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _netmask @accessors(property=netmask);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
+        This value indicates whether IPv4 DHCP is enabled or not. This is applicable in case the L2 Domain is DUALSTACK or IPv4
+    */
+    BOOL _enableDHCPv4 @accessors(property=enableDHCPv4);
+    /*!
+        This value indicates whether IPv6 DHCP is enabled or not. This is applicable in case the L2 Domain is DUALSTACK or IPv6
+    */
+    BOOL _enableDHCPv6 @accessors(property=enableDHCPv6);
+    /*!
         Determines whether IPSEC is enabled Possible values are ENABLED, DISABLED, .
     */
     CPString _encryption @accessors(property=encryption);
@@ -143,6 +156,10 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
     /*!
+        This value indicates whether dynamic address allocation is enabled or not. This will be applicable when L2 Domain is managed and in dual stack mode
+    */
+    BOOL _dualStackDynamicIPAllocation @accessors(property=dualStackDynamicIPAllocation);
+    /*!
         Indicates multicast policy on L2Domain template.
     */
     CPString _multicast @accessors(property=multicast);
@@ -150,10 +167,6 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
-    /*!
-        Turn on or off dynamic allocation of IPV6 address
-    */
-    BOOL _dynamicIpv6Address @accessors(property=dynamicIpv6Address);
     
     NUL2DomainsFetcher _childrenL2Domains @accessors(property=childrenL2Domains);
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
@@ -204,15 +217,18 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
+        [self exposeLocalKeyPathToREST:@"enableDHCPv4"];
+        [self exposeLocalKeyPathToREST:@"enableDHCPv6"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
+        [self exposeLocalKeyPathToREST:@"dualStackDynamicIPAllocation"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"externalID"];
-        [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         
         _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];

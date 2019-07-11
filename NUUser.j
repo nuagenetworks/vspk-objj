@@ -76,6 +76,14 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
     */
     CPString _firstName @accessors(property=firstName);
     /*!
+        Whether Certificate-Based Authentication is disabled. Default is false.
+    */
+    BOOL _disableCertificateAuth @accessors(property=disableCertificateAuth);
+    /*!
+        Whether Username-Password Authentication is disabled. Default is false.
+    */
+    BOOL _disablePasswordAuth @accessors(property=disablePasswordAuth);
+    /*!
         Status of the user account; true=disabled, false=not disabled; default value = false
     */
     BOOL _disabled @accessors(property=disabled);
@@ -83,6 +91,10 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
         Email address of the user
     */
     CPString _email @accessors(property=email);
+    /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -141,8 +153,11 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
         [self exposeLocalKeyPathToREST:@"lastName"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"firstName"];
+        [self exposeLocalKeyPathToREST:@"disableCertificateAuth"];
+        [self exposeLocalKeyPathToREST:@"disablePasswordAuth"];
         [self exposeLocalKeyPathToREST:@"disabled"];
         [self exposeLocalKeyPathToREST:@"email"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"mobileNumber"];
         [self exposeLocalKeyPathToREST:@"userName"];

@@ -61,6 +61,10 @@ NUVirtualIPIPType_IPV6 = @"IPV6";
     */
     CPString _virtualIP @accessors(property=virtualIP);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -69,7 +73,7 @@ NUVirtualIPIPType_IPV6 = @"IPV6";
     */
     CPString _associatedFloatingIPID @accessors(property=associatedFloatingIPID);
     /*!
-        Id of subnet to which this ip address belongs
+        ID of subnet to which this IP address belongs
     */
     CPString _subnetID @accessors(property=subnetID);
     /*!
@@ -104,6 +108,7 @@ NUVirtualIPIPType_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"virtualIP"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"associatedFloatingIPID"];
         [self exposeLocalKeyPathToREST:@"subnetID"];

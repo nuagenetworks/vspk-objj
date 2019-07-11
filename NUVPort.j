@@ -32,11 +32,13 @@
 @import "Fetchers/NUTCAsFetcher.j"
 @import "Fetchers/NURedirectionTargetsFetcher.j"
 @import "Fetchers/NUDeploymentFailuresFetcher.j"
+@import "Fetchers/NUTestSuiteRunsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAggregateMetadatasFetcher.j"
 @import "Fetchers/NUBGPNeighborsFetcher.j"
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
+@import "Fetchers/NUDHCPv6OptionsFetcher.j"
 @import "Fetchers/NUVirtualIPsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
@@ -195,9 +197,17 @@ NUVPortType_VM = @"VM";
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        The color encoded with a traffic engineering constraint such as minimum latency, hops, maximum bandwidth, etc. This is used for NFIX(Network Function Interconnect). Color is applicable only when associated Domain's Tunnel Type is MPLSoUDP. Valid range is 1 - 4294967295. If 0 is provided, color will be derived from the associated Domain.
+    */
+    CPNumber _color @accessors(property=color);
     /*!
         ID the Domain associated with the VPort
     */
@@ -306,11 +316,13 @@ NUVPortType_VM = @"VM";
     NUTCAsFetcher _childrenTCAs @accessors(property=childrenTCAs);
     NURedirectionTargetsFetcher _childrenRedirectionTargets @accessors(property=childrenRedirectionTargets);
     NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
+    NUTestSuiteRunsFetcher _childrenTestSuiteRuns @accessors(property=childrenTestSuiteRuns);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAggregateMetadatasFetcher _childrenAggregateMetadatas @accessors(property=childrenAggregateMetadatas);
     NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
+    NUDHCPv6OptionsFetcher _childrenDHCPv6Options @accessors(property=childrenDHCPv6Options);
     NUVirtualIPsFetcher _childrenVirtualIPs @accessors(property=childrenVirtualIPs);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -371,7 +383,9 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"segmentationType"];
         [self exposeLocalKeyPathToREST:@"serviceID"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"color"];
         [self exposeLocalKeyPathToREST:@"domainID"];
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"domainServiceLabel"];
@@ -402,11 +416,13 @@ NUVPortType_VM = @"VM";
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];
         _childrenRedirectionTargets = [NURedirectionTargetsFetcher fetcherWithParentObject:self];
         _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
+        _childrenTestSuiteRuns = [NUTestSuiteRunsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAggregateMetadatas = [NUAggregateMetadatasFetcher fetcherWithParentObject:self];
         _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
+        _childrenDHCPv6Options = [NUDHCPv6OptionsFetcher fetcherWithParentObject:self];
         _childrenVirtualIPs = [NUVirtualIPsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

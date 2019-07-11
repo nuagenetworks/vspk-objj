@@ -50,6 +50,10 @@ NUNSGatewaysCountEntityScope_GLOBAL = @"GLOBAL";
     */
     NURESTObject _alarmedNSGCount @accessors(property=alarmedNSGCount);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Number of Network Service Gateways in an enterprise whose bootstrap status is not ACTIVE
     */
     CPNumber _inactiveNSGCount @accessors(property=inactiveNSGCount);
@@ -86,6 +90,7 @@ NUNSGatewaysCountEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"activeNSGCount"];
         [self exposeLocalKeyPathToREST:@"alarmedNSGCount"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"inactiveNSGCount"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
