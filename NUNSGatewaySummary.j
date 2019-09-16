@@ -79,6 +79,10 @@ NUNSGatewaySummaryEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _address @accessors(property=address);
     /*!
+        The ID of the Redundant Group which has this gateway
+    */
+    CPString _redundantGroupID @accessors(property=redundantGroupID);
+    /*!
         Time zone in which the Gateway is located.  This can be in the form of a UTC/GMT offset, continent/city location, or country/region.  The available time zones can be found in /usr/share/zoneinfo on a Linux machine or retrieved with TimeZone.getAvailableIDs() in Java.  Refer to the IANA (Internet Assigned Numbers Authority) for a list of time zones.  URL :  http://www.iana.org/time-zones  Default value is UTC (translating to Etc/Zulu)
     */
     CPString _timezoneID @accessors(property=timezoneID);
@@ -165,6 +169,7 @@ NUNSGatewaySummaryEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"gatewayType"];
         [self exposeLocalKeyPathToREST:@"latitude"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"redundantGroupID"];
         [self exposeLocalKeyPathToREST:@"timezoneID"];
         [self exposeLocalKeyPathToREST:@"minorAlarmsCount"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];

@@ -30,18 +30,22 @@
 @import <Bambou/NURESTObject.j>
 
 
-NUSysmonUplinkConnectionDTLSState_ADMIN_DOWN = @"ADMIN_DOWN";
-NUSysmonUplinkConnectionDTLSState_DOWN = @"DOWN";
-NUSysmonUplinkConnectionDTLSState_NONE = @"NONE";
-NUSysmonUplinkConnectionDTLSState_UP = @"UP";
-NUSysmonUplinkConnectionJSONState_ADMIN_DOWN = @"ADMIN_DOWN";
-NUSysmonUplinkConnectionJSONState_DOWN = @"DOWN";
-NUSysmonUplinkConnectionJSONState_NONE = @"NONE";
-NUSysmonUplinkConnectionJSONState_UP = @"UP";
+NUSysmonUplinkConnectionIpsecDtlsState_ADMIN_DOWN = @"ADMIN_DOWN";
+NUSysmonUplinkConnectionIpsecDtlsState_DOWN = @"DOWN";
+NUSysmonUplinkConnectionIpsecDtlsState_NONE = @"NONE";
+NUSysmonUplinkConnectionIpsecDtlsState_UP = @"UP";
+NUSysmonUplinkConnectionJsonState_ADMIN_DOWN = @"ADMIN_DOWN";
+NUSysmonUplinkConnectionJsonState_DOWN = @"DOWN";
+NUSysmonUplinkConnectionJsonState_NONE = @"NONE";
+NUSysmonUplinkConnectionJsonState_UP = @"UP";
 NUSysmonUplinkConnectionOpenflowState_ADMIN_DOWN = @"ADMIN_DOWN";
 NUSysmonUplinkConnectionOpenflowState_DOWN = @"DOWN";
 NUSysmonUplinkConnectionOpenflowState_NONE = @"NONE";
 NUSysmonUplinkConnectionOpenflowState_UP = @"UP";
+NUSysmonUplinkConnectionVxlanDtlsState_ADMIN_DOWN = @"ADMIN_DOWN";
+NUSysmonUplinkConnectionVxlanDtlsState_DOWN = @"DOWN";
+NUSysmonUplinkConnectionVxlanDtlsState_NONE = @"NONE";
+NUSysmonUplinkConnectionVxlanDtlsState_UP = @"UP";
 
 
 /*!
@@ -49,14 +53,6 @@ NUSysmonUplinkConnectionOpenflowState_UP = @"UP";
 */
 @implementation NUSysmonUplinkConnection : NURESTObject
 {
-    /*!
-        JSON Connection Status
-    */
-    CPString _JSONState @accessors(property=JSONState);
-    /*!
-        DTLS Connection State
-    */
-    CPString _DTLSState @accessors(property=DTLSState);
     /*!
         Datapath Uplink ID
     */
@@ -66,13 +62,25 @@ NUSysmonUplinkConnectionOpenflowState_UP = @"UP";
     */
     CPString _openflowState @accessors(property=openflowState);
     /*!
+        IPSec DTLS Connection State
+    */
+    CPString _ipsecDtlsState @accessors(property=ipsecDtlsState);
+    /*!
         Private IP of connection
     */
     CPString _privateIP @accessors(property=privateIP);
     /*!
+        JSON Connection Status
+    */
+    CPString _jsonState @accessors(property=jsonState);
+    /*!
         Public IP of connection
     */
     CPString _publicIP @accessors(property=publicIP);
+    /*!
+        VXLAN DTLS Connection State
+    */
+    CPString _vxlanDtlsState @accessors(property=vxlanDtlsState);
     
     
 }
@@ -94,12 +102,13 @@ NUSysmonUplinkConnectionOpenflowState_UP = @"UP";
 {
     if (self = [super init])
     {
-        [self exposeLocalKeyPathToREST:@"JSONState"];
-        [self exposeLocalKeyPathToREST:@"DTLSState"];
         [self exposeLocalKeyPathToREST:@"datapathUplinkId"];
         [self exposeLocalKeyPathToREST:@"openflowState"];
+        [self exposeLocalKeyPathToREST:@"ipsecDtlsState"];
         [self exposeLocalKeyPathToREST:@"privateIP"];
+        [self exposeLocalKeyPathToREST:@"jsonState"];
         [self exposeLocalKeyPathToREST:@"publicIP"];
+        [self exposeLocalKeyPathToREST:@"vxlanDtlsState"];
         
         
         

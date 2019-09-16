@@ -48,6 +48,7 @@
 @import "Fetchers/NURedundancyGroupsFetcher.j"
 @import "Fetchers/NUDeploymentFailuresFetcher.j"
 @import "Fetchers/NUPerformanceMonitorsFetcher.j"
+@import "Fetchers/NUTestDefinitionsFetcher.j"
 @import "Fetchers/NUTestSuitesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetconfProfilesFetcher.j"
@@ -302,6 +303,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NURedundancyGroupsFetcher _childrenRedundancyGroups @accessors(property=childrenRedundancyGroups);
     NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
     NUPerformanceMonitorsFetcher _childrenPerformanceMonitors @accessors(property=childrenPerformanceMonitors);
+    NUTestDefinitionsFetcher _childrenTestDefinitions @accessors(property=childrenTestDefinitions);
     NUTestSuitesFetcher _childrenTestSuites @accessors(property=childrenTestSuites);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetconfProfilesFetcher _childrenNetconfProfiles @accessors(property=childrenNetconfProfiles);
@@ -436,6 +438,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenRedundancyGroups = [NURedundancyGroupsFetcher fetcherWithParentObject:self];
         _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
         _childrenPerformanceMonitors = [NUPerformanceMonitorsFetcher fetcherWithParentObject:self];
+        _childrenTestDefinitions = [NUTestDefinitionsFetcher fetcherWithParentObject:self];
         _childrenTestSuites = [NUTestSuitesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetconfProfiles = [NUNetconfProfilesFetcher fetcherWithParentObject:self];

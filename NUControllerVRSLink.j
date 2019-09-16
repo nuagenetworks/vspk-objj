@@ -38,6 +38,8 @@
 NUControllerVRSLinkClusterNodeRole_NONE = @"NONE";
 NUControllerVRSLinkClusterNodeRole_PRIMARY = @"PRIMARY";
 NUControllerVRSLinkClusterNodeRole_SECONDARY = @"SECONDARY";
+NUControllerVRSLinkControllerType_HSC = @"HSC";
+NUControllerVRSLinkControllerType_VSC = @"VSC";
 NUControllerVRSLinkEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUControllerVRSLinkEntityScope_GLOBAL = @"GLOBAL";
 NUControllerVRSLinkJSONRPCConnectionState_ADMIN_DOWN = @"ADMIN_DOWN";

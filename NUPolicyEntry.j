@@ -52,7 +52,7 @@ NUPolicyEntryEntityScope_GLOBAL = @"GLOBAL";
     /*!
         Match criteria BLOB
     */
-    NURESTObject _matchCriteria @accessors(property=matchCriteria);
+    CPString _matchCriteria @accessors(property=matchCriteria);
     /*!
         Action of Policy Entry
     */

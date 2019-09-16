@@ -57,6 +57,8 @@ NUTCAMetric_PACKETS_IN_ERROR = @"PACKETS_IN_ERROR";
 NUTCAMetric_PACKETS_OUT = @"PACKETS_OUT";
 NUTCAMetric_PACKETS_OUT_DROPPED = @"PACKETS_OUT_DROPPED";
 NUTCAMetric_PACKETS_OUT_ERROR = @"PACKETS_OUT_ERROR";
+NUTCAMetric_PORT_SCAN_PORT_COUNT = @"PORT_SCAN_PORT_COUNT";
+NUTCAMetric_PORT_SWEEP_IP_COUNT = @"PORT_SWEEP_IP_COUNT";
 NUTCAMetric_TCP_FLAG_ACK_IN = @"TCP_FLAG_ACK_IN";
 NUTCAMetric_TCP_FLAG_ACK_OUT = @"TCP_FLAG_ACK_OUT";
 NUTCAMetric_TCP_FLAG_NULL_IN = @"TCP_FLAG_NULL_IN";
@@ -67,6 +69,7 @@ NUTCAMetric_TCP_FLAG_SYN_IN = @"TCP_FLAG_SYN_IN";
 NUTCAMetric_TCP_FLAG_SYN_OUT = @"TCP_FLAG_SYN_OUT";
 NUTCAType_BREACH = @"BREACH";
 NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
+NUTCAType_UNIQUE_COUNT = @"UNIQUE_COUNT";
 
 
 /*!
@@ -143,7 +146,7 @@ NUTCAType_ROLLING_AVERAGE = @"ROLLING_AVERAGE";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        Rolling average or sequence of samples over the averaging period.
+        The aggregation type for the metric over the selected period - Sum, Average or Unique Count
     */
     CPString _type @accessors(property=type);
     

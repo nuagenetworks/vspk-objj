@@ -126,7 +126,7 @@ NUNSPortStatus_READY = @"READY";
     */
     CPString _speed @accessors(property=speed);
     /*!
-        If enabled, cuts down the number of probes to just the number of provisioned UBRs.
+        If enabled, cuts down the number of probes to just the number of provisioned DUCs.
     */
     BOOL _TrafficThroughUBROnly @accessors(property=TrafficThroughUBROnly);
     /*!
