@@ -36,6 +36,7 @@
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUWirelessPortChannelWidth_WIDTH_20_MHZ = @"WIDTH_20_MHZ";
+NUWirelessPortChannelWidth_WIDTH_40_MHZ = @"WIDTH_40_MHZ";
 NUWirelessPortChannelWidth_WIDTH_80_MHZ = @"WIDTH_80_MHZ";
 NUWirelessPortChannelWidth_WIDTH_LESS_40_MHZ = @"WIDTH_LESS_40_MHZ";
 NUWirelessPortChannelWidth_WIDTH_PLUS_40_MHZ = @"WIDTH_PLUS_40_MHZ";
@@ -372,7 +373,7 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
     */
     CPString _description @accessors(property=description);
     /*!
-        The frequency width of the selected channel for an instance of a Wireless Port.  Generally, the default width is 20 MHz, but based on the WiFi mode and the frequency band, this could be changed to 40 or 80 MHz.
+        The frequency width of the selected channel for an instance of a Wireless Port.  Generally, the default width is 20 MHz, but based on the WiFi mode and the frequency band, this could be changed to 40 or 80 MHz.  The values for specifying -40 MHz and +40 MHz have been replaced with a global "WIDTH_40_MHZ" value.  Options for WIDTH_LESS_40_MHZ and WIDTH_PLUS_40_MHZ should be avoided.
     */
     CPString _channelWidth @accessors(property=channelWidth);
     /*!

@@ -30,6 +30,11 @@
 @import <Bambou/NURESTObject.j>
 
 
+NUNSGInfoBootstrapStatus_ACTIVE = @"ACTIVE";
+NUNSGInfoBootstrapStatus_CERTIFICATE_SIGNED = @"CERTIFICATE_SIGNED";
+NUNSGInfoBootstrapStatus_INACTIVE = @"INACTIVE";
+NUNSGInfoBootstrapStatus_NOTIFICATION_APP_REQ_ACK = @"NOTIFICATION_APP_REQ_ACK";
+NUNSGInfoBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
 NUNSGInfoCmdStatus_ABANDONED = @"ABANDONED";
 NUNSGInfoCmdStatus_COMPLETED = @"COMPLETED";
 NUNSGInfoCmdStatus_FAILED = @"FAILED";
@@ -149,7 +154,7 @@ NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
     /*!
         Time stamp when the command was last updated.
     */
-    CPString _cmdLastUpdatedDate @accessors(property=cmdLastUpdatedDate);
+    CPNumber _cmdLastUpdatedDate @accessors(property=cmdLastUpdatedDate);
     /*!
         Status of the current or last command.
     */

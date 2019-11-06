@@ -45,7 +45,7 @@ NUVRSAddressRangeIPType_IPV6 = @"IPV6";
 @implementation NUVRSAddressRange : NURESTObject
 {
     /*!
-        The ip type of the address range, possible values are IPV4, IPV6 and DUALSTACK.
+        The IP type of the address range, possible values are IPV4, IPV6 and DUALSTACK.
     */
     CPString _IPType @accessors(property=IPType);
     /*!

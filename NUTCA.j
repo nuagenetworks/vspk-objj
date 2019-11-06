@@ -35,6 +35,7 @@
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUTCAAction_ALERT = @"Alert";
+NUTCAAction_ALERT_ADD_POLICY_GROUP = @"Alert_Add_Policy_Group";
 NUTCAAction_ALERT_POLICYGROUPCHANGE = @"Alert_PolicyGroupChange";
 NUTCAEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUTCAEntityScope_GLOBAL = @"GLOBAL";

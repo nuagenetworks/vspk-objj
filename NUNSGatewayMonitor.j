@@ -37,6 +37,10 @@
 @implementation NUNSGatewayMonitor : NURESTObject
 {
     /*!
+        List of Controller-VRS links associated with the nsg
+    */
+    CPArrayController _controllervrslinks @accessors(property=controllervrslinks);
+    /*!
         information about VRS reported from sysmon in JSON format. Has info about cpu usage, memory usage, physical interfaces etc.
     */
     NURESTObject _vrsinfo @accessors(property=vrsinfo);
@@ -77,6 +81,7 @@
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"controllervrslinks"];
         [self exposeLocalKeyPathToREST:@"vrsinfo"];
         [self exposeLocalKeyPathToREST:@"vscs"];
         [self exposeLocalKeyPathToREST:@"nsginfo"];
