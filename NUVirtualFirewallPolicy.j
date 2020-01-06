@@ -38,6 +38,7 @@ NUVirtualFirewallPolicyEntityScope_GLOBAL = @"GLOBAL";
 NUVirtualFirewallPolicyPolicyState_DRAFT = @"DRAFT";
 NUVirtualFirewallPolicyPolicyState_LIVE = @"LIVE";
 NUVirtualFirewallPolicyPriorityType_BOTTOM = @"BOTTOM";
+NUVirtualFirewallPolicyPriorityType_NONE = @"NONE";
 NUVirtualFirewallPolicyPriorityType_TOP = @"TOP";
 
 
@@ -95,7 +96,7 @@ NUVirtualFirewallPolicyPriorityType_TOP = @"TOP";
     */
     CPNumber _priority @accessors(property=priority);
     /*!
-        Possible values: TOP or BOTTOM. TOP and BOTTOM ACL policies can only be defined and managed on the template level. These allow for careful control of Rule priority handling.
+        Possible values: TOP or BOTTOM or NONE. TOP and BOTTOM ACL policies can only be defined and managed on the template level. These allow for careful control of Rule priority handling.
     */
     CPString _priorityType @accessors(property=priorityType);
     /*!

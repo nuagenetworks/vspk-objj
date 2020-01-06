@@ -35,6 +35,7 @@
 NUNetconfSessionEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNetconfSessionEntityScope_GLOBAL = @"GLOBAL";
 NUNetconfSessionGatewayVendor_CISCO = @"CISCO";
+NUNetconfSessionGatewayVendor_NOKIA = @"NOKIA";
 NUNetconfSessionStatus_CONNECTED = @"CONNECTED";
 NUNetconfSessionStatus_DISCONNECTED = @"DISCONNECTED";
 
