@@ -115,7 +115,6 @@ NUDomainMulticast_ENABLED = @"ENABLED";
 NUDomainMulticast_INHERITED = @"INHERITED";
 NUDomainPATEnabled_DISABLED = @"DISABLED";
 NUDomainPATEnabled_ENABLED = @"ENABLED";
-NUDomainPATEnabled_INHERITED = @"INHERITED";
 NUDomainPermittedAction_ALL = @"ALL";
 NUDomainPermittedAction_DEPLOY = @"DEPLOY";
 NUDomainPermittedAction_EXTEND = @"EXTEND";

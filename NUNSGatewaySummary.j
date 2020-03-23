@@ -37,6 +37,8 @@ NUNSGatewaySummaryBootstrapStatus_CERTIFICATE_SIGNED = @"CERTIFICATE_SIGNED";
 NUNSGatewaySummaryBootstrapStatus_INACTIVE = @"INACTIVE";
 NUNSGatewaySummaryBootstrapStatus_NOTIFICATION_APP_REQ_ACK = @"NOTIFICATION_APP_REQ_ACK";
 NUNSGatewaySummaryBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
+NUNSGatewaySummaryBootstrapStatus_QUARANTINED = @"QUARANTINED";
+NUNSGatewaySummaryBootstrapStatus_REVOKED = @"REVOKED";
 NUNSGatewaySummaryEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGatewaySummaryEntityScope_GLOBAL = @"GLOBAL";
 

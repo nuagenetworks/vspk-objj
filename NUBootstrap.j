@@ -39,6 +39,8 @@ NUBootstrapStatus_CERTIFICATE_SIGNED = @"CERTIFICATE_SIGNED";
 NUBootstrapStatus_INACTIVE = @"INACTIVE";
 NUBootstrapStatus_NOTIFICATION_APP_REQ_ACK = @"NOTIFICATION_APP_REQ_ACK";
 NUBootstrapStatus_NOTIFICATION_APP_REQ_SENT = @"NOTIFICATION_APP_REQ_SENT";
+NUBootstrapStatus_QUARANTINED = @"QUARANTINED";
+NUBootstrapStatus_REVOKED = @"REVOKED";
 NUBootstrapZFBMatchAttribute_HOSTNAME = @"HOSTNAME";
 NUBootstrapZFBMatchAttribute_IP_ADDRESS = @"IP_ADDRESS";
 NUBootstrapZFBMatchAttribute_MAC_ADDRESS = @"MAC_ADDRESS";
@@ -90,7 +92,7 @@ NUBootstrapZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _associatedEntityType @accessors(property=associatedEntityType);
     /*!
-        Bootstrap status.
+        Value showing the bootstrapping or activation status of an NSG or eVDF instance.
     */
     CPString _status @accessors(property=status);
     /*!

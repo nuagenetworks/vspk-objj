@@ -175,6 +175,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPNumber _uplinkID @accessors(property=uplinkID);
     /*!
+        System generated identifier of an uplink on NSG.
+    */
+    CPString _primaryDataPathID @accessors(property=primaryDataPathID);
+    /*!
         PPPoE username if uplink mode is set to PPPoE.
     */
     CPString _username @accessors(property=username);
@@ -254,6 +258,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"portName"];
         [self exposeLocalKeyPathToREST:@"downloadRateLimit"];
         [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"primaryDataPathID"];
         [self exposeLocalKeyPathToREST:@"username"];
         [self exposeLocalKeyPathToREST:@"assocUnderlayID"];
         [self exposeLocalKeyPathToREST:@"associatedBGPNeighborID"];

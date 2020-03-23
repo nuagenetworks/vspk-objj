@@ -37,6 +37,8 @@ NUZFBRequestAssociatedEntityType_GATEWAY = @"GATEWAY";
 NUZFBRequestAssociatedEntityType_NSGATEWAY = @"NSGATEWAY";
 NUZFBRequestEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUZFBRequestEntityScope_GLOBAL = @"GLOBAL";
+NUZFBRequestRequestType_SELF_REBOOTSTRAP = @"SELF_REBOOTSTRAP";
+NUZFBRequestRequestType_ZFB = @"ZFB";
 NUZFBRequestZFBApprovalStatus_APPROVED = @"APPROVED";
 NUZFBRequestZFBApprovalStatus_ASSIGNED = @"ASSIGNED";
 NUZFBRequestZFBApprovalStatus_DENIED = @"DENIED";
@@ -44,7 +46,7 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
 
 
 /*!
-    Pending requests reflect Network Services Gateways that have initiated request for bootstrapping. Requests can be assigned or matched to continue the bootstrapping process
+    Pending requests reflect Network Services Gateways that have initiated request for bootstrapping. Requests can be assigned, or matched, to continue the bootstrapping process.  If a request is rejected, the NSG will terminate the auto-bootstrapping attempts.
 */
 @implementation NUZFBRequest : NURESTObject
 {
@@ -105,6 +107,10 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
     */
     CPString _registrationURL @accessors(property=registrationURL);
     /*!
+        Value that serves in indicating if the Auto-Bootstrapping request is made in the context of a new NSG instance being bootstrapped or an NSG going through a self-rebootstrapping phase following a revocation triggered by entering quarantine.
+    */
+    CPString _requestType @accessors(property=requestType);
+    /*!
         The gateway's Serial Number.
     */
     CPString _serialNumber @accessors(property=serialNumber);
@@ -120,6 +126,22 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
         Hostname of the gateway bootstrapped using ZFB.
     */
     CPString _hostname @accessors(property=hostname);
+    /*!
+        For an NSG that is self-rebootstrapping following a quarantine action, this field represents the original name of the enterprise/organisation to which the NSG belonged.
+    */
+    CPString _originalEnterpriseName @accessors(property=originalEnterpriseName);
+    /*!
+        For an NSG that is self-rebootstrapping following a quarantine action, this field represents the original datapath ID that it had before revoking.
+    */
+    CPString _originalGatewayDatapathID @accessors(property=originalGatewayDatapathID);
+    /*!
+        For an NSG that is self-rebootstrapping following a quarantine action, this field represents the original name the gateway had before revoking.
+    */
+    CPString _originalGatewayName @accessors(property=originalGatewayName);
+    /*!
+        For an NSG that is self-rebootstrapping following a quarantine action, this field represents an information blob of the original uplink connection information that applied to this NSG.
+    */
+    CPString _originalUplinkConnectionInfo @accessors(property=originalUplinkConnectionInfo);
     /*!
         the ID of the associated enteprise
     */
@@ -194,10 +216,15 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
         [self exposeLocalKeyPathToREST:@"lastConnectedTime"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"registrationURL"];
+        [self exposeLocalKeyPathToREST:@"requestType"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"hostname"];
+        [self exposeLocalKeyPathToREST:@"originalEnterpriseName"];
+        [self exposeLocalKeyPathToREST:@"originalGatewayDatapathID"];
+        [self exposeLocalKeyPathToREST:@"originalGatewayName"];
+        [self exposeLocalKeyPathToREST:@"originalUplinkConnectionInfo"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseName"];
         [self exposeLocalKeyPathToREST:@"associatedEntityType"];

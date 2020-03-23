@@ -77,7 +77,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _deadTimer @accessors(property=deadTimer);
     /*!
-        Flag to enable automatic deactivation.
+        Flag to enable the functionlity where VSD will automatically place an NSG into a quarantine state if it is no longer being reported by VSC nodes for a specified period.
     */
     BOOL _deadTimerEnabled @accessors(property=deadTimerEnabled);
     /*!
