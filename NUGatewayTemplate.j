@@ -44,6 +44,7 @@ NUGatewayTemplatePersonality_NETCONF_THIRDPARTY_HW_VTEP = @"NETCONF_THIRDPARTY_H
 NUGatewayTemplatePersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NUGatewayTemplatePersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NUGatewayTemplatePersonality_OTHER = @"OTHER";
+NUGatewayTemplatePersonality_UNMANAGED_GATEWAY = @"UNMANAGED_GATEWAY";
 NUGatewayTemplatePersonality_VDFG = @"VDFG";
 NUGatewayTemplatePersonality_VRSB = @"VRSB";
 NUGatewayTemplatePersonality_VRSG = @"VRSG";

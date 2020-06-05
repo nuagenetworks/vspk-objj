@@ -92,6 +92,10 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _description @accessors(property=description);
     /*!
+        Enable Threat Prevention Management for enterprise
+    */
+    BOOL _threatPreventionManagementEnabled @accessors(property=threatPreventionManagementEnabled);
+    /*!
         Controls whether this enterprise has access to advanced QoS settings.
     */
     BOOL _allowAdvancedQOSConfiguration @accessors(property=allowAdvancedQOSConfiguration);
@@ -170,6 +174,7 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"sendMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"threatPreventionManagementEnabled"];
         [self exposeLocalKeyPathToREST:@"allowAdvancedQOSConfiguration"];
         [self exposeLocalKeyPathToREST:@"allowGatewayManagement"];
         [self exposeLocalKeyPathToREST:@"allowTrustedForwardingClass"];

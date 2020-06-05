@@ -104,7 +104,7 @@ NULinkType_SERVICE_CHAINING = @"SERVICE_CHAINING";
     */
     CPString _externalID @accessors(property=externalID);
     /*!
-        This is used to distinguish between different type of links: hub and spoke, ip address, VNS border router links.
+        This is used to distinguish between different type of links: hub and spoke, IP address, VNS border router links.
     */
     CPString _type @accessors(property=type);
     

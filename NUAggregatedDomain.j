@@ -66,6 +66,7 @@
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUHostInterfacesFetcher.j"
 @import "Fetchers/NURoutingPoliciesFetcher.j"
+@import "Fetchers/NURoutingPolicyBindingsFetcher.j"
 @import "Fetchers/NUSPATSourcesPoolsFetcher.j"
 @import "Fetchers/NUUplinkRDsFetcher.j"
 @import "Fetchers/NUVPNConnectionsFetcher.j"
@@ -404,6 +405,7 @@ NUAggregatedDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
     NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
+    NURoutingPolicyBindingsFetcher _childrenRoutingPolicyBindings @accessors(property=childrenRoutingPolicyBindings);
     NUSPATSourcesPoolsFetcher _childrenSPATSourcesPools @accessors(property=childrenSPATSourcesPools);
     NUUplinkRDsFetcher _childrenUplinkRDs @accessors(property=childrenUplinkRDs);
     NUVPNConnectionsFetcher _childrenVPNConnections @accessors(property=childrenVPNConnections);
@@ -536,6 +538,7 @@ NUAggregatedDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
         _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
+        _childrenRoutingPolicyBindings = [NURoutingPolicyBindingsFetcher fetcherWithParentObject:self];
         _childrenSPATSourcesPools = [NUSPATSourcesPoolsFetcher fetcherWithParentObject:self];
         _childrenUplinkRDs = [NUUplinkRDsFetcher fetcherWithParentObject:self];
         _childrenVPNConnections = [NUVPNConnectionsFetcher fetcherWithParentObject:self];

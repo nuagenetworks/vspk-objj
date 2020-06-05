@@ -66,6 +66,14 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        When this option is selected, VSS will only store flows that are denied by security policy (implicit or explicit ACLs). This requires a valid VSS license and Flow Collection enabled.
+    */
+    BOOL _deniedFlowCollectionEnabled @accessors(property=deniedFlowCollectionEnabled);
+    /*!
+        Enables IP based threat intelligence. This requires Flow Collection to be enabled
+    */
+    BOOL _threatIntelligenceEnabled @accessors(property=threatIntelligenceEnabled);
+    /*!
         Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires 'statisticsEnabled'.
     */
     BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
@@ -93,6 +101,10 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
         IP address(es) of the elastic machine
     */
     CPString _statsTSDBServerAddress @accessors(property=statsTSDBServerAddress);
+    /*!
+        When this option is selected, VSS will only store allow/denied flows that matches explicit ingress/egress security ACL. This requires a valid VSS license and Flow Collection enabled.
+    */
+    BOOL _explicitACLMatchingEnabled @accessors(property=explicitACLMatchingEnabled);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -126,6 +138,8 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"VSSStatsInterval"];
         [self exposeLocalKeyPathToREST:@"pageSize"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"deniedFlowCollectionEnabled"];
+        [self exposeLocalKeyPathToREST:@"threatIntelligenceEnabled"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
@@ -133,6 +147,7 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
         [self exposeLocalKeyPathToREST:@"statsDatabaseProxy"];
         [self exposeLocalKeyPathToREST:@"statsTSDBServerAddress"];
+        [self exposeLocalKeyPathToREST:@"explicitACLMatchingEnabled"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

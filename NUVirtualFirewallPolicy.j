@@ -100,9 +100,17 @@ NUVirtualFirewallPolicyPriorityType_TOP = @"TOP";
     */
     CPString _priorityType @accessors(property=priorityType);
     /*!
+        The read only id of the auto generated Egress Advance Forwarding Rule Template ID
+    */
+    CPString _associatedEgressAdvFwdRuleTemplateID @accessors(property=associatedEgressAdvFwdRuleTemplateID);
+    /*!
         The read only id of the auto generated Egress Template
     */
     CPString _associatedEgressTemplateID @accessors(property=associatedEgressTemplateID);
+    /*!
+        The read only id of the auto generated Ingress Advance Forwarding Rule Template ID
+    */
+    CPString _associatedIngressAdvFwdRuleTemplateID @accessors(property=associatedIngressAdvFwdRuleTemplateID);
     /*!
         The read only id of the auto generated Ingress Template
     */
@@ -156,7 +164,9 @@ NUVirtualFirewallPolicyPriorityType_TOP = @"TOP";
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"priorityType"];
+        [self exposeLocalKeyPathToREST:@"associatedEgressAdvFwdRuleTemplateID"];
         [self exposeLocalKeyPathToREST:@"associatedEgressTemplateID"];
+        [self exposeLocalKeyPathToREST:@"associatedIngressAdvFwdRuleTemplateID"];
         [self exposeLocalKeyPathToREST:@"associatedIngressTemplateID"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
         [self exposeLocalKeyPathToREST:@"autoGeneratePriority"];

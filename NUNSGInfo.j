@@ -63,7 +63,7 @@ NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
 
 
 /*!
-    Device information coming from the NSG
+    Device information coming from the NSG.  That includes the hardware type of the NSG (CPU, memory, family), the version of BIOS, build information, and software application packages installed.
 */
 @implementation NUNSGInfo : NURESTObject
 {
@@ -71,6 +71,10 @@ NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
         A comma separated list of MAC Addresses associated to the NSG's interfaces (eg, port1, port2, port3).
     */
     CPString _MACAddress @accessors(property=MACAddress);
+    /*!
+        The certficate metadata of NSG's certificate authority.
+    */
+    NURESTObject _CACertificate @accessors(property=CACertificate);
     /*!
         Release Date of the AAR Application
     */
@@ -99,6 +103,10 @@ NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
         TPM (Trusted Platform Module) version as reported by the NSG.
     */
     CPString _TPMVersion @accessors(property=TPMVersion);
+    /*!
+        Current CPU allocation for network accelerated gateways.  Displays total number of cores and those isolated.
+    */
+    CPString _CPUCoreAllocation @accessors(property=CPUCoreAllocation);
     /*!
         The NSG Processor Type based on information extracted during bootstrapping.  This may refer to a type of processor manufactured by Intel, ARM, AMD, Cyrix, VIA, or others.
     */
@@ -131,6 +139,10 @@ NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
         Personality of the Gateway.
     */
     CPString _personality @accessors(property=personality);
+    /*!
+        The certificate metadata of NSG's current certficate.
+    */
+    NURESTObject _certificate @accessors(property=certificate);
     /*!
         Tracks RPM package installed for some libraries installed on the NSG.
     */
@@ -192,6 +204,10 @@ NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
     */
     CPString _associatedNSGatewayID @accessors(property=associatedNSGatewayID);
     /*!
+        The size and number of huge pages for an NSG that is running in network accelerated mode.  Hugepage values states the portion of memory reserved for network accelerated services.
+    */
+    CPString _hugePageSetting @accessors(property=hugePageSetting);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -221,6 +237,7 @@ NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"MACAddress"];
+        [self exposeLocalKeyPathToREST:@"CACertificate"];
         [self exposeLocalKeyPathToREST:@"AARApplicationReleaseDate"];
         [self exposeLocalKeyPathToREST:@"AARApplicationVersion"];
         [self exposeLocalKeyPathToREST:@"BIOSReleaseDate"];
@@ -228,6 +245,7 @@ NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
         [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
         [self exposeLocalKeyPathToREST:@"TPMVersion"];
+        [self exposeLocalKeyPathToREST:@"CPUCoreAllocation"];
         [self exposeLocalKeyPathToREST:@"CPUType"];
         [self exposeLocalKeyPathToREST:@"NSGVersion"];
         [self exposeLocalKeyPathToREST:@"UUID"];
@@ -236,6 +254,7 @@ NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
         [self exposeLocalKeyPathToREST:@"patchesDetail"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"personality"];
+        [self exposeLocalKeyPathToREST:@"certificate"];
         [self exposeLocalKeyPathToREST:@"libraries"];
         [self exposeLocalKeyPathToREST:@"cmdDetailedStatus"];
         [self exposeLocalKeyPathToREST:@"cmdDetailedStatusCode"];
@@ -251,6 +270,7 @@ NUNSGInfoPersonality_NSGDUC = @"NSGDUC";
         [self exposeLocalKeyPathToREST:@"productName"];
         [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
+        [self exposeLocalKeyPathToREST:@"hugePageSetting"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         

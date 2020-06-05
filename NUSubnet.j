@@ -44,6 +44,7 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
+@import "Fetchers/NUVMIPReservationsFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUContainerInterfacesFetcher.j"
@@ -71,6 +72,10 @@ NUSubnetEntityState_UNDER_CONSTRUCTION = @"UNDER_CONSTRUCTION";
 NUSubnetIPType_DUALSTACK = @"DUALSTACK";
 NUSubnetIPType_IPV4 = @"IPV4";
 NUSubnetIPType_IPV6 = @"IPV6";
+NUSubnetL2EncapType_MPLS = @"MPLS";
+NUSubnetL2EncapType_MPLSOUDP = @"MPLSoUDP";
+NUSubnetL2EncapType_VLAN = @"VLAN";
+NUSubnetL2EncapType_VXLAN = @"VXLAN";
 NUSubnetMaintenanceMode_DISABLED = @"DISABLED";
 NUSubnetMaintenanceMode_ENABLED = @"ENABLED";
 NUSubnetMaintenanceMode_ENABLED_INHERITED = @"ENABLED_INHERITED";
@@ -97,6 +102,10 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
 */
 @implementation NUSubnet : NURESTObject
 {
+    /*!
+        Subnet Tunnel Type, possible values are MPLS, MPLSoUDP, VLAN and VXLAN.
+    */
+    CPString _l2EncapType @accessors(property=l2EncapType);
     /*!
         None
     */
@@ -309,6 +318,7 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
+    NUVMIPReservationsFetcher _childrenVMIPReservations @accessors(property=childrenVMIPReservations);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUContainerInterfacesFetcher _childrenContainerInterfaces @accessors(property=childrenContainerInterfaces);
@@ -340,6 +350,7 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"l2EncapType"];
         [self exposeLocalKeyPathToREST:@"PATEnabled"];
         [self exposeLocalKeyPathToREST:@"DHCPRelayStatus"];
         [self exposeLocalKeyPathToREST:@"DPI"];
@@ -405,6 +416,7 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
+        _childrenVMIPReservations = [NUVMIPReservationsFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenContainerInterfaces = [NUContainerInterfacesFetcher fetcherWithParentObject:self];

@@ -123,7 +123,7 @@ NUZoneMulticast_INHERITED = @"INHERITED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        PG ID for the subnet. This is unique per domain and will be in the range 1-4095
+        PG ID for the subnet. This is unique per domain.
     */
     CPNumber _policyGroupID @accessors(property=policyGroupID);
     /*!

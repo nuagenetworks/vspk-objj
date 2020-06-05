@@ -214,6 +214,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _VPortInitStatefulTimer @accessors(property=VPortInitStatefulTimer);
     /*!
+        Allows the creation of IPv6 subnets and routes with masks longer than /64.
+    */
+    BOOL _IPv6ExtendedPrefixesEnabled @accessors(property=IPv6ExtendedPrefixesEnabled);
+    /*!
         Least Recently Used (LRU) Cache map size per subnet.  Serves to hold the deleted VM instances' IP addresses.
     */
     CPNumber _LRUCacheSizePerSubnet @accessors(property=LRUCacheSizePerSubnet);
@@ -318,6 +322,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _maxResponse @accessors(property=maxResponse);
     /*!
+        Enables the advanced granular permissions feature. This should not be enabled without prior discussion and agreement with the Nuage Product team, as this feature is only qualified for a limited set of use cases.
+    */
+    BOOL _rbacEnabled @accessors(property=rbacEnabled);
+    /*!
         Whether the various VRS license flavours be merged in one pool.
     */
     BOOL _accumulateLicensesEnabled @accessors(property=accumulateLicensesEnabled);
@@ -337,6 +345,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Secondary route target upper limit.
     */
     CPNumber _secondaryRTUpperLimit @accessors(property=secondaryRTUpperLimit);
+    /*!
+        When this option is selected, VSS will only store flows that are denied by security policy (implicit or explicit ACLs). This requires a valid VSS license and Flow Collection enabled.
+    */
+    BOOL _deniedFlowCollectionEnabled @accessors(property=deniedFlowCollectionEnabled);
     /*!
         Determines whether per domain VLAN ID generation is required.
     */
@@ -361,6 +373,30 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Service ID offset, this value has to be set before JBoss starts during the time of VSD installation, from thereon, any change of value will be ignored. This is a system wide value.
     */
     CPNumber _offsetServiceID @accessors(property=offsetServiceID);
+    /*!
+        Enables IP based threat intelligence. This requires Flow Collection to be enabled.
+    */
+    BOOL _threatIntelligenceEnabled @accessors(property=threatIntelligenceEnabled);
+    /*!
+        Specifies the Threat Prevention Management server location.
+    */
+    CPString _threatPreventionServer @accessors(property=threatPreventionServer);
+    /*!
+        Password to access Threat Prevention Server Password
+    */
+    CPString _threatPreventionServerPassword @accessors(property=threatPreventionServerPassword);
+    /*!
+        Destination TCP Port on the Proxy to connect to the Threat Prevention Management Server
+    */
+    CPNumber _threatPreventionServerProxyPort @accessors(property=threatPreventionServerProxyPort);
+    /*!
+        Username to accessThreat Prevention management Server.
+    */
+    CPString _threatPreventionServerUsername @accessors(property=threatPreventionServerUsername);
+    /*!
+        Syslog server port for Threat Prevention Service
+    */
+    CPNumber _threatPreventionSyslogProxyPort @accessors(property=threatPreventionSyslogProxyPort);
     /*!
         Enable Virtual Firewall Rule creation and management. This will be available only with VSS license
     */
@@ -658,6 +694,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _twoFactorCodeSeedLength @accessors(property=twoFactorCodeSeedLength);
     /*!
+        When this option is selected, VSS will only store allow/denied flows that matches explicit ingress/egress security ACL. This requires a valid VSS license and Flow Collection enabled.
+    */
+    BOOL _explicitACLMatchingEnabled @accessors(property=explicitACLMatchingEnabled);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -754,6 +794,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"APIKeyRenewalInterval"];
         [self exposeLocalKeyPathToREST:@"APIKeyValidity"];
         [self exposeLocalKeyPathToREST:@"VPortInitStatefulTimer"];
+        [self exposeLocalKeyPathToREST:@"IPv6ExtendedPrefixesEnabled"];
         [self exposeLocalKeyPathToREST:@"LRUCacheSizePerSubnet"];
         [self exposeLocalKeyPathToREST:@"VSCOnSameVersionAsVSD"];
         [self exposeLocalKeyPathToREST:@"VSDAARApplicationVersion"];
@@ -780,17 +821,25 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"gatewayRebalancingInterval"];
         [self exposeLocalKeyPathToREST:@"maxFailedLogins"];
         [self exposeLocalKeyPathToREST:@"maxResponse"];
+        [self exposeLocalKeyPathToREST:@"rbacEnabled"];
         [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
         [self exposeLocalKeyPathToREST:@"vcinLoadBalancerIP"];
         [self exposeLocalKeyPathToREST:@"secondaryASNumber"];
         [self exposeLocalKeyPathToREST:@"secondaryRTLowerLimit"];
         [self exposeLocalKeyPathToREST:@"secondaryRTUpperLimit"];
+        [self exposeLocalKeyPathToREST:@"deniedFlowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"perDomainVlanIdEnabled"];
         [self exposeLocalKeyPathToREST:@"serviceIDUpperLimit"];
         [self exposeLocalKeyPathToREST:@"keyServerMonitorEnabled"];
         [self exposeLocalKeyPathToREST:@"keyServerVSDDataSynchronizationInterval"];
         [self exposeLocalKeyPathToREST:@"offsetCustomerID"];
         [self exposeLocalKeyPathToREST:@"offsetServiceID"];
+        [self exposeLocalKeyPathToREST:@"threatIntelligenceEnabled"];
+        [self exposeLocalKeyPathToREST:@"threatPreventionServer"];
+        [self exposeLocalKeyPathToREST:@"threatPreventionServerPassword"];
+        [self exposeLocalKeyPathToREST:@"threatPreventionServerProxyPort"];
+        [self exposeLocalKeyPathToREST:@"threatPreventionServerUsername"];
+        [self exposeLocalKeyPathToREST:@"threatPreventionSyslogProxyPort"];
         [self exposeLocalKeyPathToREST:@"virtualFirewallRulesEnabled"];
         [self exposeLocalKeyPathToREST:@"ejbcaNSGCertificateProfile"];
         [self exposeLocalKeyPathToREST:@"ejbcaNSGEndEntityProfile"];
@@ -865,6 +914,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"twoFactorCodeExpiry"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeLength"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeSeedLength"];
+        [self exposeLocalKeyPathToREST:@"explicitACLMatchingEnabled"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicWANServiceDiffTime"];
         [self exposeLocalKeyPathToREST:@"syslogDestinationHost"];

@@ -35,6 +35,7 @@
 
 NUOSPFInstanceEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUOSPFInstanceEntityScope_GLOBAL = @"GLOBAL";
+NUOSPFInstanceIPType_IPV4 = @"IPV4";
 
 
 /*!
@@ -42,6 +43,10 @@ NUOSPFInstanceEntityScope_GLOBAL = @"GLOBAL";
 */
 @implementation NUOSPFInstance : NURESTObject
 {
+    /*!
+        The IP Type of the OSPF Instance, currently only IPv4 is supported.
+    */
+    CPString _IPType @accessors(property=IPType);
     /*!
         Name of OSPF Instance
     */
@@ -118,6 +123,7 @@ NUOSPFInstanceEntityScope_GLOBAL = @"GLOBAL";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];

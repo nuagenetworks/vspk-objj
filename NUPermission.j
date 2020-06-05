@@ -61,9 +61,13 @@ NUPermissionPermittedAction_USE = @"USE";
     */
     CPString _permittedAction @accessors(property=permittedAction);
     /*!
-        Description for the permittedEntity
+        Name of the permitted Enterprise
     */
-    CPString _permittedEntityDescription @accessors(property=permittedEntityDescription);
+    CPString _permittedEnterpriseDescription @accessors(property=permittedEnterpriseDescription);
+    /*!
+        Name of the associated Enterprise
+    */
+    CPString _permittedEnterpriseName @accessors(property=permittedEnterpriseName);
     /*!
         The  entity ID for which this permission action is associated against.
     */
@@ -84,6 +88,30 @@ NUPermissionPermittedAction_USE = @"USE";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Description of the Group
+    */
+    CPString _associatedGroupDescription @accessors(property=associatedGroupDescription);
+    /*!
+        The Group ID associated with this permission.
+    */
+    CPString _associatedGroupID @accessors(property=associatedGroupID);
+    /*!
+        Name of the group for which we have given permission.
+    */
+    CPString _associatedGroupName @accessors(property=associatedGroupName);
+    /*!
+        Description of the role asssociated with the permission
+    */
+    CPString _associatedRoleDescription @accessors(property=associatedRoleDescription);
+    /*!
+        ID of the associated Role
+    */
+    CPString _associatedRoleID @accessors(property=associatedRoleID);
+    /*!
+        Associated Role Name
+    */
+    CPString _associatedRoleName @accessors(property=associatedRoleName);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -115,12 +143,19 @@ NUPermissionPermittedAction_USE = @"USE";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
-        [self exposeLocalKeyPathToREST:@"permittedEntityDescription"];
+        [self exposeLocalKeyPathToREST:@"permittedEnterpriseDescription"];
+        [self exposeLocalKeyPathToREST:@"permittedEnterpriseName"];
         [self exposeLocalKeyPathToREST:@"permittedEntityID"];
         [self exposeLocalKeyPathToREST:@"permittedEntityName"];
         [self exposeLocalKeyPathToREST:@"permittedEntityType"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedGroupDescription"];
+        [self exposeLocalKeyPathToREST:@"associatedGroupID"];
+        [self exposeLocalKeyPathToREST:@"associatedGroupName"];
+        [self exposeLocalKeyPathToREST:@"associatedRoleDescription"];
+        [self exposeLocalKeyPathToREST:@"associatedRoleID"];
+        [self exposeLocalKeyPathToREST:@"associatedRoleName"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -37,7 +37,7 @@ NUPATIPEntryIPType_IPV6 = @"IPV6";
 
 
 /*!
-    missing documentation.
+    PATIPEntry is auto-generated (southbound case, decentralized for containers) or through REST (for centralized case, user can choose a IP).
 */
 @implementation NUPATIPEntry : NURESTObject
 {

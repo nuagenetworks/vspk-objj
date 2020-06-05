@@ -91,6 +91,7 @@ NUNetconfGatewayPersonality_NETCONF_THIRDPARTY_HW_VTEP = @"NETCONF_THIRDPARTY_HW
 NUNetconfGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NUNetconfGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NUNetconfGatewayPersonality_OTHER = @"OTHER";
+NUNetconfGatewayPersonality_UNMANAGED_GATEWAY = @"UNMANAGED_GATEWAY";
 NUNetconfGatewayPersonality_VDFG = @"VDFG";
 NUNetconfGatewayPersonality_VRSB = @"VRSB";
 NUNetconfGatewayPersonality_VRSG = @"VRSG";

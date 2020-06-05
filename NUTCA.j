@@ -35,6 +35,7 @@
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUTCAAction_ALERT = @"Alert";
+NUTCAAction_ALERT_ADD_NETWORK_MACRO = @"Alert_Add_Network_Macro";
 NUTCAAction_ALERT_ADD_POLICY_GROUP = @"Alert_Add_Policy_Group";
 NUTCAAction_ALERT_POLICYGROUPCHANGE = @"Alert_PolicyGroupChange";
 NUTCAEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -87,7 +88,11 @@ NUTCAType_UNIQUE_COUNT = @"UNIQUE_COUNT";
     */
     CPString _name @accessors(property=name);
     /*!
-        Target policygroup when TCA is triggered
+        ID of the target VSD entity used by the TCA action
+    */
+    CPString _targetEntityID @accessors(property=targetEntityID);
+    /*!
+        Target policygroup used by the TCA action
     */
     CPString _targetPolicyGroupID @accessors(property=targetPolicyGroupID);
     /*!
@@ -115,7 +120,7 @@ NUTCAType_UNIQUE_COUNT = @"UNIQUE_COUNT";
     */
     CPNumber _threshold @accessors(property=threshold);
     /*!
-        Throttle time in secs
+        Throttle time in seconds
     */
     CPNumber _throttleTime @accessors(property=throttleTime);
     /*!
@@ -138,6 +143,10 @@ NUTCAType_UNIQUE_COUNT = @"UNIQUE_COUNT";
         Count of the attempts by maintenanace thread to create/update watcher
     */
     CPNumber _count @accessors(property=count);
+    /*!
+        The trigger interval of the ES watch corresponding to this TCA, in seconds
+    */
+    CPNumber _triggerInterval @accessors(property=triggerInterval);
     /*!
         This flag is used to indicate the status of TCA
     */
@@ -177,6 +186,7 @@ NUTCAType_UNIQUE_COUNT = @"UNIQUE_COUNT";
     {
         [self exposeLocalKeyPathToREST:@"URLEndPoint"];
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"targetEntityID"];
         [self exposeLocalKeyPathToREST:@"targetPolicyGroupID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
@@ -190,6 +200,7 @@ NUTCAType_UNIQUE_COUNT = @"UNIQUE_COUNT";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"count"];
+        [self exposeLocalKeyPathToREST:@"triggerInterval"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];

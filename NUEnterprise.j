@@ -43,6 +43,7 @@
 @import "Fetchers/NUGatewayTemplatesFetcher.j"
 @import "Fetchers/NUPATNATPoolsFetcher.j"
 @import "Fetchers/NULDAPConfigurationsFetcher.j"
+@import "Fetchers/NUIDPProfilesFetcher.j"
 @import "Fetchers/NUWebCategoriesFetcher.j"
 @import "Fetchers/NUWebDomainNamesFetcher.j"
 @import "Fetchers/NURedundancyGroupsFetcher.j"
@@ -77,6 +78,7 @@
 @import "Fetchers/NUEnterpriseNetworksFetcher.j"
 @import "Fetchers/NUEnterpriseSecuritiesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
+@import "Fetchers/NURolesFetcher.j"
 @import "Fetchers/NUPolicyGroupCategoriesFetcher.j"
 @import "Fetchers/NUPolicyObjectGroupsFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
@@ -128,6 +130,8 @@ NUEnterpriseEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
 NUEnterpriseFlowCollectionEnabled_DISABLED = @"DISABLED";
 NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
+NUEnterpriseThreatIntelligenceEnabled_DISABLED = @"DISABLED";
+NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
 
 
 /*!
@@ -183,6 +187,14 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         This flag indicates whether this is a Shared Infrastructure Enterprise or not. Its a read-only attribute and it cannot be set by anybody.
     */
     BOOL _sharedEnterprise @accessors(property=sharedEnterprise);
+    /*!
+        Determines whether or not threat intelligence is enabled
+    */
+    CPString _threatIntelligenceEnabled @accessors(property=threatIntelligenceEnabled);
+    /*!
+        Threat Prevention Management enabled for enterprise
+    */
+    BOOL _threatPreventionManagementEnabled @accessors(property=threatPreventionManagementEnabled);
     /*!
         L7 Application Type version
     */
@@ -298,6 +310,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUGatewayTemplatesFetcher _childrenGatewayTemplates @accessors(property=childrenGatewayTemplates);
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NULDAPConfigurationsFetcher _childrenLDAPConfigurations @accessors(property=childrenLDAPConfigurations);
+    NUIDPProfilesFetcher _childrenIDPProfiles @accessors(property=childrenIDPProfiles);
     NUWebCategoriesFetcher _childrenWebCategories @accessors(property=childrenWebCategories);
     NUWebDomainNamesFetcher _childrenWebDomainNames @accessors(property=childrenWebDomainNames);
     NURedundancyGroupsFetcher _childrenRedundancyGroups @accessors(property=childrenRedundancyGroups);
@@ -332,6 +345,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     NUEnterpriseNetworksFetcher _childrenEnterpriseNetworks @accessors(property=childrenEnterpriseNetworks);
     NUEnterpriseSecuritiesFetcher _childrenEnterpriseSecurities @accessors(property=childrenEnterpriseSecurities);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
+    NURolesFetcher _childrenRoles @accessors(property=childrenRoles);
     NUPolicyGroupCategoriesFetcher _childrenPolicyGroupCategories @accessors(property=childrenPolicyGroupCategories);
     NUPolicyObjectGroupsFetcher _childrenPolicyObjectGroups @accessors(property=childrenPolicyObjectGroups);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
@@ -393,6 +407,8 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"sendMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"sharedEnterprise"];
+        [self exposeLocalKeyPathToREST:@"threatIntelligenceEnabled"];
+        [self exposeLocalKeyPathToREST:@"threatPreventionManagementEnabled"];
         [self exposeLocalKeyPathToREST:@"dictionaryVersion"];
         [self exposeLocalKeyPathToREST:@"virtualFirewallRulesEnabled"];
         [self exposeLocalKeyPathToREST:@"allowAdvancedQOSConfiguration"];
@@ -433,6 +449,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenGatewayTemplates = [NUGatewayTemplatesFetcher fetcherWithParentObject:self];
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenLDAPConfigurations = [NULDAPConfigurationsFetcher fetcherWithParentObject:self];
+        _childrenIDPProfiles = [NUIDPProfilesFetcher fetcherWithParentObject:self];
         _childrenWebCategories = [NUWebCategoriesFetcher fetcherWithParentObject:self];
         _childrenWebDomainNames = [NUWebDomainNamesFetcher fetcherWithParentObject:self];
         _childrenRedundancyGroups = [NURedundancyGroupsFetcher fetcherWithParentObject:self];
@@ -467,6 +484,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         _childrenEnterpriseNetworks = [NUEnterpriseNetworksFetcher fetcherWithParentObject:self];
         _childrenEnterpriseSecurities = [NUEnterpriseSecuritiesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
+        _childrenRoles = [NURolesFetcher fetcherWithParentObject:self];
         _childrenPolicyGroupCategories = [NUPolicyGroupCategoriesFetcher fetcherWithParentObject:self];
         _childrenPolicyObjectGroups = [NUPolicyObjectGroupsFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];

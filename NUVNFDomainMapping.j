@@ -55,13 +55,33 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
     */
     CPString _segmentationType @accessors(property=segmentationType);
     /*!
+        Service ID of the associated Domain
+    */
+    CPString _serviceId @accessors(property=serviceId);
+    /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
+        Name of the associated Enterprise
+    */
+    CPString _enterpriseName @accessors(property=enterpriseName);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        ID of the associated Domain
+    */
+    CPString _associatedDomainID @accessors(property=associatedDomainID);
+    /*!
+        Name of the associated Domain
+    */
+    CPString _associatedDomainName @accessors(property=associatedDomainName);
+    /*!
+        ID of the associated Enterprise
+    */
+    CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
     /*!
         Associated NS Gateway
     */
@@ -70,6 +90,10 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
         Name of associated NSGateway
     */
     CPString _associatedNSGatewayName @accessors(property=associatedNSGatewayName);
+    /*!
+        Indicates that this domain mapping was auto created by the system
+    */
+    BOOL _autoCreated @accessors(property=autoCreated);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -100,10 +124,16 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"segmentationID"];
         [self exposeLocalKeyPathToREST:@"segmentationType"];
+        [self exposeLocalKeyPathToREST:@"serviceId"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
+        [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"associatedDomainID"];
+        [self exposeLocalKeyPathToREST:@"associatedDomainName"];
+        [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayName"];
+        [self exposeLocalKeyPathToREST:@"autoCreated"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

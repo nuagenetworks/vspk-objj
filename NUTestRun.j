@@ -39,6 +39,18 @@ NUTestRunOperationStatus_FAILED = @"FAILED";
 NUTestRunOperationStatus_STARTED = @"STARTED";
 NUTestRunOperationStatus_TIMED_OUT = @"TIMED_OUT";
 NUTestRunOperationStatus_UNKNOWN = @"UNKNOWN";
+NUTestRunTestResultDataType_BANDWIDTHTESTRESULT = @"BandwidthTestResult";
+NUTestRunTestResultDataType_MTUDISCOVERYTESTRESULT = @"MTUDiscoveryTestResult";
+NUTestRunTestResultDataType_NONE = @"None";
+NUTestRunTestResultDataType_TCPCONNECTTESTRESULT = @"TCPConnectTestResult";
+NUTestRunTestResultDataType_UDPPROBETESTRESULT = @"UDPProbeTestResult";
+NUTestRunTestResult_DEGRADED = @"DEGRADED";
+NUTestRunTestResult_FAIL = @"FAIL";
+NUTestRunTestResult_NOT_APPLICABLE = @"NOT_APPLICABLE";
+NUTestRunTestResult_PASS = @"PASS";
+NUTestRunUnderlayTestCategory_BANDWIDTH = @"BANDWIDTH";
+NUTestRunUnderlayTestCategory_CONNECTIVITY = @"CONNECTIVITY";
+NUTestRunUnderlayTestCategory_MTU_DISCOVERY = @"MTU_DISCOVERY";
 
 
 /*!
@@ -51,9 +63,37 @@ NUTestRunOperationStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        The result of the test
+    */
+    CPString _testResult @accessors(property=testResult);
+    /*!
+        The test result data
+    */
+    NURESTObject _testResultData @accessors(property=testResultData);
+    /*!
+        The type of the data embedded in the testResultData attribute
+    */
+    CPString _testResultDataType @accessors(property=testResultDataType);
+    /*!
+        The spefication entity name of the data embedded in the testResultData attribute
+    */
+    CPString _testResultSpecificationEntityName @accessors(property=testResultSpecificationEntityName);
+    /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
+        The underlay test category
+    */
+    CPString _underlayTestCategory @accessors(property=underlayTestCategory);
+    /*!
+        The underlay test description
+    */
+    CPString _underlayTestDescription @accessors(property=underlayTestDescription);
+    /*!
+        The underlay test name
+    */
+    CPString _underlayTestName @accessors(property=underlayTestName);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -126,7 +166,14 @@ NUTestRunOperationStatus_UNKNOWN = @"UNKNOWN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"testResult"];
+        [self exposeLocalKeyPathToREST:@"testResultData"];
+        [self exposeLocalKeyPathToREST:@"testResultDataType"];
+        [self exposeLocalKeyPathToREST:@"testResultSpecificationEntityName"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
+        [self exposeLocalKeyPathToREST:@"underlayTestCategory"];
+        [self exposeLocalKeyPathToREST:@"underlayTestDescription"];
+        [self exposeLocalKeyPathToREST:@"underlayTestName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"command"];
         [self exposeLocalKeyPathToREST:@"commandExitCode"];

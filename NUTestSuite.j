@@ -60,6 +60,10 @@ NUTestSuiteEntityScope_GLOBAL = @"GLOBAL";
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
+        Flag to define if this Test Suite is the internal 'Underlay Tests' Test Suite
+    */
+    BOOL _underlayTest @accessors(property=underlayTest);
+    /*!
         The ID of the Enterprise to which this Test Suite belongs to.
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
@@ -100,6 +104,7 @@ NUTestSuiteEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
+        [self exposeLocalKeyPathToREST:@"underlayTest"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];

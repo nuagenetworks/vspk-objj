@@ -51,6 +51,7 @@
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVMsFetcher.j"
 @import "Fetchers/NUVMInterfacesFetcher.j"
+@import "Fetchers/NUVMIPReservationsFetcher.j"
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdTemplatesFetcher.j"
@@ -89,6 +90,7 @@ NUL2DomainFlowCollectionEnabled_INHERITED = @"INHERITED";
 NUL2DomainIPType_DUALSTACK = @"DUALSTACK";
 NUL2DomainIPType_IPV4 = @"IPV4";
 NUL2DomainIPType_IPV6 = @"IPV6";
+NUL2DomainL2EncapType_MPLS = @"MPLS";
 NUL2DomainL2EncapType_MPLSOUDP = @"MPLSoUDP";
 NUL2DomainL2EncapType_VXLAN = @"VXLAN";
 NUL2DomainMaintenanceMode_DISABLED = @"DISABLED";
@@ -100,6 +102,9 @@ NUL2DomainMulticast_INHERITED = @"INHERITED";
 NUL2DomainPolicyChangeStatus_APPLIED = @"APPLIED";
 NUL2DomainPolicyChangeStatus_DISCARDED = @"DISCARDED";
 NUL2DomainPolicyChangeStatus_STARTED = @"STARTED";
+NUL2DomainThreatIntelligenceEnabled_DISABLED = @"DISABLED";
+NUL2DomainThreatIntelligenceEnabled_ENABLED = @"ENABLED";
+NUL2DomainThreatIntelligenceEnabled_INHERITED = @"INHERITED";
 NUL2DomainUplinkPreference_PRIMARY = @"PRIMARY";
 NUL2DomainUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECONDARY";
 NUL2DomainUplinkPreference_SECONDARY = @"SECONDARY";
@@ -182,6 +187,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         Netmask of the L2Domain / L2Domain template defined
     */
     CPString _netmask @accessors(property=netmask);
+    /*!
+        Determines whether or not threat intelligence is enabled
+    */
+    CPString _threatIntelligenceEnabled @accessors(property=threatIntelligenceEnabled);
     /*!
         Determines whether or not flow collection is enabled.
     */
@@ -301,6 +310,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVMsFetcher _childrenVMs @accessors(property=childrenVMs);
     NUVMInterfacesFetcher _childrenVMInterfaces @accessors(property=childrenVMInterfaces);
+    NUVMIPReservationsFetcher _childrenVMIPReservations @accessors(property=childrenVMIPReservations);
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdTemplatesFetcher _childrenIngressAdvFwdTemplates @accessors(property=childrenIngressAdvFwdTemplates);
@@ -361,6 +371,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"serviceID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
+        [self exposeLocalKeyPathToREST:@"threatIntelligenceEnabled"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"vnId"];
@@ -408,6 +419,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVMs = [NUVMsFetcher fetcherWithParentObject:self];
         _childrenVMInterfaces = [NUVMInterfacesFetcher fetcherWithParentObject:self];
+        _childrenVMIPReservations = [NUVMIPReservationsFetcher fetcherWithParentObject:self];
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdTemplates = [NUIngressAdvFwdTemplatesFetcher fetcherWithParentObject:self];

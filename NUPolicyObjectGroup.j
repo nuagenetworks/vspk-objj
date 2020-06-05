@@ -29,12 +29,14 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUGatewaysFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
 
 NUPolicyObjectGroupEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUPolicyObjectGroupEntityScope_GLOBAL = @"GLOBAL";
+NUPolicyObjectGroupType_GATEWAY = @"Gateway";
 NUPolicyObjectGroupType_NSGATEWAY = @"NSGateway";
 
 
@@ -72,6 +74,7 @@ NUPolicyObjectGroupType_NSGATEWAY = @"NSGateway";
     */
     CPString _type @accessors(property=type);
     
+    NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
@@ -103,6 +106,7 @@ NUPolicyObjectGroupType_NSGATEWAY = @"NSGateway";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];

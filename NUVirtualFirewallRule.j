@@ -38,6 +38,21 @@ NUVirtualFirewallRuleAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
 NUVirtualFirewallRuleAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
 NUVirtualFirewallRuleEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVirtualFirewallRuleEntityScope_GLOBAL = @"GLOBAL";
+NUVirtualFirewallRuleFailsafeDatapath_FAIL_TO_BLOCK = @"FAIL_TO_BLOCK";
+NUVirtualFirewallRuleFailsafeDatapath_FAIL_TO_WIRE = @"FAIL_TO_WIRE";
+NUVirtualFirewallRuleLocationEntityType_ENTERPRISENETWORK = @"ENTERPRISENETWORK";
+NUVirtualFirewallRuleLocationEntityType_NETWORKMACROGROUP = @"NETWORKMACROGROUP";
+NUVirtualFirewallRuleLocationEntityType_PGEXPRESSION = @"PGEXPRESSION";
+NUVirtualFirewallRuleLocationEntityType_PGEXPRESSIONTEMPLATE = @"PGEXPRESSIONTEMPLATE";
+NUVirtualFirewallRuleLocationEntityType_POLICYGROUP = @"POLICYGROUP";
+NUVirtualFirewallRuleLocationEntityType_POLICYGROUPTEMPLATE = @"POLICYGROUPTEMPLATE";
+NUVirtualFirewallRuleLocationEntityType_PUBLICNETWORK = @"PUBLICNETWORK";
+NUVirtualFirewallRuleLocationEntityType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
+NUVirtualFirewallRuleLocationEntityType_REDIRECTIONTARGETTEMPLATE = @"REDIRECTIONTARGETTEMPLATE";
+NUVirtualFirewallRuleLocationEntityType_SUBNET = @"SUBNET";
+NUVirtualFirewallRuleLocationEntityType_SUBNETTEMPLATE = @"SUBNETTEMPLATE";
+NUVirtualFirewallRuleLocationEntityType_ZONE = @"ZONE";
+NUVirtualFirewallRuleLocationEntityType_ZONETEMPLATE = @"ZONETEMPLATE";
 NUVirtualFirewallRuleLocationType_ANY = @"ANY";
 NUVirtualFirewallRuleLocationType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
 NUVirtualFirewallRuleLocationType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
@@ -46,16 +61,29 @@ NUVirtualFirewallRuleLocationType_POLICYGROUP = @"POLICYGROUP";
 NUVirtualFirewallRuleLocationType_SUBNET = @"SUBNET";
 NUVirtualFirewallRuleLocationType_UNDERLAY_INTERNET_POLICYGROUP = @"UNDERLAY_INTERNET_POLICYGROUP";
 NUVirtualFirewallRuleLocationType_ZONE = @"ZONE";
+NUVirtualFirewallRuleNetworkEntityType_ENTERPRISENETWORK = @"ENTERPRISENETWORK";
+NUVirtualFirewallRuleNetworkEntityType_NETWORKMACROGROUP = @"NETWORKMACROGROUP";
+NUVirtualFirewallRuleNetworkEntityType_PGEXPRESSION = @"PGEXPRESSION";
+NUVirtualFirewallRuleNetworkEntityType_PGEXPRESSIONTEMPLATE = @"PGEXPRESSIONTEMPLATE";
+NUVirtualFirewallRuleNetworkEntityType_POLICYGROUP = @"POLICYGROUP";
+NUVirtualFirewallRuleNetworkEntityType_POLICYGROUPTEMPLATE = @"POLICYGROUPTEMPLATE";
+NUVirtualFirewallRuleNetworkEntityType_PUBLICNETWORK = @"PUBLICNETWORK";
+NUVirtualFirewallRuleNetworkEntityType_SAASAPPLICATIONGROUP = @"SAASAPPLICATIONGROUP";
+NUVirtualFirewallRuleNetworkEntityType_SUBNET = @"SUBNET";
+NUVirtualFirewallRuleNetworkEntityType_SUBNETTEMPLATE = @"SUBNETTEMPLATE";
+NUVirtualFirewallRuleNetworkEntityType_ZONE = @"ZONE";
+NUVirtualFirewallRuleNetworkEntityType_ZONETEMPLATE = @"ZONETEMPLATE";
 NUVirtualFirewallRuleNetworkType_ANY = @"ANY";
 NUVirtualFirewallRuleNetworkType_ENTERPRISE_NETWORK = @"ENTERPRISE_NETWORK";
-NUVirtualFirewallRuleNetworkType_INTERNET_POLICYGROUP = @"INTERNET_POLICYGROUP";
 NUVirtualFirewallRuleNetworkType_NETWORK_MACRO_GROUP = @"NETWORK_MACRO_GROUP";
 NUVirtualFirewallRuleNetworkType_PGEXPRESSION = @"PGEXPRESSION";
 NUVirtualFirewallRuleNetworkType_POLICYGROUP = @"POLICYGROUP";
 NUVirtualFirewallRuleNetworkType_SUBNET = @"SUBNET";
+NUVirtualFirewallRuleNetworkType_UNDERLAY_INTERNET_POLICYGROUP = @"UNDERLAY_INTERNET_POLICYGROUP";
 NUVirtualFirewallRuleNetworkType_ZONE = @"ZONE";
 NUVirtualFirewallRulePolicyState_DRAFT = @"DRAFT";
 NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
+NUVirtualFirewallRuleType_THREAT_PREVENTION = @"THREAT_PREVENTION";
 NUVirtualFirewallRuleWebFilterType_WEB_CATEGORY = @"WEB_CATEGORY";
 NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
 
@@ -86,6 +114,10 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _DSCP @accessors(property=DSCP);
     /*!
+        Backup datapath option if VNF/VM is down
+    */
+    CPString _failsafeDatapath @accessors(property=failsafeDatapath);
+    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
@@ -114,6 +146,10 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
+        Indicates whether the Network Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: ENTERPRISENETWORK, NETWORKMACROGROUP, PGEXPRESSION, PGEXPRESSIONTEMPLATE, POLICYGROUP, POLICYGROUPTEMPLATE, PUBLICNETWORK, SAASAPPLICATIONGROUP, SUBNET, SUBNETTEMPLATE, ZONE, ZONETEMPLATE.
+    */
+    CPString _networkEntityType @accessors(property=networkEntityType);
+    /*!
         The ID of the destination endpoint (Subnet/Zone/PortGroup/PolicyGroupExpression/NetworkMacro/Internet Policy Group/Enterprise Network)
     */
     CPString _networkID @accessors(property=networkID);
@@ -121,6 +157,10 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Type of the destination endpoint (Subnet/Zone/PortGroup/PolicyGroupExpression/NetworkMacro/Internet Policy Group/Enterprise Network)
     */
     CPString _networkType @accessors(property=networkType);
+    /*!
+        ID of the associated Mirror Destination Group.
+    */
+    CPString _mirrorDestinationGroupID @accessors(property=mirrorDestinationGroupID);
     /*!
         Destination ID of the mirror destination object.
     */
@@ -141,6 +181,10 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Indicates whether the Location Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: ENTERPRISENETWORK, NETWORKMACROGROUP, PGEXPRESSION, PGEXPRESSIONTEMPLATE, POLICYGROUP, POLICYGROUPTEMPLATE, PUBLICNETWORK, REDIRECTIONTARGET, REDIRECTIONTARGETTEMPLATE, SUBNET, SUBNETTEMPLATE, ZONE, ZONETEMPLATE.
+    */
+    CPString _locationEntityType @accessors(property=locationEntityType);
     /*!
         The ID of the source endpoint (Subnet/Zone/PortGroup/PolicyGroupExpression/NetworkMacro/Internet Policy Group/Enterprise Network)
     */
@@ -221,6 +265,10 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        Virtual Firewall Rule Type
+    */
+    CPString _type @accessors(property=type);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -249,6 +297,7 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"ICMPType"];
         [self exposeLocalKeyPathToREST:@"IPv6AddressOverride"];
         [self exposeLocalKeyPathToREST:@"DSCP"];
+        [self exposeLocalKeyPathToREST:@"failsafeDatapath"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
@@ -256,13 +305,16 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
+        [self exposeLocalKeyPathToREST:@"networkEntityType"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
+        [self exposeLocalKeyPathToREST:@"mirrorDestinationGroupID"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"locationEntityType"];
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"locationType"];
         [self exposeLocalKeyPathToREST:@"policyState"];
@@ -283,6 +335,7 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"etherType"];
         [self exposeLocalKeyPathToREST:@"overlayMirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

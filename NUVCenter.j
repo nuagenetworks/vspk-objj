@@ -205,7 +205,7 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
     */
     BOOL _metadataServiceEnabled @accessors(property=metadataServiceEnabled);
     /*!
-        Network Upling Interface to support PAT/NAT with no tunnels on VRS-VM
+        Network Uplink Interface to support PAT/NAT with no tunnels on VRS-VM
     */
     CPString _networkUplinkInterface @accessors(property=networkUplinkInterface);
     /*!

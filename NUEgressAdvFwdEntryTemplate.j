@@ -51,11 +51,29 @@ NUEgressAdvFwdEntryTemplateFCOverride_H = @"H";
 NUEgressAdvFwdEntryTemplateFCOverride_NONE = @"NONE";
 NUEgressAdvFwdEntryTemplateFailsafeDatapath_FAIL_TO_BLOCK = @"FAIL_TO_BLOCK";
 NUEgressAdvFwdEntryTemplateFailsafeDatapath_FAIL_TO_WIRE = @"FAIL_TO_WIRE";
+NUEgressAdvFwdEntryTemplateLocationEntityType_PGEXPRESSION = @"PGEXPRESSION";
+NUEgressAdvFwdEntryTemplateLocationEntityType_PGEXPRESSIONTEMPLATE = @"PGEXPRESSIONTEMPLATE";
+NUEgressAdvFwdEntryTemplateLocationEntityType_POLICYGROUP = @"POLICYGROUP";
+NUEgressAdvFwdEntryTemplateLocationEntityType_POLICYGROUPTEMPLATE = @"POLICYGROUPTEMPLATE";
+NUEgressAdvFwdEntryTemplateLocationEntityType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
+NUEgressAdvFwdEntryTemplateLocationEntityType_REDIRECTIONTARGETTEMPLATE = @"REDIRECTIONTARGETTEMPLATE";
+NUEgressAdvFwdEntryTemplateLocationEntityType_SUBNET = @"SUBNET";
+NUEgressAdvFwdEntryTemplateLocationEntityType_SUBNETTEMPLATE = @"SUBNETTEMPLATE";
+NUEgressAdvFwdEntryTemplateLocationEntityType_ZONE = @"ZONE";
+NUEgressAdvFwdEntryTemplateLocationEntityType_ZONETEMPLATE = @"ZONETEMPLATE";
 NUEgressAdvFwdEntryTemplateLocationType_ANY = @"ANY";
 NUEgressAdvFwdEntryTemplateLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUEgressAdvFwdEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
 NUEgressAdvFwdEntryTemplateLocationType_SUBNET = @"SUBNET";
 NUEgressAdvFwdEntryTemplateLocationType_ZONE = @"ZONE";
+NUEgressAdvFwdEntryTemplateNetworkEntityType_PGEXPRESSION = @"PGEXPRESSION";
+NUEgressAdvFwdEntryTemplateNetworkEntityType_PGEXPRESSIONTEMPLATE = @"PGEXPRESSIONTEMPLATE";
+NUEgressAdvFwdEntryTemplateNetworkEntityType_POLICYGROUP = @"POLICYGROUP";
+NUEgressAdvFwdEntryTemplateNetworkEntityType_POLICYGROUPTEMPLATE = @"POLICYGROUPTEMPLATE";
+NUEgressAdvFwdEntryTemplateNetworkEntityType_SUBNET = @"SUBNET";
+NUEgressAdvFwdEntryTemplateNetworkEntityType_SUBNETTEMPLATE = @"SUBNETTEMPLATE";
+NUEgressAdvFwdEntryTemplateNetworkEntityType_ZONE = @"ZONE";
+NUEgressAdvFwdEntryTemplateNetworkEntityType_ZONETEMPLATE = @"ZONETEMPLATE";
 NUEgressAdvFwdEntryTemplateNetworkType_ANY = @"ANY";
 NUEgressAdvFwdEntryTemplateNetworkType_ENDPOINT_DOMAIN = @"ENDPOINT_DOMAIN";
 NUEgressAdvFwdEntryTemplateNetworkType_ENDPOINT_SUBNET = @"ENDPOINT_SUBNET";
@@ -71,6 +89,8 @@ NUEgressAdvFwdEntryTemplateNetworkType_UNDERLAY_INTERNET_POLICYGROUP = @"UNDERLA
 NUEgressAdvFwdEntryTemplateNetworkType_ZONE = @"ZONE";
 NUEgressAdvFwdEntryTemplatePolicyState_DRAFT = @"DRAFT";
 NUEgressAdvFwdEntryTemplatePolicyState_LIVE = @"LIVE";
+NUEgressAdvFwdEntryTemplateRedirectionTargetEntityType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
+NUEgressAdvFwdEntryTemplateRedirectionTargetEntityType_REDIRECTIONTARGETTEMPLATE = @"REDIRECTIONTARGETTEMPLATE";
 NUEgressAdvFwdEntryTemplateUplinkPreference_DEFAULT = @"DEFAULT";
 NUEgressAdvFwdEntryTemplateUplinkPreference_PRIMARY = @"PRIMARY";
 NUEgressAdvFwdEntryTemplateUplinkPreference_PRIMARY_SECONDARY = @"PRIMARY_SECONDARY";
@@ -143,6 +163,10 @@ NUEgressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _redirectVPortTagID @accessors(property=redirectVPortTagID);
     /*!
+        Indicates whether the Redirection Target of ACL Entry was derived from a L3 Domain template or instance. Possible Values: REDIRECTIONTARGET, REDIRECTIONTARGETTEMPLATE.
+    */
+    CPString _redirectionTargetEntityType @accessors(property=redirectionTargetEntityType);
+    /*!
         Description of the ACL entry
     */
     CPString _description @accessors(property=description);
@@ -150,6 +174,10 @@ NUEgressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         The destination port to be matched if protocol is UDP or TCP. Value should be either * or single port number or a port range
     */
     CPString _destinationPort @accessors(property=destinationPort);
+    /*!
+        Indicates whether the Network Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: SUBNETTEMPLATE, ZONETEMPLATE, POLICYGROUPTEMPLATE, PGEXPRESSIONTEMPLATE, SUBNET, ZONE, POLICYGROUP, PGEXPRESSION.
+    */
+    CPString _networkEntityType @accessors(property=networkEntityType);
     /*!
         The source network entity id that is referenced(subnet/zone/macro/PolicyGroupExpression)
     */
@@ -182,6 +210,10 @@ NUEgressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Indicates whether the Location Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: SUBNETTEMPLATE, ZONETEMPLATE, POLICYGROUPTEMPLATE, PGEXPRESSIONTEMPLATE, REDIRECTIONTARGETTEMPLATE, SUBNET, ZONE, POLICYGROUP, PGEXPRESSION, REDIRECTIONTARGET.
+    */
+    CPString _locationEntityType @accessors(property=locationEntityType);
     /*!
         The ID of the destination location entity (Subnet/Zone/VportTag/PolicyGroupExpression)
     */
@@ -230,6 +262,10 @@ NUEgressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         The associated Traffic Type ID
     */
     CPString _associatedTrafficTypeID @accessors(property=associatedTrafficTypeID);
+    /*!
+        The ID of the Virtual Firewall Rule, if this was derived as part of the Virtual Firewall Rule creation
+    */
+    CPString _associatedVirtualFirewallRuleID @accessors(property=associatedVirtualFirewallRuleID);
     /*!
         The statsID that is created in the VSD and identifies this ACL Template Entry. This is auto-generated by VSD
     */
@@ -283,8 +319,10 @@ NUEgressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"webFilterStatsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"redirectVPortTagID"];
+        [self exposeLocalKeyPathToREST:@"redirectionTargetEntityType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
+        [self exposeLocalKeyPathToREST:@"networkEntityType"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationGroupID"];
@@ -293,6 +331,7 @@ NUEgressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"locationEntityType"];
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"locationType"];
         [self exposeLocalKeyPathToREST:@"policyState"];
@@ -305,6 +344,7 @@ NUEgressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"associatedLiveTemplateID"];
         [self exposeLocalKeyPathToREST:@"associatedTrafficType"];
         [self exposeLocalKeyPathToREST:@"associatedTrafficTypeID"];
+        [self exposeLocalKeyPathToREST:@"associatedVirtualFirewallRuleID"];
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"etherType"];

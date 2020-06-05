@@ -40,12 +40,37 @@ NUFirewallRuleAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
 NUFirewallRuleAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
 NUFirewallRuleEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUFirewallRuleEntityScope_GLOBAL = @"GLOBAL";
+NUFirewallRuleLocationEntityType_ENTERPRISENETWORK = @"ENTERPRISENETWORK";
+NUFirewallRuleLocationEntityType_NETWORKMACROGROUP = @"NETWORKMACROGROUP";
+NUFirewallRuleLocationEntityType_PGEXPRESSION = @"PGEXPRESSION";
+NUFirewallRuleLocationEntityType_PGEXPRESSIONTEMPLATE = @"PGEXPRESSIONTEMPLATE";
+NUFirewallRuleLocationEntityType_POLICYGROUP = @"POLICYGROUP";
+NUFirewallRuleLocationEntityType_POLICYGROUPTEMPLATE = @"POLICYGROUPTEMPLATE";
+NUFirewallRuleLocationEntityType_PUBLICNETWORK = @"PUBLICNETWORK";
+NUFirewallRuleLocationEntityType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
+NUFirewallRuleLocationEntityType_REDIRECTIONTARGETTEMPLATE = @"REDIRECTIONTARGETTEMPLATE";
+NUFirewallRuleLocationEntityType_SUBNET = @"SUBNET";
+NUFirewallRuleLocationEntityType_SUBNETTEMPLATE = @"SUBNETTEMPLATE";
+NUFirewallRuleLocationEntityType_ZONE = @"ZONE";
+NUFirewallRuleLocationEntityType_ZONETEMPLATE = @"ZONETEMPLATE";
 NUFirewallRuleLocationType_ANY = @"ANY";
 NUFirewallRuleLocationType_POLICYGROUP = @"POLICYGROUP";
 NUFirewallRuleLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUFirewallRuleLocationType_SUBNET = @"SUBNET";
 NUFirewallRuleLocationType_VPORTTAG = @"VPORTTAG";
 NUFirewallRuleLocationType_ZONE = @"ZONE";
+NUFirewallRuleNetworkEntityType_ENTERPRISENETWORK = @"ENTERPRISENETWORK";
+NUFirewallRuleNetworkEntityType_NETWORKMACROGROUP = @"NETWORKMACROGROUP";
+NUFirewallRuleNetworkEntityType_PGEXPRESSION = @"PGEXPRESSION";
+NUFirewallRuleNetworkEntityType_PGEXPRESSIONTEMPLATE = @"PGEXPRESSIONTEMPLATE";
+NUFirewallRuleNetworkEntityType_POLICYGROUP = @"POLICYGROUP";
+NUFirewallRuleNetworkEntityType_POLICYGROUPTEMPLATE = @"POLICYGROUPTEMPLATE";
+NUFirewallRuleNetworkEntityType_PUBLICNETWORK = @"PUBLICNETWORK";
+NUFirewallRuleNetworkEntityType_SAASAPPLICATIONGROUP = @"SAASAPPLICATIONGROUP";
+NUFirewallRuleNetworkEntityType_SUBNET = @"SUBNET";
+NUFirewallRuleNetworkEntityType_SUBNETTEMPLATE = @"SUBNETTEMPLATE";
+NUFirewallRuleNetworkEntityType_ZONE = @"ZONE";
+NUFirewallRuleNetworkEntityType_ZONETEMPLATE = @"ZONETEMPLATE";
 NUFirewallRuleNetworkType_ANY = @"ANY";
 NUFirewallRuleNetworkType_ENDPOINT_DOMAIN = @"ENDPOINT_DOMAIN";
 NUFirewallRuleNetworkType_ENDPOINT_SUBNET = @"ENDPOINT_SUBNET";
@@ -120,6 +145,10 @@ NUFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
+        Indicates whether the Network Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: ENTERPRISENETWORK, NETWORKMACROGROUP, PGEXPRESSION, PGEXPRESSIONTEMPLATE, POLICYGROUP, POLICYGROUPTEMPLATE, PUBLICNETWORK, SAASAPPLICATIONGROUP, SUBNET, SUBNETTEMPLATE, ZONE, ZONETEMPLATE.
+    */
+    CPString _networkEntityType @accessors(property=networkEntityType);
+    /*!
         The destination network entity that is referenced(subnet/zone/macro)
     */
     CPString _networkID @accessors(property=networkID);
@@ -127,6 +156,10 @@ NUFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Type of the source network -  VM_SUBNET or VM_ZONE or VM_DOMAIN or SUBNET or ZONE or ENTERPRISE_NETWORK or PUBLIC_NETWORK or ANY
     */
     CPString _networkType @accessors(property=networkType);
+    /*!
+        ID of the associated Mirror Destination Group.
+    */
+    CPString _mirrorDestinationGroupID @accessors(property=mirrorDestinationGroupID);
     /*!
         This is the ID of the mirrorDestrination entity associated with this entity
     */
@@ -147,6 +180,10 @@ NUFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Indicates whether the Location Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: ENTERPRISENETWORK, NETWORKMACROGROUP, PGEXPRESSION, PGEXPRESSIONTEMPLATE, POLICYGROUP, POLICYGROUPTEMPLATE, PUBLICNETWORK, REDIRECTIONTARGET, REDIRECTIONTARGETTEMPLATE, SUBNET, SUBNETTEMPLATE, ZONE, ZONETEMPLATE.
+    */
+    CPString _locationEntityType @accessors(property=locationEntityType);
     /*!
         The ID of the location entity (Subnet/Zone/VportTag)
     */
@@ -243,13 +280,16 @@ NUFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
+        [self exposeLocalKeyPathToREST:@"networkEntityType"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
+        [self exposeLocalKeyPathToREST:@"mirrorDestinationGroupID"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"locationEntityType"];
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"locationType"];
         [self exposeLocalKeyPathToREST:@"domainName"];

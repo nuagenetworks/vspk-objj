@@ -67,6 +67,10 @@ NUTestSuiteRunOperationStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _destination @accessors(property=destination);
     /*!
+        Flag to mark this test as the Birth Certificate (i.e. it was run during activation)
+    */
+    BOOL _birthCertificate @accessors(property=birthCertificate);
+    /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
@@ -98,6 +102,10 @@ NUTestSuiteRunOperationStatus_UNKNOWN = @"UNKNOWN";
         The name of the Test Suite instance from which this Test Suite Run was created.
     */
     CPString _associatedTestSuiteName @accessors(property=associatedTestSuiteName);
+    /*!
+        The associated underlay test (if applicable)
+    */
+    CPString _associatedUnderlayTestID @accessors(property=associatedUnderlayTestID);
     /*!
         The name of the Subnet within which the source vPort being tested resides.
     */
@@ -135,6 +143,7 @@ NUTestSuiteRunOperationStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
         [self exposeLocalKeyPathToREST:@"destination"];
+        [self exposeLocalKeyPathToREST:@"birthCertificate"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainName"];
@@ -143,6 +152,7 @@ NUTestSuiteRunOperationStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedTestSuiteID"];
         [self exposeLocalKeyPathToREST:@"associatedTestSuiteName"];
+        [self exposeLocalKeyPathToREST:@"associatedUnderlayTestID"];
         [self exposeLocalKeyPathToREST:@"subnetName"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

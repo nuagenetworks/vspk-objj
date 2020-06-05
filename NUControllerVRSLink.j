@@ -82,6 +82,10 @@ NUControllerVRSLinkVSCCurrentState_SECONDARY = @"SECONDARY";
     */
     CPString _VRSPersonality @accessors(property=VRSPersonality);
     /*!
+        System ID of associated VRS
+    */
+    CPString _VRSSystemId @accessors(property=VRSSystemId);
+    /*!
         Indicates the configured state of the VSC.
     */
     CPString _VSCConfigState @accessors(property=VSCConfigState);
@@ -173,6 +177,7 @@ NUControllerVRSLinkVSCCurrentState_SECONDARY = @"SECONDARY";
     {
         [self exposeLocalKeyPathToREST:@"VRSID"];
         [self exposeLocalKeyPathToREST:@"VRSPersonality"];
+        [self exposeLocalKeyPathToREST:@"VRSSystemId"];
         [self exposeLocalKeyPathToREST:@"VSCConfigState"];
         [self exposeLocalKeyPathToREST:@"VSCCurrentState"];
         [self exposeLocalKeyPathToREST:@"JSONRPCConnectionState"];

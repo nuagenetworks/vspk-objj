@@ -77,6 +77,7 @@ NUVPortAssociatedGatewayPersonality_NSGDUC = @"NSGDUC";
 NUVPortAssociatedGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NUVPortAssociatedGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NUVPortAssociatedGatewayPersonality_OTHER = @"OTHER";
+NUVPortAssociatedGatewayPersonality_UNMANAGED_GATEWAY = @"UNMANAGED_GATEWAY";
 NUVPortAssociatedGatewayPersonality_VDF = @"VDF";
 NUVPortAssociatedGatewayPersonality_VDFG = @"VDFG";
 NUVPortAssociatedGatewayPersonality_VRSB = @"VRSB";
@@ -297,6 +298,10 @@ NUVPortType_VM = @"VM";
     */
     CPString _multicast @accessors(property=multicast);
     /*!
+        Indicates if vport was auto created by the system
+    */
+    BOOL _autoCreated @accessors(property=autoCreated);
+    /*!
         Indicates that this vport is eligible to be given in gateway vport config request. It becomes eligible when it has properly attached host or bridge interfaces.
     */
     BOOL _gwEligible @accessors(property=gwEligible);
@@ -408,6 +413,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"subnetVNID"];
         [self exposeLocalKeyPathToREST:@"multiNICVPortID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
+        [self exposeLocalKeyPathToREST:@"autoCreated"];
         [self exposeLocalKeyPathToREST:@"gwEligible"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];

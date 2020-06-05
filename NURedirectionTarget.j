@@ -100,6 +100,10 @@ NURedirectionTargetTriggerType_NONE = @"NONE";
     */
     CPString _triggerType @accessors(property=triggerType);
     /*!
+        Indicates if redirection target was auto created by the system
+    */
+    BOOL _autoCreated @accessors(property=autoCreated);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -141,6 +145,7 @@ NURedirectionTargetTriggerType_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"endPointType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"triggerType"];
+        [self exposeLocalKeyPathToREST:@"autoCreated"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

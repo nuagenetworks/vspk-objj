@@ -71,10 +71,6 @@ NUHSCType_VSG = @"VSG";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The IP of the VRS entity
-    */
-    CPString _address @accessors(property=address);
-    /*!
         The Control IPv4 or IPv6 addresses of the HSC. Example: [10.10.18.10, 2001:10:10:18::10].
     */
     CPArrayController _addresses @accessors(property=addresses);
@@ -122,6 +118,10 @@ NUHSCType_VSG = @"VSG";
         The model of the hardware service controller
     */
     CPString _model @accessors(property=model);
+    /*!
+        Communication identifier used to uniquely identify the HSC connected to VSD
+    */
+    CPString _communicationId @accessors(property=communicationId);
     /*!
         Product version supported by this entity.
     */
@@ -191,7 +191,6 @@ NUHSCType_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"managementIP"];
         [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"addresses"];
         [self exposeLocalKeyPathToREST:@"peakCPUUsage"];
         [self exposeLocalKeyPathToREST:@"peakMemoryUsage"];
@@ -204,6 +203,7 @@ NUHSCType_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"location"];
         [self exposeLocalKeyPathToREST:@"model"];
+        [self exposeLocalKeyPathToREST:@"communicationId"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"vsds"];
         [self exposeLocalKeyPathToREST:@"status"];

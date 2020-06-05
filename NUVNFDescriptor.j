@@ -36,6 +36,7 @@
 NUVNFDescriptorEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUVNFDescriptorEntityScope_GLOBAL = @"GLOBAL";
 NUVNFDescriptorType_FIREWALL = @"FIREWALL";
+NUVNFDescriptorType_THREAT_PREVENTION = @"THREAT_PREVENTION";
 NUVNFDescriptorType_WAN_OPT = @"WAN_OPT";
 
 

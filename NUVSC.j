@@ -68,10 +68,6 @@ NUVSCStatus_UP = @"UP";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The IP of the VRS entity
-    */
-    CPString _address @accessors(property=address);
-    /*!
         The Control IPv4 or IPv6 addresses of the VSC. Example: [10.10.18.10, 2001:10:10:18::10].
     */
     CPArrayController _addresses @accessors(property=addresses);
@@ -115,6 +111,10 @@ NUVSCStatus_UP = @"UP";
         Identifies the entity to be associated with a location.
     */
     CPString _location @accessors(property=location);
+    /*!
+        Communication identifier used to uniquely identify the VSC connected to VSD
+    */
+    CPString _communicationId @accessors(property=communicationId);
     /*!
         Product version supported by this entity.
     */
@@ -181,7 +181,6 @@ NUVSCStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"managementIP"];
         [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
-        [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"addresses"];
         [self exposeLocalKeyPathToREST:@"peakCPUUsage"];
         [self exposeLocalKeyPathToREST:@"peakMemoryUsage"];
@@ -193,6 +192,7 @@ NUVSCStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"unavailableTimestamp"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"location"];
+        [self exposeLocalKeyPathToREST:@"communicationId"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"vsds"];
         [self exposeLocalKeyPathToREST:@"status"];

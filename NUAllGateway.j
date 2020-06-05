@@ -71,6 +71,7 @@ NUAllGatewayPersonality_NSGDUC = @"NSGDUC";
 NUAllGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NUAllGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NUAllGatewayPersonality_OTHER = @"OTHER";
+NUAllGatewayPersonality_UNMANAGED_GATEWAY = @"UNMANAGED_GATEWAY";
 NUAllGatewayPersonality_VDFG = @"VDFG";
 NUAllGatewayPersonality_VRSB = @"VRSB";
 NUAllGatewayPersonality_VRSG = @"VRSG";

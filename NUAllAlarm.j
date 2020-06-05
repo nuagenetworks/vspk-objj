@@ -106,6 +106,10 @@ NUAllAlarmSeverity_WARNING = @"WARNING";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        System ID of the Gateway.
+    */
+    CPString _systemID @accessors(property=systemID);
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -144,6 +148,7 @@ NUAllAlarmSeverity_WARNING = @"WARNING";
         [self exposeLocalKeyPathToREST:@"errorCondition"];
         [self exposeLocalKeyPathToREST:@"numberOfOccurances"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"systemID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

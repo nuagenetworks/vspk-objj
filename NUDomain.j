@@ -71,6 +71,7 @@
 @import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUHostInterfacesFetcher.j"
 @import "Fetchers/NURoutingPoliciesFetcher.j"
+@import "Fetchers/NURoutingPolicyBindingsFetcher.j"
 @import "Fetchers/NUSPATSourcesPoolsFetcher.j"
 @import "Fetchers/NUUplinkRDsFetcher.j"
 @import "Fetchers/NUVPNConnectionsFetcher.j"
@@ -124,6 +125,9 @@ NUDomainPermittedAction_USE = @"USE";
 NUDomainPolicyChangeStatus_APPLIED = @"APPLIED";
 NUDomainPolicyChangeStatus_DISCARDED = @"DISCARDED";
 NUDomainPolicyChangeStatus_STARTED = @"STARTED";
+NUDomainThreatIntelligenceEnabled_DISABLED = @"DISABLED";
+NUDomainThreatIntelligenceEnabled_ENABLED = @"ENABLED";
+NUDomainThreatIntelligenceEnabled_INHERITED = @"INHERITED";
 NUDomainTunnelType_DC_DEFAULT = @"DC_DEFAULT";
 NUDomainTunnelType_GRE = @"GRE";
 NUDomainTunnelType_MPLSOUDP = @"MPLSoUDP";
@@ -264,6 +268,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPArrayController _dhcpServerAddresses @accessors(property=dhcpServerAddresses);
     /*!
+        Determines whether or not threat intelligence is enabled
+    */
+    CPString _threatIntelligenceEnabled @accessors(property=threatIntelligenceEnabled);
+    /*!
         Indicates if this domain is a globally routable domain or not - boolean true/false
     */
     BOOL _globalRoutingEnabled @accessors(property=globalRoutingEnabled);
@@ -339,6 +347,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         None
     */
     CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
+    /*!
+        The associated IDP Profile ID
+    */
+    CPString _associatedIDPProfileID @accessors(property=associatedIDPProfileID);
     /*!
         The ID of the Multi Cast Channel Map  this domain is associated with. This has to be set when  enableMultiCast is set to ENABLED
     */
@@ -426,6 +438,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
     NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
+    NURoutingPolicyBindingsFetcher _childrenRoutingPolicyBindings @accessors(property=childrenRoutingPolicyBindings);
     NUSPATSourcesPoolsFetcher _childrenSPATSourcesPools @accessors(property=childrenSPATSourcesPools);
     NUUplinkRDsFetcher _childrenUplinkRDs @accessors(property=childrenUplinkRDs);
     NUVPNConnectionsFetcher _childrenVPNConnections @accessors(property=childrenVPNConnections);
@@ -492,6 +505,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"aggregateFlowsEnabled"];
         [self exposeLocalKeyPathToREST:@"aggregationFlowType"];
         [self exposeLocalKeyPathToREST:@"dhcpServerAddresses"];
+        [self exposeLocalKeyPathToREST:@"threatIntelligenceEnabled"];
         [self exposeLocalKeyPathToREST:@"globalRoutingEnabled"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
@@ -511,6 +525,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
         [self exposeLocalKeyPathToREST:@"createBackHaulSubnet"];
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
+        [self exposeLocalKeyPathToREST:@"associatedIDPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
         [self exposeLocalKeyPathToREST:@"associatedSharedPATMapperID"];
@@ -565,6 +580,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
         _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
+        _childrenRoutingPolicyBindings = [NURoutingPolicyBindingsFetcher fetcherWithParentObject:self];
         _childrenSPATSourcesPools = [NUSPATSourcesPoolsFetcher fetcherWithParentObject:self];
         _childrenUplinkRDs = [NUUplinkRDsFetcher fetcherWithParentObject:self];
         _childrenVPNConnections = [NUVPNConnectionsFetcher fetcherWithParentObject:self];

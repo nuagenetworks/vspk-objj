@@ -117,6 +117,14 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
+        Enables underlay tests during gateway activation. Underlay tests will cause the bootstrapping operation to be about two minutes longer.
+    */
+    BOOL _enableUnderlayTestsDuringActivation @accessors(property=enableUnderlayTestsDuringActivation);
+    /*!
+        Underlay Test Server (FQDN or IP Address). Required when the Underlay test at bootstrap feature is enabled or to allow On-Demand tests to be run.
+    */
+    CPString _underlayTestServer @accessors(property=underlayTestServer);
+    /*!
         Enterprise/Organisation associated with this Profile instance.
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
@@ -165,6 +173,18 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPNumber _statsCollectorPort @accessors(property=statsCollectorPort);
     /*!
+        Run the underlay bandwidth test during activation. Will only have an effect if the Underlay tests at bootstrap are enabled.
+    */
+    BOOL _runUnderlayBandwidthTest @accessors(property=runUnderlayBandwidthTest);
+    /*!
+        Run the underlay connectivity test during activation. Will only have an effect if the Underlay tests at bootstrap are enabled.
+    */
+    BOOL _runUnderlayConnectivityTest @accessors(property=runUnderlayConnectivityTest);
+    /*!
+        Run the underlay MTU discovery test during activation. Will only have an effect if the Underlay tests at bootstrap are enabled.
+    */
+    BOOL _runUnderlayMTUDiscoveryTest @accessors(property=runUnderlayMTUDiscoveryTest);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -211,6 +231,8 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"metadataUpgradePath"];
         [self exposeLocalKeyPathToREST:@"flowEvictionThreshold"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
+        [self exposeLocalKeyPathToREST:@"enableUnderlayTestsDuringActivation"];
+        [self exposeLocalKeyPathToREST:@"underlayTestServer"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"controllerLessDuration"];
@@ -223,6 +245,9 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"proxyDNSName"];
         [self exposeLocalKeyPathToREST:@"useTwoFactor"];
         [self exposeLocalKeyPathToREST:@"statsCollectorPort"];
+        [self exposeLocalKeyPathToREST:@"runUnderlayBandwidthTest"];
+        [self exposeLocalKeyPathToREST:@"runUnderlayConnectivityTest"];
+        [self exposeLocalKeyPathToREST:@"runUnderlayMTUDiscoveryTest"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemSyncScheduler"];
         

@@ -116,6 +116,22 @@ NUPortStatus_READY = @"READY";
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
     /*!
+        ID of the Ethernet Segment Group to which this Port instance may be associated to.
+    */
+    CPString _associatedEthernetSegmentGroupID @accessors(property=associatedEthernetSegmentGroupID);
+    /*!
+        Identifier of the Ethernet Segment to which this Port is associated to.
+    */
+    CPString _associatedEthernetSegmentID @accessors(property=associatedEthernetSegmentID);
+    /*!
+        VLAN Range of the associated Ethernet Segment. Format must conform to a-b,c,d-f where a,b,c,d,f are integers between 0 and 4095.
+    */
+    CPString _associatedEthernetSegmentVLANRange @accessors(property=associatedEthernetSegmentVLANRange);
+    /*!
+        Indicates if associated Ethernet Segment is virtual.
+    */
+    BOOL _associatedEthernetSegmentVirtual @accessors(property=associatedEthernetSegmentVirtual);
+    /*!
         ID of the redundant port to which this Port instance may be associated to.
     */
     CPString _associatedRedundantPortID @accessors(property=associatedRedundantPortID);
@@ -169,6 +185,10 @@ NUPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
+        [self exposeLocalKeyPathToREST:@"associatedEthernetSegmentGroupID"];
+        [self exposeLocalKeyPathToREST:@"associatedEthernetSegmentID"];
+        [self exposeLocalKeyPathToREST:@"associatedEthernetSegmentVLANRange"];
+        [self exposeLocalKeyPathToREST:@"associatedEthernetSegmentVirtual"];
         [self exposeLocalKeyPathToREST:@"associatedRedundantPortID"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"externalID"];

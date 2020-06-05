@@ -54,7 +54,7 @@ NURateLimiterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _peakBurstSize @accessors(property=peakBurstSize);
     /*!
-        Peak Information Rate :  Peak bandwidth allowed in Mb/s; only whole values supported.
+        Peak Information Rate :  Peak bandwidth allowed in Mb/s.
     */
     CPString _peakInformationRate @accessors(property=peakInformationRate);
     /*!
@@ -70,7 +70,7 @@ NURateLimiterEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Committed Information Rate :  Committed bandwidth that is allowed in Mb/s; only whole values supported.
+        Committed Information Rate :  Committed bandwidth that is allowed in Mb/s.
     */
     CPString _committedInformationRate @accessors(property=committedInformationRate);
     /*!

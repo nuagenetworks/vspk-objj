@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetconfManagersFetcher.j"
+@import "Fetchers/NUThreatPreventionServerConnectionsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUHSCsFetcher.j"
 @import "Fetchers/NUVSCsFetcher.j"
@@ -80,6 +81,7 @@ NUVSPEntityScope_GLOBAL = @"GLOBAL";
     
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetconfManagersFetcher _childrenNetconfManagers @accessors(property=childrenNetconfManagers);
+    NUThreatPreventionServerConnectionsFetcher _childrenThreatPreventionServerConnections @accessors(property=childrenThreatPreventionServerConnections);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUHSCsFetcher _childrenHSCs @accessors(property=childrenHSCs);
     NUVSCsFetcher _childrenVSCs @accessors(property=childrenVSCs);
@@ -115,6 +117,7 @@ NUVSPEntityScope_GLOBAL = @"GLOBAL";
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetconfManagers = [NUNetconfManagersFetcher fetcherWithParentObject:self];
+        _childrenThreatPreventionServerConnections = [NUThreatPreventionServerConnectionsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenHSCs = [NUHSCsFetcher fetcherWithParentObject:self];
         _childrenVSCs = [NUVSCsFetcher fetcherWithParentObject:self];

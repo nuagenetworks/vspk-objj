@@ -39,12 +39,37 @@ NUDomainFIPAclTemplateEntryAssociatedTrafficType_L4_SERVICE = @"L4_SERVICE";
 NUDomainFIPAclTemplateEntryAssociatedTrafficType_L4_SERVICE_GROUP = @"L4_SERVICE_GROUP";
 NUDomainFIPAclTemplateEntryEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUDomainFIPAclTemplateEntryEntityScope_GLOBAL = @"GLOBAL";
+NUDomainFIPAclTemplateEntryLocationEntityType_ENTERPRISENETWORK = @"ENTERPRISENETWORK";
+NUDomainFIPAclTemplateEntryLocationEntityType_NETWORKMACROGROUP = @"NETWORKMACROGROUP";
+NUDomainFIPAclTemplateEntryLocationEntityType_PGEXPRESSION = @"PGEXPRESSION";
+NUDomainFIPAclTemplateEntryLocationEntityType_PGEXPRESSIONTEMPLATE = @"PGEXPRESSIONTEMPLATE";
+NUDomainFIPAclTemplateEntryLocationEntityType_POLICYGROUP = @"POLICYGROUP";
+NUDomainFIPAclTemplateEntryLocationEntityType_POLICYGROUPTEMPLATE = @"POLICYGROUPTEMPLATE";
+NUDomainFIPAclTemplateEntryLocationEntityType_PUBLICNETWORK = @"PUBLICNETWORK";
+NUDomainFIPAclTemplateEntryLocationEntityType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
+NUDomainFIPAclTemplateEntryLocationEntityType_REDIRECTIONTARGETTEMPLATE = @"REDIRECTIONTARGETTEMPLATE";
+NUDomainFIPAclTemplateEntryLocationEntityType_SUBNET = @"SUBNET";
+NUDomainFIPAclTemplateEntryLocationEntityType_SUBNETTEMPLATE = @"SUBNETTEMPLATE";
+NUDomainFIPAclTemplateEntryLocationEntityType_ZONE = @"ZONE";
+NUDomainFIPAclTemplateEntryLocationEntityType_ZONETEMPLATE = @"ZONETEMPLATE";
 NUDomainFIPAclTemplateEntryLocationType_ANY = @"ANY";
 NUDomainFIPAclTemplateEntryLocationType_POLICYGROUP = @"POLICYGROUP";
 NUDomainFIPAclTemplateEntryLocationType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUDomainFIPAclTemplateEntryLocationType_SUBNET = @"SUBNET";
 NUDomainFIPAclTemplateEntryLocationType_VPORTTAG = @"VPORTTAG";
 NUDomainFIPAclTemplateEntryLocationType_ZONE = @"ZONE";
+NUDomainFIPAclTemplateEntryNetworkEntityType_ENTERPRISENETWORK = @"ENTERPRISENETWORK";
+NUDomainFIPAclTemplateEntryNetworkEntityType_NETWORKMACROGROUP = @"NETWORKMACROGROUP";
+NUDomainFIPAclTemplateEntryNetworkEntityType_PGEXPRESSION = @"PGEXPRESSION";
+NUDomainFIPAclTemplateEntryNetworkEntityType_PGEXPRESSIONTEMPLATE = @"PGEXPRESSIONTEMPLATE";
+NUDomainFIPAclTemplateEntryNetworkEntityType_POLICYGROUP = @"POLICYGROUP";
+NUDomainFIPAclTemplateEntryNetworkEntityType_POLICYGROUPTEMPLATE = @"POLICYGROUPTEMPLATE";
+NUDomainFIPAclTemplateEntryNetworkEntityType_PUBLICNETWORK = @"PUBLICNETWORK";
+NUDomainFIPAclTemplateEntryNetworkEntityType_SAASAPPLICATIONGROUP = @"SAASAPPLICATIONGROUP";
+NUDomainFIPAclTemplateEntryNetworkEntityType_SUBNET = @"SUBNET";
+NUDomainFIPAclTemplateEntryNetworkEntityType_SUBNETTEMPLATE = @"SUBNETTEMPLATE";
+NUDomainFIPAclTemplateEntryNetworkEntityType_ZONE = @"ZONE";
+NUDomainFIPAclTemplateEntryNetworkEntityType_ZONETEMPLATE = @"ZONETEMPLATE";
 NUDomainFIPAclTemplateEntryNetworkType_ANY = @"ANY";
 NUDomainFIPAclTemplateEntryNetworkType_ENDPOINT_DOMAIN = @"ENDPOINT_DOMAIN";
 NUDomainFIPAclTemplateEntryNetworkType_ENDPOINT_SUBNET = @"ENDPOINT_SUBNET";
@@ -120,6 +145,10 @@ NUDomainFIPAclTemplateEntryWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
+        Indicates whether the Network Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: ENTERPRISENETWORK, NETWORKMACROGROUP, PGEXPRESSION, PGEXPRESSIONTEMPLATE, POLICYGROUP, POLICYGROUPTEMPLATE, PUBLICNETWORK, SAASAPPLICATIONGROUP, SUBNET, SUBNETTEMPLATE, ZONE, ZONETEMPLATE.
+    */
+    CPString _networkEntityType @accessors(property=networkEntityType);
+    /*!
         The destination network entity that is referenced(subnet/zone/macro)
     */
     CPString _networkID @accessors(property=networkID);
@@ -147,6 +176,10 @@ NUDomainFIPAclTemplateEntryWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Indicates whether the Location Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: ENTERPRISENETWORK, NETWORKMACROGROUP, PGEXPRESSION, PGEXPRESSIONTEMPLATE, POLICYGROUP, POLICYGROUPTEMPLATE, PUBLICNETWORK, REDIRECTIONTARGET, REDIRECTIONTARGETTEMPLATE, SUBNET, SUBNETTEMPLATE, ZONE, ZONETEMPLATE.
+    */
+    CPString _locationEntityType @accessors(property=locationEntityType);
     /*!
         The ID of the location entity (Subnet/Zone/VportTag)
     */
@@ -247,6 +280,7 @@ NUDomainFIPAclTemplateEntryWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
+        [self exposeLocalKeyPathToREST:@"networkEntityType"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
@@ -254,6 +288,7 @@ NUDomainFIPAclTemplateEntryWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"locationEntityType"];
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"locationType"];
         [self exposeLocalKeyPathToREST:@"policyState"];

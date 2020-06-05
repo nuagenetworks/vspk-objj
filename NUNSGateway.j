@@ -34,9 +34,11 @@
 @import "Fetchers/NUPATNATPoolsFetcher.j"
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUThreatPreventionInfosFetcher.j"
 @import "Fetchers/NUWirelessPortsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUUnderlayTestsFetcher.j"
 @import "Fetchers/NUVNFsFetcher.j"
 @import "Fetchers/NUInfrastructureConfigsFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
@@ -189,6 +191,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _TPMVersion @accessors(property=TPMVersion);
     /*!
+        Current CPU allocation for network accelerated gateways.  Displays total number of cores and those isolated.
+    */
+    CPString _CPUCoreAllocation @accessors(property=CPUCoreAllocation);
+    /*!
         The NSG Processor Type as reported during bootstrapping.
     */
     CPString _CPUType @accessors(property=CPUType);
@@ -269,6 +275,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _personality @accessors(property=personality);
     /*!
+        The number of days for which the NSG's certificate is valid.
+    */
+    CPNumber _certValidityDays @accessors(property=certValidityDays);
+    /*!
         A description of the Gateway
     */
     CPString _description @accessors(property=description);
@@ -276,6 +286,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         Attribute that enables or disables Network Acceleration (DPDK) on the NSGateway instance.  Changing the value of this field will cause the device to restart at the next configuration reload.
     */
     CPString _networkAcceleration @accessors(property=networkAcceleration);
+    /*!
+        Indicates if Threat Prevention capability enabled on NSG.
+    */
+    BOOL _threatPreventionEnabled @accessors(property=threatPreventionEnabled);
     /*!
         Transient representation of the same property on NSGInfo.
     */
@@ -361,6 +375,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _associatedOverlayManagementProfileID @accessors(property=associatedOverlayManagementProfileID);
     /*!
+        The size and number of huge pages for an NSG that is running in network accelerated mode.  Hugepage values states the portion of memory reserved for network accelerated services.
+    */
+    CPString _hugePageSetting @accessors(property=hugePageSetting);
+    /*!
         List of supported functions. This is only relevant for NSG-UBR and will be set to UBR by default in case an NSG-UBR is created. For a regular NSG, this will be set to null.
     */
     CPArrayController _functions @accessors(property=functions);
@@ -390,9 +408,11 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     NUPATNATPoolsFetcher _childrenPATNATPools @accessors(property=childrenPATNATPools);
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUThreatPreventionInfosFetcher _childrenThreatPreventionInfos @accessors(property=childrenThreatPreventionInfos);
     NUWirelessPortsFetcher _childrenWirelessPorts @accessors(property=childrenWirelessPorts);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUUnderlayTestsFetcher _childrenUnderlayTests @accessors(property=childrenUnderlayTests);
     NUVNFsFetcher _childrenVNFs @accessors(property=childrenVNFs);
     NUInfrastructureConfigsFetcher _childrenInfrastructureConfigs @accessors(property=childrenInfrastructureConfigs);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
@@ -442,6 +462,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"SKU"];
         [self exposeLocalKeyPathToREST:@"TPMStatus"];
         [self exposeLocalKeyPathToREST:@"TPMVersion"];
+        [self exposeLocalKeyPathToREST:@"CPUCoreAllocation"];
         [self exposeLocalKeyPathToREST:@"CPUType"];
         [self exposeLocalKeyPathToREST:@"VSDAARApplicationVersion"];
         [self exposeLocalKeyPathToREST:@"NSGVersion"];
@@ -462,8 +483,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"derivedSSHServiceState"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
+        [self exposeLocalKeyPathToREST:@"certValidityDays"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"networkAcceleration"];
+        [self exposeLocalKeyPathToREST:@"threatPreventionEnabled"];
         [self exposeLocalKeyPathToREST:@"libraries"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"inheritedSSHServiceState"];
@@ -485,6 +508,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"associatedNSGInfoID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGUpgradeProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedOverlayManagementProfileID"];
+        [self exposeLocalKeyPathToREST:@"hugePageSetting"];
         [self exposeLocalKeyPathToREST:@"functions"];
         [self exposeLocalKeyPathToREST:@"tunnelShaping"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
@@ -497,9 +521,11 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         _childrenPATNATPools = [NUPATNATPoolsFetcher fetcherWithParentObject:self];
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenThreatPreventionInfos = [NUThreatPreventionInfosFetcher fetcherWithParentObject:self];
         _childrenWirelessPorts = [NUWirelessPortsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenUnderlayTests = [NUUnderlayTestsFetcher fetcherWithParentObject:self];
         _childrenVNFs = [NUVNFsFetcher fetcherWithParentObject:self];
         _childrenInfrastructureConfigs = [NUInfrastructureConfigsFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];

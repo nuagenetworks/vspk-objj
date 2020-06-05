@@ -49,6 +49,10 @@ NUOSPFInterfaceInterfaceType_POINT_TO_POINT = @"POINT_TO_POINT";
 @implementation NUOSPFInterface : NURESTObject
 {
     /*!
+        Enable or disable Bidirectional Forwarding Detection for this OSPF Interface.
+    */
+    BOOL _BFDEnabled @accessors(property=BFDEnabled);
+    /*!
         Name of the OSPF Interface. The name has to be unique within the OSPFArea.
     */
     CPString _name @accessors(property=name);
@@ -143,6 +147,7 @@ NUOSPFInterfaceInterfaceType_POINT_TO_POINT = @"POINT_TO_POINT";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"BFDEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"passiveEnabled"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];

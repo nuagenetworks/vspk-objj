@@ -41,6 +41,9 @@ NUNSGatewaySummaryBootstrapStatus_QUARANTINED = @"QUARANTINED";
 NUNSGatewaySummaryBootstrapStatus_REVOKED = @"REVOKED";
 NUNSGatewaySummaryEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNSGatewaySummaryEntityScope_GLOBAL = @"GLOBAL";
+NUNSGatewaySummaryPersonality_NSG = @"NSG";
+NUNSGatewaySummaryPersonality_NSGBR = @"NSGBR";
+NUNSGatewaySummaryPersonality_NSGDUC = @"NSGDUC";
 
 
 /*!
@@ -84,6 +87,18 @@ NUNSGatewaySummaryEntityScope_GLOBAL = @"GLOBAL";
         The ID of the Redundant Group which has this gateway
     */
     CPString _redundantGroupID @accessors(property=redundantGroupID);
+    /*!
+        The Name of the Redundant Group which has this gateway
+    */
+    CPString _redundantGroupName @accessors(property=redundantGroupName);
+    /*!
+        Personality of the corresponding Network Services Gateway
+    */
+    CPString _personality @accessors(property=personality);
+    /*!
+        A description of the NSG
+    */
+    CPString _description @accessors(property=description);
     /*!
         Time zone in which the Gateway is located.  This can be in the form of a UTC/GMT offset, continent/city location, or country/region.  The available time zones can be found in /usr/share/zoneinfo on a Linux machine or retrieved with TimeZone.getAvailableIDs() in Java.  Refer to the IANA (Internet Assigned Numbers Authority) for a list of time zones.  URL :  http://www.iana.org/time-zones  Default value is UTC (translating to Etc/Zulu)
     */
@@ -172,6 +187,9 @@ NUNSGatewaySummaryEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"latitude"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"redundantGroupID"];
+        [self exposeLocalKeyPathToREST:@"redundantGroupName"];
+        [self exposeLocalKeyPathToREST:@"personality"];
+        [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"timezoneID"];
         [self exposeLocalKeyPathToREST:@"minorAlarmsCount"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];

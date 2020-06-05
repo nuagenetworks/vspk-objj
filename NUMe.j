@@ -91,6 +91,7 @@
 @import "Fetchers/NUEnterprisesFetcher.j"
 @import "Fetchers/NUEnterpriseProfilesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
+@import "Fetchers/NURolesFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
 @import "Fetchers/NUPolicyObjectGroupsFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
@@ -109,6 +110,7 @@
 @import "Fetchers/NUVCenterVRSConfigsFetcher.j"
 @import "Fetchers/NUvrsInfosFetcher.j"
 @import "Fetchers/NUDSCPRemarkingPolicyTablesFetcher.j"
+@import "Fetchers/NUVSDConfigsFetcher.j"
 @import "Fetchers/NUUsersFetcher.j"
 @import "Fetchers/NUUserContextsFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
@@ -121,6 +123,7 @@
 @import "Fetchers/NUVSPsFetcher.j"
 @import "Fetchers/NUStaticRoutesFetcher.j"
 @import "Fetchers/NUStatsCollectorInfosFetcher.j"
+@import "Fetchers/NUEthernetSegmentGWGroupsFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
 @import "Fetchers/NUDUCGroupsFetcher.j"
 @import "Fetchers/NUMultiCastChannelMapsFetcher.j"
@@ -279,6 +282,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUEnterprisesFetcher _childrenEnterprises @accessors(property=childrenEnterprises);
     NUEnterpriseProfilesFetcher _childrenEnterpriseProfiles @accessors(property=childrenEnterpriseProfiles);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
+    NURolesFetcher _childrenRoles @accessors(property=childrenRoles);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
     NUPolicyObjectGroupsFetcher _childrenPolicyObjectGroups @accessors(property=childrenPolicyObjectGroups);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
@@ -297,6 +301,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUVCenterVRSConfigsFetcher _childrenVCenterVRSConfigs @accessors(property=childrenVCenterVRSConfigs);
     NUvrsInfosFetcher _childrenvrsInfos @accessors(property=childrenvrsInfos);
     NUDSCPRemarkingPolicyTablesFetcher _childrenDSCPRemarkingPolicyTables @accessors(property=childrenDSCPRemarkingPolicyTables);
+    NUVSDConfigsFetcher _childrenVSDConfigs @accessors(property=childrenVSDConfigs);
     NUUsersFetcher _childrenUsers @accessors(property=childrenUsers);
     NUUserContextsFetcher _childrenUserContexts @accessors(property=childrenUserContexts);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
@@ -309,6 +314,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUVSPsFetcher _childrenVSPs @accessors(property=childrenVSPs);
     NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
     NUStatsCollectorInfosFetcher _childrenStatsCollectorInfos @accessors(property=childrenStatsCollectorInfos);
+    NUEthernetSegmentGWGroupsFetcher _childrenEthernetSegmentGWGroups @accessors(property=childrenEthernetSegmentGWGroups);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
     NUDUCGroupsFetcher _childrenDUCGroups @accessors(property=childrenDUCGroups);
     NUMultiCastChannelMapsFetcher _childrenMultiCastChannelMaps @accessors(property=childrenMultiCastChannelMaps);
@@ -420,6 +426,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenEnterprises = [NUEnterprisesFetcher fetcherWithParentObject:self];
         _childrenEnterpriseProfiles = [NUEnterpriseProfilesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
+        _childrenRoles = [NURolesFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
         _childrenPolicyObjectGroups = [NUPolicyObjectGroupsFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];
@@ -438,6 +445,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenVCenterVRSConfigs = [NUVCenterVRSConfigsFetcher fetcherWithParentObject:self];
         _childrenvrsInfos = [NUvrsInfosFetcher fetcherWithParentObject:self];
         _childrenDSCPRemarkingPolicyTables = [NUDSCPRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
+        _childrenVSDConfigs = [NUVSDConfigsFetcher fetcherWithParentObject:self];
         _childrenUsers = [NUUsersFetcher fetcherWithParentObject:self];
         _childrenUserContexts = [NUUserContextsFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
@@ -450,6 +458,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenVSPs = [NUVSPsFetcher fetcherWithParentObject:self];
         _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
         _childrenStatsCollectorInfos = [NUStatsCollectorInfosFetcher fetcherWithParentObject:self];
+        _childrenEthernetSegmentGWGroups = [NUEthernetSegmentGWGroupsFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
         _childrenDUCGroups = [NUDUCGroupsFetcher fetcherWithParentObject:self];
         _childrenMultiCastChannelMaps = [NUMultiCastChannelMapsFetcher fetcherWithParentObject:self];
