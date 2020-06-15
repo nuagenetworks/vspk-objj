@@ -122,6 +122,10 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _networkType @accessors(property=networkType);
     /*!
+        ID of the associated Mirror Destination Group.
+    */
+    CPString _mirrorDestinationGroupID @accessors(property=mirrorDestinationGroupID);
+    /*!
         Destination ID of the mirror destination object.
     */
     CPString _mirrorDestinationID @accessors(property=mirrorDestinationID);
@@ -258,6 +262,7 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"destinationPort"];
         [self exposeLocalKeyPathToREST:@"networkID"];
         [self exposeLocalKeyPathToREST:@"networkType"];
+        [self exposeLocalKeyPathToREST:@"mirrorDestinationGroupID"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"flowLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
