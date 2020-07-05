@@ -46,13 +46,13 @@ NURoleentryRoleAccessTypeList_READ_CHILDREN = @"READ_CHILDREN";
 @implementation NURoleentry : NURESTObject
 {
     /*!
+        Managed Object Type or end point
+    */
+    CPString _endPointType @accessors(property=endPointType);
+    /*!
         List of Access like READ, READ_CHILDREN, CREATE, MODIFY, DELETE, CUD_CHILDREN, NO_ACCESS, NO_ACCESS_CHILDREN
     */
     CPArrayController _roleAccessTypeList @accessors(property=roleAccessTypeList);
-    /*!
-        Managed Object Type or end point
-    */
-    CPString _associatedEntityType @accessors(property=associatedEntityType);
     
     
 }
@@ -74,8 +74,8 @@ NURoleentryRoleAccessTypeList_READ_CHILDREN = @"READ_CHILDREN";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"endPointType"];
         [self exposeLocalKeyPathToREST:@"roleAccessTypeList"];
-        [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         
         
         
