@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUIKEGatewayConfigsFetcher.j"
 @import "Fetchers/NUIKESubnetsFetcher.j"
@@ -114,6 +115,7 @@ NUIKEGatewayIKEv1Mode_NONE = @"NONE";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUIKEGatewayConfigsFetcher _childrenIKEGatewayConfigs @accessors(property=childrenIKEGatewayConfigs);
     NUIKESubnetsFetcher _childrenIKESubnets @accessors(property=childrenIKESubnets);
@@ -152,6 +154,7 @@ NUIKEGatewayIKEv1Mode_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenIKEGatewayConfigs = [NUIKEGatewayConfigsFetcher fetcherWithParentObject:self];
         _childrenIKESubnets = [NUIKESubnetsFetcher fetcherWithParentObject:self];

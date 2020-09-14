@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUVCenterClustersFetcher.j"
 @import "Fetchers/NUVCenterHypervisorsFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUVRSAddressRangesFetcher.j"
@@ -488,6 +489,7 @@ NUVCenterDataCenterRemoteSyslogServerType_UDP = @"UDP";
     
     NUVCenterClustersFetcher _childrenVCenterClusters @accessors(property=childrenVCenterClusters);
     NUVCenterHypervisorsFetcher _childrenVCenterHypervisors @accessors(property=childrenVCenterHypervisors);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUVRSAddressRangesFetcher _childrenVRSAddressRanges @accessors(property=childrenVRSAddressRanges);
@@ -622,6 +624,7 @@ NUVCenterDataCenterRemoteSyslogServerType_UDP = @"UDP";
         
         _childrenVCenterClusters = [NUVCenterClustersFetcher fetcherWithParentObject:self];
         _childrenVCenterHypervisors = [NUVCenterHypervisorsFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenVRSAddressRanges = [NUVRSAddressRangesFetcher fetcherWithParentObject:self];

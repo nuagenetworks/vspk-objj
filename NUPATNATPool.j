@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUNATMapEntriesFetcher.j"
 @import "Fetchers/NUAddressMapsFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUEnterprisePermissionsFetcher.j"
@@ -139,6 +140,7 @@ NUPATNATPoolPermittedAction_USE = @"USE";
     
     NUNATMapEntriesFetcher _childrenNATMapEntries @accessors(property=childrenNATMapEntries);
     NUAddressMapsFetcher _childrenAddressMaps @accessors(property=childrenAddressMaps);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUEnterprisePermissionsFetcher _childrenEnterprisePermissions @accessors(property=childrenEnterprisePermissions);
@@ -187,6 +189,7 @@ NUPATNATPoolPermittedAction_USE = @"USE";
         
         _childrenNATMapEntries = [NUNATMapEntriesFetcher fetcherWithParentObject:self];
         _childrenAddressMaps = [NUAddressMapsFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenEnterprisePermissions = [NUEnterprisePermissionsFetcher fetcherWithParentObject:self];

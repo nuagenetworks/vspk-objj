@@ -30,6 +30,7 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUWebDomainNamesFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
@@ -81,6 +82,7 @@ NUWebCategoryType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     CPString _type @accessors(property=type);
     
     NUWebDomainNamesFetcher _childrenWebDomainNames @accessors(property=childrenWebDomainNames);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
@@ -114,6 +116,7 @@ NUWebCategoryType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenWebDomainNames = [NUWebDomainNamesFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         

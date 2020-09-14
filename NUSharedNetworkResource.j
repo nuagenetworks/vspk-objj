@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUPATIPEntriesFetcher.j"
 @import "Fetchers/NUAddressRangesFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
@@ -194,6 +195,7 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     
     NUPATIPEntriesFetcher _childrenPATIPEntries @accessors(property=childrenPATIPEntries);
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -256,6 +258,7 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
         
         _childrenPATIPEntries = [NUPATIPEntriesFetcher fetcherWithParentObject:self];
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

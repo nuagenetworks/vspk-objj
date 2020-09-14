@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUDomainFIPAclTemplateEntriesFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
@@ -108,6 +109,7 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUDomainFIPAclTemplateEntriesFetcher _childrenDomainFIPAclTemplateEntries @accessors(property=childrenDomainFIPAclTemplateEntries);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -147,6 +149,7 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
         [self exposeLocalKeyPathToREST:@"autoGeneratePriority"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenDomainFIPAclTemplateEntries = [NUDomainFIPAclTemplateEntriesFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

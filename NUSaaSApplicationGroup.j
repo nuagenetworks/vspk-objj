@@ -30,6 +30,7 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUSaaSApplicationTypesFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
@@ -68,6 +69,7 @@ NUSaaSApplicationGroupEntityScope_GLOBAL = @"GLOBAL";
     CPString _externalID @accessors(property=externalID);
     
     NUSaaSApplicationTypesFetcher _childrenSaaSApplicationTypes @accessors(property=childrenSaaSApplicationTypes);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
@@ -98,6 +100,7 @@ NUSaaSApplicationGroupEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenSaaSApplicationTypes = [NUSaaSApplicationTypesFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         

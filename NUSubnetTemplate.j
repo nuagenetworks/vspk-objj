@@ -30,6 +30,7 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUAddressRangesFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUQOSsFetcher.j"
@@ -150,6 +151,7 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     CPString _externalID @accessors(property=externalID);
     
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
@@ -199,6 +201,7 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];

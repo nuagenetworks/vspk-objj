@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUVMResyncsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
@@ -206,6 +207,7 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPString _hypervisorIP @accessors(property=hypervisorIP);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUVMResyncsFetcher _childrenVMResyncs @accessors(property=childrenVMResyncs);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
@@ -261,6 +263,7 @@ NUVMStatus_UNREACHABLE = @"UNREACHABLE";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"hypervisorIP"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenVMResyncs = [NUVMResyncsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];

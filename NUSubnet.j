@@ -34,6 +34,7 @@
 @import "Fetchers/NUAddressRangesFetcher.j"
 @import "Fetchers/NUDefaultGatewaysFetcher.j"
 @import "Fetchers/NUDeploymentFailuresFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUVMResyncsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUBGPNeighborsFetcher.j"
@@ -308,6 +309,7 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     NUAddressRangesFetcher _childrenAddressRanges @accessors(property=childrenAddressRanges);
     NUDefaultGatewaysFetcher _childrenDefaultGateways @accessors(property=childrenDefaultGateways);
     NUDeploymentFailuresFetcher _childrenDeploymentFailures @accessors(property=childrenDeploymentFailures);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUVMResyncsFetcher _childrenVMResyncs @accessors(property=childrenVMResyncs);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUBGPNeighborsFetcher _childrenBGPNeighbors @accessors(property=childrenBGPNeighbors);
@@ -406,6 +408,7 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];
         _childrenDefaultGateways = [NUDefaultGatewaysFetcher fetcherWithParentObject:self];
         _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenVMResyncs = [NUVMResyncsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenBGPNeighbors = [NUBGPNeighborsFetcher fetcherWithParentObject:self];

@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUTestsFetcher.j"
 @import "Fetchers/NUTestSuiteRunsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
@@ -76,6 +77,7 @@ NUTestSuiteEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUTestsFetcher _childrenTests @accessors(property=childrenTests);
     NUTestSuiteRunsFetcher _childrenTestSuiteRuns @accessors(property=childrenTestSuiteRuns);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
@@ -109,6 +111,7 @@ NUTestSuiteEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenTests = [NUTestsFetcher fetcherWithParentObject:self];
         _childrenTestSuiteRuns = [NUTestSuiteRunsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUOSPFAreasFetcher.j"
@@ -100,6 +101,7 @@ NUOSPFInstanceIPType_IPV4 = @"IPV4";
     */
     CPNumber _externalPreference @accessors(property=externalPreference);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUOSPFAreasFetcher _childrenOSPFAreas @accessors(property=childrenOSPFAreas);
@@ -138,6 +140,7 @@ NUOSPFInstanceIPType_IPV4 = @"IPV4";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"externalPreference"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenOSPFAreas = [NUOSPFAreasFetcher fetcherWithParentObject:self];

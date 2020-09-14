@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUOSPFInterfacesFetcher.j"
@@ -109,6 +110,7 @@ NUOSPFAreaEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUOSPFInterfacesFetcher _childrenOSPFInterfaces @accessors(property=childrenOSPFInterfaces);
@@ -148,6 +150,7 @@ NUOSPFAreaEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"suppressAreaRangeNSSA"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenOSPFInterfaces = [NUOSPFInterfacesFetcher fetcherWithParentObject:self];

@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUBGPPeersFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
@@ -159,6 +160,7 @@ NUHSCType_VSG = @"VSG";
     */
     CPString _type @accessors(property=type);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUBGPPeersFetcher _childrenBGPPeers @accessors(property=childrenBGPPeers);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
@@ -214,6 +216,7 @@ NUHSCType_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenBGPPeers = [NUBGPPeersFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];

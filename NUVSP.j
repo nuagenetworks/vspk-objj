@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetconfManagersFetcher.j"
 @import "Fetchers/NUThreatPreventionServerConnectionsFetcher.j"
@@ -79,6 +80,7 @@ NUVSPEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetconfManagersFetcher _childrenNetconfManagers @accessors(property=childrenNetconfManagers);
     NUThreatPreventionServerConnectionsFetcher _childrenThreatPreventionServerConnections @accessors(property=childrenThreatPreventionServerConnections);
@@ -115,6 +117,7 @@ NUVSPEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetconfManagers = [NUNetconfManagersFetcher fetcherWithParentObject:self];
         _childrenThreatPreventionServerConnections = [NUThreatPreventionServerConnectionsFetcher fetcherWithParentObject:self];

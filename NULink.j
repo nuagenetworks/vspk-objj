@@ -30,6 +30,7 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUDemarcationServicesFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNextHopsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
@@ -109,6 +110,7 @@ NULinkType_SERVICE_CHAINING = @"SERVICE_CHAINING";
     CPString _type @accessors(property=type);
     
     NUDemarcationServicesFetcher _childrenDemarcationServices @accessors(property=childrenDemarcationServices);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNextHopsFetcher _childrenNextHops @accessors(property=childrenNextHops);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
@@ -151,6 +153,7 @@ NULinkType_SERVICE_CHAINING = @"SERVICE_CHAINING";
         [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenDemarcationServices = [NUDemarcationServicesFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNextHops = [NUNextHopsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];

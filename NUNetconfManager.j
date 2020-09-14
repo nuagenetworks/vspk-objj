@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUNetconfSessionsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
@@ -80,6 +81,7 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
     */
     CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUNetconfSessionsFetcher _childrenNetconfSessions @accessors(property=childrenNetconfSessions);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
@@ -113,6 +115,7 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenNetconfSessions = [NUNetconfSessionsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];

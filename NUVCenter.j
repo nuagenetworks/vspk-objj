@@ -30,6 +30,7 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUVCenterDataCentersFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
@@ -522,6 +523,7 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
     CPString _externalID @accessors(property=externalID);
     
     NUVCenterDataCentersFetcher _childrenVCenterDataCenters @accessors(property=childrenVCenterDataCenters);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
@@ -664,6 +666,7 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenVCenterDataCenters = [NUVCenterDataCentersFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];

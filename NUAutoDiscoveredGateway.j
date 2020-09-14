@@ -29,6 +29,7 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUWANServicesFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUWirelessPortsFetcher.j"
@@ -103,6 +104,7 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
     */
     CPString _systemID @accessors(property=systemID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUWANServicesFetcher _childrenWANServices @accessors(property=childrenWANServices);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUWirelessPortsFetcher _childrenWirelessPorts @accessors(property=childrenWirelessPorts);
@@ -143,6 +145,7 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenWANServices = [NUWANServicesFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenWirelessPorts = [NUWirelessPortsFetcher fetcherWithParentObject:self];

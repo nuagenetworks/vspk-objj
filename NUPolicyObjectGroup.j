@@ -30,6 +30,7 @@
 @import <Bambou/NURESTObject.j>
 
 @import "Fetchers/NUGatewaysFetcher.j"
+@import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUNSGatewaysFetcher.j"
@@ -75,6 +76,7 @@ NUPolicyObjectGroupType_NSGATEWAY = @"NSGateway";
     CPString _type @accessors(property=type);
     
     NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUNSGatewaysFetcher _childrenNSGateways @accessors(property=childrenNSGateways);
@@ -107,6 +109,7 @@ NUPolicyObjectGroupType_NSGATEWAY = @"NSGateway";
         [self exposeLocalKeyPathToREST:@"type"];
         
         _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenNSGateways = [NUNSGatewaysFetcher fetcherWithParentObject:self];
