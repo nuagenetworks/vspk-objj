@@ -53,6 +53,10 @@ NUCaptivePortalProfilePortalType_CLICK_THROUGH = @"CLICK_THROUGH";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Description for the captive portal profile.
     */
     CPString _description @accessors(property=description);
@@ -64,6 +68,14 @@ NUCaptivePortalProfilePortalType_CLICK_THROUGH = @"CLICK_THROUGH";
         Type of the portal page.  Will decide if the NSG rendering the page will have a strict rendering of the welcoming page based on what is given by VSD, or if the information can be made customisable by an operator to include animations, videos, images, and other types of more complex scripts.
     */
     CPString _portalType @accessors(property=portalType);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -92,9 +104,12 @@ NUCaptivePortalProfilePortalType_CLICK_THROUGH = @"CLICK_THROUGH";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"captivePage"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portalType"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

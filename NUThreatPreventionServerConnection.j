@@ -32,7 +32,9 @@
 
 NUThreatPreventionServerConnectionStatus_AUTHENTICATION_FAILED = @"AUTHENTICATION_FAILED";
 NUThreatPreventionServerConnectionStatus_CONNECTED = @"CONNECTED";
+NUThreatPreventionServerConnectionStatus_DEGRADED = @"DEGRADED";
 NUThreatPreventionServerConnectionStatus_DISCONNECTED = @"DISCONNECTED";
+NUThreatPreventionServerConnectionStatus_UNREACHABLE = @"UNREACHABLE";
 
 
 /*!
@@ -45,9 +47,9 @@ NUThreatPreventionServerConnectionStatus_DISCONNECTED = @"DISCONNECTED";
     */
     CPString _FQDN @accessors(property=FQDN);
     /*!
-        VSD instanace Name
+        Array of the embedded resource Threat Prevention Node Info for each Threat Prevention node.
     */
-    CPString _VSDName @accessors(property=VSDName);
+    CPArrayController _nodeInfo @accessors(property=nodeInfo);
     /*!
         VSD instance connection status with Threat Prevention Server
     */
@@ -74,7 +76,7 @@ NUThreatPreventionServerConnectionStatus_DISCONNECTED = @"DISCONNECTED";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"FQDN"];
-        [self exposeLocalKeyPathToREST:@"VSDName"];
+        [self exposeLocalKeyPathToREST:@"nodeInfo"];
         [self exposeLocalKeyPathToREST:@"status"];
         
         

@@ -64,6 +64,10 @@ NUTestRunUnderlayTestCategory_MTU_DISCOVERY = @"MTU_DISCOVERY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The result of the test
     */
     CPString _testResult @accessors(property=testResult);
@@ -120,6 +124,10 @@ NUTestRunUnderlayTestCategory_MTU_DISCOVERY = @"MTU_DISCOVERY";
     */
     CPString _operationStatus @accessors(property=operationStatus);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The ID of the Test instance to which this Test Run is bound.
     */
     CPString _associatedTestID @accessors(property=associatedTestID);
@@ -139,6 +147,10 @@ NUTestRunUnderlayTestCategory_MTU_DISCOVERY = @"MTU_DISCOVERY";
         The duration of execution of the Test in milliseconds.
     */
     CPNumber _duration @accessors(property=duration);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -168,6 +180,7 @@ NUTestRunUnderlayTestCategory_MTU_DISCOVERY = @"MTU_DISCOVERY";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"testResult"];
         [self exposeLocalKeyPathToREST:@"testResultData"];
         [self exposeLocalKeyPathToREST:@"testResultDataType"];
@@ -182,11 +195,13 @@ NUTestRunUnderlayTestCategory_MTU_DISCOVERY = @"MTU_DISCOVERY";
         [self exposeLocalKeyPathToREST:@"commandOutput"];
         [self exposeLocalKeyPathToREST:@"commandOutputSummary"];
         [self exposeLocalKeyPathToREST:@"operationStatus"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedTestID"];
         [self exposeLocalKeyPathToREST:@"associatedTestSuiteRunID"];
         [self exposeLocalKeyPathToREST:@"startDateTime"];
         [self exposeLocalKeyPathToREST:@"stopDateTime"];
         [self exposeLocalKeyPathToREST:@"duration"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

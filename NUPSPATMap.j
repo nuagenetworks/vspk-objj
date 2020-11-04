@@ -58,6 +58,10 @@ NUPSPATMapFamily_IPV6 = @"IPV6";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Reserved provider SPAT IPs to be used to SPAT a collection of provider private IPs in customer domain.
     */
     CPArrayController _reservedSPATIPs @accessors(property=reservedSPATIPs);
@@ -70,9 +74,17 @@ NUPSPATMapFamily_IPV6 = @"IPV6";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The ID of the associated SPAT sources defined in the provider domain.
     */
     CPString _associatedSPATSourcesPoolID @accessors(property=associatedSPATSourcesPoolID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -104,10 +116,13 @@ NUPSPATMapFamily_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"family"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"reservedSPATIPs"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedSPATSourcesPoolID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

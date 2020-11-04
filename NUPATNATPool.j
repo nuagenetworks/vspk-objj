@@ -74,6 +74,10 @@ NUPATNATPoolPermittedAction_USE = @"USE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Default PAT IP Address, must belong to the pool above
     */
     CPString _addressRange @accessors(property=addressRange);
@@ -106,6 +110,10 @@ NUPATNATPoolPermittedAction_USE = @"USE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         UUID of the NSG instance this Pool is assocated with. This attribute may be auto-populated when the pool is assigned to a Network VLAN instance.
     */
     CPString _associatedGatewayId @accessors(property=associatedGatewayId);
@@ -129,6 +137,10 @@ NUPATNATPoolPermittedAction_USE = @"USE";
         Starting Source IP Address for the pool. (Dynamic Source NAT)
     */
     CPString _startSourceAddress @accessors(property=startSourceAddress);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -170,6 +182,7 @@ NUPATNATPoolPermittedAction_USE = @"USE";
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"addressRange"];
         [self exposeLocalKeyPathToREST:@"defaultPATIP"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
@@ -178,12 +191,14 @@ NUPATNATPoolPermittedAction_USE = @"USE";
         [self exposeLocalKeyPathToREST:@"endAddressRange"];
         [self exposeLocalKeyPathToREST:@"endSourceAddress"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayId"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayType"];
         [self exposeLocalKeyPathToREST:@"associatedSubnetId"];
         [self exposeLocalKeyPathToREST:@"associatedVlanId"];
         [self exposeLocalKeyPathToREST:@"startAddressRange"];
         [self exposeLocalKeyPathToREST:@"startSourceAddress"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicSourceEnabled"];
         

@@ -104,6 +104,10 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The IP address of the gateway of this l2 domain
     */
     CPString _gateway @accessors(property=gateway);
@@ -148,6 +152,10 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Enable this flag to use system configured globalMACAddress as the gateway mac address for managed l2 domains
     */
     CPString _useGlobalMAC @accessors(property=useGlobalMAC);
@@ -163,6 +171,10 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         Indicates multicast policy on L2Domain template.
     */
     CPString _multicast @accessors(property=multicast);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -213,6 +225,7 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -224,10 +237,12 @@ NUL2DomainTemplateUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"dualStackDynamicIPAllocation"];
         [self exposeLocalKeyPathToREST:@"multicast"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];

@@ -78,6 +78,10 @@ NURedundantPortStatus_READY = @"READY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The permitted action to USE/EXTEND this Redundant Port.
     */
     CPString _permittedAction @accessors(property=permittedAction);
@@ -118,6 +122,10 @@ NURedundantPortStatus_READY = @"READY";
     */
     CPString _speed @accessors(property=speed);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         A flag to indicate if for this redundant port an untagged heartbeat VLAN is to be used. If this is not set then will use the heartbeat VLAN set by the NS redundant group
     */
     BOOL _useUntaggedHeartbeatVlan @accessors(property=useUntaggedHeartbeatVlan);
@@ -137,6 +145,10 @@ NURedundantPortStatus_READY = @"READY";
         Status of the redundant port.
     */
     CPString _status @accessors(property=status);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -172,6 +184,7 @@ NURedundantPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"MTU"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
@@ -182,11 +195,13 @@ NURedundantPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"portPeer2ID"];
         [self exposeLocalKeyPathToREST:@"portType"];
         [self exposeLocalKeyPathToREST:@"speed"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"useUntaggedHeartbeatVlan"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

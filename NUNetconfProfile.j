@@ -55,6 +55,10 @@ NUNetconfProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         A detailed description of the Netconf Profile entity.
     */
     CPString _description @accessors(property=description);
@@ -71,6 +75,10 @@ NUNetconfProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _port @accessors(property=port);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The user name used to establish Netconf sessions with the gateway instances using this Netconf Profile.
     */
     CPString _userName @accessors(property=userName);
@@ -78,6 +86,10 @@ NUNetconfProfileEntityScope_GLOBAL = @"GLOBAL";
         Type of the entity to which the Profile belongs to.
     */
     CPString _assocEntityType @accessors(property=assocEntityType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -109,12 +121,15 @@ NUNetconfProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"port"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

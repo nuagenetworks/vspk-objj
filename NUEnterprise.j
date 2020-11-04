@@ -36,6 +36,8 @@
 @import "Fetchers/NUL7applicationsignaturesFetcher.j"
 @import "Fetchers/NUSaaSApplicationGroupsFetcher.j"
 @import "Fetchers/NUSaaSApplicationTypesFetcher.j"
+@import "Fetchers/NUSAPEgressQoSProfilesFetcher.j"
+@import "Fetchers/NUSAPIngressQoSProfilesFetcher.j"
 @import "Fetchers/NUCaptivePortalProfilesFetcher.j"
 @import "Fetchers/NURateLimitersFetcher.j"
 @import "Fetchers/NUGatewaysFetcher.j"
@@ -59,6 +61,7 @@
 @import "Fetchers/NUKeyServerMonitorsFetcher.j"
 @import "Fetchers/NUZFBRequestsFetcher.j"
 @import "Fetchers/NUBGPProfilesFetcher.j"
+@import "Fetchers/NUEgressProfilesFetcher.j"
 @import "Fetchers/NUEgressQOSPoliciesFetcher.j"
 @import "Fetchers/NUSharedNetworkResourcesFetcher.j"
 @import "Fetchers/NUFirewallAclsFetcher.j"
@@ -75,7 +78,9 @@
 @import "Fetchers/NUVNFsFetcher.j"
 @import "Fetchers/NUVNFMetadatasFetcher.j"
 @import "Fetchers/NUVNFThresholdPoliciesFetcher.j"
+@import "Fetchers/NUIngressProfilesFetcher.j"
 @import "Fetchers/NUIngressQOSPoliciesFetcher.j"
+@import "Fetchers/NUGNMIProfilesFetcher.j"
 @import "Fetchers/NUEnterpriseNetworksFetcher.j"
 @import "Fetchers/NUEnterpriseSecuritiesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
@@ -88,8 +93,10 @@
 @import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUCOSRemarkingPolicyTablesFetcher.j"
 @import "Fetchers/NURoutingPoliciesFetcher.j"
+@import "Fetchers/NUIPFilterProfilesFetcher.j"
 @import "Fetchers/NUApplicationsFetcher.j"
 @import "Fetchers/NUApplicationperformancemanagementsFetcher.j"
+@import "Fetchers/NUIPv6FilterProfilesFetcher.j"
 @import "Fetchers/NUGroupsFetcher.j"
 @import "Fetchers/NUGroupKeyEncryptionProfilesFetcher.j"
 @import "Fetchers/NUTrunksFetcher.j"
@@ -127,6 +134,11 @@ NUEnterpriseAvatarType_COMPUTEDURL = @"COMPUTEDURL";
 NUEnterpriseAvatarType_URL = @"URL";
 NUEnterpriseEncryptionManagementMode_DISABLED = @"DISABLED";
 NUEnterpriseEncryptionManagementMode_MANAGED = @"MANAGED";
+NUEnterpriseEnterpriseType_AUDIT = @"AUDIT";
+NUEnterpriseEnterpriseType_CSP = @"CSP";
+NUEnterpriseEnterpriseType_NORMAL = @"NORMAL";
+NUEnterpriseEnterpriseType_SHARED = @"SHARED";
+NUEnterpriseEnterpriseType_SYSTEM = @"SYSTEM";
 NUEnterpriseEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUEnterpriseEntityScope_GLOBAL = @"GLOBAL";
 NUEnterpriseFlowCollectionEnabled_DISABLED = @"DISABLED";
@@ -168,6 +180,10 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
     /*!
         Read only flag to display if Web Filtering is enabled for this enterprise
     */
@@ -233,6 +249,10 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
     */
     CPNumber _floatingIPsUsed @accessors(property=floatingIPsUsed);
     /*!
+        The text for blocked page html which gets displayed to the end-users when they reach a website that is blocked by Web Filtering ACL. User can possibly include very basic html tags like <p>, <ul> etc. in order to fomat the text displayed to the end-users.
+    */
+    CPString _blockedPageText @accessors(property=blockedPageText);
+    /*!
         Determines whether or not flow collection is enabled.
     */
     CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
@@ -253,6 +273,10 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
     */
     CPString _enterpriseProfileID @accessors(property=enterpriseProfileID);
     /*!
+        Type of Enterprise. SHARED, AUDIT, NORMAL, CSP, SYSTEM
+    */
+    CPString _enterpriseType @accessors(property=enterpriseType);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -264,6 +288,10 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
         Represents the List of forwarding classes and their load balancing capability.
     */
     CPArrayController _forwardingClass @accessors(property=forwardingClass);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Determines whether Global Gateway MAC is enabled or not Enterprise level.
     */
@@ -293,6 +321,10 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
     */
     CPString _avatarType @accessors(property=avatarType);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -304,6 +336,8 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
     NUL7applicationsignaturesFetcher _childrenL7applicationsignatures @accessors(property=childrenL7applicationsignatures);
     NUSaaSApplicationGroupsFetcher _childrenSaaSApplicationGroups @accessors(property=childrenSaaSApplicationGroups);
     NUSaaSApplicationTypesFetcher _childrenSaaSApplicationTypes @accessors(property=childrenSaaSApplicationTypes);
+    NUSAPEgressQoSProfilesFetcher _childrenSAPEgressQoSProfiles @accessors(property=childrenSAPEgressQoSProfiles);
+    NUSAPIngressQoSProfilesFetcher _childrenSAPIngressQoSProfiles @accessors(property=childrenSAPIngressQoSProfiles);
     NUCaptivePortalProfilesFetcher _childrenCaptivePortalProfiles @accessors(property=childrenCaptivePortalProfiles);
     NURateLimitersFetcher _childrenRateLimiters @accessors(property=childrenRateLimiters);
     NUGatewaysFetcher _childrenGateways @accessors(property=childrenGateways);
@@ -327,6 +361,7 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
     NUKeyServerMonitorsFetcher _childrenKeyServerMonitors @accessors(property=childrenKeyServerMonitors);
     NUZFBRequestsFetcher _childrenZFBRequests @accessors(property=childrenZFBRequests);
     NUBGPProfilesFetcher _childrenBGPProfiles @accessors(property=childrenBGPProfiles);
+    NUEgressProfilesFetcher _childrenEgressProfiles @accessors(property=childrenEgressProfiles);
     NUEgressQOSPoliciesFetcher _childrenEgressQOSPolicies @accessors(property=childrenEgressQOSPolicies);
     NUSharedNetworkResourcesFetcher _childrenSharedNetworkResources @accessors(property=childrenSharedNetworkResources);
     NUFirewallAclsFetcher _childrenFirewallAcls @accessors(property=childrenFirewallAcls);
@@ -343,7 +378,9 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
     NUVNFsFetcher _childrenVNFs @accessors(property=childrenVNFs);
     NUVNFMetadatasFetcher _childrenVNFMetadatas @accessors(property=childrenVNFMetadatas);
     NUVNFThresholdPoliciesFetcher _childrenVNFThresholdPolicies @accessors(property=childrenVNFThresholdPolicies);
+    NUIngressProfilesFetcher _childrenIngressProfiles @accessors(property=childrenIngressProfiles);
     NUIngressQOSPoliciesFetcher _childrenIngressQOSPolicies @accessors(property=childrenIngressQOSPolicies);
+    NUGNMIProfilesFetcher _childrenGNMIProfiles @accessors(property=childrenGNMIProfiles);
     NUEnterpriseNetworksFetcher _childrenEnterpriseNetworks @accessors(property=childrenEnterpriseNetworks);
     NUEnterpriseSecuritiesFetcher _childrenEnterpriseSecurities @accessors(property=childrenEnterpriseSecurities);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
@@ -356,8 +393,10 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUCOSRemarkingPolicyTablesFetcher _childrenCOSRemarkingPolicyTables @accessors(property=childrenCOSRemarkingPolicyTables);
     NURoutingPoliciesFetcher _childrenRoutingPolicies @accessors(property=childrenRoutingPolicies);
+    NUIPFilterProfilesFetcher _childrenIPFilterProfiles @accessors(property=childrenIPFilterProfiles);
     NUApplicationsFetcher _childrenApplications @accessors(property=childrenApplications);
     NUApplicationperformancemanagementsFetcher _childrenApplicationperformancemanagements @accessors(property=childrenApplicationperformancemanagements);
+    NUIPv6FilterProfilesFetcher _childrenIPv6FilterProfiles @accessors(property=childrenIPv6FilterProfiles);
     NUGroupsFetcher _childrenGroups @accessors(property=childrenGroups);
     NUGroupKeyEncryptionProfilesFetcher _childrenGroupKeyEncryptionProfiles @accessors(property=childrenGroupKeyEncryptionProfiles);
     NUTrunksFetcher _childrenTrunks @accessors(property=childrenTrunks);
@@ -404,6 +443,7 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"VNFManagementEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"webFilterEnabled"];
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"sendMultiCastListID"];
@@ -420,14 +460,17 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"allowedForwardingMode"];
         [self exposeLocalKeyPathToREST:@"floatingIPsQuota"];
         [self exposeLocalKeyPathToREST:@"floatingIPsUsed"];
+        [self exposeLocalKeyPathToREST:@"blockedPageText"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enableApplicationPerformanceManagement"];
         [self exposeLocalKeyPathToREST:@"encryptionManagementMode"];
         [self exposeLocalKeyPathToREST:@"enterpriseProfileID"];
+        [self exposeLocalKeyPathToREST:@"enterpriseType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"localAS"];
         [self exposeLocalKeyPathToREST:@"forwardingClass"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseSecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGroupKeyEncryptionProfileID"];
@@ -435,6 +478,7 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"customerID"];
         [self exposeLocalKeyPathToREST:@"avatarData"];
         [self exposeLocalKeyPathToREST:@"avatarType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];
@@ -444,6 +488,8 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
         _childrenL7applicationsignatures = [NUL7applicationsignaturesFetcher fetcherWithParentObject:self];
         _childrenSaaSApplicationGroups = [NUSaaSApplicationGroupsFetcher fetcherWithParentObject:self];
         _childrenSaaSApplicationTypes = [NUSaaSApplicationTypesFetcher fetcherWithParentObject:self];
+        _childrenSAPEgressQoSProfiles = [NUSAPEgressQoSProfilesFetcher fetcherWithParentObject:self];
+        _childrenSAPIngressQoSProfiles = [NUSAPIngressQoSProfilesFetcher fetcherWithParentObject:self];
         _childrenCaptivePortalProfiles = [NUCaptivePortalProfilesFetcher fetcherWithParentObject:self];
         _childrenRateLimiters = [NURateLimitersFetcher fetcherWithParentObject:self];
         _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
@@ -467,6 +513,7 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
         _childrenKeyServerMonitors = [NUKeyServerMonitorsFetcher fetcherWithParentObject:self];
         _childrenZFBRequests = [NUZFBRequestsFetcher fetcherWithParentObject:self];
         _childrenBGPProfiles = [NUBGPProfilesFetcher fetcherWithParentObject:self];
+        _childrenEgressProfiles = [NUEgressProfilesFetcher fetcherWithParentObject:self];
         _childrenEgressQOSPolicies = [NUEgressQOSPoliciesFetcher fetcherWithParentObject:self];
         _childrenSharedNetworkResources = [NUSharedNetworkResourcesFetcher fetcherWithParentObject:self];
         _childrenFirewallAcls = [NUFirewallAclsFetcher fetcherWithParentObject:self];
@@ -483,7 +530,9 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
         _childrenVNFs = [NUVNFsFetcher fetcherWithParentObject:self];
         _childrenVNFMetadatas = [NUVNFMetadatasFetcher fetcherWithParentObject:self];
         _childrenVNFThresholdPolicies = [NUVNFThresholdPoliciesFetcher fetcherWithParentObject:self];
+        _childrenIngressProfiles = [NUIngressProfilesFetcher fetcherWithParentObject:self];
         _childrenIngressQOSPolicies = [NUIngressQOSPoliciesFetcher fetcherWithParentObject:self];
+        _childrenGNMIProfiles = [NUGNMIProfilesFetcher fetcherWithParentObject:self];
         _childrenEnterpriseNetworks = [NUEnterpriseNetworksFetcher fetcherWithParentObject:self];
         _childrenEnterpriseSecurities = [NUEnterpriseSecuritiesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
@@ -496,8 +545,10 @@ NUEnterpriseThreatIntelligenceEnabled_ENABLED = @"ENABLED";
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenCOSRemarkingPolicyTables = [NUCOSRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
         _childrenRoutingPolicies = [NURoutingPoliciesFetcher fetcherWithParentObject:self];
+        _childrenIPFilterProfiles = [NUIPFilterProfilesFetcher fetcherWithParentObject:self];
         _childrenApplications = [NUApplicationsFetcher fetcherWithParentObject:self];
         _childrenApplicationperformancemanagements = [NUApplicationperformancemanagementsFetcher fetcherWithParentObject:self];
+        _childrenIPv6FilterProfiles = [NUIPv6FilterProfilesFetcher fetcherWithParentObject:self];
         _childrenGroups = [NUGroupsFetcher fetcherWithParentObject:self];
         _childrenGroupKeyEncryptionProfiles = [NUGroupKeyEncryptionProfilesFetcher fetcherWithParentObject:self];
         _childrenTrunks = [NUTrunksFetcher fetcherWithParentObject:self];

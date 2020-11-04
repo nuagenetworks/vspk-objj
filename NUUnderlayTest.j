@@ -40,7 +40,7 @@ NUUnderlayTestUnderlayTestType_PRE_BOOTSTRAP = @"PRE_BOOTSTRAP";
 
 
 /*!
-    Underlay Test is a wrapper object for a Test Suite Run from the built in Underlay Tests Test Suite
+    Underlay Test is a wrapper object for a Test Suite Run from the built in Underlay Tests Test Suite.
 */
 @implementation NUUnderlayTest : NURESTObject
 {
@@ -77,9 +77,21 @@ NUUnderlayTestUnderlayTestType_PRE_BOOTSTRAP = @"PRE_BOOTSTRAP";
     */
     CPString _associatedNSGatewayName @accessors(property=associatedNSGatewayName);
     /*!
+        The associated System ID
+    */
+    CPString _associatedSystemID @accessors(property=associatedSystemID);
+    /*!
         The ID of the associated Test Suite Run
     */
     CPString _associatedTestSuiteRunID @accessors(property=associatedTestSuiteRunID);
+    /*!
+        The uplink connection ID that this underlay test will be triggered on. This can be null in order to use any uplink
+    */
+    CPString _associatedUplinkConnectionID @accessors(property=associatedUplinkConnectionID);
+    /*!
+        The interface name of the associated uplink in port.vlan format
+    */
+    CPString _associatedUplinkInterface @accessors(property=associatedUplinkInterface);
     /*!
         The start date time of the test
     */
@@ -89,7 +101,7 @@ NUUnderlayTestUnderlayTestType_PRE_BOOTSTRAP = @"PRE_BOOTSTRAP";
     */
     CPNumber _stopDateTime @accessors(property=stopDateTime);
     /*!
-        Flag to run the Bandwidth test
+        Bandwidth test results enable verification of minimal requirements for NSG operations and is not indicative of the maximum throughput possible on an uplink.
     */
     BOOL _runBandwidthTest @accessors(property=runBandwidthTest);
     /*!
@@ -133,7 +145,10 @@ NUUnderlayTestUnderlayTestType_PRE_BOOTSTRAP = @"PRE_BOOTSTRAP";
         [self exposeLocalKeyPathToREST:@"associatedDataPathID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayName"];
+        [self exposeLocalKeyPathToREST:@"associatedSystemID"];
         [self exposeLocalKeyPathToREST:@"associatedTestSuiteRunID"];
+        [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
+        [self exposeLocalKeyPathToREST:@"associatedUplinkInterface"];
         [self exposeLocalKeyPathToREST:@"startDateTime"];
         [self exposeLocalKeyPathToREST:@"stopDateTime"];
         [self exposeLocalKeyPathToREST:@"runBandwidthTest"];

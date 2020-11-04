@@ -55,6 +55,10 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Accept all certificates from the LDAP server
     */
     BOOL _acceptAllCertificates @accessors(property=acceptAllCertificates);
@@ -83,6 +87,10 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _port @accessors(property=port);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         This attribute is a mandatory field for LDAP authorization. When LDAP is used for authorization for an enterprise, the group DN will be used to get the list of VSD specific groups in LDAP server for the enterprise. For example, OU=VSDGroups,DC=company,DC=com
     */
     CPString _groupDN @accessors(property=groupDN);
@@ -110,6 +118,10 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
         This attribute is a mandatory field for LDAP authorization. When LDAP is used for authorization for an enterprise, the user DN that will be used to verify the integrity of groups and users in LDAP server for the enterprise. For example, CN=groupAdmin,OU=VSD_USERS,OU=Personal,OU=Domain Users,DC=company,DC=com
     */
     CPString _authorizingUserDN @accessors(property=authorizingUserDN);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -141,6 +153,7 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"SSLEnabled"];
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"acceptAllCertificates"];
         [self exposeLocalKeyPathToREST:@"certificate"];
         [self exposeLocalKeyPathToREST:@"server"];
@@ -148,6 +161,7 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"enabled"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"port"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"groupDN"];
         [self exposeLocalKeyPathToREST:@"groupNamePrefix"];
         [self exposeLocalKeyPathToREST:@"groupNameSuffix"];
@@ -155,6 +169,7 @@ NULDAPConfigurationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"userNameAttribute"];
         [self exposeLocalKeyPathToREST:@"authorizationEnabled"];
         [self exposeLocalKeyPathToREST:@"authorizingUserDN"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

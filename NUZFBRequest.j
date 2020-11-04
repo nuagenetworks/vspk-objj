@@ -104,6 +104,10 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Registration URL to be used for a gateway to be bootstrapped using ZFB.
     */
     CPString _registrationURL @accessors(property=registrationURL);
@@ -127,6 +131,10 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
         Hostname of the gateway bootstrapped using ZFB.
     */
     CPString _hostname @accessors(property=hostname);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         For an NSG that is self-rebootstrapping following a quarantine action, this field represents the original name of the enterprise/organisation to which the NSG belonged.
     */
@@ -176,6 +184,10 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
     */
     CPString _statusString @accessors(property=statusString);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -217,12 +229,14 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
         [self exposeLocalKeyPathToREST:@"family"];
         [self exposeLocalKeyPathToREST:@"lastConnectedTime"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"registrationURL"];
         [self exposeLocalKeyPathToREST:@"requestType"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"hostname"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"originalEnterpriseName"];
         [self exposeLocalKeyPathToREST:@"originalGatewayDatapathID"];
         [self exposeLocalKeyPathToREST:@"originalGatewayName"];
@@ -235,6 +249,7 @@ NUZFBRequestZFBApprovalStatus_UNASSIGNED = @"UNASSIGNED";
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayName"];
         [self exposeLocalKeyPathToREST:@"statusString"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

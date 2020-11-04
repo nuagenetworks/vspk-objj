@@ -107,6 +107,10 @@ NUControllerVRSLinkVSCCurrentState_SECONDARY = @"SECONDARY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The redundant peer id for the current VRS.
     */
     CPString _peer @accessors(property=peer);
@@ -139,9 +143,17 @@ NUControllerVRSLinkVSCCurrentState_SECONDARY = @"SECONDARY";
     */
     CPString _controllerType @accessors(property=controllerType);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Computed status of the entity.
     */
     CPString _status @accessors(property=status);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -185,6 +197,7 @@ NUControllerVRSLinkVSCCurrentState_SECONDARY = @"SECONDARY";
         [self exposeLocalKeyPathToREST:@"JSONRPCConnectionState"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"peer"];
         [self exposeLocalKeyPathToREST:@"clusterNodeRole"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
@@ -193,7 +206,9 @@ NUControllerVRSLinkVSCCurrentState_SECONDARY = @"SECONDARY";
         [self exposeLocalKeyPathToREST:@"connections"];
         [self exposeLocalKeyPathToREST:@"controllerID"];
         [self exposeLocalKeyPathToREST:@"controllerType"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamic"];
         

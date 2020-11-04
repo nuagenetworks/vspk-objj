@@ -87,6 +87,10 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Gateway of the subnet that the container is connected to
     */
     CPString _gateway @accessors(property=gateway);
@@ -143,6 +147,10 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _containerUUID @accessors(property=containerUUID);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         ID of the l2 domain or Subnet that the container is attached to
     */
     CPString _attachedNetworkID @accessors(property=attachedNetworkID);
@@ -154,6 +162,10 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
         Name of the Multi NIC VPort associated with this container Interface
     */
     CPString _multiNICVPortName @accessors(property=multiNICVPortName);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -200,6 +212,7 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"networkID"];
@@ -214,9 +227,11 @@ NUContainerInterfaceEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"zoneID"];
         [self exposeLocalKeyPathToREST:@"zoneName"];
         [self exposeLocalKeyPathToREST:@"containerUUID"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkID"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
         [self exposeLocalKeyPathToREST:@"multiNICVPortName"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenTCAs = [NUTCAsFetcher fetcherWithParentObject:self];

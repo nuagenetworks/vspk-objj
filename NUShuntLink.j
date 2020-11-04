@@ -31,6 +31,7 @@
 
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUVirtualUplinksFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 
@@ -66,6 +67,10 @@ NUShuntLinkPermittedAction_USE = @"USE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The ID of the first NSG of the redundant gateway group part of this Shunt Link.
     */
     CPString _gatewayPeer1ID @accessors(property=gatewayPeer1ID);
@@ -90,12 +95,21 @@ NUShuntLinkPermittedAction_USE = @"USE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
     
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUVirtualUplinksFetcher _childrenVirtualUplinks @accessors(property=childrenVirtualUplinks);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
@@ -122,16 +136,20 @@ NUShuntLinkPermittedAction_USE = @"USE";
         [self exposeLocalKeyPathToREST:@"VLANPeer2ID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1ID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer2ID"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenVirtualUplinks = [NUVirtualUplinksFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         

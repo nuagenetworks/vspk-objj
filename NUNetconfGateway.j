@@ -157,6 +157,10 @@ NUNetconfGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Identifier of the Gateway, based on the systemID which is generated when the instance is created in VSD.
     */
     CPString _datapathID @accessors(property=datapathID);
@@ -241,6 +245,10 @@ NUNetconfGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _bootstrapStatus @accessors(property=bootstrapStatus);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Product Name as reported during bootstrapping.
     */
     CPString _productName @accessors(property=productName);
@@ -272,6 +280,10 @@ NUNetconfGatewayZFBMatchAttribute_UUID = @"UUID";
         The Auto Discovered Gateway associated with this Gateway Instance
     */
     CPString _autoDiscGatewayID @accessors(property=autoDiscGatewayID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -338,6 +350,7 @@ NUNetconfGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"family"];
         [self exposeLocalKeyPathToREST:@"managementID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
         [self exposeLocalKeyPathToREST:@"patches"];
         [self exposeLocalKeyPathToREST:@"gatewayConnected"];
@@ -359,6 +372,7 @@ NUNetconfGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"locationID"];
         [self exposeLocalKeyPathToREST:@"bootstrapID"];
         [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"productName"];
         [self exposeLocalKeyPathToREST:@"useGatewayVLANVNID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityID"];
@@ -367,6 +381,7 @@ NUNetconfGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"associatedNetconfProfileID"];
         [self exposeLocalKeyPathToREST:@"vtep"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         

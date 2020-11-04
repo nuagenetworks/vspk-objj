@@ -46,6 +46,7 @@
 @import "Fetchers/NUEthernetSegmentGroupsFetcher.j"
 
 NUEthernetSegmentGWGroupPersonality_NETCONF_7X50 = @"NETCONF_7X50";
+NUEthernetSegmentGWGroupPersonality_SR_LINUX = @"SR_LINUX";
 
 
 /*!

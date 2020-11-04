@@ -54,6 +54,10 @@ NUTierTierType_TIER2 = @"TIER2";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Descrtiption of the Tier
     */
     CPString _description @accessors(property=description);
@@ -78,9 +82,17 @@ NUTierTierType_TIER2 = @"TIER2";
     */
     CPNumber _downThresholdCount @accessors(property=downThresholdCount);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         probe interval (part of rate along with packetCount). Applicable to Tier2 type.
     */
     CPNumber _probeInterval @accessors(property=probeInterval);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -112,13 +124,16 @@ NUTierTierType_TIER2 = @"TIER2";
     {
         [self exposeLocalKeyPathToREST:@"packetCount"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"tierType"];
         [self exposeLocalKeyPathToREST:@"timeout"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"downThresholdCount"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"probeInterval"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

@@ -77,6 +77,10 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The Auto Discovered Gateway configuration owner in this Redundant Group. 
     */
     CPString _gatewayPeer1AutodiscoveredGatewayID @accessors(property=gatewayPeer1AutodiscoveredGatewayID);
@@ -153,6 +157,14 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPNumber _consecutiveFailuresCount @accessors(property=consecutiveFailuresCount);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -188,6 +200,7 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1AutodiscoveredGatewayID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1Connected"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1ID"];
@@ -207,6 +220,8 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"consecutiveFailuresCount"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

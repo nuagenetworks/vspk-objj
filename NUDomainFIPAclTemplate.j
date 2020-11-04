@@ -57,6 +57,10 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         If enabled, it means that this ACL or QOS entry is active
     */
     BOOL _active @accessors(property=active);
@@ -89,6 +93,10 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
     */
     CPString _policyState @accessors(property=policyState);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The priority of the ACL entry that determines the order of entries
     */
     CPNumber _priority @accessors(property=priority);
@@ -104,6 +112,10 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
         If enabled, entries priority will be randomly generated between allowed range.
     */
     BOOL _autoGeneratePriority @accessors(property=autoGeneratePriority);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -135,6 +147,7 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"active"];
         [self exposeLocalKeyPathToREST:@"defaultAllowIP"];
         [self exposeLocalKeyPathToREST:@"defaultAllowNonIP"];
@@ -143,10 +156,12 @@ NUDomainFIPAclTemplatePriorityType_TOP = @"TOP";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"entries"];
         [self exposeLocalKeyPathToREST:@"policyState"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"priorityType"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
         [self exposeLocalKeyPathToREST:@"autoGeneratePriority"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

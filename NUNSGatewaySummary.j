@@ -65,6 +65,10 @@ NUNSGatewaySummaryPersonality_NSGDUC = @"NSGDUC";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The ID of the NSG from which the infomation was collected.
     */
     CPString _gatewayID @accessors(property=gatewayID);
@@ -141,6 +145,10 @@ NUNSGatewaySummaryPersonality_NSGDUC = @"NSGDUC";
     */
     CPString _country @accessors(property=country);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Total number of alarms with CRITICAL severity
     */
     CPNumber _criticalAlarmsCount @accessors(property=criticalAlarmsCount);
@@ -148,6 +156,10 @@ NUNSGatewaySummaryPersonality_NSGDUC = @"NSGDUC";
         State/Province/Region
     */
     CPString _state @accessors(property=state);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -183,6 +195,7 @@ NUNSGatewaySummaryPersonality_NSGDUC = @"NSGDUC";
         [self exposeLocalKeyPathToREST:@"NSGVersion"];
         [self exposeLocalKeyPathToREST:@"majorAlarmsCount"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayID"];
         [self exposeLocalKeyPathToREST:@"gatewayName"];
         [self exposeLocalKeyPathToREST:@"gatewayType"];
@@ -202,8 +215,10 @@ NUNSGatewaySummaryPersonality_NSGDUC = @"NSGDUC";
         [self exposeLocalKeyPathToREST:@"longitude"];
         [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
         [self exposeLocalKeyPathToREST:@"country"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"criticalAlarmsCount"];
         [self exposeLocalKeyPathToREST:@"state"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         

@@ -35,6 +35,9 @@
 
 NUUserContextEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUUserContextEntityScope_GLOBAL = @"GLOBAL";
+NUUserContextSystemAvatarType_BASE64 = @"BASE64";
+NUUserContextSystemAvatarType_COMPUTEDURL = @"COMPUTEDURL";
+NUUserContextSystemAvatarType_URL = @"URL";
 
 
 /*!
@@ -67,6 +70,14 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
+        Indicates wether the new RBAC feature is enabled
+    */
+    BOOL _rbacEnabled @accessors(property=rbacEnabled);
+    /*!
         When this option is selected, VSS will only store flows that are denied by security policy (implicit or explicit ACLs). This requires a valid VSS license and Flow Collection enabled.
     */
     BOOL _deniedFlowCollectionEnabled @accessors(property=deniedFlowCollectionEnabled);
@@ -74,6 +85,10 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
         Enables IP based threat intelligence. This requires Flow Collection to be enabled
     */
     BOOL _threatIntelligenceEnabled @accessors(property=threatIntelligenceEnabled);
+    /*!
+        When enabled, it allows Enterprise Avatar (image) to be populated on the NSGateway bootstrapping portal and blocked page notification.
+    */
+    BOOL _allowEnterpriseAvatarOnNSG @accessors(property=allowEnterpriseAvatarOnNSG);
     /*!
         Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires 'statisticsEnabled'.
     */
@@ -91,6 +106,10 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _googleMapsAPIKey @accessors(property=googleMapsAPIKey);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         This flag is used to indicate if statistics is enabled in the system. CSProot is expected to activate this through the enable statistics script.
     */
     BOOL _statisticsEnabled @accessors(property=statisticsEnabled);
@@ -103,6 +122,10 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _statsTSDBServerAddress @accessors(property=statsTSDBServerAddress);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         When this option is selected, VSS will only store allow/denied flows that matches explicit ingress/egress security ACL. This requires a valid VSS license and Flow Collection enabled.
     */
     BOOL _explicitACLMatchingEnabled @accessors(property=explicitACLMatchingEnabled);
@@ -110,6 +133,14 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        URL to the avatar data configured at System Configuration. If the avatarType is URL then value of avatarData should be URL of the image. If the avatarType BASE64 then avatarData should be BASE64 encoded value of the image.
+    */
+    CPString _systemAvatarData @accessors(property=systemAvatarData);
+    /*!
+        The type of avatar data.
+    */
+    CPString _systemAvatarType @accessors(property=systemAvatarType);
     
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
@@ -140,17 +171,24 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"VSSStatsInterval"];
         [self exposeLocalKeyPathToREST:@"pageSize"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
+        [self exposeLocalKeyPathToREST:@"rbacEnabled"];
         [self exposeLocalKeyPathToREST:@"deniedFlowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"threatIntelligenceEnabled"];
+        [self exposeLocalKeyPathToREST:@"allowEnterpriseAvatarOnNSG"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"googleMapsAPIKey"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
         [self exposeLocalKeyPathToREST:@"statsDatabaseProxy"];
         [self exposeLocalKeyPathToREST:@"statsTSDBServerAddress"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"explicitACLMatchingEnabled"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"systemAvatarData"];
+        [self exposeLocalKeyPathToREST:@"systemAvatarType"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

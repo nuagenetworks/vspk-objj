@@ -62,6 +62,10 @@ NUInfrastructureEVDFProfileNuagePlatform_KVM_LXC = @"KVM_LXC";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The IP address of the active Controller (VSC)
     */
     CPString _activeController @accessors(property=activeController);
@@ -86,6 +90,10 @@ NUInfrastructureEVDFProfileNuagePlatform_KVM_LXC = @"KVM_LXC";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The DNS name of the proxy device acting as an entry point of eVDF instances to contact VSD.
     */
     CPString _proxyDNSName @accessors(property=proxyDNSName);
@@ -101,6 +109,10 @@ NUInfrastructureEVDFProfileNuagePlatform_KVM_LXC = @"KVM_LXC";
         The Hypervisor Platform
     */
     CPString _nuagePlatform @accessors(property=nuagePlatform);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -133,16 +145,19 @@ NUInfrastructureEVDFProfileNuagePlatform_KVM_LXC = @"KVM_LXC";
         [self exposeLocalKeyPathToREST:@"NTPServerKeyID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"activeController"];
         [self exposeLocalKeyPathToREST:@"serviceIPv4Subnet"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"proxyDNSName"];
         [self exposeLocalKeyPathToREST:@"useTwoFactor"];
         [self exposeLocalKeyPathToREST:@"standbyController"];
         [self exposeLocalKeyPathToREST:@"nuagePlatform"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

@@ -68,6 +68,10 @@ NUVRSRedeploymentpolicyEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         redeployment Delay
     */
     CPNumber _redeploymentDelay @accessors(property=redeploymentDelay);
@@ -108,6 +112,14 @@ NUVRSRedeploymentpolicyEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _rootDiskUtilizationThreshold @accessors(property=rootDiskUtilizationThreshold);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -139,6 +151,7 @@ NUVRSRedeploymentpolicyEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"VRSProcessRedeploymentEnabled"];
         [self exposeLocalKeyPathToREST:@"VRSVSCStatusRedeploymentEnabled"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"redeploymentDelay"];
         [self exposeLocalKeyPathToREST:@"memoryUtilizationRedeploymentEnabled"];
         [self exposeLocalKeyPathToREST:@"memoryUtilizationThreshold"];
@@ -149,6 +162,8 @@ NUVRSRedeploymentpolicyEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"logDiskUtilizationThreshold"];
         [self exposeLocalKeyPathToREST:@"rootDiskUtilizationRedeploymentEnabled"];
         [self exposeLocalKeyPathToREST:@"rootDiskUtilizationThreshold"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

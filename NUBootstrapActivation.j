@@ -68,6 +68,10 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The bootstrap action to perform.
     */
     CPString _action @accessors(property=action);
@@ -100,6 +104,10 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _tpmState @accessors(property=tpmState);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         TPM SRK passphrase
     */
     CPString _srkPassword @accessors(property=srkPassword);
@@ -123,6 +131,10 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
         Indicates whether auto bootstrap is being used to bootstrap this NSG
     */
     BOOL _autoBootstrap @accessors(property=autoBootstrap);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -154,6 +166,7 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"cacert"];
         [self exposeLocalKeyPathToREST:@"hash"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"seed"];
         [self exposeLocalKeyPathToREST:@"cert"];
@@ -162,12 +175,14 @@ NUBootstrapActivationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"configURL"];
         [self exposeLocalKeyPathToREST:@"tpmOwnerPassword"];
         [self exposeLocalKeyPathToREST:@"tpmState"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"srkPassword"];
         [self exposeLocalKeyPathToREST:@"vsdTime"];
         [self exposeLocalKeyPathToREST:@"csr"];
         [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"autoBootstrap"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

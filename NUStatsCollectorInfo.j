@@ -49,6 +49,10 @@ NUStatsCollectorInfoEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Type for stats collector address Possible values are ip, fqdn, .
     */
     CPString _addressType @accessors(property=addressType);
@@ -69,9 +73,17 @@ NUStatsCollectorInfoEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _ipAddress @accessors(property=ipAddress);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Protobuf Port(s) of the stats collector process
     */
     CPString _protoBufPort @accessors(property=protoBufPort);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -101,12 +113,15 @@ NUStatsCollectorInfoEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"addressType"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"port"];
         [self exposeLocalKeyPathToREST:@"ipAddress"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"protoBufPort"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

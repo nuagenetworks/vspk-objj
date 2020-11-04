@@ -89,6 +89,10 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Gatemask configured on the shared resource
     */
     CPString _gateway @accessors(property=gateway);
@@ -165,6 +169,10 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _uplinkVPortName @accessors(property=uplinkVPortName);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         if this flag is enabled, the system configured globalMACAddress will be used as the gateway mac address
     */
     CPString _useGlobalMAC @accessors(property=useGlobalMAC);
@@ -180,6 +188,10 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
         Route target configured on the shared resource subnetwork
     */
     CPString _subnetRouteTarget @accessors(property=subnetRouteTarget);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -229,6 +241,7 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"backHaulVNID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
         [self exposeLocalKeyPathToREST:@"accessRestrictionEnabled"];
@@ -248,10 +261,12 @@ NUSharedNetworkResourceUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"uplinkInterfaceIP"];
         [self exposeLocalKeyPathToREST:@"uplinkInterfaceMAC"];
         [self exposeLocalKeyPathToREST:@"uplinkVPortName"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
         [self exposeLocalKeyPathToREST:@"subnetRouteDistinguisher"];
         [self exposeLocalKeyPathToREST:@"subnetRouteTarget"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicPATAllocationEnabled"];
         [self exposeLocalKeyPathToREST:@"type"];

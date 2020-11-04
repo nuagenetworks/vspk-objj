@@ -78,6 +78,7 @@ NUVPortAssociatedGatewayPersonality_NSGDUC = @"NSGDUC";
 NUVPortAssociatedGatewayPersonality_NUAGE_210_WBX_32_Q = @"NUAGE_210_WBX_32_Q";
 NUVPortAssociatedGatewayPersonality_NUAGE_210_WBX_48_S = @"NUAGE_210_WBX_48_S";
 NUVPortAssociatedGatewayPersonality_OTHER = @"OTHER";
+NUVPortAssociatedGatewayPersonality_SR_LINUX = @"SR_LINUX";
 NUVPortAssociatedGatewayPersonality_UNMANAGED_GATEWAY = @"UNMANAGED_GATEWAY";
 NUVPortAssociatedGatewayPersonality_VDF = @"VDF";
 NUVPortAssociatedGatewayPersonality_VDFG = @"VDFG";
@@ -93,11 +94,15 @@ NUVPortEntityScope_GLOBAL = @"GLOBAL";
 NUVPortFIPIgnoreDefaultRoute_DISABLED = @"DISABLED";
 NUVPortFIPIgnoreDefaultRoute_ENABLED = @"ENABLED";
 NUVPortFIPIgnoreDefaultRoute_INHERITED = @"INHERITED";
+NUVPortFlowLimitEnabled_DISABLED = @"DISABLED";
+NUVPortFlowLimitEnabled_ENABLED = @"ENABLED";
+NUVPortFlowLimitEnabled_INHERITED = @"INHERITED";
 NUVPortGatewayMACMoveRole_SECONDARY = @"SECONDARY";
 NUVPortGatewayMACMoveRole_TERTIARY = @"TERTIARY";
 NUVPortMulticast_DISABLED = @"DISABLED";
 NUVPortMulticast_ENABLED = @"ENABLED";
 NUVPortMulticast_INHERITED = @"INHERITED";
+NUVPortOperationalState_DEGRADED = @"DEGRADED";
 NUVPortOperationalState_DOWN = @"DOWN";
 NUVPortOperationalState_INIT = @"INIT";
 NUVPortOperationalState_UP = @"UP";
@@ -159,6 +164,10 @@ NUVPortType_VM = @"VM";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Role of the gateway vport when handling MAC move errors
     */
     CPString _gatewayMACMoveRole @accessors(property=gatewayMACMoveRole);
@@ -199,6 +208,14 @@ NUVPortType_VM = @"VM";
     */
     CPString _description @accessors(property=description);
     /*!
+        Maximum number of data flows allowed for a VPort. If "Flow Limit Enabled" parameter is ENABLED/DISABLED/INHERITED, Flow Count parameter is configured/ignored/derived from parent domain respectively.
+    */
+    CPNumber _flowCount @accessors(property=flowCount);
+    /*!
+        Indicates if flow limit is enabled or disabled or "Flow Count" attribute is derived from the parent Domain on this VPort . Possible values are ENABLED, DISABLED or INHERITED.
+    */
+    CPString _flowLimitEnabled @accessors(property=flowLimitEnabled);
+    /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
@@ -231,13 +248,21 @@ NUVPortType_VM = @"VM";
     */
     CPString _zoneID @accessors(property=zoneID);
     /*!
-        Operational State of the VPort. Possible values are INIT, UP, DOWN.
+        Operational State of the VPort. Possible values are INIT, UP, DOWN, DEGRADED
     */
     CPString _operationalState @accessors(property=operationalState);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Indicates the role of the vport in trunking operations
     */
     CPString _trunkRole @accessors(property=trunkRole);
+    /*!
+        Array of the embedded resource VPortInfo for each gateway member of ethernet segment group
+    */
+    CPArrayController _esGroupVPortInfos @accessors(property=esGroupVPortInfos);
     /*!
         UUID of the entity to which the vport is associated to. This could be UUID of a SUBNET or a L2DOMAIN
     */
@@ -247,7 +272,7 @@ NUVPortType_VM = @"VM";
     */
     CPString _associatedEgressProfileID @accessors(property=associatedEgressProfileID);
     /*!
-        Id of Floating IP address associated to this vport
+        Id of Floating IP address associated to this VPort
     */
     CPString _associatedFloatingIPID @accessors(property=associatedFloatingIPID);
     /*!
@@ -306,6 +331,10 @@ NUVPortType_VM = @"VM";
         Indicates that this vport is eligible to be given in gateway vport config request. It becomes eligible when it has properly attached host or bridge interfaces.
     */
     BOOL _gwEligible @accessors(property=gwEligible);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -380,6 +409,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"hasAttachedInterfaces"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayMACMoveRole"];
         [self exposeLocalKeyPathToREST:@"gatewayPortName"];
         [self exposeLocalKeyPathToREST:@"accessRestrictionEnabled"];
@@ -390,6 +420,8 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"segmentationType"];
         [self exposeLocalKeyPathToREST:@"serviceID"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"flowCount"];
+        [self exposeLocalKeyPathToREST:@"flowLimitEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"color"];
@@ -399,7 +431,9 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"domainVLANID"];
         [self exposeLocalKeyPathToREST:@"zoneID"];
         [self exposeLocalKeyPathToREST:@"operationalState"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"trunkRole"];
+        [self exposeLocalKeyPathToREST:@"esGroupVPortInfos"];
         [self exposeLocalKeyPathToREST:@"assocEntityID"];
         [self exposeLocalKeyPathToREST:@"associatedEgressProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedFloatingIPID"];
@@ -417,6 +451,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"autoCreated"];
         [self exposeLocalKeyPathToREST:@"gwEligible"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         [self exposeLocalKeyPathToREST:@"systemType"];

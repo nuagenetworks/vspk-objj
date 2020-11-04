@@ -119,6 +119,10 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Reason of the event associated with the container.
     */
     CPString _reasonType @accessors(property=reasonType);
@@ -183,6 +187,10 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
     */
     CPString _orchestrationID @accessors(property=orchestrationID);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Release version of VRS, which is used to determine the feature capabilties of VRS.
     */
     CPString _vrsRawVersion @accessors(property=vrsRawVersion);
@@ -206,6 +214,10 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
         Array of IDs of the subnets that the container is connected to
     */
     CPArrayController _subnetIDs @accessors(property=subnetIDs);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -248,6 +260,7 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
         [self exposeLocalKeyPathToREST:@"UUID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"reasonType"];
         [self exposeLocalKeyPathToREST:@"deleteExpiry"];
         [self exposeLocalKeyPathToREST:@"deleteMode"];
@@ -264,12 +277,14 @@ NUContainerStatus_UNREACHABLE = @"UNREACHABLE";
         [self exposeLocalKeyPathToREST:@"computeProvisioned"];
         [self exposeLocalKeyPathToREST:@"zoneIDs"];
         [self exposeLocalKeyPathToREST:@"orchestrationID"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"vrsRawVersion"];
         [self exposeLocalKeyPathToREST:@"vrsVersion"];
         [self exposeLocalKeyPathToREST:@"userID"];
         [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"subnetIDs"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"hypervisorIP"];
         

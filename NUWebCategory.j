@@ -53,6 +53,10 @@ NUWebCategoryType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The unique identifier of a web category to be used by NSG
     */
     CPNumber _webCategoryIdentifier @accessors(property=webCategoryIdentifier);
@@ -72,6 +76,14 @@ NUWebCategoryType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -107,11 +119,14 @@ NUWebCategoryType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"webCategoryIdentifier"];
         [self exposeLocalKeyPathToREST:@"defaultCategory"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

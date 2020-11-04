@@ -53,6 +53,10 @@ NUCTranslationMapMappingType_PAT = @"PAT";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
@@ -60,6 +64,10 @@ NUCTranslationMapMappingType_PAT = @"PAT";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Domain associated to this address mapping.
     */
@@ -72,6 +80,10 @@ NUCTranslationMapMappingType_PAT = @"PAT";
         Customer private IP in the customer domain.
     */
     CPString _customerIP @accessors(property=customerIP);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -102,11 +114,14 @@ NUCTranslationMapMappingType_PAT = @"PAT";
     {
         [self exposeLocalKeyPathToREST:@"mappingType"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedDomainID"];
         [self exposeLocalKeyPathToREST:@"customerAliasIP"];
         [self exposeLocalKeyPathToREST:@"customerIP"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

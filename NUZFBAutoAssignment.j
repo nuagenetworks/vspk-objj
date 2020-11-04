@@ -62,6 +62,10 @@ NUZFBAutoAssignmentZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Description of the ZFB auto assignment criteria.
     */
     CPString _description @accessors(property=description);
@@ -69,6 +73,10 @@ NUZFBAutoAssignmentZFBMatchAttribute_UUID = @"UUID";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Priority of the Auto Assignment
     */
@@ -81,6 +89,10 @@ NUZFBAutoAssignmentZFBMatchAttribute_UUID = @"UUID";
         The name of the associated Enterprise
     */
     CPString _associatedEnterpriseName @accessors(property=associatedEnterpriseName);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -110,11 +122,14 @@ NUZFBAutoAssignmentZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"ZFBMatchAttributeValues"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseName"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

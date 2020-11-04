@@ -81,6 +81,10 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Domain template description provided by the user
     */
     CPString _description @accessors(property=description);
@@ -101,6 +105,10 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
     */
     CPString _policyChangeStatus @accessors(property=policyChangeStatus);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The ID of the associated BGP profile
     */
     CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
@@ -116,6 +124,10 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
         Indicates multicast policy on domain.
     */
     CPString _multicast @accessors(property=multicast);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -163,15 +175,18 @@ NUDomainTemplatePolicyChangeStatus_STARTED = @"STARTED";
         [self exposeLocalKeyPathToREST:@"DPI"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedPATMapperID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenRedirectionTargetTemplates = [NURedirectionTargetTemplatesFetcher fetcherWithParentObject:self];

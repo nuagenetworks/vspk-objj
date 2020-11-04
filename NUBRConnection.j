@@ -61,6 +61,10 @@ NUBRConnectionMode_STATIC = @"Static";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         IP address of the gateway bound to the VLAN.
     */
     CPString _gateway @accessors(property=gateway);
@@ -109,6 +113,14 @@ NUBRConnectionMode_STATIC = @"Static";
     */
     CPNumber _uplinkID @accessors(property=uplinkID);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -140,6 +152,7 @@ NUBRConnectionMode_STATIC = @"Static";
         [self exposeLocalKeyPathToREST:@"DNSAddress"];
         [self exposeLocalKeyPathToREST:@"DNSAddressV6"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayV6"];
         [self exposeLocalKeyPathToREST:@"address"];
@@ -152,6 +165,8 @@ NUBRConnectionMode_STATIC = @"Static";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"mode"];
         [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

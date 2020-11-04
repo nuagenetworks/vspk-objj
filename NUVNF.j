@@ -119,6 +119,10 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Last action perform by user
     */
     CPString _lastUserAction @accessors(property=lastUserAction);
@@ -151,6 +155,10 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         This specifies if VNF instance is using VNF descriptor or it is decoupled from it
     */
     BOOL _isAttachedToDescriptor @accessors(property=isAttachedToDescriptor);
@@ -170,6 +178,10 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
         Disk storage (in GB) to be allocated for deployed VNF instance
     */
     CPNumber _storageGB @accessors(property=storageGB);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -216,6 +228,7 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
         [self exposeLocalKeyPathToREST:@"taskState"];
         [self exposeLocalKeyPathToREST:@"lastKnownError"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"lastUserAction"];
         [self exposeLocalKeyPathToREST:@"memoryMB"];
         [self exposeLocalKeyPathToREST:@"vendor"];
@@ -224,11 +237,13 @@ NUVNFType_WAN_OPT = @"WAN_OPT";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"isAttachedToDescriptor"];
         [self exposeLocalKeyPathToREST:@"associatedVNFMetadataID"];
         [self exposeLocalKeyPathToREST:@"associatedVNFThresholdPolicyID"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"storageGB"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

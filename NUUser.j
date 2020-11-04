@@ -73,6 +73,10 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         First name of the user
     */
     CPString _firstName @accessors(property=firstName);
@@ -105,6 +109,10 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
     */
     CPString _mobileNumber @accessors(property=mobileNumber);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Unique Username of the user. Valid characters are alphabets, numbers and hyphen( - ).
     */
     CPString _userName @accessors(property=userName);
@@ -116,6 +124,10 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
         Avatar type.
     */
     CPString _avatarType @accessors(property=avatarType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -154,6 +166,7 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastName"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"firstName"];
         [self exposeLocalKeyPathToREST:@"disableCertificateAuth"];
         [self exposeLocalKeyPathToREST:@"disablePasswordAuth"];
@@ -162,9 +175,11 @@ NUUserManagementMode_DEFAULT = @"DEFAULT";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"mobileNumber"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"avatarData"];
         [self exposeLocalKeyPathToREST:@"avatarType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

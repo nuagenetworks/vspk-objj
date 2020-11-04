@@ -88,6 +88,10 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Class of service to be used. Service classes in order of priority are A, B, C, D, E, F, G, and H.
     */
     CPString _serviceClass @accessors(property=serviceClass);
@@ -111,6 +115,10 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
         Status of configuration on third-party cloud instance
     */
     CPString _configurationStatus @accessors(property=configurationStatus);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         ID of the associated third-party cloud instance
     */
@@ -139,6 +147,10 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
         The IKE Gateway associated with this Profile
     */
     CPString _associatedIKEGatewayID @accessors(property=associatedIKEGatewayID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -171,12 +183,14 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"IKEGatewayIdentifierType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"serviceClass"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"antiReplayCheck"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"configurationStatus"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedCloudID"];
         [self exposeLocalKeyPathToREST:@"associatedCloudType"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
@@ -184,6 +198,7 @@ NUIKEGatewayProfileServiceClass_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"associatedIKEAuthenticationType"];
         [self exposeLocalKeyPathToREST:@"associatedIKEEncryptionProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEGatewayID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

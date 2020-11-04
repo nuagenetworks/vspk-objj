@@ -59,6 +59,10 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         A description of the Port
     */
     CPString _description @accessors(property=description);
@@ -70,6 +74,10 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Indicates that this VLAN Template should be considered as being used for uplink connection.
     */
@@ -107,6 +115,10 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
     */
     BOOL _ducVlan @accessors(property=ducVlan);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -142,9 +154,11 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
     {
         [self exposeLocalKeyPathToREST:@"value"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"isUplink"];
         [self exposeLocalKeyPathToREST:@"associatedConnectionType"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
@@ -154,6 +168,7 @@ NUVLANTemplateType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"ducVlan"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

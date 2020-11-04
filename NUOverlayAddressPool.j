@@ -59,6 +59,10 @@ NUOverlayAddressPoolIPType_IPV6 = @"IPV6";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         addresspool description
     */
     CPString _description @accessors(property=description);
@@ -75,6 +79,10 @@ NUOverlayAddressPoolIPType_IPV6 = @"IPV6";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The ID of the associated l3-domain.
     */
     CPString _associatedDomainID @accessors(property=associatedDomainID);
@@ -82,6 +90,10 @@ NUOverlayAddressPoolIPType_IPV6 = @"IPV6";
         Start address for the pool range
     */
     CPString _startAddressRange @accessors(property=startAddressRange);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -114,12 +126,15 @@ NUOverlayAddressPoolIPType_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"endAddressRange"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedDomainID"];
         [self exposeLocalKeyPathToREST:@"startAddressRange"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

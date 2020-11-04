@@ -49,6 +49,10 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
@@ -61,6 +65,10 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
     */
     CPString _routeDistinguisher @accessors(property=routeDistinguisher);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Next hop priority assigned by the user.
     */
     CPNumber _priority @accessors(property=priority);
@@ -72,6 +80,10 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
         The VLAN ID of the BR VLAN used as next hop in the trusted domain.
     */
     CPString _associatedVLANID @accessors(property=associatedVLANID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -105,12 +117,15 @@ NUDemarcationServiceType_GATEWAY = @"GATEWAY";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayID"];
         [self exposeLocalKeyPathToREST:@"associatedVLANID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

@@ -37,6 +37,8 @@
 NUOSPFInstanceEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUOSPFInstanceEntityScope_GLOBAL = @"GLOBAL";
 NUOSPFInstanceIPType_IPV4 = @"IPV4";
+NUOSPFInstanceOSPFType_OSPFV2 = @"OSPFv2";
+NUOSPFInstanceOSPFType_OSPFV3 = @"OSPFv3";
 
 
 /*!
@@ -49,6 +51,10 @@ NUOSPFInstanceIPType_IPV4 = @"IPV4";
     */
     CPString _IPType @accessors(property=IPType);
     /*!
+        Type of the OSPF protocol, possible values are OSPFv2 and OSPFv3.
+    */
+    CPString _OSPFType @accessors(property=OSPFType);
+    /*!
         Name of OSPF Instance
     */
     CPString _name @accessors(property=name);
@@ -56,6 +62,10 @@ NUOSPFInstanceIPType_IPV4 = @"IPV4";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
     /*!
         Description of OSPF Instance
     */
@@ -68,6 +78,10 @@ NUOSPFInstanceIPType_IPV4 = @"IPV4";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Preference for OSPF Internal Routes.
     */
@@ -84,6 +98,10 @@ NUOSPFInstanceIPType_IPV4 = @"IPV4";
         Flag to determine whether SuperBackbone is enabled or not.
     */
     BOOL _superBackboneEnabled @accessors(property=superBackboneEnabled);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         This command configures the maximum number of routes (prefixes) that can be exported into OSPF from the route table.
     */
@@ -126,15 +144,19 @@ NUOSPFInstanceIPType_IPV4 = @"IPV4";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"IPType"];
+        [self exposeLocalKeyPathToREST:@"OSPFType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"preference"];
         [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedImportRoutingPolicyID"];
         [self exposeLocalKeyPathToREST:@"superBackboneEnabled"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"exportLimit"];
         [self exposeLocalKeyPathToREST:@"exportToOverlay"];
         [self exposeLocalKeyPathToREST:@"externalID"];

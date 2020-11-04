@@ -43,6 +43,7 @@
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
 @import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
+@import "Fetchers/NUEgressAuditACLTemplatesFetcher.j"
 @import "Fetchers/NUDomainFIPAclTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUDHCPv6OptionsFetcher.j"
@@ -60,6 +61,8 @@
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdTemplatesFetcher.j"
+@import "Fetchers/NUIngressAuditACLEntryTemplatesFetcher.j"
+@import "Fetchers/NUIngressAuditACLTemplatesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
 @import "Fetchers/NUDomainsFetcher.j"
@@ -109,6 +112,8 @@ NUDomainFIPIgnoreDefaultRoute_ENABLED = @"ENABLED";
 NUDomainFlowCollectionEnabled_DISABLED = @"DISABLED";
 NUDomainFlowCollectionEnabled_ENABLED = @"ENABLED";
 NUDomainFlowCollectionEnabled_INHERITED = @"INHERITED";
+NUDomainFlowLimitEnabled_DISABLED = @"DISABLED";
+NUDomainFlowLimitEnabled_ENABLED = @"ENABLED";
 NUDomainMaintenanceMode_DISABLED = @"DISABLED";
 NUDomainMaintenanceMode_ENABLED = @"ENABLED";
 NUDomainMulticast_DISABLED = @"DISABLED";
@@ -224,6 +229,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Set this attribute to allow the spoke domain routes to be leaked into the hub domain.
     */
     CPString _advertiseCriteria @accessors(property=advertiseCriteria);
@@ -231,6 +240,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Indicates if this domain is a leakable domain or not - boolean true/false
     */
     BOOL _leakingEnabled @accessors(property=leakingEnabled);
+    /*!
+        Indicates if FEC (Forward Error Correction) is enabled on this Domain.
+    */
+    BOOL _fecEnabled @accessors(property=fecEnabled);
     /*!
         when DHCPBehaviorType is RELAY, then DHCP Server IP Address needs to be set
     */
@@ -279,6 +292,14 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         Determines whether or not flow collection is enabled.
     */
     CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
+    /*!
+        Maximum number of data flows allowed for a VPort.
+    */
+    CPNumber _flowCount @accessors(property=flowCount);
+    /*!
+        Indicates if flow limit is enabled on this Domain. Possible values are ENABLED or DISABLED.
+    */
+    CPString _flowLimitEnabled @accessors(property=flowLimitEnabled);
     /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
@@ -344,6 +365,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     BOOL _createBackHaulSubnet @accessors(property=createBackHaulSubnet);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         None
     */
     CPString _associatedBGPProfileID @accessors(property=associatedBGPProfileID);
@@ -384,6 +409,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     */
     CPNumber _customerID @accessors(property=customerID);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         Route target associated with the dVRS. It is an optional parameterthat can be provided by the user or auto-managed by VSDSystem generates this identifier automatically, if not provided
     */
     CPString _exportRouteTarget @accessors(property=exportRouteTarget);
@@ -410,6 +439,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
     NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
+    NUEgressAuditACLTemplatesFetcher _childrenEgressAuditACLTemplates @accessors(property=childrenEgressAuditACLTemplates);
     NUDomainFIPAclTemplatesFetcher _childrenDomainFIPAclTemplates @accessors(property=childrenDomainFIPAclTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUDHCPv6OptionsFetcher _childrenDHCPv6Options @accessors(property=childrenDHCPv6Options);
@@ -427,6 +457,8 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdTemplatesFetcher _childrenIngressAdvFwdTemplates @accessors(property=childrenIngressAdvFwdTemplates);
+    NUIngressAuditACLEntryTemplatesFetcher _childrenIngressAuditACLEntryTemplates @accessors(property=childrenIngressAuditACLEntryTemplates);
+    NUIngressAuditACLTemplatesFetcher _childrenIngressAuditACLTemplates @accessors(property=childrenIngressAuditACLTemplates);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
     NUDomainsFetcher _childrenDomains @accessors(property=childrenDomains);
@@ -494,8 +526,10 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"advertiseCriteria"];
         [self exposeLocalKeyPathToREST:@"leakingEnabled"];
+        [self exposeLocalKeyPathToREST:@"fecEnabled"];
         [self exposeLocalKeyPathToREST:@"secondaryDHCPServerAddress"];
         [self exposeLocalKeyPathToREST:@"secondaryRouteTarget"];
         [self exposeLocalKeyPathToREST:@"templateID"];
@@ -508,6 +542,8 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"threatIntelligenceEnabled"];
         [self exposeLocalKeyPathToREST:@"globalRoutingEnabled"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
+        [self exposeLocalKeyPathToREST:@"flowCount"];
+        [self exposeLocalKeyPathToREST:@"flowLimitEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"importRouteTarget"];
         [self exposeLocalKeyPathToREST:@"encryption"];
@@ -524,6 +560,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
         [self exposeLocalKeyPathToREST:@"createBackHaulSubnet"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedBGPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedIDPProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
@@ -534,6 +571,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"tunnelType"];
         [self exposeLocalKeyPathToREST:@"customerID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"exportRouteTarget"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"externalLabel"];
@@ -552,6 +590,7 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
+        _childrenEgressAuditACLTemplates = [NUEgressAuditACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenDomainFIPAclTemplates = [NUDomainFIPAclTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenDHCPv6Options = [NUDHCPv6OptionsFetcher fetcherWithParentObject:self];
@@ -569,6 +608,8 @@ NUDomainUplinkPreference_SYMMETRIC = @"SYMMETRIC";
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdTemplates = [NUIngressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
+        _childrenIngressAuditACLEntryTemplates = [NUIngressAuditACLEntryTemplatesFetcher fetcherWithParentObject:self];
+        _childrenIngressAuditACLTemplates = [NUIngressAuditACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
         _childrenDomains = [NUDomainsFetcher fetcherWithParentObject:self];

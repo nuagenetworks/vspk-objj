@@ -42,6 +42,7 @@
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
 @import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
+@import "Fetchers/NUEgressAuditACLTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUDHCPv6OptionsFetcher.j"
 @import "Fetchers/NUMirrorDestinationGroupsFetcher.j"
@@ -55,6 +56,8 @@
 @import "Fetchers/NUIngressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUIngressACLTemplatesFetcher.j"
 @import "Fetchers/NUIngressAdvFwdTemplatesFetcher.j"
+@import "Fetchers/NUIngressAuditACLEntryTemplatesFetcher.j"
+@import "Fetchers/NUIngressAuditACLTemplatesFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 @import "Fetchers/NUPolicyGroupsFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
@@ -87,6 +90,8 @@ NUL2DomainEntityState_UNDER_CONSTRUCTION = @"UNDER_CONSTRUCTION";
 NUL2DomainFlowCollectionEnabled_DISABLED = @"DISABLED";
 NUL2DomainFlowCollectionEnabled_ENABLED = @"ENABLED";
 NUL2DomainFlowCollectionEnabled_INHERITED = @"INHERITED";
+NUL2DomainFlowLimitEnabled_DISABLED = @"DISABLED";
+NUL2DomainFlowLimitEnabled_ENABLED = @"ENABLED";
 NUL2DomainIPType_DUALSTACK = @"DUALSTACK";
 NUL2DomainIPType_IPV4 = @"IPV4";
 NUL2DomainIPType_IPV6 = @"IPV6";
@@ -160,6 +165,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The IP address of the gateway of this l2 domain
     */
     CPString _gateway @accessors(property=gateway);
@@ -196,6 +205,14 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
     /*!
+        Maximum number of data flows allowed for a VPort.
+    */
+    CPNumber _flowCount @accessors(property=flowCount);
+    /*!
+        Indicates if flow limit is enabled on this Domain. Possible values are ENABLED or DISABLED.
+    */
+    CPString _flowLimitEnabled @accessors(property=flowLimitEnabled);
+    /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
@@ -219,6 +236,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         Enables ingress replication for the VNI.
     */
     BOOL _ingressReplicationEnabled @accessors(property=ingressReplicationEnabled);
+    /*!
+        SRLinux Interface ID for L2Domain configuration
+    */
+    CPNumber _interfaceID @accessors(property=interfaceID);
     /*!
         Specify if scope of entity is Data center or Enterprise level
     */
@@ -252,6 +273,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _uplinkPreference @accessors(property=uplinkPreference);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Enable this flag to use system configured globalMACAddress as the gateway mac address for managed l2 domains
     */
     CPString _useGlobalMAC @accessors(property=useGlobalMAC);
@@ -284,6 +309,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPNumber _customerID @accessors(property=customerID);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -301,6 +330,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
     NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
+    NUEgressAuditACLTemplatesFetcher _childrenEgressAuditACLTemplates @accessors(property=childrenEgressAuditACLTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUDHCPv6OptionsFetcher _childrenDHCPv6Options @accessors(property=childrenDHCPv6Options);
     NUMirrorDestinationGroupsFetcher _childrenMirrorDestinationGroups @accessors(property=childrenMirrorDestinationGroups);
@@ -314,6 +344,8 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     NUIngressACLEntryTemplatesFetcher _childrenIngressACLEntryTemplates @accessors(property=childrenIngressACLEntryTemplates);
     NUIngressACLTemplatesFetcher _childrenIngressACLTemplates @accessors(property=childrenIngressACLTemplates);
     NUIngressAdvFwdTemplatesFetcher _childrenIngressAdvFwdTemplates @accessors(property=childrenIngressAdvFwdTemplates);
+    NUIngressAuditACLEntryTemplatesFetcher _childrenIngressAuditACLEntryTemplates @accessors(property=childrenIngressAuditACLEntryTemplates);
+    NUIngressAuditACLTemplatesFetcher _childrenIngressAuditACLTemplates @accessors(property=childrenIngressAuditACLTemplates);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     NUPolicyGroupsFetcher _childrenPolicyGroups @accessors(property=childrenPolicyGroups);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
@@ -364,6 +396,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
         [self exposeLocalKeyPathToREST:@"address"];
@@ -373,12 +406,15 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"threatIntelligenceEnabled"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
+        [self exposeLocalKeyPathToREST:@"flowCount"];
+        [self exposeLocalKeyPathToREST:@"flowLimitEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"vnId"];
         [self exposeLocalKeyPathToREST:@"enableDHCPv4"];
         [self exposeLocalKeyPathToREST:@"enableDHCPv6"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"ingressReplicationEnabled"];
+        [self exposeLocalKeyPathToREST:@"interfaceID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyChangeStatus"];
@@ -387,6 +423,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"routedVPLSEnabled"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
@@ -395,6 +432,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"dualStackDynamicIPAllocation"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"customerID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];
@@ -410,6 +448,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
+        _childrenEgressAuditACLTemplates = [NUEgressAuditACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenDHCPv6Options = [NUDHCPv6OptionsFetcher fetcherWithParentObject:self];
         _childrenMirrorDestinationGroups = [NUMirrorDestinationGroupsFetcher fetcherWithParentObject:self];
@@ -423,6 +462,8 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenIngressACLEntryTemplates = [NUIngressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressACLTemplates = [NUIngressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenIngressAdvFwdTemplates = [NUIngressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
+        _childrenIngressAuditACLEntryTemplates = [NUIngressAuditACLEntryTemplatesFetcher fetcherWithParentObject:self];
+        _childrenIngressAuditACLTemplates = [NUIngressAuditACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         _childrenPolicyGroups = [NUPolicyGroupsFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];

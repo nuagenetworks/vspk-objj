@@ -58,6 +58,10 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         UUID of the entity on which deployment failed.
     */
     CPString _affectedEntityID @accessors(property=affectedEntityID);
@@ -77,6 +81,10 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         A numerical code mapping to the deployment error condition.
     */
@@ -114,6 +122,10 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
     */
     CPString _eventType @accessors(property=eventType);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -144,11 +156,13 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
         [self exposeLocalKeyPathToREST:@"lastFailureReason"];
         [self exposeLocalKeyPathToREST:@"lastKnownError"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"affectedEntityID"];
         [self exposeLocalKeyPathToREST:@"affectedEntityType"];
         [self exposeLocalKeyPathToREST:@"diffMap"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"errorCondition"];
         [self exposeLocalKeyPathToREST:@"assocEntityId"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
@@ -158,6 +172,7 @@ NUDeploymentFailureEventType_UPDATE = @"UPDATE";
         [self exposeLocalKeyPathToREST:@"associatedNetworkEntityType"];
         [self exposeLocalKeyPathToREST:@"numberOfOccurences"];
         [self exposeLocalKeyPathToREST:@"eventType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

@@ -49,6 +49,10 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         If access control is enabled this FIP is part of the Internet PG.
     */
     BOOL _accessControl @accessors(property=accessControl);
@@ -57,13 +61,25 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _address @accessors(property=address);
     /*!
+        ID of the Egress Rate Limiter for this FloatingIP.
+    */
+    CPString _egressRateLimiterID @accessors(property=egressRateLimiterID);
+    /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
+        ID of the Ingress Rate Limiter for this FloatingIP.
+    */
+    CPString _ingressRateLimiterID @accessors(property=ingressRateLimiterID);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         True if this floating IP is assigned to a network interface else the value is false
     */
@@ -76,6 +92,10 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
         Id of the shared network resource subnet which was used to get this floating IP address
     */
     CPString _associatedSharedNetworkResourceID @accessors(property=associatedSharedNetworkResourceID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -107,13 +127,18 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"accessControl"];
         [self exposeLocalKeyPathToREST:@"address"];
+        [self exposeLocalKeyPathToREST:@"egressRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
+        [self exposeLocalKeyPathToREST:@"ingressRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"assigned"];
         [self exposeLocalKeyPathToREST:@"assignedToObjectType"];
         [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

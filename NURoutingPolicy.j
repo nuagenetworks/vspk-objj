@@ -35,6 +35,7 @@
 
 NURoutingPolicyContentType_DEFAULT = @"DEFAULT";
 NURoutingPolicyContentType_NETCONF_7X50 = @"NETCONF_7X50";
+NURoutingPolicyContentType_SR_LINUX = @"SR_LINUX";
 NURoutingPolicyDefaultAction_ACCEPT = @"ACCEPT";
 NURoutingPolicyDefaultAction_REJECT = @"REJECT";
 NURoutingPolicyEntityScope_ENTERPRISE = @"ENTERPRISE";
@@ -84,6 +85,10 @@ NURoutingPolicyRoutingProtocol_ROUTING = @"ROUTING";
     */
     CPString _routingProtocol @accessors(property=routingProtocol);
     /*!
+        The customer ID given to parent enterprise. This is used by Netconf/Config manager.
+    */
+    CPNumber _CustomerID @accessors(property=CustomerID);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -119,6 +124,7 @@ NURoutingPolicyRoutingProtocol_ROUTING = @"ROUTING";
         [self exposeLocalKeyPathToREST:@"policyDefinition"];
         [self exposeLocalKeyPathToREST:@"contentType"];
         [self exposeLocalKeyPathToREST:@"routingProtocol"];
+        [self exposeLocalKeyPathToREST:@"CustomerID"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

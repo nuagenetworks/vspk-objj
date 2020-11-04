@@ -53,6 +53,10 @@ NUKeyServerMonitorSEKSeedPayloadEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_DE
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         SEK Payload Signature Algorithm Possible values are HMAC_SHA1, HMAC_SHA256, HMAC_SHA512, .
     */
     CPString _seedPayloadAuthenticationAlgorithm @accessors(property=seedPayloadAuthenticationAlgorithm);
@@ -73,6 +77,10 @@ NUKeyServerMonitorSEKSeedPayloadEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_DE
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The time this entry was created (milliseconds since epoch)
     */
     CPNumber _creationTime @accessors(property=creationTime);
@@ -80,6 +88,10 @@ NUKeyServerMonitorSEKSeedPayloadEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_DE
         The time this entry  was activated (milliseconds since epoch)
     */
     CPNumber _startTime @accessors(property=startTime);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -109,13 +121,16 @@ NUKeyServerMonitorSEKSeedPayloadEncryptionAlgorithm_TRIPLE_DES_CBC = @"TRIPLE_DE
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"seedPayloadAuthenticationAlgorithm"];
         [self exposeLocalKeyPathToREST:@"seedPayloadEncryptionAlgorithm"];
         [self exposeLocalKeyPathToREST:@"lifetime"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"creationTime"];
         [self exposeLocalKeyPathToREST:@"startTime"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

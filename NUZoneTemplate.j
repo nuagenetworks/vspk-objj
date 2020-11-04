@@ -77,6 +77,10 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         IPv4 address range of the zone. This is an optional field that allows users to allocate an address range to a zone. The VSD will auto-assign IP ranges to subnets from this range if an IP range is not defined for a subnet.
     */
     CPString _address @accessors(property=address);
@@ -101,6 +105,10 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The ID of the Multi Cast Channel Map  this zone/zone template is associated with. This has to be set when  enableMultiCast is set to ENABLED
     */
     CPString _associatedMulticastChannelMapID @accessors(property=associatedMulticastChannelMapID);
@@ -116,6 +124,10 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
         Number of hosts in the subnets where IP addresses are automatically assigned from the zone IP pool
     */
     CPNumber _numberOfHostsInSubnets @accessors(property=numberOfHostsInSubnets);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -156,16 +168,19 @@ NUZoneTemplateMulticast_INHERITED = @"INHERITED";
         [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"publicZone"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"numberOfHostsInSubnets"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"dynamicIpv6Address"];
         

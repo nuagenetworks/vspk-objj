@@ -76,6 +76,10 @@ NUSSIDConnectionStatus_READY = @"READY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The Gateway (NSG) associated with this SSID. This is a read only attribute
     */
     CPString _gatewayID @accessors(property=gatewayID);
@@ -136,6 +140,10 @@ NUSSIDConnectionStatus_READY = @"READY";
     */
     CPString _vportID @accessors(property=vportID);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Boolean that defines if the SSID name is to be broadcasted or not.
     */
     BOOL _broadcastSSID @accessors(property=broadcastSSID);
@@ -155,6 +163,10 @@ NUSSIDConnectionStatus_READY = @"READY";
         Which mode of authentication is defined for a particular SSID Connection instance.
     */
     CPString _authenticationMode @accessors(property=authenticationMode);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -188,6 +200,7 @@ NUSSIDConnectionStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"passphrase"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayID"];
         [self exposeLocalKeyPathToREST:@"readonly"];
         [self exposeLocalKeyPathToREST:@"redirectOption"];
@@ -203,11 +216,13 @@ NUSSIDConnectionStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"interfaceName"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"vportID"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"broadcastSSID"];
         [self exposeLocalKeyPathToREST:@"associatedCaptivePortalProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"authenticationMode"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

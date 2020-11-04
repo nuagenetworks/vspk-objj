@@ -86,6 +86,10 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The IP address of the gateway of this subnet
     */
     CPString _gateway @accessors(property=gateway);
@@ -126,6 +130,10 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     */
     BOOL _splitSubnet @accessors(property=splitSubnet);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
          When set, VRS will act as  ARP Proxy
     */
     BOOL _proxyARP @accessors(property=proxyARP);
@@ -145,6 +153,10 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         Indicates multicast policy on Subnet/Subnet Template.
     */
     CPString _multicast @accessors(property=multicast);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -183,6 +195,7 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -193,11 +206,13 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"splitSubnet"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"proxyARP"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"dualStackDynamicIPAllocation"];
         [self exposeLocalKeyPathToREST:@"multicast"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenAddressRanges = [NUAddressRangesFetcher fetcherWithParentObject:self];

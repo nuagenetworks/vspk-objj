@@ -51,6 +51,10 @@ NUPatchEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The Patch build number (eg. 1)
     */
     CPNumber _patchBuildNumber @accessors(property=patchBuildNumber);
@@ -79,6 +83,10 @@ NUPatchEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Whether or not this Patch supports deletion. If a patch does not support deletion, the REST DELETE method will fail
     */
     BOOL _supportsDeletion @accessors(property=supportsDeletion);
@@ -86,6 +94,10 @@ NUPatchEntityScope_GLOBAL = @"GLOBAL";
         Whether or not this patch supports Network Acceleration
     */
     BOOL _supportsNetworkAcceleration @accessors(property=supportsNetworkAcceleration);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -116,6 +128,7 @@ NUPatchEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"patchBuildNumber"];
         [self exposeLocalKeyPathToREST:@"patchSummary"];
         [self exposeLocalKeyPathToREST:@"patchTag"];
@@ -123,8 +136,10 @@ NUPatchEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"supportsDeletion"];
         [self exposeLocalKeyPathToREST:@"supportsNetworkAcceleration"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

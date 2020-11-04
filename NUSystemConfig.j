@@ -303,6 +303,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Gateway probe interval in seconds.
     */
     CPNumber _gatewayProbeInterval @accessors(property=gatewayProbeInterval);
@@ -334,6 +338,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         If VCIN Active/Standby is enabled, this needs to be the load-balancer IP which sits in front of the Active and Standby VCIN nodes. The VRS will make its API calls to this load-balancer
     */
     CPString _vcinLoadBalancerIP @accessors(property=vcinLoadBalancerIP);
+    /*!
+        Forward Error Correction feedback timer in seconds. Possible values are 1, 2, 3, 4 or 5.
+    */
+    CPNumber _fecFeedbackTimer @accessors(property=fecFeedbackTimer);
     /*!
         Autonomous System Number, used for secondary RT auto-generation.
     */
@@ -378,6 +386,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Enables IP based threat intelligence. This requires Flow Collection to be enabled.
     */
     BOOL _threatIntelligenceEnabled @accessors(property=threatIntelligenceEnabled);
+    /*!
+        Feed server download port for Threat Prevention VNF
+    */
+    CPNumber _threatPreventionFeedServerProxyPort @accessors(property=threatPreventionFeedServerProxyPort);
     /*!
         Specifies the Threat Prevention Management server location.
     */
@@ -431,7 +443,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _elasticClusterName @accessors(property=elasticClusterName);
     /*!
-        When enabled, it allows Enterprise Avatar (image) to be populated on the NSGateway bootstrapping portal.
+        When enabled, it allows Enterprise Avatar (image) to be populated on the NSGateway bootstrapping portal and blocked page notification.
     */
     BOOL _allowEnterpriseAvatarOnNSG @accessors(property=allowEnterpriseAvatarOnNSG);
     /*!
@@ -442,6 +454,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires 'statisticsEnabled'.
     */
     BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
+    /*!
+        Timeout in seconds after which the traffic will be dropped, if the flow limit exceeds.
+    */
+    CPNumber _flowDropTimeout @accessors(property=flowDropTimeout);
     /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
@@ -463,6 +479,14 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _infrastructureBGPASNumber @accessors(property=infrastructureBGPASNumber);
     /*!
+        Lower limit for interface Id configured on SRLinux device.
+    */
+    CPNumber _interfaceIdLowerLimit @accessors(property=interfaceIdLowerLimit);
+    /*!
+        Upper limit for interface Id configured on SRLinux device.
+    */
+    CPNumber _interfaceIdUpperLimit @accessors(property=interfaceIdUpperLimit);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -478,6 +502,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Post processor thread count.
     */
     CPNumber _postProcessorThreadsCount @accessors(property=postProcessorThreadsCount);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Group Key Encryption Profile Default SEK Generation Interval in seconds.
     */
@@ -683,6 +711,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _eventProcessorTimeout @accessors(property=eventProcessorTimeout);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         Two Factor Code Expiration time in seconds for bootstrapping gateways. (min = 60, max = 604800)
     */
     CPNumber _twoFactorCodeExpiry @accessors(property=twoFactorCodeExpiry);
@@ -738,6 +770,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Avatar type - URL or BASE64
     */
     CPString _systemAvatarType @accessors(property=systemAvatarType);
+    /*!
+        The text for blocked page html which gets displayed to the end-users when they reach a website that is blocked by Web Filtering ACL. User can possibly include very basic html tags like <p>, <ul> etc. in order to fomat the text displayed to the end-users.
+    */
+    CPString _systemBlockedPageText @accessors(property=systemBlockedPageText);
     
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
@@ -818,6 +854,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"pageSize"];
         [self exposeLocalKeyPathToREST:@"lastExecutedMigrationPhase"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayProbeInterval"];
         [self exposeLocalKeyPathToREST:@"gatewayProbeWindow"];
         [self exposeLocalKeyPathToREST:@"gatewayRebalancingInterval"];
@@ -826,6 +863,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"rbacEnabled"];
         [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
         [self exposeLocalKeyPathToREST:@"vcinLoadBalancerIP"];
+        [self exposeLocalKeyPathToREST:@"fecFeedbackTimer"];
         [self exposeLocalKeyPathToREST:@"secondaryASNumber"];
         [self exposeLocalKeyPathToREST:@"secondaryRTLowerLimit"];
         [self exposeLocalKeyPathToREST:@"secondaryRTUpperLimit"];
@@ -837,6 +875,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"offsetCustomerID"];
         [self exposeLocalKeyPathToREST:@"offsetServiceID"];
         [self exposeLocalKeyPathToREST:@"threatIntelligenceEnabled"];
+        [self exposeLocalKeyPathToREST:@"threatPreventionFeedServerProxyPort"];
         [self exposeLocalKeyPathToREST:@"threatPreventionServer"];
         [self exposeLocalKeyPathToREST:@"threatPreventionServerPassword"];
         [self exposeLocalKeyPathToREST:@"threatPreventionServerProxyPort"];
@@ -853,15 +892,19 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"allowEnterpriseAvatarOnNSG"];
         [self exposeLocalKeyPathToREST:@"globalMACAddress"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
+        [self exposeLocalKeyPathToREST:@"flowDropTimeout"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadataSize"];
         [self exposeLocalKeyPathToREST:@"importedSaaSApplicationsVersion"];
         [self exposeLocalKeyPathToREST:@"inactiveTimeout"];
         [self exposeLocalKeyPathToREST:@"infrastructureBGPASNumber"];
+        [self exposeLocalKeyPathToREST:@"interfaceIdLowerLimit"];
+        [self exposeLocalKeyPathToREST:@"interfaceIdUpperLimit"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainTunnelType"];
         [self exposeLocalKeyPathToREST:@"googleMapsAPIKey"];
         [self exposeLocalKeyPathToREST:@"postProcessorThreadsCount"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKGenerationInterval"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKLifetime"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKPayloadEncryptionAlgorithm"];
@@ -913,6 +956,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"eventProcessorInterval"];
         [self exposeLocalKeyPathToREST:@"eventProcessorMaxEventsCount"];
         [self exposeLocalKeyPathToREST:@"eventProcessorTimeout"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeExpiry"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeLength"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeSeedLength"];
@@ -927,6 +971,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"sysmonPurgeInterval"];
         [self exposeLocalKeyPathToREST:@"systemAvatarData"];
         [self exposeLocalKeyPathToREST:@"systemAvatarType"];
+        [self exposeLocalKeyPathToREST:@"systemBlockedPageText"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

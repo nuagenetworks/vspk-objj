@@ -33,6 +33,7 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUBFDSessionsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUUnderlayTestsFetcher.j"
 @import "Fetchers/NUCustomPropertiesFetcher.j"
 
 NUUplinkConnectionAddressFamily_IPV4 = @"IPV4";
@@ -45,6 +46,9 @@ NUUplinkConnectionAuxMode_HOT = @"HOT";
 NUUplinkConnectionAuxMode_NONE = @"NONE";
 NUUplinkConnectionEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUUplinkConnectionEntityScope_GLOBAL = @"GLOBAL";
+NUUplinkConnectionFecEnabled_DISABLED = @"DISABLED";
+NUUplinkConnectionFecEnabled_ENABLED = @"ENABLED";
+NUUplinkConnectionFecEnabled_SUPPORTED = @"SUPPORTED";
 NUUplinkConnectionInterfaceConnectionType_AUTOMATIC = @"AUTOMATIC";
 NUUplinkConnectionInterfaceConnectionType_EMBEDDED = @"EMBEDDED";
 NUUplinkConnectionInterfaceConnectionType_PCI_EXPRESS = @"PCI_EXPRESS";
@@ -60,6 +64,10 @@ NUUplinkConnectionRole_PRIMARY = @"PRIMARY";
 NUUplinkConnectionRole_SECONDARY = @"SECONDARY";
 NUUplinkConnectionRole_TERTIARY = @"TERTIARY";
 NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
+NUUplinkConnectionUplinkType_CONTROL = @"CONTROL";
+NUUplinkConnectionUplinkType_DATA = @"DATA";
+NUUplinkConnectionUplinkType_SHUNT = @"SHUNT";
+NUUplinkConnectionUplinkType_UPLINK = @"UPLINK";
 
 
 /*!
@@ -88,9 +96,17 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         IP address of the gateway bound to the port
     */
     CPString _gateway @accessors(property=gateway);
+    /*!
+        The UUID of the NSG on which this uplink connection resides.
+    */
+    CPString _gatewayID @accessors(property=gatewayID);
     /*!
         IPv6 address of the gateway bound to the port.
     */
@@ -112,6 +128,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _advertisementCriteria @accessors(property=advertisementCriteria);
     /*!
+        Indicates the FEC (Forward Error Correction) setting on this Uplink Connection. Possible values are Enabled (Encode & Decode on all paths over this uplink), Disabled (Encode & Decode only to uplinks with FEC Enabled) and Supported (do not Encode or Decode, do not detect or report loss).
+    */
+    CPString _fecEnabled @accessors(property=fecEnabled);
+    /*!
         Secondary IP Address (Control IP Address) for Loopback. 
     */
     CPString _secondaryAddress @accessors(property=secondaryAddress);
@@ -123,6 +143,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         VLAN Id of this uplink
     */
     CPNumber _vlan @accessors(property=vlan);
+    /*!
+        The UUID of the VLAN on which this uplink connection resides.
+    */
+    CPString _vlanID @accessors(property=vlanID);
     /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
@@ -164,6 +188,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPNumber _roleOrder @accessors(property=roleOrder);
     /*!
+        The UUID of the NSPort on which this uplink connection resides.
+    */
+    CPString _portID @accessors(property=portID);
+    /*!
         Physical port name this uplink belongs to.
     */
     CPString _portName @accessors(property=portName);
@@ -175,6 +203,18 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         ID that unqiuely identifies the uplink.
     */
     CPNumber _uplinkID @accessors(property=uplinkID);
+    /*!
+        The name of the uplink defined by the port name and vlan id (eg. port1.100)
+    */
+    CPString _uplinkName @accessors(property=uplinkName);
+    /*!
+        Denotes the Uplink Connection Type on the NSG. Possible values are UPLINK, CONTROL, DATA, SHUNT.
+    */
+    CPString _uplinkType @accessors(property=uplinkType);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         System generated identifier of an uplink on NSG.
     */
@@ -204,6 +244,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     BOOL _auxiliaryLink @accessors(property=auxiliaryLink);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -212,6 +256,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUBFDSessionsFetcher _childrenBFDSessions @accessors(property=childrenBFDSessions);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUUnderlayTestsFetcher _childrenUnderlayTests @accessors(property=childrenUnderlayTests);
     NUCustomPropertiesFetcher _childrenCustomProperties @accessors(property=childrenCustomProperties);
     
 }
@@ -238,15 +283,19 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"DNSAddressV6"];
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
+        [self exposeLocalKeyPathToREST:@"gatewayID"];
         [self exposeLocalKeyPathToREST:@"gatewayV6"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"addressFamily"];
         [self exposeLocalKeyPathToREST:@"addressV6"];
         [self exposeLocalKeyPathToREST:@"advertisementCriteria"];
+        [self exposeLocalKeyPathToREST:@"fecEnabled"];
         [self exposeLocalKeyPathToREST:@"secondaryAddress"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"vlan"];
+        [self exposeLocalKeyPathToREST:@"vlanID"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"underlayEnabled"];
         [self exposeLocalKeyPathToREST:@"underlayID"];
@@ -257,9 +306,13 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"mode"];
         [self exposeLocalKeyPathToREST:@"role"];
         [self exposeLocalKeyPathToREST:@"roleOrder"];
+        [self exposeLocalKeyPathToREST:@"portID"];
         [self exposeLocalKeyPathToREST:@"portName"];
         [self exposeLocalKeyPathToREST:@"downloadRateLimit"];
         [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"uplinkName"];
+        [self exposeLocalKeyPathToREST:@"uplinkType"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"primaryDataPathID"];
         [self exposeLocalKeyPathToREST:@"username"];
         [self exposeLocalKeyPathToREST:@"assocUnderlayID"];
@@ -267,12 +320,14 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"associatedUnderlayName"];
         [self exposeLocalKeyPathToREST:@"auxMode"];
         [self exposeLocalKeyPathToREST:@"auxiliaryLink"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenBFDSessions = [NUBFDSessionsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenUnderlayTests = [NUUnderlayTestsFetcher fetcherWithParentObject:self];
         _childrenCustomProperties = [NUCustomPropertiesFetcher fetcherWithParentObject:self];
         
         

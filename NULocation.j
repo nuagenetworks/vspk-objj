@@ -47,6 +47,10 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Latitude in decimal format.
     */
     CPNumber _latitude @accessors(property=latitude);
@@ -83,6 +87,10 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _country @accessors(property=country);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Name of the associated entity.
     */
     CPString _associatedEntityName @accessors(property=associatedEntityName);
@@ -94,6 +102,10 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
         State/Province/Region
     */
     CPString _state @accessors(property=state);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -123,6 +135,7 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"latitude"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"ignoreGeocode"];
@@ -132,9 +145,11 @@ NULocationEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"locality"];
         [self exposeLocalKeyPathToREST:@"longitude"];
         [self exposeLocalKeyPathToREST:@"country"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedEntityName"];
         [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"state"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

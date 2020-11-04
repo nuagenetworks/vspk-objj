@@ -93,9 +93,17 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The sequence of the IKE Gateway Connection
     */
     CPNumber _sequence @accessors(property=sequence);
+    /*!
+        Indicates if the IKEGatewayConnection is mirroring an equivalent one on Shunt VLAN or not.
+    */
+    BOOL _mirroredConnection @accessors(property=mirroredConnection);
     /*!
         Allow any local subnets to be used
     */
@@ -120,6 +128,10 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
         The Name of the Port and Vlan the IKEv2 Connection is on
     */
     CPString _portVLANName @accessors(property=portVLANName);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Priority of the IKEv2 Gateway Connection
     */
@@ -152,6 +164,10 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
         The ID of the associated Vlan
     */
     CPString _associatedVLANID @accessors(property=associatedVLANID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -190,13 +206,16 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"mark"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"sequence"];
+        [self exposeLocalKeyPathToREST:@"mirroredConnection"];
         [self exposeLocalKeyPathToREST:@"allowAnySubnet"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"unencryptedPSK"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"configurationStatus"];
         [self exposeLocalKeyPathToREST:@"portVLANName"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"associatedCloudID"];
         [self exposeLocalKeyPathToREST:@"associatedCloudType"];
@@ -205,6 +224,7 @@ NUIKEGatewayConnectionNSGRole_RESPONDER = @"RESPONDER";
         [self exposeLocalKeyPathToREST:@"associatedIKEEncryptionProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEGatewayProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedVLANID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPerformanceMonitors = [NUPerformanceMonitorsFetcher fetcherWithParentObject:self];

@@ -67,6 +67,10 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         IP address of the route
     */
     CPString _address @accessors(property=address);
@@ -95,6 +99,10 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
     */
     CPString _routeDistinguisher @accessors(property=routeDistinguisher);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         List of associated gateway IDs for static route, returned as a JSON list of strings
     */
     CPArrayController _associatedGatewayIDs @accessors(property=associatedGatewayIDs);
@@ -102,6 +110,10 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
         UUID of Do Not Advertise Subnet
     */
     CPString _associatedSubnetID @accessors(property=associatedSubnetID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -140,6 +152,7 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"IPv6Address"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"nextHopIp"];
@@ -147,8 +160,10 @@ NUStaticRouteType_OVERLAY_ADDRESS_TRANSLATION = @"OVERLAY_ADDRESS_TRANSLATION";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedGatewayIDs"];
         [self exposeLocalKeyPathToREST:@"associatedSubnetID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

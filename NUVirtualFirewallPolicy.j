@@ -57,6 +57,10 @@ NUVirtualFirewallPolicyPriorityType_TOP = @"TOP";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         If enabled, it means that this rule is active
     */
     BOOL _active @accessors(property=active);
@@ -93,6 +97,10 @@ NUVirtualFirewallPolicyPriorityType_TOP = @"TOP";
     */
     CPString _policyState @accessors(property=policyState);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The priority of the rule entry that determines the order of entries
     */
     CPNumber _priority @accessors(property=priority);
@@ -125,6 +133,10 @@ NUVirtualFirewallPolicyPriorityType_TOP = @"TOP";
     */
     BOOL _autoGeneratePriority @accessors(property=autoGeneratePriority);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -155,6 +167,7 @@ NUVirtualFirewallPolicyPriorityType_TOP = @"TOP";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"active"];
         [self exposeLocalKeyPathToREST:@"defaultAllowIP"];
         [self exposeLocalKeyPathToREST:@"defaultAllowNonIP"];
@@ -164,6 +177,7 @@ NUVirtualFirewallPolicyPriorityType_TOP = @"TOP";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"policyState"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"priorityType"];
         [self exposeLocalKeyPathToREST:@"associatedEgressAdvFwdRuleTemplateID"];
@@ -172,6 +186,7 @@ NUVirtualFirewallPolicyPriorityType_TOP = @"TOP";
         [self exposeLocalKeyPathToREST:@"associatedIngressTemplateID"];
         [self exposeLocalKeyPathToREST:@"associatedLiveEntityID"];
         [self exposeLocalKeyPathToREST:@"autoGeneratePriority"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

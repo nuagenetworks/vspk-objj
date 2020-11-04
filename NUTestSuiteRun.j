@@ -60,7 +60,11 @@ NUTestSuiteRunOperationStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
-        The datapath ID (System ID) of the NSG instance against which the tests are to be executed.
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
+        The Datapath ID of the NSG instance against which the tests are to be executed.
     */
     CPString _datapathID @accessors(property=datapathID);
     /*!
@@ -92,6 +96,10 @@ NUTestSuiteRunOperationStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _operationStatus @accessors(property=operationStatus);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Type of the entity that is hosting the Test Suite Run.  This can be a vPort or an NSG.
     */
     CPString _associatedEntityType @accessors(property=associatedEntityType);
@@ -112,9 +120,17 @@ NUTestSuiteRunOperationStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _subnetName @accessors(property=subnetName);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
+    /*!
+        The System ID of the NSG instance against which the tests are to be executed.
+    */
+    CPString _systemID @accessors(property=systemID);
     
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUTestRunsFetcher _childrenTestRuns @accessors(property=childrenTestRuns);
@@ -143,6 +159,7 @@ NUTestSuiteRunOperationStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"VPortName"];
         [self exposeLocalKeyPathToREST:@"NSGatewayName"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
         [self exposeLocalKeyPathToREST:@"destination"];
         [self exposeLocalKeyPathToREST:@"birthCertificate"];
@@ -151,12 +168,15 @@ NUTestSuiteRunOperationStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"zoneName"];
         [self exposeLocalKeyPathToREST:@"operationStatus"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedTestSuiteID"];
         [self exposeLocalKeyPathToREST:@"associatedTestSuiteName"];
         [self exposeLocalKeyPathToREST:@"associatedUnderlayTestID"];
         [self exposeLocalKeyPathToREST:@"subnetName"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
+        [self exposeLocalKeyPathToREST:@"systemID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenTestRuns = [NUTestRunsFetcher fetcherWithParentObject:self];

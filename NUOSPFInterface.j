@@ -66,6 +66,10 @@ NUOSPFInterfaceInterfaceType_POINT_TO_POINT = @"POINT_TO_POINT";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Admin state of this OSPF interface
     */
     CPString _adminState @accessors(property=adminState);
@@ -102,6 +106,10 @@ NUOSPFInterfaceInterfaceType_POINT_TO_POINT = @"POINT_TO_POINT";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Determines which routers are selected as the designated router and backup designated router of the area.
     */
     CPNumber _priority @accessors(property=priority);
@@ -121,6 +129,10 @@ NUOSPFInterfaceInterfaceType_POINT_TO_POINT = @"POINT_TO_POINT";
         Authentication Type used for this OSPFInterface
     */
     CPString _authenticationType @accessors(property=authenticationType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -153,6 +165,7 @@ NUOSPFInterfaceInterfaceType_POINT_TO_POINT = @"POINT_TO_POINT";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"passiveEnabled"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"adminState"];
         [self exposeLocalKeyPathToREST:@"deadInterval"];
         [self exposeLocalKeyPathToREST:@"helloInterval"];
@@ -162,11 +175,13 @@ NUOSPFInterfaceInterfaceType_POINT_TO_POINT = @"POINT_TO_POINT";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"interfaceType"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"associatedSubnetID"];
         [self exposeLocalKeyPathToREST:@"mtu"];
         [self exposeLocalKeyPathToREST:@"authenticationKey"];
         [self exposeLocalKeyPathToREST:@"authenticationType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

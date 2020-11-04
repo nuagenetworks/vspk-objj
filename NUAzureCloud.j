@@ -32,6 +32,7 @@
 @import "Fetchers/NUPermissionsFetcher.j"
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUIKEGatewayProfilesFetcher.j"
+@import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUJobsFetcher.j"
 
@@ -53,6 +54,10 @@ NUAzureCloudEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The tenant Id of Azure Cloud account.
     */
     CPString _tenantID @accessors(property=tenantID);
@@ -73,6 +78,10 @@ NUAzureCloudEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Associated IKE Encryption Profile.
     */
     CPString _associatedIKEEncryptionProfileID @accessors(property=associatedIKEEncryptionProfileID);
@@ -85,6 +94,10 @@ NUAzureCloudEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _subscriptionID @accessors(property=subscriptionID);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -92,6 +105,7 @@ NUAzureCloudEntityScope_GLOBAL = @"GLOBAL";
     NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUIKEGatewayProfilesFetcher _childrenIKEGatewayProfiles @accessors(property=childrenIKEGatewayProfiles);
+    NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUJobsFetcher _childrenJobs @accessors(property=childrenJobs);
     
@@ -116,19 +130,23 @@ NUAzureCloudEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"tenantID"];
         [self exposeLocalKeyPathToREST:@"clientID"];
         [self exposeLocalKeyPathToREST:@"clientSecret"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedIKEEncryptionProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEPSKID"];
         [self exposeLocalKeyPathToREST:@"subscriptionID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenIKEGatewayProfiles = [NUIKEGatewayProfilesFetcher fetcherWithParentObject:self];
+        _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenJobs = [NUJobsFetcher fetcherWithParentObject:self];
         

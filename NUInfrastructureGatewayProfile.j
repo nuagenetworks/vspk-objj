@@ -40,6 +40,8 @@ NUInfrastructureGatewayProfileEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUInfrastructureGatewayProfileEntityScope_GLOBAL = @"GLOBAL";
 NUInfrastructureGatewayProfileRemoteLogMode_DISABLED = @"DISABLED";
 NUInfrastructureGatewayProfileRemoteLogMode_RSYSLOG = @"RSYSLOG";
+NUInfrastructureGatewayProfileUnderlayTestUplinkMode_ALL_UPLINKS = @"ALL_UPLINKS";
+NUInfrastructureGatewayProfileUnderlayTestUplinkMode_BOOTSTRAP_UPLINK = @"BOOTSTRAP_UPLINK";
 NUInfrastructureGatewayProfileUpgradeAction_DOWNLOAD_AND_UPGRADE_AT_WINDOW = @"DOWNLOAD_AND_UPGRADE_AT_WINDOW";
 NUInfrastructureGatewayProfileUpgradeAction_DOWNLOAD_AND_UPGRADE_NOW = @"DOWNLOAD_AND_UPGRADE_NOW";
 NUInfrastructureGatewayProfileUpgradeAction_DOWNLOAD_ONLY = @"DOWNLOAD_ONLY";
@@ -69,6 +71,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
     /*!
         Datapath flows sync-time-interval specified in milliseconds
     */
@@ -126,6 +132,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _underlayTestServer @accessors(property=underlayTestServer);
     /*!
+        Enumerator to describe which uplinks to run underlay tests on during bootstrap
+    */
+    CPString _underlayTestUplinkMode @accessors(property=underlayTestUplinkMode);
+    /*!
         Enterprise/Organisation associated with this Profile instance.
     */
     CPString _enterpriseID @accessors(property=enterpriseID);
@@ -162,6 +172,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _upgradeAction @accessors(property=upgradeAction);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Proxy DNS Name :  DNS Name of the system acting as a proxy between the NSG instances and the VSD.
     */
     CPString _proxyDNSName @accessors(property=proxyDNSName);
@@ -185,6 +199,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         Run the underlay MTU discovery test during activation. Will only have an effect if the Underlay tests at bootstrap are enabled.
     */
     BOOL _runUnderlayMTUDiscoveryTest @accessors(property=runUnderlayMTUDiscoveryTest);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -221,6 +239,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"NTPServerKeyID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"deadTimer"];
         [self exposeLocalKeyPathToREST:@"deadTimerEnabled"];
@@ -235,6 +254,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enableUnderlayTestsDuringActivation"];
         [self exposeLocalKeyPathToREST:@"underlayTestServer"];
+        [self exposeLocalKeyPathToREST:@"underlayTestUplinkMode"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"controllerLessDuration"];
@@ -244,12 +264,14 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"forceImmediateSystemSync"];
         [self exposeLocalKeyPathToREST:@"openFlowAuditTimer"];
         [self exposeLocalKeyPathToREST:@"upgradeAction"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"proxyDNSName"];
         [self exposeLocalKeyPathToREST:@"useTwoFactor"];
         [self exposeLocalKeyPathToREST:@"statsCollectorPort"];
         [self exposeLocalKeyPathToREST:@"runUnderlayBandwidthTest"];
         [self exposeLocalKeyPathToREST:@"runUnderlayConnectivityTest"];
         [self exposeLocalKeyPathToREST:@"runUnderlayMTUDiscoveryTest"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemSyncScheduler"];
         

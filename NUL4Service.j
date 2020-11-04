@@ -57,6 +57,10 @@ NUL4ServiceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Flag to identify default service
     */
     BOOL _defaultService @accessors(property=defaultService);
@@ -73,9 +77,17 @@ NUL4ServiceEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _ports @accessors(property=ports);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Protocol number that must be matched
     */
     CPString _protocol @accessors(property=protocol);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -106,11 +118,14 @@ NUL4ServiceEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"ICMPType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"defaultService"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"ports"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"protocol"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenL4ServiceGroups = [NUL4ServiceGroupsFetcher fetcherWithParentObject:self];

@@ -51,6 +51,10 @@ NUDomainKindSummaryEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Total count of gateways in this domain
     */
     CPNumber _gatewayCount @accessors(property=gatewayCount);
@@ -91,6 +95,10 @@ NUDomainKindSummaryEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _trafficVolume @accessors(property=trafficVolume);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Total count of alarms with CRITICAL severity
     */
     CPNumber _criticalAlarmsCount @accessors(property=criticalAlarmsCount);
@@ -102,6 +110,10 @@ NUDomainKindSummaryEntityScope_GLOBAL = @"GLOBAL";
         Total count of sub networks in this domain
     */
     CPNumber _subNetworkCount @accessors(property=subNetworkCount);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -132,6 +144,7 @@ NUDomainKindSummaryEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"majorAlarmsCount"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayCount"];
         [self exposeLocalKeyPathToREST:@"meshGroupCount"];
         [self exposeLocalKeyPathToREST:@"minorAlarmsCount"];
@@ -142,9 +155,11 @@ NUDomainKindSummaryEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"domainKindName"];
         [self exposeLocalKeyPathToREST:@"zoneCount"];
         [self exposeLocalKeyPathToREST:@"trafficVolume"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"criticalAlarmsCount"];
         [self exposeLocalKeyPathToREST:@"nsgCount"];
         [self exposeLocalKeyPathToREST:@"subNetworkCount"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

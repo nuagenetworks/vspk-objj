@@ -77,6 +77,10 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Enable Web Filtering for this enterprise profile
     */
     BOOL _webFilterEnabled @accessors(property=webFilterEnabled);
@@ -137,6 +141,14 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPArrayController _forwardingClass @accessors(property=forwardingClass);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -172,6 +184,7 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"VNFManagementEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"webFilterEnabled"];
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"sendMultiCastListID"];
@@ -187,6 +200,8 @@ NUEnterpriseProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"encryptionManagementMode"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"forwardingClass"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

@@ -54,6 +54,10 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Total number of Gateway Secured Data records
     */
     CPNumber _gatewaySecuredDataRecordCount @accessors(property=gatewaySecuredDataRecordCount);
@@ -85,6 +89,14 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -118,6 +130,7 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"lastUpdateTime"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewaySecuredDataRecordCount"];
         [self exposeLocalKeyPathToREST:@"keyserverMonitorEncryptedSEKCount"];
         [self exposeLocalKeyPathToREST:@"keyserverMonitorEncryptedSeedCount"];
@@ -126,6 +139,8 @@ NUKeyServerMonitorEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseSecuredDataRecordCount"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

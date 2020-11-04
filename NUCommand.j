@@ -31,8 +31,13 @@
 
 
 NUCommandCommand_NSG_APPLY_PATCH = @"NSG_APPLY_PATCH";
+NUCommandCommand_NSG_CONTAINER_TEST_SUITE_RUN = @"NSG_CONTAINER_TEST_SUITE_RUN";
+NUCommandCommand_NSG_CONTAINER_UNDERLAY_TEST = @"NSG_CONTAINER_UNDERLAY_TEST";
 NUCommandCommand_NSG_DELETE_PATCH = @"NSG_DELETE_PATCH";
 NUCommandCommand_NSG_DOWNLOAD_OS_IMAGE = @"NSG_DOWNLOAD_OS_IMAGE";
+NUCommandCommand_NSG_OVERLAY_SYSLOG_CONTAINER_RESTART = @"NSG_OVERLAY_SYSLOG_CONTAINER_RESTART";
+NUCommandCommand_NSG_OVERLAY_SYSLOG_CONTAINER_START = @"NSG_OVERLAY_SYSLOG_CONTAINER_START";
+NUCommandCommand_NSG_OVERLAY_SYSLOG_CONTAINER_STOP = @"NSG_OVERLAY_SYSLOG_CONTAINER_STOP";
 NUCommandCommand_NSG_REBOOT = @"NSG_REBOOT";
 NUCommandCommand_NSG_RENEW_CERT = @"NSG_RENEW_CERT";
 NUCommandCommand_NSG_UPDATE_INFO = @"NSG_UPDATE_INFO";
@@ -61,6 +66,10 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Details about the command execution as reported directly from the NSG independent of status codes.
     */
     CPString _detail @accessors(property=detail);
@@ -84,6 +93,10 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
         Informative details on what command is to be executed.  It complements the commandType attribute.  An example of a value could be a URL, a version number, a UUID of another object, ...
     */
     CPString _commandInformation @accessors(property=commandInformation);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         JSON string detailing the progress of the command execution on Gateway.
     */
@@ -117,6 +130,10 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _override @accessors(property=override);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -142,12 +159,14 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"detail"];
         [self exposeLocalKeyPathToREST:@"detailedStatus"];
         [self exposeLocalKeyPathToREST:@"detailedStatusCode"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"command"];
         [self exposeLocalKeyPathToREST:@"commandInformation"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"progress"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedParam"];
@@ -156,6 +175,7 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"fullCommand"];
         [self exposeLocalKeyPathToREST:@"summary"];
         [self exposeLocalKeyPathToREST:@"override"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

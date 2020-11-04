@@ -34,6 +34,7 @@
 @import "Fetchers/NUNetconfSessionsFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
+@import "Fetchers/NUGNMISessionsFetcher.j"
 
 NUNetconfManagerEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUNetconfManagerEntityScope_GLOBAL = @"GLOBAL";
@@ -57,6 +58,10 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Netconf Manager RPM release version
     */
     CPString _release @accessors(property=release);
@@ -69,6 +74,10 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Type of parent entity
     */
     CPString _assocEntityType @accessors(property=assocEntityType);
@@ -76,6 +85,14 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
         VSD connection status with this Netconf Manager
     */
     CPString _status @accessors(property=status);
+    /*!
+        Indicates if this NetconfManager is currently processing events received from Gateways
+    */
+    BOOL _eventProcessingEnabled @accessors(property=eventProcessingEnabled);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -86,6 +103,7 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
     NUNetconfSessionsFetcher _childrenNetconfSessions @accessors(property=childrenNetconfSessions);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
+    NUGNMISessionsFetcher _childrenGNMISessions @accessors(property=childrenGNMISessions);
     
 }
 
@@ -108,11 +126,15 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"release"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"eventProcessingEnabled"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
@@ -120,6 +142,7 @@ NUNetconfManagerStatus_JMS_DISCONNECTED = @"JMS_DISCONNECTED";
         _childrenNetconfSessions = [NUNetconfSessionsFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGNMISessions = [NUGNMISessionsFetcher fetcherWithParentObject:self];
         
         
     }

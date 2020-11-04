@@ -53,6 +53,10 @@ NUIngressProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         A customer friendly description of the Ingress Profile entity.
     */
     CPString _description @accessors(property=description);
@@ -64,6 +68,10 @@ NUIngressProfileEntityScope_GLOBAL = @"GLOBAL";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Type of parent entity
     */
@@ -101,6 +109,14 @@ NUIngressProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedSAPIngressQoSProfileName @accessors(property=associatedSAPIngressQoSProfileName);
     /*!
+        The customer ID given to parent enterprise. This is used by Netconf/Config manager.
+    */
+    CPNumber _customerID @accessors(property=customerID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -132,9 +148,11 @@ NUIngressProfileEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedIPFilterProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedIPFilterProfileName"];
@@ -144,6 +162,8 @@ NUIngressProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"associatedMACFilterProfileName"];
         [self exposeLocalKeyPathToREST:@"associatedSAPIngressQoSProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedSAPIngressQoSProfileName"];
+        [self exposeLocalKeyPathToREST:@"customerID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];

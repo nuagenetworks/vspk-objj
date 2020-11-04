@@ -62,6 +62,10 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Determines which template ID this policy group belongs to.
     */
     CPString _templateID @accessors(property=templateID);
@@ -86,6 +90,10 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
     */
     CPNumber _policyGroupID @accessors(property=policyGroupID);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         UUID of the associated Policy Group Category for contextual filtering of policy groups.
     */
     CPString _assocPolicyGroupCategoryID @accessors(property=assocPolicyGroupCategoryID);
@@ -93,6 +101,10 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
         Name of the Policy Group Category used for contextual filtering of policy groups.
     */
     CPString _assocPolicyGroupCategoryName @accessors(property=assocPolicyGroupCategoryName);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         Indicates whether this PG is internal to VSP or not.
     */
@@ -135,14 +147,17 @@ NUPolicyGroupType_SOFTWARE = @"SOFTWARE";
         [self exposeLocalKeyPathToREST:@"EVPNCommunityTag"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"templateID"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"entityState"];
         [self exposeLocalKeyPathToREST:@"policyGroupID"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"assocPolicyGroupCategoryID"];
         [self exposeLocalKeyPathToREST:@"assocPolicyGroupCategoryName"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"external"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];

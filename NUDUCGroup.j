@@ -55,6 +55,10 @@ NUDUCGroupFunction_UBR = @"UBR";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Description of the UBR Group.
     */
     CPString _description @accessors(property=description);
@@ -67,6 +71,10 @@ NUDUCGroupFunction_UBR = @"UBR";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Identification of the Performance Monitoring Probe that is associated with this instance of a UBR Group.
     */
     CPString _associatedPerformanceMonitorID @accessors(property=associatedPerformanceMonitorID);
@@ -78,6 +86,10 @@ NUDUCGroupFunction_UBR = @"UBR";
         The function of the group
     */
     CPString _function @accessors(property=function);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -109,12 +121,15 @@ NUDUCGroupFunction_UBR = @"UBR";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedPerformanceMonitorID"];
         [self exposeLocalKeyPathToREST:@"ducMeshGroupID"];
         [self exposeLocalKeyPathToREST:@"function"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

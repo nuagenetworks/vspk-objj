@@ -59,6 +59,10 @@ NUVCenterEAMConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The url for the optional vib
     */
     CPString _vibURL @accessors(property=vibURL);
@@ -71,9 +75,17 @@ NUVCenterEAMConfigEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The url for the ovf
     */
     CPString _ovfURL @accessors(property=ovfURL);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         Key of the extension that the solution registers
     */
@@ -110,10 +122,13 @@ NUVCenterEAMConfigEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"eamServerPortNumber"];
         [self exposeLocalKeyPathToREST:@"eamServerPortType"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"vibURL"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"ovfURL"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"extensionKey"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

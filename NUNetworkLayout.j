@@ -50,6 +50,10 @@ NUNetworkLayoutServiceType_SUBNET_ONLY = @"SUBNET_ONLY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Identifies whether L3 or L2 services are supported.
     */
     CPString _serviceType @accessors(property=serviceType);
@@ -66,9 +70,17 @@ NUNetworkLayoutServiceType_SUBNET_ONLY = @"SUBNET_ONLY";
     */
     CPString _routeReflectorIP @accessors(property=routeReflectorIP);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The AS number associated with this data center
     */
     CPNumber _autonomousSystemNum @accessors(property=autonomousSystemNum);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -98,11 +110,14 @@ NUNetworkLayoutServiceType_SUBNET_ONLY = @"SUBNET_ONLY";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"serviceType"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"routeReflectorIP"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"autonomousSystemNum"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

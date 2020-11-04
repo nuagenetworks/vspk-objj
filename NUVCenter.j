@@ -98,6 +98,10 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Data DNS 1
     */
     CPString _dataDNS1 @accessors(property=dataDNS1);
@@ -402,6 +406,10 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPString _cpuCount @accessors(property=cpuCount);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Primary data uplink underlay ID
     */
     CPNumber _primaryDataUplinkUnderlayID @accessors(property=primaryDataUplinkUnderlayID);
@@ -518,6 +526,10 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
     */
     CPString _avrsProfile @accessors(property=avrsProfile);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -558,6 +570,7 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"manageVRSAvailability"];
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"dataDNS1"];
         [self exposeLocalKeyPathToREST:@"dataDNS2"];
         [self exposeLocalKeyPathToREST:@"dataGateway"];
@@ -634,6 +647,7 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"upgradePackageUsername"];
         [self exposeLocalKeyPathToREST:@"upgradeScriptTimeLimit"];
         [self exposeLocalKeyPathToREST:@"cpuCount"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"primaryDataUplinkUnderlayID"];
         [self exposeLocalKeyPathToREST:@"primaryDataUplinkVDFControlVLAN"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
@@ -663,6 +677,7 @@ NUVCenterRemoteSyslogServerType_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"ovfURL"];
         [self exposeLocalKeyPathToREST:@"avrsEnabled"];
         [self exposeLocalKeyPathToREST:@"avrsProfile"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenVCenterDataCenters = [NUVCenterDataCentersFetcher fetcherWithParentObject:self];

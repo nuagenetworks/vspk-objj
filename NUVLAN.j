@@ -77,6 +77,10 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The Gateway associated with this  VLAN. This is a read only attribute
     */
     CPString _gatewayID @accessors(property=gatewayID);
@@ -109,6 +113,14 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
+        If enabled, probes will be sent to other NSGs and DTLS sessions for IPSEC and VXLAN will be set up to the VSCs. If disabled, no NAT probes are sent on that uplink and no DTLS sessions are set up to the VSCs.
+    */
+    BOOL _enableNATProbes @accessors(property=enableNATProbes);
+    /*!
+        Indicates if the value of any of the properties - MTU, NAT Probes Enabled or Traffic Through DUC Only Enabled, on this instance is different from the values of these properties at NSPort. True if they were different at any point. False if no attempt was made to change them from the values at NSPort.
+    */
+    BOOL _inheritedPortPropertiesDiverged @accessors(property=inheritedPortPropertiesDiverged);
+    /*!
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
@@ -116,6 +128,14 @@ NUVLANType_UPLINK = @"UPLINK";
         The Vport associated with this VLAN. This is a read only attribute
     */
     CPString _vportID @accessors(property=vportID);
+    /*!
+        If enabled, cuts down the number of probes to just the number of provisioned DUCs.
+    */
+    BOOL _TrafficThroughUBROnly @accessors(property=TrafficThroughUBROnly);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Indicates if the VLAN is used as an uplink.
     */
@@ -165,9 +185,17 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPString _status @accessors(property=status);
     /*!
+        Port MTU (Maximum Transmission Unit) :  The size in octets of the largest protocol data unit (PDU) that the layer can pass on.  The default value is normally 1500 octets for Ethernet v2 and can go up to 9198 for Jumbo Frames.
+    */
+    CPNumber _mtu @accessors(property=mtu);
+    /*!
         When set to true, this specifies that this VLAN instance serves as an underlay connection endpoint on an NSG-UBR gateway.
     */
     BOOL _ducVlan @accessors(property=ducVlan);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -212,6 +240,7 @@ NUVLANType_UPLINK = @"UPLINK";
     {
         [self exposeLocalKeyPathToREST:@"value"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayID"];
         [self exposeLocalKeyPathToREST:@"readonly"];
         [self exposeLocalKeyPathToREST:@"templateID"];
@@ -220,8 +249,12 @@ NUVLANType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"restricted"];
         [self exposeLocalKeyPathToREST:@"shuntVLAN"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
+        [self exposeLocalKeyPathToREST:@"enableNATProbes"];
+        [self exposeLocalKeyPathToREST:@"inheritedPortPropertiesDiverged"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"vportID"];
+        [self exposeLocalKeyPathToREST:@"TrafficThroughUBROnly"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"isUplink"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
@@ -234,7 +267,9 @@ NUVLANType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"associatedUplinkConnectionID"];
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"mtu"];
         [self exposeLocalKeyPathToREST:@"ducVlan"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

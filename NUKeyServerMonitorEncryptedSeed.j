@@ -53,6 +53,10 @@ NUKeyServerMonitorEncryptedSeedSeedType_STANDARD = @"STANDARD";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Seed Type
     */
     CPString _seedType @accessors(property=seedType);
@@ -73,6 +77,10 @@ NUKeyServerMonitorEncryptedSeedSeedType_STANDARD = @"STANDARD";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The creation time of the associated KeyServer Monitor Seed ID
     */
     CPNumber _associatedKeyServerMonitorSEKCreationTime @accessors(property=associatedKeyServerMonitorSEKCreationTime);
@@ -88,6 +96,10 @@ NUKeyServerMonitorEncryptedSeedSeedType_STANDARD = @"STANDARD";
         The ID of the associated KeyServer Monitor Seed ID
     */
     CPString _associatedKeyServerMonitorSeedID @accessors(property=associatedKeyServerMonitorSeedID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -118,15 +130,18 @@ NUKeyServerMonitorEncryptedSeedSeedType_STANDARD = @"STANDARD";
     {
         [self exposeLocalKeyPathToREST:@"SEKCreationTime"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"seedType"];
         [self exposeLocalKeyPathToREST:@"keyServerCertificateSerialNumber"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseSecuredDataID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorSEKCreationTime"];
         [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorSEKID"];
         [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorSeedCreationTime"];
         [self exposeLocalKeyPathToREST:@"associatedKeyServerMonitorSeedID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

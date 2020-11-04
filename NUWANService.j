@@ -75,6 +75,10 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The permitted  action to USE/EXTEND  this Gateway.
     */
     CPString _permittedAction @accessors(property=permittedAction);
@@ -115,6 +119,10 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
     */
     CPString _configType @accessors(property=configType);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Indicates if this WAN Service is orphan or not.
     */
     BOOL _orphan @accessors(property=orphan);
@@ -138,6 +146,10 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
         Type of the tunnel.
     */
     CPString _tunnelType @accessors(property=tunnelType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -177,6 +189,7 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
         [self exposeLocalKeyPathToREST:@"IRBEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"servicePolicy"];
         [self exposeLocalKeyPathToREST:@"serviceType"];
@@ -187,12 +200,14 @@ NUWANServiceTunnelType_VXLAN = @"VXLAN";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"configType"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"orphan"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedDomainID"];
         [self exposeLocalKeyPathToREST:@"associatedVPNConnectID"];
         [self exposeLocalKeyPathToREST:@"tunnelType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"externalRouteTarget"];
         

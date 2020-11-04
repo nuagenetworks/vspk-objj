@@ -48,6 +48,10 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         List of actual Egress ACLs that will be applied on the interface of this VM
     */
     CPArrayController _egressACLs @accessors(property=egressACLs);
@@ -80,9 +84,17 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
     */
     NURESTObject _qos @accessors(property=qos);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Stats primitive that was selected based on inheritance policies
     */
     NURESTObject _stats @accessors(property=stats);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -113,6 +125,7 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"egressACLs"];
         [self exposeLocalKeyPathToREST:@"egressQos"];
         [self exposeLocalKeyPathToREST:@"fipACLs"];
@@ -121,7 +134,9 @@ NUPolicyDecisionEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"ingressAdvFwd"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"qos"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"stats"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

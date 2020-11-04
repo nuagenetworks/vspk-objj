@@ -51,6 +51,10 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Description of the IKEv2 Authentication
     */
     CPString _description @accessors(property=description);
@@ -83,6 +87,10 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The ID of the associated Enterprise
     */
     CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
@@ -90,6 +98,10 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
         Was this object autocreated from the connection
     */
     BOOL _autoCreated @accessors(property=autoCreated);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -120,6 +132,7 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"signature"];
         [self exposeLocalKeyPathToREST:@"signingCertificateSerialNumber"];
@@ -128,8 +141,10 @@ NUIKEPSKEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"encryptingCertificateSerialNumber"];
         [self exposeLocalKeyPathToREST:@"unencryptedPSK"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"autoCreated"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

@@ -46,6 +46,10 @@ NUForwardingClassForwardingClass_H = @"H";
 @implementation NUForwardingClass : NURESTObject
 {
     /*!
+        Indicates if FEC (Forward Error Correction) is enabled for the Service Class.
+    */
+    BOOL _fecEnabled @accessors(property=fecEnabled);
+    /*!
         Indicates whether the Service Class is used to used for load balancing in the forwarding path.
     */
     BOOL _loadBalancing @accessors(property=loadBalancing);
@@ -74,6 +78,7 @@ NUForwardingClassForwardingClass_H = @"H";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"fecEnabled"];
         [self exposeLocalKeyPathToREST:@"loadBalancing"];
         [self exposeLocalKeyPathToREST:@"forwardingClass"];
         

@@ -109,6 +109,10 @@ NUJobStatus_SUCCESS = @"SUCCESS";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Results from the execution of the job
     */
     NURESTObject _result @accessors(property=result);
@@ -125,6 +129,10 @@ NUJobStatus_SUCCESS = @"SUCCESS";
     */
     CPString _command @accessors(property=command);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Indicates the progress of the job as a faction. eg : 0.5 means 50% done.
     */
     CPNumber _progress @accessors(property=progress);
@@ -136,6 +144,10 @@ NUJobStatus_SUCCESS = @"SUCCESS";
         Current status of the job. Possible values are RUNNING, FAILED, SUCCESS, .
     */
     CPString _status @accessors(property=status);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -166,13 +178,16 @@ NUJobStatus_SUCCESS = @"SUCCESS";
     {
         [self exposeLocalKeyPathToREST:@"parameters"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"result"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"command"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"progress"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

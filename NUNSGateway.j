@@ -36,6 +36,7 @@
 @import "Fetchers/NUMetadatasFetcher.j"
 @import "Fetchers/NUThreatPreventionInfosFetcher.j"
 @import "Fetchers/NUWirelessPortsFetcher.j"
+@import "Fetchers/NUVirtualUplinksFetcher.j"
 @import "Fetchers/NUAlarmsFetcher.j"
 @import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NUUnderlayTestsFetcher.j"
@@ -54,6 +55,7 @@
 @import "Fetchers/NUNSGInfosFetcher.j"
 @import "Fetchers/NUNSPortsFetcher.j"
 @import "Fetchers/NUSubnetsFetcher.j"
+@import "Fetchers/NUSupplementalInfraConfigsFetcher.j"
 @import "Fetchers/NUEventLogsFetcher.j"
 
 NUNSGatewayBootstrapStatus_ACTIVE = @"ACTIVE";
@@ -231,6 +233,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Identifier of the Gateway, based on the systemId
     */
     CPString _datapathID @accessors(property=datapathID);
@@ -351,6 +357,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _operationStatus @accessors(property=operationStatus);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         NSG Product Name as reported during bootstrapping.
     */
     CPString _productName @accessors(property=productName);
@@ -391,6 +401,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _autoDiscGatewayID @accessors(property=autoDiscGatewayID);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -410,6 +424,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
     NUThreatPreventionInfosFetcher _childrenThreatPreventionInfos @accessors(property=childrenThreatPreventionInfos);
     NUWirelessPortsFetcher _childrenWirelessPorts @accessors(property=childrenWirelessPorts);
+    NUVirtualUplinksFetcher _childrenVirtualUplinks @accessors(property=childrenVirtualUplinks);
     NUAlarmsFetcher _childrenAlarms @accessors(property=childrenAlarms);
     NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NUUnderlayTestsFetcher _childrenUnderlayTests @accessors(property=childrenUnderlayTests);
@@ -428,6 +443,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     NUNSGInfosFetcher _childrenNSGInfos @accessors(property=childrenNSGInfos);
     NUNSPortsFetcher _childrenNSPorts @accessors(property=childrenNSPorts);
     NUSubnetsFetcher _childrenSubnets @accessors(property=childrenSubnets);
+    NUSupplementalInfraConfigsFetcher _childrenSupplementalInfraConfigs @accessors(property=childrenSupplementalInfraConfigs);
     NUEventLogsFetcher _childrenEventLogs @accessors(property=childrenEventLogs);
     
 }
@@ -472,6 +488,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"family"];
         [self exposeLocalKeyPathToREST:@"lastConfigurationReloadTimestamp"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
         [self exposeLocalKeyPathToREST:@"gatewayConfigRawVersion"];
         [self exposeLocalKeyPathToREST:@"gatewayConfigVersion"];
@@ -502,6 +519,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
         [self exposeLocalKeyPathToREST:@"operationMode"];
         [self exposeLocalKeyPathToREST:@"operationStatus"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"productName"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityProfileID"];
@@ -512,6 +530,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"functions"];
         [self exposeLocalKeyPathToREST:@"tunnelShaping"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"syslogLevel"];
         [self exposeLocalKeyPathToREST:@"systemID"];
@@ -523,6 +542,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
         _childrenThreatPreventionInfos = [NUThreatPreventionInfosFetcher fetcherWithParentObject:self];
         _childrenWirelessPorts = [NUWirelessPortsFetcher fetcherWithParentObject:self];
+        _childrenVirtualUplinks = [NUVirtualUplinksFetcher fetcherWithParentObject:self];
         _childrenAlarms = [NUAlarmsFetcher fetcherWithParentObject:self];
         _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenUnderlayTests = [NUUnderlayTestsFetcher fetcherWithParentObject:self];
@@ -541,6 +561,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         _childrenNSGInfos = [NUNSGInfosFetcher fetcherWithParentObject:self];
         _childrenNSPorts = [NUNSPortsFetcher fetcherWithParentObject:self];
         _childrenSubnets = [NUSubnetsFetcher fetcherWithParentObject:self];
+        _childrenSupplementalInfraConfigs = [NUSupplementalInfraConfigsFetcher fetcherWithParentObject:self];
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];
         
         

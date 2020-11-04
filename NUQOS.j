@@ -103,6 +103,10 @@ NUQOSServiceClass_NONE = @"NONE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Identifies if rate limiting must be implemented
     */
     BOOL _rateLimitingActive @accessors(property=rateLimitingActive);
@@ -159,6 +163,10 @@ NUQOSServiceClass_NONE = @"NONE";
     */
     CPString _committedInformationRate @accessors(property=committedInformationRate);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Specifies if the trusted flag is set for the QoS policy / template
     */
     BOOL _trustedForwardingClass @accessors(property=trustedForwardingClass);
@@ -178,6 +186,10 @@ NUQOSServiceClass_NONE = @"NONE";
         Peak Burst Size :  The maximum burst size associated with the rate limiter in kilo-bytes (kilo-octets); only whole values allowed and 'INFINITY' if rate limiting is disabled.
     */
     CPString _burst @accessors(property=burst);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -221,6 +233,7 @@ NUQOSServiceClass_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"BUMRateLimitingActive"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"rateLimitingActive"];
         [self exposeLocalKeyPathToREST:@"active"];
         [self exposeLocalKeyPathToREST:@"peak"];
@@ -235,11 +248,13 @@ NUQOSServiceClass_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"committedBurstSize"];
         [self exposeLocalKeyPathToREST:@"committedInformationRate"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"trustedForwardingClass"];
         [self exposeLocalKeyPathToREST:@"assocQosId"];
         [self exposeLocalKeyPathToREST:@"associatedDSCPForwardingClassTableID"];
         [self exposeLocalKeyPathToREST:@"associatedDSCPForwardingClassTableName"];
         [self exposeLocalKeyPathToREST:@"burst"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

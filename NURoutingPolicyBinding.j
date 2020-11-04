@@ -38,6 +38,8 @@ NURoutingPolicyBindingEntityScope_GLOBAL = @"GLOBAL";
 NURoutingPolicyBindingExportToOverlay_DISABLED = @"DISABLED";
 NURoutingPolicyBindingExportToOverlay_ENABLED = @"ENABLED";
 NURoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
+NURoutingPolicyBindingOSPFType_OSPFV2 = @"OSPFv2";
+NURoutingPolicyBindingOSPFType_OSPFV3 = @"OSPFv3";
 
 
 /*!
@@ -46,6 +48,10 @@ NURoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
 @implementation NURoutingPolicyBinding : NURESTObject
 {
     /*!
+        Type of the OSPF protocol, possible values are OSPFv2 and OSPFv3.
+    */
+    CPString _OSPFType @accessors(property=OSPFType);
+    /*!
         Name of the RoutingPolicyBinding is unique within the Domain
     */
     CPString _name @accessors(property=name);
@@ -53,6 +59,10 @@ NURoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
     /*!
         Description for this Routing Policy Binding Object.
     */
@@ -66,6 +76,10 @@ NURoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         ID of the Export Routing Policy which is associated to the current RoutingPolicyBinding object.
     */
     CPString _associatedExportRoutingPolicyID @accessors(property=associatedExportRoutingPolicyID);
@@ -77,6 +91,10 @@ NURoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
         ID of the Policy Object Group which is associated to the current RoutingPolicyBinding object.
     */
     CPString _associatedPolicyObjectGroupID @accessors(property=associatedPolicyObjectGroupID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         Flag to determine whether the BGP and OSPF learnt routes will be exported to VSC or not. This flags also exists at the domain level. If this attribute is set to 'INHERITED' (the default), the behavior is whatever is set at the domain level. Otherwise, this attribute takes precedence over the domain level one.
     */
@@ -109,14 +127,18 @@ NURoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"OSPFType"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedImportRoutingPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedPolicyObjectGroupID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"exportToOverlay"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

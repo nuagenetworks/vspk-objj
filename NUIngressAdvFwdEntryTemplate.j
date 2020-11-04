@@ -60,10 +60,13 @@ NUIngressAdvFwdEntryTemplateFCOverride_H = @"H";
 NUIngressAdvFwdEntryTemplateFCOverride_NONE = @"NONE";
 NUIngressAdvFwdEntryTemplateFailsafeDatapath_FAIL_TO_BLOCK = @"FAIL_TO_BLOCK";
 NUIngressAdvFwdEntryTemplateFailsafeDatapath_FAIL_TO_WIRE = @"FAIL_TO_WIRE";
+NUIngressAdvFwdEntryTemplateLocationEntityType_ENTERPRISENETWORK = @"ENTERPRISENETWORK";
+NUIngressAdvFwdEntryTemplateLocationEntityType_NETWORKMACROGROUP = @"NETWORKMACROGROUP";
 NUIngressAdvFwdEntryTemplateLocationEntityType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressAdvFwdEntryTemplateLocationEntityType_PGEXPRESSIONTEMPLATE = @"PGEXPRESSIONTEMPLATE";
 NUIngressAdvFwdEntryTemplateLocationEntityType_POLICYGROUP = @"POLICYGROUP";
 NUIngressAdvFwdEntryTemplateLocationEntityType_POLICYGROUPTEMPLATE = @"POLICYGROUPTEMPLATE";
+NUIngressAdvFwdEntryTemplateLocationEntityType_PUBLICNETWORK = @"PUBLICNETWORK";
 NUIngressAdvFwdEntryTemplateLocationEntityType_REDIRECTIONTARGET = @"REDIRECTIONTARGET";
 NUIngressAdvFwdEntryTemplateLocationEntityType_REDIRECTIONTARGETTEMPLATE = @"REDIRECTIONTARGETTEMPLATE";
 NUIngressAdvFwdEntryTemplateLocationEntityType_SUBNET = @"SUBNET";
@@ -75,10 +78,14 @@ NUIngressAdvFwdEntryTemplateLocationType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressAdvFwdEntryTemplateLocationType_POLICYGROUP = @"POLICYGROUP";
 NUIngressAdvFwdEntryTemplateLocationType_SUBNET = @"SUBNET";
 NUIngressAdvFwdEntryTemplateLocationType_ZONE = @"ZONE";
+NUIngressAdvFwdEntryTemplateNetworkEntityType_ENTERPRISENETWORK = @"ENTERPRISENETWORK";
+NUIngressAdvFwdEntryTemplateNetworkEntityType_NETWORKMACROGROUP = @"NETWORKMACROGROUP";
 NUIngressAdvFwdEntryTemplateNetworkEntityType_PGEXPRESSION = @"PGEXPRESSION";
 NUIngressAdvFwdEntryTemplateNetworkEntityType_PGEXPRESSIONTEMPLATE = @"PGEXPRESSIONTEMPLATE";
 NUIngressAdvFwdEntryTemplateNetworkEntityType_POLICYGROUP = @"POLICYGROUP";
 NUIngressAdvFwdEntryTemplateNetworkEntityType_POLICYGROUPTEMPLATE = @"POLICYGROUPTEMPLATE";
+NUIngressAdvFwdEntryTemplateNetworkEntityType_PUBLICNETWORK = @"PUBLICNETWORK";
+NUIngressAdvFwdEntryTemplateNetworkEntityType_SAASAPPLICATIONGROUP = @"SAASAPPLICATIONGROUP";
 NUIngressAdvFwdEntryTemplateNetworkEntityType_SUBNET = @"SUBNET";
 NUIngressAdvFwdEntryTemplateNetworkEntityType_SUBNETTEMPLATE = @"SUBNETTEMPLATE";
 NUIngressAdvFwdEntryTemplateNetworkEntityType_ZONE = @"ZONE";
@@ -158,6 +165,10 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The action of the ACL entry DROP or FORWARD or REDIRECT or FORWARDING_PATH_LIST. Actions REDIRECT and FORWARDING_PATH_LIST are allowed only for IngressAdvancedForwardingEntry. Possible values are DROP, FORWARD, REDIRECT, FORWARDING_PATH_LIST. If FORWARDING_PATH_LIST is selected in IngressAdvancedForwardingEntry, user will have to attach a ForwardingPathList (list of forwarding action-uplink preference entries) to the ACL.  
     */
     CPString _action @accessors(property=action);
@@ -210,7 +221,7 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
-        Indicates whether the Network Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: SUBNETTEMPLATE, ZONETEMPLATE, POLICYGROUPTEMPLATE, PGEXPRESSIONTEMPLATE, SUBNET, ZONE, POLICYGROUP, PGEXPRESSION.
+        Indicates whether the Network Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: ENTERPRISENETWORK, NETWORKMACROGROUP, PGEXPRESSION, PGEXPRESSIONTEMPLATE, POLICYGROUP, POLICYGROUPTEMPLATE, PUBLICNETWORK, SAASAPPLICATIONGROUP, SUBNET, SUBNETTEMPLATE, ZONE, ZONETEMPLATE.
     */
     CPString _networkEntityType @accessors(property=networkEntityType);
     /*!
@@ -250,7 +261,7 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
-        Indicates whether the Location Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: SUBNETTEMPLATE, ZONETEMPLATE, POLICYGROUPTEMPLATE, PGEXPRESSIONTEMPLATE, REDIRECTIONTARGETTEMPLATE, SUBNET, ZONE, POLICYGROUP, PGEXPRESSION, REDIRECTIONTARGET.
+        Indicates whether the Location Entity of ACL Entry was derived from a L2/L3 Domain template or instance. Possible Values: ENTERPRISENETWORK, NETWORKMACROGROUP, PGEXPRESSION, PGEXPRESSIONTEMPLATE, POLICYGROUP, POLICYGROUPTEMPLATE, PUBLICNETWORK, REDIRECTIONTARGET, REDIRECTIONTARGETTEMPLATE, SUBNET, SUBNETTEMPLATE, ZONE, ZONETEMPLATE.
     */
     CPString _locationEntityType @accessors(property=locationEntityType);
     /*!
@@ -281,6 +292,10 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         Type of application selected, ALL (all applications in match criteria), NONE (no application in match criteria), APPLICATION (specific application in match criteria).
     */
     CPString _appType @accessors(property=appType);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         The priority of the ACL entry that determines the order of entries
     */
@@ -334,6 +349,10 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _etherType @accessors(property=etherType);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -371,6 +390,7 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"DSCPRemarking"];
         [self exposeLocalKeyPathToREST:@"failsafeDatapath"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
         [self exposeLocalKeyPathToREST:@"addressOverrideType"];
@@ -402,6 +422,7 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"sourcePort"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
         [self exposeLocalKeyPathToREST:@"appType"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"isSLAAware"];
@@ -415,6 +436,7 @@ NUIngressAdvFwdEntryTemplateWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"statsID"];
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"etherType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

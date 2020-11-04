@@ -99,6 +99,7 @@
 @import "Fetchers/NUZonesFetcher.j"
 @import "Fetchers/NUContainersFetcher.j"
 @import "Fetchers/NUContainerInterfacesFetcher.j"
+@import "Fetchers/NUQOSsFetcher.j"
 @import "Fetchers/NUQosPolicersFetcher.j"
 @import "Fetchers/NUCOSRemarkingPolicyTablesFetcher.j"
 @import "Fetchers/NUHostInterfacesFetcher.j"
@@ -120,6 +121,8 @@
 @import "Fetchers/NUNSGPatchProfilesFetcher.j"
 @import "Fetchers/NUNSRedundantGatewayGroupsFetcher.j"
 @import "Fetchers/NUNSGUpgradeProfilesFetcher.j"
+@import "Fetchers/NUEsIlmPoliciesFetcher.j"
+@import "Fetchers/NUEsIndexConfigsFetcher.j"
 @import "Fetchers/NUVSPsFetcher.j"
 @import "Fetchers/NUStaticRoutesFetcher.j"
 @import "Fetchers/NUStatsCollectorInfosFetcher.j"
@@ -164,6 +167,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         First name of the user
     */
     CPString _firstName @accessors(property=firstName);
@@ -204,6 +211,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _mobileNumber @accessors(property=mobileNumber);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         This flag is used to indicate if statistics is enabled in the system. CSProot is expected to activate this through the enable statistics script.
     */
     BOOL _statisticsEnabled @accessors(property=statisticsEnabled);
@@ -215,6 +226,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         Avatar type.
     */
     CPString _avatarType @accessors(property=avatarType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -290,6 +305,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUZonesFetcher _childrenZones @accessors(property=childrenZones);
     NUContainersFetcher _childrenContainers @accessors(property=childrenContainers);
     NUContainerInterfacesFetcher _childrenContainerInterfaces @accessors(property=childrenContainerInterfaces);
+    NUQOSsFetcher _childrenQOSs @accessors(property=childrenQOSs);
     NUQosPolicersFetcher _childrenQosPolicers @accessors(property=childrenQosPolicers);
     NUCOSRemarkingPolicyTablesFetcher _childrenCOSRemarkingPolicyTables @accessors(property=childrenCOSRemarkingPolicyTables);
     NUHostInterfacesFetcher _childrenHostInterfaces @accessors(property=childrenHostInterfaces);
@@ -311,6 +327,8 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     NUNSGPatchProfilesFetcher _childrenNSGPatchProfiles @accessors(property=childrenNSGPatchProfiles);
     NUNSRedundantGatewayGroupsFetcher _childrenNSRedundantGatewayGroups @accessors(property=childrenNSRedundantGatewayGroups);
     NUNSGUpgradeProfilesFetcher _childrenNSGUpgradeProfiles @accessors(property=childrenNSGUpgradeProfiles);
+    NUEsIlmPoliciesFetcher _childrenEsIlmPolicies @accessors(property=childrenEsIlmPolicies);
+    NUEsIndexConfigsFetcher _childrenEsIndexConfigs @accessors(property=childrenEsIndexConfigs);
     NUVSPsFetcher _childrenVSPs @accessors(property=childrenVSPs);
     NUStaticRoutesFetcher _childrenStaticRoutes @accessors(property=childrenStaticRoutes);
     NUStatsCollectorInfosFetcher _childrenStatsCollectorInfos @accessors(property=childrenStatsCollectorInfos);
@@ -347,6 +365,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastName"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"firstName"];
         [self exposeLocalKeyPathToREST:@"disabled"];
         [self exposeLocalKeyPathToREST:@"elasticSearchAddress"];
@@ -358,10 +377,12 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"mobileNumber"];
         [self exposeLocalKeyPathToREST:@"role"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
         [self exposeLocalKeyPathToREST:@"avatarData"];
         [self exposeLocalKeyPathToREST:@"avatarType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];
@@ -434,6 +455,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenZones = [NUZonesFetcher fetcherWithParentObject:self];
         _childrenContainers = [NUContainersFetcher fetcherWithParentObject:self];
         _childrenContainerInterfaces = [NUContainerInterfacesFetcher fetcherWithParentObject:self];
+        _childrenQOSs = [NUQOSsFetcher fetcherWithParentObject:self];
         _childrenQosPolicers = [NUQosPolicersFetcher fetcherWithParentObject:self];
         _childrenCOSRemarkingPolicyTables = [NUCOSRemarkingPolicyTablesFetcher fetcherWithParentObject:self];
         _childrenHostInterfaces = [NUHostInterfacesFetcher fetcherWithParentObject:self];
@@ -455,6 +477,8 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         _childrenNSGPatchProfiles = [NUNSGPatchProfilesFetcher fetcherWithParentObject:self];
         _childrenNSRedundantGatewayGroups = [NUNSRedundantGatewayGroupsFetcher fetcherWithParentObject:self];
         _childrenNSGUpgradeProfiles = [NUNSGUpgradeProfilesFetcher fetcherWithParentObject:self];
+        _childrenEsIlmPolicies = [NUEsIlmPoliciesFetcher fetcherWithParentObject:self];
+        _childrenEsIndexConfigs = [NUEsIndexConfigsFetcher fetcherWithParentObject:self];
         _childrenVSPs = [NUVSPsFetcher fetcherWithParentObject:self];
         _childrenStaticRoutes = [NUStaticRoutesFetcher fetcherWithParentObject:self];
         _childrenStatsCollectorInfos = [NUStatsCollectorInfosFetcher fetcherWithParentObject:self];

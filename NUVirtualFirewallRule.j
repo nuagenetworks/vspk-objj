@@ -84,7 +84,10 @@ NUVirtualFirewallRuleNetworkType_UNDERLAY_INTERNET_POLICYGROUP = @"UNDERLAY_INTE
 NUVirtualFirewallRuleNetworkType_ZONE = @"ZONE";
 NUVirtualFirewallRulePolicyState_DRAFT = @"DRAFT";
 NUVirtualFirewallRulePolicyState_LIVE = @"LIVE";
+NUVirtualFirewallRuleType_L4 = @"L4";
+NUVirtualFirewallRuleType_L7 = @"L7";
 NUVirtualFirewallRuleType_THREAT_PREVENTION = @"THREAT_PREVENTION";
+NUVirtualFirewallRuleType_WEB_FILTER = @"WEB_FILTER";
 NUVirtualFirewallRuleWebFilterType_WEB_CATEGORY = @"WEB_CATEGORY";
 NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
 
@@ -123,6 +126,10 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The action of the rule, DROP or FORWARD. Possible values are DROP, FORWARD.
     */
     CPString _action @accessors(property=action);
@@ -134,6 +141,10 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         ID of web filter
     */
     CPString _webFilterID @accessors(property=webFilterID);
+    /*!
+        Indicates if web filter statistics logging is enabled for this particular template
+    */
+    BOOL _webFilterStatsLoggingEnabled @accessors(property=webFilterStatsLoggingEnabled);
     /*!
         Indicates type of web filter being set
     */
@@ -207,6 +218,10 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _sourcePort @accessors(property=sourcePort);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The priority of the rule entry that determines the order of entries
     */
     CPNumber _priority @accessors(property=priority);
@@ -263,6 +278,10 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
     */
     CPString _overlayMirrorDestinationID @accessors(property=overlayMirrorDestinationID);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -301,9 +320,11 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"DSCP"];
         [self exposeLocalKeyPathToREST:@"failsafeDatapath"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"addressOverride"];
         [self exposeLocalKeyPathToREST:@"webFilterID"];
+        [self exposeLocalKeyPathToREST:@"webFilterStatsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"webFilterType"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destinationPort"];
@@ -322,6 +343,7 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"policyState"];
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"sourcePort"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"priority"];
         [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"associatedEgressEntryID"];
@@ -336,6 +358,7 @@ NUVirtualFirewallRuleWebFilterType_WEB_DOMAIN_NAME = @"WEB_DOMAIN_NAME";
         [self exposeLocalKeyPathToREST:@"statsLoggingEnabled"];
         [self exposeLocalKeyPathToREST:@"etherType"];
         [self exposeLocalKeyPathToREST:@"overlayMirrorDestinationID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

@@ -58,6 +58,10 @@ NUPermissionPermittedAction_USE = @"USE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The permitted  action to USE/EXTEND/READ/INSTANTIATE  an entity.
     */
     CPString _permittedAction @accessors(property=permittedAction);
@@ -90,6 +94,10 @@ NUPermissionPermittedAction_USE = @"USE";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Description of the Group
     */
     CPString _associatedGroupDescription @accessors(property=associatedGroupDescription);
@@ -113,6 +121,10 @@ NUPermissionPermittedAction_USE = @"USE";
         Associated Role Name
     */
     CPString _associatedRoleName @accessors(property=associatedRoleName);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -144,6 +156,7 @@ NUPermissionPermittedAction_USE = @"USE";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"permittedEnterpriseDescription"];
         [self exposeLocalKeyPathToREST:@"permittedEnterpriseName"];
@@ -152,12 +165,14 @@ NUPermissionPermittedAction_USE = @"USE";
         [self exposeLocalKeyPathToREST:@"permittedEntityType"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedGroupDescription"];
         [self exposeLocalKeyPathToREST:@"associatedGroupID"];
         [self exposeLocalKeyPathToREST:@"associatedGroupName"];
         [self exposeLocalKeyPathToREST:@"associatedRoleDescription"];
         [self exposeLocalKeyPathToREST:@"associatedRoleID"];
         [self exposeLocalKeyPathToREST:@"associatedRoleName"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
