@@ -110,14 +110,6 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
     /*!
-        This value indicates whether IPv4 DHCP is enabled or not. This is applicable in case the subnet is DUALSTACK or IPv4
-    */
-    BOOL _enableDHCPv4 @accessors(property=enableDHCPv4);
-    /*!
-        This value indicates whether IPv6 DHCP is enabled or not. This is applicable in case the subnet is DUALSTACK or IPv6
-    */
-    BOOL _enableDHCPv6 @accessors(property=enableDHCPv6);
-    /*!
         Determines whether or not IPSEC is enabled. Possible values are INHERITED, ENABLED, DISABLED, .
     */
     CPString _encryption @accessors(property=encryption);
@@ -201,8 +193,6 @@ NUSubnetTemplateUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
-        [self exposeLocalKeyPathToREST:@"enableDHCPv4"];
-        [self exposeLocalKeyPathToREST:@"enableDHCPv6"];
         [self exposeLocalKeyPathToREST:@"encryption"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"splitSubnet"];

@@ -42,6 +42,7 @@
 @import "Fetchers/NUEgressACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressACLTemplatesFetcher.j"
 @import "Fetchers/NUEgressAdvFwdTemplatesFetcher.j"
+@import "Fetchers/NUEgressAuditACLEntryTemplatesFetcher.j"
 @import "Fetchers/NUEgressAuditACLTemplatesFetcher.j"
 @import "Fetchers/NUDHCPOptionsFetcher.j"
 @import "Fetchers/NUDHCPv6OptionsFetcher.j"
@@ -330,6 +331,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     NUEgressACLEntryTemplatesFetcher _childrenEgressACLEntryTemplates @accessors(property=childrenEgressACLEntryTemplates);
     NUEgressACLTemplatesFetcher _childrenEgressACLTemplates @accessors(property=childrenEgressACLTemplates);
     NUEgressAdvFwdTemplatesFetcher _childrenEgressAdvFwdTemplates @accessors(property=childrenEgressAdvFwdTemplates);
+    NUEgressAuditACLEntryTemplatesFetcher _childrenEgressAuditACLEntryTemplates @accessors(property=childrenEgressAuditACLEntryTemplates);
     NUEgressAuditACLTemplatesFetcher _childrenEgressAuditACLTemplates @accessors(property=childrenEgressAuditACLTemplates);
     NUDHCPOptionsFetcher _childrenDHCPOptions @accessors(property=childrenDHCPOptions);
     NUDHCPv6OptionsFetcher _childrenDHCPv6Options @accessors(property=childrenDHCPv6Options);
@@ -448,6 +450,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         _childrenEgressACLEntryTemplates = [NUEgressACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressACLTemplates = [NUEgressACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressAdvFwdTemplates = [NUEgressAdvFwdTemplatesFetcher fetcherWithParentObject:self];
+        _childrenEgressAuditACLEntryTemplates = [NUEgressAuditACLEntryTemplatesFetcher fetcherWithParentObject:self];
         _childrenEgressAuditACLTemplates = [NUEgressAuditACLTemplatesFetcher fetcherWithParentObject:self];
         _childrenDHCPOptions = [NUDHCPOptionsFetcher fetcherWithParentObject:self];
         _childrenDHCPv6Options = [NUDHCPv6OptionsFetcher fetcherWithParentObject:self];
