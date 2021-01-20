@@ -38,8 +38,11 @@ NUEgressAdvFwdTemplateEntityScope_GLOBAL = @"GLOBAL";
 NUEgressAdvFwdTemplatePolicyState_DRAFT = @"DRAFT";
 NUEgressAdvFwdTemplatePolicyState_LIVE = @"LIVE";
 NUEgressAdvFwdTemplatePriorityType_BOTTOM = @"BOTTOM";
+NUEgressAdvFwdTemplatePriorityType_BOTTOM_FIREWALL = @"BOTTOM_FIREWALL";
+NUEgressAdvFwdTemplatePriorityType_MIDDLE_FIREWALL = @"MIDDLE_FIREWALL";
 NUEgressAdvFwdTemplatePriorityType_NONE = @"NONE";
 NUEgressAdvFwdTemplatePriorityType_TOP = @"TOP";
+NUEgressAdvFwdTemplatePriorityType_TOP_FIREWALL = @"TOP_FIREWALL";
 
 
 /*!
@@ -88,7 +91,7 @@ NUEgressAdvFwdTemplatePriorityType_TOP = @"TOP";
     */
     CPNumber _priority @accessors(property=priority);
     /*!
-        Possible values: TOP, BOTTOM or NONE. TOP and BOTTOM ACL policies can only be defined and managed on the template level, NONE can be used on both the template and instantiated level. These allow for careful control of ACL priority handling.
+        Possible values: TOP, BOTTOM, TOP_FIREWALL, BOTTOM_FIREWALL, MIDDLE_FIREWALL or NONE. TOP and BOTTOM ACL policies can only be defined and managed on the template level, NONE can be used on both the template and instantiated level. TOP_FIREWALL, BOTTOM_FIREWALL, MIDDLE_FIREWALL are used to represent acls dirived from Virtual Firewall Policies. These allow for careful control of ACL priority handling.
     */
     CPString _priorityType @accessors(property=priorityType);
     /*!

@@ -98,7 +98,7 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
 @implementation NUSubnet : NURESTObject
 {
     /*!
-        None
+        Indicates whether PAT is enabled for the subnets in this domain - ENABLED/DISABLED. Possible values are ENABLED, DISABLED. OR INHERITED
     */
     CPString _PATEnabled @accessors(property=PATEnabled);
     /*!

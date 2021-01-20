@@ -95,7 +95,7 @@ NUApplicationProtocol_UDP = @"UDP";
     */
     CPString _destinationIP @accessors(property=destinationIP);
     /*!
-        value should be either * or single port number 
+        value should be either * or single port number or maximum 5 ranges comma separated. 
     */
     CPString _destinationPort @accessors(property=destinationPort);
     /*!
@@ -135,7 +135,7 @@ NUApplicationProtocol_UDP = @"UDP";
     */
     CPString _sourceIP @accessors(property=sourceIP);
     /*!
-        source Port ,value should be either * or single port number 
+        source Port ,value should be either * or single port number or maximum 5 ranges comma separated. 
     */
     CPString _sourcePort @accessors(property=sourcePort);
     /*!
