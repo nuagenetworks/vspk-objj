@@ -46,9 +46,9 @@ NUUplinkConnectionAuxMode_HOT = @"HOT";
 NUUplinkConnectionAuxMode_NONE = @"NONE";
 NUUplinkConnectionEntityScope_ENTERPRISE = @"ENTERPRISE";
 NUUplinkConnectionEntityScope_GLOBAL = @"GLOBAL";
+NUUplinkConnectionFecEnabled_ACTIVE = @"ACTIVE";
 NUUplinkConnectionFecEnabled_DISABLED = @"DISABLED";
-NUUplinkConnectionFecEnabled_ENABLED = @"ENABLED";
-NUUplinkConnectionFecEnabled_SUPPORTED = @"SUPPORTED";
+NUUplinkConnectionFecEnabled_PASSIVE = @"PASSIVE";
 NUUplinkConnectionInterfaceConnectionType_AUTOMATIC = @"AUTOMATIC";
 NUUplinkConnectionInterfaceConnectionType_EMBEDDED = @"EMBEDDED";
 NUUplinkConnectionInterfaceConnectionType_PCI_EXPRESS = @"PCI_EXPRESS";
@@ -128,7 +128,7 @@ NUUplinkConnectionUplinkType_UPLINK = @"UPLINK";
     */
     CPString _advertisementCriteria @accessors(property=advertisementCriteria);
     /*!
-        Indicates the FEC (Forward Error Correction) setting on this Uplink Connection. Possible values are Enabled (Encode & Decode on all paths over this uplink), Disabled (Encode & Decode only to uplinks with FEC Enabled) and Supported (do not Encode or Decode, do not detect or report loss).
+        Indicates the FEC (Forward Error Correction) setting on this Uplink Connection. Possible values are Active (Encode & Decode on all paths over this uplink), Passive (Encode & Decode only to uplinks with FEC Active) and Disabled (do not Encode or Decode, do not detect or report loss).
     */
     CPString _fecEnabled @accessors(property=fecEnabled);
     /*!

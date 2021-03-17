@@ -29,7 +29,12 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 
+NURoleentryEntityScope_ENTERPRISE = @"ENTERPRISE";
+NURoleentryEntityScope_GLOBAL = @"GLOBAL";
 NURoleentryRoleAccessTypeList_CREATE = @"CREATE";
 NURoleentryRoleAccessTypeList_CUD_CHILDREN = @"CUD_CHILDREN";
 NURoleentryRoleAccessTypeList_DELETE = @"DELETE";
@@ -46,14 +51,29 @@ NURoleentryRoleAccessTypeList_READ_CHILDREN = @"READ_CHILDREN";
 @implementation NURoleentry : NURESTObject
 {
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
         Managed Object Type or end point
     */
     CPString _endPointType @accessors(property=endPointType);
     /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
         List of Access like READ, READ_CHILDREN, CREATE, MODIFY, DELETE, CUD_CHILDREN, NO_ACCESS, NO_ACCESS_CHILDREN
     */
     CPArrayController _roleAccessTypeList @accessors(property=roleAccessTypeList);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     
 }
 
@@ -74,9 +94,15 @@ NURoleentryRoleAccessTypeList_READ_CHILDREN = @"READ_CHILDREN";
 {
     if (self = [super init])
     {
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"endPointType"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"roleAccessTypeList"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         
         
     }

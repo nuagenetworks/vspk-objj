@@ -29,7 +29,13 @@
 @import <AppKit/CPArrayController.j>
 @import <Bambou/NURESTObject.j>
 
+@import "Fetchers/NUPermissionsFetcher.j"
+@import "Fetchers/NUMetadatasFetcher.j"
+@import "Fetchers/NUGlobalMetadatasFetcher.j"
 @import "Fetchers/NURoleentriesFetcher.j"
+
+NURoleEntityScope_ENTERPRISE = @"ENTERPRISE";
+NURoleEntityScope_GLOBAL = @"GLOBAL";
 
 
 /*!
@@ -42,14 +48,45 @@
     */
     CPString _name @accessors(property=name);
     /*!
+        ID of the user who last updated the object.
+    */
+    CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
+    /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         A brief description of the purpose of the role
     */
     CPString _description @accessors(property=description);
     /*!
+        Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
+    */
+    CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
+    /*!
+        Specify if scope of entity is Data center or Enterprise level
+    */
+    CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Flag to state if a role is applicable only at the csp level
     */
     BOOL _cspOnly @accessors(property=cspOnly);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
+        External object ID. Used for integration with third party systems
+    */
+    CPString _externalID @accessors(property=externalID);
     
+    NUPermissionsFetcher _childrenPermissions @accessors(property=childrenPermissions);
+    NUMetadatasFetcher _childrenMetadatas @accessors(property=childrenMetadatas);
+    NUGlobalMetadatasFetcher _childrenGlobalMetadatas @accessors(property=childrenGlobalMetadatas);
     NURoleentriesFetcher _childrenRoleentries @accessors(property=childrenRoleentries);
     
 }
@@ -72,9 +109,19 @@
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"name"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
+        [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"cspOnly"];
+        [self exposeLocalKeyPathToREST:@"owner"];
+        [self exposeLocalKeyPathToREST:@"externalID"];
         
+        _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];
+        _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
+        _childrenGlobalMetadatas = [NUGlobalMetadatasFetcher fetcherWithParentObject:self];
         _childrenRoleentries = [NURoleentriesFetcher fetcherWithParentObject:self];
         
         
