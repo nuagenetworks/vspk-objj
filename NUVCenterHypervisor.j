@@ -129,6 +129,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Determines the time the vrs vm was last deployed.
     */
     CPNumber _lastVRSDeployedDate @accessors(property=lastVRSDeployedDate);
@@ -485,6 +489,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _cpuCount @accessors(property=cpuCount);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Primary data uplink underlay ID
     */
     CPNumber _primaryDataUplinkUnderlayID @accessors(property=primaryDataUplinkUnderlayID);
@@ -609,6 +617,10 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
     */
     CPString _avrsProfile @accessors(property=avrsProfile);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -666,6 +678,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"manageVRSAvailability"];
         [self exposeLocalKeyPathToREST:@"managedObjectID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"lastVRSDeployedDate"];
         [self exposeLocalKeyPathToREST:@"dataDNS1"];
         [self exposeLocalKeyPathToREST:@"dataDNS2"];
@@ -755,6 +768,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"upgradeStatus"];
         [self exposeLocalKeyPathToREST:@"upgradeTimedout"];
         [self exposeLocalKeyPathToREST:@"cpuCount"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"primaryDataUplinkUnderlayID"];
         [self exposeLocalKeyPathToREST:@"primaryDataUplinkVDFControlVLAN"];
         [self exposeLocalKeyPathToREST:@"primaryNuageController"];
@@ -786,6 +800,7 @@ NUVCenterHypervisorVRSState_UPGRADING = @"UPGRADING";
         [self exposeLocalKeyPathToREST:@"ovfURL"];
         [self exposeLocalKeyPathToREST:@"avrsEnabled"];
         [self exposeLocalKeyPathToREST:@"avrsProfile"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"hypervisorIP"];
         [self exposeLocalKeyPathToREST:@"hypervisorPassword"];

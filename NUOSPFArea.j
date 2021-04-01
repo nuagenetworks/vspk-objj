@@ -53,6 +53,10 @@ NUOSPFAreaEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         This flag will determine whether external routes will be redistributed into the area or not. This is enabled only for NSSA areas.
     */
     BOOL _redistributeExternalEnabled @accessors(property=redistributeExternalEnabled);
@@ -93,6 +97,10 @@ NUOSPFAreaEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _areaType @accessors(property=areaType);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         This flag determines whether Summaries (Type 3 LSAs) will be redistributed into the area or not. Applicable only to NSSA and Stub area types. Disabling this will make the area a Totally Stub or Totally NSSA area.
     */
     BOOL _summariesEnabled @accessors(property=summariesEnabled);
@@ -104,6 +112,10 @@ NUOSPFAreaEntityScope_GLOBAL = @"GLOBAL";
         Routes (type 7 LSAs) that belong to networks listed here will be suppressed.
     */
     CPArrayController _suppressAreaRangeNSSA @accessors(property=suppressAreaRangeNSSA);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -133,6 +145,7 @@ NUOSPFAreaEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"redistributeExternalEnabled"];
         [self exposeLocalKeyPathToREST:@"defaultMetric"];
         [self exposeLocalKeyPathToREST:@"defaultOriginateOption"];
@@ -143,9 +156,11 @@ NUOSPFAreaEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"areaID"];
         [self exposeLocalKeyPathToREST:@"areaType"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"summariesEnabled"];
         [self exposeLocalKeyPathToREST:@"suppressAreaRange"];
         [self exposeLocalKeyPathToREST:@"suppressAreaRangeNSSA"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

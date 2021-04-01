@@ -75,6 +75,10 @@ NUApplicationProtocol_UDP = @"UDP";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         determines whether this entity is read only.  Read only objects cannot be modified or deleted.
     */
     BOOL _readOnly @accessors(property=readOnly);
@@ -151,6 +155,10 @@ NUApplicationProtocol_UDP = @"UDP";
     */
     CPString _preClassificationPath @accessors(property=preClassificationPath);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Protocol number that must be matched
     */
     CPString _protocol @accessors(property=protocol);
@@ -162,6 +170,10 @@ NUApplicationProtocol_UDP = @"UDP";
         Ether type of the packet to be matched. etherType can be * or a valid hexadecimal value
     */
     CPString _etherType @accessors(property=etherType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -199,6 +211,7 @@ NUApplicationProtocol_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"bandwidth"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"performanceMonitorType"];
         [self exposeLocalKeyPathToREST:@"certificateCommonName"];
@@ -218,9 +231,11 @@ NUApplicationProtocol_UDP = @"UDP";
         [self exposeLocalKeyPathToREST:@"appId"];
         [self exposeLocalKeyPathToREST:@"optimizePathSelection"];
         [self exposeLocalKeyPathToREST:@"preClassificationPath"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"protocol"];
         [self exposeLocalKeyPathToREST:@"associatedL7ApplicationSignatureID"];
         [self exposeLocalKeyPathToREST:@"etherType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"symmetry"];
         

@@ -298,6 +298,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Gateway probe interval in seconds.
     */
     CPNumber _gatewayProbeInterval @accessors(property=gatewayProbeInterval);
@@ -441,6 +445,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         Post processor thread count.
     */
     CPNumber _postProcessorThreadsCount @accessors(property=postProcessorThreadsCount);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Group Key Encryption Profile Default SEK Generation Interval in seconds.
     */
@@ -646,6 +654,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _eventProcessorTimeout @accessors(property=eventProcessorTimeout);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         Two Factor Code Expiration time in seconds for bootstrapping gateways. (min = 60, max = 604800)
     */
     CPNumber _twoFactorCodeExpiry @accessors(property=twoFactorCodeExpiry);
@@ -775,6 +787,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"pageSize"];
         [self exposeLocalKeyPathToREST:@"lastExecutedMigrationPhase"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayProbeInterval"];
         [self exposeLocalKeyPathToREST:@"gatewayProbeWindow"];
         [self exposeLocalKeyPathToREST:@"gatewayRebalancingInterval"];
@@ -811,6 +824,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"domainTunnelType"];
         [self exposeLocalKeyPathToREST:@"googleMapsAPIKey"];
         [self exposeLocalKeyPathToREST:@"postProcessorThreadsCount"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKGenerationInterval"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKLifetime"];
         [self exposeLocalKeyPathToREST:@"groupKeyDefaultSEKPayloadEncryptionAlgorithm"];
@@ -862,6 +876,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"eventProcessorInterval"];
         [self exposeLocalKeyPathToREST:@"eventProcessorMaxEventsCount"];
         [self exposeLocalKeyPathToREST:@"eventProcessorTimeout"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeExpiry"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeLength"];
         [self exposeLocalKeyPathToREST:@"twoFactorCodeSeedLength"];

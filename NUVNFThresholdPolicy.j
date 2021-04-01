@@ -56,6 +56,10 @@ NUVNFThresholdPolicyEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Action to be taken on threshold crossover
     */
     CPString _action @accessors(property=action);
@@ -84,6 +88,10 @@ NUVNFThresholdPolicyEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _monitInterval @accessors(property=monitInterval);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Type of the entity to which the Metadata is associated to.
     */
     CPString _assocEntityType @accessors(property=assocEntityType);
@@ -91,6 +99,10 @@ NUVNFThresholdPolicyEntityScope_GLOBAL = @"GLOBAL";
         Threshold for storage usage
     */
     CPNumber _storageThreshold @accessors(property=storageThreshold);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -121,6 +133,7 @@ NUVNFThresholdPolicyEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"CPUThreshold"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"memoryThreshold"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -128,8 +141,10 @@ NUVNFThresholdPolicyEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"monitInterval"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"storageThreshold"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

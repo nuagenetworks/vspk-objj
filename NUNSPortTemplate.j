@@ -62,6 +62,10 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         A description of the NSG Port Template
     */
     CPString _description @accessors(property=description);
@@ -86,6 +90,10 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
     */
     CPString _speed @accessors(property=speed);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         ID of the Egress QoS Policy associated with this NSG Port Template.
     */
     CPString _associatedEgressQOSPolicyID @accessors(property=associatedEgressQOSPolicyID);
@@ -93,6 +101,10 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
         Port MTU (Maximum Transmission Unit) :  The size in octets of the largest protocol data unit hat the layer can pass on.
     */
     CPNumber _mtu @accessors(property=mtu);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -124,14 +136,17 @@ NUNSPortTemplateSpeed_BASEX10G = @"BASEX10G";
         [self exposeLocalKeyPathToREST:@"VLANRange"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];
         [self exposeLocalKeyPathToREST:@"speed"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"mtu"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

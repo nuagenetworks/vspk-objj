@@ -157,6 +157,10 @@ NUVPortType_VM = @"VM";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Role of the gateway vport when handling MAC move errors
     */
     CPString _gatewayMACMoveRole @accessors(property=gatewayMACMoveRole);
@@ -233,6 +237,10 @@ NUVPortType_VM = @"VM";
     */
     CPString _operationalState @accessors(property=operationalState);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Indicates the role of the vport in trunking operations
     */
     CPString _trunkRole @accessors(property=trunkRole);
@@ -300,6 +308,10 @@ NUVPortType_VM = @"VM";
         Indicates that this vport is eligible to be given in gateway vport config request. It becomes eligible when it has properly attached host or bridge interfaces.
     */
     BOOL _gwEligible @accessors(property=gwEligible);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -373,6 +385,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"hasAttachedInterfaces"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayMACMoveRole"];
         [self exposeLocalKeyPathToREST:@"gatewayPortName"];
         [self exposeLocalKeyPathToREST:@"accessRestrictionEnabled"];
@@ -392,6 +405,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"domainVLANID"];
         [self exposeLocalKeyPathToREST:@"zoneID"];
         [self exposeLocalKeyPathToREST:@"operationalState"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"trunkRole"];
         [self exposeLocalKeyPathToREST:@"assocEntityID"];
         [self exposeLocalKeyPathToREST:@"associatedEgressProfileID"];
@@ -409,6 +423,7 @@ NUVPortType_VM = @"VM";
         [self exposeLocalKeyPathToREST:@"multiNICVPortID"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"gwEligible"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         [self exposeLocalKeyPathToREST:@"systemType"];

@@ -138,6 +138,10 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The IP address of the gateway of this subnet
     */
     CPString _gateway @accessors(property=gateway);
@@ -246,6 +250,10 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
     */
     BOOL _splitSubnet @accessors(property=splitSubnet);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
          When set, VRS will act as  ARP Proxy
     */
     BOOL _proxyARP @accessors(property=proxyARP);
@@ -289,6 +297,10 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         CustomerID that is used by NETCONF MANAGER to identify this enterprise. This can be configured by root user.
     */
     CPNumber _customerID @accessors(property=customerID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -350,6 +362,7 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
         [self exposeLocalKeyPathToREST:@"accessRestrictionEnabled"];
@@ -377,6 +390,7 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         [self exposeLocalKeyPathToREST:@"routeDistinguisher"];
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"splitSubnet"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"proxyARP"];
         [self exposeLocalKeyPathToREST:@"vrrpIPv6BackupAddress"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
@@ -388,6 +402,7 @@ NUSubnetUseGlobalMAC_ENTERPRISE_DEFAULT = @"ENTERPRISE_DEFAULT";
         [self exposeLocalKeyPathToREST:@"multiHomeEnabled"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"customerID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPATIPEntries = [NUPATIPEntriesFetcher fetcherWithParentObject:self];

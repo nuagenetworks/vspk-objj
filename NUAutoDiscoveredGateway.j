@@ -63,6 +63,10 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The Gateway associated with this Auto Discovered Gateway. This is a read only attribute
     */
     CPString _gatewayID @accessors(property=gatewayID);
@@ -91,9 +95,17 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
     */
     CPArrayController _controllers @accessors(property=controllers);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Represent the system ID or the Virtual IP of a service used by a Gateway (VSG for now) to establish a tunnel with a remote VSG or hypervisor.  The format of this field is consistent with an IP address.
     */
     CPString _vtep @accessors(property=vtep);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -132,6 +144,7 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayID"];
         [self exposeLocalKeyPathToREST:@"peer"];
         [self exposeLocalKeyPathToREST:@"personality"];
@@ -139,7 +152,9 @@ NUAutoDiscoveredGatewayPersonality_VSG = @"VSG";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"controllers"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"vtep"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemID"];
         

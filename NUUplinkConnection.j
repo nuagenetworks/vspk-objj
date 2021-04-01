@@ -87,6 +87,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         IP address of the gateway bound to the port
     */
     CPString _gateway @accessors(property=gateway);
@@ -175,6 +179,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
     */
     CPNumber _uplinkID @accessors(property=uplinkID);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         System generated identifier of an uplink on NSG.
     */
     CPString _primaryDataPathID @accessors(property=primaryDataPathID);
@@ -202,6 +210,10 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         Make this uplink an auxiliary one that will only come up when all other uplinks are disconnected or can't perform their role.
     */
     BOOL _auxiliaryLink @accessors(property=auxiliaryLink);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -236,6 +248,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"DNSAddressV6"];
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayV6"];
         [self exposeLocalKeyPathToREST:@"address"];
@@ -258,6 +271,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"portName"];
         [self exposeLocalKeyPathToREST:@"downloadRateLimit"];
         [self exposeLocalKeyPathToREST:@"uplinkID"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"primaryDataPathID"];
         [self exposeLocalKeyPathToREST:@"username"];
         [self exposeLocalKeyPathToREST:@"assocUnderlayID"];
@@ -265,6 +279,7 @@ NUUplinkConnectionRole_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"associatedUnderlayName"];
         [self exposeLocalKeyPathToREST:@"auxMode"];
         [self exposeLocalKeyPathToREST:@"auxiliaryLink"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

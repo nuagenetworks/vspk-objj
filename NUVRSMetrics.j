@@ -60,6 +60,10 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         re-Deploy
     */
     BOOL _reDeploy @accessors(property=reDeploy);
@@ -92,6 +96,10 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _appliedMetricsPushInterval @accessors(property=appliedMetricsPushInterval);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         None
     */
     CPString _associatedVCenterHypervisorID @accessors(property=associatedVCenterHypervisorID);
@@ -99,6 +107,10 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
         Current version of the VRS VM
     */
     CPString _currentVersion @accessors(property=currentVersion);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -129,6 +141,7 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"VRSProcess"];
         [self exposeLocalKeyPathToREST:@"VRSVSCStatus"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"reDeploy"];
         [self exposeLocalKeyPathToREST:@"receivingMetrics"];
         [self exposeLocalKeyPathToREST:@"memoryUtilization"];
@@ -137,8 +150,10 @@ NUVRSMetricsEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"logDiskPartitionUtilization"];
         [self exposeLocalKeyPathToREST:@"rootDiskPartitionUtilization"];
         [self exposeLocalKeyPathToREST:@"appliedMetricsPushInterval"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedVCenterHypervisorID"];
         [self exposeLocalKeyPathToREST:@"currentVersion"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

@@ -77,6 +77,10 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The Gateway associated with this  VLAN. This is a read only attribute
     */
     CPString _gatewayID @accessors(property=gatewayID);
@@ -116,6 +120,10 @@ NUVLANType_UPLINK = @"UPLINK";
         The Vport associated with this VLAN. This is a read only attribute
     */
     CPString _vportID @accessors(property=vportID);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Indicates if the VLAN is used as an uplink.
     */
@@ -169,6 +177,10 @@ NUVLANType_UPLINK = @"UPLINK";
     */
     BOOL _ducVlan @accessors(property=ducVlan);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -212,6 +224,7 @@ NUVLANType_UPLINK = @"UPLINK";
     {
         [self exposeLocalKeyPathToREST:@"value"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayID"];
         [self exposeLocalKeyPathToREST:@"readonly"];
         [self exposeLocalKeyPathToREST:@"templateID"];
@@ -222,6 +235,7 @@ NUVLANType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"vportID"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"isUplink"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
@@ -235,6 +249,7 @@ NUVLANType_UPLINK = @"UPLINK";
         [self exposeLocalKeyPathToREST:@"associatedVSCProfileID"];
         [self exposeLocalKeyPathToREST:@"status"];
         [self exposeLocalKeyPathToREST:@"ducVlan"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

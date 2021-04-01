@@ -54,6 +54,10 @@ NUIKECertificateEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Serial Number of the Certificate - Read Only Attribute
     */
     CPNumber _serialNumber @accessors(property=serialNumber);
@@ -78,6 +82,10 @@ NUIKECertificateEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _notBefore @accessors(property=notBefore);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The ID of the associated Enterprise
     */
     CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
@@ -89,6 +97,10 @@ NUIKECertificateEntityScope_GLOBAL = @"GLOBAL";
         Subject Distinguished Name of the Certificate - Read Only Attribute
     */
     CPString _subjectDN @accessors(property=subjectDN);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -119,15 +131,18 @@ NUIKECertificateEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"PEMEncoded"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"serialNumber"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"notAfter"];
         [self exposeLocalKeyPathToREST:@"notBefore"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
         [self exposeLocalKeyPathToREST:@"issuerDN"];
         [self exposeLocalKeyPathToREST:@"subjectDN"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

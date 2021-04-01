@@ -68,6 +68,10 @@ NUVSCStatus_UP = @"UP";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The IP of the VRS entity
     */
     CPString _address @accessors(property=address);
@@ -116,6 +120,10 @@ NUVSCStatus_UP = @"UP";
     */
     CPString _location @accessors(property=location);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Product version supported by this entity.
     */
     CPString _productVersion @accessors(property=productVersion);
@@ -143,6 +151,10 @@ NUVSCStatus_UP = @"UP";
         Average memory usage percentage.
     */
     CPNumber _averageMemoryUsage @accessors(property=averageMemoryUsage);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -181,6 +193,7 @@ NUVSCStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"managementIP"];
         [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"addresses"];
         [self exposeLocalKeyPathToREST:@"peakCPUUsage"];
@@ -193,6 +206,7 @@ NUVSCStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"unavailableTimestamp"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"location"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"vsds"];
         [self exposeLocalKeyPathToREST:@"status"];
@@ -200,6 +214,7 @@ NUVSCStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"currentMemoryUsage"];
         [self exposeLocalKeyPathToREST:@"averageCPUUsage"];
         [self exposeLocalKeyPathToREST:@"averageMemoryUsage"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

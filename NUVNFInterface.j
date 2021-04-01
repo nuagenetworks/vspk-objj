@@ -83,6 +83,10 @@ NUVNFInterfaceType_WAN = @"WAN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Gateway of the subnet that the interface is connected to
     */
     CPString _gateway @accessors(property=gateway);
@@ -123,6 +127,10 @@ NUVNFInterfaceType_WAN = @"WAN";
     */
     CPString _zoneName @accessors(property=zoneName);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         ID of the Subnet that the interface is attached to
     */
     CPString _attachedNetworkID @accessors(property=attachedNetworkID);
@@ -130,6 +138,10 @@ NUVNFInterfaceType_WAN = @"WAN";
         network type that the interface is attached to
     */
     CPString _attachedNetworkType @accessors(property=attachedNetworkType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -170,6 +182,7 @@ NUVNFInterfaceType_WAN = @"WAN";
         [self exposeLocalKeyPathToREST:@"IPv6Gateway"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"netmask"];
         [self exposeLocalKeyPathToREST:@"networkName"];
@@ -180,8 +193,10 @@ NUVNFInterfaceType_WAN = @"WAN";
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"zoneID"];
         [self exposeLocalKeyPathToREST:@"zoneName"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkID"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

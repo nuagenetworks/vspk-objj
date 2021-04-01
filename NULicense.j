@@ -55,6 +55,10 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Indicates additional versions supported by the license.
     */
     CPString _additionalSupportedVersions @accessors(property=additionalSupportedVersions);
@@ -167,6 +171,10 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     */
     CPString _country @accessors(property=country);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Version of the product that this license applies to
     */
     CPString _productVersion @accessors(property=productVersion);
@@ -194,6 +202,10 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         Customer key associated with the licese
     */
     CPString _customerKey @accessors(property=customerKey);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         Expiration date of this license
     */
@@ -236,6 +248,7 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
     {
         [self exposeLocalKeyPathToREST:@"majorRelease"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"additionalSupportedVersions"];
         [self exposeLocalKeyPathToREST:@"requestID"];
         [self exposeLocalKeyPathToREST:@"phone"];
@@ -264,6 +277,7 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"company"];
         [self exposeLocalKeyPathToREST:@"country"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"provider"];
         [self exposeLocalKeyPathToREST:@"isClusterLicense"];
@@ -271,6 +285,7 @@ NULicenseLicenseType_STANDARD = @"STANDARD";
         [self exposeLocalKeyPathToREST:@"state"];
         [self exposeLocalKeyPathToREST:@"street"];
         [self exposeLocalKeyPathToREST:@"customerKey"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"expirationDate"];
         [self exposeLocalKeyPathToREST:@"expiryTimestamp"];
         [self exposeLocalKeyPathToREST:@"externalID"];

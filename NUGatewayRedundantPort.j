@@ -70,6 +70,10 @@ NUGatewayRedundantPortStatus_READY = @"READY";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The permitted  action to USE/EXTEND  this port.
     */
     CPString _permittedAction @accessors(property=permittedAction);
@@ -102,6 +106,10 @@ NUGatewayRedundantPortStatus_READY = @"READY";
     */
     CPString _portType @accessors(property=portType);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         determines whether to use user mnemonic of the Port
     */
     BOOL _useUserMnemonic @accessors(property=useUserMnemonic);
@@ -117,6 +125,10 @@ NUGatewayRedundantPortStatus_READY = @"READY";
         Status of the port.
     */
     CPString _status @accessors(property=status);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -151,6 +163,7 @@ NUGatewayRedundantPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"VLANRange"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"physicalName"];
@@ -159,10 +172,12 @@ NUGatewayRedundantPortStatus_READY = @"READY";
         [self exposeLocalKeyPathToREST:@"portPeer1ID"];
         [self exposeLocalKeyPathToREST:@"portPeer2ID"];
         [self exposeLocalKeyPathToREST:@"portType"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenPermissions = [NUPermissionsFetcher fetcherWithParentObject:self];

@@ -62,6 +62,10 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Personality of the Gateway template - NSG, NSGBR, cannot be changed after creation.
     */
     CPString _personality @accessors(property=personality);
@@ -94,6 +98,14 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -124,6 +136,7 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"SSHService"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
@@ -132,6 +145,8 @@ NUNSGatewayTemplateSSHService_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"instanceSSHOverride"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

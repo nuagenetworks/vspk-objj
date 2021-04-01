@@ -50,6 +50,10 @@ NUTestEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         A brief description of the Test Definition referred to by this Test object.
     */
     CPString _description @accessors(property=description);
@@ -78,6 +82,10 @@ NUTestEntityScope_GLOBAL = @"GLOBAL";
     */
     CPNumber _order @accessors(property=order);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The associated Test Definition instance used as an information base for the Test object.
     */
     CPString _associatedTestDefinitionID @accessors(property=associatedTestDefinitionID);
@@ -85,6 +93,10 @@ NUTestEntityScope_GLOBAL = @"GLOBAL";
         The ID of the Test Suite this Test instance is part of.
     */
     CPString _associatedTestSuiteID @accessors(property=associatedTestSuiteID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -114,6 +126,7 @@ NUTestEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"destination"];
         [self exposeLocalKeyPathToREST:@"timeout"];
@@ -121,8 +134,10 @@ NUTestEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"command"];
         [self exposeLocalKeyPathToREST:@"order"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedTestDefinitionID"];
         [self exposeLocalKeyPathToREST:@"associatedTestSuiteID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

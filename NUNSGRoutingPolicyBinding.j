@@ -53,6 +53,10 @@ NUNSGRoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Description for this Routing Policy Binding Object.
     */
     CPString _description @accessors(property=description);
@@ -65,6 +69,10 @@ NUNSGRoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         ID of the Export Routing Policy which is associated to the current NSGRoutingPolicyBinding object.
     */
     CPString _associatedExportRoutingPolicyID @accessors(property=associatedExportRoutingPolicyID);
@@ -76,6 +84,10 @@ NUNSGRoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
         ID of the Policy Object Group which is associated to the current NSGRoutingPolicyBinding object.
     */
     CPString _associatedPolicyObjectGroupID @accessors(property=associatedPolicyObjectGroupID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         Flag to determine whether the BGP and OSPF learnt routes will be exported to VSC or not. This flags also exists at the domain level. If this attribute is set to 'INHERITED' (the default), the behavior is whatever is set at the domain level. Otherwise, this attribute takes precedence over the domain level one.
     */
@@ -109,12 +121,15 @@ NUNSGRoutingPolicyBindingExportToOverlay_INHERITED = @"INHERITED";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedExportRoutingPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedImportRoutingPolicyID"];
         [self exposeLocalKeyPathToREST:@"associatedPolicyObjectGroupID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"exportToOverlay"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         

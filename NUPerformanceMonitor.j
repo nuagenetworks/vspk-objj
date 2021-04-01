@@ -61,6 +61,10 @@ NUPerformanceMonitorServiceClass_H = @"H";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Payload size (This is a mandatory field if the networkProbeType = ONEWAY, and optional for probeType = HTTP,IPSEC_AND_VXLAN)
     */
     CPNumber _payloadSize @accessors(property=payloadSize);
@@ -89,6 +93,10 @@ NUPerformanceMonitorServiceClass_H = @"H";
     */
     CPNumber _holdDownTimer @accessors(property=holdDownTimer);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Type to be assigned to this probe
     */
     CPString _probeType @accessors(property=probeType);
@@ -96,6 +104,10 @@ NUPerformanceMonitorServiceClass_H = @"H";
         number of packets
     */
     CPNumber _numberOfPackets @accessors(property=numberOfPackets);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -125,6 +137,7 @@ NUPerformanceMonitorServiceClass_H = @"H";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"payloadSize"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"serviceClass"];
@@ -132,8 +145,10 @@ NUPerformanceMonitorServiceClass_H = @"H";
         [self exposeLocalKeyPathToREST:@"interval"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"holdDownTimer"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"probeType"];
         [self exposeLocalKeyPathToREST:@"numberOfPackets"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenTiers = [NUTiersFetcher fetcherWithParentObject:self];

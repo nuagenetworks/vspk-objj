@@ -72,6 +72,10 @@ NUBootstrapZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The activation URL used for bootstrapping this instance of the NSG. If the current configuration of the NSG is incomplete, no link will be returned.
     */
     CPString _activationURL @accessors(property=activationURL);
@@ -88,6 +92,10 @@ NUBootstrapZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Object type of the associated entity.
     */
     CPString _associatedEntityType @accessors(property=associatedEntityType);
@@ -95,6 +103,10 @@ NUBootstrapZFBMatchAttribute_UUID = @"UUID";
         Value showing the bootstrapping or activation status of an NSG or eVDF instance.
     */
     CPString _status @accessors(property=status);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -126,12 +138,15 @@ NUBootstrapZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"ZFBMatchAttribute"];
         [self exposeLocalKeyPathToREST:@"ZFBMatchValue"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"activationURL"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"installerID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedEntityType"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

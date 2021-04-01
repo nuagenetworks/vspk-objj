@@ -65,6 +65,10 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Details about the command execution as reported directly from the NSG independent of status codes.
     */
     CPString _detail @accessors(property=detail);
@@ -88,6 +92,10 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
         Informative details on what command is to be executed.  It complements the commandType attribute.  An example of a value could be a URL, a version number, a UUID of another object, ...
     */
     CPString _commandInformation @accessors(property=commandInformation);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         JSON string detailing the progress of the command execution on Gateway.
     */
@@ -121,6 +129,10 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _override @accessors(property=override);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -146,12 +158,14 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"detail"];
         [self exposeLocalKeyPathToREST:@"detailedStatus"];
         [self exposeLocalKeyPathToREST:@"detailedStatusCode"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"command"];
         [self exposeLocalKeyPathToREST:@"commandInformation"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"progress"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedParam"];
@@ -160,6 +174,7 @@ NUCommandStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"fullCommand"];
         [self exposeLocalKeyPathToREST:@"summary"];
         [self exposeLocalKeyPathToREST:@"override"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         

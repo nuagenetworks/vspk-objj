@@ -49,6 +49,10 @@ NUMetadataEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Description of the Metadata.
     */
     CPString _description @accessors(property=description);
@@ -73,6 +77,10 @@ NUMetadataEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         ID of the entity to which the Metadata is associated to.
     */
     CPString _assocEntityID @accessors(property=assocEntityID);
@@ -80,6 +88,10 @@ NUMetadataEntityScope_GLOBAL = @"GLOBAL";
         Type of the entity to which the Metadata is associated to.
     */
     CPString _assocEntityType @accessors(property=assocEntityType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -108,14 +120,17 @@ NUMetadataEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"metadataTagIDs"];
         [self exposeLocalKeyPathToREST:@"networkNotificationDisabled"];
         [self exposeLocalKeyPathToREST:@"blob"];
         [self exposeLocalKeyPathToREST:@"globalMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"assocEntityID"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenEventLogs = [NUEventLogsFetcher fetcherWithParentObject:self];

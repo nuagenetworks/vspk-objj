@@ -225,6 +225,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Identifier of the Gateway, based on the systemId
     */
     CPString _datapathID @accessors(property=datapathID);
@@ -337,6 +341,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
     */
     CPString _operationStatus @accessors(property=operationStatus);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         NSG Product Name as reported during bootstrapping.
     */
     CPString _productName @accessors(property=productName);
@@ -372,6 +380,10 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         The Auto Discovered Gateway associated with this Gateway Instance
     */
     CPString _autoDiscGatewayID @accessors(property=autoDiscGatewayID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -451,6 +463,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"family"];
         [self exposeLocalKeyPathToREST:@"lastConfigurationReloadTimestamp"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"datapathID"];
         [self exposeLocalKeyPathToREST:@"gatewayConfigRawVersion"];
         [self exposeLocalKeyPathToREST:@"gatewayConfigVersion"];
@@ -479,6 +492,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"bootstrapStatus"];
         [self exposeLocalKeyPathToREST:@"operationMode"];
         [self exposeLocalKeyPathToREST:@"operationStatus"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"productName"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGatewaySecurityProfileID"];
@@ -488,6 +502,7 @@ NUNSGatewayZFBMatchAttribute_UUID = @"UUID";
         [self exposeLocalKeyPathToREST:@"functions"];
         [self exposeLocalKeyPathToREST:@"tunnelShaping"];
         [self exposeLocalKeyPathToREST:@"autoDiscGatewayID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"syslogLevel"];
         [self exposeLocalKeyPathToREST:@"systemID"];

@@ -75,6 +75,10 @@ NUAllRedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The Auto Discovered Gateway configuration owner in this Redundant Group. 
     */
     CPString _gatewayPeer1AutodiscoveredGatewayID @accessors(property=gatewayPeer1AutodiscoveredGatewayID);
@@ -131,9 +135,17 @@ NUAllRedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Represent the system ID or the Virtual IP of a service used by a Gateway (VSG for now) to establish a tunnel with a remote VSG or hypervisor.  The format of this field is consistent with an IP address.
     */
     CPString _vtep @accessors(property=vtep);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -163,6 +175,7 @@ NUAllRedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1AutodiscoveredGatewayID"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1Connected"];
         [self exposeLocalKeyPathToREST:@"gatewayPeer1ID"];
@@ -177,7 +190,9 @@ NUAllRedundancyGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"vtep"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -98,6 +98,10 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The Default Service Class for this Egress QoS Policy. The queue that contains the default service class will be treated as the default queue.
     */
     CPString _defaultServiceClass @accessors(property=defaultServiceClass);
@@ -121,6 +125,10 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         ID of object associated with this QoS object
     */
@@ -166,6 +174,10 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
     */
     CPArrayController _queue4ForwardingClasses @accessors(property=queue4ForwardingClasses);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -195,12 +207,14 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"parentQueueAssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"defaultServiceClass"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"networkCtrlQueueAssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"mgmtQueueAssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"assocEgressQosId"];
         [self exposeLocalKeyPathToREST:@"associatedCOSRemarkingPolicyTableID"];
         [self exposeLocalKeyPathToREST:@"associatedDSCPRemarkingPolicyTableID"];
@@ -212,6 +226,7 @@ NUEgressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"queue3ForwardingClasses"];
         [self exposeLocalKeyPathToREST:@"queue4AssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"queue4ForwardingClasses"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -66,6 +66,10 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Enables flow statistics collection. It is needed for the VSS feature, and requires a valid VSS license. This option requires 'statisticsEnabled'.
     */
     BOOL _flowCollectionEnabled @accessors(property=flowCollectionEnabled);
@@ -82,6 +86,10 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _googleMapsAPIKey @accessors(property=googleMapsAPIKey);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         This flag is used to indicate if statistics is enabled in the system. CSProot is expected to activate this through the enable statistics script.
     */
     BOOL _statisticsEnabled @accessors(property=statisticsEnabled);
@@ -93,6 +101,10 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
         IP address(es) of the elastic machine
     */
     CPString _statsTSDBServerAddress @accessors(property=statsTSDBServerAddress);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -126,13 +138,16 @@ NUUserContextEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"VSSStatsInterval"];
         [self exposeLocalKeyPathToREST:@"pageSize"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"flowCollectionEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"googleMapsAPIKey"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
         [self exposeLocalKeyPathToREST:@"statsDatabaseProxy"];
         [self exposeLocalKeyPathToREST:@"statsTSDBServerAddress"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

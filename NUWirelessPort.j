@@ -361,6 +361,10 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         This field is used to contain the 'blob' parameters for the WiFi Card (physical module) on the NSG.
     */
     CPString _genericConfig @accessors(property=genericConfig);
@@ -405,6 +409,10 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
     */
     CPString _countryCode @accessors(property=countryCode);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The selected wireless frequency and channel used by the wireless interface. Channels range is from 0 to 165 where 0 stands for Auto Channel Selection.
     */
     CPString _frequencyChannel @accessors(property=frequencyChannel);
@@ -424,6 +432,10 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
         Status of the Wireless Port. Possible values are - INITIALIZED, ORPHAN, READY, MISMATCH
     */
     CPString _status @accessors(property=status);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -457,6 +469,7 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
         [self exposeLocalKeyPathToREST:@"VLANRange"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"genericConfig"];
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -468,11 +481,13 @@ NUWirelessPortWifiMode_WIFI_B_G_N = @"WIFI_B_G_N";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"portType"];
         [self exposeLocalKeyPathToREST:@"countryCode"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"frequencyChannel"];
         [self exposeLocalKeyPathToREST:@"useUserMnemonic"];
         [self exposeLocalKeyPathToREST:@"userMnemonic"];
         [self exposeLocalKeyPathToREST:@"associatedEgressQOSPolicyID"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

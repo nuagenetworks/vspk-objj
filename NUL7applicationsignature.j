@@ -51,6 +51,10 @@ NUL7applicationsignatureEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Category of this application
     */
     CPString _category @accessors(property=category);
@@ -107,6 +111,10 @@ NUL7applicationsignatureEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _softwareFlags @accessors(property=softwareFlags);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Productivity Index is scored relative to a work environment for every L7 signature on a scale of 1-5.
     */
     CPNumber _productivity @accessors(property=productivity);
@@ -114,6 +122,10 @@ NUL7applicationsignatureEntityScope_GLOBAL = @"GLOBAL";
         GUID of the Application
     */
     CPString _guidstring @accessors(property=guidstring);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -144,6 +156,7 @@ NUL7applicationsignatureEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"category"];
         [self exposeLocalKeyPathToREST:@"readonly"];
         [self exposeLocalKeyPathToREST:@"reference"];
@@ -158,8 +171,10 @@ NUL7applicationsignatureEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"softwareFlags"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"productivity"];
         [self exposeLocalKeyPathToREST:@"guidstring"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

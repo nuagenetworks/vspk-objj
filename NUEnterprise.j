@@ -164,6 +164,10 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Read only flag to display if Web Filtering is enabled for this enterprise
     */
     BOOL _webFilterEnabled @accessors(property=webFilterEnabled);
@@ -252,6 +256,10 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
     */
     CPArrayController _forwardingClass @accessors(property=forwardingClass);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Determines whether Global Gateway MAC is enabled or not Enterprise level.
     */
     BOOL _useGlobalMAC @accessors(property=useGlobalMAC);
@@ -279,6 +287,10 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         Avatar type - URL or BASE64 Possible values are URL, BASE64, COMPUTEDURL, .
     */
     CPString _avatarType @accessors(property=avatarType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -388,6 +400,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"VNFManagementEnabled"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"webFilterEnabled"];
         [self exposeLocalKeyPathToREST:@"receiveMultiCastListID"];
         [self exposeLocalKeyPathToREST:@"sendMultiCastListID"];
@@ -410,6 +423,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"localAS"];
         [self exposeLocalKeyPathToREST:@"forwardingClass"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseSecurityID"];
         [self exposeLocalKeyPathToREST:@"associatedGroupKeyEncryptionProfileID"];
@@ -417,6 +431,7 @@ NUEnterpriseFlowCollectionEnabled_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"customerID"];
         [self exposeLocalKeyPathToREST:@"avatarData"];
         [self exposeLocalKeyPathToREST:@"avatarType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];

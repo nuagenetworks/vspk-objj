@@ -69,6 +69,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Datapath flows sync-time-interval specified in milliseconds
     */
     CPNumber _datapathSyncTimeout @accessors(property=datapathSyncTimeout);
@@ -153,6 +157,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
     */
     CPString _upgradeAction @accessors(property=upgradeAction);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Proxy DNS Name :  DNS Name of the system acting as a proxy between the NSG instances and the VSD.
     */
     CPString _proxyDNSName @accessors(property=proxyDNSName);
@@ -164,6 +172,10 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         The port to open by the proxy for the statistics collector to use.
     */
     CPNumber _statsCollectorPort @accessors(property=statsCollectorPort);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -199,6 +211,7 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"NTPServerKeyID"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"datapathSyncTimeout"];
         [self exposeLocalKeyPathToREST:@"deadTimer"];
         [self exposeLocalKeyPathToREST:@"deadTimerEnabled"];
@@ -220,9 +233,11 @@ NUInfrastructureGatewayProfileUpgradeAction_UPGRADE_NOW = @"UPGRADE_NOW";
         [self exposeLocalKeyPathToREST:@"forceImmediateSystemSync"];
         [self exposeLocalKeyPathToREST:@"openFlowAuditTimer"];
         [self exposeLocalKeyPathToREST:@"upgradeAction"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"proxyDNSName"];
         [self exposeLocalKeyPathToREST:@"useTwoFactor"];
         [self exposeLocalKeyPathToREST:@"statsCollectorPort"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"systemSyncScheduler"];
         

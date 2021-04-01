@@ -107,6 +107,10 @@ NUVRSStatus_UP = @"UP";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         UUID of the gateway instance
     */
     CPString _gatewayUUID @accessors(property=gatewayUUID);
@@ -183,6 +187,10 @@ NUVRSStatus_UP = @"UP";
     */
     CPNumber _uptime @accessors(property=uptime);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Flag indicates whether the connection with the primary is lost, which will help trigger alarms.
     */
     BOOL _primaryVSCConnectionLost @accessors(property=primaryVSCConnectionLost);
@@ -234,6 +242,10 @@ NUVRSStatus_UP = @"UP";
         Average memory usage percentage.
     */
     CPNumber _averageMemoryUsage @accessors(property=averageMemoryUsage);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -297,6 +309,7 @@ NUVRSStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"lastEventTimestamp"];
         [self exposeLocalKeyPathToREST:@"lastStateChange"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gatewayUUID"];
         [self exposeLocalKeyPathToREST:@"dbSynced"];
         [self exposeLocalKeyPathToREST:@"address"];
@@ -316,6 +329,7 @@ NUVRSStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"location"];
         [self exposeLocalKeyPathToREST:@"role"];
         [self exposeLocalKeyPathToREST:@"uptime"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"primaryVSCConnectionLost"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"isResilient"];
@@ -329,6 +343,7 @@ NUVRSStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"currentMemoryUsage"];
         [self exposeLocalKeyPathToREST:@"averageCPUUsage"];
         [self exposeLocalKeyPathToREST:@"averageMemoryUsage"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"hypervisorConnectionState"];
         [self exposeLocalKeyPathToREST:@"hypervisorIdentifier"];

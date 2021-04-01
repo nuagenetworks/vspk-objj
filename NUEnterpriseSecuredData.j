@@ -52,6 +52,10 @@ NUEnterpriseSecuredDataSeedType_STANDARD = @"STANDARD";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         encrypted data
     */
     CPString _data @accessors(property=data);
@@ -79,6 +83,14 @@ NUEnterpriseSecuredDataSeedType_STANDARD = @"STANDARD";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -108,6 +120,7 @@ NUEnterpriseSecuredDataSeedType_STANDARD = @"STANDARD";
     {
         [self exposeLocalKeyPathToREST:@"hash"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"data"];
         [self exposeLocalKeyPathToREST:@"seedType"];
         [self exposeLocalKeyPathToREST:@"sekId"];
@@ -115,6 +128,8 @@ NUEnterpriseSecuredDataSeedType_STANDARD = @"STANDARD";
         [self exposeLocalKeyPathToREST:@"signedHash"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

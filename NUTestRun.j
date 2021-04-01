@@ -51,6 +51,10 @@ NUTestRunOperationStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
@@ -79,6 +83,10 @@ NUTestRunOperationStatus_UNKNOWN = @"UNKNOWN";
     */
     CPString _operationStatus @accessors(property=operationStatus);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         The ID of the Test instance to which this Test Run is bound.
     */
     CPString _associatedTestID @accessors(property=associatedTestID);
@@ -98,6 +106,10 @@ NUTestRunOperationStatus_UNKNOWN = @"UNKNOWN";
         The duration of execution of the Test in milliseconds.
     */
     CPNumber _duration @accessors(property=duration);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -126,6 +138,7 @@ NUTestRunOperationStatus_UNKNOWN = @"UNKNOWN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"command"];
@@ -133,11 +146,13 @@ NUTestRunOperationStatus_UNKNOWN = @"UNKNOWN";
         [self exposeLocalKeyPathToREST:@"commandOutput"];
         [self exposeLocalKeyPathToREST:@"commandOutputSummary"];
         [self exposeLocalKeyPathToREST:@"operationStatus"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedTestID"];
         [self exposeLocalKeyPathToREST:@"associatedTestSuiteRunID"];
         [self exposeLocalKeyPathToREST:@"startDateTime"];
         [self exposeLocalKeyPathToREST:@"stopDateTime"];
         [self exposeLocalKeyPathToREST:@"duration"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

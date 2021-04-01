@@ -46,6 +46,10 @@ NUKeyServerMemberEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         PEM Encoded Certificate
     */
     CPString _pemEncoded @accessors(property=pemEncoded);
@@ -66,6 +70,10 @@ NUKeyServerMemberEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _fqdn @accessors(property=fqdn);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Issuer DN
     */
     CPString _issuerDN @accessors(property=issuerDN);
@@ -77,6 +85,10 @@ NUKeyServerMemberEntityScope_GLOBAL = @"GLOBAL";
         Public Key
     */
     CPString _publicKey @accessors(property=publicKey);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -105,14 +117,17 @@ NUKeyServerMemberEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"pemEncoded"];
         [self exposeLocalKeyPathToREST:@"certificateSerialNumber"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"fqdn"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"issuerDN"];
         [self exposeLocalKeyPathToREST:@"subjectDN"];
         [self exposeLocalKeyPathToREST:@"publicKey"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

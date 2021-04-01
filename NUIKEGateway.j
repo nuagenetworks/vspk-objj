@@ -82,6 +82,10 @@ NUIKEGatewayIKEv1Mode_NONE = @"NONE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Description of the IKEv2 Gateway
     */
     CPString _description @accessors(property=description);
@@ -98,6 +102,10 @@ NUIKEGatewayIKEv1Mode_NONE = @"NONE";
     */
     CPString _configurationStatus @accessors(property=configurationStatus);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         ID of the associated third-party cloud instance
     */
     CPString _associatedCloudID @accessors(property=associatedCloudID);
@@ -109,6 +117,10 @@ NUIKEGatewayIKEv1Mode_NONE = @"NONE";
         The ID of the associated Enterprise
     */
     CPString _associatedEnterpriseID @accessors(property=associatedEnterpriseID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -143,13 +155,16 @@ NUIKEGatewayIKEv1Mode_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"IPAddress"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"configurationStatus"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedCloudID"];
         [self exposeLocalKeyPathToREST:@"associatedCloudType"];
         [self exposeLocalKeyPathToREST:@"associatedEnterpriseID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

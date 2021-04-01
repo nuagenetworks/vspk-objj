@@ -90,6 +90,10 @@ NUIngressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         A description of the QoS object
     */
     CPString _description @accessors(property=description);
@@ -101,6 +105,10 @@ NUIngressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         ID of object associated with this QoS object
     */
@@ -138,6 +146,10 @@ NUIngressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
     */
     CPArrayController _queue4ForwardingClasses @accessors(property=queue4ForwardingClasses);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -167,9 +179,11 @@ NUIngressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"parentQueueAssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"assocEgressQosId"];
         [self exposeLocalKeyPathToREST:@"queue1AssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"queue1ForwardingClasses"];
@@ -179,6 +193,7 @@ NUIngressQOSPolicyQueue4ForwardingClasses_NONE = @"NONE";
         [self exposeLocalKeyPathToREST:@"queue3ForwardingClasses"];
         [self exposeLocalKeyPathToREST:@"queue4AssociatedRateLimiterID"];
         [self exposeLocalKeyPathToREST:@"queue4ForwardingClasses"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

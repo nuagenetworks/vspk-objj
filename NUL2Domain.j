@@ -155,6 +155,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The IP address of the gateway of this l2 domain
     */
     CPString _gateway @accessors(property=gateway);
@@ -243,6 +247,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
     */
     CPString _uplinkPreference @accessors(property=uplinkPreference);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Enable this flag to use system configured globalMACAddress as the gateway mac address for managed l2 domains
     */
     CPString _useGlobalMAC @accessors(property=useGlobalMAC);
@@ -274,6 +282,10 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         CustomerID that is used by NETCONF MANAGER to identify this enterprise. This can be configured by root user.
     */
     CPNumber _customerID @accessors(property=customerID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -354,6 +366,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"maintenanceMode"];
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"gateway"];
         [self exposeLocalKeyPathToREST:@"gatewayMACAddress"];
         [self exposeLocalKeyPathToREST:@"address"];
@@ -376,6 +389,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"routeTarget"];
         [self exposeLocalKeyPathToREST:@"routedVPLSEnabled"];
         [self exposeLocalKeyPathToREST:@"uplinkPreference"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"useGlobalMAC"];
         [self exposeLocalKeyPathToREST:@"associatedMulticastChannelMapID"];
         [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
@@ -384,6 +398,7 @@ NUL2DomainUseGlobalMAC_ENABLED = @"ENABLED";
         [self exposeLocalKeyPathToREST:@"dualStackDynamicIPAllocation"];
         [self exposeLocalKeyPathToREST:@"multicast"];
         [self exposeLocalKeyPathToREST:@"customerID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenGateways = [NUGatewaysFetcher fetcherWithParentObject:self];

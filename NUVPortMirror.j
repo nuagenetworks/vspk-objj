@@ -49,6 +49,10 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Name of the network to which the vport belongs to
     */
     CPString _networkName @accessors(property=networkName);
@@ -89,9 +93,17 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
     */
     CPString _vportName @accessors(property=vportName);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Type of the network attached - L2/L3
     */
     CPString _attachedNetworkType @accessors(property=attachedNetworkType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -120,6 +132,7 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"networkName"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationID"];
         [self exposeLocalKeyPathToREST:@"mirrorDestinationName"];
@@ -130,7 +143,9 @@ NUVPortMirrorMirrorDirection_INGRESS = @"INGRESS";
         [self exposeLocalKeyPathToREST:@"domainName"];
         [self exposeLocalKeyPathToREST:@"vportId"];
         [self exposeLocalKeyPathToREST:@"vportName"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"attachedNetworkType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -48,6 +48,10 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         If access control is enabled this FIP is part of the Internet PG.
     */
     BOOL _accessControl @accessors(property=accessControl);
@@ -64,6 +68,10 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         True if this floating IP is assigned to a network interface else the value is false
     */
     BOOL _assigned @accessors(property=assigned);
@@ -75,6 +83,10 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
         Id of the shared network resource subnet which was used to get this floating IP address
     */
     CPString _associatedSharedNetworkResourceID @accessors(property=associatedSharedNetworkResourceID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -105,13 +117,16 @@ NUFloatingIpEntityScope_GLOBAL = @"GLOBAL";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"accessControl"];
         [self exposeLocalKeyPathToREST:@"address"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"assigned"];
         [self exposeLocalKeyPathToREST:@"assignedToObjectType"];
         [self exposeLocalKeyPathToREST:@"associatedSharedNetworkResourceID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

@@ -52,6 +52,10 @@ NUEgressProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         A customer friendly description of the Egress Profile entity.
     */
     CPString _description @accessors(property=description);
@@ -63,6 +67,10 @@ NUEgressProfileEntityScope_GLOBAL = @"GLOBAL";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         Type of parent entity
     */
@@ -100,6 +108,10 @@ NUEgressProfileEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _associatedSAPEgressQoSProfileName @accessors(property=associatedSAPEgressQoSProfileName);
     /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
+    /*!
         External object ID. Used for integration with third party systems
     */
     CPString _externalID @accessors(property=externalID);
@@ -130,9 +142,11 @@ NUEgressProfileEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"assocEntityType"];
         [self exposeLocalKeyPathToREST:@"associatedIPFilterProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedIPFilterProfileName"];
@@ -142,6 +156,7 @@ NUEgressProfileEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"associatedMACFilterProfileName"];
         [self exposeLocalKeyPathToREST:@"associatedSAPEgressQoSProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedSAPEgressQoSProfileName"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenDeploymentFailures = [NUDeploymentFailuresFetcher fetcherWithParentObject:self];

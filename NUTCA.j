@@ -95,6 +95,10 @@ NUTCAType_UNIQUE_COUNT = @"UNIQUE_COUNT";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Action to be taken when TCA is fired - Alert or PolicyGroupChange
     */
     CPString _action @accessors(property=action);
@@ -139,9 +143,17 @@ NUTCAType_UNIQUE_COUNT = @"UNIQUE_COUNT";
     */
     CPNumber _count @accessors(property=count);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         This flag is used to indicate the status of TCA
     */
     BOOL _status @accessors(property=status);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -179,6 +191,7 @@ NUTCAType_UNIQUE_COUNT = @"UNIQUE_COUNT";
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"targetPolicyGroupID"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"action"];
         [self exposeLocalKeyPathToREST:@"period"];
         [self exposeLocalKeyPathToREST:@"description"];
@@ -190,7 +203,9 @@ NUTCAType_UNIQUE_COUNT = @"UNIQUE_COUNT";
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"count"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

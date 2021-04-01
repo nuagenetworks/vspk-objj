@@ -60,6 +60,10 @@ NULinkType_SERVICE_CHAINING = @"SERVICE_CHAINING";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         A route filtering criteria enum. Defaults to ALL.
     */
     CPString _acceptanceCriteria @accessors(property=acceptanceCriteria);
@@ -75,6 +79,10 @@ NULinkType_SERVICE_CHAINING = @"SERVICE_CHAINING";
         Specify if scope of entity is Data center or Enterprise level
     */
     CPString _entityScope @accessors(property=entityScope);
+    /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
     /*!
         This is the  ID of the domain receiving the routes from the source. This can only be set for links of type OVERLAY_ADDRESS_TRANSLATION.
     */
@@ -99,6 +107,10 @@ NULinkType_SERVICE_CHAINING = @"SERVICE_CHAINING";
         This is the source object type for the associatedSourceID
     */
     CPString _associatedSourceType @accessors(property=associatedSourceType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -137,16 +149,19 @@ NULinkType_SERVICE_CHAINING = @"SERVICE_CHAINING";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"acceptanceCriteria"];
         [self exposeLocalKeyPathToREST:@"readOnly"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedDestinationID"];
         [self exposeLocalKeyPathToREST:@"associatedDestinationName"];
         [self exposeLocalKeyPathToREST:@"associatedDestinationType"];
         [self exposeLocalKeyPathToREST:@"associatedSourceID"];
         [self exposeLocalKeyPathToREST:@"associatedSourceName"];
         [self exposeLocalKeyPathToREST:@"associatedSourceType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         [self exposeLocalKeyPathToREST:@"type"];
         

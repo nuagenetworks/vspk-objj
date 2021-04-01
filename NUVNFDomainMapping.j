@@ -47,6 +47,10 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The segmentation ID (1-4095).
     */
     CPNumber _segmentationID @accessors(property=segmentationID);
@@ -63,6 +67,10 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Associated NS Gateway
     */
     CPString _associatedNSGatewayID @accessors(property=associatedNSGatewayID);
@@ -70,6 +78,10 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
         Name of associated NSGateway
     */
     CPString _associatedNSGatewayName @accessors(property=associatedNSGatewayName);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -98,12 +110,15 @@ NUVNFDomainMappingSegmentationType_VLAN = @"VLAN";
     if (self = [super init])
     {
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"segmentationID"];
         [self exposeLocalKeyPathToREST:@"segmentationType"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayID"];
         [self exposeLocalKeyPathToREST:@"associatedNSGatewayName"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

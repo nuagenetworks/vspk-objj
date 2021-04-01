@@ -60,6 +60,10 @@ NUDestinationurlHTTPMethod_HEAD = @"HEAD";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Weight of the URL in %. Applicable only when parent is Tier1
     */
     CPNumber _percentageWeight @accessors(property=percentageWeight);
@@ -80,9 +84,17 @@ NUDestinationurlHTTPMethod_HEAD = @"HEAD";
     */
     CPNumber _downThresholdCount @accessors(property=downThresholdCount);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         probe interval (part of rate along with packetCount). Applicable only if this URL's parent is Tier1
     */
     CPNumber _probeInterval @accessors(property=probeInterval);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -114,12 +126,15 @@ NUDestinationurlHTTPMethod_HEAD = @"HEAD";
         [self exposeLocalKeyPathToREST:@"HTTPMethod"];
         [self exposeLocalKeyPathToREST:@"packetCount"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"percentageWeight"];
         [self exposeLocalKeyPathToREST:@"timeout"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"downThresholdCount"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"probeInterval"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

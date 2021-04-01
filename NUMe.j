@@ -161,6 +161,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         First name of the user
     */
     CPString _firstName @accessors(property=firstName);
@@ -201,6 +205,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _mobileNumber @accessors(property=mobileNumber);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         This flag is used to indicate if statistics is enabled in the system. CSProot is expected to activate this through the enable statistics script.
     */
     BOOL _statisticsEnabled @accessors(property=statisticsEnabled);
@@ -212,6 +220,10 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         Avatar type.
     */
     CPString _avatarType @accessors(property=avatarType);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -341,6 +353,7 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"password"];
         [self exposeLocalKeyPathToREST:@"lastName"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"firstName"];
         [self exposeLocalKeyPathToREST:@"disabled"];
         [self exposeLocalKeyPathToREST:@"elasticSearchAddress"];
@@ -352,10 +365,12 @@ NUMeEntityScope_GLOBAL = @"GLOBAL";
         [self exposeLocalKeyPathToREST:@"entityScope"];
         [self exposeLocalKeyPathToREST:@"mobileNumber"];
         [self exposeLocalKeyPathToREST:@"role"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"userName"];
         [self exposeLocalKeyPathToREST:@"statisticsEnabled"];
         [self exposeLocalKeyPathToREST:@"avatarData"];
         [self exposeLocalKeyPathToREST:@"avatarType"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenL2Domains = [NUL2DomainsFetcher fetcherWithParentObject:self];

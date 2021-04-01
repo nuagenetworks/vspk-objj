@@ -52,6 +52,10 @@ NUAzureCloudEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         The tenant Id of Azure Cloud account.
     */
     CPString _tenantID @accessors(property=tenantID);
@@ -72,6 +76,10 @@ NUAzureCloudEntityScope_GLOBAL = @"GLOBAL";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Associated IKE Encryption Profile.
     */
     CPString _associatedIKEEncryptionProfileID @accessors(property=associatedIKEEncryptionProfileID);
@@ -83,6 +91,10 @@ NUAzureCloudEntityScope_GLOBAL = @"GLOBAL";
         The subscription Id of Azure Cloud account.
     */
     CPString _subscriptionID @accessors(property=subscriptionID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -114,14 +126,17 @@ NUAzureCloudEntityScope_GLOBAL = @"GLOBAL";
     {
         [self exposeLocalKeyPathToREST:@"name"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"tenantID"];
         [self exposeLocalKeyPathToREST:@"clientID"];
         [self exposeLocalKeyPathToREST:@"clientSecret"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedIKEEncryptionProfileID"];
         [self exposeLocalKeyPathToREST:@"associatedIKEPSKID"];
         [self exposeLocalKeyPathToREST:@"subscriptionID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];

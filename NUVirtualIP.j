@@ -57,6 +57,10 @@ NUVirtualIPIPType_IPV6 = @"IPV6";
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
     /*!
+        Time stamp when this object was last updated.
+    */
+    CPString _lastUpdatedDate @accessors(property=lastUpdatedDate);
+    /*!
         Virtual IP address
     */
     CPString _virtualIP @accessors(property=virtualIP);
@@ -69,6 +73,10 @@ NUVirtualIPIPType_IPV6 = @"IPV6";
     */
     CPString _entityScope @accessors(property=entityScope);
     /*!
+        Time stamp when this object was created.
+    */
+    CPString _creationDate @accessors(property=creationDate);
+    /*!
         Id of Floating IP address associated to this virtual ip
     */
     CPString _associatedFloatingIPID @accessors(property=associatedFloatingIPID);
@@ -76,6 +84,10 @@ NUVirtualIPIPType_IPV6 = @"IPV6";
         ID of subnet to which this IP address belongs
     */
     CPString _subnetID @accessors(property=subnetID);
+    /*!
+        Identifies the user that has created this object.
+    */
+    CPString _owner @accessors(property=owner);
     /*!
         External object ID. Used for integration with third party systems
     */
@@ -107,11 +119,14 @@ NUVirtualIPIPType_IPV6 = @"IPV6";
         [self exposeLocalKeyPathToREST:@"MAC"];
         [self exposeLocalKeyPathToREST:@"IPType"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
+        [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"virtualIP"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"entityScope"];
+        [self exposeLocalKeyPathToREST:@"creationDate"];
         [self exposeLocalKeyPathToREST:@"associatedFloatingIPID"];
         [self exposeLocalKeyPathToREST:@"subnetID"];
+        [self exposeLocalKeyPathToREST:@"owner"];
         [self exposeLocalKeyPathToREST:@"externalID"];
         
         _childrenMetadatas = [NUMetadatasFetcher fetcherWithParentObject:self];
