@@ -71,6 +71,8 @@ NUSystemConfigLastExecutedMigrationPhase_REDUCE = @"REDUCE";
 NUSystemConfigSystemAvatarType_BASE64 = @"BASE64";
 NUSystemConfigSystemAvatarType_COMPUTEDURL = @"COMPUTEDURL";
 NUSystemConfigSystemAvatarType_URL = @"URL";
+NUSystemConfigWebFilteringType_CLOUD_SERVICE = @"CLOUD_SERVICE";
+NUSystemConfigWebFilteringType_VM = @"VM";
 
 
 /*!
@@ -295,6 +297,10 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
     */
     CPNumber _pageSize @accessors(property=pageSize);
     /*!
+        Indicates if the VSD is configured in maintenance mode. This is typically enabled during the VSD upgrade window and when enabled the VSD would support only a subset of functionality.
+    */
+    BOOL _maintenanceModeEnabled @accessors(property=maintenanceModeEnabled);
+    /*!
         Indicates the last successfully executed phase of online schema migration. This value is set automatically upon execution of online schema migration scripts.
     */
     CPString _lastExecutedMigrationPhase @accessors(property=lastExecutedMigrationPhase);
@@ -338,6 +344,14 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         If VCIN Active/Standby is enabled, this needs to be the load-balancer IP which sits in front of the Active and Standby VCIN nodes. The VRS will make its API calls to this load-balancer
     */
     CPString _vcinLoadBalancerIP @accessors(property=vcinLoadBalancerIP);
+    /*!
+        Indicates web categorization service url. Applicable only for web filtering type CLOUD_SERVICE
+    */
+    CPString _webCatSrvUrl @accessors(property=webCatSrvUrl);
+    /*!
+        Indicates the type of web filtering. Possible values are CLOUD_SERVICE, VM
+    */
+    CPString _webFilteringType @accessors(property=webFilteringType);
     /*!
         Forward Error Correction feedback timer in seconds. Possible values are 1, 2, 3, 4 or 5.
     */
@@ -852,6 +866,7 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"SaaSApplicationsPublishDate"];
         [self exposeLocalKeyPathToREST:@"pageMaxSize"];
         [self exposeLocalKeyPathToREST:@"pageSize"];
+        [self exposeLocalKeyPathToREST:@"maintenanceModeEnabled"];
         [self exposeLocalKeyPathToREST:@"lastExecutedMigrationPhase"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
@@ -863,6 +878,8 @@ NUSystemConfigSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"rbacEnabled"];
         [self exposeLocalKeyPathToREST:@"accumulateLicensesEnabled"];
         [self exposeLocalKeyPathToREST:@"vcinLoadBalancerIP"];
+        [self exposeLocalKeyPathToREST:@"webCatSrvUrl"];
+        [self exposeLocalKeyPathToREST:@"webFilteringType"];
         [self exposeLocalKeyPathToREST:@"fecFeedbackTimer"];
         [self exposeLocalKeyPathToREST:@"secondaryASNumber"];
         [self exposeLocalKeyPathToREST:@"secondaryRTLowerLimit"];

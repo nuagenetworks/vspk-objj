@@ -141,6 +141,10 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
     */
     CPString _description @accessors(property=description);
     /*!
+        Indicates if Threat Prevention is enabled on this Redundancy Group.
+    */
+    BOOL _threatPreventionEnabled @accessors(property=threatPreventionEnabled);
+    /*!
         Metadata objects associated with this entity. This will contain a list of Metadata objects if the API request is made using the special flag to enable the embedded Metadata feature. Only a maximum of Metadata objects is returned based on the value set in the system configuration.
     */
     CPArrayController _embeddedMetadata @accessors(property=embeddedMetadata);
@@ -216,6 +220,7 @@ NUNSRedundantGatewayGroupRedundantGatewayStatus_SUCCESS = @"SUCCESS";
         [self exposeLocalKeyPathToREST:@"permittedAction"];
         [self exposeLocalKeyPathToREST:@"personality"];
         [self exposeLocalKeyPathToREST:@"description"];
+        [self exposeLocalKeyPathToREST:@"threatPreventionEnabled"];
         [self exposeLocalKeyPathToREST:@"embeddedMetadata"];
         [self exposeLocalKeyPathToREST:@"enterpriseID"];
         [self exposeLocalKeyPathToREST:@"entityScope"];

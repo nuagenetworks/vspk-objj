@@ -85,6 +85,10 @@ NUVSCStatus_UP = @"UP";
     */
     CPNumber _peakMemoryUsage @accessors(property=peakMemoryUsage);
     /*!
+        Number of uplinks as secondary role.
+    */
+    CPNumber _secondaryRoleCount @accessors(property=secondaryRoleCount);
+    /*!
         Description of the entity.
     */
     CPString _description @accessors(property=description);
@@ -125,6 +129,10 @@ NUVSCStatus_UP = @"UP";
     */
     CPString _creationDate @accessors(property=creationDate);
     /*!
+        Number of uplinks as primary role.
+    */
+    CPNumber _primaryRoleCount @accessors(property=primaryRoleCount);
+    /*!
         Product version supported by this entity.
     */
     CPString _productVersion @accessors(property=productVersion);
@@ -136,6 +144,10 @@ NUVSCStatus_UP = @"UP";
         Computed status of the entity.
     */
     CPString _status @accessors(property=status);
+    /*!
+        Number of inactive Gateways.
+    */
+    CPNumber _numberOfInactiveGateways @accessors(property=numberOfInactiveGateways);
     /*!
         Current CPU usage percentage.
     */
@@ -199,6 +211,7 @@ NUVSCStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"addresses"];
         [self exposeLocalKeyPathToREST:@"peakCPUUsage"];
         [self exposeLocalKeyPathToREST:@"peakMemoryUsage"];
+        [self exposeLocalKeyPathToREST:@"secondaryRoleCount"];
         [self exposeLocalKeyPathToREST:@"description"];
         [self exposeLocalKeyPathToREST:@"messages"];
         [self exposeLocalKeyPathToREST:@"disks"];
@@ -209,9 +222,11 @@ NUVSCStatus_UP = @"UP";
         [self exposeLocalKeyPathToREST:@"location"];
         [self exposeLocalKeyPathToREST:@"communicationId"];
         [self exposeLocalKeyPathToREST:@"creationDate"];
+        [self exposeLocalKeyPathToREST:@"primaryRoleCount"];
         [self exposeLocalKeyPathToREST:@"productVersion"];
         [self exposeLocalKeyPathToREST:@"vsds"];
         [self exposeLocalKeyPathToREST:@"status"];
+        [self exposeLocalKeyPathToREST:@"numberOfInactiveGateways"];
         [self exposeLocalKeyPathToREST:@"currentCPUUsage"];
         [self exposeLocalKeyPathToREST:@"currentMemoryUsage"];
         [self exposeLocalKeyPathToREST:@"averageCPUUsage"];

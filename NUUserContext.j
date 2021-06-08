@@ -66,6 +66,10 @@ NUUserContextSystemAvatarType_URL = @"URL";
     */
     CPNumber _pageSize @accessors(property=pageSize);
     /*!
+        Indicates if this VSD is configured in maintenance mode. This is typically enabled during the VSD upgrade window and when enabled VSD supports only a subset of functionality.
+    */
+    BOOL _maintenanceModeEnabled @accessors(property=maintenanceModeEnabled);
+    /*!
         ID of the user who last updated the object.
     */
     CPString _lastUpdatedBy @accessors(property=lastUpdatedBy);
@@ -170,6 +174,7 @@ NUUserContextSystemAvatarType_URL = @"URL";
         [self exposeLocalKeyPathToREST:@"VSSFeatureEnabled"];
         [self exposeLocalKeyPathToREST:@"VSSStatsInterval"];
         [self exposeLocalKeyPathToREST:@"pageSize"];
+        [self exposeLocalKeyPathToREST:@"maintenanceModeEnabled"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedBy"];
         [self exposeLocalKeyPathToREST:@"lastUpdatedDate"];
         [self exposeLocalKeyPathToREST:@"rbacEnabled"];
